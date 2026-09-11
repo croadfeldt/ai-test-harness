@@ -1,0 +1,1109 @@
+{
+  "archive": "python_jose-3.3.0-py2.py3-none-any.whl",
+  "import_names": [
+    "jose",
+    "jose/backends"
+  ],
+  "package": "python-jose",
+  "symbols": [
+    {
+      "doc": "",
+      "file": "jose/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose",
+      "qualname": "jose",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends",
+      "qualname": "jose.backends",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base",
+      "signature": ""
+    },
+    {
+      "doc": "A simple interface for implementing JWK keys.",
+      "file": "jose/backends/base.py",
+      "kind": "class",
+      "line": 4,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 9,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 12,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 15,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 18,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.public_key",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 21,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.to_pem",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 24,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Encrypt the plain text and generate an auth tag if appropriate",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 27,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.encrypt",
+      "signature": "(self, plain_text, aad=None)"
+    },
+    {
+      "doc": "Decrypt the cipher text and validate the auth tag if present",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 40,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.decrypt",
+      "signature": "(self, cipher_text, iv=None, aad=None, tag=None)"
+    },
+    {
+      "doc": "Wrap the the plain text key data",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 54,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.wrap_key",
+      "signature": "(self, key_data)"
+    },
+    {
+      "doc": "Unwrap the the wrapped key data",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 66,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.Key.unwrap_key",
+      "signature": "(self, wrapped_key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "class",
+      "line": 79,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.DIRKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 80,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.DIRKey.__init__",
+      "signature": "(self, key_data, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/base.py",
+      "kind": "method",
+      "line": 84,
+      "module": "jose.backends.base",
+      "qualname": "jose.backends.base.DIRKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend",
+      "signature": ""
+    },
+    {
+      "doc": "Get random bytes",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "function",
+      "line": 25,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.get_random_bytes",
+      "signature": "(num_bytes)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "class",
+      "line": 48,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 53,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.__init__",
+      "signature": "(self, key, algorithm, cryptography_backend=default_backend)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 148,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 157,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 165,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.is_public",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 168,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.public_key",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 173,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.to_pem",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 186,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyECKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "class",
+      "line": 218,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 227,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.__init__",
+      "signature": "(self, key, algorithm, cryptography_backend=default_backend)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 319,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 326,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 336,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.is_public",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 339,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.public_key",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 344,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.to_pem",
+      "signature": "(self, pem_format='PKCS8')"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 366,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 393,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.wrap_key",
+      "signature": "(self, key_data)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 401,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyRSAKey.unwrap_key",
+      "signature": "(self, wrapped_key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "class",
+      "line": 409,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 442,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 464,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 468,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.encrypt",
+      "signature": "(self, plain_text, aad=None)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 490,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.decrypt",
+      "signature": "(self, cipher_text, iv=None, aad=None, tag=None)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 517,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.wrap_key",
+      "signature": "(self, key_data)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 522,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyAESKey.unwrap_key",
+      "signature": "(self, wrapped_key)"
+    },
+    {
+      "doc": "Performs signing and verification operations using HMAC",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "class",
+      "line": 531,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyHMACKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 539,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyHMACKey.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 581,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyHMACKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 588,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyHMACKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/cryptography_backend.py",
+      "kind": "method",
+      "line": 595,
+      "module": "jose.backends.cryptography_backend",
+      "qualname": "jose.backends.cryptography_backend.CryptographyHMACKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend",
+      "signature": ""
+    },
+    {
+      "doc": "Performs signing and verification operations using",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "class",
+      "line": 11,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 36,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 98,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 103,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 111,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.is_public",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 114,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.public_key",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 119,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.to_pem",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/ecdsa_backend.py",
+      "kind": "method",
+      "line": 122,
+      "module": "jose.backends.ecdsa_backend",
+      "qualname": "jose.backends.ecdsa_backend.ECDSAECKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "function",
+      "line": 11,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.get_random_bytes",
+      "signature": "(num_bytes)"
+    },
+    {
+      "doc": "Performs signing and verification operations using HMAC",
+      "file": "jose/backends/native.py",
+      "kind": "class",
+      "line": 15,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.HMACKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "method",
+      "line": 23,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.HMACKey.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "method",
+      "line": 65,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.HMACKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "method",
+      "line": 68,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.HMACKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/native.py",
+      "kind": "method",
+      "line": 71,
+      "module": "jose.backends.native",
+      "qualname": "jose.backends.native.HMACKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "function",
+      "line": 98,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.pem_to_spki",
+      "signature": "(pem, fmt='PKCS8')"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "class",
+      "line": 120,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey",
+      "signature": "(Key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 125,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.__init__",
+      "signature": "(self, key, algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 203,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.sign",
+      "signature": "(self, msg)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 206,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.verify",
+      "signature": "(self, msg, sig)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 215,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.is_public",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 218,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.public_key",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 223,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.to_pem",
+      "signature": "(self, pem_format='PKCS8')"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 246,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.to_dict",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 273,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.wrap_key",
+      "signature": "(self, key_data)"
+    },
+    {
+      "doc": "",
+      "file": "jose/backends/rsa_backend.py",
+      "kind": "method",
+      "line": 279,
+      "module": "jose.backends.rsa_backend",
+      "qualname": "jose.backends.rsa_backend.RSAKey.unwrap_key",
+      "signature": "(self, wrapped_key)"
+    },
+    {
+      "doc": "",
+      "file": "jose/constants.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.constants",
+      "qualname": "jose.constants",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/constants.py",
+      "kind": "class",
+      "line": 4,
+      "module": "jose.constants",
+      "qualname": "jose.constants.Algorithms",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "jose/constants.py",
+      "kind": "class",
+      "line": 92,
+      "module": "jose.constants",
+      "qualname": "jose.constants.Zips",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 1,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JOSEError",
+      "signature": "(Exception)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 5,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWSError",
+      "signature": "(JOSEError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 9,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWSSignatureError",
+      "signature": "(JWSError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 13,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWSAlgorithmError",
+      "signature": "(JWSError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 17,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWTError",
+      "signature": "(JOSEError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 21,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWTClaimsError",
+      "signature": "(JWTError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 25,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.ExpiredSignatureError",
+      "signature": "(JWTError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 29,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWKError",
+      "signature": "(JOSEError)"
+    },
+    {
+      "doc": "Base error for all JWE errors",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 33,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWEError",
+      "signature": "(JOSEError)"
+    },
+    {
+      "doc": "Could not parse the JWE string provided",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 39,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWEParseError",
+      "signature": "(JWEError)"
+    },
+    {
+      "doc": "The authentication tag did not match the protected sections of the",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 45,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWEInvalidAuth",
+      "signature": "(JWEError)"
+    },
+    {
+      "doc": "The JWE algorithm is not supported by the backend",
+      "file": "jose/exceptions.py",
+      "kind": "class",
+      "line": 54,
+      "module": "jose.exceptions",
+      "qualname": "jose.exceptions.JWEAlgorithmUnsupportedError",
+      "signature": "(JWEError)"
+    },
+    {
+      "doc": "",
+      "file": "jose/jwe.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.jwe",
+      "qualname": "jose.jwe",
+      "signature": ""
+    },
+    {
+      "doc": "Encrypts plaintext and returns a JWE cmpact serialization string.",
+      "file": "jose/jwe.py",
+      "kind": "function",
+      "line": 14,
+      "module": "jose.jwe",
+      "qualname": "jose.jwe.encrypt",
+      "signature": "(plaintext, key, encryption=ALGORITHMS.A256GCM, algorithm=ALGORITHMS.DIR, zip=None, cty=None, kid=None)"
+    },
+    {
+      "doc": "Decrypts a JWE compact serialized string and returns the plaintext.",
+      "file": "jose/jwe.py",
+      "kind": "function",
+      "line": 60,
+      "module": "jose.jwe",
+      "qualname": "jose.jwe.decrypt",
+      "signature": "(jwe_str, key)"
+    },
+    {
+      "doc": "Returns the decoded headers without verification of any kind.",
+      "file": "jose/jwe.py",
+      "kind": "function",
+      "line": 192,
+      "module": "jose.jwe",
+      "qualname": "jose.jwe.get_unverified_header",
+      "signature": "(jwe_str)"
+    },
+    {
+      "doc": "",
+      "file": "jose/jwk.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.jwk",
+      "qualname": "jose.jwk",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/jwk.py",
+      "kind": "function",
+      "line": 31,
+      "module": "jose.jwk",
+      "qualname": "jose.jwk.get_key",
+      "signature": "(algorithm)"
+    },
+    {
+      "doc": "",
+      "file": "jose/jwk.py",
+      "kind": "function",
+      "line": 55,
+      "module": "jose.jwk",
+      "qualname": "jose.jwk.register_key",
+      "signature": "(algorithm, key_class)"
+    },
+    {
+      "doc": "Construct a Key object for the given algorithm with the given",
+      "file": "jose/jwk.py",
+      "kind": "function",
+      "line": 63,
+      "module": "jose.jwk",
+      "qualname": "jose.jwk.construct",
+      "signature": "(key_data, algorithm=None)"
+    },
+    {
+      "doc": "",
+      "file": "jose/jws.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.jws",
+      "qualname": "jose.jws",
+      "signature": ""
+    },
+    {
+      "doc": "Signs a claims set and returns a JWS string.",
+      "file": "jose/jws.py",
+      "kind": "function",
+      "line": 12,
+      "module": "jose.jws",
+      "qualname": "jose.jws.sign",
+      "signature": "(payload, key, headers=None, algorithm=ALGORITHMS.HS256)"
+    },
+    {
+      "doc": "Verifies a JWS string's signature.",
+      "file": "jose/jws.py",
+      "kind": "function",
+      "line": 48,
+      "module": "jose.jws",
+      "qualname": "jose.jws.verify",
+      "signature": "(token, key, algorithms, verify=True)"
+    },
+    {
+      "doc": "Returns the decoded headers without verification of any kind.",
+      "file": "jose/jws.py",
+      "kind": "function",
+      "line": 78,
+      "module": "jose.jws",
+      "qualname": "jose.jws.get_unverified_header",
+      "signature": "(token)"
+    },
+    {
+      "doc": "Returns the decoded headers without verification of any kind.",
+      "file": "jose/jws.py",
+      "kind": "function",
+      "line": 94,
+      "module": "jose.jws",
+      "qualname": "jose.jws.get_unverified_headers",
+      "signature": "(token)"
+    },
+    {
+      "doc": "Returns the decoded claims without verification of any kind.",
+      "file": "jose/jws.py",
+      "kind": "function",
+      "line": 112,
+      "module": "jose.jws",
+      "qualname": "jose.jws.get_unverified_claims",
+      "signature": "(token)"
+    },
+    {
+      "doc": "",
+      "file": "jose/jwt.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt",
+      "signature": ""
+    },
+    {
+      "doc": "Encodes a claims set and returns a JWT string.",
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "line": 13,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt.encode",
+      "signature": "(claims, key, algorithm=ALGORITHMS.HS256, headers=None, access_token=None)"
+    },
+    {
+      "doc": "Verifies a JWT string's signature and validates reserved claims.",
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "line": 56,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt.decode",
+      "signature": "(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None)"
+    },
+    {
+      "doc": "Returns the decoded headers without verification of any kind.",
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "line": 170,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt.get_unverified_header",
+      "signature": "(token)"
+    },
+    {
+      "doc": "Returns the decoded headers without verification of any kind.",
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "line": 190,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt.get_unverified_headers",
+      "signature": "(token)"
+    },
+    {
+      "doc": "Returns the decoded claims without verification of any kind.",
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "line": 208,
+      "module": "jose.jwt",
+      "qualname": "jose.jwt.get_unverified_claims",
+      "signature": "(token)"
+    },
+    {
+      "doc": "",
+      "file": "jose/utils.py",
+      "kind": "module",
+      "line": 1,
+      "module": "jose.utils",
+      "qualname": "jose.utils",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 26,
+      "module": "jose.utils",
+      "qualname": "jose.utils.long_to_base64",
+      "signature": "(data, size=0)"
+    },
+    {
+      "doc": "",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 30,
+      "module": "jose.utils",
+      "qualname": "jose.utils.int_arr_to_long",
+      "signature": "(arr)"
+    },
+    {
+      "doc": "",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 34,
+      "module": "jose.utils",
+      "qualname": "jose.utils.base64_to_long",
+      "signature": "(data)"
+    },
+    {
+      "doc": "Helper method for calculating an access token",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 43,
+      "module": "jose.utils",
+      "qualname": "jose.utils.calculate_at_hash",
+      "signature": "(access_token, hash_alg)"
+    },
+    {
+      "doc": "Helper method to base64url_decode a string.",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 66,
+      "module": "jose.utils",
+      "qualname": "jose.utils.base64url_decode",
+      "signature": "(input)"
+    },
+    {
+      "doc": "Helper method to base64url_encode a string.",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 81,
+      "module": "jose.utils",
+      "qualname": "jose.utils.base64url_encode",
+      "signature": "(input)"
+    },
+    {
+      "doc": "Helper method to determine the total number of seconds",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 91,
+      "module": "jose.utils",
+      "qualname": "jose.utils.timedelta_total_seconds",
+      "signature": "(delta)"
+    },
+    {
+      "doc": "Coerce **s** to bytes.",
+      "file": "jose/utils.py",
+      "kind": "function",
+      "line": 101,
+      "module": "jose.utils",
+      "qualname": "jose.utils.ensure_binary",
+      "signature": "(s)"
+    }
+  ],
+  "version": "3.3.0"
+}

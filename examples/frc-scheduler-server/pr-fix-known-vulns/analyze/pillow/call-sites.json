@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "PIL"
+  ],
+  "package": "pillow",
+  "sites": []
+}

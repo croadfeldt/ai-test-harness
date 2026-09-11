@@ -1,0 +1,731 @@
+{
+  "archive": "python_multipart-0.0.31-py3-none-any.whl",
+  "import_names": [
+    "multipart",
+    "python_multipart"
+  ],
+  "package": "python-multipart",
+  "symbols": [
+    {
+      "doc": "",
+      "file": "multipart/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "multipart",
+      "qualname": "multipart",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "multipart/decoders.py",
+      "kind": "module",
+      "line": 1,
+      "module": "multipart.decoders",
+      "qualname": "multipart.decoders",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "multipart/exceptions.py",
+      "kind": "module",
+      "line": 1,
+      "module": "multipart.exceptions",
+      "qualname": "multipart.exceptions",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "multipart/multipart.py",
+      "kind": "module",
+      "line": 1,
+      "module": "multipart.multipart",
+      "qualname": "multipart.multipart",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "python_multipart",
+      "qualname": "python_multipart",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/decoders.py",
+      "kind": "module",
+      "line": 1,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders",
+      "signature": ""
+    },
+    {
+      "doc": "This object provides an interface to decode a stream of Base64 data.  It",
+      "file": "python_multipart/decoders.py",
+      "kind": "class",
+      "line": 21,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.Base64Decoder",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 50,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.Base64Decoder.__init__",
+      "signature": "(self, underlying: 'SupportsWrite[bytes]') -> None"
+    },
+    {
+      "doc": "Takes any input data provided, decodes it as base64, and passes it",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 54,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.Base64Decoder.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Close this decoder.  If the underlying object has a `close()`",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 90,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.Base64Decoder.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Finalize this object.  This should be called when no more data",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 97,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.Base64Decoder.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This object provides an interface to decode a stream of quoted-printable",
+      "file": "python_multipart/decoders.py",
+      "kind": "class",
+      "line": 118,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.QuotedPrintableDecoder",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 128,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.QuotedPrintableDecoder.__init__",
+      "signature": "(self, underlying: 'SupportsWrite[bytes]') -> None"
+    },
+    {
+      "doc": "Takes any input data provided, decodes it as quoted-printable, and",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 132,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.QuotedPrintableDecoder.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Close this decoder.  If the underlying object has a `close()`",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 159,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.QuotedPrintableDecoder.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Finalize this object.  This should be called when no more data",
+      "file": "python_multipart/decoders.py",
+      "kind": "method",
+      "line": 166,
+      "module": "python_multipart.decoders",
+      "qualname": "python_multipart.decoders.QuotedPrintableDecoder.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/exceptions.py",
+      "kind": "module",
+      "line": 1,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions",
+      "signature": ""
+    },
+    {
+      "doc": "Base error class for our form parser.",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 1,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.FormParserError",
+      "signature": "(ValueError)"
+    },
+    {
+      "doc": "This exception (or a subclass) is raised when there is an error while",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 5,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.ParseError",
+      "signature": "(FormParserError)"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/exceptions.py",
+      "kind": "method",
+      "line": 10,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.ParseError.__init__",
+      "signature": "(self, message: str, *, offset: int=-1) -> None"
+    },
+    {
+      "doc": "This is a specific error that is raised when the MultipartParser detects",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 15,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.MultipartParseError",
+      "signature": "(ParseError)"
+    },
+    {
+      "doc": "This is a specific error that is raised when the QuerystringParser",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 21,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.QuerystringParseError",
+      "signature": "(ParseError)"
+    },
+    {
+      "doc": "This exception is raised when there is a decoding error - for example",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 27,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.DecodeError",
+      "signature": "(ParseError)"
+    },
+    {
+      "doc": "Exception class for problems with the File class.",
+      "file": "python_multipart/exceptions.py",
+      "kind": "class",
+      "line": 33,
+      "module": "python_multipart.exceptions",
+      "qualname": "python_multipart.exceptions.FileError",
+      "signature": "(FormParserError, OSError)"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "module",
+      "line": 1,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart",
+      "signature": ""
+    },
+    {
+      "doc": "Querystring parser states.",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 81,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.QuerystringState",
+      "signature": "(IntEnum)"
+    },
+    {
+      "doc": "Multipart parser states.",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 93,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.MultipartState",
+      "signature": "(IntEnum)"
+    },
+    {
+      "doc": "Parses a Content-Type header into a value in the following format: (content_type, {parameters}).",
+      "file": "python_multipart/multipart.py",
+      "kind": "function",
+      "line": 188,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.parse_options_header",
+      "signature": "(value: str | bytes | None) -> tuple[bytes, dict[bytes, bytes]]"
+    },
+    {
+      "doc": "A Field object represents a (parsed) form field.  It represents a single",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 224,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 242,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.__init__",
+      "signature": "(self, name: bytes | None, *, content_type: str | None=None) -> None"
+    },
+    {
+      "doc": "Create an instance of a :class:`Field`, and set the corresponding",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 251,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.from_value",
+      "signature": "(cls, name: bytes, value: bytes | None) -> Field"
+    },
+    {
+      "doc": "Write some data into the form field.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 272,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "This method is a callback that will be called whenever data is",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 283,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.on_data",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "This method is called whenever the Field is finalized.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 297,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.on_end",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Finalize the form field.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 302,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Close the Field object.  This will free any underlying cache.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 306,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Some fields in a querystring can possibly have a value of None - for",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 314,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.set_none",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This property returns the name of the field.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 324,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.field_name",
+      "signature": "(self) -> bytes | None"
+    },
+    {
+      "doc": "This property returns the value of the form field.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 329,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.value",
+      "signature": "(self) -> bytes | None"
+    },
+    {
+      "doc": "This property returns the content_type value of the field.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 338,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.Field.content_type",
+      "signature": "(self) -> str | None"
+    },
+    {
+      "doc": "This class represents an uploaded file.  It handles writing file data to",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 359,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 383,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.__init__",
+      "signature": "(self, file_name: bytes | None, field_name: bytes | None=None, config: FileConfig={}, *, content_type: str | None=None) -> None"
+    },
+    {
+      "doc": "The form field associated with this file.  May be None if there isn't",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 416,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.field_name",
+      "signature": "(self) -> bytes | None"
+    },
+    {
+      "doc": "The file name given in the upload request.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 423,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.file_name",
+      "signature": "(self) -> bytes | None"
+    },
+    {
+      "doc": "The file name that this file is saved as.  Will be None if it's not",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 428,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.actual_file_name",
+      "signature": "(self) -> bytes | None"
+    },
+    {
+      "doc": "The file object that we're currently writing to.  Note that this",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 435,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.file_object",
+      "signature": "(self) -> BytesIO | BufferedRandom"
+    },
+    {
+      "doc": "The total size of this file, counted as the number of bytes that",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 443,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.size",
+      "signature": "(self) -> int"
+    },
+    {
+      "doc": "A boolean representing whether or not this file object is currently",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 450,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.in_memory",
+      "signature": "(self) -> bool"
+    },
+    {
+      "doc": "The Content-Type value for this part, if it was set.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 457,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.content_type",
+      "signature": "(self) -> str | None"
+    },
+    {
+      "doc": "If the file is already on-disk, do nothing.  Otherwise, copy from",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 461,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.flush_to_disk",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Write some data to the File.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 555,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "This method is a callback that will be called whenever data is",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 562,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.on_data",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "This method is called whenever the Field is finalized.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 591,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.on_end",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Finalize the form file.  This will not close the underlying file,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 596,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Close the File object.  This will actually close the underlying",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 602,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.File.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This class is the base class for all parsers.  It contains the logic for",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 613,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 634,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser.__init__",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This function calls a provided callback with some data.  If the",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 638,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser.callback",
+      "signature": "(self, name: CallbackName, data: bytes | None=None, start: int | None=None, end: int | None=None) -> None"
+    },
+    {
+      "doc": "Update the function for a callback.  Removes from the callbacks dict",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 664,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser.set_callback",
+      "signature": "(self, name: CallbackName, new_func: Callable[..., Any] | None) -> None"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 679,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 682,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.BaseParser.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This parser parses an octet-stream request body and calls callbacks when",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 689,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.OctetStreamParser",
+      "signature": "(BaseParser)"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 704,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.OctetStreamParser.__init__",
+      "signature": "(self, callbacks: OctetStreamCallbacks={}, max_size: float=float('inf'))"
+    },
+    {
+      "doc": "Write some data to the parser, which will perform size verification,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 714,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.OctetStreamParser.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Finalize this parser, which signals to that we are finished parsing,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 747,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.OctetStreamParser.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This is a streaming querystring parser.  It will consume data, and call",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 757,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.QuerystringParser",
+      "signature": "(BaseParser)"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 781,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.QuerystringParser.__init__",
+      "signature": "(self, callbacks: QuerystringCallbacks={}, strict_parsing: bool=False, max_size: float=float('inf')) -> None"
+    },
+    {
+      "doc": "Write some data to the parser, which will perform size verification,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 799,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.QuerystringParser.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Finalize this parser, which signals to that we are finished parsing,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 963,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.QuerystringParser.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This class is a streaming multipart/form-data parser.",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 979,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.MultipartParser",
+      "signature": "(BaseParser)"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1002,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.MultipartParser.__init__",
+      "signature": "(self, boundary: bytes | str, callbacks: MultipartCallbacks={}, max_size: float=float('inf'), *, max_header_count: int=DEFAULT_MAX_HEADER_COUNT, max_header_size: int=DEFAULT_MAX_HEADER_SIZE) -> None"
+    },
+    {
+      "doc": "Write some data to the parser, which will perform size verification,",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1039,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.MultipartParser.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Finalize this parser, which signals to that we are finished parsing.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1514,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.MultipartParser.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This class is the all-in-one form parser.  Given all the information",
+      "file": "python_multipart/multipart.py",
+      "kind": "class",
+      "line": 1529,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.FormParser",
+      "signature": "()"
+    },
+    {
+      "doc": "",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1565,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.FormParser.__init__",
+      "signature": "(self, content_type: str, on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, on_end: Callable[[], None] | None=None, boundary: bytes | str | None=None, file_name: bytes | None=None, config: dict[Any, Any]={}) -> None"
+    },
+    {
+      "doc": "Write some data.  The parser will forward this to the appropriate",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1805,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.FormParser.write",
+      "signature": "(self, data: bytes) -> int"
+    },
+    {
+      "doc": "Finalize the parser.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1820,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.FormParser.finalize",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "Close the parser.",
+      "file": "python_multipart/multipart.py",
+      "kind": "method",
+      "line": 1825,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.FormParser.close",
+      "signature": "(self) -> None"
+    },
+    {
+      "doc": "This function is a helper function to aid in creating a FormParser",
+      "file": "python_multipart/multipart.py",
+      "kind": "function",
+      "line": 1834,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.create_form_parser",
+      "signature": "(headers: dict[str, bytes], on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, config: dict[Any, Any]={}) -> FormParser"
+    },
+    {
+      "doc": "This function is useful if you just want to parse a request body,",
+      "file": "python_multipart/multipart.py",
+      "kind": "function",
+      "line": 1872,
+      "module": "python_multipart.multipart",
+      "qualname": "python_multipart.multipart.parse_form",
+      "signature": "(headers: dict[str, bytes], input_stream: SupportsRead, on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, chunk_size: int=1048576) -> None"
+    }
+  ],
+  "version": "0.0.31"
+}

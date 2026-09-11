@@ -1,0 +1,117 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [],
+    "files": [
+      "app/pdf_render.py"
+    ],
+    "production": 6,
+    "reachable": "true",
+    "reachable_note": "6 first-party references",
+    "symbols_used": [
+      "weasyprint.CSS",
+      "weasyprint.HTML"
+    ],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 1,
+  "generated": "2026-09-11T22:26:02+00:00",
+  "import_names": [
+    "weasyprint"
+  ],
+  "new_version": "63.1",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "63.1",
+  "package": "weasyprint",
+  "purl": "pkg:pypi/weasyprint@63.1",
+  "risk": {
+    "budget": {
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": true,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "true",
+      "sensitive": [
+        "network",
+        "parsing"
+      ],
+      "vuln_count": 6
+    },
+    "reasons": [
+      "reachable from first-party code (+35)",
+      "6 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "sensitive domain: network, parsing (+10)",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 80
+  },
+  "sensitivity": [
+    "network",
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "bandit not installed",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 6,
+    "cves": [
+      "CVE-2025-68616",
+      "CVE-2026-49452",
+      "CVE-2026-55073"
+    ],
+    "fixed_versions": [
+      "68.0",
+      "70.0"
+    ],
+    "ids": [
+      "GHSA-983w-rhvv-gwmv",
+      "GHSA-jf6q-chmf-3h3v",
+      "GHSA-jhhc-3hcp-qhm5",
+      "PYSEC-2026-2034",
+      "PYSEC-2026-3412",
+      "PYSEC-2026-3940"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

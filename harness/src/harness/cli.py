@@ -1,0 +1,68 @@
+"""Command line entry point. One subcommand per stage, each reading and writing the work directory."""
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from . import __version__
+from .util import HarnessError, log, now_iso, tool_version, write_json
+
+
+def _record_run(workdir: Path, args: argparse.Namespace) -> None:
+    write_json(workdir / "run.json", {
+        "harness_version": __version__, "started": now_iso(), "command": sys.argv[1:],
+        "tools": {"python": sys.version.split()[0], "pip": tool_version([sys.executable, "-m", "pip", "--version"]),
+                  "git": tool_version(["git", "--version"])},
+        "args": {k: (str(v) if isinstance(v, Path) else v) for k, v in vars(args).items() if k != "func"},
+    })
+
+
+def cmd_intake(a: argparse.Namespace) -> int:
+    from .stages.intake import intake
+    _record_run(a.workdir, a)
+    wl = intake(repo=a.repo.resolve(), head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir,
+                ecosystem=a.ecosystem, python_version=a.python_version)
+    print(a.workdir / "intake" / "worklist.json")
+    return 0
+
+
+def cmd_analyze(a: argparse.Namespace) -> int:
+    from .stages.analyze import analyze
+    analyze(workdir=a.workdir, select=a.select, all_rows=a.all, python_version=a.python_version)
+    print(a.workdir / "analyze" / "summary.json")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    p = argparse.ArgumentParser(prog="harness", description="AI Test Harness: opinionated implementation of the blueprint")
+    p.add_argument("--version", action="version", version=f"harness {__version__}")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    s = sub.add_parser("intake", help="stage 1: resolve graphs at base and head, diff, pre-flight, work list")
+    s.add_argument("--repo", type=Path, required=True, help="target repository (a git checkout)")
+    s.add_argument("--head", default="HEAD", help="ref of the incoming change (default HEAD)")
+    s.add_argument("--base", default=None, help="ref of the last known-good state; omit for a rescan of --head")
+    s.add_argument("--manifest", default="requirements.txt", help="dependency manifest path inside the repo")
+    s.add_argument("--ecosystem", default="python", choices=["python"])
+    s.add_argument("--python-version", default=None, help="resolve for this interpreter version, e.g. 3.12")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.set_defaults(func=cmd_intake)
+
+    s = sub.add_parser("analyze", help="stage 2: facts, API diff, call sites, vulnerabilities, risk score")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None, help="only these packages")
+    s.add_argument("--all", action="store_true", help="analyze unchanged rows too")
+    s.add_argument("--python-version", default=None)
+    s.set_defaults(func=cmd_analyze)
+
+    a = p.parse_args(argv)
+    try:
+        return a.func(a)
+    except HarnessError as e:
+        log(f"error: {e}")
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

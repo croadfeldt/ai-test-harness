@@ -1,0 +1,25 @@
+[project]
+name = "ai-test-harness"
+version = "0.1.0"
+description = "Opinionated implementation of the AI Test Harness blueprint: intake, analysis, generation, execution, triage, review packet, attestation"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Chris Roadfeldt" }]
+dependencies = ["packaging>=23.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+harness = "harness.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

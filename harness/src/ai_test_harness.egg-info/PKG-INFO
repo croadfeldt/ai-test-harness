@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: ai-test-harness
+Version: 0.1.0
+Summary: Opinionated implementation of the AI Test Harness blueprint: intake, analysis, generation, execution, triage, review packet, attestation
+Author: Chris Roadfeldt
+License: Apache-2.0
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: packaging>=23.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"

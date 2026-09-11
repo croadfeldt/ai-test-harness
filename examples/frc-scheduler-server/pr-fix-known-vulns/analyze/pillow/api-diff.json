@@ -1,0 +1,671 @@
+{
+  "changes": [
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(t: Any) -> TypeGuard[Image]",
+      "reason": "function removed",
+      "symbol": "PIL.Image.isImageType"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "() -> tuple[str, str | None, str, str]",
+      "reason": "function removed",
+      "symbol": "PIL.ImageCms.versions"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(error: int) -> OSError",
+      "reason": "function removed",
+      "symbol": "PIL.ImageFile.raise_oserror"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(expression: str, _dict: dict[str, Any]={}, **kw: Any) -> Any",
+      "reason": "function removed",
+      "symbol": "PIL.ImageMath.eval"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(c: Sequence[int | bytes]) -> None",
+      "reason": "function removed",
+      "symbol": "PIL.IptcImagePlugin.dump"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(c: bytes) -> int",
+      "reason": "function removed",
+      "symbol": "PIL.IptcImagePlugin.i"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "PIL.AvifImagePlugin"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ImageFile.ImageFile)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.AvifImagePlugin.AvifImageFile"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> Image.core.PixelAccess | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.AvifImagePlugin.AvifImageFile.load"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, pos: int) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.AvifImagePlugin.AvifImageFile.load_seek"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, frame: int) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.AvifImagePlugin.AvifImageFile.seek"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.AvifImagePlugin.AvifImageFile.tell"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(codec_name: str) -> str | None",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "PIL.AvifImagePlugin.get_codec_version"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.CurImagePlugin.CurImageFile.load_end"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.CurImagePlugin.CurImageFile.load_prepare"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> ImageFont.ImageFont",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.FontFile.FontFile.to_imagefont"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(cls, data: bytes) -> GimpPaletteFile",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.GimpPaletteFile.GimpPaletteFile.frombytes"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, band: int | None=None) -> tuple[tuple[int, ...], ...] | tuple[float, ...]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.Image.Image.get_flattened_data"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, readonly: int) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.Image.Image.readonly"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(Protocol)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.Image.SupportsArrowArrayInterface"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(obj: SupportsArrowArrayInterface, mode: str, size: tuple[int, int]) -> Image",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "PIL.Image.fromarrow"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageFile.ImageFile.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> list[ImageFile]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageFile.ImageFile.get_child_images"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(abc.ABC)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.ImageFont.BaseImageFont"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, text: str | bytes | bytearray, *args: Any, **kwargs: Any) -> tuple[float, float, float, float]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageFont.BaseImageFont.getbbox"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, text: str | bytes, *args: Any, **kwargs: Any) -> float",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageFont.BaseImageFont.getlength"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, text: str | bytes, mode: str='', *args: Any, **kwargs: Any) -> Image.core.ImagingCore",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageFont.BaseImageFont.getmask"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "PIL.ImageText"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(Generic[AnyStr])",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.ImageText.Text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, text: AnyStr, font: ImageFont.BaseImageFont | None=None, mode: str='RGB', spacing: float=4, direction: str | None=None, features: list[str] | None=None, language: str | None=None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.embed_color"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, xy: tuple[float, float]=(0, 0), anchor: str | None=None, align: str='left') -> tuple[float, float, float, float]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.get_bbox"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> float",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.get_length"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, width: float=0, fill: _Ink | None=None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.stroke"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, width: int, height: int | None=None, scaling: str | tuple[str, int] | None=None) -> Text[AnyStr] | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.ImageText.Text.wrap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.PcdImagePlugin.PcdImageFile.load_prepare"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ImageFile.PyEncoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.QoiImagePlugin.QoiEncoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, bufsize: int) -> tuple[int, int, bytes]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.QoiImagePlugin.QoiEncoder.encode"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ImageFile.PyDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "PIL.XpmImagePlugin.XpmDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "PIL.XpmImagePlugin.XpmDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.BmpImagePlugin.BmpRleDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.DdsImagePlugin.DdsRgbDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.FitsImagePlugin.FitsGzipDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, value: tuple[int, int]) -> None",
+      "old_signature": "(self, value: tuple[int, int] | tuple[int, int, int]) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.IcnsImagePlugin.IcnsImageFile.size"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, data: DecoderInput, decoder_name: str='raw', *args: Any) -> None",
+      "old_signature": "(self, data: bytes | bytearray | SupportsArrayInterface, decoder_name: str='raw', *args: Any) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.Image.Image.frombytes"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: tuple[int, int] | list[int], value: float | tuple[int, ...] | list[int]) -> None",
+      "old_signature": "(self, xy: tuple[int, int], value: float | tuple[int, ...] | list[int]) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.Image.Image.putpixel"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(abc.ABC)",
+      "old_signature": "()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.Image.ImagePointHandler"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(abc.ABC)",
+      "old_signature": "()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.Image.ImageTransformHandler"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(mode: str, size: tuple[int, int], data: DecoderInput, decoder_name: str='raw', *args: Any) -> Image",
+      "old_signature": "(mode: str, size: tuple[int, int], data: bytes | bytearray | SupportsArrayInterface, decoder_name: str='raw', *args: Any) -> Image",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.Image.frombytes"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self) -> ImageFont.BaseImageFont",
+      "old_signature": "(self) -> ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.getfont"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: Coords, fill: _Ink | None=None, width: int=1, joint: str | None=None) -> None",
+      "old_signature": "(self, xy: Coords, fill: _Ink | None=None, width: int=0, joint: str | None=None) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.line"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: tuple[float, float], text: AnyStr, fill: _Ink | None=None, font: ImageFont.BaseImageFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, stroke_fill: _Ink | None=None, embedded_color: bool=False, *, font_size: float | None=None) -> None",
+      "old_signature": "(self, xy: tuple[float, float], text: AnyStr, fill: _Ink | None=None, font: ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, stroke_fill: _Ink | None=None, embedded_color: bool=False, *, font_size: float | None=None) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.multiline_text"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: tuple[float, float], text: AnyStr, font: ImageFont.BaseImageFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, embedded_color: bool=False, *, font_size: float | None=None) -> tuple[float, float, float, float]",
+      "old_signature": "(self, xy: tuple[float, float], text: AnyStr, font: ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, embedded_color: bool=False, *, font_size: float | None=None) -> tuple[float, float, float, float]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.multiline_textbbox"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: tuple[float, float], text: AnyStr | ImageText.Text[AnyStr], fill: _Ink | None=None, font: ImageFont.BaseImageFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, stroke_fill: _Ink | None=None, embedded_color: bool=False, *args: Any, **kwargs: Any) -> None",
+      "old_signature": "(self, xy: tuple[float, float], text: AnyStr, fill: _Ink | None=None, font: ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, stroke_fill: _Ink | None=None, embedded_color: bool=False, *args: Any, **kwargs: Any) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.text"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xy: tuple[float, float], text: AnyStr, font: ImageFont.BaseImageFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, embedded_color: bool=False, *, font_size: float | None=None) -> tuple[float, float, float, float]",
+      "old_signature": "(self, xy: tuple[float, float], text: AnyStr, font: ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont | None=None, anchor: str | None=None, spacing: float=4, align: str='left', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, embedded_color: bool=False, *, font_size: float | None=None) -> tuple[float, float, float, float]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.textbbox"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, text: AnyStr, font: ImageFont.BaseImageFont | None=None, direction: str | None=None, features: list[str] | None=None, language: str | None=None, embedded_color: bool=False, *, font_size: float | None=None) -> float",
+      "old_signature": "(self, text: AnyStr, font: ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont | None=None, direction: str | None=None, features: list[str] | None=None, language: str | None=None, embedded_color: bool=False, *, font_size: float | None=None) -> float",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.ImageDraw.textlength"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(im: Image.Image | None=None) -> tuple[ImageDraw2.Draw | None, ModuleType]",
+      "old_signature": "(im: Image.Image | None=None, hints: list[str] | None=None) -> tuple[ImageDraw2.Draw | None, ModuleType]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageDraw.getdraw"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFile.PyDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, data: bytes | bytearray, rawmode: str | None=None, extra: tuple[Any, ...]=()) -> None",
+      "old_signature": "(self, data: bytes, rawmode: str | None=None, extra: tuple[Any, ...]=()) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFile.PyDecoder.set_as_raw"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(abc.ABC)",
+      "old_signature": "()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFile.StubHandler"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(abc.ABC)",
+      "old_signature": "()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFilter.Filter"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(BaseImageFont)",
+      "old_signature": "()",
+      "reason": "required parameters changed: [] -> ['BaseImageFont']",
+      "symbol": "PIL.ImageFont.FreeTypeFont"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, text: str | bytes | bytearray, mode: str='', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, anchor: str | None=None) -> tuple[float, float, float, float]",
+      "old_signature": "(self, text: str | bytes, mode: str='', direction: str | None=None, features: list[str] | None=None, language: str | None=None, stroke_width: float=0, anchor: str | None=None) -> tuple[float, float, float, float]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFont.FreeTypeFont.getbbox"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(BaseImageFont)",
+      "old_signature": "()",
+      "reason": "required parameters changed: [] -> ['BaseImageFont']",
+      "symbol": "PIL.ImageFont.ImageFont"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(BaseImageFont)",
+      "old_signature": "()",
+      "reason": "required parameters changed: [] -> ['BaseImageFont']",
+      "symbol": "PIL.ImageFont.TransposedFont"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, text: str | bytes | bytearray, *args: Any, **kwargs: Any) -> tuple[int, int, float, float]",
+      "old_signature": "(self, text: str | bytes, *args: Any, **kwargs: Any) -> tuple[int, int, float, float]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageFont.TransposedFont.getbbox"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(bbox: tuple[int, int, int, int] | None=None, include_layered_windows: bool=False, all_screens: bool=False, xdisplay: str | None=None, window: int | ImageWin.HWND | None=None, *, scale_down: bool=False) -> Image.Image",
+      "old_signature": "(bbox: tuple[int, int, int, int] | None=None, include_layered_windows: bool=False, all_screens: bool=False, xdisplay: str | None=None) -> Image.Image",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageGrab.grab"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(expression: Callable[[dict[str, Any]], Any], **kw: Any) -> Any",
+      "old_signature": "(expression: Callable[[dict[str, Any]], Any], options: dict[str, Any]={}, **kw: Any) -> Any",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageMath.lambda_eval"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(expression: str, **kw: Any) -> Any",
+      "old_signature": "(expression: str, options: dict[str, Any]={}, **kw: Any) -> Any",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageMath.unsafe_eval"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self) -> bytearray",
+      "old_signature": "(self) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageMorph.LutBuilder.build_default_lut"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(abc.ABC, Viewer)",
+      "old_signature": "(Viewer)",
+      "reason": "required parameters changed: ['Viewer'] -> []",
+      "symbol": "PIL.ImageShow.UnixViewer"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: bytes | memoryview) -> None",
+      "old_signature": "(self, buffer: bytes) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.ImageWin.Dib.frombytes"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.MspImagePlugin.MspDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(cls, data: bytes | bytearray | memoryview | mmap.mmap, offset: int) -> tuple[bytes, int]",
+      "old_signature": "(cls, data: bytes | bytearray | mmap.mmap, offset: int) -> tuple[bytes, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PdfParser.PdfParser.get_literal_string"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(cls, data: bytes | bytearray | memoryview | mmap.mmap, offset: int, expect_indirect: IndirectReference | None=None, max_nesting: int=-1) -> tuple[Any, int | None]",
+      "old_signature": "(cls, data: bytes | bytearray | mmap.mmap, offset: int, expect_indirect: IndirectReference | None=None, max_nesting: int=-1) -> tuple[Any, int | None]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PdfParser.PdfParser.get_value"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, xref_section_offset: int, processed_offsets: list[int] | None=None) -> None",
+      "old_signature": "(self, xref_section_offset: int) -> None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PdfParser.PdfParser.read_prev_trailer"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, max_length: int=ImageFile.SAFEBLOCK) -> bytes",
+      "old_signature": "(self) -> bytes",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PdfParser.PdfStream.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PpmImagePlugin.PpmDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.PpmImagePlugin.PpmPlainDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.QoiImagePlugin.QoiDecoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, buffer: Image.DecoderInput) -> tuple[int, int]",
+      "old_signature": "(self, buffer: bytes | Image.SupportsArrayInterface) -> tuple[int, int]",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.SgiImagePlugin.SGI16Decoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(filelist: list[str] | None=None) -> list[Image.Image] | None",
+      "old_signature": "(filelist: list[str] | None=None) -> list[SpiderImageFile] | None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.SpiderImagePlugin.loadImageSeries"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, dpi: float | tuple[float, float] | None=None) -> Image.core.PixelAccess | None",
+      "old_signature": "(self, dpi: int | None=None) -> Image.core.PixelAccess | None",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "PIL.WmfImagePlugin.WmfStubImageFile.load"
+    }
+  ],
+  "new": "12.3.0",
+  "old": "11.0.0",
+  "package": "pillow"
+}

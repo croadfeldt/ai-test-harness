@@ -1,3 +1,7 @@
 .DS_Store
-*.swp
+examples/**/cache/
+harness/out/
+harness/.venv/
 /site/
+*.swp
+.venv/

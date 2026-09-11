@@ -1,0 +1,1011 @@
+{
+  "ecosystem": "python",
+  "manifest": "requirements.txt@2ad04243861b",
+  "manifest_digest": "sha256:65289aee2693f0e0bba8a58829ddc4d428e9948c591d28fc9209a023b9bd37ca",
+  "packages": {
+    "absl-py": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "absl-py",
+      "optional_requires": [],
+      "parents": [
+        "ortools"
+      ],
+      "purl": "pkg:pypi/absl-py@2.5.0",
+      "requires": [],
+      "version": "2.5.0"
+    },
+    "annotated-types": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "annotated-types",
+      "optional_requires": [],
+      "parents": [
+        "pydantic"
+      ],
+      "purl": "pkg:pypi/annotated-types@0.8.0",
+      "requires": [],
+      "version": "0.8.0"
+    },
+    "anyio": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "anyio",
+      "optional_requires": [],
+      "parents": [
+        "httpx",
+        "starlette",
+        "watchfiles"
+      ],
+      "purl": "pkg:pypi/anyio@4.15.1",
+      "requires": [
+        "idna",
+        "typing-extensions"
+      ],
+      "version": "4.15.1"
+    },
+    "asyncpg": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/f4/40/0ae9d061d278b10713ea9021ef6b703ec44698fe32178715a501ac696c6b/asyncpg-0.30.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "asyncpg",
+      "optional_requires": [
+        "uvloop"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/asyncpg@0.30.0",
+      "requires": [],
+      "version": "0.30.0"
+    },
+    "brotli": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/03/a7/03aa61fbc3c5cbf99b44d158665f9b0dd3d8059be16c460208d9e385c837/brotli-1.2.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "import_names": [],
+      "name": "brotli",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/brotli@1.2.0",
+      "requires": [],
+      "version": "1.2.0"
+    },
+    "certifi": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
+      "import_names": [],
+      "name": "certifi",
+      "optional_requires": [],
+      "parents": [
+        "httpx",
+        "httpcore"
+      ],
+      "purl": "pkg:pypi/certifi@2026.7.22",
+      "requires": [],
+      "version": "2026.7.22"
+    },
+    "cffi": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/b1/db/dceb9dd5b231e1da801793f8acc9f3c52a7e1afe40bb1aae37e02b0faad5/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "import_names": [],
+      "name": "cffi",
+      "optional_requires": [],
+      "parents": [
+        "weasyprint",
+        "cryptography"
+      ],
+      "purl": "pkg:pypi/cffi@2.1.1",
+      "requires": [
+        "pycparser"
+      ],
+      "version": "2.1.1"
+    },
+    "charset-normalizer": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/6f/89/bb5108dc6c3651dca963f2b0a3ba19bbcb370c94e1b6d3e0e844a58e6dca/charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "charset-normalizer",
+      "optional_requires": [],
+      "parents": [
+        "pdfminer-six"
+      ],
+      "purl": "pkg:pypi/charset-normalizer@3.5.1",
+      "requires": [],
+      "version": "3.5.1"
+    },
+    "click": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "click",
+      "optional_requires": [],
+      "parents": [
+        "uvicorn"
+      ],
+      "purl": "pkg:pypi/click@8.5.0",
+      "requires": [],
+      "version": "8.5.0"
+    },
+    "cryptography": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/57/26/e6d4fc8512a51a5f9ee7bfdbfb853bce1197087df40c9ad993ad370b846f/cryptography-50.0.1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "import_names": [],
+      "name": "cryptography",
+      "optional_requires": [
+        "typing-extensions"
+      ],
+      "parents": [
+        "pdfminer-six"
+      ],
+      "purl": "pkg:pypi/cryptography@50.0.1",
+      "requires": [
+        "cffi"
+      ],
+      "version": "50.0.1"
+    },
+    "cssselect2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/bd/59/6b1daa3b94de8970e2a2787ba73616c2d0675d2f948ef4cad8bef7f21bc6/cssselect2-0.10.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "cssselect2",
+      "optional_requires": [],
+      "parents": [
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/cssselect2@0.10.1",
+      "requires": [
+        "tinycss2",
+        "webencodings"
+      ],
+      "version": "0.10.1"
+    },
+    "deprecated": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/84/d0/205d54408c08b13550c733c4b85429e7ead111c7f0014309637425520a9a/deprecated-1.3.1-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "deprecated",
+      "optional_requires": [],
+      "parents": [
+        "limits"
+      ],
+      "purl": "pkg:pypi/deprecated@1.3.1",
+      "requires": [
+        "wrapt"
+      ],
+      "version": "1.3.1"
+    },
+    "ecdsa": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/51/79/119091c98e2bf49e24ed9f3ae69f816d715d2904aefa6a2baa039a2ba0b0/ecdsa-0.19.2-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "ecdsa",
+      "optional_requires": [],
+      "parents": [
+        "python-jose"
+      ],
+      "purl": "pkg:pypi/ecdsa@0.19.2",
+      "requires": [
+        "six"
+      ],
+      "version": "0.19.2"
+    },
+    "et-xmlfile": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "et-xmlfile",
+      "optional_requires": [],
+      "parents": [
+        "openpyxl"
+      ],
+      "purl": "pkg:pypi/et-xmlfile@2.0.0",
+      "requires": [],
+      "version": "2.0.0"
+    },
+    "fastapi": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/54/c4/148d5046a96c428464557264877ae5a9338a83bbe0df045088749ec89820/fastapi-0.115.5-py3-none-any.whl",
+      "import_names": [],
+      "name": "fastapi",
+      "optional_requires": [
+        "httpx",
+        "python-multipart",
+        "pyyaml",
+        "uvicorn"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/fastapi@0.115.5",
+      "requires": [
+        "pydantic",
+        "starlette",
+        "typing-extensions"
+      ],
+      "version": "0.115.5"
+    },
+    "fonttools": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/b5/09/de2c0c20a42c18e565a2617932beb08c06697bbdd0d3f62b108262e11583/fonttools-4.65.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "import_names": [],
+      "name": "fonttools",
+      "optional_requires": [
+        "brotli",
+        "zopfli"
+      ],
+      "parents": [
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/fonttools@4.65.0",
+      "requires": [],
+      "version": "4.65.0"
+    },
+    "h11": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "h11",
+      "optional_requires": [],
+      "parents": [
+        "uvicorn",
+        "httpcore"
+      ],
+      "purl": "pkg:pypi/h11@0.16.0",
+      "requires": [],
+      "version": "0.16.0"
+    },
+    "httpcore": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl",
+      "import_names": [],
+      "name": "httpcore",
+      "optional_requires": [
+        "anyio"
+      ],
+      "parents": [
+        "httpx"
+      ],
+      "purl": "pkg:pypi/httpcore@1.0.9",
+      "requires": [
+        "certifi",
+        "h11"
+      ],
+      "version": "1.0.9"
+    },
+    "httptools": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/e3/a6/febbb8b8db0f58b38e44ad6cb946e6a255ae49b55f2e8543408fb7501ccd/httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "import_names": [],
+      "name": "httptools",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/httptools@0.8.0",
+      "requires": [],
+      "version": "0.8.0"
+    },
+    "httpx": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/56/95/9377bcb415797e44274b51d46e3249eba641711cf3348050f76ee7b15ffc/httpx-0.27.2-py3-none-any.whl",
+      "import_names": [],
+      "name": "httpx",
+      "optional_requires": [
+        "brotli",
+        "click"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/httpx@0.27.2",
+      "requires": [
+        "anyio",
+        "certifi",
+        "httpcore",
+        "idna",
+        "sniffio"
+      ],
+      "version": "0.27.2"
+    },
+    "idna": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl",
+      "import_names": [],
+      "name": "idna",
+      "optional_requires": [],
+      "parents": [
+        "httpx",
+        "anyio"
+      ],
+      "purl": "pkg:pypi/idna@3.19",
+      "requires": [],
+      "version": "3.19"
+    },
+    "immutabledict": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/a3/ce/f9018bf69ae91b273b6391a095e7c93fa5e1617f25b6ba81ad4b20c9df10/immutabledict-4.3.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "immutabledict",
+      "optional_requires": [],
+      "parents": [
+        "ortools"
+      ],
+      "purl": "pkg:pypi/immutabledict@4.3.1",
+      "requires": [],
+      "version": "4.3.1"
+    },
+    "limits": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/b9/98/cb5ca20618d205a09d5bec7591fbc4130369c7e6308d9a676a28ff3ab22c/limits-5.8.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "limits",
+      "optional_requires": [],
+      "parents": [
+        "slowapi"
+      ],
+      "purl": "pkg:pypi/limits@5.8.0",
+      "requires": [
+        "deprecated",
+        "packaging",
+        "typing-extensions"
+      ],
+      "version": "5.8.0"
+    },
+    "numpy": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/65/af/aa78d1a88805456e212b65461354cd943197fb9acecc4c90fd12295123a3/numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "numpy",
+      "optional_requires": [],
+      "parents": [
+        "ortools",
+        "pandas"
+      ],
+      "purl": "pkg:pypi/numpy@2.5.3",
+      "requires": [],
+      "version": "2.5.3"
+    },
+    "openpyxl": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "openpyxl",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/openpyxl@3.1.5",
+      "requires": [
+        "et-xmlfile"
+      ],
+      "version": "3.1.5"
+    },
+    "ortools": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/49/0f/6d6d722102a0ceccf4a5038e2bc91d023da84a6dba98482a4634df3d27ab/ortools-9.15.6755-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "ortools",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/ortools@9.15.6755",
+      "requires": [
+        "absl-py",
+        "immutabledict",
+        "numpy",
+        "pandas",
+        "protobuf",
+        "typing-extensions"
+      ],
+      "version": "9.15.6755"
+    },
+    "packaging": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "import_names": [],
+      "name": "packaging",
+      "optional_requires": [],
+      "parents": [
+        "pytesseract",
+        "limits"
+      ],
+      "purl": "pkg:pypi/packaging@26.3",
+      "requires": [],
+      "version": "26.3"
+    },
+    "pandas": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/12/98/e976540c1addf70442be7842a18cf70884a964abbf69442504f4d2939989/pandas-3.0.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "pandas",
+      "optional_requires": [
+        "openpyxl",
+        "sqlalchemy"
+      ],
+      "parents": [
+        "ortools"
+      ],
+      "purl": "pkg:pypi/pandas@3.0.5",
+      "requires": [
+        "numpy",
+        "python-dateutil"
+      ],
+      "version": "3.0.5"
+    },
+    "pdfminer-six": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/eb/9c/e46fe7502b32d7db6af6e36a9105abb93301fa1ec475b5ddcba8b35ae23a/pdfminer.six-20231228-py3-none-any.whl",
+      "import_names": [],
+      "name": "pdfminer-six",
+      "optional_requires": [
+        "pillow",
+        "typing-extensions"
+      ],
+      "parents": [
+        "pdfplumber"
+      ],
+      "purl": "pkg:pypi/pdfminer-six@20231228",
+      "requires": [
+        "charset-normalizer",
+        "cryptography"
+      ],
+      "version": "20231228"
+    },
+    "pdfplumber": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/d0/87/415cb472981a8d2e36beeeadf074ebb686cc2bfe8d18de973232da291bd5/pdfplumber-0.11.4-py3-none-any.whl",
+      "import_names": [],
+      "name": "pdfplumber",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/pdfplumber@0.11.4",
+      "requires": [
+        "pdfminer-six",
+        "pillow",
+        "pypdfium2"
+      ],
+      "version": "0.11.4"
+    },
+    "pillow": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/9d/21/84c9f287d17180f26263b5f5c8fb201de0f88b1afddf8a2597a5c9fe787f/pillow-11.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "pillow",
+      "optional_requires": [
+        "packaging",
+        "typing-extensions"
+      ],
+      "parents": [
+        "pdfplumber",
+        "pytesseract",
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/pillow@11.0.0",
+      "requires": [],
+      "version": "11.0.0"
+    },
+    "protobuf": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/16/92/d1e32e3e0d894fe00b15ce28ad4944ab692713f2e7f0a99787405e43533a/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "protobuf",
+      "optional_requires": [],
+      "parents": [
+        "ortools"
+      ],
+      "purl": "pkg:pypi/protobuf@6.33.6",
+      "requires": [],
+      "version": "6.33.6"
+    },
+    "pyasn1": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/9a/3b/6163796d69c3977d1e4287bea4a6979161cbbdd170ebb430511e8e1999ce/pyasn1-0.6.4-py3-none-any.whl",
+      "import_names": [],
+      "name": "pyasn1",
+      "optional_requires": [],
+      "parents": [
+        "python-jose",
+        "rsa"
+      ],
+      "purl": "pkg:pypi/pyasn1@0.6.4",
+      "requires": [],
+      "version": "0.6.4"
+    },
+    "pycparser": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "pycparser",
+      "optional_requires": [],
+      "parents": [
+        "cffi"
+      ],
+      "purl": "pkg:pypi/pycparser@3.0",
+      "requires": [],
+      "version": "3.0"
+    },
+    "pydantic": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/62/51/72c18c55cf2f46ff4f91ebcc8f75aa30f7305f3d726be3f4ebffb4ae972b/pydantic-2.10.3-py3-none-any.whl",
+      "import_names": [],
+      "name": "pydantic",
+      "optional_requires": [],
+      "parents": [
+        "fastapi"
+      ],
+      "purl": "pkg:pypi/pydantic@2.10.3",
+      "requires": [
+        "annotated-types",
+        "pydantic-core",
+        "typing-extensions"
+      ],
+      "version": "2.10.3"
+    },
+    "pydantic-core": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/8a/c6/8ae0831bf77f356bb73127ce5a95fe115b10f820ea480abbd72d3cc7ccf3/pydantic_core-2.27.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "pydantic-core",
+      "optional_requires": [],
+      "parents": [
+        "pydantic"
+      ],
+      "purl": "pkg:pypi/pydantic-core@2.27.1",
+      "requires": [
+        "typing-extensions"
+      ],
+      "version": "2.27.1"
+    },
+    "pydyf": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/22/11/47efe2f66ba848a107adfd490b508f5c0cedc82127950553dca44d29e6c4/pydyf-0.12.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "pydyf",
+      "optional_requires": [
+        "pillow"
+      ],
+      "parents": [
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/pydyf@0.12.1",
+      "requires": [],
+      "version": "0.12.1"
+    },
+    "pypdfium2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/d3/7c/74a2fb48e5b0d2402d9ca64b39074c722d67e9a8a2c58449a843a8c2329a/pypdfium2-5.13.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "pypdfium2",
+      "optional_requires": [],
+      "parents": [
+        "pdfplumber"
+      ],
+      "purl": "pkg:pypi/pypdfium2@5.13.0",
+      "requires": [],
+      "version": "5.13.0"
+    },
+    "pyphen": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/ec/1d/23801cf008f71575f0a4800463f349afa5f04b27fe783178a45cdc4d5edf/pyphen-0.18.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "pyphen",
+      "optional_requires": [],
+      "parents": [
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/pyphen@0.18.1",
+      "requires": [],
+      "version": "0.18.1"
+    },
+    "pytesseract": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/7a/33/8312d7ce74670c9d39a532b2c246a853861120486be9443eebf048043637/pytesseract-0.3.13-py3-none-any.whl",
+      "import_names": [],
+      "name": "pytesseract",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/pytesseract@0.3.13",
+      "requires": [
+        "packaging",
+        "pillow"
+      ],
+      "version": "0.3.13"
+    },
+    "python-dateutil": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "python-dateutil",
+      "optional_requires": [],
+      "parents": [
+        "pandas"
+      ],
+      "purl": "pkg:pypi/python-dateutil@2.9.0.post0",
+      "requires": [
+        "six"
+      ],
+      "version": "2.9.0.post0"
+    },
+    "python-dotenv": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/0d/17/c5c6b53ddc18f297992099b3d9ec16c855c0ccc83263a21fe4d1c625ec6c/python_dotenv-1.2.3-py3-none-any.whl",
+      "import_names": [],
+      "name": "python-dotenv",
+      "optional_requires": [
+        "click"
+      ],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/python-dotenv@1.2.3",
+      "requires": [],
+      "version": "1.2.3"
+    },
+    "python-jose": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/bd/2d/e94b2f7bab6773c70efc70a61d66e312e1febccd9e0db6b9e0adf58cbad1/python_jose-3.3.0-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "python-jose",
+      "optional_requires": [
+        "cryptography"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/python-jose@3.3.0",
+      "requires": [
+        "ecdsa",
+        "pyasn1",
+        "rsa"
+      ],
+      "version": "3.3.0"
+    },
+    "python-multipart": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/f5/0b/c316262244abea7481f95f1e91d7575f3dfcf6455d56d1ffe9839c582eb1/python_multipart-0.0.12-py3-none-any.whl",
+      "import_names": [],
+      "name": "python-multipart",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/python-multipart@0.0.12",
+      "requires": [],
+      "version": "0.0.12"
+    },
+    "pyyaml": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/8b/9d/b3589d3877982d4f2329302ef98a8026e7f4443c765c46cfecc8858c6b4b/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "pyyaml",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/pyyaml@6.0.3",
+      "requires": [],
+      "version": "6.0.3"
+    },
+    "rsa": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/64/8d/0133e4eb4beed9e425d9a98ed6e081a55d195481b7632472be1af08d2f6b/rsa-4.9.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "rsa",
+      "optional_requires": [],
+      "parents": [
+        "python-jose"
+      ],
+      "purl": "pkg:pypi/rsa@4.9.1",
+      "requires": [
+        "pyasn1"
+      ],
+      "version": "4.9.1"
+    },
+    "six": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl",
+      "import_names": [],
+      "name": "six",
+      "optional_requires": [],
+      "parents": [
+        "ecdsa",
+        "python-dateutil"
+      ],
+      "purl": "pkg:pypi/six@1.17.0",
+      "requires": [],
+      "version": "1.17.0"
+    },
+    "slowapi": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/2b/bb/f71c4b7d7e7eb3fc1e8c0458a8979b912f40b58002b9fbf37729b8cb464b/slowapi-0.1.9-py3-none-any.whl",
+      "import_names": [],
+      "name": "slowapi",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/slowapi@0.1.9",
+      "requires": [
+        "limits"
+      ],
+      "version": "0.1.9"
+    },
+    "sniffio": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "sniffio",
+      "optional_requires": [],
+      "parents": [
+        "httpx"
+      ],
+      "purl": "pkg:pypi/sniffio@1.3.1",
+      "requires": [],
+      "version": "1.3.1"
+    },
+    "sqlalchemy": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/8a/ab/81d4514527c068670cb1d7ab62a81a185df53a7c379bd2a5636e83d09ede/SQLAlchemy-2.0.36-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "sqlalchemy",
+      "optional_requires": [
+        "asyncpg"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/sqlalchemy@2.0.36",
+      "requires": [
+        "typing-extensions"
+      ],
+      "version": "2.0.36"
+    },
+    "starlette": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/96/00/2b325970b3060c7cecebab6d295afe763365822b1306a12eeab198f74323/starlette-0.41.3-py3-none-any.whl",
+      "import_names": [],
+      "name": "starlette",
+      "optional_requires": [
+        "httpx",
+        "python-multipart",
+        "pyyaml",
+        "typing-extensions"
+      ],
+      "parents": [
+        "fastapi"
+      ],
+      "purl": "pkg:pypi/starlette@0.41.3",
+      "requires": [
+        "anyio"
+      ],
+      "version": "0.41.3"
+    },
+    "tinycss2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/60/45/c7b5c3168458db837e8ceab06dc77824e18202679d0463f0e8f002143a97/tinycss2-1.5.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "tinycss2",
+      "optional_requires": [],
+      "parents": [
+        "weasyprint",
+        "cssselect2"
+      ],
+      "purl": "pkg:pypi/tinycss2@1.5.1",
+      "requires": [
+        "webencodings"
+      ],
+      "version": "1.5.1"
+    },
+    "tinyhtml5": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/52/48/01695a036b695f83fea7aef6955d735db0f517b1c8e25ddb399ac0bdbcbf/tinyhtml5-2.1.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "tinyhtml5",
+      "optional_requires": [],
+      "parents": [
+        "weasyprint"
+      ],
+      "purl": "pkg:pypi/tinyhtml5@2.1.0",
+      "requires": [
+        "webencodings"
+      ],
+      "version": "2.1.0"
+    },
+    "typing-extensions": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+      "import_names": [],
+      "name": "typing-extensions",
+      "optional_requires": [],
+      "parents": [
+        "fastapi",
+        "pydantic",
+        "ortools",
+        "sqlalchemy",
+        "pydantic-core",
+        "anyio",
+        "limits"
+      ],
+      "purl": "pkg:pypi/typing-extensions@4.16.0",
+      "requires": [],
+      "version": "4.16.0"
+    },
+    "uvicorn": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/50/c1/2d27b0a15826c2b71dcf6e2f5402181ef85acf439617bb2f1453125ce1f3/uvicorn-0.32.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "uvicorn",
+      "optional_requires": [
+        "httptools",
+        "python-dotenv",
+        "pyyaml",
+        "typing-extensions",
+        "uvloop",
+        "watchfiles",
+        "websockets"
+      ],
+      "parents": [],
+      "purl": "pkg:pypi/uvicorn@0.32.1",
+      "requires": [
+        "click",
+        "h11"
+      ],
+      "version": "0.32.1"
+    },
+    "uvloop": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/5f/6f/e62b4dfc7ad6518e7eff2516f680d02a0f6eb62c0c212e152ca708a0085e/uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "uvloop",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/uvloop@0.22.1",
+      "requires": [],
+      "version": "0.22.1"
+    },
+    "watchfiles": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/22/24/ed72f68cbc1333ca9b9f2200aa048bb6658ae41709bc1caad4310f4bdffd/watchfiles-1.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "import_names": [],
+      "name": "watchfiles",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/watchfiles@1.2.0",
+      "requires": [
+        "anyio"
+      ],
+      "version": "1.2.0"
+    },
+    "weasyprint": {
+      "depth": 1,
+      "direct": true,
+      "download_url": "https://files.pythonhosted.org/packages/d5/39/9d63960b4545138d6c2c695795d77856e35f30d6e4bdc385c848c816d349/weasyprint-63.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "weasyprint",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:pypi/weasyprint@63.1",
+      "requires": [
+        "cffi",
+        "cssselect2",
+        "fonttools",
+        "pillow",
+        "pydyf",
+        "pyphen",
+        "tinycss2",
+        "tinyhtml5"
+      ],
+      "version": "63.1"
+    },
+    "webencodings": {
+      "depth": 3,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/77/c6/040cbc72480d789a5f40d63fb484d3106554c4dfa2d2b70ad5022057750f/webencodings-0.6.1-py3-none-any.whl",
+      "import_names": [],
+      "name": "webencodings",
+      "optional_requires": [],
+      "parents": [
+        "cssselect2",
+        "tinycss2",
+        "tinyhtml5"
+      ],
+      "purl": "pkg:pypi/webencodings@0.6.1",
+      "requires": [],
+      "version": "0.6.1"
+    },
+    "websockets": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/fb/05/9f82d090c8d2d861604147ef6dfb938a90b039f9358d5193f1df62558593/websockets-17.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "import_names": [],
+      "name": "websockets",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/websockets@17.1",
+      "requires": [],
+      "version": "17.1"
+    },
+    "wrapt": {
+      "depth": 4,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/a3/4f/17a89a580cb0082e61b8375074d5c9e5d38e4aa83ee19b6174ee472d17c2/wrapt-2.4.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "import_names": [],
+      "name": "wrapt",
+      "optional_requires": [],
+      "parents": [
+        "deprecated"
+      ],
+      "purl": "pkg:pypi/wrapt@2.4.1",
+      "requires": [],
+      "version": "2.4.1"
+    },
+    "zopfli": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/55/c8/d8d8d731e0b192024567b7198fb77b748821d355f3c8bf0109de27191f43/zopfli-0.4.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "import_names": [],
+      "name": "zopfli",
+      "optional_requires": [],
+      "parents": [
+        "<unresolved-edge>"
+      ],
+      "purl": "pkg:pypi/zopfli@0.4.3",
+      "requires": [],
+      "version": "0.4.3"
+    }
+  },
+  "python_version": "3.12",
+  "resolver": "pip 26.0.1 --dry-run --report, target cp312 manylinux/any wheels only",
+  "source_dir": "/Users/chris/git/frc-scheduler-server"
+}

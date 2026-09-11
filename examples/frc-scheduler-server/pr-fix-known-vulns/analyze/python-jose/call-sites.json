@@ -1,0 +1,65 @@
+{
+  "import_names": [
+    "jose",
+    "jose/backends"
+  ],
+  "package": "python-jose",
+  "sites": [
+    {
+      "context": "from jose import JWTError, jwt",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 23,
+      "symbol": "jose.JWTError"
+    },
+    {
+      "context": "except JWTError:",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 148,
+      "symbol": "jose.JWTError"
+    },
+    {
+      "context": "from jose import JWTError, jwt",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 23,
+      "symbol": "jose.jwt"
+    },
+    {
+      "context": "return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 93,
+      "symbol": "jose.jwt.decode"
+    },
+    {
+      "context": "claims = jwt.decode(id_token, **decode_kwargs)",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 385,
+      "symbol": "jose.jwt.decode"
+    },
+    {
+      "context": "return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 89,
+      "symbol": "jose.jwt.encode"
+    },
+    {
+      "context": "return jwt.encode(",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 282,
+      "symbol": "jose.jwt.encode"
+    },
+    {
+      "context": "header   = jwt.get_unverified_header(id_token)",
+      "file": "app/auth.py",
+      "in_test": false,
+      "line": 360,
+      "symbol": "jose.jwt.get_unverified_header"
+    }
+  ]
+}

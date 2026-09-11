@@ -1,0 +1,159 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "pdfplumber",
+      "pytesseract",
+      "weasyprint",
+      "pdfminer-six (optional extra)",
+      "pydyf (optional extra)"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through pdfplumber, pytesseract, weasyprint, pdfminer-six (optional extra), pydyf (optional extra)",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 1,
+  "generated": "2026-09-11T22:25:59+00:00",
+  "import_names": [
+    "PIL"
+  ],
+  "new_version": "11.0.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "11.0.0",
+  "package": "pillow",
+  "purl": "pkg:pypi/pillow@11.0.0",
+  "risk": {
+    "budget": {
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [
+        "parsing"
+      ],
+      "vuln_count": 34
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "34 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "sensitive domain: parsing (+10)",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 65
+  },
+  "sensitivity": [
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 34,
+    "cves": [
+      "CVE-2026-25990",
+      "CVE-2026-40192",
+      "CVE-2026-42308",
+      "CVE-2026-42310",
+      "CVE-2026-42311",
+      "CVE-2026-54058",
+      "CVE-2026-54059",
+      "CVE-2026-54060",
+      "CVE-2026-55379",
+      "CVE-2026-55380",
+      "CVE-2026-55798",
+      "CVE-2026-59197",
+      "CVE-2026-59198",
+      "CVE-2026-59199",
+      "CVE-2026-59200",
+      "CVE-2026-59204",
+      "CVE-2026-59205"
+    ],
+    "fixed_versions": [
+      "12.1.1",
+      "12.2.0",
+      "12.3.0"
+    ],
+    "ids": [
+      "GHSA-45hq-cxwh-f6vc",
+      "GHSA-4x4j-2g7c-83w6",
+      "GHSA-5x94-69rx-g8h2",
+      "GHSA-62p4-gmf7-7g93",
+      "GHSA-6r8x-57c9-28j4",
+      "GHSA-8v84-f9pq-wr9x",
+      "GHSA-9hw9-ch79-4vh6",
+      "GHSA-cfh3-3jmp-rvhc",
+      "GHSA-fj7v-r99m-22gq",
+      "GHSA-jjj6-mw9f-p565",
+      "GHSA-phj9-mv4w-65pm",
+      "GHSA-pwv6-vv43-88gr",
+      "GHSA-r73j-pqj5-w3x7",
+      "GHSA-vjc4-5qp5-m44j",
+      "GHSA-whj4-6x5x-4v2j",
+      "GHSA-wjx4-4jcj-g98j",
+      "GHSA-xj96-63gp-2gmr",
+      "PYSEC-2026-165",
+      "PYSEC-2026-2249",
+      "PYSEC-2026-2250",
+      "PYSEC-2026-2252",
+      "PYSEC-2026-2253",
+      "PYSEC-2026-2254",
+      "PYSEC-2026-2255",
+      "PYSEC-2026-2256",
+      "PYSEC-2026-2257",
+      "PYSEC-2026-2874",
+      "PYSEC-2026-3451",
+      "PYSEC-2026-3453",
+      "PYSEC-2026-3454",
+      "PYSEC-2026-3493",
+      "PYSEC-2026-3494",
+      "PYSEC-2026-3495",
+      "PYSEC-2026-3496"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

@@ -1,0 +1,4042 @@
+{
+  "archive": "pyasn1-0.4.8-py2.py3-none-any.whl",
+  "import_names": [
+    "pyasn1"
+  ],
+  "package": "pyasn1",
+  "symbols": [
+    {
+      "doc": "",
+      "file": "pyasn1/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1",
+      "qualname": "pyasn1",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec",
+      "qualname": "pyasn1.codec",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.ber",
+      "qualname": "pyasn1.codec.ber",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 26,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractDecoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 29,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 35,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 42,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractSimpleDecoder",
+      "signature": "(AbstractDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 44,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractSimpleDecoder.substrateCollector",
+      "signature": "(asn1Object, substrate, length)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 58,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ExplicitTagDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 61,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ExplicitTagDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 81,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ExplicitTagDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 104,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.IntegerDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 107,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.IntegerDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 125,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.BooleanDecoder",
+      "signature": "(IntegerDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 133,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.BitStringDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 137,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.BitStringDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 192,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.BitStringDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 229,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.OctetStringDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 233,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.OctetStringDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 265,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.OctetStringDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 296,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.NullDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 299,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.NullDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 317,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ObjectIdentifierDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 320,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ObjectIdentifierDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 374,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.RealDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 377,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.RealDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 481,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AbstractConstructedDecoder",
+      "signature": "(AbstractDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 485,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder",
+      "signature": "(AbstractConstructedDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 536,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 739,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 949,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SequenceOrSequenceOfDecoder",
+      "signature": "(UniversalConstructedTypeDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 954,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SequenceDecoder",
+      "signature": "(SequenceOrSequenceOfDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 958,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SequenceOfDecoder",
+      "signature": "(SequenceOrSequenceOfDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 962,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SetOrSetOfDecoder",
+      "signature": "(UniversalConstructedTypeDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 967,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SetDecoder",
+      "signature": "(SetOrSetOfDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 972,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.SetOfDecoder",
+      "signature": "(SetOrSetOfDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 976,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ChoiceDecoder",
+      "signature": "(AbstractConstructedDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 979,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ChoiceDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 1025,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ChoiceDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1077,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AnyDecoder",
+      "signature": "(AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 1080,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AnyDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 1111,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.AnyDecoder.indefLenValueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1175,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UTF8StringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1179,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.NumericStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1183,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.PrintableStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1187,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.TeletexStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1191,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.VideotexStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1195,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.IA5StringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1199,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.GraphicStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1203,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.VisibleStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1207,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.GeneralStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1211,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UniversalStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1215,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.BMPStringDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1220,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.ObjectDescriptorDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1224,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.GeneralizedTimeDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1228,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.UTCTimeDecoder",
+      "signature": "(OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "class",
+      "line": 1292,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.Decoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/decoder.py",
+      "kind": "method",
+      "line": 1299,
+      "module": "pyasn1.codec.ber.decoder",
+      "qualname": "pyasn1.codec.ber.decoder.Decoder.__init__",
+      "signature": "(self, tagMap, typeMap={})"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 25,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AbstractItemEncoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 33,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AbstractItemEncoder.encodeTag",
+      "signature": "(self, singleTag, isConstructed)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 53,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AbstractItemEncoder.encodeLength",
+      "signature": "(self, length, defMode)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 73,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AbstractItemEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 76,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AbstractItemEncoder.encode",
+      "signature": "(self, value, asn1Spec=None, encodeFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 155,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.EndOfOctetsEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 156,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.EndOfOctetsEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 160,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.BooleanEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 163,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.BooleanEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 167,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.IntegerEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 171,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.IntegerEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 187,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.BitStringEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 188,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.BitStringEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 228,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.OctetStringEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 230,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.OctetStringEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 289,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.NullEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 292,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.NullEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 296,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.ObjectIdentifierEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 299,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.ObjectIdentifierEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 355,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.RealEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 420,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.RealEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 522,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.SequenceEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 527,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.SequenceEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 644,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.SequenceOfEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 674,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.SequenceOfEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 681,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.ChoiceEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 682,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.ChoiceEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 699,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AnyEncoder",
+      "signature": "(OctetStringEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 700,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.AnyEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "class",
+      "line": 777,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.Encoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/encoder.py",
+      "kind": "method",
+      "line": 782,
+      "module": "pyasn1.codec.ber.encoder",
+      "qualname": "pyasn1.codec.ber.encoder.Encoder.__init__",
+      "signature": "(self, tagMap, typeMap={})"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/eoo.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.ber.eoo",
+      "qualname": "pyasn1.codec.ber.eoo",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/ber/eoo.py",
+      "kind": "class",
+      "line": 13,
+      "module": "pyasn1.codec.ber.eoo",
+      "qualname": "pyasn1.codec.ber.eoo.EndOfOctets",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.cer",
+      "qualname": "pyasn1.codec.cer",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/decoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.cer.decoder",
+      "qualname": "pyasn1.codec.cer.decoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/decoder.py",
+      "kind": "class",
+      "line": 15,
+      "module": "pyasn1.codec.cer.decoder",
+      "qualname": "pyasn1.codec.cer.decoder.BooleanDecoder",
+      "signature": "(decoder.AbstractSimpleDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/decoder.py",
+      "kind": "method",
+      "line": 18,
+      "module": "pyasn1.codec.cer.decoder",
+      "qualname": "pyasn1.codec.cer.decoder.BooleanDecoder.valueDecoder",
+      "signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/decoder.py",
+      "kind": "class",
+      "line": 60,
+      "module": "pyasn1.codec.cer.decoder",
+      "qualname": "pyasn1.codec.cer.decoder.Decoder",
+      "signature": "(decoder.Decoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 16,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.BooleanEncoder",
+      "signature": "(encoder.IntegerEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "method",
+      "line": 17,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.BooleanEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 25,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.RealEncoder",
+      "signature": "(encoder.RealEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 33,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.TimeEncoderMixIn",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "method",
+      "line": 44,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.TimeEncoderMixIn.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 102,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.GeneralizedTimeEncoder",
+      "signature": "(TimeEncoderMixIn, encoder.OctetStringEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 107,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.UTCTimeEncoder",
+      "signature": "(TimeEncoderMixIn, encoder.OctetStringEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 112,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SetOfEncoder",
+      "signature": "(encoder.SequenceOfEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "method",
+      "line": 113,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SetOfEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 131,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SequenceOfEncoder",
+      "signature": "(encoder.SequenceOfEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "method",
+      "line": 132,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SequenceOfEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 143,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SetEncoder",
+      "signature": "(encoder.SequenceEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "method",
+      "line": 163,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SetEncoder.encodeValue",
+      "signature": "(self, value, asn1Spec, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 233,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.SequenceEncoder",
+      "signature": "(encoder.SequenceEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/cer/encoder.py",
+      "kind": "class",
+      "line": 262,
+      "module": "pyasn1.codec.cer.encoder",
+      "qualname": "pyasn1.codec.cer.encoder.Encoder",
+      "signature": "(encoder.Encoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.der",
+      "qualname": "pyasn1.codec.der",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/decoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.der.decoder",
+      "qualname": "pyasn1.codec.der.decoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/decoder.py",
+      "kind": "class",
+      "line": 13,
+      "module": "pyasn1.codec.der.decoder",
+      "qualname": "pyasn1.codec.der.decoder.BitStringDecoder",
+      "signature": "(decoder.BitStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/decoder.py",
+      "kind": "class",
+      "line": 17,
+      "module": "pyasn1.codec.der.decoder",
+      "qualname": "pyasn1.codec.der.decoder.OctetStringDecoder",
+      "signature": "(decoder.OctetStringDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/decoder.py",
+      "kind": "class",
+      "line": 40,
+      "module": "pyasn1.codec.der.decoder",
+      "qualname": "pyasn1.codec.der.decoder.Decoder",
+      "signature": "(decoder.Decoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/encoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.der.encoder",
+      "qualname": "pyasn1.codec.der.encoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/encoder.py",
+      "kind": "class",
+      "line": 14,
+      "module": "pyasn1.codec.der.encoder",
+      "qualname": "pyasn1.codec.der.encoder.SetEncoder",
+      "signature": "(encoder.SetEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/der/encoder.py",
+      "kind": "class",
+      "line": 58,
+      "module": "pyasn1.codec.der.encoder",
+      "qualname": "pyasn1.codec.der.encoder.Encoder",
+      "signature": "(encoder.Encoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.native",
+      "qualname": "pyasn1.codec.native",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 20,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.AbstractScalarDecoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 25,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.BitStringDecoder",
+      "signature": "(AbstractScalarDecoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 30,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.SequenceOrSetDecoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 43,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.SequenceOfOrSetOfDecoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 53,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.ChoiceDecoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "class",
+      "line": 133,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.Decoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/decoder.py",
+      "kind": "method",
+      "line": 136,
+      "module": "pyasn1.codec.native.decoder",
+      "qualname": "pyasn1.codec.native.decoder.Decoder.__init__",
+      "signature": "(self, tagMap, typeMap)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 26,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.AbstractItemEncoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 27,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.AbstractItemEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 31,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.BooleanEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 32,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.BooleanEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 36,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.IntegerEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 37,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.IntegerEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 41,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.BitStringEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 42,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.BitStringEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 46,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.OctetStringEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 47,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.OctetStringEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 51,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.TextStringEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 52,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.TextStringEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 56,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.NullEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 57,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.NullEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 61,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.ObjectIdentifierEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 62,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.ObjectIdentifierEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 66,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.RealEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 67,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.RealEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 71,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.SetEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 74,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.SetEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 89,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.SequenceEncoder",
+      "signature": "(SetEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 93,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.SequenceOfEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 94,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.SequenceOfEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 101,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.ChoiceEncoder",
+      "signature": "(SequenceEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 105,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.AnyEncoder",
+      "signature": "(AbstractItemEncoder)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 106,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.AnyEncoder.encode",
+      "signature": "(self, value, encodeFun, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "class",
+      "line": 178,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.Encoder",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/codec/native/encoder.py",
+      "kind": "method",
+      "line": 181,
+      "module": "pyasn1.codec.native.encoder",
+      "qualname": "pyasn1.codec.native.encoder.Encoder.__init__",
+      "signature": "(self, tagMap, typeMap={})"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat",
+      "qualname": "pyasn1.compat",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/binary.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.binary",
+      "qualname": "pyasn1.compat.binary",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/calling.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.calling",
+      "qualname": "pyasn1.compat.calling",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/dateandtime.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.dateandtime",
+      "qualname": "pyasn1.compat.dateandtime",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/integer.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.integer",
+      "qualname": "pyasn1.compat.integer",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/octets.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.octets",
+      "qualname": "pyasn1.compat.octets",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/compat/string.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.compat.string",
+      "qualname": "pyasn1.compat.string",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "class",
+      "line": 31,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Printer",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "method",
+      "line": 33,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Printer.__init__",
+      "signature": "(self, logger=None, handler=None, formatter=None)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "class",
+      "line": 68,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Debug",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "method",
+      "line": 71,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Debug.__init__",
+      "signature": "(self, *flags, **options)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "function",
+      "line": 118,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.setLogger",
+      "signature": "(userLogger)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "function",
+      "line": 131,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.registerLoggee",
+      "signature": "(module, name='LOG', flags=DEBUG_NONE)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "function",
+      "line": 137,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.hexdump",
+      "signature": "(octets)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "class",
+      "line": 144,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Scope",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "method",
+      "line": 145,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Scope.__init__",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "method",
+      "line": 150,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Scope.push",
+      "signature": "(self, token)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/debug.py",
+      "kind": "method",
+      "line": 153,
+      "module": "pyasn1.debug",
+      "qualname": "pyasn1.debug.Scope.pop",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/error.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error",
+      "signature": ""
+    },
+    {
+      "doc": "Base pyasn1 exception",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 9,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.PyAsn1Error",
+      "signature": "(Exception)"
+    },
+    {
+      "doc": "ASN.1 type constraints violation exception",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 18,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.ValueConstraintError",
+      "signature": "(PyAsn1Error)"
+    },
+    {
+      "doc": "ASN.1 data structure deserialization error",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 29,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.SubstrateUnderrunError",
+      "signature": "(PyAsn1Error)"
+    },
+    {
+      "doc": "Unicode text processing error",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 37,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.PyAsn1UnicodeError",
+      "signature": "(PyAsn1Error, UnicodeError)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/error.py",
+      "kind": "method",
+      "line": 46,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.PyAsn1UnicodeError.__init__",
+      "signature": "(self, message, unicode_error=None)"
+    },
+    {
+      "doc": "Unicode text decoding error",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 52,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.PyAsn1UnicodeDecodeError",
+      "signature": "(PyAsn1UnicodeError, UnicodeDecodeError)"
+    },
+    {
+      "doc": "Unicode text encoding error",
+      "file": "pyasn1/error.py",
+      "kind": "class",
+      "line": 64,
+      "module": "pyasn1.error",
+      "qualname": "pyasn1.error.PyAsn1UnicodeEncodeError",
+      "signature": "(PyAsn1UnicodeError, UnicodeEncodeError)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/__init__.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type",
+      "qualname": "pyasn1.type",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "class",
+      "line": 19,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Item",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 21,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Item.getTypeId",
+      "signature": "(cls, increment=1)"
+    },
+    {
+      "doc": "Base class for all classes representing ASN.1 types.",
+      "file": "pyasn1/type/base.py",
+      "kind": "class",
+      "line": 29,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type",
+      "signature": "(Asn1Item)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 51,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.__init__",
+      "signature": "(self, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 73,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.readOnly",
+      "signature": "(self)"
+    },
+    {
+      "doc": "For |ASN.1| type is equivalent to *tagSet*",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 77,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.effectiveTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return a :class:`~pyasn1.type.tagmap.TagMap` object mapping ASN.1 tags to ASN.1 objects within callee object.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 83,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.tagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Examine |ASN.1| type for equality with other ASN.1 type.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 88,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.isSameTypeWith",
+      "signature": "(self, other, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "Examine |ASN.1| type for subtype relationship with other ASN.1 type.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 112,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.isSuperTypeOf",
+      "signature": "(self, other, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 137,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.isNoValue",
+      "signature": "(*values)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 143,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 148,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.getTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 151,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.getEffectiveTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 154,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.getTagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 157,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.getSubtypeSpec",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 161,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.Asn1Type.hasValue",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create a singleton instance of NoValue class.",
+      "file": "pyasn1/type/base.py",
+      "kind": "class",
+      "line": 168,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.NoValue",
+      "signature": "(object)"
+    },
+    {
+      "doc": "Base class for all simple classes representing ASN.1 types.",
+      "file": "pyasn1/type/base.py",
+      "kind": "class",
+      "line": 245,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type",
+      "signature": "(Asn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 262,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.__init__",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "Indicate that |ASN.1| object represents ASN.1 value.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 322,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.isValue",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create a modified version of |ASN.1| schema or value object.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 351,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.clone",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "Create a specialization of |ASN.1| schema or value object.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 378,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.subtype",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 446,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 449,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.prettyOut",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 452,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 455,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.SimpleAsn1Type.prettyPrintType",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "Base class for all constructed classes representing ASN.1 types.",
+      "file": "pyasn1/type/base.py",
+      "kind": "class",
+      "line": 481,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type",
+      "signature": "(Asn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 505,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.__init__",
+      "signature": "(self, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 575,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.components",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create a modified version of |ASN.1| schema object.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 581,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.clone",
+      "signature": "(self, **kwargs)"
+    },
+    {
+      "doc": "Create a specialization of |ASN.1| schema object.",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 616,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.subtype",
+      "signature": "(self, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 680,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.getComponentByPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 683,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.setComponentByPosition",
+      "signature": "(self, idx, value, verifyConstraints=True)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 686,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.setComponents",
+      "signature": "(self, *args, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 695,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.setDefaultComponents",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 698,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.getComponentType",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/base.py",
+      "kind": "method",
+      "line": 702,
+      "module": "pyasn1.type.base",
+      "qualname": "pyasn1.type.base.ConstructedAsn1Type.verifySizeSpec",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char",
+      "signature": ""
+    },
+    {
+      "doc": "Creates |ASN.1| schema or value object.",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 21,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.AbstractCharacterString",
+      "signature": "(univ.OctetString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "method",
+      "line": 144,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.AbstractCharacterString.prettyOut",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "method",
+      "line": 147,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.AbstractCharacterString.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 160,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.NumericString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 175,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.PrintableString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 190,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.TeletexString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 205,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.T61String",
+      "signature": "(TeletexString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 212,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.VideotexString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 227,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.IA5String",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 242,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.GraphicString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 257,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.VisibleString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 272,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.ISO646String",
+      "signature": "(VisibleString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 278,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.GeneralString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 293,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.UniversalString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 308,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.BMPString",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/char.py",
+      "kind": "class",
+      "line": 323,
+      "module": "pyasn1.type.char",
+      "qualname": "pyasn1.type.char.UTF8String",
+      "signature": "(AbstractCharacterString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 20,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraint",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "method",
+      "line": 22,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraint.__init__",
+      "signature": "(self, *values)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "method",
+      "line": 83,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraint.getValueMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "method",
+      "line": 86,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraint.isSuperTypeOf",
+      "signature": "(self, otherConstraint)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "method",
+      "line": 93,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraint.isSubTypeOf",
+      "signature": "(self, otherConstraint)"
+    },
+    {
+      "doc": "Create a SingleValueConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 100,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.SingleValueConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ContainedSubtypeConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 163,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ContainedSubtypeConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ValueRangeConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 207,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ValueRangeConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ValueSizeConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 263,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ValueSizeConstraint",
+      "signature": "(ValueRangeConstraint)"
+    },
+    {
+      "doc": "Create a PermittedAlphabetConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 323,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.PermittedAlphabetConstraint",
+      "signature": "(SingleValueConstraint)"
+    },
+    {
+      "doc": "Create a ComponentPresentConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 407,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ComponentPresentConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ComponentAbsentConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 440,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ComponentAbsentConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a WithComponentsConstraint object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 473,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.WithComponentsConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Value must satisfy the type and presence constraints",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 553,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.InnerTypeConstraint",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ConstraintsExclusion logic operator object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 580,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ConstraintsExclusion",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 629,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.AbstractConstraintSet",
+      "signature": "(AbstractConstraint)"
+    },
+    {
+      "doc": "Create a ConstraintsIntersection logic operator object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 656,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ConstraintsIntersection",
+      "signature": "(AbstractConstraintSet)"
+    },
+    {
+      "doc": "Create a ConstraintsUnion logic operator object.",
+      "file": "pyasn1/type/constraint.py",
+      "kind": "class",
+      "line": 700,
+      "module": "pyasn1.type.constraint",
+      "qualname": "pyasn1.type.constraint.ConstraintsUnion",
+      "signature": "(AbstractConstraintSet)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/error.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.error",
+      "qualname": "pyasn1.type.error",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/error.py",
+      "kind": "class",
+      "line": 10,
+      "module": "pyasn1.type.error",
+      "qualname": "pyasn1.type.error.ValueConstraintError",
+      "signature": "(PyAsn1Error)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype",
+      "signature": ""
+    },
+    {
+      "doc": "Create named field object for a constructed ASN.1 type.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "class",
+      "line": 23,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 42,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.__init__",
+      "signature": "(self, name, asn1Object, openType=None)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 85,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.name",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 89,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.asn1Object",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 93,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.openType",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 98,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.getName",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 101,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedType.getType",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "class",
+      "line": 105,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.OptionalNamedType",
+      "signature": "(NamedType)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "class",
+      "line": 111,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.DefaultedNamedType",
+      "signature": "(NamedType)"
+    },
+    {
+      "doc": "Create a collection of named fields for a constructed ASN.1 type.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "class",
+      "line": 117,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 154,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.__init__",
+      "signature": "(self, *namedTypes, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 226,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.values",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 229,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.keys",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 232,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.items",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 235,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.clone",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return ASN.1 type object by its position in fields set.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 283,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getTypeByPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "Return field position by its ASN.1 type.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 307,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getPositionByType",
+      "signature": "(self, tagSet)"
+    },
+    {
+      "doc": "Return field name by its position in fields set.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 331,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getNameByPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "Return field position by filed name.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 355,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getPositionByName",
+      "signature": "(self, name)"
+    },
+    {
+      "doc": "Return ASN.1 types that are allowed at or past given field position.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 379,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getTagMapNearPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "Return the closest field position where given ASN.1 type is allowed.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 408,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.getPositionNearType",
+      "signature": "(self, tagSet, idx)"
+    },
+    {
+      "doc": "Return the minimal TagSet among ASN.1 type in callee *NamedTypes*.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 458,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.minTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return a *TagMap* object from tags and types recursively.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 494,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.tagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return a *TagMap* object from unique tags and types recursively.",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 518,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.tagMapUnique",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 548,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.hasOptionalOrDefault",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 552,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.hasOpenTypes",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 556,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.namedTypes",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedtype.py",
+      "kind": "method",
+      "line": 560,
+      "module": "pyasn1.type.namedtype",
+      "qualname": "pyasn1.type.namedtype.NamedTypes.requiredComponents",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval",
+      "signature": ""
+    },
+    {
+      "doc": "Create named values object.",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "class",
+      "line": 14,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 55,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.__init__",
+      "signature": "(self, *args, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 154,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.values",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 157,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.keys",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 160,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.items",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 171,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.clone",
+      "signature": "(self, *args, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 177,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.getName",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 181,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.getValue",
+      "signature": "(self, name)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/namedval.py",
+      "kind": "method",
+      "line": 185,
+      "module": "pyasn1.type.namedval",
+      "qualname": "pyasn1.type.namedval.NamedValues.getValues",
+      "signature": "(self, *names)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype",
+      "signature": ""
+    },
+    {
+      "doc": "Create ASN.1 type map indexed by a value",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "class",
+      "line": 11,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "method",
+      "line": 75,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType.__init__",
+      "signature": "(self, name, typeMap=None)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "method",
+      "line": 83,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType.name",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "method",
+      "line": 88,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType.values",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "method",
+      "line": 91,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType.keys",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/opentype.py",
+      "kind": "method",
+      "line": 94,
+      "module": "pyasn1.type.opentype",
+      "qualname": "pyasn1.type.opentype.OpenType.items",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tag.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag",
+      "signature": ""
+    },
+    {
+      "doc": "Create ASN.1 tag",
+      "file": "pyasn1/type/tag.py",
+      "kind": "class",
+      "line": 37,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.Tag",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 57,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.Tag.__init__",
+      "signature": "(self, tagClass, tagFormat, tagId)"
+    },
+    {
+      "doc": "ASN.1 tag class",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 119,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.Tag.tagClass",
+      "signature": "(self)"
+    },
+    {
+      "doc": "ASN.1 tag format",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 130,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.Tag.tagFormat",
+      "signature": "(self)"
+    },
+    {
+      "doc": "ASN.1 tag ID",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 141,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.Tag.tagId",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create a collection of ASN.1 tags",
+      "file": "pyasn1/type/tag.py",
+      "kind": "class",
+      "line": 152,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 187,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.__init__",
+      "signature": "(self, baseTag=(), *superTags)"
+    },
+    {
+      "doc": "Return base ASN.1 tag",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 243,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.baseTag",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return ASN.1 tags",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 254,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.superTags",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return explicitly tagged *TagSet*",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 264,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.tagExplicitly",
+      "signature": "(self, superTag)"
+    },
+    {
+      "doc": "Return implicitly tagged *TagSet*",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 287,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.tagImplicitly",
+      "signature": "(self, superTag)"
+    },
+    {
+      "doc": "Test type relationship against given *TagSet*",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 308,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.isSuperTagSetOf",
+      "signature": "(self, tagSet)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tag.py",
+      "kind": "method",
+      "line": 331,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.TagSet.getBaseTag",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tag.py",
+      "kind": "function",
+      "line": 334,
+      "module": "pyasn1.type.tag",
+      "qualname": "pyasn1.type.tag.initTagSet",
+      "signature": "(tag)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap",
+      "signature": ""
+    },
+    {
+      "doc": "Map *TagSet* objects to ASN.1 types",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "class",
+      "line": 12,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap",
+      "signature": "(object)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 35,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.__init__",
+      "signature": "(self, presentTypes=None, skipTypes=None, defaultType=None)"
+    },
+    {
+      "doc": "Return *TagSet* to ASN.1 type map present in callee *TagMap*",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 73,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.presentTypes",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return *TagSet* collection unconditionally absent in callee *TagMap*",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 78,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.skipTypes",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return default ASN.1 type being returned for any missing *TagSet*",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 83,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.defaultType",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 89,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.getPosMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 92,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.getNegMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/tagmap.py",
+      "kind": "method",
+      "line": 95,
+      "module": "pyasn1.type.tagmap",
+      "qualname": "pyasn1.type.tagmap.TagMap.getDef",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ",
+      "signature": ""
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 34,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Integer",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 103,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Integer.__init__",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 256,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Integer.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 269,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Integer.prettyOut",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 278,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Integer.getNamedValues",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 282,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Boolean",
+      "signature": "(Integer)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 351,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SizedInteger",
+      "signature": "(SizedIntegerBase)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 354,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SizedInteger.setBitLength",
+      "signature": "(self, bitLength)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 366,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 451,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.__init__",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "Get |ASN.1| value as a sequence of 8-bit integers.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 565,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.asNumbers",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Get |ASN.1| value as a sequence of octets.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 573,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.asOctets",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Get |ASN.1| value as a single integer value.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 581,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.asInteger",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Get |ASN.1| value as a text string of bits.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 586,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.asBinary",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create a |ASN.1| object initialized from the hex string.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 593,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.fromHexString",
+      "signature": "(cls, value, internalFormat=False, prepend=None)"
+    },
+    {
+      "doc": "Create a |ASN.1| object initialized from a string of '0' and '1'.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 618,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.fromBinaryString",
+      "signature": "(cls, value, internalFormat=False, prepend=None)"
+    },
+    {
+      "doc": "Create a |ASN.1| object initialized from a string.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 643,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.fromOctetString",
+      "signature": "(cls, value, internalFormat=False, prepend=None, padding=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 663,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.BitString.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 735,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 812,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString.__init__",
+      "signature": "(self, value=noValue, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 953,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString.prettyOut",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 956,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "Create a |ASN.1| object initialized from a string of '0' and '1'.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 974,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString.fromBinaryString",
+      "signature": "(value)"
+    },
+    {
+      "doc": "Create a |ASN.1| object initialized from the hex string.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1005,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.OctetString.fromHexString",
+      "signature": "(value)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 1065,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Null",
+      "signature": "(OctetString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1110,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Null.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 1124,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1187,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier.asTuple",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1207,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier.index",
+      "signature": "(self, suboid)"
+    },
+    {
+      "doc": "Indicate if this |ASN.1| object is a prefix of other |ASN.1| object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1210,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier.isPrefixOf",
+      "signature": "(self, other)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1230,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1258,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.ObjectIdentifier.prettyOut",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 1262,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real",
+      "signature": "(base.SimpleAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1340,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.prettyIn",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1380,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "Indicate PLUS-INFINITY object value",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1388,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isPlusInf",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Indicate MINUS-INFINITY object value",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1401,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isMinusInf",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1413,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isInf",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1541,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isPlusInfinity",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1544,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isMinusInfinity",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1547,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Real.isInfinity",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 1551,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Enumerated",
+      "signature": "(Integer)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 1622,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase",
+      "signature": "(base.ConstructedAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1657,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.__init__",
+      "signature": "(self, *args, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1686,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.append",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1695,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.count",
+      "signature": "(self, value)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1698,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.extend",
+      "signature": "(self, values)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1705,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.index",
+      "signature": "(self, value, start=0, stop=None)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1720,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.reverse",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1723,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.sort",
+      "signature": "(self, key=None, reverse=False)"
+    },
+    {
+      "doc": "Return |ASN.1| type component value by position.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1748,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.getComponentByPosition",
+      "signature": "(self, idx, default=noValue, instantiate=True)"
+    },
+    {
+      "doc": "Assign |ASN.1| type component by position.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1841,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.setComponentByPosition",
+      "signature": "(self, idx, value=noValue, verifyConstraints=True, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1953,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.componentTagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1958,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.components",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Remove all components and become an empty |ASN.1| value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1962,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.clear",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Remove all components and become a |ASN.1| schema object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1971,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.reset",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1980,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 1997,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.prettyPrintType",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "Indicate that |ASN.1| object represents ASN.1 value.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2007,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.isValue",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Run necessary checks to ensure |ASN.1| object consistency.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2046,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOfAndSetOfBase.isInconsistent",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2081,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceOf",
+      "signature": "(SequenceOfAndSetOfBase)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2104,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SetOf",
+      "signature": "(SequenceOfAndSetOfBase)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2127,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase",
+      "signature": "(base.ConstructedAsn1Type)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2217,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.__init__",
+      "signature": "(self, **kwargs)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2274,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.values",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2278,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.keys",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2281,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.items",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2288,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.update",
+      "signature": "(self, *iterValue, **mappingValue)"
+    },
+    {
+      "doc": "Remove all components and become an empty |ASN.1| value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2294,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.clear",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Remove all components and become a |ASN.1| schema object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2304,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.reset",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2315,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.components",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Returns |ASN.1| type component by name.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2331,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.getComponentByName",
+      "signature": "(self, name, default=noValue, instantiate=True)"
+    },
+    {
+      "doc": "Assign |ASN.1| type component by name.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2370,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.setComponentByName",
+      "signature": "(self, name, value=noValue, verifyConstraints=True, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "Returns |ASN.1| type component by index.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2416,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.getComponentByPosition",
+      "signature": "(self, idx, default=noValue, instantiate=True)"
+    },
+    {
+      "doc": "Assign |ASN.1| type component by position.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2510,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.setComponentByPosition",
+      "signature": "(self, idx, value=noValue, verifyConstraints=True, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "Indicate that |ASN.1| object represents ASN.1 value.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2618,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.isValue",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Run necessary checks to ensure |ASN.1| object consistency.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2676,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.isInconsistent",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return an object representation string.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2713,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.prettyPrint",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2735,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.prettyPrintType",
+      "signature": "(self, scope=0)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2751,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.setDefaultComponents",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2754,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.getComponentType",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2758,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.SequenceAndSetBase.getNameByPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2762,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Sequence",
+      "signature": "(SequenceAndSetBase)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2786,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Sequence.getComponentTagMapNearPosition",
+      "signature": "(self, idx)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2790,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Sequence.getComponentPositionNearType",
+      "signature": "(self, tagSet, idx)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2797,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Set",
+      "signature": "(SequenceAndSetBase)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2819,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Set.getComponent",
+      "signature": "(self, innerFlag=False)"
+    },
+    {
+      "doc": "Returns |ASN.1| type component by ASN.1 tag.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2822,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Set.getComponentByType",
+      "signature": "(self, tagSet, default=noValue, instantiate=True, innerFlag=False)"
+    },
+    {
+      "doc": "Assign |ASN.1| type component by ASN.1 tag.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2860,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Set.setComponentByType",
+      "signature": "(self, tagSet, value=noValue, verifyConstraints=True, matchTags=True, matchConstraints=True, innerFlag=False)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 2916,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Set.componentTagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 2921,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice",
+      "signature": "(Set)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3039,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.values",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3043,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.keys",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3047,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.items",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3051,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.checkConsistency",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3072,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.getComponentByPosition",
+      "signature": "(self, idx, default=noValue, instantiate=True)"
+    },
+    {
+      "doc": "Assign |ASN.1| type component by position.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3081,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.setComponentByPosition",
+      "signature": "(self, idx, value=noValue, verifyConstraints=True, matchTags=True, matchConstraints=True)"
+    },
+    {
+      "doc": "Return a :class:`~pyasn1.type.tag.TagSet` object of the currently initialized component or self (if |ASN.1| is tagged).",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3126,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.effectiveTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "\"Return a :class:`~pyasn1.type.tagmap.TagMap` object mapping",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3135,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.tagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Return currently assigned component of the |ASN.1| object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3144,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.getComponent",
+      "signature": "(self, innerFlag=False)"
+    },
+    {
+      "doc": "Return the name of currently assigned component of the |ASN.1| object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3161,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.getName",
+      "signature": "(self, innerFlag=False)"
+    },
+    {
+      "doc": "Indicate that |ASN.1| object represents ASN.1 value.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3179,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.isValue",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3213,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.clear",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3219,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Choice.getMinTagSet",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create |ASN.1| schema or value object.",
+      "file": "pyasn1/type/univ.py",
+      "kind": "class",
+      "line": 3223,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Any",
+      "signature": "(OctetString)"
+    },
+    {
+      "doc": "\"Return a :class:`~pyasn1.type.tagmap.TagMap` object mapping",
+      "file": "pyasn1/type/univ.py",
+      "kind": "method",
+      "line": 3304,
+      "module": "pyasn1.type.univ",
+      "qualname": "pyasn1.type.univ.Any.tagMap",
+      "signature": "(self)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/useful.py",
+      "kind": "module",
+      "line": 1,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful",
+      "signature": ""
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/useful.py",
+      "kind": "class",
+      "line": 22,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.ObjectDescriptor",
+      "signature": "(char.GraphicString)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/useful.py",
+      "kind": "class",
+      "line": 34,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.TimeMixIn",
+      "signature": "(object)"
+    },
+    {
+      "doc": "Create :py:class:`datetime.datetime` object from a |ASN.1| object.",
+      "file": "pyasn1/type/useful.py",
+      "kind": "method",
+      "line": 62,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.TimeMixIn.asDateTime",
+      "signature": "(self)"
+    },
+    {
+      "doc": "Create |ASN.1| object from a :py:class:`datetime.datetime` object.",
+      "file": "pyasn1/type/useful.py",
+      "kind": "method",
+      "line": 129,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.TimeMixIn.fromDateTime",
+      "signature": "(cls, dt)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/useful.py",
+      "kind": "class",
+      "line": 160,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.GeneralizedTime",
+      "signature": "(char.VisibleString, TimeMixIn)"
+    },
+    {
+      "doc": "",
+      "file": "pyasn1/type/useful.py",
+      "kind": "class",
+      "line": 177,
+      "module": "pyasn1.type.useful",
+      "qualname": "pyasn1.type.useful.UTCTime",
+      "signature": "(char.VisibleString, TimeMixIn)"
+    }
+  ],
+  "version": "0.4.8"
+}
