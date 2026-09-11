@@ -1,40 +1,109 @@
 {
-  "_comment": "in-toto attestation predicate for harness runs. Attached alongside SLSA Build provenance. Predicate type is a placeholder pending the decision in blueprint open question 14.",
+  "_comment": "Example in-toto Statement. Primary predicate is the vetted in-toto test-result/v0.1; the harness record travels in its configuration descriptors. This file shows the harness-specific fields that map into that predicate. See blueprint v0.7 section 8.5.",
   "_type": "https://in-toto.io/Statement/v1",
   "subject": [
-    { "name": "overlay/go/github.com/example/yamlparse/v1.5.x", "digest": { "sha256": "<tree digest>" } }
+    {
+      "name": "overlay/go/github.com/example/yamlparse/v1.5.x",
+      "digest": {
+        "sha256": "<tree digest>"
+      }
+    }
   ],
-  "predicateType": "https://example.org/ai-test-harness/test-evidence/v1",
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
   "predicate": {
-    "run": {
-      "run_id": "<uuid>",
-      "pipeline_run": "<konflux pipelinerun name>",
-      "harness_image_digest": "sha256:<digest>",
-      "model_id": "claude-fable-5-1",
-      "prompt_sha256": "<hash>",
-      "execution_targets": ["k8s"]
-    },
-    "inputs": {
-      "snapshot": "<konflux snapshot ref>",
-      "sbom_digest": "sha256:<digest>",
-      "build_provenance_ref": "<rekor entry or attestation digest>"
-    },
-    "work_items": [
+    "result": "PASSED",
+    "configuration": [
       {
-        "purl": "pkg:golang/github.com/example/yamlparse@v1.5.0",
-        "old_version": "v1.4.2",
-        "depth": 1,
-        "reachable": true,
-        "risk_score": 0.82,
-        "preflight": "clean"
+        "name": "ai-test-harness-record",
+        "digest": {
+          "sha256": "<digest of MANIFEST.yaml>"
+        },
+        "annotations": {
+          "run": {
+            "run_id": "<uuid>",
+            "pipeline_run": "<konflux pipelinerun name>",
+            "harness_image_digest": "sha256:<digest>",
+            "model_id": "claude-fable-5-1",
+            "prompt_sha256": "<hash>",
+            "execution_targets": [
+              "k8s"
+            ]
+          },
+          "inputs": {
+            "snapshot": "<konflux snapshot ref>",
+            "sbom_digest": "sha256:<digest>",
+            "build_provenance_ref": "<rekor entry or attestation digest>"
+          },
+          "work_items": [
+            {
+              "purl": "pkg:golang/github.com/example/yamlparse@v1.5.0",
+              "old_version": "v1.4.2",
+              "depth": 1,
+              "reachable": true,
+              "risk_score": 0.82,
+              "preflight": "clean"
+            }
+          ],
+          "tests_produced": [
+            {
+              "test_id": "<id>",
+              "file_sha256": "<hash>",
+              "category": "functional",
+              "record_ref": "<manifest entry>"
+            }
+          ],
+          "tests_promoted": [
+            {
+              "test_id": "<id>",
+              "from": "accepted",
+              "to": "standard",
+              "approvers": [
+                "<a>",
+                "<b>"
+              ]
+            }
+          ],
+          "tests_retired": [
+            {
+              "test_id": "<id>",
+              "reason": "obsolete-symbol-removed",
+              "approver": "<a>"
+            }
+          ],
+          "findings": [
+            {
+              "class": "undocumented-change",
+              "confidence": 0.93,
+              "evidence_ref": "<log ref>"
+            }
+          ],
+          "vex_drafts": [
+            {
+              "vulnerability": "CVE-XXXX-XXXX",
+              "status": "fixed",
+              "evidence_test_ids": [
+                "<id>"
+              ],
+              "reviewed_by": null
+            }
+          ],
+          "metrics": {
+            "build_success_rate": 0.94,
+            "mutation_score": 0.71,
+            "flake_rate": 0.0,
+            "coverage_delta": 0.18
+          },
+          "unverified": [
+            "release notes not corroborated for ParseStrict removal"
+          ]
+        }
       }
     ],
-    "tests_produced": [ { "test_id": "<id>", "file_sha256": "<hash>", "category": "functional", "record_ref": "<manifest entry>" } ],
-    "tests_promoted": [ { "test_id": "<id>", "from": "accepted", "to": "standard", "approvers": ["<a>", "<b>"] } ],
-    "tests_retired": [ { "test_id": "<id>", "reason": "obsolete-symbol-removed", "approver": "<a>" } ],
-    "findings": [ { "class": "undocumented-change", "confidence": 0.93, "evidence_ref": "<log ref>" } ],
-    "vex_drafts": [ { "vulnerability": "CVE-XXXX-XXXX", "status": "fixed", "evidence_test_ids": ["<id>"], "reviewed_by": null } ],
-    "metrics": { "build_success_rate": 0.94, "mutation_score": 0.71, "flake_rate": 0.0, "coverage_delta": 0.18 },
-    "unverified": [ "release notes not corroborated for ParseStrict removal" ]
+    "url": "<review packet URL>",
+    "passedTests": [
+      "<test ids>"
+    ],
+    "warnedTests": [],
+    "failedTests": []
   }
 }

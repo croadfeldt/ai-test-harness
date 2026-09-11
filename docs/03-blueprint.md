@@ -1,11 +1,16 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.6
+**Status:** Draft v0.7
 **Date:** 2026-09-11
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.7:** incorporated the orchestration and capability research
+([05-capability-map.md](05-capability-map.md)): the test-evidence attestation now uses the vetted in-toto
+`test-result/v0.1` predicate, the tooling table names the agent runtimes, sandbox, gateway, observability,
+and eval choices, and Konflux deptriage is recorded as the in-org precedent.
 
 **Changes in v0.6:** added the native-tooling guiding principle: generated tests conform to the
 ecosystem's existing testing paradigms and run with its native tooling so they drop into existing
@@ -426,9 +431,15 @@ This is the harness's most original contribution and should be built first.
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Agent runtime | Claude Agent SDK. Claude Fable 5.1 for generation and triage, Haiku 4.5 for high-volume classification. | Granite 4.2 (Apache-2.0) served via RamaLama or vLLM is the fallback if a fully open model stack is required. Model choice per stage is configurable. |
-| Orchestration | Konflux integration-service (Tekton) on OpenShift. One work item per PipelineRun. | Mellea is a candidate for the in-agent generate, validate, retry loop. |
-| Sandbox | Podman or OCI containers. gVisor or Kata for depth 1 and deeper. | Network-isolated. Hermeto-prefetched dependencies mounted. |
+| Agent runtime, generation | Claude Agent SDK in a one-shot Tekton step. Claude Fable 5.1. | Google ADK or LangGraph as model-agnostic fallback. |
+| Agent runtime, classification | OGX (formerly Llama Stack) Responses API on OpenShift AI 3.5, serving Granite 4.x or Haiku 4.5 through Red Hat AI Inference Server. | Cheap tokens, MCP connectors, TrustyAI guardrails, MLflow tracing built in. |
+| Tool governance | Kuadrant MCP gateway (Red Hat, Tech Preview). | Every agent tool call is identity-scoped and audited. IBM ContextForge as fallback. |
+| Orchestration | Konflux integration-service (Tekton) on OpenShift. One work item per PipelineRun. konflux-ci/deptriage is the in-org precedent for an LLM inside a Tekton task. | Mellea is a candidate for the in-agent generate, validate, retry loop. |
+| Sandbox | OpenShift sandboxed containers (Kata) plus Red Hat build of Agent Sandbox, egress allowlist via OpenShell or NetworkPolicy plus proxy. Anthropic sandbox-runtime as the inner ring around the agent's shell. | gVisor where KVM is unavailable. Podman with the same flags for local replay. |
+| Observability | Langfuse self-hosted, fed by OpenTelemetry GenAI semantic-convention spans. | OpenShift AI MLflow tracing as alternative. |
+| Prompt and eval regression | promptfoo in a Tekton step; Inspect with its Kubernetes sandbox provider for offline agent benchmarks. | DeepEval for pytest-style evals. |
+| Attestation | Tekton Chains emitting in-toto test-result/v0.1 and vulns predicates, signed by Trusted Artifact Signer; in-toto witness where command and network evidence is needed. Verification by Conforma and Kyverno. | slsa-verifier is unmaintained; not used. |
+| VEX | vexctl (OpenVEX) with attest, CycloneDX VEX for Trustify, gocsaf for CSAF publication. | |
 | Dependency resolution and SBOM | Hermeto, Mobster, Trustify, Trustify Dependency Analytics | Internal mirror for all fetches. |
 | Call graph and reachability | CLDK (Java, Python, TS), govulncheck and Capslock (Go), dep-scan with atom (others) | Unknown means "reachable". |
 | API diff | gorelease, japicmp, cargo-semver-checks, griffe, API Extractor | |
@@ -579,9 +590,11 @@ every downstream consumer of the tests.
 | Source L4 | Two or more trusted persons agree to every change on protected branches | Phase 2 for `standard/`. Promotion already requires reviewer approval plus owning-team confirmation. The harness is not a trusted person, so its proposal never counts toward the two. |
 
 **Test-evidence attestation.** SLSA build provenance says how an artifact was built. It does not say
-what was verified about it. The harness adds an in-toto attestation with its own predicate type carrying
-the section 8.2 record for every test produced, promoted, retired, and every draft VEX statement. This is
-the predicate Conforma policies evaluate.
+what was verified about it. The harness adds in-toto attestations using the **vetted `test-result/v0.1`
+predicate** (result, configuration descriptors, URL, passed and warned and failed test lists), carrying
+the section 8.2 record through its configuration descriptors, and the `vulns` predicate for CVE-targeted
+findings. One test-result attestation per suite run per work item. These are the predicates Conforma
+policies evaluate. No harness-specific predicate type is needed.
 
 **Verification.** Conforma verifies the SLSA provenance and the test-evidence predicate against policy
 and emits a Verification Summary Attestation per artifact. Policies the harness enables, advisory first
@@ -785,8 +798,9 @@ Benchmarks, run before the pilot and on every prompt or model change:
     what confirmation workflow and turnaround does that require?
 13. Is Source L4 for `standard/` acceptable to product teams, given it means two human approvals for every
     promotion, or should `standard/` target L3 with a single approval?
-14. Which test-evidence predicate schema should be used: an internal one, or a proposal to in-toto or SLSA
-    for a shared test-attestation type?
+14. Resolved in v0.7: use the vetted in-toto `test-result/v0.1` predicate extended through configuration
+    descriptors, plus `vulns`. Remaining question: should the harness propose a v0.2 of test-result
+    upstream with lifecycle and provenance fields, once the extension has been exercised?
 
 ## 16. Future enhancements (documented now, not scheduled)
 

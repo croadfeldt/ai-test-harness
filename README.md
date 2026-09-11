@@ -30,7 +30,7 @@ docs/
   02-how-it-works.md         The pipeline explained with diagrams
   03-blueprint.md            The full technical plan
   04-landscape.md            Every existing open source project we reuse, learn from, or avoid
-  05-capability-map.md       Each capability we need, mapped to the software that fills it
+  05-capability-map.md       Each capability we need, mapped to the software that fills it, and the orchestration choice
   06-workflows-and-raci.md   A process map and a RACI for every stage and lifecycle event
   07-roadmap.md              Phases, exit criteria, and what "done" means
   08-glossary.md             Plain-language definitions
