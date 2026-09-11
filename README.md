@@ -19,7 +19,7 @@ to approve. Nothing merges without a person. Everything the harness produces is 
 | A CTO, VP of Engineering, or CISO deciding whether to fund this | [Executive summary](docs/00-executive-summary.md), then [The case](docs/01-the-case.md) and [Roadmap](docs/07-roadmap.md) | 20 minutes |
 | An engineer, architect, or security analyst who will build or run it | [How it works](docs/02-how-it-works.md), then [Blueprint](docs/03-blueprint.md), [Capability map](docs/05-capability-map.md), [Workflows and RACI](docs/06-workflows-and-raci.md) | 2 hours |
 | A member of the public, a journalist, a student, or a customer | [Executive summary](docs/00-executive-summary.md) and [Glossary](docs/08-glossary.md) | 10 minutes |
-| Someone presenting this | [Slide deck](slides/deck.md) | |
+| Someone presenting this | [Slide deck](slides/deck.md), 25 slides | 30 minutes |
 
 ## What is in this repository
 
@@ -44,7 +44,13 @@ blueprint/
   pipeline-skeleton.yaml     A Tekton pipeline outline for Konflux
 diagrams/
   *.mmd                      Mermaid sources for every diagram, reusable in slides
+tools/
+  build-site.py              Builds a single-page HTML site from docs/ and blueprint/ into site/ (git-ignored)
+  site.css, site.js          Styling and audience-path navigation for that page
 ```
+
+To build the web version locally: `python3 tools/build-site.py` (needs the `markdown` Python package), then
+open `site/index.html`. Mermaid blocks are emitted as `<pre class="mermaid">` for any Mermaid-aware host.
 
 All diagrams are Mermaid and render directly on GitHub. The slide deck is plain markdown that Slidev
 renders with Mermaid support out of the box; Marp works with its Mermaid plugin.

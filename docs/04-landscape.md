@@ -3,6 +3,7 @@
 **Status:** v0.1
 **Date:** 2026-09-11
 **Companion to:** [03-blueprint.md](03-blueprint.md)
+**Decision record:** [05-capability-map.md](05-capability-map.md) turns this inventory into one primary and one fallback per capability, including the orchestration, sandbox, and attestation choices.
 
 This document records what already exists in the open source world that the harness can reuse, learn
 from, or must avoid. It was compiled from three research passes on 2026-09-11 covering Red Hat projects,
