@@ -1,0 +1,71 @@
+# Provenance record carried by every generated test. One entry per test in MANIFEST.yaml next to the
+# tests, and the same content embedded in the test-evidence attestation predicate.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: TestProvenanceRecord
+type: object
+required: [test_id, file, file_sha256, category, target, generated_from, run, validation, lifecycle]
+properties:
+  test_id: { type: string, description: Stable identifier across edits }
+  file: { type: string }
+  file_sha256: { type: string }
+  category: { enum: [unit, functional, negative, cve, fuzz, harness] }
+  target:
+    type: object
+    required: [purl, version_range, symbols]
+    properties:
+      purl: { type: string }
+      version_range: { type: string, description: e.g. ">=1.5.0 <1.6.0" }
+      symbols: { type: array, items: { type: string } }
+      call_sites: { type: array, items: { type: string }, description: Our code paths this test mirrors }
+  generated_from:
+    type: object
+    required: [source_ref, sbom_component]
+    properties:
+      source_ref: { type: string, description: commit or artifact digest the test was generated against }
+      sbom_component: { type: string, description: bom-ref in the Hermeto/Mobster SBOM }
+  run:
+    type: object
+    required: [run_id, model_id, prompt_sha256, tool_versions, image_digest]
+    properties:
+      run_id: { type: string }
+      model_id: { type: string }
+      model_disclosure_ref: { type: string, description: AI-BOM or model card reference when available }
+      prompt_sha256: { type: string }
+      tool_versions: { type: object, additionalProperties: { type: string } }
+      image_digest: { type: string }
+      execution_target: { enum: [k8s, podman, vm, baremetal] }
+  validation:
+    type: object
+    required: [baseline_pass, coverage_delta, mutants_killed, flake_runs]
+    properties:
+      baseline_pass: { type: boolean }
+      coverage_delta: { type: number }
+      mutants_killed: { type: integer }
+      unique_mutants_killed: { type: integer }
+      flake_runs: { type: integer }
+      differential: { enum: [na, same, changed] }
+  review:
+    type: object
+    properties:
+      reviewer: { type: string }
+      approved_at: { type: string, format: date-time }
+      second_reviewer: { type: string, description: Required for promotion to standard }
+      edits: { type: array, items: { type: string } }
+  lifecycle:
+    type: object
+    required: [state]
+    properties:
+      state: { enum: [candidate, accepted, standard, retired] }
+      state_changed_at: { type: string, format: date-time }
+      bumps_survived: { type: integer }
+      regressions_caught: { type: integer }
+      retirement_reason: { enum: [obsolete-symbol-removed, obsolete-path-deleted, obsolete-behavior-changed, redundant-no-kills, redundant-subsumed, redundant-skipped] }
+  vulnerability:
+    type: object
+    description: Present for category cve
+    properties:
+      id: { type: string, description: CVE or GHSA identifier }
+      role: { enum: [exposure, fix-pinning] }
+      vex_statement_ref: { type: string }
+      vex_status: { enum: [affected, not_affected, fixed, under_investigation] }
+      vex_justification: { type: string }

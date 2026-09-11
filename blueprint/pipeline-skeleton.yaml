@@ -1,0 +1,48 @@
+# Tekton Pipeline outline for a harness run inside Konflux integration-service.
+# Not runnable as-is: task refs, params, and workspaces are placeholders.
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: ai-test-harness
+spec:
+  params:
+    - name: SNAPSHOT
+    - name: PREVIOUS_SBOM_REF
+    - name: DEPTH_LIMIT
+      default: "1"
+  workspaces:
+    - name: source
+    - name: overlays
+    - name: results
+  tasks:
+    - name: intake
+      taskRef: { name: harness-intake }          # Hermeto graph + SBOM diff + pre-flight gates -> work list
+      params: [{ name: snapshot, value: $(params.SNAPSHOT) }, { name: previous-sbom, value: $(params.PREVIOUS_SBOM_REF) }]
+    - name: analyze
+      runAfter: [intake]
+      taskRef: { name: harness-analyze }         # CLDK / language tooling / api diff / CVE data -> fact bundles + risk scores
+    - name: generate
+      runAfter: [analyze]
+      taskRef: { name: harness-generate }        # agent runtime; network only to the model endpoint; no source secrets
+    - name: build-artifact
+      runAfter: [generate]
+      taskRef: { name: harness-build }           # adapter build() -> OCI image + tmt plan, pushed by digest
+    - name: execute
+      runAfter: [build-artifact]
+      taskRef: { name: harness-execute }         # sandbox pod: RuntimeClass gvisor|kata, deny-all NetworkPolicy, no SA token
+      # for vm/baremetal targets this task submits to Testing Farm instead of running a pod
+    - name: validate
+      runAfter: [execute]
+      taskRef: { name: harness-validate }        # flake re-run, coverage, mutation, differential, relevance check
+    - name: triage
+      runAfter: [validate]
+      taskRef: { name: harness-triage }          # classifier agent with confidence; opens issues; sets block state
+    - name: attest
+      runAfter: [triage]
+      taskRef: { name: harness-attest }          # builds test-evidence predicate; signing via TAS in this task only
+    - name: report
+      runAfter: [attest]
+      taskRef: { name: harness-report }          # review packet to PR via integration-service; overlay branch push
+  finally:
+    - name: cleanup
+      taskRef: { name: harness-cleanup }         # confirm sandbox pods and VMs destroyed; emit cost metrics

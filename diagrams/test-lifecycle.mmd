@@ -1,0 +1,9 @@
+stateDiagram-v2
+    [*] --> candidate: generated and validated
+    candidate --> accepted: reviewer approves
+    candidate --> [*]: rejected or discarded
+    accepted --> standard: unique mutant kills, survived 2 bumps or caught a regression, owning team confirms
+    accepted --> retired: obsolete or redundant, human approves
+    standard --> retired: obsolete or redundant, human approves
+    retired --> accepted: restored after safety re-run
+    retired --> [*]: dropped after one safety re-run

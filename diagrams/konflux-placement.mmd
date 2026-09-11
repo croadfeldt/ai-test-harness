@@ -1,0 +1,14 @@
+flowchart TB
+    subgraph Konflux
+        B[Build pipeline] --> S[Snapshot]
+        S --> IS[integration-service]
+        IS --> H[AI Test Harness PipelineRun]
+        H --> C[Conforma policy check]
+        C --> REL[Release pipeline]
+    end
+    HM[Hermeto: pinned deps + SBOM] --> B
+    HM --> H
+    H --> TR[Trustify: SBOM, vulns, VEX]
+    H --> TAS[Trusted Artifact Signer]
+    H --> OV[(Test overlay repo)]
+    H --> PR[Review packet on the PR]
