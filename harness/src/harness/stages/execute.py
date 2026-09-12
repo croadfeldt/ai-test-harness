@@ -25,6 +25,9 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
     roots = [r.split("/")[0] for r in facts["import_names"]]
+    from .agent import fix_reached
+    patch_path = workdir / "analyze" / pkg / "source-diff.patch"
+    fix_patch = patch_path.read_text() if patch_path.exists() else None
     reqs_new = _reqs(workdir, "new")
     runs = {}
     plans = [("new", reqs_new), ("new-rerun", reqs_new)]
@@ -65,10 +68,17 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
         if t["status"] == "flaky":
             t["verdict"] = "flaky: discard"
         elif t["category"] == "cve":
+            msg_new = t["message"]
+            msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
             if o == "fail" and n == "pass":
                 t["verdict"] = "fix-pinning confirmed: fails on vulnerable, passes on fixed"
             elif o == "pass" and n == "pass":
                 t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
+            elif n in ("fail", "error") and fix_reached(msg_new, fix_patch):
+                t["verdict"] = "fix reached, assertion wrong: the fixed version raised the error the fix introduced; expect it on new and show old accepting the input"
+            elif n in ("fail", "error") and o in ("fail", "error") and msg_new and msg_new.split(":")[0] == msg_old.split(":")[0] \
+                    and not msg_new.startswith(("AssertionError", "Failed: DID NOT RAISE", "assert ")):
+                t["verdict"] = f"blocked on both versions: {msg_new.split(':')[0]} on old and new; possible package or environment defect, reproducer attached"
             elif n in ("fail", "error"):
                 t["verdict"] = "fails on the fixed version: test bug or the advisory is misread; back to generation"
             else:
@@ -93,6 +103,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
                    "pass_on_new": sum(1 for t in tests if t["versions"]["new"] == "pass"),
                    "flaky": sum(1 for t in tests if t["status"] == "flaky"),
                    "fix_pinning_confirmed": sum(1 for t in tests if t["verdict"].startswith("fix-pinning confirmed")),
+                   "fix_reached_assertion_wrong": sum(1 for t in tests if t["verdict"].startswith("fix reached")),
+                   "blocked_both_versions": sum(1 for t in tests if t["verdict"].startswith("blocked on both")),
                    "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed"))},
         "coverage_ref": "new/coverage.json" if cov_new.get("available") else None,
         "coverage_summary": {"covered_lines_in_target": cov_new.get("covered_lines_in_target", 0),

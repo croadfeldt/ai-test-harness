@@ -99,13 +99,77 @@ class Tools:
         return self.run_fn(code)
 
 
+class Budget:
+    """GF-013. Reads are capped until a test has been run, and calls are always reserved for one run
+    and one submit, so the model can never end with a guess it had no room to check."""
+    READ_TOOLS = ("read_source", "search_source", "list_api")
+    MAX_READS_BEFORE_RUN = 6
+    RESERVE = 2
+
+    def __init__(self, max_tool_calls: int):
+        self.max, self.used, self.reads_since_run, self.runs = max_tool_calls, 0, 0, 0
+
+    @property
+    def remaining(self) -> int:
+        return self.max - self.used
+
+    def allow(self, tool: str) -> str | None:
+        """None when the call may proceed (and is counted), else the refusal text."""
+        if tool in self.READ_TOOLS:
+            if self.reads_since_run >= self.MAX_READS_BEFORE_RUN:
+                return (f"Refused: {self.MAX_READS_BEFORE_RUN} reads without running a test. Write the file and call "
+                        f"run_tests now; reads reopen after a run.")
+            if self.remaining <= self.RESERVE:
+                return "Refused: the remaining calls are reserved for run_tests and submit."
+            self.used += 1; self.reads_since_run += 1
+            return None
+        if tool == "run_tests":
+            if self.remaining <= 0:
+                return "Refused: budget exhausted; call submit."
+            self.used += 1; self.reads_since_run = 0; self.runs += 1
+            return None
+        return None
+
+
+def fix_reached(message: str, fix_patch: str | None) -> bool:
+    """GF-014. True when a failure message on the fixed version contains a quoted string that the fix
+    diff added: the input reached the new check."""
+    if not message or not fix_patch:
+        return False
+    added = [l[1:] for l in fix_patch.splitlines() if l.startswith("+") and not l.startswith("+++")]
+    for line in added:
+        for lit in re.findall(r"""["']([^"']{18,})["']""", line):
+            if lit in message:
+                return True
+    return False
+
+
+class RepeatDetector:
+    """GF-015. Flags a run result identical to the previous one."""
+    def __init__(self):
+        self.last = None; self.repeats = 0
+
+    def note(self, result: str) -> str | None:
+        key = result.strip()
+        if key == self.last:
+            self.repeats += 1
+            return (f"Same result as the previous attempt ({self.repeats} repeat{'s' if self.repeats > 1 else ''}). This path "
+                    "is blocked: the same error on both versions is a package or environment defect, recorded as a "
+                    "finding for triage, not something the test can fix. Change approach (build the input another way) "
+                    "or submit with a caveat in the note.")
+        self.last, self.repeats = key, 0
+        return None
+
+
 def _wrap(name: str, text: str, remaining: int) -> str:
     return f'<DATA name="tool:{name}" note="untrusted content from package source or a test run">\n{text}\n</DATA>\nTool calls remaining: {remaining}'
 
 
-def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: int = 14, max_turns: int = 18, tag: str = "agent") -> dict:
+def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: int = 14, max_turns: int = 18, tag: str = "agent",
+              fix_patch: str | None = None) -> dict:
     messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}]
-    remaining, turns, submitted, trace = max_tool_calls, 0, None, []
+    budget, turns, submitted, trace = Budget(max_tool_calls), 0, None, []
+    repeats, blocked = RepeatDetector(), []
     while turns < max_turns:
         turns += 1
         msg, rec = model.chat_tools(messages, TOOLS, f"{tag}-t{turns}")
@@ -129,22 +193,36 @@ def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: 
                 problems = gate_fn(code)
                 trace.append({"turn": turns, "tool": "submit", "ok": not problems, "problems": problems})
                 if not problems:
-                    submitted = {"code": code, "note": args.get("note", ""), "turns": turns, "tool_calls": max_tool_calls - remaining}
-                    return {"submitted": submitted, "trace": trace, "exhausted": False}
-                result = "Not accepted:\n" + "\n".join(f"- {p}" for p in problems) + ("\nBudget spent; submit your best file now." if remaining <= 0 else "")
-            elif remaining <= 0:
-                result = "Tool budget exhausted. Call submit with your best file now."
+                    submitted = {"code": code, "note": args.get("note", ""), "turns": turns, "tool_calls": budget.used}
+                    return {"submitted": submitted, "trace": trace, "exhausted": False, "blocked_paths": blocked}
+                result = "Not accepted:\n" + "\n".join(f"- {p}" for p in problems) + ("\nBudget spent; submit your best file now." if budget.remaining <= 0 else "")
             else:
-                remaining -= 1
-                fn = getattr(tools, name, None)
-                try:
-                    result = fn(**args) if fn else f"unknown tool {name}"
-                except TypeError as e:
-                    result = f"bad arguments for {name}: {e}"
-                trace.append({"turn": turns, "tool": name, "args": {k: (v[:120] if isinstance(v, str) else v) for k, v in args.items()},
-                              "result_sha256": sha256_text(str(result)), "result_chars": len(str(result))})
-            messages.append({"role": "tool", "tool_call_id": c.get("id", name), "content": _wrap(name, str(result)[:12000], remaining)})
-    return {"submitted": None, "trace": trace, "exhausted": True}
+                refusal = budget.allow(name)
+                if refusal:
+                    result = refusal
+                    trace.append({"turn": turns, "tool": name, "refused": refusal[:80]})
+                else:
+                    fn = getattr(tools, name, None)
+                    try:
+                        result = fn(**args) if fn else f"unknown tool {name}"
+                    except TypeError as e:
+                        result = f"bad arguments for {name}: {e}"
+                    result = str(result)
+                    if name == "run_tests":
+                        if fix_reached(result, fix_patch) and "[new" in result:
+                            result += ("\nNOTE (fix reached): a failure on the NEW version carries a message the fix diff introduced. "
+                                       "Your input reached the new check. Expect that exception on new with pytest.raises, and make the "
+                                       "same input pass through on OLD (the vulnerable behavior) so the test fails there.")
+                        rep = repeats.note(result)
+                        if rep:
+                            result += "\nNOTE (blocked path): " + rep
+                            first = result.splitlines()[0][:300]
+                            if first not in blocked:
+                                blocked.append(first)
+                    trace.append({"turn": turns, "tool": name, "args": {k: (v[:120] if isinstance(v, str) else v) for k, v in args.items()},
+                                  "result_sha256": sha256_text(result), "result_chars": len(result)})
+            messages.append({"role": "tool", "tool_call_id": c.get("id", name), "content": _wrap(name, str(result)[:12000], budget.remaining)})
+    return {"submitted": None, "trace": trace, "exhausted": True, "blocked_paths": blocked}
 
 
 def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: Path, reqs_new: list[str],
@@ -167,7 +245,8 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse:
     gen_dir.mkdir(parents=True, exist_ok=True); (gen_dir / "tests").mkdir(exist_ok=True)
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
                 "generated": now_iso(), "mode": "agent", "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model, "temperature": model.cfg.temperature},
-                "budget": {"max_tool_calls": 14, "max_turns": 18}, "files": [], "discarded": [], "traces": {}}
+                "budget": {"max_tool_calls": 14, "max_turns": 18, "max_reads_before_run": Budget.MAX_READS_BEFORE_RUN, "reserved_for_run_and_submit": Budget.RESERVE},
+                "files": [], "discarded": [], "traces": {}}
 
     def make_runner(label_base: str):
         counter = {"n": 0}
@@ -201,8 +280,11 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse:
         prompt = fixed.build_prompt("cve", facts, api, sites, group, 2, fix_patch, sorted(new_q - old_q), sorted(old_q - new_q))
         tools = Tools(dirs, api, api_old, make_runner(f"{pkg}-cve-{suffix}"))
         log(f"    agent: {key}")
-        res = run_agent(model, prompt, tools, gate, tag=f"{pkg}-cve-{suffix}")
+        res = run_agent(model, prompt, tools, gate, tag=f"{pkg}-cve-{suffix}", fix_patch=fix_patch)
         manifest["traces"][key] = res["trace"]
+        if res.get("blocked_paths"):
+            manifest.setdefault("candidate_defects", []).append({"issue": key, "blocked_paths": res["blocked_paths"],
+                                                                "note": "same error on both versions across attempts; for triage as a possible package or environment defect"})
         if not res["submitted"]:
             manifest["discarded"].append({"category": "cve", "issue": key, "reason": "agent exhausted its budget without an accepted submission", "trace_len": len(res["trace"])})
             log(f"      no accepted submission after {len(res['trace'])} tool calls")

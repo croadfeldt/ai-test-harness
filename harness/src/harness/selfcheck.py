@@ -126,6 +126,40 @@ def gf011():
     assert "podman" in src2
 
 
+@check("GF-013", "the agent may not read past the cap before running a test, and always keeps calls for run and submit")
+def gf013():
+    from .stages.agent import Budget
+    b = Budget(max_tool_calls=14)
+    for _ in range(6):
+        assert b.allow("read_source") is None
+    assert b.allow("read_source") is not None, "seventh read before any run must be refused"
+    assert b.allow("run_tests") is None
+    assert b.allow("read_source") is None, "reads reopen after a run"
+    b2 = Budget(max_tool_calls=3)
+    b2.allow("run_tests"); assert b2.allow("read_source") is not None, "reserve for run and submit must hold"
+
+
+@check("GF-014", "a failure message that the fix diff introduced is recognized as 'fix reached'")
+def gf014():
+    from .stages.agent import fix_reached
+    diff = "--- old/jose/jws.py\n+++ new/jose/jws.py\n+        raise JWSError('The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.')\n"
+    assert fix_reached("jose.exceptions.JWKError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.", diff)
+    assert not fix_reached("AttributeError: module 'lib' has no attribute 'RAND_bytes'", diff)
+    from .stages import execute
+    assert "fix reached, assertion wrong" in inspect.getsource(execute.execute_package)
+
+
+@check("GF-015", "an identical run result twice in a row is reported as a blocked path and a candidate defect")
+def gf015():
+    from .stages.agent import RepeatDetector
+    d = RepeatDetector()
+    assert d.note("[new] t=fail (X)\n[old] t=fail (X)") is None
+    assert d.note("[new] t=fail (X)\n[old] t=fail (X)") is not None, "second identical result must be flagged"
+    assert d.note("[new] t=pass\n[old] t=fail (Y)") is None
+    from .stages import execute
+    assert "blocked on both versions" in inspect.getsource(execute.execute_package)
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
