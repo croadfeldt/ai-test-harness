@@ -38,21 +38,31 @@ def purl(name: str, version: str) -> str:
 # ---------------------------------------------------------------- resolve_graph
 
 def _pip_report(manifest: Path, python_version: str | None, tmp: Path) -> tuple[dict, str]:
+    """Resolve with pip in --dry-run --report mode.
+
+    When a target interpreter version is given and podman is available, resolution runs inside that
+    interpreter's own container image, the same image the sandbox uses. pip on the host cannot be
+    trusted to evaluate environment markers (python_version, platform_machine) for a different
+    interpreter: it silently dropped sqlalchemy's greenlet dependency when asked to resolve for 3.12
+    from a 3.14 host. Resolution executes no package code: wheels only, metadata only.
+    """
     report = tmp / "report.json"
+    if python_version and tool_available("podman"):
+        image = f"docker.io/library/python:{python_version}-slim"
+        mdir = tmp / "m"; mdir.mkdir(exist_ok=True)
+        (mdir / "req.txt").write_text(manifest.read_text())
+        cmd = ["podman", "run", "--rm", "-v", f"{mdir}:/m:ro,Z", "-v", f"{tmp}:/out:rw,Z", image, "sh", "-c",
+               "pip install --dry-run --ignore-installed --quiet --only-binary=:all: --report /out/report.json -r /m/req.txt"]
+        proc = run(cmd, check=False, timeout=900)
+        if proc.returncode == 0 and report.exists():
+            ver = run(["podman", "run", "--rm", image, "python", "-c", "import pip,sys;print(sys.version.split()[0], pip.__version__)"], check=False).stdout.strip()
+            return read_json(report), f"pip --dry-run --report inside {image} (python/pip {ver}), wheels only"
+        log(f"  container resolution for Python {python_version} failed, falling back to the host interpreter: "
+            f"{proc.stderr.strip().splitlines()[-1] if proc.stderr.strip() else ''}")
     base = [sys.executable, "-m", "pip", "install", "--dry-run", "--ignore-installed", "--quiet",
             "--report", str(report), "-r", str(manifest)]
-    if python_version:
-        strict = base + ["--python-version", python_version, "--implementation", "cp",
-                         "--only-binary=:all:", "--target", str(tmp / "target")]
-        for plat in PLATFORMS:
-            strict += ["--platform", plat]
-        proc = run(strict, check=False, timeout=900)
-        if proc.returncode == 0:
-            return read_json(report), f"pip {_pip_version()} --dry-run --report, target cp{python_version.replace('.', '')} manylinux/any wheels only"
-        log(f"  strict resolution for Python {python_version} failed, falling back to the current interpreter: "
-            f"{proc.stderr.strip().splitlines()[-1] if proc.stderr.strip() else ''}")
     run(base, timeout=900)
-    return read_json(report), f"pip {_pip_version()} --dry-run --report, current interpreter {sys.version.split()[0]}"
+    return read_json(report), f"pip {_pip_version()} --dry-run --report, host interpreter {sys.version.split()[0]} (markers evaluated for the host, not the target)"
 
 
 def _pip_version() -> str:

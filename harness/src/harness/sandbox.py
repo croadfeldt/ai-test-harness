@@ -31,13 +31,11 @@ def prefetch_wheelhouse(requirements: list[str], python_version: str, dest: Path
     marker = dest / ".complete"
     if marker.exists():
         return dest
-    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
-        f.write("\n".join(requirements + extra) + "\n")
-        req = f.name
-    cmd = [sys.executable, "-m", "pip", "download", "--quiet", "--dest", str(dest), "-r", req,
-           "--python-version", python_version, "--implementation", "cp", "--only-binary=:all:"]
-    for plat in ("manylinux_2_17_x86_64", "manylinux2014_x86_64", "manylinux_2_28_x86_64", "any"):
-        cmd += ["--platform", plat]
+    (dest / "requirements.txt").write_text("\n".join(requirements + extra) + "\n")
+    # Download inside the sandbox image itself so wheel tags and markers match exactly what will run.
+    image = f"docker.io/library/python:{python_version}-slim"
+    cmd = ["podman", "run", "--rm", "-v", f"{dest.resolve()}:/wh:rw,Z", image, "sh", "-c",
+           "pip download --quiet --only-binary=:all: --dest /wh -r /wh/requirements.txt"]
     proc = run(cmd, check=False, timeout=1800)
     if proc.returncode != 0:
         raise HarnessError(f"wheelhouse prefetch failed: {proc.stderr.strip()[-800:]}")

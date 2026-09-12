@@ -1,5 +1,5 @@
 {
-  "created": "2026-09-11T22:25:34+00:00",
+  "created": "2026-09-12T01:42:53+00:00",
   "items": [
     {
       "change": "first_party",
@@ -438,6 +438,32 @@
         }
       },
       "purl": "pkg:pypi/fonttools@4.65.0",
+      "reachable": "unknown",
+      "reachable_evidence": [
+        "transitive; call-graph reachability not in this slice"
+      ],
+      "vulns_new": [],
+      "vulns_old": []
+    },
+    {
+      "change": "unchanged",
+      "depth": 2,
+      "new_version": "3.5.5",
+      "old_version": "3.5.5",
+      "package": "greenlet",
+      "parents": [
+        "sqlalchemy"
+      ],
+      "preflight": {
+        "findings": [],
+        "status": "clean",
+        "tools": {
+          "capslock": "n/a (Go only)",
+          "guarddog": "skipped",
+          "openssf-malicious-packages": "ran (via OSV)"
+        }
+      },
+      "purl": "pkg:pypi/greenlet@3.5.5",
       "reachable": "unknown",
       "reachable_evidence": [
         "transitive; call-graph reachability not in this slice"
@@ -1562,12 +1588,12 @@
       "package": "typing-extensions",
       "parents": [
         "fastapi",
-        "pydantic",
         "ortools",
+        "pydantic",
         "sqlalchemy",
         "pydantic-core",
-        "anyio",
-        "limits"
+        "limits",
+        "anyio"
       ],
       "preflight": {
         "findings": [],
@@ -1810,6 +1836,6 @@
   "mode": "rescan",
   "new_manifest": "requirements.txt@2ad04243861b",
   "old_manifest": null,
-  "run_id": "6b5884b26cbe",
+  "run_id": "a16348ae128b",
   "source_dir": "/Users/chris/git/frc-scheduler-server"
 }

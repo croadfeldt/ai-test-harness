@@ -141,7 +141,7 @@
     "cryptography": {
       "depth": 3,
       "direct": false,
-      "download_url": "https://files.pythonhosted.org/packages/57/26/e6d4fc8512a51a5f9ee7bfdbfb853bce1197087df40c9ad993ad370b846f/cryptography-50.0.1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "download_url": "https://files.pythonhosted.org/packages/85/66/6ccca4722987ddedaa7fc9c3f4708af7431f5535666c174350830888c6b7/cryptography-50.0.1-cp311-abi3-manylinux_2_34_x86_64.whl",
       "import_names": [],
       "name": "cryptography",
       "optional_requires": [
@@ -256,6 +256,20 @@
       "purl": "pkg:pypi/fonttools@4.65.0",
       "requires": [],
       "version": "4.65.0"
+    },
+    "greenlet": {
+      "depth": 2,
+      "direct": false,
+      "download_url": "https://files.pythonhosted.org/packages/78/ac/5c5b959999b6f09c3026b5dfe171575bc3121c5236ce74f495096f25b203/greenlet-3.5.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "import_names": [],
+      "name": "greenlet",
+      "optional_requires": [],
+      "parents": [
+        "sqlalchemy"
+      ],
+      "purl": "pkg:pypi/greenlet@3.5.5",
+      "requires": [],
+      "version": "3.5.5"
     },
     "h11": {
       "depth": 2,
@@ -495,7 +509,7 @@
     "pillow": {
       "depth": 1,
       "direct": true,
-      "download_url": "https://files.pythonhosted.org/packages/9d/21/84c9f287d17180f26263b5f5c8fb201de0f88b1afddf8a2597a5c9fe787f/pillow-11.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "download_url": "https://files.pythonhosted.org/packages/7f/42/6e0f2c2d5c60f499aa29be14f860dd4539de322cd8fb84ee01553493fb4d/pillow-11.0.0-cp312-cp312-manylinux_2_28_x86_64.whl",
       "import_names": [],
       "name": "pillow",
       "optional_requires": [
@@ -794,6 +808,7 @@
       "parents": [],
       "purl": "pkg:pypi/sqlalchemy@2.0.36",
       "requires": [
+        "greenlet",
         "typing-extensions"
       ],
       "version": "2.0.36"
@@ -861,12 +876,12 @@
       "optional_requires": [],
       "parents": [
         "fastapi",
-        "pydantic",
         "ortools",
+        "pydantic",
         "sqlalchemy",
         "pydantic-core",
-        "anyio",
-        "limits"
+        "limits",
+        "anyio"
       ],
       "purl": "pkg:pypi/typing-extensions@4.16.0",
       "requires": [],
@@ -1006,6 +1021,6 @@
     }
   },
   "python_version": "3.12",
-  "resolver": "pip 26.0.1 --dry-run --report, target cp312 manylinux/any wheels only",
+  "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
   "source_dir": "/Users/chris/git/frc-scheduler-server"
 }

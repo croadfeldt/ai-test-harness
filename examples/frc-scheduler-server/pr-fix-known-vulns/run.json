@@ -25,7 +25,7 @@
     "../examples/frc-scheduler-server/pr-fix-known-vulns"
   ],
   "harness_version": "0.1.0",
-  "started": "2026-09-11T22:24:53+00:00",
+  "started": "2026-09-12T01:41:41+00:00",
   "tools": {
     "git": "git version 2.55.0",
     "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",

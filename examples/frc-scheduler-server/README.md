@@ -1,7 +1,7 @@
 # Example: frc-scheduler-server
 
 **Target.** A FastAPI service I run for FRC event scheduling. Python 3.12, 15 pinned direct
-dependencies, 62 packages resolved, about 30k lines of first-party code.
+dependencies, 63 packages resolved, about 30k lines of first-party code.
 
 **What this example proves so far.** Stages 1 and 2 of the blueprint (intake, analysis, risk
 scoring) on two triggers: a scheduled rescan of `main`, and a dependency-fix pull request. Every file
@@ -17,12 +17,14 @@ rerunning the commands recreates them. `api-diff.json` and `facts.json` carry wh
 | `rescan/` | Scheduled rescan of `main` at `2ad04243` | `harness intake --repo frc-scheduler-server --head main --python-version 3.12 --workdir rescan` then `harness analyze --workdir rescan --python-version 3.12` |
 | `pr-fix-known-vulns/` | Branch `deps/fix-known-vulns` (`cfa8f4a3`), which bumps python-jose, python-multipart, Pillow and weasyprint to versions with published fixes | `harness intake --repo frc-scheduler-server --base main --head deps/fix-known-vulns --python-version 3.12 --workdir pr-fix-known-vulns` then `harness analyze --workdir pr-fix-known-vulns --python-version 3.12` |
 
-Intake resolved the full graph for the project's interpreter (from its Containerfile) with wheels
-only, in about thirty seconds. Analysis took about ten seconds per run after downloads were cached.
+Intake resolved the full graph inside the project's own interpreter image (Python 3.12, from its
+Containerfile), wheels only, in under a minute. Resolving on the host had silently dropped greenlet,
+because pip evaluates environment markers for the interpreter it runs under; the sandbox install then
+failed, which is how the gap was found. Analysis took about ten seconds per run after downloads were cached.
 
 ## What the rescan found (`rescan/analyze/summary.json`)
 
-Seven of 62 packages carry known vulnerabilities at `main`. Four are direct pins, three are
+Seven of 63 packages carry known vulnerabilities at `main`. Four are direct pins, three are
 transitive and were not on anyone's list:
 
 | Package | Depth | Reachable | Advisories | Risk | Budget |
@@ -64,10 +66,10 @@ exposures left open. That is the review packet's one-page summary, once stage 6 
 
 ```
 run.json                             harness and tool versions, the exact command
-intake/graph.{old,new}.json          62 packages with depth, parents, hard and optional edges
+intake/graph.{old,new}.json          63 packages with depth, parents, hard and optional edges
 intake/sbom.new.cdx.json             CycloneDX 1.5 SBOM of the head graph
 intake/vulns.json                    every OSV entry, with aliases, fixed versions, references
-intake/worklist.json                 63 rows (one first-party, 62 packages): change, depth, reachable, pre-flight
+intake/worklist.json                 64 rows (one first-party, 63 packages): change, depth, reachable, pre-flight
 analyze/<package>/api.{old,new}.json public API surface from the wheel, tool-derived
 analyze/<package>/api-diff.json      added / removed / changed with a breaking flag and reason
 analyze/<package>/call-sites.json    every first-party reference, file and line, test files flagged
