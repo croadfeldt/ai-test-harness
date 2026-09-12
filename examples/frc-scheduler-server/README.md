@@ -6,8 +6,9 @@ dependencies, 62 packages resolved, about 30k lines of first-party code.
 **What this example proves so far.** Stages 1 and 2 of the blueprint (intake, analysis, risk
 scoring) on two triggers: a scheduled rescan of `main`, and a dependency-fix pull request. Every file
 under `rescan/` and `pr-fix-known-vulns/` was written by `harness intake` and `harness analyze`. I did
-not edit any of them. The `cache/` directories (downloaded wheels, OSV and PyPI responses) are
-git-ignored; rerunning the commands recreates them.
+not edit any of them. The `cache/` directories (downloaded wheels, OSV and PyPI responses) and the raw
+`api.old.json` / `api.new.json` surfaces (about 100k lines of public symbols) are git-ignored;
+rerunning the commands recreates them. `api-diff.json` and `facts.json` carry what a reviewer needs.
 
 ## The two runs
 

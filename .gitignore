@@ -1,4 +1,6 @@
 .DS_Store
+examples/**/api.new.json
+examples/**/api.old.json
 examples/**/cache/
 harness/out/
 harness/.venv/
