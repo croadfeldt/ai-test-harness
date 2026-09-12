@@ -1,0 +1,177 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "0.6.4",
+  "package": "pyasn1",
+  "version": "0.4.8",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59885",
+        "PYSEC-2026-3456"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "GHSA-8ppf-4f7h-5ppj",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-8ppf-4f7h-5ppj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59885",
+        "https://github.com/pyasn1/pyasn1/commit/45bdb19eb7df4b3780fe9c912c63e99bffc39dd9",
+        "https://github.com/pyasn1/pyasn1",
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1: Quadratic complexity in OBJECT IDENTIFIER and RELATIVE-OID processing allows denial of service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59886",
+        "PYSEC-2026-3457"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "GHSA-hm4w-wwcw-mr6r",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-hm4w-wwcw-mr6r",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59886",
+        "https://github.com/pyasn1/pyasn1/commit/e60c691cb91addb8fcefa2f537e85ede6fb1e886",
+        "https://github.com/pyasn1/pyasn1",
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1: Uncontrolled resource consumption when converting decoded REAL values"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-30922",
+        "PYSEC-2026-2263"
+      ],
+      "fixed_versions": [
+        "0.6.3"
+      ],
+      "id": "GHSA-jr27-m4p2-rc6r",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-jr27-m4p2-rc6r",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-30922",
+        "https://github.com/pyasn1/pyasn1/commit/5a49bd1fe93b5b866a1210f6bf0a3924f21572c8",
+        "https://github.com/pyasn1/pyasn1/commit/25ad481c19fdb006e20485ef3fc2e5b3eff30ef0",
+        "https://access.redhat.com/errata/RHSA-2026:22970",
+        "https://access.redhat.com/errata/RHSA-2026:22987",
+        "https://access.redhat.com/errata/RHSA-2026:24761",
+        "https://access.redhat.com/errata/RHSA-2026:24762",
+        "https://access.redhat.com/errata/RHSA-2026:37275",
+        "https://access.redhat.com/errata/RHSA-2026:41928"
+      ],
+      "severity": "CVSS_V3: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Denial of Service in pyasn1 via Unbounded Recursion"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59884",
+        "PYSEC-2026-3455"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "GHSA-m4p7-r5rc-7g4j",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-m4p7-r5rc-7g4j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59884",
+        "https://github.com/pyasn1/pyasn1/commit/628e36ecbb5277a3f01572ce418ef54271b165a5",
+        "https://github.com/pyasn1/pyasn1",
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pyasn1/PYSEC-2026-3455.yaml"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1 BER/CER/DER decoder denial of service via unbounded long-form tag IDs"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-30922",
+        "GHSA-jr27-m4p2-rc6r"
+      ],
+      "fixed_versions": [
+        "0.6.3"
+      ],
+      "id": "PYSEC-2026-2263",
+      "malicious": false,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/03/20/4",
+        "https://lists.debian.org/debian-lts-announce/2026/05/msg00001.html",
+        "https://github.com/pyasn1/pyasn1/commit/25ad481c19fdb006e20485ef3fc2e5b3eff30ef0",
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-jr27-m4p2-rc6r"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1 is a generic ASN.1 library for Python. Prior to 0.6.3, the `pyasn1` library is vulnerable to a Denial of Service (DoS) attack caused by uncontrolled recursion when decoding ASN.1 data with deeply nested structures. An attacker can supply a crafted payload containing thousands of nested `SEQUE"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59884",
+        "GHSA-m4p7-r5rc-7g4j"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "PYSEC-2026-3455",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4",
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-m4p7-r5rc-7g4j",
+        "https://github.com/pyasn1/pyasn1/commit/628e36ecbb5277a3f01572ce418ef54271b165a5"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1 is a generic ASN.1 library for Python. Prior to 0.6.4, the BER decoder shared by the CER and DER codecs parses long-form tags by accumulating continuation octets without an upper bound on the tag ID size, allowing a crafted input to force construction of an arbitrarily large integer with CPU "
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59885",
+        "GHSA-8ppf-4f7h-5ppj"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "PYSEC-2026-3456",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4",
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-8ppf-4f7h-5ppj",
+        "https://github.com/pyasn1/pyasn1/commit/45bdb19eb7df4b3780fe9c912c63e99bffc39dd9"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1 is a generic ASN.1 library for Python. Prior to 0.6.4, the BER, CER, and DER decoders process OBJECT IDENTIFIER and RELATIVE-OID values in quadratic time relative to the number of arcs, so a small crafted payload containing an OID with many arcs consumes excessive CPU per decode() call and ca"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-59886",
+        "GHSA-hm4w-wwcw-mr6r"
+      ],
+      "fixed_versions": [
+        "0.6.4"
+      ],
+      "id": "PYSEC-2026-3457",
+      "malicious": false,
+      "references": [
+        "https://github.com/pyasn1/pyasn1/releases/tag/v0.6.4",
+        "https://github.com/pyasn1/pyasn1/security/advisories/GHSA-hm4w-wwcw-mr6r",
+        "https://github.com/pyasn1/pyasn1/commit/e60c691cb91addb8fcefa2f537e85ede6fb1e886"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "pyasn1 is a generic ASN.1 library for Python. Prior to 0.6.4, the univ.Real type converted its mantissa, base, and exponent value to a Python float using exact big-integer exponentiation. A BER, CER, or DER encoded REAL value only a few bytes long can carry a very large exponent, causing float conve"
+    }
+  ],
+  "vulns_old": []
+}

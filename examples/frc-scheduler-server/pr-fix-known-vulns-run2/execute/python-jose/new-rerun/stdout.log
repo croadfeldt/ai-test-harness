@@ -1,0 +1,597 @@
+FFFF....FF.......                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47b320>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+>                   key = load_pem_public_key(key, self.cryptography_backend())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ValueError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:95: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47b320>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+                    key = load_pem_public_key(key, self.cryptography_backend())
+                except ValueError:
+>                   key = load_pem_private_key(key, password=None, backend=self.cryptography_backend())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ValueError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:97: ValueError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """Decoding a token with an OpenSSH ECDSA key must not succeed via algorithm confusion."""
+>       token, kid, key_obj = _make_token_with_ssh_key()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py:23: in _make_token_with_ssh_key
+    key_obj = jwk.construct(_OPENSSH_PUB, algorithm=Algorithms.ES256)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47b320>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+                    key = load_pem_public_key(key, self.cryptography_backend())
+                except ValueError:
+                    key = load_pem_private_key(key, password=None, backend=self.cryptography_backend())
+            except Exception as e:
+>               raise JWKError(e)
+E               jose.exceptions.JWKError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:99: JWKError
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47a570>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+>                   key = load_pem_public_key(key, self.cryptography_backend())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ValueError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:95: ValueError
+
+During handling of the above exception, another exception occurred:
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47a570>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+                    key = load_pem_public_key(key, self.cryptography_backend())
+                except ValueError:
+>                   key = load_pem_private_key(key, password=None, backend=self.cryptography_backend())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ValueError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:97: ValueError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """Application call pattern: jwt.decode with algorithms list must reject OpenSSH ECDSA keys."""
+>       token, kid, key_obj = _make_token_with_ssh_key()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py:23: in _make_token_with_ssh_key
+    key_obj = jwk.construct(_OPENSSH_PUB, algorithm=Algorithms.ES256)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7fa5ee47a570>
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB0ZWMzZFSRypkDjCAJ7R9FtQAf+fLWXO57geQWv2ExYOoE0JhBv4HfNnuFBwmRzLR0kvVqJiZrLIENGwgNW+cY='
+algorithm = 'ES256'
+cryptography_backend = <function default_backend at 0x7fa5ee3e2ac0>
+
+    def __init__(self, key, algorithm, cryptography_backend=default_backend):
+        if algorithm not in ALGORITHMS.EC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+    
+        self.hash_alg = {
+            ALGORITHMS.ES256: self.SHA256,
+            ALGORITHMS.ES384: self.SHA384,
+            ALGORITHMS.ES512: self.SHA512,
+        }.get(algorithm)
+        self._algorithm = algorithm
+    
+        self.cryptography_backend = cryptography_backend
+    
+        if hasattr(key, "public_bytes") or hasattr(key, "private_bytes"):
+            self.prepared_key = key
+            return
+    
+        if hasattr(key, "to_pem"):
+            # convert to PEM and let cryptography below load it as PEM
+            key = key.to_pem().decode("utf-8")
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if isinstance(key, bytes):
+            # Attempt to load key. We don't know if it's
+            # a Public Key or a Private Key, so we try
+            # the Public Key first.
+            try:
+                try:
+                    key = load_pem_public_key(key, self.cryptography_backend())
+                except ValueError:
+                    key = load_pem_private_key(key, password=None, backend=self.cryptography_backend())
+            except Exception as e:
+>               raise JWKError(e)
+E               jose.exceptions.JWKError: Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. MalformedFraming
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:99: JWKError
+_____________________ test_ghsa_cjwg_qfpm_7377_fix_pinning _____________________
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee3e5400>
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x1a\x1e@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xaf\x06\xe2\x0c4n'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+>           iv = get_random_bytes(iv_byte_length)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:482: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 12
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+>       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:51: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decoding a compressed JWE whose decompressed size exceeds the limit raises JWEError."""
+>       token, key = _make_compressed_jwe()
+                     ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py:13: in _make_compressed_jwe
+    return jwe.encrypt(plaintext, key, algorithm=constants.Algorithms.DIR,
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:399: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee3e5400>
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x1a\x1e@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xaf\x06\xe2\x0c4n'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+            iv = get_random_bytes(iv_byte_length)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+>           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:499: JWEError
+______________________ test_ghsa_cjwg_qfpm_7377_exposure _______________________
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee3e6390>
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x1a\x1e@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xaf\x06\xe2\x0c4n'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+>           iv = get_random_bytes(iv_byte_length)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:482: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 12
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+>       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:51: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Application call pattern: jwe.decrypt on a compressed token raises JWEError, not a crash."""
+>       token, key = _make_compressed_jwe()
+                     ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py:13: in _make_compressed_jwe
+    return jwe.encrypt(plaintext, key, algorithm=constants.Algorithms.DIR,
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:399: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee3e6390>
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x1a\x1e@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xaf\x06\xe2\x0c4n'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+            iv = get_random_bytes(iv_byte_length)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+>           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:499: JWEError
+_______________________ test_pysec_2025_185_fix_pinning ________________________
+
+    def test_pysec_2025_185_fix_pinning():
+        """Crafted JWE with high compression ratio should be rejected (fixed) not cause DoS (vulnerable)."""
+        # Build a JWE with a highly compressible plaintext to trigger the decompression bomb
+        plaintext = b"A" * 100000
+        key = "secret"
+>       jwe_str = jwe.encrypt(plaintext, key, algorithm=Algorithms.DIR, encryption=Algorithms.A256GCM, zip=Algorithms.DEF)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_pysec_2025_185.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:398: in _encrypt_and_auth
+    encryption_key = jwk.construct(cek_bytes, enc)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee3e77d0>
+key = b'secret', algorithm = 'A256GCM'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+            raise JWKError("%s is not a valid AES algorithm" % algorithm)
+        if algorithm not in ALGORITHMS.SUPPORTED.union(ALGORITHMS.AES_PSEUDO):
+            raise JWKError("%s is not a supported algorithm" % algorithm)
+    
+        self._algorithm = algorithm
+        self._mode = self.MODES.get(self._algorithm)
+    
+        if algorithm in self.KEY_128 and len(key) != 16:
+            raise JWKError(f"Key must be 128 bit for alg {algorithm}")
+        elif algorithm in self.KEY_192 and len(key) != 24:
+            raise JWKError(f"Key must be 192 bit for alg {algorithm}")
+        elif algorithm in self.KEY_256 and len(key) != 32:
+>           raise JWKError(f"Key must be 256 bit for alg {algorithm}")
+E           jose.exceptions.JWKError: Key must be 256 bit for alg A256GCM
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:466: JWKError
+_________________________ test_pysec_2025_185_exposure _________________________
+
+    def test_pysec_2025_185_exposure():
+        """Application call pattern: jwe.decrypt with crafted high-compression JWE token."""
+        plaintext = b"B" * 100000
+        key = "app_secret"
+>       jwe_str = jwe.encrypt(plaintext, key, algorithm=Algorithms.DIR, encryption=Algorithms.A256GCM, zip=Algorithms.DEF)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_pysec_2025_185.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:398: in _encrypt_and_auth
+    encryption_key = jwk.construct(cek_bytes, enc)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fa5ee47b290>
+key = b'app_secret', algorithm = 'A256GCM'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+            raise JWKError("%s is not a valid AES algorithm" % algorithm)
+        if algorithm not in ALGORITHMS.SUPPORTED.union(ALGORITHMS.AES_PSEUDO):
+            raise JWKError("%s is not a supported algorithm" % algorithm)
+    
+        self._algorithm = algorithm
+        self._mode = self.MODES.get(self._algorithm)
+    
+        if algorithm in self.KEY_128 and len(key) != 16:
+            raise JWKError(f"Key must be 128 bit for alg {algorithm}")
+        elif algorithm in self.KEY_192 and len(key) != 24:
+            raise JWKError(f"Key must be 192 bit for alg {algorithm}")
+        elif algorithm in self.KEY_256 and len(key) != 32:
+>           raise JWKError(f"Key must be 256 bit for alg {algorithm}")
+E           jose.exceptions.JWKError: Key must be 256 bit for alg A256GCM
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:466: JWKError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py::test_ghsa_6c5p_j8vq_pqhj_fix_pinning
+FAILED tests/test_python_jose_cve_ghsa_6c5p_j8vq_pqhj.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+FAILED tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py::test_ghsa_cjwg_qfpm_7377_fix_pinning
+FAILED tests/test_python_jose_cve_ghsa_cjwg_qfpm_7377.py::test_ghsa_cjwg_qfpm_7377_exposure
+FAILED tests/test_python_jose_cve_pysec_2025_185.py::test_pysec_2025_185_fix_pinning
+FAILED tests/test_python_jose_cve_pysec_2025_185.py::test_pysec_2025_185_exposure
+6 failed, 11 passed in 1.63s
