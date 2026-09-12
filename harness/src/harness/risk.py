@@ -35,7 +35,7 @@ def sensitivity(name: str, summary: str, keywords: str, classifiers: list[str]) 
     return sorted(found)
 
 
-def score(*, depth: int, change: str, reachable: str, vuln_count: int, high_severity: bool,
+def score(*, depth: int, change: str, reachable: str, vuln_count: int, high_severity: bool, vulns_fixed: int = 0,
           breaking_changes: int, changed_symbols: int, lines_changed: int, sensitive: list[str],
           preflight_hit: bool, new_package: bool) -> RiskScore:
     reasons: list[str] = []
@@ -87,12 +87,15 @@ def score(*, depth: int, change: str, reachable: str, vuln_count: int, high_seve
     counts = {FULL: {"unit": 10, "functional": 5, "negative": 5, "fuzz_minutes": 10, "mutation_sample": 200},
               REDUCED: {"unit": 4, "functional": 2, "negative": 2, "fuzz_minutes": 0, "mutation_sample": 50},
               SNAPSHOT: {"unit": 0, "functional": 0, "negative": 0, "fuzz_minutes": 0, "mutation_sample": 0}}[level]
-    budget = {"level": level, **counts, "cve_targeted": vuln_count > 0,
+    budget = {"level": level, **counts, "cve_targeted": vuln_count > 0 or vulns_fixed > 0,
+              "cve_fix_pinning": vulns_fixed,
               "functional_at_call_sites": depth == 1 and reachable == "true"}
     if vuln_count:
         reasons.append("known vulnerability: CVE-targeted tests and a draft VEX regardless of depth")
+    if vulns_fixed:
+        reasons.append(f"{vulns_fixed} advisor{'y' if vulns_fixed == 1 else 'ies'} on the replaced version: fix-pinning tests, then a VEX 'fixed' statement")
     return RiskScore(score=s, reasons=reasons, budget=budget, inputs={
         "depth": depth, "change": change, "reachable": reachable, "vuln_count": vuln_count,
         "high_severity": high_severity, "breaking_changes": breaking_changes, "changed_symbols": changed_symbols,
-        "lines_changed": lines_changed, "sensitive": sensitive, "preflight_hit": preflight_hit,
+        "lines_changed": lines_changed, "sensitive": sensitive, "preflight_hit": preflight_hit, "vulns_fixed": vulns_fixed,
         "new_package": new_package})

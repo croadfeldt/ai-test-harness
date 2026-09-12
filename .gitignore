@@ -2,6 +2,7 @@
 examples/**/api.new.json
 examples/**/api.old.json
 examples/**/cache/
+examples/**/scratch/
 harness/out/
 harness/.venv/
 /site/

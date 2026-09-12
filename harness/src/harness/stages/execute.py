@@ -18,13 +18,6 @@ def _reqs(workdir: Path, tag: str) -> list[str]:
     return [f"{p['name']}=={p['version']}" for p in g.values()]
 
 
-def _pin(reqs: list[str], name: str, version: str | None) -> list[str]:
-    """The head graph with one package swapped to its old version: the differential environment."""
-    if not version:
-        return reqs
-    return [f"{name}=={version}" if r.split("==")[0] == name else r for r in reqs]
-
-
 def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     gen = read_json(workdir / "generate" / pkg / "manifest.json")
     tests_dir = workdir / "generate" / pkg / "tests"
@@ -36,9 +29,10 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     runs = {}
     plans = [("new", reqs_new), ("new-rerun", reqs_new)]
     if gen["old_version"] and gen["old_version"] != gen["new_version"]:
-        # Differential: same head graph, only this package at its previous version.
-        reqs_old = _pin(reqs_new, pkg, gen["old_version"])
-        plans.append(("old", reqs_old))
+        # Differential: the base commit's own resolved graph, which is the state the application
+        # actually ran with before the change. Swapping one package inside the head graph produces
+        # sets that never existed and may not resolve (python-jose 3.3.0 with head's pyasn1 did not).
+        plans.append(("old", _reqs(workdir, "old")))
     for label, reqs in plans:
         wh_tag = "old" if label == "old" else "new"
         wheelhouse = sandbox.prefetch_wheelhouse(reqs, python_version, workdir / "cache" / "wheelhouse" / wh_tag)

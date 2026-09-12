@@ -62,6 +62,43 @@ it 90, and gave it a full budget with CVE-targeted tests. See
 So the harness's verdict on this PR is: four exposures closed, one regression introduced, three
 exposures left open. That is the review packet's one-page summary, once stage 6 exists.
 
+## Stages 3 and 4 on python-jose: the fixed-script baseline (`pr-fix-known-vulns/generate`, `execute`)
+
+Model: `qwen/qwen3.8-27b` at 8-bit on a Mac through LM Studio, reasoning off (`reasoning_effort: none`,
+recorded in every call). Categories requested: CVE and unit. Every prompt and response is under
+`generate/python-jose/model-calls/`.
+
+| Step | Result |
+|---|---|
+| CVE generation, one call, 9 min, 3976 tokens | 10 tests: a fix-pinning and an exposure test for each of the 5 advisories on 3.3.0. The model read the advisories correctly: two algorithm-confusion (OpenSSH ECDSA key accepted as an HMAC secret), three JWE compression bomb. |
+| Unit generation, three calls, 4 tests cut | 6 tests kept covering the five symbols `app/auth.py` uses: encode/decode round trip, wrong key, invalid token, expiry, unverified header. 542 lines of the package covered. |
+| Execute: head, head re-run, base | 16 tests, 12 pass on head, 0 flaky. Sandbox runs of 22 to 24 seconds each. |
+| Differential verdict | **0 of 10 CVE tests confirmed as fix-pinning.** 6 pass on both 3.3.0 and 3.4.0, 4 fail on both. |
+
+Why the CVE tests failed to prove anything, from the test source:
+
+- The six that pass on both versions assert `pytest.raises((JOSEError, Exception))`. Any error
+  satisfies that, and the crafted JWE was malformed enough to raise on both versions. A catch-all
+  assertion cannot distinguish vulnerable from fixed.
+- The four that fail on both invented EC key coordinates (`"x": "M1111..."`) because the generator's
+  import allowlist blocked `cryptography`, which python-jose itself depends on, so the model had no way
+  to make real key material. The library rejected the key before reaching the vulnerable path.
+
+Both are harness gaps, not findings against the package, and both are now gates in the generator: a
+test with a catch-all `raises` or no assertion is sent back as weak, and tests may import the
+package's declared dependencies. This run is kept unchanged as the baseline that the next run, and the
+tool-using agentic variant of stage 3, have to beat on the same numbers: fix-pinning confirmed,
+target lines covered, tests cut, tokens and minutes spent.
+
+What the run did prove: the compile, baseline, and differential gates work as specified. A reviewer
+would have seen six characterization tests worth keeping and a clear statement that no advisory was
+proven fixed, rather than ten green-looking CVE tests.
+
+Two more harness corrections came out of this run: the old-version environment for the differential is
+the base commit's own resolved graph (swapping one package inside the head graph produced a set pip
+could not satisfy), and the model client sends `reasoning_effort: none`, because the first attempt
+spent 6000 tokens per call on hidden reasoning and returned empty content.
+
 ## What each output file is
 
 ```
@@ -77,6 +114,11 @@ analyze/<package>/vulns.json         advisories for the head version
 analyze/<package>/notes.untrusted.md maintainer text from PyPI, marked untrusted
 analyze/<package>/facts.json         the bundle stage 3 consumes: everything above plus the risk score and budget
 analyze/summary.json                 one row per analyzed package
+generate/<package>/tests/            candidate pytest files, header says generated and unreviewed
+generate/<package>/manifest.json     per file: tests kept and cut, attempts, model, prompt/response digests, baseline coverage
+generate/<package>/model-calls/      every prompt and response verbatim, with usage, latency, reasoning setting
+execute/<package>/results.json       TestResults: per test old/new status and verdict; coverage summary; sandbox isolation record
+execute/<package>/{new,new-rerun,old}/  junit.xml, coverage.json, logs, sandbox.json per run
 ```
 
 ## Limits of this slice, stated plainly
@@ -98,8 +140,7 @@ analyze/summary.json                 one row per analyzed package
 
 ## Next for this example
 
-Stage 3 generates tests for the seven vulnerable packages and the five changed ones, starting with
-the exposure test for `jwt.decode` and the fix-pinning tests for each advisory. Stage 4 runs them in a
-sandbox against both versions. The post-analysis then checks the run against the blueprint's core
-goals: did it produce evidence a reviewer could act on, did it catch the pyasn1 regression before a
-human would have, and is every claim traceable to a file in this directory.
+Rerun stage 3 on python-jose with the two new gates and compare against the baseline above. Then the
+tool-using variant of stage 3, where the model can read the fix diff between 3.3.0 and 3.4.0 instead
+of guessing a trigger from an advisory summary. Then pyasn1 and starlette. Stages 5 through 7, the
+attestation, and the post-analysis against the blueprint's core goals follow.

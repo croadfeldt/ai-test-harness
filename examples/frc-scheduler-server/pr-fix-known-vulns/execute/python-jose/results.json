@@ -1,0 +1,485 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "fix_pinning_confirmed": 0,
+    "flaky": 0,
+    "pass_on_new": 12,
+    "total": 16
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 592,
+    "files": {
+      "jose/__init__.py": {
+        "covered": 8,
+        "statements": 8
+      },
+      "jose/backends/__init__.py": {
+        "covered": 11,
+        "statements": 27
+      },
+      "jose/backends/_asn1.py": {
+        "covered": 0,
+        "statements": 38
+      },
+      "jose/backends/base.py": {
+        "covered": 18,
+        "statements": 28
+      },
+      "jose/backends/cryptography_backend.py": {
+        "covered": 141,
+        "statements": 368
+      },
+      "jose/backends/ecdsa_backend.py": {
+        "covered": 0,
+        "statements": 80
+      },
+      "jose/backends/native.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "jose/backends/rsa_backend.py": {
+        "covered": 0,
+        "statements": 160
+      },
+      "jose/constants.py": {
+        "covered": 66,
+        "statements": 66
+      },
+      "jose/exceptions.py": {
+        "covered": 24,
+        "statements": 24
+      },
+      "jose/jwe.py": {
+        "covered": 72,
+        "statements": 212
+      },
+      "jose/jwk.py": {
+        "covered": 34,
+        "statements": 56
+      },
+      "jose/jws.py": {
+        "covered": 89,
+        "statements": 124
+      },
+      "jose/jwt.py": {
+        "covered": 89,
+        "statements": 160
+      },
+      "jose/utils.py": {
+        "covered": 40,
+        "statements": 62
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-12T02:54:47+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "3.4.0",
+    "old_version": "3.3.0",
+    "purl": "pkg:pypi/python-jose@3.4.0"
+  },
+  "run_id": "76a3fa863e76",
+  "runs": {
+    "new": {
+      "duration_s": 22.6,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 22.9,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 24.3,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_python_jose_cve.py",
+      "sha256": "sha256:0f3cda04dbe870611fabb328c31095a877eab2ac479ebfce2e45306592cfcc96"
+    },
+    {
+      "file": "tests/test_python_jose_unit.py",
+      "sha256": "sha256:8019da9dcbb472212be785b1d22d62799557bbf11d1456bad59856bb38c9e02b"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 3,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "message": "ValueError: Invalid EC key. Point is not on the curve specified.",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "message": "ValueError: Invalid EC key. Point is not on the curve specified.",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 8,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 7,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_ghsa_cjwg_qfpm_7377_exposure",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2024_232_fix_pinning",
+      "message": "ValueError: Invalid EC key. Point is not on the curve specified.",
+      "name": "test_pysec_2024_232_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2024_232_exposure",
+      "message": "ValueError: Invalid EC key. Point is not on the curve specified.",
+      "name": "test_pysec_2024_232_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 7,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2024_233_fix_pinning",
+      "message": "",
+      "name": "test_pysec_2024_233_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 6,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2024_233_exposure",
+      "message": "",
+      "name": "test_pysec_2024_233_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 7,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2025_185_fix_pinning",
+      "message": "",
+      "name": "test_pysec_2025_185_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 6,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "id": "tests.test_python_jose_cve::test_pysec_2025_185_exposure",
+      "message": "",
+      "name": "test_pysec_2025_185_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_encode_decode_roundtrip",
+      "message": "",
+      "name": "test_jwt_encode_decode_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_wrong_key_raises_jwt_error",
+      "message": "",
+      "name": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_get_unverified_header_returns_algorithm",
+      "message": "",
+      "name": "test_jwt_get_unverified_header_returns_algorithm",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_expired_token_raises_expired_signature_error",
+      "message": "",
+      "name": "test_jwt_decode_expired_token_raises_expired_signature_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_invalid_token_raises_jwt_error",
+      "message": "",
+      "name": "test_jwt_decode_invalid_token_raises_jwt_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_utils_base64url_encode_decode_roundtrip",
+      "message": "",
+      "name": "test_utils_base64url_encode_decode_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

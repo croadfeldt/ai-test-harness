@@ -29,7 +29,7 @@
   },
   "change": "bumped",
   "depth": 1,
-  "generated": "2026-09-12T01:43:09+00:00",
+  "generated": "2026-09-12T02:30:23+00:00",
   "import_names": [
     "jose",
     "jose/backends"
@@ -41,7 +41,8 @@
   "purl": "pkg:pypi/python-jose@3.4.0",
   "risk": {
     "budget": {
-      "cve_targeted": false,
+      "cve_fix_pinning": 5,
+      "cve_targeted": true,
       "functional": 5,
       "functional_at_call_sites": true,
       "fuzz_minutes": 10,
@@ -65,13 +66,15 @@
         "cryptography",
         "parsing"
       ],
-      "vuln_count": 0
+      "vuln_count": 0,
+      "vulns_fixed": 5
     },
     "reasons": [
       "reachable from first-party code (+35)",
       "159 source lines changed (+6)",
       "sensitive domain: authentication, cryptography, parsing (+10)",
-      "depth 1 version change: full generation by policy"
+      "depth 1 version change: full generation by policy",
+      "5 advisories on the replaced version: fix-pinning tests, then a VEX 'fixed' statement"
     ],
     "score": 51
   },
@@ -119,7 +122,15 @@
   "vulns_summary": {
     "affected_symbols_in_use": [],
     "count": 0,
+    "count_old": 5,
     "cves": [],
+    "fixed_by_this_change": [
+      "GHSA-6c5p-j8vq-pqhj",
+      "GHSA-cjwg-qfpm-7377",
+      "PYSEC-2024-232",
+      "PYSEC-2024-233",
+      "PYSEC-2025-185"
+    ],
     "fixed_versions": [],
     "ids": [],
     "symbols_named_by_advisories": false

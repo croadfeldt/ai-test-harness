@@ -55,7 +55,7 @@
   },
   "change": "bumped",
   "depth": 2,
-  "generated": "2026-09-12T01:43:08+00:00",
+  "generated": "2026-09-12T02:30:23+00:00",
   "import_names": [
     "pyasn1"
   ],
@@ -66,6 +66,7 @@
   "purl": "pkg:pypi/pyasn1@0.4.8",
   "risk": {
     "budget": {
+      "cve_fix_pinning": 0,
       "cve_targeted": true,
       "functional": 5,
       "functional_at_call_sites": false,
@@ -89,7 +90,8 @@
         "data-access",
         "parsing"
       ],
-      "vuln_count": 8
+      "vuln_count": 8,
+      "vulns_fixed": 0
     },
     "reasons": [
       "reachability unknown, treated as reachable (+20)",
@@ -169,12 +171,14 @@
   "vulns_summary": {
     "affected_symbols_in_use": [],
     "count": 8,
+    "count_old": 0,
     "cves": [
       "CVE-2026-30922",
       "CVE-2026-59884",
       "CVE-2026-59885",
       "CVE-2026-59886"
     ],
+    "fixed_by_this_change": [],
     "fixed_versions": [
       "0.6.3",
       "0.6.4"

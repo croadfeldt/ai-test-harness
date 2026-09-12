@@ -72,12 +72,17 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
 
     key = f"{it.package}@{it.new_version or it.old_version}"
     vulns = vuln_index.get(key, [])
+    # Advisories on the version being replaced: a bump that fixes them is exactly what a fix-pinning
+    # test must prove (fails on old, passes on new), so they travel with the bundle too.
+    vulns_old = vuln_index.get(f"{it.package}@{it.old_version}", []) if it.change == "bumped" else []
     affected_in_use = []
     for v in vulns:
         for sym in v.get("affected_symbols", []):
             if any(u.endswith(sym) for u in symbols_used):
                 affected_in_use.append(sym)
     write_json(out / "vulns.json", {"package": it.package, "version": it.new_version, "vulns": vulns,
+                                    "old_version": it.old_version, "vulns_old": vulns_old,
+                                    "fixed_by_this_change": [v["id"] for v in vulns_old if v["id"] not in {x["id"] for x in vulns}],
                                     "affected_symbols_in_use": affected_in_use})
     high = any(v.get("severity") for v in vulns)
 
@@ -93,6 +98,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
     up = adapter.upstream_tests(dirs["new"]) if "new" in dirs else {"present": False, "count": 0}
 
     rs = risk.score(depth=it.depth, change=it.change, reachable=reachable, vuln_count=len(vulns), high_severity=high,
+                    vulns_fixed=len(vulns_old),
                     breaking_changes=breaking, changed_symbols=changed,
                     lines_changed=sdiff.get("lines_added", 0) + sdiff.get("lines_removed", 0), sensitive=sens,
                     preflight_hit=it.preflight.status == "hit", new_package=it.change == "added")
@@ -112,6 +118,8 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
                                         "files": sorted({s.file for s in prod_sites})[:30]},
                     upstream_tests=up, vulns_ref="vulns.json",
                     vulns_summary={"count": len(vulns), "ids": [v["id"] for v in vulns],
+                                   "count_old": len(vulns_old),
+                                   "fixed_by_this_change": [v["id"] for v in vulns_old if v["id"] not in {x["id"] for x in vulns}],
                                    "cves": sorted({a for v in vulns for a in v.get("aliases", []) if a.startswith("CVE-")}),
                                    "fixed_versions": sorted({f for v in vulns for f in v.get("fixed_versions", [])}),
                                    "affected_symbols_in_use": affected_in_use,

@@ -25,14 +25,19 @@ class ModelConfig:
     api_key: str | None
     temperature: float = 0.2
     max_tokens: int = 6000
-    timeout_s: int = 600
+    timeout_s: int = 1800
+    no_think: bool = False    # Qwen3 soft switch in the prompt; ignored by LM Studio for qwen3.8
+    reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
 
     @classmethod
     def from_env(cls) -> "ModelConfig":
         base = os.environ.get("HARNESS_MODEL_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
         model = os.environ.get("HARNESS_MODEL") or discover_model(base, os.environ.get("HARNESS_MODEL_API_KEY"))
         return cls(base_url=base, model=model, api_key=os.environ.get("HARNESS_MODEL_API_KEY"),
-                   temperature=float(os.environ.get("HARNESS_MODEL_TEMPERATURE", "0.2")))
+                   temperature=float(os.environ.get("HARNESS_MODEL_TEMPERATURE", "0.2")),
+                   no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
+                   reasoning_effort=(None if os.environ.get("HARNESS_MODEL_REASONING", "none") == "default"
+                                     else os.environ.get("HARNESS_MODEL_REASONING", "none")))
 
 
 def _headers(api_key: str | None) -> dict:
@@ -61,9 +66,13 @@ class Model:
         record_dir.mkdir(parents=True, exist_ok=True)
 
     def chat(self, system: str, user: str, tag: str) -> tuple[str, dict]:
+        if self.cfg.no_think:
+            system = "/no_think\n" + system
         body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.max_tokens,
                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
                 "chat_template_kwargs": {"enable_thinking": False}}
+        if self.cfg.reasoning_effort:
+            body["reasoning_effort"] = self.cfg.reasoning_effort
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
                                      headers=_headers(self.cfg.api_key))
         t0 = time.time()
@@ -75,7 +84,7 @@ class Model:
         text = data["choices"][0]["message"]["content"] or ""
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": data.get("model", self.cfg.model),
-                  "temperature": self.cfg.temperature, "prompt_sha256": sha256_text(system + "\n---\n" + user),
+                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort, "prompt_sha256": sha256_text(system + "\n---\n" + user),
                   "response_sha256": sha256_text(text), "usage": data.get("usage", {}),
                   "latency_s": round(time.time() - t0, 1), "finish_reason": data["choices"][0].get("finish_reason")}
         (self.record_dir / f"{self.calls:03d}-{tag}.prompt.md").write_text(f"# system\n\n{system}\n\n# user\n\n{user}\n")
