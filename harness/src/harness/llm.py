@@ -117,6 +117,36 @@ class Model:
         return text, record
 
 
+    def chat_tools(self, messages: list[dict], tools: list[dict], tag: str, max_tokens: int = 1500) -> tuple[dict, dict]:
+        """One agent turn: full message history plus tool schemas, non-streaming. Returns the assistant
+        message (content and/or tool_calls) and the call record."""
+        body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": max_tokens,
+                "messages": messages, "tools": tools, "tool_choice": "auto",
+                "frequency_penalty": self.cfg.frequency_penalty}
+        if self.cfg.reasoning_effort:
+            body["reasoning_effort"] = self.cfg.reasoning_effort
+        req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
+                                     headers=_headers(self.cfg.api_key))
+        t0 = time.time()
+        try:
+            with urllib.request.urlopen(req, timeout=self.cfg.timeout_s) as r:
+                data = json.loads(r.read().decode())
+        except Exception as e:
+            raise HarnessError(f"model call failed ({tag}): {e}") from e
+        choice = data["choices"][0]
+        msg = choice["message"]
+        self.calls += 1
+        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": data.get("model", self.cfg.model),
+                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
+                  "messages_sha256": sha256_text(json.dumps(messages, sort_keys=True)), "usage": data.get("usage", {}),
+                  "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"),
+                  "tool_calls": [{"name": c["function"]["name"], "arguments": c["function"]["arguments"][:500]} for c in (msg.get("tool_calls") or [])]}
+        (self.record_dir / f"{self.calls:03d}-{tag}.messages.json").write_text(json.dumps(messages, indent=1))
+        (self.record_dir / f"{self.calls:03d}-{tag}.response.json").write_text(json.dumps(msg, indent=1))
+        write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
+        return msg, record
+
+
 def _looping(text: str, window: int = 120, repeats: int = 4) -> bool:
     """True when the last `window` characters already occur `repeats` times in the last 3000."""
     tail, recent = text[-window:], text[-3000:]

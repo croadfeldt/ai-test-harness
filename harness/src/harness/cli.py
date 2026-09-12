@@ -36,7 +36,7 @@ def cmd_analyze(a: argparse.Namespace) -> int:
 
 def cmd_generate(a: argparse.Namespace) -> int:
     from .stages.generate import generate
-    generate(workdir=a.workdir, select=a.select, categories=a.categories, python_version=a.python_version)
+    generate(workdir=a.workdir, select=a.select, categories=a.categories, python_version=a.python_version, mode=a.mode)
     print(a.workdir / "generate" / "summary.json")
     return 0
 
@@ -74,6 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--workdir", type=Path, required=True)
     s.add_argument("--select", nargs="*", default=None, help="only these packages")
     s.add_argument("--categories", nargs="*", default=None, choices=["unit", "functional", "negative", "cve"])
+    s.add_argument("--mode", default="fixed", choices=["fixed", "agent"], help="fixed: one-shot prompt with repair loop; agent: tool-using loop for CVE tests")
     s.add_argument("--python-version", default="3.12")
     s.set_defaults(func=cmd_generate)
 

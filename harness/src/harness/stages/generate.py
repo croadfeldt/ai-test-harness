@@ -337,7 +337,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
 
 
 def generate(*, workdir: Path, select: list[str] | None = None, categories: list[str] | None = None,
-             python_version: str = "3.12") -> list[dict]:
+             python_version: str = "3.12", mode: str = "fixed") -> list[dict]:
     summary = read_json(workdir / "analyze" / "summary.json")
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
     reqs_new = [f"{p['name']}=={p['version']}" for p in graph_new.values()]
@@ -360,9 +360,20 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
         dep_roots = sorted({d.replace("-", "_") for d in deps} | {DIST_TO_IMPORT.get(d, d.replace("-", "_")) for d in deps})
         facts_path = workdir / "analyze" / pkg / "facts.json"
         facts = read_json(facts_path); facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
-        outs.append(generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, categories, dep_roots=dep_roots,
-                                     wheelhouse_old=wheelhouse_old, reqs_old=reqs_old if wheelhouse_old else None))
-    write_json(workdir / "generate" / "summary.json", {"generated": now_iso(), "model": cfg.model, "packages": [
+        cats = categories or ["unit", "functional", "negative", "cve"]
+        fixed_cats = [c for c in cats if not (mode == "agent" and c == "cve")]
+        m = generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, fixed_cats, dep_roots=dep_roots,
+                             wheelhouse_old=wheelhouse_old, reqs_old=reqs_old if wheelhouse_old else None)
+        if mode == "agent" and "cve" in cats and wheelhouse_old:
+            from . import agent
+            from .. import adapters
+            am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, wheelhouse_old, reqs_old,
+                                          dep_roots, adapters.get("python"), python_version)
+            m["mode"] = "agent (cve), fixed (other categories)"; m["files"] += am["files"]; m["discarded"] += am["discarded"]
+            m["agent_budget"] = am["budget"]; m["agent_traces_ref"] = "manifest.agent.json"
+            write_json(gen_dir / "manifest.json", m)
+        outs.append(m)
+    write_json(workdir / "generate" / "summary.json", {"generated": now_iso(), "model": cfg.model, "mode": mode, "packages": [
         {"package": m["package"], "files": len(m["files"]), "tests": sum(len(f["tests"]) for f in m["files"]),
          "discarded": len(m["discarded"])} for m in outs]})
     return outs
