@@ -156,6 +156,9 @@ def gf015():
     assert d.note("[new] t=fail (X)\n[old] t=fail (X)") is None
     assert d.note("[new] t=fail (X)\n[old] t=fail (X)") is not None, "second identical result must be flagged"
     assert d.note("[new] t=pass\n[old] t=fail (Y)") is None
+    d2 = RepeatDetector(); d2.note("[new] t=pass\n[old] t=pass")
+    assert "does not reach the vulnerable behavior" in (d2.note("[new] t=pass\n[old] t=pass") or ""), "identical pass/pass is 'no trigger', not a defect"
+    assert d2.kind == "no-trigger"
     from .stages import execute
     assert "blocked on both versions" in inspect.getsource(execute.execute_package)
 

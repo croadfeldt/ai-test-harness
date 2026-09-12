@@ -147,17 +147,25 @@ def fix_reached(message: str, fix_patch: str | None) -> bool:
 class RepeatDetector:
     """GF-015. Flags a run result identical to the previous one."""
     def __init__(self):
-        self.last = None; self.repeats = 0
+        self.last = None; self.repeats = 0; self.kind = None
 
     def note(self, result: str) -> str | None:
+        """Two distinct repeats. Identical errors on both versions: a blocked path and a candidate defect.
+        Identical passes on both versions: the input does not trigger the issue; not a defect."""
         key = result.strip()
         if key == self.last:
             self.repeats += 1
+            if "=fail" not in key and "=error" not in key and "collection failed" not in key:
+                self.kind = "no-trigger"
+                return (f"Same result as the previous attempt ({self.repeats} repeat{'s' if self.repeats > 1 else ''}): every test passes on "
+                        "BOTH versions, so the input does not reach the vulnerable behavior. A fix-pinning test must fail on old. "
+                        "Change the input, not the assertion.")
+            self.kind = "blocked"
             return (f"Same result as the previous attempt ({self.repeats} repeat{'s' if self.repeats > 1 else ''}). This path "
                     "is blocked: the same error on both versions is a package or environment defect, recorded as a "
                     "finding for triage, not something the test can fix. Change approach (build the input another way) "
                     "or submit with a caveat in the note.")
-        self.last, self.repeats = key, 0
+        self.last, self.repeats, self.kind = key, 0, None
         return None
 
 
@@ -215,9 +223,9 @@ def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: 
                                        "same input pass through on OLD (the vulnerable behavior) so the test fails there.")
                         rep = repeats.note(result)
                         if rep:
-                            result += "\nNOTE (blocked path): " + rep
+                            result += ("\nNOTE (blocked path): " if repeats.kind == "blocked" else "\nNOTE (no trigger): ") + rep
                             first = result.splitlines()[0][:300]
-                            if first not in blocked:
+                            if repeats.kind == "blocked" and first not in blocked:
                                 blocked.append(first)
                     trace.append({"turn": turns, "tool": name, "args": {k: (v[:120] if isinstance(v, str) else v) for k, v in args.items()},
                                   "result_sha256": sha256_text(result), "result_chars": len(result)})

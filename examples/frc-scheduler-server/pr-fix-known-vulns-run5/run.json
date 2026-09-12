@@ -1,0 +1,34 @@
+{
+  "args": {
+    "base": "main",
+    "cmd": "intake",
+    "ecosystem": "python",
+    "head": "deps/fix-known-vulns",
+    "manifest": "requirements.txt",
+    "python_version": "3.12",
+    "repo": "/Users/chris/git/frc-scheduler-server",
+    "workdir": "../examples/frc-scheduler-server/pr-fix-known-vulns"
+  },
+  "command": [
+    "intake",
+    "--repo",
+    "/Users/chris/git/frc-scheduler-server",
+    "--base",
+    "main",
+    "--head",
+    "deps/fix-known-vulns",
+    "--manifest",
+    "requirements.txt",
+    "--python-version",
+    "3.12",
+    "--workdir",
+    "../examples/frc-scheduler-server/pr-fix-known-vulns"
+  ],
+  "harness_version": "0.1.0",
+  "started": "2026-09-12T01:41:41+00:00",
+  "tools": {
+    "git": "git version 2.55.0",
+    "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+    "python": "3.14.7"
+  }
+}

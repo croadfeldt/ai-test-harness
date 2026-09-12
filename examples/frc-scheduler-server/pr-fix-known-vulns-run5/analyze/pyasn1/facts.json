@@ -1,0 +1,198 @@
+{
+  "api_diff_ref": "api-diff.json",
+  "api_diff_summary": {
+    "added": 68,
+    "breaking": 118,
+    "breaking_symbols": [
+      "pyasn1.codec.ber.decoder.AbstractConstructedPayloadDecoder",
+      "pyasn1.codec.ber.decoder.AbstractPayloadDecoder",
+      "pyasn1.codec.ber.decoder.AbstractPayloadDecoder.indefLenValueDecoder",
+      "pyasn1.codec.ber.decoder.AbstractPayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.AbstractSimplePayloadDecoder",
+      "pyasn1.codec.ber.decoder.AbstractSimplePayloadDecoder.substrateCollector",
+      "pyasn1.codec.ber.decoder.AnyPayloadDecoder",
+      "pyasn1.codec.ber.decoder.AnyPayloadDecoder.indefLenValueDecoder",
+      "pyasn1.codec.ber.decoder.AnyPayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.BMPStringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.BitStringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.BitStringPayloadDecoder.indefLenValueDecoder",
+      "pyasn1.codec.ber.decoder.BitStringPayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.BooleanPayloadDecoder",
+      "pyasn1.codec.ber.decoder.ChoicePayloadDecoder",
+      "pyasn1.codec.ber.decoder.ChoicePayloadDecoder.indefLenValueDecoder",
+      "pyasn1.codec.ber.decoder.ChoicePayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase",
+      "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.indefLenValueDecoder",
+      "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.valueDecoder",
+      "pyasn1.codec.ber.decoder.GeneralStringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.GeneralizedTimePayloadDecoder",
+      "pyasn1.codec.ber.decoder.GraphicStringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.IA5StringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.IntegerPayloadDecoder",
+      "pyasn1.codec.ber.decoder.IntegerPayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.NullPayloadDecoder",
+      "pyasn1.codec.ber.decoder.NullPayloadDecoder.valueDecoder",
+      "pyasn1.codec.ber.decoder.NumericStringPayloadDecoder",
+      "pyasn1.codec.ber.decoder.ObjectDescriptorPayloadDecoder"
+    ],
+    "changed": 4,
+    "removed": 114
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": "api.old.json",
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "python-jose",
+      "rsa"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through python-jose, rsa",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "bumped",
+  "depth": 2,
+  "generated": "2026-09-12T02:30:23+00:00",
+  "import_names": [
+    "pyasn1"
+  ],
+  "new_version": "0.4.8",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "0.6.4",
+  "package": "pyasn1",
+  "purl": "pkg:pypi/pyasn1@0.4.8",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 118,
+      "change": "bumped",
+      "changed_symbols": 4,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 3711,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [
+        "data-access",
+        "parsing"
+      ],
+      "vuln_count": 8,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "8 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "118 breaking API change(s) (+15)",
+      "3711 source lines changed (+10)",
+      "sensitive domain: data-access, parsing (+10)",
+      "transitive but reachable or high risk: full generation",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 90
+  },
+  "sensitivity": [
+    "data-access",
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "counts": {
+      "added": 5,
+      "changed": 25,
+      "removed": 1
+    },
+    "files_added": [
+      "pyasn1/compat/binary.py",
+      "pyasn1/compat/calling.py",
+      "pyasn1/compat/dateandtime.py",
+      "pyasn1/compat/octets.py",
+      "pyasn1/compat/string.py"
+    ],
+    "files_changed": [
+      "pyasn1/__init__.py",
+      "pyasn1/codec/ber/decoder.py",
+      "pyasn1/codec/ber/encoder.py",
+      "pyasn1/codec/ber/eoo.py",
+      "pyasn1/codec/cer/decoder.py",
+      "pyasn1/codec/cer/encoder.py",
+      "pyasn1/codec/der/decoder.py",
+      "pyasn1/codec/der/encoder.py",
+      "pyasn1/codec/native/decoder.py",
+      "pyasn1/codec/native/encoder.py",
+      "pyasn1/compat/__init__.py",
+      "pyasn1/compat/integer.py",
+      "pyasn1/debug.py",
+      "pyasn1/error.py",
+      "pyasn1/type/base.py",
+      "pyasn1/type/char.py",
+      "pyasn1/type/constraint.py",
+      "pyasn1/type/error.py",
+      "pyasn1/type/namedtype.py",
+      "pyasn1/type/namedval.py",
+      "pyasn1/type/opentype.py",
+      "pyasn1/type/tag.py",
+      "pyasn1/type/tagmap.py",
+      "pyasn1/type/univ.py",
+      "pyasn1/type/useful.py"
+    ],
+    "files_removed": [
+      "pyasn1/codec/streaming.py"
+    ],
+    "lines_added": 1480,
+    "lines_removed": 2231,
+    "tool": "difflib unified, python files only"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 8,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-30922",
+      "CVE-2026-59884",
+      "CVE-2026-59885",
+      "CVE-2026-59886"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "0.6.3",
+      "0.6.4"
+    ],
+    "ids": [
+      "GHSA-8ppf-4f7h-5ppj",
+      "GHSA-hm4w-wwcw-mr6r",
+      "GHSA-jr27-m4p2-rc6r",
+      "GHSA-m4p7-r5rc-7g4j",
+      "PYSEC-2026-2263",
+      "PYSEC-2026-3455",
+      "PYSEC-2026-3456",
+      "PYSEC-2026-3457"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

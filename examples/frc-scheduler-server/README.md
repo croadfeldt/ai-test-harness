@@ -99,7 +99,7 @@ the base commit's own resolved graph (swapping one package inside the head graph
 could not satisfy), and the model client sends `reasoning_effort: none`, because the first attempt
 spent 6000 tokens per call on hidden reasoning and returned empty content.
 
-## The A/B ladder on python-jose: runs 1 to 3
+## The A/B ladder on python-jose: runs 1 to 5
 
 Same package, same model, same sandbox, same categories. Each run changes the generator only, and each
 directory is kept as produced.
@@ -113,6 +113,46 @@ directory is kept as produced.
 | Unit candidates, package lines covered | 6, 542 | 7, 590 | 8, 560 |
 | CVE files that collect on both versions | 10 of 10 | 10 of 10 | 6 of 6 (a first pass had 0 of 6: imports of names new in 3.4.0) |
 | CVE fix-pinning confirmed | 0 of 10 | 0 of 10 | 0 of 6 |
+
+Run 4 (`-run4/`) changed one variable against run 3: the CVE tests came from the tool-using stage 3
+(`--mode agent`), with search, read, list-API, and a sandbox run against both versions as tools, and a
+budget of 14 calls per issue. Every issue used its whole budget and submitted. 13 tests, 7 unit
+candidates, 0 flaky, 0 of 6 confirmed. What the traces showed, now register entries GF-013 to GF-015:
+
+- On the algorithm-confusion issue the agent spent 12 calls reading source and ran its test once, on
+  the last call. That single run showed the fixed version raising the exact error the fix introduced.
+  The trigger was right; the test expected a different exception class and never made the old version
+  accept the input. One turn short of proof, with no budget left.
+- On both compression-bomb issues the agent ran its test eleven times and got the same internal error
+  on both versions every time, the JWE encryption defect against cryptography 50.0.1 noted above. The
+  repetition was the signal, and nothing acted on it.
+
+Run 5 (`-run5/`) holds everything from run 4 and adds the three corrections: reads are capped until a
+test has run and calls are reserved for a run and a submit; a fixed-version failure carrying text the
+fix diff added is reported to the agent as "fix reached, expect this exception on new"; an identical
+run result is reported as a blocked path and recorded as a candidate defect for triage. Stage 0 ran
+first, all fifteen register checks passing.
+
+**Run 5 result: 2 of 6 CVE tests confirmed as fix-pinning.** 11 tests, 5 unit candidates, 0 flaky,
+640 package lines covered.
+
+| Issue | Agent | Differential verdict |
+|---|---|---|
+| CVE-2024-33664, JWE compression bomb | 4 turns, 3 tool calls: two reads, one run, submit | **Confirmed.** Both tests fail on 3.3.0 ("DID NOT RAISE JWEError") and pass on 3.4.0. |
+| CVE-2024-33663, algorithm confusion | 13 tool calls; the read cap fired once and forced a test run | Passes on both versions: the input does not reach the vulnerable behavior. Not confirmed. |
+| CVE-2024-29370, JWE bomb, second advisory | 13 tool calls, ten runs | Blocked on both versions: the agent went through `jwe.encrypt`, which raises an internal error against cryptography 50.0.1 on both versions. Recorded as a candidate defect for triage. |
+
+The confirmed test is worth reading (`run5/generate/python-jose/tests/test_python_jose_cve_cve_2024_33664.py`).
+The library's own encrypt path is broken in this dependency set, so the agent assembled the compact JWE
+by hand: a `dir`/`A256GCM`/`zip=DEF` header, 300 KB compressed with zlib, encrypted with the
+cryptography library's AES-GCM, base64url-joined. On 3.3.0 `jwe.decrypt` inflates it and returns; on
+3.4.0 the new `JWE_SIZE_LIMIT` check raises. That is the fix, proven, in a test that runs with plain
+`pytest` and imports only the package and its declared dependency.
+
+Two observations for the register. The second bomb advisory is the same fix as the first, and a
+confirmed test for one should count as evidence for the other; that pairing belongs to triage. And the
+agent that solved it used three tool calls, while the one that did not used thirteen: the budget rules
+from GF-013 kept the failures cheap, they did not make the model smarter.
 
 What run 3 shows in the failure messages on the fixed version:
 
@@ -129,9 +169,8 @@ What run 3 shows in the failure messages on the fixed version:
 
 Conclusion for the fixed-script generator with a 27B model: it produces good characterization tests
 for the symbols the application uses, first time, every run. It does not produce a confirmed
-fix-pinning test in three tries, and the harness says so instead of shipping green tests. The next two
-variables, held one at a time: a tool-using stage 3 that iterates on the real error, and a stronger
-model.
+fix-pinning test in three tries, and the harness says so instead of shipping green tests. Run 4 added
+tools; run 5 added the corrections run 4 exposed, and produced the first confirmed fix-pinning tests.
 
 ## What each output file is
 
