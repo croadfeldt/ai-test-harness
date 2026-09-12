@@ -1,4 +1,9 @@
 {
+  "agent_budget": {
+    "max_tool_calls": 14,
+    "max_turns": 18
+  },
+  "agent_traces_ref": "manifest.agent.json",
   "budget": {
     "cve_fix_pinning": 5,
     "cve_targeted": true,
@@ -69,9 +74,66 @@
         "test_base64url_encode_decode_roundtrip",
         "test_ensure_binary_and_timedelta_total_seconds"
       ]
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests that an OpenSSH ECDSA key (PEM header hidden in base64 blob) is rejected as an HMAC secret: old 3.3.0 substring check misses it (tests fail), new 3.4.0 is_pem_format/is_ssh_key reject it (tests pass). Caveat: could not run_tests (budget exhausted); trigger based on the fix diff's new is_pem_format/is_ssh_key checks in the HMAC key constructors.",
+      "sha256": "sha256:5287769bc833e13e6c8b1469d9486bf44f81fdcc1c3174a30674d83a302ccff2",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "tool_calls": 14
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a zip=DEF JWE bomb (100MB decompressed) and assert jwe.decrypt raises JWEError; 3.4.0's JWE_SIZE_LIMIT/decompressobj max_length rejects it, 3.3.0 would decompress unbounded. Caveat: sandbox's cryptography backend lacks RAND_bytes so jwe.encrypt fails in both versions, making the tests fail on both; the trigger logic is correct per the fix diff.",
+      "sha256": "sha256:eb739c8be8693004346ad7876c5fb30bd3426af60b36c903a5649d2132425036",
+      "targets": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "tests": [
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a valid dir/A128GCM JWE with zip=DEF whose plaintext is 1 MiB (compressed to ~1 KB), then assert jwe.decrypt raises JWEError. On 3.3.0 the old code decompresses unbounded and returns the plaintext (test fails); on 3.4.0 the JWE_SIZE_LIMIT check in _decompress raises JWEError (test passes). Caveat: sandbox's cryptography backend had a RAND_bytes issue during verification runs, so the differential outcome was inferred from the fix diff rather than observed.",
+      "sha256": "sha256:e116602df63e69361bb3123d786a276ca586e6ee1a9eb1b3efa2fec44715a431",
+      "targets": [
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ],
+      "tool_calls": 13
     }
   ],
   "generated": "2026-09-12T04:57:17+00:00",
+  "mode": "agent (cve), fixed (other categories)",
   "model": {
     "endpoint": "http://10.0.0.122:1234/v1",
     "id": "qwen/qwen3.8-27b",

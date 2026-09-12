@@ -1,0 +1,508 @@
+{
+  "budget": {
+    "max_tool_calls": 14,
+    "max_turns": 18
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests that an OpenSSH ECDSA key (PEM header hidden in base64 blob) is rejected as an HMAC secret: old 3.3.0 substring check misses it (tests fail), new 3.4.0 is_pem_format/is_ssh_key reject it (tests pass). Caveat: could not run_tests (budget exhausted); trigger based on the fix diff's new is_pem_format/is_ssh_key checks in the HMAC key constructors.",
+      "sha256": "sha256:5287769bc833e13e6c8b1469d9486bf44f81fdcc1c3174a30674d83a302ccff2",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "tool_calls": 14
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a zip=DEF JWE bomb (100MB decompressed) and assert jwe.decrypt raises JWEError; 3.4.0's JWE_SIZE_LIMIT/decompressobj max_length rejects it, 3.3.0 would decompress unbounded. Caveat: sandbox's cryptography backend lacks RAND_bytes so jwe.encrypt fails in both versions, making the tests fail on both; the trigger logic is correct per the fix diff.",
+      "sha256": "sha256:eb739c8be8693004346ad7876c5fb30bd3426af60b36c903a5649d2132425036",
+      "targets": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "tests": [
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a valid dir/A128GCM JWE with zip=DEF whose plaintext is 1 MiB (compressed to ~1 KB), then assert jwe.decrypt raises JWEError. On 3.3.0 the old code decompresses unbounded and returns the plaintext (test fails); on 3.4.0 the JWE_SIZE_LIMIT check in _decompress raises JWEError (test passes). Caveat: sandbox's cryptography backend had a RAND_bytes issue during verification runs, so the differential outcome was inferred from the fix diff rather than observed.",
+      "sha256": "sha256:e116602df63e69361bb3123d786a276ca586e6ee1a9eb1b3efa2fec44715a431",
+      "targets": [
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-12T05:04:34+00:00",
+  "mode": "agent",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0",
+  "traces": {
+    "CVE-2024-29370": [
+      {
+        "args": {
+          "end_line": 130,
+          "path": "jose/jwe.py",
+          "start_line": 40,
+          "version": "new"
+        },
+        "result_chars": 4518,
+        "result_sha256": "sha256:b67b1d1817387252766570688f90ea3cc50d0a96b6e4927fac817114d65c3922",
+        "tool": "read_source",
+        "turn": 1
+      },
+      {
+        "args": {
+          "end_line": 200,
+          "path": "jose/jwe.py",
+          "start_line": 130,
+          "version": "new"
+        },
+        "result_chars": 3507,
+        "result_sha256": "sha256:50396dcbba664c82405b949eb422624a246f88cb6af94fe152dc4bdac9157afa",
+        "tool": "read_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 3
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 4
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 5
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 6
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 9
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 10
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 11
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 12
+      },
+      {
+        "args": {
+          "code": "import zlib\n\nimport pytest\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\nKEY = \"asecret128bitkey\"\n\n\ndef _b6"
+        },
+        "result_chars": 451,
+        "result_sha256": "sha256:eee921a4fc5477b928b86a3a63ab0e2e216952b21f8dff5f6496469ad69a54bc",
+        "tool": "run_tests",
+        "turn": 13
+      },
+      {
+        "ok": true,
+        "problems": [],
+        "tool": "submit",
+        "turn": 14
+      }
+    ],
+    "CVE-2024-33663": [
+      {
+        "args": {
+          "pattern": "class ECKey|def load|def verify|def sign",
+          "version": "old"
+        },
+        "result_chars": 994,
+        "result_sha256": "sha256:fc8846372a873faeee1997e093ee802b1b91b6ab946bd6ead9747db05a104891",
+        "tool": "search_source",
+        "turn": 1
+      },
+      {
+        "args": {
+          "pattern": "class ECKey|def load|def verify|def sign",
+          "version": "new"
+        },
+        "result_chars": 994,
+        "result_sha256": "sha256:1885e96d17f8a547fa4bfc5ab8c913bab23b735cd5500d1d770d677853ef8e35",
+        "tool": "search_source",
+        "turn": 1
+      },
+      {
+        "args": {
+          "end_line": 340,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 280,
+          "version": "old"
+        },
+        "result_chars": 2696,
+        "result_sha256": "sha256:0006b71974f18d27f9c0e7d3138dbc29263e687519e8e6ad9123684a99229eb4",
+        "tool": "read_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "end_line": 345,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 280,
+          "version": "new"
+        },
+        "result_chars": 3021,
+        "result_sha256": "sha256:3716618c2878d4987b04e267bac8986d9ab1385fa0b559c115fda7454d32e8a1",
+        "tool": "read_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "pattern": "class ECKey",
+          "version": "new"
+        },
+        "result_chars": 10,
+        "result_sha256": "sha256:0ed6af34915f9a8dbe3795dbbfe13a095c9b3e74e5afa24944ec657942066425",
+        "tool": "search_source",
+        "turn": 3
+      },
+      {
+        "args": {
+          "pattern": "ECDSA|ecdsa",
+          "version": "new"
+        },
+        "result_chars": 2329,
+        "result_sha256": "sha256:68fd879f83c9e0123227cbf51abe0e91a4c086d301123d15e0c3586357531f37",
+        "tool": "search_source",
+        "turn": 4
+      },
+      {
+        "args": {
+          "end_line": 180,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 100,
+          "version": "new"
+        },
+        "result_chars": 3437,
+        "result_sha256": "sha256:1464ea1ccc4bff030d3b23f1a8c735988d3912cc78f3c310c9b04d3f90247195",
+        "tool": "read_source",
+        "turn": 5
+      },
+      {
+        "args": {
+          "end_line": 105,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 60,
+          "version": "new"
+        },
+        "result_chars": 1774,
+        "result_sha256": "sha256:a73649602453129214dfea25998fc1b5feaf5a940705e24f75771c699370cb2c",
+        "tool": "read_source",
+        "turn": 6
+      },
+      {
+        "args": {
+          "end_line": 100,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 50,
+          "version": "old"
+        },
+        "result_chars": 2026,
+        "result_sha256": "sha256:833358437f5b8c9595f0138935738ca38f334450030051350af2bdfe860484d7",
+        "tool": "read_source",
+        "turn": 7
+      },
+      {
+        "args": {
+          "end_line": 615,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 555,
+          "version": "new"
+        },
+        "result_chars": 1944,
+        "result_sha256": "sha256:617c0bbec4934c8001184bd55c7b4fa683836b35589313253ba08d672a5fecf4",
+        "tool": "read_source",
+        "turn": 8
+      },
+      {
+        "args": {
+          "end_line": 260,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 180,
+          "version": "new"
+        },
+        "result_chars": 3305,
+        "result_sha256": "sha256:9637fb1540004f50c83d84648d787edcb9c81d9c3590113f72f5a75339f77343",
+        "tool": "read_source",
+        "turn": 9
+      },
+      {
+        "args": {
+          "end_line": 282,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 260,
+          "version": "new"
+        },
+        "result_chars": 920,
+        "result_sha256": "sha256:c3c1f60ea4b663df765428919d8e237baa183cead4b704bfd33fec7b03ac3a31",
+        "tool": "read_source",
+        "turn": 10
+      },
+      {
+        "args": {
+          "end_line": 400,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 345,
+          "version": "new"
+        },
+        "result_chars": 2573,
+        "result_sha256": "sha256:e8046867ca83cf478143b2dfadf12eeb4deab5efba47d20c27f57c68a4b830b5",
+        "tool": "read_source",
+        "turn": 11
+      },
+      {
+        "args": {
+          "end_line": 445,
+          "path": "jose/backends/cryptography_backend.py",
+          "start_line": 400,
+          "version": "new"
+        },
+        "result_chars": 1765,
+        "result_sha256": "sha256:df6445ceecfc115a70f323a3d5431548aa0519da0fe65a97f8c2a29ad8707188",
+        "tool": "read_source",
+        "turn": 12
+      },
+      {
+        "ok": true,
+        "problems": [],
+        "tool": "submit",
+        "turn": 14
+      }
+    ],
+    "CVE-2024-33664": [
+      {
+        "args": {
+          "end_line": 140,
+          "path": "jose/jwe.py",
+          "start_line": 40,
+          "version": "new"
+        },
+        "result_chars": 4883,
+        "result_sha256": "sha256:fccb62c9310395b957c68950cadd058a8533ce5429a0714927b0d7d509c0ac8a",
+        "tool": "read_source",
+        "turn": 1
+      },
+      {
+        "args": {
+          "end_line": 200,
+          "path": "jose/jwe.py",
+          "start_line": 140,
+          "version": "new"
+        },
+        "result_chars": 3135,
+        "result_sha256": "sha256:f39d5c4822d5953253b4594d1d377025762ac6d278a6dd49c63468fd453db0dd",
+        "tool": "read_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 3
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 4
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 5
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 6
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 9
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 10
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 11
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 12
+      },
+      {
+        "args": {
+          "code": "import base64\nimport json\nimport zlib\n\nimport pytest\n\nfrom jose import jwe\nfrom jose.exceptions import JWEError\n\n\ndef _b"
+        },
+        "result_chars": 471,
+        "result_sha256": "sha256:caf5f7e9b0682aa437fe443cd5602122e1710bb13c1ffea28b6c351df1d9573e",
+        "tool": "run_tests",
+        "turn": 13
+      },
+      {
+        "ok": true,
+        "problems": [],
+        "tool": "submit",
+        "turn": 14
+      }
+    ]
+  }
+}

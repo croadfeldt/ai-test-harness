@@ -1,0 +1,76 @@
+{
+  "checks": [
+    {
+      "id": "GF-001",
+      "status": "pass",
+      "title": "empty content after hidden reasoning is a failed attempt, and reasoning-off is sent"
+    },
+    {
+      "id": "GF-002",
+      "status": "pass",
+      "title": "repetition loop is detected and normal code is not"
+    },
+    {
+      "id": "GF-003",
+      "status": "pass",
+      "title": "catch-all and assertion-free tests are rejected as weak"
+    },
+    {
+      "id": "GF-004",
+      "status": "pass",
+      "title": "the package's declared dependencies may be imported; unrelated modules may not"
+    },
+    {
+      "id": "GF-005",
+      "status": "pass",
+      "title": "the fix diff reaches the CVE prompt when a patch exists"
+    },
+    {
+      "id": "GF-006",
+      "status": "pass",
+      "title": "constants are in the API surface and version-only names reach the prompt"
+    },
+    {
+      "id": "GF-007",
+      "status": "pass",
+      "title": "a crash on the fixed version is separated from an assertion failure"
+    },
+    {
+      "id": "GF-008",
+      "status": "pass",
+      "title": "the sandbox keeps running past a file that fails to collect"
+    },
+    {
+      "id": "GF-009",
+      "status": "pass",
+      "title": "advisory ids sharing a CVE collapse to one issue"
+    },
+    {
+      "id": "GF-010",
+      "status": "pass",
+      "title": "the differential environment is the base commit's own graph"
+    },
+    {
+      "id": "GF-011",
+      "status": "pass",
+      "title": "graph resolution runs inside the target interpreter's image when it can"
+    },
+    {
+      "id": "GF-012",
+      "status": "pass",
+      "title": "every old/new outcome maps to a fixed, honest verdict"
+    }
+  ],
+  "failed": [],
+  "generated": "2026-09-12T05:53:23+00:00",
+  "model": {
+    "reason": "probes disabled",
+    "status": "skipped"
+  },
+  "passed": true,
+  "sandbox": {
+    "reason": "probes disabled",
+    "status": "skipped"
+  },
+  "stage": 0
+}
