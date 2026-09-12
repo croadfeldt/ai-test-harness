@@ -1,11 +1,17 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.7
-**Date:** 2026-09-11
+**Status:** Draft v0.8
+**Date:** 2026-09-12
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.8:** added stage 0, self-verification, to the pipeline (section 5) and the generation
+failure register (section 17): every way the generator has been observed to fail is recorded with the
+issue, why it matters, the cause, the automatic correction, and the self-check that proves the correction
+is in place on every run. The pipeline fails closed if a self-check fails. Stage 7 feeds new failure modes
+into the register. Two metrics added to section 10. Appendices renumbered.
 
 **Changes in v0.7:** incorporated the orchestration and capability research
 ([05-capability-map.md](05-capability-map.md)): the test-evidence attestation now uses the vetted in-toto
@@ -129,6 +135,11 @@ Each ecosystem needs a small adapter (see section 7). The core pipeline is ecosy
   turn an unverified input into a verified-looking output. And the harness is a link in the chain itself:
   its code, prompts, container images, and models are built and attested the same way as anything it
   tests.
+- **The harness tests itself before it tests anything else.** Every failure mode the generator has ever
+  shown is a register entry with a detector, an automatic correction, and a self-check that proves the
+  detector and correction still work. The self-checks run as stage 0 of every pipeline run and fail
+  closed. A failure mode without a self-check is an open defect against the harness, not a known
+  limitation. Section 17.
 - **The harness retires tests as well as writing them.** Code changes make tests irrelevant: the symbol
   they exercised is gone, the behavior they asserted was intentionally changed, or another test now
   covers the same paths. The harness identifies those tests, explains why, and proposes their retirement.
@@ -218,6 +229,25 @@ below do most of the individual stages.
        ↑                                                                             │
        └──────────────────────── 7 Feedback / learning ──────────────────────────────┘
 ```
+
+### Stage 0: Self-verification
+
+Before the harness touches the incoming change, it proves it is fit to run:
+
+- Every entry in the generation failure register (section 17) has a self-check, and every self-check
+  passes. A self-check exercises the detector and the correction on a fixture that reproduces the
+  original failure, in the same process and configuration the run will use.
+- The sandbox's isolation claims hold: no network, no inherited environment, read-only root, offline
+  install from the wheelhouse. Proven by running a probe file inside the real sandbox.
+- The model endpoint answers, reports its model id, and honors the reasoning and sampling settings the
+  run will record in its provenance.
+- The adapter's tools are present at the versions the run will record.
+
+The result is a `selfcheck` record listing every check, its register id, and pass or fail. It is
+written to the work directory, referenced by every manifest the run produces, and attested with the
+rest of the run's evidence. Any failure stops the pipeline before stage 1. A run whose self-check
+record is missing or failing produces no evidence anyone should trust, and Conforma policy treats it
+that way.
 
 ### Stage 1: Intake and inventory
 
@@ -377,6 +407,10 @@ package and version range.
 - Reviewer edits and rejections are captured as labeled examples for prompt and eval improvement.
 - Tests that later catch a real regression are tagged. This is the ultimate quality signal.
 - Per-ecosystem metrics (section 10) drive which adapters and prompts get attention.
+- **Failure register loop.** When a run shows the generator failing in a way the register does not
+  already name, the failure becomes a new register entry before any other fix: issue, reason, cause,
+  detector, correction, self-check. The self-check is written first, fails against the current code,
+  and passes once the correction lands. Section 17.
 
 ## 6. Dependency and transitive strategy
 
@@ -650,6 +684,8 @@ narrow keeps review tractable and keeps the harness out of the product's design 
 | Known vulnerabilities with a CVE-targeted test | 100% of vulnerabilities reported in the graph | No advisory goes without evidence |
 | Draft VEX statements confirmed by Product Security | > 80% confirmed without rework | The exposure evidence is trustworthy |
 | Negative test share of accepted tests | Tracked, expected 20 to 30% | Failure paths are tested, not only success paths |
+| Stage 0 self-verification | 100% of runs pass, fail closed | The harness proves its own gates before producing evidence |
+| Register entries without a self-check | 0 | Every known failure mode is verified on every run, not remembered |
 
 Gates: a PR that bumps a dependency cannot merge while a `suspicious` or `security` finding is open. Other
 findings are advisory.
@@ -880,7 +916,67 @@ malice, and nothing does the indirect analysis. This is the most valuable and th
 on this list, which is why it is documented now and built later, on top of a harness whose own chain of
 trust is already established.
 
-## 17. Appendix A: Example walkthrough
+## 17. Generation failure register: detect, correct, verify
+
+The generator will fail in ways nobody predicted. That is not the problem. The problem would be failing
+the same way twice, or shipping a test that looks green because a failure went unnoticed. This section
+is the contract that turns every observed failure into a permanent, verified control.
+
+### 17.1 The contract
+
+Every entry in the register has six parts, and an entry is not complete until all six exist:
+
+| Part | What it is |
+|---|---|
+| **Issue** | What the harness produced or failed to produce, observable in a run's artifacts |
+| **Reason** | Why it matters: what a reviewer or a downstream consumer would have been misled into |
+| **Cause** | The mechanism, traced to a file and a decision, not a guess |
+| **Detector** | The check, in code, that recognizes the failure when it happens again |
+| **Correction** | What the harness does automatically when the detector fires: a gate, a repair message with evidence, a changed input, or an honest escalation |
+| **Self-check** | A fixture that reproduces the failure and proves the detector fires and the correction holds; runs in stage 0 of every pipeline run |
+
+Two rules follow. **Fail closed:** a run whose self-checks do not all pass produces no evidence.
+**Register first:** when a new failure mode appears, its entry and self-check are written before the
+correction, so the self-check fails on the old code and passes on the new. That is how the harness
+applies its own test-first discipline to itself.
+
+Where a failure cannot be corrected automatically, the correction is an honest verdict in the run's
+output and an escalation to a person, never a quieter failure. "No valid trigger produced for this
+advisory" is a correct result. A green test that proves nothing is not.
+
+### 17.2 The register
+
+Every entry below was observed in a real run on `examples/frc-scheduler-server` and is reproduced by a
+self-check in `harness/src/harness/selfcheck.py`. Ids are stable; entries are never deleted.
+
+| Id | Issue | Reason | Cause | Detector | Correction | Self-check |
+|---|---|---|---|---|---|---|
+| GF-001 | Model returned empty content after spending its whole token budget | 13 minutes per call for nothing, and a repair loop that resends the same prompt | The serving layer routed every token to hidden reasoning; the prompt-level "no think" switch was ignored | Response has zero characters, or reasoning tokens equal completion tokens | Send the serving layer's reasoning-off parameter, record it in the call, and treat an empty response as a failed attempt, not a candidate | Client config carries the parameter; an empty-response record is classified as a failed attempt |
+| GF-002 | Model repeated one fragment until the token cap | A hand-typed key or blob degenerates into a loop; every attempt wastes the full budget | Long literal data invited a repetition loop that non-streaming calls cannot interrupt | The streamed tail recurs four times in the last 3000 characters, or the call ends on the length cap | Abort the stream, apply a frequency penalty, forbid inline blobs in the prompt, return "shorter, build data by expression" as the repair message | Loop detector fires on a synthetic loop and stays silent on normal code |
+| GF-003 | Tests with catch-all assertions passed on both versions | A test that accepts any error cannot tell vulnerable from fixed, and looks green | `pytest.raises(Exception)` and assertion-free tests satisfied the compile and baseline gates | AST lint: `raises` naming `Exception` or `BaseException`, or a test body with neither assert nor raises | Reject before the sandbox, send the test names back with the reason | Lint flags the weak forms and passes a specific exception |
+| GF-004 | Tests fabricated key material and failed on both versions | The library rejected the key before the vulnerable path; the test proved nothing | The import allowlist blocked the package's own dependencies, so the model could not build real keys | Forbidden-import gate lists the module | Allow imports of the package's declared dependencies, and say so in the prompt | Allowlist admits a declared dependency and still rejects an unrelated module |
+| GF-005 | Test targeted the wrong function and passed on both versions | The model guessed the trigger from a two-line advisory summary | The fix diff was not among the stage 2 facts | Differential verdict "passes on both versions" on a CVE test | Attach the unified diff between versions as a stage 2 fact; the CVE prompt carries it with "find the hunk that added the check" | Prompt builder includes the diff block when the patch exists |
+| GF-006 | CVE files could not be collected on the vulnerable version | The differential had nothing to compare, and the run reported "not applicable" as if it were a result | Tests imported names that exist only in the fixed version; the API surface omitted module-level constants so the new name was invisible | Collection on the old version fails; version-only symbol list | Surface constants; give the prompt the symbols present in one version only; require collection on both versions before a CVE file is kept | Constant appears in the API surface; the both-versions gate rejects a file that imports a new-only name |
+| GF-007 | CVE tests crashed on the fixed version before their assertion | A crash is a test bug, not evidence about the package; left unrepaired it consumes the differential | Wrong argument or unsupported option; the fixed-script loop did not repair CVE tests on head failures | Head failure whose message is not an assertion or a missing raise | Send the traceback back once as a repair message | Classifier separates an assertion failure from a crash |
+| GF-008 | One file that failed to import stopped the whole test run | Every other test in the run was lost; the run reported one error | pytest stops on a collection error by default | Empty results with a collection error in the log | Run pytest with continue-on-collection-errors; keep each issue in its own file | Sandbox run script carries the flag; a bad file next to a good one still yields the good one's results |
+| GF-009 | Five advisory ids produced five calls and five verdicts for three issues | Inflated counts, wasted budget, and a packet that overstates exposure | OSV, GHSA and PYSEC carry the same CVE under different ids | Advisories sharing a CVE alias | Group by CVE alias before planning calls; report per issue | Grouping collapses aliases and keeps distinct issues apart |
+| GF-010 | The differential environment could not be installed | No old-version run, so no differential | The "old" environment was the head graph with one package swapped, a set that never existed and did not resolve | Sandbox install fails on the old environment | The old environment is the base commit's own resolved graph | Execute plans the old run from the base graph, not a swap |
+| GF-011 | The dependency graph lacked a package the sandbox needed | Sandbox install failed on the first real run | pip on the host evaluated environment markers for the host interpreter, not the target | Resolver record does not name the target image | Resolve and download inside the target interpreter's container, the same image the sandbox uses | Resolver record names the container image |
+| GF-012 | No valid trigger for an advisory after every correction above | The fix cannot be proven with this generator and model | The trigger needs construction the model did not manage (assembling a compressed JWE by hand) | Differential verdict remains "fails on both" or "passes on both" after the budget | Honest verdict in the results, escalation in the packet, and the next variable in the ladder: a tool-using generator, then a stronger model. Never a green test. | Verdict text for each old/new combination is fixed and tested |
+
+### 17.3 How the register grows
+
+1. A run produces a failure the register does not name. The evidence is in the run's artifacts; the
+   run is kept as it is.
+2. The entry is written with all six parts. The self-check is committed first and fails.
+3. The correction lands. The self-check passes. The next run's stage 0 record shows the new id.
+4. The example that surfaced the failure is rerun with only that correction changed, and the before
+   and after are kept side by side. Runs 1 through 4 on python-jose are the first instances.
+
+The register is reviewed with every prompt or model change (workflow 12), because a new model fails in
+new ways, and the quarterly report (workflow 15) lists entries added in the quarter.
+
+## 18. Appendix A: Example walkthrough
 
 **Event:** Renovate opens a PR bumping `github.com/example/yamlparse` from v1.4.2 to v1.5.0 in service `foo`.
 
@@ -922,7 +1018,7 @@ trust is already established.
    confirms the two VEX statements, which flow into Trustify. Next bump of `yamlparse` starts from 5
    standard tests, including the fix-pinning test, plus the v1.5.x overlay.
 
-## 18. Appendix B: Prompt structure (sketch)
+## 19. Appendix B: Prompt structure (sketch)
 
 Every generation prompt has the same shape so it can be evaluated and versioned:
 

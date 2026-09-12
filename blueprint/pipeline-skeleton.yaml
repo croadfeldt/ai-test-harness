@@ -15,7 +15,11 @@ spec:
     - name: overlays
     - name: results
   tasks:
+    - name: selfcheck
+      taskRef: { name: harness-selfcheck }       # stage 0: failure-register self-checks, sandbox probe, model probe; fails closed
+      workspaces: [{ name: results, workspace: results }]
     - name: intake
+      runAfter: [selfcheck]
       taskRef: { name: harness-intake }          # Hermeto graph + SBOM diff + pre-flight gates -> work list
       params: [{ name: snapshot, value: $(params.SNAPSHOT) }, { name: previous-sbom, value: $(params.PREVIOUS_SBOM_REF) }]
     - name: analyze

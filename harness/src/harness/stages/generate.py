@@ -220,7 +220,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
                 "generated": now_iso(), "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model,
                                                   "temperature": model.cfg.temperature},
-                "budget": budget, "files": [], "discarded": []}
+                "budget": budget, "selfcheck_ref": "../../selfcheck/selfcheck.json", "files": [], "discarded": []}
     plan = []   # (category, count, advisories-for-this-call, file suffix)
     for cat in (categories or ["unit", "functional", "negative", "cve"]):
         if cat == "cve":
@@ -338,6 +338,8 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
 
 def generate(*, workdir: Path, select: list[str] | None = None, categories: list[str] | None = None,
              python_version: str = "3.12", mode: str = "fixed") -> list[dict]:
+    from .. import selfcheck
+    selfcheck.require(workdir, python_version, probes=True)   # stage 0, fail closed: register checks, sandbox probe, model probe
     summary = read_json(workdir / "analyze" / "summary.json")
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
     reqs_new = [f"{p['name']}=={p['version']}" for p in graph_new.values()]

@@ -1,0 +1,84 @@
+{
+  "budget": {
+    "cve_fix_pinning": 5,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 561,
+        "status": {
+          "test_base64url_encode_decode_roundtrip": "pass",
+          "test_ensure_binary_and_timedelta_total_seconds": "pass",
+          "test_jwe_encrypt_decrypt_roundtrip": "fail",
+          "test_jws_sign_verify_roundtrip": "fail",
+          "test_jws_verify_wrong_key_raises_jwt_error": "fail",
+          "test_jwt_decode_expired_token_raises_expired_signature_error": "pass",
+          "test_jwt_decode_wrong_key_raises_jwt_error": "pass",
+          "test_jwt_encode_decode_roundtrip_hs256": "pass",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification": "pass",
+          "test_jwt_get_unverified_header_returns_alg": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_encrypt_decrypt_roundtrip"
+        },
+        {
+          "message": "AssertionError: assert b'some payload data' is True\n +  where b'some payload data' = <function verify at 0x7f1160f52840>('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.c29tZSBwYXlsb2FkIGRhdGE.GXv85HtmOwQRZI4bL_JDgSAal4GwU-rG5fxCQM2ptb0', b'jws-secret-key', algorithms=['HS256'])\n +    where <function verify a",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_sign_verify_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWSError: Signature verification failed.",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_verify_wrong_key_raises_jwt_error"
+        }
+      ],
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:151c654fbdd4a73f6bdc4c6f85c962183f43f4d37a7cf9697b51d142e4bc3c46",
+      "response_sha256": "sha256:96848f6e89378fdc8edfca3f5f24add59f5ab61f34cb83f6172ae6e2a9ae0b7c",
+      "sha256": "sha256:cac1284495eac407e5d651b811ee03c1bc7945f700229c390a6abc15db97e424",
+      "targets": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "tests": [
+        "test_jwt_encode_decode_roundtrip_hs256",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_decode_expired_token_raises_expired_signature_error",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_jwt_get_unverified_claims_returns_claims_without_verification",
+        "test_base64url_encode_decode_roundtrip",
+        "test_ensure_binary_and_timedelta_total_seconds"
+      ]
+    }
+  ],
+  "generated": "2026-09-12T04:57:17+00:00",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0"
+}

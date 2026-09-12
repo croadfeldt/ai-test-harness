@@ -1,0 +1,23 @@
+{
+  "call": 2,
+  "endpoint": "http://10.0.0.122:1234/v1",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 111.6,
+  "max_tokens": 4000,
+  "model": "qwen/qwen3.8-27b",
+  "prompt_sha256": "sha256:c566e50e55ca1e2542de843381595c11dbbbe58aa297e92acd6fd546587c7d5a",
+  "reasoning_effort": "none",
+  "response_chars": 3224,
+  "response_sha256": "sha256:36ac4c1b5797bfeb9f47fbbfb6dc0f712797d9494fe14a10aedb1d1bf2acb861",
+  "tag": "python-jose-unit-a1",
+  "temperature": 0.2,
+  "usage": {
+    "completion_tokens": 891,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2943,
+    "total_tokens": 3834
+  }
+}

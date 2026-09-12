@@ -83,6 +83,7 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     cov_new = runs["new"]["coverage"]
     results = {
         "run_id": read_json(workdir / "intake" / "worklist.json")["run_id"],
+        "selfcheck_ref": "../../selfcheck/selfcheck.json",
         "artifact_digest": None, "generated": now_iso(),
         "target": {"class": "podman", "provisioner": "local podman", "identity": runs["new"]["sandbox"]["image"],
                    "isolation": runs["new"]["sandbox"]["isolation"]},
@@ -110,6 +111,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
 
 
 def execute(*, workdir: Path, select: list[str] | None = None, python_version: str = "3.12") -> list[dict]:
+    from .. import selfcheck
+    selfcheck.require(workdir, python_version, probes=False)   # register checks again; the sandbox was probed before generation
     gen_summary = read_json(workdir / "generate" / "summary.json")
     outs = []
     for p in gen_summary["packages"]:

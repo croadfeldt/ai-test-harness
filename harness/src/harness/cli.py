@@ -34,6 +34,14 @@ def cmd_analyze(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_selfcheck(a: argparse.Namespace) -> int:
+    from . import selfcheck
+    rec = selfcheck.run(a.workdir, a.python_version, probes=not a.no_probes)
+    if a.workdir:
+        print(a.workdir / "selfcheck" / "selfcheck.json")
+    return 0 if rec["passed"] else 3
+
+
 def cmd_generate(a: argparse.Namespace) -> int:
     from .stages.generate import generate
     generate(workdir=a.workdir, select=a.select, categories=a.categories, python_version=a.python_version, mode=a.mode)
@@ -52,6 +60,12 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="harness", description="AI Test Harness: opinionated implementation of the blueprint")
     p.add_argument("--version", action="version", version=f"harness {__version__}")
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    s = sub.add_parser("selfcheck", help="stage 0: run every failure-register self-check plus the sandbox and model probes")
+    s.add_argument("--workdir", type=Path, default=None)
+    s.add_argument("--python-version", default="3.12")
+    s.add_argument("--no-probes", action="store_true", help="register checks only; skip the sandbox and model probes")
+    s.set_defaults(func=cmd_selfcheck)
 
     s = sub.add_parser("intake", help="stage 1: resolve graphs at base and head, diff, pre-flight, work list")
     s.add_argument("--repo", type=Path, required=True, help="target repository (a git checkout)")

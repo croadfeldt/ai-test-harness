@@ -72,8 +72,8 @@ renders with Mermaid support out of the box; Marp works with its Mermaid plugin.
 ## The one-paragraph version
 
 Every incoming change, whether a pull request from our own team or a version bump of a package five
-layers deep, goes through the same seven stages: intake, analysis, generation, execution, triage, review,
-and feedback. AI agents write the tests, in the framework and layout each repository already uses so they run with the
+layers deep, goes through the same stages: the harness verifies itself, then intake, analysis, generation,
+execution, triage, review, and feedback. AI agents write the tests, in the framework and layout each repository already uses so they run with the
 team's existing commands and CI. Sandboxes run them with no network and no secrets. Mutation
 testing proves the tests are strong. A differential run against the previous version shows what changed.
 Everything is classified, attached to a signed provenance record, and handed to a reviewer. Tests that

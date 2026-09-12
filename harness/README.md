@@ -28,6 +28,9 @@ Nothing in stages 1 and 2 calls a model. Facts come from tools; the model gets t
 python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/pytest
 
+# Stage 0 on its own (every later stage also runs it first and stops if it fails):
+.venv/bin/harness selfcheck --workdir out/run1
+
 # Stage 1, react to a commit range on a target repo (the product team's PR):
 .venv/bin/harness intake --repo ../../frc-scheduler-server --base main --head HEAD \
     --manifest requirements.txt --python-version 3.12 --workdir out/run1
@@ -49,6 +52,7 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 
 ```
 run.json                       harness version, tool versions, exact command
+selfcheck/selfcheck.json       stage 0: every register check by id, pass/fail; sandbox and model probes
 intake/
   graph.old.json graph.new.json   full transitive graph at base and head, depth and parents per package
   sbom.new.cdx.json             CycloneDX SBOM of the head graph
@@ -77,6 +81,7 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 
 | Stage | State |
 |---|---|
+| 0 self-verification | implemented: one check per failure-register entry (blueprint section 17), sandbox probe, model probe; runs before intake, generate, and execute; fails closed; record referenced from every manifest |
 | 1 intake | implemented, Python |
 | 2 analyze | implemented, Python |
 | 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |

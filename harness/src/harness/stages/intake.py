@@ -60,6 +60,8 @@ def _cyclonedx(graph: DependencyGraph, run_id: str) -> dict:
 
 def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: Path,
            ecosystem: str = "python", python_version: str | None = None) -> WorkList:
+    from .. import selfcheck
+    selfcheck.require(workdir, python_version or "3.12", probes=False)   # register checks; probes run before generation
     adapter = adapters.get(ecosystem)
     out = workdir / "intake"
     out.mkdir(parents=True, exist_ok=True)
