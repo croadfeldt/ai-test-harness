@@ -1,0 +1,131 @@
+"""Stage 4: execution and validation. Blueprint section 5 stage 4.
+
+The gauntlet, in order: compile, run, flake re-run, coverage, differential (old versus new). Mutation
+and the relevance check on existing tests arrive with the triage slice. Output is TestResults in the
+schema from blueprint/adapter-interface.md, one per package, plus the raw junit, coverage, and logs
+for every sandbox run.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+
+from .. import sandbox
+from ..util import log, now_iso, read_json, sha256_file, write_json
+
+
+def _reqs(workdir: Path, tag: str) -> list[str]:
+    g = read_json(workdir / "intake" / f"graph.{tag}.json")["packages"]
+    return [f"{p['name']}=={p['version']}" for p in g.values()]
+
+
+def _pin(reqs: list[str], name: str, version: str | None) -> list[str]:
+    """The head graph with one package swapped to its old version: the differential environment."""
+    if not version:
+        return reqs
+    return [f"{name}=={version}" if r.split("==")[0] == name else r for r in reqs]
+
+
+def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
+    gen = read_json(workdir / "generate" / pkg / "manifest.json")
+    tests_dir = workdir / "generate" / pkg / "tests"
+    out = workdir / "execute" / pkg
+    out.mkdir(parents=True, exist_ok=True)
+    facts = read_json(workdir / "analyze" / pkg / "facts.json")
+    roots = [r.split("/")[0] for r in facts["import_names"]]
+    reqs_new = _reqs(workdir, "new")
+    runs = {}
+    plans = [("new", reqs_new), ("new-rerun", reqs_new)]
+    if gen["old_version"] and gen["old_version"] != gen["new_version"]:
+        # Differential: same head graph, only this package at its previous version.
+        reqs_old = _pin(reqs_new, pkg, gen["old_version"])
+        plans.append(("old", reqs_old))
+    for label, reqs in plans:
+        wh_tag = "old" if label == "old" else "new"
+        wheelhouse = sandbox.prefetch_wheelhouse(reqs, python_version, workdir / "cache" / "wheelhouse" / wh_tag)
+        log(f"    sandbox run {label}")
+        s = sandbox.run_tests(wheelhouse=wheelhouse, requirements=reqs, tests_dir=tests_dir, out_dir=out / label,
+                              cover=roots, label=f"{pkg}-{label}")
+        runs[label] = {"sandbox": s, "results": sandbox.parse_junit(Path(s["junit"])) if s["junit"] else {},
+                       "coverage": sandbox.coverage_for(Path(s["coverage"]), roots) if s["coverage"] else {"available": False}}
+    by_file = {}
+    for f in gen["files"]:
+        for t in f["tests"]:
+            by_file[t] = f
+    tests = []
+    for tid, r_new in runs["new"]["results"].items():
+        name = tid.split("::")[-1]
+        f = by_file.get(name, {})
+        rerun = runs["new-rerun"]["results"].get(tid, {}).get("status", "na")
+        old = runs["old"]["results"].get(tid, {}).get("status", "na") if "old" in runs else "na"
+        status = r_new["status"]
+        if rerun != "na" and rerun != status:
+            status = "flaky"
+        tests.append({"id": tid, "name": name, "category": f.get("category", "unknown"), "file": f.get("file"),
+                      "status": status, "duration_ms": r_new["duration_ms"], "message": r_new["message"][:500],
+                      "versions": {"old": old, "new": r_new["status"]},
+                      "expected_differential": f.get("expected_differential"),
+                      "symbols_exercised": f.get("targets", [])[:10]})
+    # Verdict per test from the differential, per blueprint stage 3 and 4.
+    for t in tests:
+        o, n = t["versions"]["old"], t["versions"]["new"]
+        if t["status"] == "flaky":
+            t["verdict"] = "flaky: discard"
+        elif t["category"] == "cve":
+            if o == "fail" and n == "pass":
+                t["verdict"] = "fix-pinning confirmed: fails on vulnerable, passes on fixed"
+            elif o == "pass" and n == "pass":
+                t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
+            elif n in ("fail", "error"):
+                t["verdict"] = "fails on the fixed version: test bug or the advisory is misread; back to generation"
+            else:
+                t["verdict"] = f"inconclusive (old={o}, new={n})"
+        else:
+            if n == "pass" and o in ("pass", "na"):
+                t["verdict"] = "candidate: passes on head" + (", same on old" if o == "pass" else "")
+            elif n == "pass" and o in ("fail", "error"):
+                t["verdict"] = "behavior changed between versions: passes on new, fails on old; reviewer note"
+            else:
+                t["verdict"] = f"fails on head: test bug or defect (new={n})"
+    cov_new = runs["new"]["coverage"]
+    results = {
+        "run_id": read_json(workdir / "intake" / "worklist.json")["run_id"],
+        "artifact_digest": None, "generated": now_iso(),
+        "target": {"class": "podman", "provisioner": "local podman", "identity": runs["new"]["sandbox"]["image"],
+                   "isolation": runs["new"]["sandbox"]["isolation"]},
+        "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
+        "tests": tests,
+        "counts": {"total": len(tests),
+                   "pass_on_new": sum(1 for t in tests if t["versions"]["new"] == "pass"),
+                   "flaky": sum(1 for t in tests if t["status"] == "flaky"),
+                   "fix_pinning_confirmed": sum(1 for t in tests if t["verdict"].startswith("fix-pinning confirmed")),
+                   "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed"))},
+        "coverage_ref": "new/coverage.json" if cov_new.get("available") else None,
+        "coverage_summary": {"covered_lines_in_target": cov_new.get("covered_lines_in_target", 0),
+                             "files": {k: {"covered": v["covered_lines"], "statements": v["num_statements"]}
+                                       for k, v in cov_new.get("files", {}).items()}},
+        "mutation_ref": None, "fuzz_ref": None,
+        "runs": {k: {"returncode": v["sandbox"]["returncode"], "duration_s": v["sandbox"]["duration_s"],
+                     "timed_out": v["sandbox"]["timed_out"]} for k, v in runs.items()},
+        "test_files": [{"file": f["file"], "sha256": f["sha256"]} for f in gen["files"]],
+    }
+    write_json(out / "results.json", results)
+    c = results["counts"]
+    log(f"    {pkg}: {c['total']} tests, {c['pass_on_new']} pass on head, {c['flaky']} flaky, "
+        f"{c['fix_pinning_confirmed']} fix-pinning confirmed, {c['behavior_changed']} behavior changes")
+    return results
+
+
+def execute(*, workdir: Path, select: list[str] | None = None, python_version: str = "3.12") -> list[dict]:
+    gen_summary = read_json(workdir / "generate" / "summary.json")
+    outs = []
+    for p in gen_summary["packages"]:
+        pkg = p["package"]
+        if select and pkg not in select:
+            continue
+        if p["files"] == 0:
+            log(f"  {pkg}: nothing generated"); continue
+        log(f"  {pkg}")
+        outs.append(execute_package(workdir, pkg, python_version))
+    write_json(workdir / "execute" / "summary.json", {"generated": now_iso(), "packages": [
+        {"package": r["package"]["purl"].split("/")[-1].split("@")[0], **r["counts"]} for r in outs]})
+    return outs

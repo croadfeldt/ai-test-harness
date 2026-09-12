@@ -34,6 +34,20 @@ def cmd_analyze(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_generate(a: argparse.Namespace) -> int:
+    from .stages.generate import generate
+    generate(workdir=a.workdir, select=a.select, categories=a.categories, python_version=a.python_version)
+    print(a.workdir / "generate" / "summary.json")
+    return 0
+
+
+def cmd_execute(a: argparse.Namespace) -> int:
+    from .stages.execute import execute
+    execute(workdir=a.workdir, select=a.select, python_version=a.python_version)
+    print(a.workdir / "execute" / "summary.json")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="harness", description="AI Test Harness: opinionated implementation of the blueprint")
     p.add_argument("--version", action="version", version=f"harness {__version__}")
@@ -55,6 +69,19 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--all", action="store_true", help="analyze unchanged rows too")
     s.add_argument("--python-version", default=None)
     s.set_defaults(func=cmd_analyze)
+
+    s = sub.add_parser("generate", help="stage 3: model writes tests per fact bundle; compile, baseline run, repair")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None, help="only these packages")
+    s.add_argument("--categories", nargs="*", default=None, choices=["unit", "functional", "negative", "cve"])
+    s.add_argument("--python-version", default="3.12")
+    s.set_defaults(func=cmd_generate)
+
+    s = sub.add_parser("execute", help="stage 4: run candidates in the sandbox on head, re-run for flakes, differential on old")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--python-version", default="3.12")
+    s.set_defaults(func=cmd_execute)
 
     a = p.parse_args(argv)
     try:

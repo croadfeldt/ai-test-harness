@@ -17,6 +17,8 @@ Opinionated means the capability map's primary choices are hard-wired here, not 
 | First-party call sites | `ast` over the target repository with venv, node_modules and build directories excluded; test files flagged |
 | Release notes | PyPI long description, written to `notes.untrusted.md` with a banner. Never an instruction to a model. |
 | Risk score and budget | `risk.py`, weights listed once, every contribution written to the fact bundle as a reason |
+| Model for generation | Any OpenAI-compatible chat endpoint; default is the homelab vLLM route serving Qwen3.6-27B. Set `HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL`, `HARNESS_MODEL_API_KEY`. Every call's prompt, response, digests, usage, and latency are written under `generate/<package>/model-calls/`. |
+| Sandbox | Podman: `--network none`, all capabilities dropped, no new privileges, read-only root, tmpfs work dir, memory / pid / cpu / time limits, environment cleared with `env -i`, wheels installed offline from a prefetched wheelhouse. `tests/test_sandbox_integration.py` proves each claim with a probe. The Kubernetes target with a Kata or gVisor RuntimeClass reuses the same plan. |
 
 Nothing in stages 1 and 2 calls a model. Facts come from tools; the model gets them in stage 3.
 
@@ -35,6 +37,12 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 
 # Stage 2, facts and risk for every changed or vulnerable row:
 .venv/bin/harness analyze --workdir out/run1 --python-version 3.12
+
+# Stage 3, the model writes candidate tests, verified in the sandbox as it goes:
+.venv/bin/harness generate --workdir out/run1 --select python-jose --categories cve unit
+
+# Stage 4, the gauntlet: head run, flake re-run, coverage, differential against the old version:
+.venv/bin/harness execute --workdir out/run1 --select python-jose
 ```
 
 ## Work directory layout
@@ -54,6 +62,14 @@ analyze/<package>/
   notes.untrusted.md            maintainer text from PyPI, banner says untrusted
   facts.json                    the fact bundle stage 3 consumes, including the risk score and budget
 analyze/summary.json            one line per analyzed package
+generate/<package>/
+  tests/test_<package>_<category>.py   candidate tests, pytest, header says generated and unreviewed
+  manifest.json                 per file: category, tests kept and cut, attempts, model, prompt and response digests
+  model-calls/                  every prompt and response verbatim, with usage and latency
+  scratch/                      baseline sandbox runs made during repair
+execute/<package>/
+  results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
+  new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
 cache/                          downloaded archives, unpacked trees, OSV and PyPI responses
 ```
 
@@ -63,8 +79,8 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 |---|---|
 | 1 intake | implemented, Python |
 | 2 analyze | implemented, Python |
-| 3 generate | next slice |
-| 4 execute | next slice |
+| 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |
+| 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential with the package pinned to its old version, TestResults in the adapter-interface schema. Mutation and relevance arrive with triage. |
 | 5 triage, 6 packet, 7 feedback | after that |
 | attest | after that: manifest.schema.yaml + in-toto test-result predicate, Tekton Chains |
 | assess | post-analysis of a run against the blueprint's core goals |
