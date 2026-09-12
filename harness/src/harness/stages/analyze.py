@@ -51,6 +51,10 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
     if it.change == "bumped":
         write_json(out / "api-diff.json", {"package": it.package, "old": it.old_version, "new": it.new_version, "changes": diff})
         sdiff = adapter.source_diff(dirs["old"], dirs["new"])
+        patch = adapter.source_patch(dirs["old"], dirs["new"])
+        (out / "source-diff.patch").write_text(patch)
+        sdiff["patch_ref"] = "source-diff.patch"
+        sdiff["patch_lines"] = patch.count("\n")
     else:
         sdiff = {"note": f"no source diff for change={it.change}", "lines_added": 0, "lines_removed": 0}
     breaking = sum(1 for c in diff if c.breaking)

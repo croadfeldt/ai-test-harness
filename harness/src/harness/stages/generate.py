@@ -37,6 +37,9 @@ Output exactly one Python file inside a single ```python fence and nothing else.
 - give every test a one-line docstring stating the behavior it asserts
 - exercise the public API exactly as listed in the API DATA; do not invent symbols
 - be deterministic: no sleeps, no randomness without a fixed seed, no time-of-day dependence
+- never inline long literal strings or byte blobs (no hand-typed keys, tokens, or base64); build data with
+  expressions (b"A" * 100000) or generate real key material with the library's own dependencies
+- stay under 150 lines
 """
 
 CATEGORY_TASK = {
@@ -49,7 +52,7 @@ CATEGORY_TASK = {
     "negative": "Write {n} negative tests that feed malformed, hostile, oversized, or type-confused input to the "
                 "symbols the application uses and assert that the package fails safely: raises a documented "
                 "exception type, does not hang, and does not return a success value for invalid input.",
-    "cve": "For each advisory under ADVISORIES write two tests. (1) test_<id>_fix_pinning: an input that triggers "
+    "cve": "For the issue under ADVISORIES write two tests. (1) test_<id>_fix_pinning: an input that triggers "
            "the vulnerable behavior described in the advisory; assert the SAFE behavior, so the test FAILS on the "
            "vulnerable version {old} and PASSES on the fixed version {new}. (2) test_<id>_exposure: the same trigger "
            "through the call pattern the application uses (see CALL SITES). Put the advisory id in the test name with "
@@ -57,6 +60,17 @@ CATEGORY_TASK = {
            "anyway with your best reading of it and say so in its docstring; the harness verifies it by running it "
            "against both versions.",
 }
+
+
+def _group_advisories(vulns: list[dict]) -> dict[str, list[dict]]:
+    """OSV, GHSA and PYSEC often carry the same CVE under different ids. Group by the CVE alias
+    (or the id when there is none) so each real issue gets one call and one pair of tests."""
+    groups: dict[str, list[dict]] = {}
+    for v in vulns:
+        cves = sorted(a for a in [v["id"], *v.get("aliases", [])] if a.startswith("CVE-"))
+        key = cves[0] if cves else v["id"]
+        groups.setdefault(key, []).append(v)
+    return groups
 
 
 def _data(title: str, obj) -> str:
@@ -79,7 +93,8 @@ def _api_subset(api: dict, symbols_used: list[str], limit: int = 80) -> list[dic
     return (prio + rest)[:limit]
 
 
-def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns: list[dict], n: int) -> str:
+def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns: list[dict], n: int,
+                 fix_patch: str | None = None, new_only: list[str] = (), old_only: list[str] = ()) -> str:
     used = facts["call_sites_summary"]["symbols_used"]
     parts = [f"Package under test: {facts['package']} version {facts['new_version'] or facts['old_version']}.",
              f"Import names: {facts['import_names']}. Previous version in the application: {facts['old_version']}.",
@@ -94,7 +109,19 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
         adv = [{"id": v["id"], "aliases": v["aliases"], "summary": v["summary"], "severity": v["severity"],
                 "fixed_versions": v["fixed_versions"], "affected_symbols": v["affected_symbols"],
                 "references": v["references"][:4]} for v in vulns]
-        parts.append(_data("ADVISORIES", adv))
+        parts.append(_data("ADVISORIES (one issue, possibly under several ids)", adv))
+        if new_only or old_only:
+            parts.append("The test file must import, at module level, only names that exist in BOTH versions, or the "
+                         "differential run cannot even collect it on the vulnerable version. Names below exist in one "
+                         "version only: reach them lazily inside a test with getattr or a try/except import.")
+            parts.append(_data("SYMBOLS ONLY IN THE NEW VERSION", new_only[:60]))
+            if old_only:
+                parts.append(_data("SYMBOLS ONLY IN THE OLD VERSION", old_only[:60]))
+        if fix_patch:
+            parts.append("The unified diff below is what changed in the package between the vulnerable and the fixed "
+                         "version. Find the hunk that fixes this issue and build the trigger from it: call the function "
+                         "that gained the check, with input that the old code accepted and the new code rejects.")
+            parts.append(_data(f"FIX DIFF {facts['old_version']} -> {facts['new_version']}", fix_patch))
     if facts.get("api_diff_summary", {}).get("breaking"):
         parts.append(_data("BREAKING API CHANGES between versions", facts["api_diff_summary"]["breaking_symbols"]))
     return "\n".join(parts)
@@ -174,7 +201,8 @@ def _run_baseline(code: str, pkg_dir: Path, wheelhouse: Path, reqs: list[str], r
 
 
 def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: Path, reqs_new: list[str],
-                     categories: list[str] | None, max_repairs: int = 2, dep_roots: list[str] | None = None) -> dict:
+                     categories: list[str] | None, max_repairs: int = 2, dep_roots: list[str] | None = None,
+                     wheelhouse_old: Path | None = None, reqs_old: list[str] | None = None) -> dict:
     facts = read_json(facts_dir / "facts.json")
     api = read_json(facts_dir / "api.new.json") if (facts_dir / "api.new.json").exists() else {"symbols": []}
     sites = read_json(facts_dir / "call-sites.json")["sites"]
@@ -193,23 +221,41 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                 "generated": now_iso(), "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model,
                                                   "temperature": model.cfg.temperature},
                 "budget": budget, "files": [], "discarded": []}
-    plan = []
+    plan = []   # (category, count, advisories-for-this-call, file suffix)
     for cat in (categories or ["unit", "functional", "negative", "cve"]):
-        n = budget.get(cat, 0) if cat != "cve" else (len(vulns) if budget.get("cve_targeted") else 0)
+        if cat == "cve":
+            if budget.get("cve_targeted"):
+                for key, group in _group_advisories(vulns).items():   # one call per distinct issue
+                    plan.append((cat, 2, group, key.lower().replace("-", "_")))
+            continue
+        n = budget.get(cat, 0)
         if cat == "functional" and not budget.get("functional_at_call_sites") and facts["call_sites_summary"]["production"] == 0:
             n = 0
         if n:
-            plan.append((cat, n))
-    log(f"  {pkg}: plan {plan}")
-    for cat, n in plan:
-        prompt = build_prompt(cat, facts, api, sites, vulns, n)
+            plan.append((cat, n, [], ""))
+    log(f"  {pkg}: plan {[(c, n, s) for c, n, _, s in plan]}")
+    api_old = read_json(facts_dir / "api.old.json") if (facts_dir / "api.old.json").exists() else {"symbols": []}
+    old_q = {s["qualname"] for s in api_old["symbols"]}; new_q = {s["qualname"] for s in api.get("symbols", [])}
+    new_only, old_only = sorted(new_q - old_q), sorted(old_q - new_q)
+    patch_path = facts_dir / "source-diff.patch"
+    fix_patch = patch_path.read_text() if patch_path.exists() and facts["change"] == "bumped" else None
+    if fix_patch and len(fix_patch) > 60000:
+        fix_patch = fix_patch[:60000] + "\n... truncated"
+    for cat, n, call_vulns, suffix in plan:
+        prompt = build_prompt(cat, facts, api, sites, call_vulns, n, fix_patch if cat == "cve" else None,
+                              new_only if cat == "cve" else (), old_only if cat == "cve" else ())
+        max_tokens = {"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat]
         system = SYSTEM
         attempts, code, history, run1 = 0, None, [], None
         while attempts <= max_repairs:
-            tag = f"{pkg}-{cat}-a{attempts}"
-            text, rec = model.chat(system, prompt if attempts == 0 else prompt + "\n\nPREVIOUS ATTEMPT FAILED:\n" + history[-1], tag)
+            tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"
+            text, rec = model.chat(system, prompt if attempts == 0 else prompt + "\n\nPREVIOUS ATTEMPT FAILED:\n" + history[-1], tag, max_tokens=max_tokens)
             code = extract_python(text)
             attempts += 1
+            if rec["finish_reason"] in ("length", "loop_detected"):
+                history.append(f"The response was cut off ({rec['finish_reason']}). Write a SHORTER file: fewer helper lines, "
+                               "no long literal strings or byte blobs; build any large or repetitive data with expressions "
+                               "such as b'A' * 100000 or with the cryptography library."); continue
             if code is None:
                 history.append("No python code block found in the response. Output one ```python fenced file."); continue
             err = _compile(code)
@@ -228,10 +274,27 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
             if run1["sandbox"]["install_failed"]:
                 raise HarnessError(f"sandbox install failed for {pkg}; see {gen_dir}/scratch/{tag}.out")
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
-            if cat == "cve":
-                break  # CVE tests are judged by the differential run, not by passing on head
-            if not run1["results"]:
+            if not run1["results"] or all(v["status"] == "error" for v in run1["results"].values()):
                 history.append("pytest collected no tests, or collection failed:\n" + run1["stdout_tail"][-2000:]); continue
+            if cat == "cve":
+                # Judged by the differential run, with one exception: a test that crashes on the FIXED
+                # version with an unexpected exception (anything but an assertion or a missing raise)
+                # is a test bug, and goes back once with the traceback message.
+                crashes = {k: v["message"] for k, v in failing.items()
+                           if not v["message"].startswith(("AssertionError", "Failed: DID NOT RAISE", "assert "))}
+                if crashes and attempts <= max_repairs:
+                    msg = "\n".join(f"- {k}: {m[:400]}" for k, m in crashes.items())
+                    history.append(f"On the FIXED version {facts['new_version']} these tests crashed before reaching their "
+                                   f"assertion, which means the test itself is wrong (wrong argument, wrong function, "
+                                   f"unsupported option):\n{msg}\nFix the test so that on the fixed version it either passes "
+                                   f"or fails only at its assertion."); continue
+                if wheelhouse_old and reqs_old and attempts <= max_repairs:
+                    run_old = _run_baseline(code, gen_dir, wheelhouse_old, reqs_old, roots, tag + "-old")
+                    if not run_old["results"] or all(v["status"] == "error" for v in run_old["results"].values()):
+                        history.append(f"The file does not even collect on the VULNERABLE version {facts['old_version']}, so the "
+                                       f"differential run cannot judge it. Import at module level only names present in both "
+                                       f"versions:\n{run_old['stdout_tail'][-1500:]}"); continue
+                break
             if failing and attempts <= max_repairs:
                 msg = "\n".join(f"- {k}: {v['message'][:600]}" for k, v in failing.items())
                 history.append(f"These tests fail on the baseline version {facts['new_version']}; fix them or replace them "
@@ -256,7 +319,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
         if not names:
             manifest["discarded"].append({"category": cat, "reason": "every test failed on baseline", "cut": cut})
             continue
-        fname = f"test_{pkg.replace('-', '_')}_{cat}.py"
+        fname = f"test_{pkg.replace('-', '_')}_{cat}{'_' + suffix if suffix else ''}.py"
         header = (f'"""Generated by ai-test-harness for {pkg} {facts["new_version"]} (category: {cat}).\n'
                   f'Candidate tests: not yet human-reviewed. Provenance in ../manifest.json.\n"""\n')
         (tests_dir / fname).write_text(header + kept_code)
@@ -265,7 +328,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                                   "response_sha256": rec["response_sha256"], "model": rec["model"],
                                   "baseline_run": {"status": {k.split('::')[-1]: v["status"] for k, v in run_final["results"].items()} if run_final else {},
                                                    "covered_lines_in_target": covered},
-                                  "targets": facts["call_sites_summary"]["symbols_used"][:20] if cat != "cve" else [v["id"] for v in vulns],
+                                  "targets": facts["call_sites_summary"]["symbols_used"][:20] if cat != "cve" else [v["id"] for v in call_vulns],
                                   "expected_differential": "old=fail new=pass" if cat == "cve" else "old=any new=pass",
                                   "sha256": sha256_text(header + kept_code)})
         log(f"    {cat}: kept {len(names)} test(s) in {fname}, cut {len(cut)}, attempts {attempts}, target lines covered {covered}")
@@ -279,6 +342,9 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
     reqs_new = [f"{p['name']}=={p['version']}" for p in graph_new.values()]
     wheelhouse = sandbox.prefetch_wheelhouse(reqs_new, python_version, workdir / "cache" / "wheelhouse" / "new")
+    graph_old = read_json(workdir / "intake" / "graph.old.json")["packages"]
+    reqs_old = [f"{p['name']}=={p['version']}" for p in graph_old.values()]
+    wheelhouse_old = sandbox.prefetch_wheelhouse(reqs_old, python_version, workdir / "cache" / "wheelhouse" / "old") if reqs_old != reqs_new else None
     cfg = ModelConfig.from_env()
     log(f"generate: model {cfg.model} at {cfg.base_url}")
     outs = []
@@ -294,7 +360,8 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
         dep_roots = sorted({d.replace("-", "_") for d in deps} | {DIST_TO_IMPORT.get(d, d.replace("-", "_")) for d in deps})
         facts_path = workdir / "analyze" / pkg / "facts.json"
         facts = read_json(facts_path); facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
-        outs.append(generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, categories, dep_roots=dep_roots))
+        outs.append(generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, categories, dep_roots=dep_roots,
+                                     wheelhouse_old=wheelhouse_old, reqs_old=reqs_old if wheelhouse_old else None))
     write_json(workdir / "generate" / "summary.json", {"generated": now_iso(), "model": cfg.model, "packages": [
         {"package": m["package"], "files": len(m["files"]), "tests": sum(len(f["tests"]) for f in m["files"]),
          "discarded": len(m["discarded"])} for m in outs]})

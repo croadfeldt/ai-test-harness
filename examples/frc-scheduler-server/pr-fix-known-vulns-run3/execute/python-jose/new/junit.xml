@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="14" time="0.509" timestamp="2026-09-12T04:04:56.529678+00:00" hostname="b8935f06c6c0"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.002"><failure message="UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte">def test_pysec_2025_185_fix_pinning():
+        """A JWE token whose compressed payload exceeds the size limit is rejected."""
+        key = b"\x00" * 32
+        plaintext = b"A" * 300 * 1024
+&gt;       token = _make_gcm_jwe(plaintext, key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_29370.py:18: in _make_gcm_jwe
+    header = b64(zlib.compress(b'{"alg":"dir","enc":"A256GCM"}'))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+b = b'x\x9c\xabVJ\xccIW\xb2RJ\xc9,R\xd2QJ\xcdK\x06\xb2\x1d\x8dL\xcd\xdc\x9d}\x95j\x01}\xad\x08\x07'
+
+&gt;   b64 = lambda b: b.replace(b"=", b"").decode()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte
+
+tests/test_python_jose_cve_cve_2024_29370.py:17: UnicodeDecodeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.001"><failure message="UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte">def test_pysec_2025_185_exposure():
+        """Application-style decrypt of an oversized compressed JWE raises JWEError."""
+        key = b"\x00" * 32
+        plaintext = b"B" * 300 * 1024
+&gt;       token = _make_gcm_jwe(plaintext, key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_29370.py:18: in _make_gcm_jwe
+    header = b64(zlib.compress(b'{"alg":"dir","enc":"A256GCM"}'))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+b = b'x\x9c\xabVJ\xccIW\xb2RJ\xc9,R\xd2QJ\xcdK\x06\xb2\x1d\x8dL\xcd\xdc\x9d}\x95j\x01}\xad\x08\x07'
+
+&gt;   b64 = lambda b: b.replace(b"=", b"").decode()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte
+
+tests/test_python_jose_cve_cve_2024_29370.py:17: UnicodeDecodeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001"><failure message="jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 AAAA'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+&gt;               key = jwk.construct(key, algorithm)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8d782b02c0&gt;
+key = b'ecdsa-sha2-nistp256 AAAA', algorithm = 'HS256'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.HMAC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+        self._algorithm = algorithm
+        self._hash_alg = self.ALG_MAP.get(algorithm)
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if not isinstance(key, str) and not isinstance(key, bytes):
+            raise JWKError("Expecting a string- or bytes-formatted key.")
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if is_pem_format(key) or is_ssh_key(key):
+&gt;           raise JWKError(
+                "The specified key is an asymmetric key or x509 certificate and"
+                " should not be used as an HMAC secret."
+            )
+E           jose.exceptions.JWKError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:567: JWKError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key used as HMAC secret must be rejected (CVE-2024-33663)."""
+        with pytest.raises(JWKError):
+&gt;           jwt.encode({"sub": "x"}, _ssh_ecdsa_key(), algorithm="HS256")
+
+tests/test_python_jose_cve_cve_2024_33663.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 AAAA'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001"><failure message="jose.exceptions.JWTError: Not enough segments">jwt = b'a.b.c'
+
+    def _load(jwt):
+        if isinstance(jwt, str):
+            jwt = jwt.encode("utf-8")
+        try:
+            signing_input, crypto_segment = jwt.rsplit(b".", 1)
+            header_segment, claims_segment = signing_input.split(b".", 1)
+&gt;           header_data = base64url_decode(header_segment)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/utils.py:78: in base64url_decode
+    return base64.urlsafe_b64decode(input)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:134: in urlsafe_b64decode
+    return b64decode(s)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = b'a===', altchars = None, validate = False
+
+    def b64decode(s, altchars=None, validate=False):
+        """Decode the Base64 encoded bytes-like object or ASCII string s.
+    
+        Optional altchars must be a bytes-like object or ASCII string of length 2
+        which specifies the alternative alphabet used instead of the '+' and '/'
+        characters.
+    
+        The result is returned as a bytes object.  A binascii.Error is raised if
+        s is incorrectly padded.
+    
+        If validate is False (the default), characters that are neither in the
+        normal base-64 alphabet nor the alternative alphabet are discarded prior
+        to the padding check.  If validate is True, these non-alphabet characters
+        in the input result in a binascii.Error.
+        For more information about the strict base64 check, see:
+    
+        https://docs.python.org/3.11/library/binascii.html#binascii.a2b_base64
+        """
+        s = _bytes_from_decode_data(s)
+        if altchars is not None:
+            altchars = _bytes_from_decode_data(altchars)
+            assert len(altchars) == 2, repr(altchars)
+            s = s.translate(bytes.maketrans(altchars, b'+/'))
+&gt;       return binascii.a2b_base64(s, strict_mode=validate)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       binascii.Error: Invalid base64-encoded string: number of data characters (1) cannot be 1 more than a multiple of 4
+
+/usr/local/lib/python3.12/base64.py:88: Error
+
+During handling of the above exception, another exception occurred:
+
+token = 'a.b.c', key = b'ecdsa-sha2-nistp256 AAAA', algorithms = ['HS256']
+options = None, audience = None, issuer = None, subject = None
+access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+&gt;           payload = jws.verify(token, key, algorithms, verify=verify_signature)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jwt.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:74: in verify
+    header, payload, signing_input, signature = _load(token)
+                                                ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwt = b'a.b.c'
+
+    def _load(jwt):
+        if isinstance(jwt, str):
+            jwt = jwt.encode("utf-8")
+        try:
+            signing_input, crypto_segment = jwt.rsplit(b".", 1)
+            header_segment, claims_segment = signing_input.split(b".", 1)
+            header_data = base64url_decode(header_segment)
+        except ValueError:
+&gt;           raise JWSError("Not enough segments")
+E           jose.exceptions.JWSError: Not enough segments
+
+venv/lib/python3.12/site-packages/jose/jws.py:184: JWSError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern: jwt.decode with an OpenSSH ECDSA HMAC key must raise JWKError."""
+        with pytest.raises(JWKError):
+&gt;           jwt.decode("a.b.c", _ssh_ecdsa_key(), algorithms=["HS256"])
+
+tests/test_python_jose_cve_cve_2024_33663.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+token = 'a.b.c', key = b'ecdsa-sha2-nistp256 AAAA', algorithms = ['HS256']
+options = None, audience = None, issuer = None, subject = None
+access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+            payload = jws.verify(token, key, algorithms, verify=verify_signature)
+        except JWSError as e:
+&gt;           raise JWTError(e)
+E           jose.exceptions.JWTError: Not enough segments
+
+venv/lib/python3.12/site-packages/jose/jwt.py:156: JWTError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.002"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f8d782b38c0&gt;
+plain_text = b'x\x9c\xed\xc1\x01\r\x00\x00\x00\xc2\xa0\xf7Om\x0e7\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe0\xcf\x00\xb0&lt;\x00\x01'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+&gt;           iv = get_random_bytes(iv_byte_length)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:482: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 12
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:51: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decompressing a JWE whose payload exceeds the size limit raises JWEError."""
+&gt;       token = _make_bomb_token()
+                ^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_33664.py:19: in _make_bomb_token
+    return jwe.encrypt(plaintext, _KEY, encryption="A256GCM", algorithm="dir", zip="DEF")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:399: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f8d782b38c0&gt;
+plain_text = b'x\x9c\xed\xc1\x01\r\x00\x00\x00\xc2\xa0\xf7Om\x0e7\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe0\xcf\x00\xb0&lt;\x00\x01'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+            iv = get_random_bytes(iv_byte_length)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:499: JWEError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f8d782b2e40&gt;
+plain_text = b'x\x9c\xed\xc1\x01\r\x00\x00\x00\xc2\xa0\xf7Om\x0e7\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe0\xcf\x00\xb0&lt;\x00\x01'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+&gt;           iv = get_random_bytes(iv_byte_length)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:482: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 12
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:51: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Application call pattern: jwe.decrypt on a bomb token raises JWEError, not OOM."""
+&gt;       token = _make_bomb_token()
+                ^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_33664.py:19: in _make_bomb_token
+    return jwe.encrypt(plaintext, _KEY, encryption="A256GCM", algorithm="dir", zip="DEF")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:399: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f8d782b2e40&gt;
+plain_text = b'x\x9c\xed\xc1\x01\r\x00\x00\x00\xc2\xa0\xf7Om\x0e7\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe0\xcf\x00\xb0&lt;\x00\x01'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv_byte_length = self.IV_BYTE_LENGTH_MODE_MAP.get(self._mode.name, algorithms.AES.block_size)
+            iv = get_random_bytes(iv_byte_length)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:499: JWEError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip_hs256" time="0.002" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_token_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwk_construct_hmac_key" time="0.000" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_encode_decode_roundtrip" time="0.000" /><testcase classname="tests.test_python_jose_unit" name="test_utils_ensure_binary" time="0.000" /></testsuite></testsuites>

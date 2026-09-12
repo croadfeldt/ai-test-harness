@@ -99,6 +99,40 @@ the base commit's own resolved graph (swapping one package inside the head graph
 could not satisfy), and the model client sends `reasoning_effort: none`, because the first attempt
 spent 6000 tokens per call on hidden reasoning and returned empty content.
 
+## The A/B ladder on python-jose: runs 1 to 3
+
+Same package, same model, same sandbox, same categories. Each run changes the generator only, and each
+directory is kept as produced.
+
+| | Run 1 baseline (`pr-fix-known-vulns/`) | Run 2 (`-run2/`) | Run 3 (`-run3/`) |
+|---|---|---|---|
+| Generator change | none | weak-assertion gate, dependency imports allowed, one advisory per call, streaming with loop abort | fix diff and version-only symbols in the CVE prompt, advisories grouped by CVE, collection required on both versions, crash-on-fixed repair |
+| Model calls, finished cleanly | 4 of 4, 13 min each | 8 of 8, 1 to 2 min each | 12 of 12, 0.5 to 2 min each |
+| Generate through execute, wall time | 22 min | 15 min | 20 min |
+| Tests kept, flaky | 16, 0 | 17, 0 | 14, 0 |
+| Unit candidates, package lines covered | 6, 542 | 7, 590 | 8, 560 |
+| CVE files that collect on both versions | 10 of 10 | 10 of 10 | 6 of 6 (a first pass had 0 of 6: imports of names new in 3.4.0) |
+| CVE fix-pinning confirmed | 0 of 10 | 0 of 10 | 0 of 6 |
+
+What run 3 shows in the failure messages on the fixed version:
+
+- **The algorithm-confusion trigger is now right and the assertion is wrong.** The fix-pinning test
+  fails on 3.4.0 with the library's own new error, "the specified key is an asymmetric key ... and
+  should not be used as an HMAC secret". The check the fix added fired. The test expected a different
+  exception class, and two repair rounds did not converge.
+- **The compression-bomb tests cannot be built through the library on this graph.** `jwe.encrypt`
+  raises an internal error (`module 'lib' has no attribute 'RAND_bytes'`) on both 3.3.0 and 3.4.0
+  against cryptography 50.0.1, the version the application resolves. That is a defect finding for the
+  review packet, low severity because the application never calls JWE, and it means a bomb token has
+  to be assembled with the cryptography library directly, which this model did not manage.
+- The third pair is a plain test bug (decoding bytes as UTF-8).
+
+Conclusion for the fixed-script generator with a 27B model: it produces good characterization tests
+for the symbols the application uses, first time, every run. It does not produce a confirmed
+fix-pinning test in three tries, and the harness says so instead of shipping green tests. The next two
+variables, held one at a time: a tool-using stage 3 that iterates on the real error, and a stronger
+model.
+
 ## What each output file is
 
 ```
@@ -140,7 +174,5 @@ execute/<package>/{new,new-rerun,old}/  junit.xml, coverage.json, logs, sandbox.
 
 ## Next for this example
 
-Rerun stage 3 on python-jose with the two new gates and compare against the baseline above. Then the
-tool-using variant of stage 3, where the model can read the fix diff between 3.3.0 and 3.4.0 instead
-of guessing a trigger from an advisory summary. Then pyasn1 and starlette. Stages 5 through 7, the
-attestation, and the post-analysis against the blueprint's core goals follow.
+The tool-using variant of stage 3 on the same package, then a model A/B. Then pyasn1 and starlette.
+Stages 5 through 7, the attestation, and the post-analysis against the blueprint's core goals follow.

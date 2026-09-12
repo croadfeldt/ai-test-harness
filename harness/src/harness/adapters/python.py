@@ -247,6 +247,13 @@ def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
             symbols.append(ApiSymbol(module=module, qualname=module, kind="module", signature="",
                                      doc=_first_line(ast.get_docstring(tree)), file=str(rel), line=1))
             for node in tree.body:
+                if isinstance(node, (ast.Assign, ast.AnnAssign)):
+                    targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+                    for tg in targets:
+                        if isinstance(tg, ast.Name) and not tg.name.startswith("_") if hasattr(tg, "name") else isinstance(tg, ast.Name) and not tg.id.startswith("_"):
+                            symbols.append(ApiSymbol(module, f"{module}.{tg.id}", "constant",
+                                                     f"= {ast.unparse(node.value)[:80]}" if node.value is not None else "", "", str(rel), node.lineno))
+                    continue
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_"):
                     symbols.append(ApiSymbol(module, f"{module}.{node.name}", "function", _sig(node),
                                              _first_line(ast.get_docstring(node)), str(rel), node.lineno))
@@ -399,6 +406,32 @@ def imports_root(source_dir: Path, candidates: list[str]) -> list[str]:
 
 
 # ---------------------------------------------------------------- source diff + upstream tests
+
+def source_patch(old_dir: Path, new_dir: Path, max_lines: int = 1500) -> str:
+    """A unified diff of the package's python files between versions, bounded. Test files skipped.
+    This is the 'fix commit' fact for stage 3: what actually changed, not what the advisory says."""
+    out = []
+    def pyfiles(d: Path) -> dict[str, Path]:
+        m = {}
+        for p in d.rglob("*.py"):
+            rel = p.relative_to(d).parts
+            rel = rel[1:] if rel and re.match(r".*-\d", rel[0]) else rel
+            if any(x in ("tests", "test") for x in rel):
+                continue
+            m["/".join(rel)] = p
+        return m
+    o, n = pyfiles(old_dir), pyfiles(new_dir)
+    for rel in sorted(set(o) | set(n)):
+        a = o[rel].read_text(errors="replace").splitlines() if rel in o else []
+        b = n[rel].read_text(errors="replace").splitlines() if rel in n else []
+        if a == b:
+            continue
+        out.extend(difflib.unified_diff(a, b, fromfile=f"old/{rel}", tofile=f"new/{rel}", lineterm="", n=3))
+        if len(out) > max_lines:
+            out = out[:max_lines] + [f"... diff truncated at {max_lines} lines"]
+            break
+    return "\n".join(out) + ("\n" if out else "")
+
 
 def source_diff(old_dir: Path, new_dir: Path) -> dict:
     def pyfiles(d: Path) -> dict[str, Path]:

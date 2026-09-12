@@ -28,6 +28,7 @@ class ModelConfig:
     timeout_s: int = 1800
     no_think: bool = False    # Qwen3 soft switch in the prompt; ignored by LM Studio for qwen3.8
     reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
+    frequency_penalty: float = 0.3          # discourages the repetition loops a 27B falls into on long literals
 
     @classmethod
     def from_env(cls) -> "ModelConfig":
@@ -65,7 +66,7 @@ class Model:
         self.cfg, self.record_dir, self.calls = cfg, record_dir, 0
         record_dir.mkdir(parents=True, exist_ok=True)
 
-    def chat(self, system: str, user: str, tag: str) -> tuple[str, dict]:
+    def chat(self, system: str, user: str, tag: str, max_tokens: int | None = None) -> tuple[str, dict]:
         if self.cfg.no_think:
             system = "/no_think\n" + system
         body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.max_tokens,
@@ -73,24 +74,53 @@ class Model:
                 "chat_template_kwargs": {"enable_thinking": False}}
         if self.cfg.reasoning_effort:
             body["reasoning_effort"] = self.cfg.reasoning_effort
+        body["stream"] = True
+        body["stream_options"] = {"include_usage": True}
+        body["frequency_penalty"] = self.cfg.frequency_penalty
+        if max_tokens:
+            body["max_tokens"] = max_tokens
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
                                      headers=_headers(self.cfg.api_key))
         t0 = time.time()
+        text, usage, finish, model_id = "", {}, None, self.cfg.model
         try:
             with urllib.request.urlopen(req, timeout=self.cfg.timeout_s) as r:
-                data = json.loads(r.read().decode())
+                for line in r:
+                    line = line.decode().strip()
+                    if not line.startswith("data:"):
+                        continue
+                    payload = line[5:].strip()
+                    if payload == "[DONE]":
+                        break
+                    chunk = json.loads(payload)
+                    model_id = chunk.get("model", model_id)
+                    if chunk.get("usage"):
+                        usage = chunk["usage"]
+                    for ch in chunk.get("choices", []):
+                        text += (ch.get("delta") or {}).get("content") or ""
+                        finish = ch.get("finish_reason") or finish
+                    if len(text) > 1500 and _looping(text):
+                        finish = "loop_detected"
+                        break
         except Exception as e:
             raise HarnessError(f"model call failed ({tag}): {e}") from e
-        text = data["choices"][0]["message"]["content"] or ""
         self.calls += 1
-        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": data.get("model", self.cfg.model),
-                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort, "prompt_sha256": sha256_text(system + "\n---\n" + user),
-                  "response_sha256": sha256_text(text), "usage": data.get("usage", {}),
-                  "latency_s": round(time.time() - t0, 1), "finish_reason": data["choices"][0].get("finish_reason")}
+        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": model_id,
+                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
+                  "frequency_penalty": self.cfg.frequency_penalty, "max_tokens": max_tokens or self.cfg.max_tokens,
+                  "prompt_sha256": sha256_text(system + "\n---\n" + user),
+                  "response_sha256": sha256_text(text), "usage": usage, "response_chars": len(text),
+                  "latency_s": round(time.time() - t0, 1), "finish_reason": finish}
         (self.record_dir / f"{self.calls:03d}-{tag}.prompt.md").write_text(f"# system\n\n{system}\n\n# user\n\n{user}\n")
         (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
         write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
         return text, record
+
+
+def _looping(text: str, window: int = 120, repeats: int = 4) -> bool:
+    """True when the last `window` characters already occur `repeats` times in the last 3000."""
+    tail, recent = text[-window:], text[-3000:]
+    return recent.count(tail) >= repeats
 
 
 def extract_python(text: str) -> str | None:
