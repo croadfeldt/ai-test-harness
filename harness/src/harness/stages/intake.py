@@ -22,6 +22,19 @@ def _git(repo: Path, *args: str) -> str:
     return run(["git", "-C", str(repo), *args]).stdout.strip()
 
 
+def _resolve_ref(repo: Path, ref: str) -> str:
+    """A branch name may only exist on the remote (a CI clone checks the revision out detached and
+    never creates local branches). Try the name, then the remote's copy, then fetch it."""
+    for candidate in (ref, f"origin/{ref}"):
+        proc = run(["git", "-C", str(repo), "rev-parse", "--verify", "--quiet", f"{candidate}^{{commit}}"], check=False)
+        if proc.returncode == 0:
+            return proc.stdout.strip()
+    proc = run(["git", "-C", str(repo), "fetch", "--quiet", "origin", f"+refs/heads/{ref}:refs/remotes/origin/{ref}"], check=False)
+    if proc.returncode == 0:
+        return _git(repo, "rev-parse", f"origin/{ref}")
+    raise HarnessError(f"{ref} is not a commit, a remote branch, or fetchable from origin: {proc.stderr.strip()}")
+
+
 def _manifest_at(repo: Path, ref: str, manifest: str, dest: Path) -> Path:
     proc = run(["git", "-C", str(repo), "show", f"{ref}:{manifest}"], check=False)
     if proc.returncode != 0:
@@ -66,8 +79,8 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
     out = workdir / "intake"
     out.mkdir(parents=True, exist_ok=True)
     cache = workdir / "cache"
-    head_sha = _git(repo, "rev-parse", head)
-    base_sha = _git(repo, "rev-parse", base) if base else head_sha
+    head_sha = _resolve_ref(repo, head)
+    base_sha = _resolve_ref(repo, base) if base else head_sha
     mode = "diff" if base else "rescan"
     run_id = hashlib.sha256(f"{repo}{base_sha}{head_sha}{now_iso()}".encode()).hexdigest()[:12]
     log(f"intake: {mode} {repo.name} {base_sha[:8]}..{head_sha[:8]} manifest={manifest} run={run_id}")
