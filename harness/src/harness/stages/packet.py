@@ -48,14 +48,19 @@ def _vex(pkg: str, purl_new: str, purl_old: str | None, vulns_doc: dict, triage:
                            "status_notes": (f"fix-pinning test(s) {proven} fail on {purl_old} and pass on {purl_new}" if proven
                                             else "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet"),
                            "harness_evidence": {"tests": proven, "confirmed": bool(proven)}})
-    # advisories still open at head
+    # advisories still open at head (including those a downgrade introduced)
     for v in vulns_doc.get("vulns", []):
         cves = [a for a in v["aliases"] if a.startswith("CVE-")] or [v["id"]]
+        proven = [n for n in confirmed_ids if any(x.lower().replace("-", "_") in n for x in [v["id"], *v["aliases"]])]
+        if proven:
+            status, notes = "affected", f"exposure test(s) {proven} fail on {purl_new} and pass on {purl_old}: the change introduces this exposure"
+        elif triage.get("_reachable") == "true":
+            status, notes = "affected", f"open at head; reachable=true; fixed in {v['fixed_versions'] or 'no fixed version published'}"
+        else:
+            status, notes = "under_investigation", f"open at head; reachable={triage.get('_reachable')}; fixed in {v['fixed_versions'] or 'no fixed version published'}"
         statements.append({"vulnerability": {"name": cves[0], "aliases": [v["id"], *v["aliases"]]},
-                           "products": [{"@id": purl_new}],
-                           "status": "affected" if triage.get("_reachable") == "true" else "under_investigation",
-                           "status_notes": f"open at head; reachable={triage.get('_reachable')}; fixed in {v['fixed_versions'] or 'no fixed version published'}",
-                           "harness_evidence": {"tests": [], "confirmed": False}})
+                           "products": [{"@id": purl_new}], "status": status, "status_notes": notes,
+                           "harness_evidence": {"tests": proven, "confirmed": bool(proven)}})
     # One statement per vulnerability: OSV, GHSA and PYSEC ids for the same CVE collapse, aliases merged,
     # and the strongest status wins (fixed > affected > under_investigation).
     rank = {"fixed": 3, "affected": 2, "under_investigation": 1}

@@ -163,6 +163,18 @@ def gf015():
     assert "blocked on both versions" in inspect.getsource(execute.execute_package)
 
 
+@check("GF-016", "a downgrade derives vulnerable=new, fixed=old from the advisories, and the verdicts follow the roles")
+def gf016():
+    from .stages.generate import cve_roles
+    bump = cve_roles(old_version="3.3.0", new_version="3.4.0", vulns_old=[{"id": "A", "fixed_versions": ["3.4.0"]}], vulns_new=[])
+    assert bump == {"vulnerable": "3.3.0", "fixed": "3.4.0", "direction": "fix"}, bump
+    down = cve_roles(old_version="0.6.4", new_version="0.4.8", vulns_old=[], vulns_new=[{"id": "B", "fixed_versions": ["0.6.3"]}])
+    assert down == {"vulnerable": "0.4.8", "fixed": "0.6.4", "direction": "downgrade"}, down
+    from .stages import execute
+    src = inspect.getsource(execute.execute_package)
+    assert "exposure confirmed" in src and "downgrade" in src
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute

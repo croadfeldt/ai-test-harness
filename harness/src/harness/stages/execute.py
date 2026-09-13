@@ -26,6 +26,9 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
     roots = [r.split("/")[0] for r in facts["import_names"]]
     from .agent import fix_reached
+    from .generate import cve_roles
+    vdoc = read_json(workdir / "analyze" / pkg / "vulns.json")
+    roles = cve_roles(gen["old_version"], gen["new_version"], vdoc.get("vulns_old", []), vdoc.get("vulns", []))
     patch_path = workdir / "analyze" / pkg / "source-diff.patch"
     fix_patch = patch_path.read_text() if patch_path.exists() else None
     reqs_new = _reqs(workdir, "new")
@@ -70,8 +73,11 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
         elif t["category"] == "cve":
             msg_new = t["message"]
             msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
-            if o == "fail" and n == "pass":
-                t["verdict"] = "fix-pinning confirmed: fails on vulnerable, passes on fixed"
+            # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
+            vuln_status, fixed_status = (n, o) if roles["direction"] == "downgrade" else (o, n)
+            if vuln_status == "fail" and fixed_status == "pass":
+                t["verdict"] = ("exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it"
+                                if roles["direction"] == "downgrade" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
             elif o == "pass" and n == "pass":
                 t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
             elif n in ("fail", "error") and fix_reached(msg_new, fix_patch):
@@ -102,7 +108,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
         "counts": {"total": len(tests),
                    "pass_on_new": sum(1 for t in tests if t["versions"]["new"] == "pass"),
                    "flaky": sum(1 for t in tests if t["status"] == "flaky"),
-                   "fix_pinning_confirmed": sum(1 for t in tests if t["verdict"].startswith("fix-pinning confirmed")),
+                   "fix_pinning_confirmed": sum(1 for t in tests if t["verdict"].startswith(("fix-pinning confirmed", "exposure confirmed"))),
+                   "cve_roles": roles,
                    "fix_reached_assertion_wrong": sum(1 for t in tests if t["verdict"].startswith("fix reached")),
                    "blocked_both_versions": sum(1 for t in tests if t["verdict"].startswith("blocked on both")),
                    "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed"))},

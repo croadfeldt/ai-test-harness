@@ -78,6 +78,8 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                 cls, conf, action = "test-bug", 0.95, "discard"
             elif v.startswith("fix-pinning confirmed"):
                 cls, conf, action = "behavior-change", 0.95, "accept as CVE evidence; VEX status fixed"
+            elif v.startswith("exposure confirmed"):
+                cls, conf, action = "security", 0.95, "accept as CVE evidence; VEX status affected: the change introduces the exposure"
             elif v.startswith("candidate"):
                 cls, conf, action = "behavior-change", 0.85, "accept as characterization candidate" if "same on old" in v else "accept as candidate"
             elif v.startswith("behavior changed"):

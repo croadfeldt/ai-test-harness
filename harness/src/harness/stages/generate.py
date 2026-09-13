@@ -54,12 +54,25 @@ CATEGORY_TASK = {
                 "exception type, does not hang, and does not return a success value for invalid input.",
     "cve": "For the issue under ADVISORIES write two tests. (1) test_<id>_fix_pinning: an input that triggers "
            "the vulnerable behavior described in the advisory; assert the SAFE behavior, so the test FAILS on the "
-           "vulnerable version {old} and PASSES on the fixed version {new}. (2) test_<id>_exposure: the same trigger "
+           "VULNERABLE version {vuln} and PASSES on the FIXED version {fixed}. (2) test_<id>_exposure: the same trigger "
            "through the call pattern the application uses (see CALL SITES). Put the advisory id in the test name with "
            "dashes replaced by underscores. If the advisory gives too little detail to build a trigger, write the test "
            "anyway with your best reading of it and say so in its docstring; the harness verifies it by running it "
            "against both versions.",
 }
+
+
+def cve_roles(old_version: str | None, new_version: str | None, vulns_old: list[dict], vulns_new: list[dict]) -> dict:
+    """GF-016. Which version is the vulnerable one and which the fixed one, from the advisories, not
+    from commit order. A bump that closes advisories: vulnerable=old, fixed=new. A downgrade that
+    opens them: vulnerable=new, fixed=old. Same version or advisories on both: vulnerable=new,
+    fixed=None (nothing to pin against; exposure tests only)."""
+    if old_version and new_version and old_version != new_version:
+        if vulns_old and not vulns_new:
+            return {"vulnerable": old_version, "fixed": new_version, "direction": "fix"}
+        if vulns_new and not vulns_old:
+            return {"vulnerable": new_version, "fixed": old_version, "direction": "downgrade"}
+    return {"vulnerable": new_version or old_version, "fixed": None, "direction": "none"}
 
 
 def _group_advisories(vulns: list[dict]) -> dict[str, list[dict]]:
@@ -94,14 +107,19 @@ def _api_subset(api: dict, symbols_used: list[str], limit: int = 80) -> list[dic
 
 
 def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns: list[dict], n: int,
-                 fix_patch: str | None = None, new_only: list[str] = (), old_only: list[str] = ()) -> str:
+                 fix_patch: str | None = None, new_only: list[str] = (), old_only: list[str] = (), roles: dict | None = None) -> str:
+    roles = roles or {}
     used = facts["call_sites_summary"]["symbols_used"]
     parts = [f"Package under test: {facts['package']} version {facts['new_version'] or facts['old_version']}.",
              f"Import names: {facts['import_names']}. Previous version in the application: {facts['old_version']}.",
              f"You may also import the package's own dependencies: {facts.get('dependency_import_names', [])} "
              "(for example to build real key material). Any raises() must name a specific exception class.",
              f"Test framework: pytest. Python 3.12.", "",
-             "TASK: " + CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"])]
+             "TASK: " + CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
+                                                        vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
+    if category == "cve" and roles.get("direction") == "downgrade":
+        parts.append(f"NOTE: this change is a DOWNGRADE. The NEW version {facts['new_version']} is the vulnerable one and the "
+                     f"OLD version {facts['old_version']} is the fixed one. The test must fail on {facts['new_version']} and pass on {facts['old_version']}.")
     parts.append(_data("API", _api_subset(api, used)))
     prod = [{"file": s["file"], "line": s["line"], "symbol": s["symbol"], "code": s["context"]} for s in sites if not s["in_test"]][:40]
     parts.append(_data("CALL SITES", prod or "none: the application does not reference this package directly"))
@@ -211,6 +229,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     # fix-pinning test proves the bump closed them) plus any still open on the head version.
     seen = set()
     vulns = [v for v in vdoc.get("vulns_old", []) + vdoc["vulns"] if not (v["id"] in seen or seen.add(v["id"]))]
+    roles = cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"])
     roots = [r.split("/")[0] for r in facts["import_names"]]
     budget = facts["risk"]["budget"]
     pkg = facts["package"]
@@ -220,7 +239,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
                 "generated": now_iso(), "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model,
                                                   "temperature": model.cfg.temperature},
-                "budget": budget, "selfcheck_ref": "../../selfcheck/selfcheck.json", "files": [], "discarded": []}
+                "budget": budget, "selfcheck_ref": "../../selfcheck/selfcheck.json", "cve_roles": roles, "files": [], "discarded": []}
     plan = []   # (category, count, advisories-for-this-call, file suffix)
     for cat in (categories or ["unit", "functional", "negative", "cve"]):
         if cat == "cve":
@@ -243,7 +262,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
         fix_patch = fix_patch[:60000] + "\n... truncated"
     for cat, n, call_vulns, suffix in plan:
         prompt = build_prompt(cat, facts, api, sites, call_vulns, n, fix_patch if cat == "cve" else None,
-                              new_only if cat == "cve" else (), old_only if cat == "cve" else ())
+                              new_only if cat == "cve" else (), old_only if cat == "cve" else (), roles)
         max_tokens = {"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat]
         system = SYSTEM
         attempts, code, history, run1 = 0, None, [], None
@@ -329,7 +348,8 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                                   "baseline_run": {"status": {k.split('::')[-1]: v["status"] for k, v in run_final["results"].items()} if run_final else {},
                                                    "covered_lines_in_target": covered},
                                   "targets": facts["call_sites_summary"]["symbols_used"][:20] if cat != "cve" else [v["id"] for v in call_vulns],
-                                  "expected_differential": "old=fail new=pass" if cat == "cve" else "old=any new=pass",
+                                  "expected_differential": (f"{'new' if roles['direction'] == 'downgrade' else 'old'}=fail {'old' if roles['direction'] == 'downgrade' else 'new'}=pass" if cat == "cve" else "old=any new=pass"),
+                                  "cve_roles": roles if cat == "cve" else None,
                                   "sha256": sha256_text(header + kept_code)})
         log(f"    {cat}: kept {len(names)} test(s) in {fname}, cut {len(cut)}, attempts {attempts}, target lines covered {covered}")
     write_json(gen_dir / "manifest.json", manifest)
