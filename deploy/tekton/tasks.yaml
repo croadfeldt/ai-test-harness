@@ -10,13 +10,13 @@ spec:
   params:
     - { name: image, type: string }
     - { name: model-secret, type: string, description: "Secret with HARNESS_MODEL_BASE_URL, HARNESS_MODEL, optional HARNESS_MODEL_API_KEY" }
-  workspaces: [{ name: results }]
+  workspaces: [{ name: shared, description: "one claim: run/ (results), source/ (the target repository), udlm/ (the UDLM checkout)" }]
   steps:
     - name: selfcheck
       image: $(params.image)
       envFrom: [{ secretRef: { name: $(params.model-secret) } }]
       env: [{ name: HARNESS_SANDBOX_TARGET, value: pod }, { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }]
-      args: ["selfcheck", "--workdir", "$(workspaces.results.path)/run"]
+      args: ["selfcheck", "--workdir", "$(workspaces.shared.path)/run"]
 ---
 apiVersion: tekton.dev/v1
 kind: Task
@@ -29,16 +29,16 @@ spec:
     - { name: stage, type: string }
     - { name: args, type: array, default: [] }
     - { name: model-secret, type: string, default: "" }
-  workspaces: [{ name: results }, { name: source }, { name: udlm, optional: true }]
+  workspaces: [{ name: shared }]
   steps:
     - name: run
       image: $(params.image)
       envFrom: [{ secretRef: { name: $(params.model-secret), optional: true } }]
       env:
         - { name: HARNESS_SANDBOX_TARGET, value: pod }
-        - { name: HARNESS_TARGET_REPO, value: $(workspaces.source.path) }
-        - { name: HARNESS_UDLM_REPO, value: $(workspaces.udlm.path) }
-      args: ["$(params.stage)", "--workdir", "$(workspaces.results.path)/run", "$(params.args[*])"]
+        - { name: HARNESS_TARGET_REPO, value: $(workspaces.shared.path)/source }
+        - { name: HARNESS_UDLM_REPO, value: $(workspaces.shared.path)/udlm }
+      args: ["$(params.stage)", "--workdir", "$(workspaces.shared.path)/run", "$(params.args[*])"]
 ---
 apiVersion: tekton.dev/v1
 kind: Task
@@ -50,7 +50,7 @@ spec:
   params:
     - { name: image, type: string }
     - { name: select, type: array, default: [] }
-  workspaces: [{ name: results }]
+  workspaces: [{ name: shared }]
   podTemplate:
     automountServiceAccountToken: false
     securityContext: { runAsNonRoot: true, seccompProfile: { type: RuntimeDefault } }
@@ -58,7 +58,7 @@ spec:
     env:
       - { name: HARNESS_SANDBOX_TARGET, value: pod }
       - { name: HARNESS_WORK_TMP, value: /workspace/tmp }
-      - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.results.path)/run/cache/wheelhouse/probe }
+      - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.shared.path)/run/cache/wheelhouse/probe }
     securityContext: { readOnlyRootFilesystem: true, allowPrivilegeEscalation: false, capabilities: { drop: [ALL] } }
     computeResources: { limits: { memory: 2Gi, cpu: "2" }, requests: { memory: 512Mi, cpu: 500m } }
     volumeMounts: [{ name: tmp, mountPath: /workspace/tmp }, { name: home, mountPath: /tmp }]
@@ -68,10 +68,10 @@ spec:
   steps:
     - name: prove-isolation
       image: $(params.image)
-      args: ["selfcheck", "--sandbox-only", "--workdir", "$(workspaces.results.path)/run"]
+      args: ["selfcheck", "--sandbox-only", "--workdir", "$(workspaces.shared.path)/run"]
     - name: execute
       image: $(params.image)
-      args: ["execute", "--workdir", "$(workspaces.results.path)/run", "--select", "$(params.select[*])"]
+      args: ["execute", "--workdir", "$(workspaces.shared.path)/run", "--select", "$(params.select[*])"]
     - name: mutate
       image: $(params.image)
-      args: ["mutate", "--workdir", "$(workspaces.results.path)/run", "--select", "$(params.select[*])"]
+      args: ["mutate", "--workdir", "$(workspaces.shared.path)/run", "--select", "$(params.select[*])"]
