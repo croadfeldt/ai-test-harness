@@ -17,6 +17,7 @@ Opinionated means the capability map's primary choices are hard-wired here, not 
 | First-party call sites | `ast` over the target repository with venv, node_modules and build directories excluded; test files flagged |
 | Release notes | PyPI long description, written to `notes.untrusted.md` with a banner. Never an instruction to a model. |
 | Risk score and budget | `risk.py`, weights listed once, every contribution written to the fact bundle as a reason |
+| Mutation testing | The harness's own AST mutator (compare swap, and/or swap, constant tweak, raise drop, return None, not drop) on a bounded, seeded sample of sites on lines the tests execute; each mutant is overlaid onto the installed package in the sandbox and the passing tests run against it. The capability map names mutmut; it mutates a project's own source tree, and an integration for a dependency installed from a wheel does not exist yet. Engine and seed are recorded in the attestation. |
 | Model for generation | Any OpenAI-compatible chat endpoint; default is the homelab vLLM route serving Qwen3.6-27B. Set `HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL`, `HARNESS_MODEL_API_KEY`. Every call's prompt, response, digests, usage, and latency are written under `generate/<package>/model-calls/`. |
 | Sandbox | Podman: `--network none`, all capabilities dropped, no new privileges, read-only root, tmpfs work dir, memory / pid / cpu / time limits, environment cleared with `env -i`, wheels installed offline from a prefetched wheelhouse. `tests/test_sandbox_integration.py` proves each claim with a probe. The Kubernetes target with a Kata or gVisor RuntimeClass reuses the same plan. |
 
@@ -46,6 +47,9 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 
 # Stage 4, the gauntlet: head run, flake re-run, coverage, differential against the old version:
 .venv/bin/harness execute --workdir out/run1 --select python-jose
+
+# Stage 4 step 5, mutation testing of the passing tests (25 sampled mutants by default):
+.venv/bin/harness mutate --workdir out/run1 --select python-jose
 
 # Stages 5, 6, attestation, and the post-analysis:
 .venv/bin/harness triage --workdir out/run1 --select python-jose
@@ -80,6 +84,7 @@ generate/<package>/
 execute/<package>/
   results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
   new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
+  mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills
 triage/<package>/triage.json    findings and per-test classes with confidence, routing, evidence refs
 packet/<package>/
   packet.md                     the one-page review packet
@@ -101,7 +106,7 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | 1 intake | implemented, Python |
 | 2 analyze | implemented, Python |
 | 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |
-| 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential with the package pinned to its old version, TestResults in the adapter-interface schema. Mutation and relevance arrive with triage. |
+| 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential against the base graph or a resolved fixed candidate, TestResults in the adapter-interface schema. `harness mutate` adds the mutation score and per-test kills; the relevance check on existing tests is next. |
 | 5 triage | implemented: deterministic classes with confidence and routing; below threshold escalates; agent-reported defects need stage 4 corroboration |
 | 6 packet | implemented: one-page packet, accepted tests as a patch in the overlay layout, draft OpenVEX per vulnerability (fixed only with a confirmed fix-pinning test) |
 | 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |

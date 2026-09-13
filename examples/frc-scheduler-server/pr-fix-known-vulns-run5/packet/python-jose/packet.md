@@ -1,6 +1,6 @@
 # Review packet: python-jose 3.3.0 -> 3.4.0
 
-Run `76a3fa863e76`. Generated 2026-09-13T04:29:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+Run `76a3fa863e76`. Generated 2026-09-13T13:06:50+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 python-jose at depth 1, change `bumped`, reachable from first-party code: **true**
@@ -11,6 +11,7 @@ Advisories: 0 open at head, 5 on the replaced version.
 ## What was tested
 11 generated tests ran in the sealed sandbox on head, again for flakes, and on the base version. 9 pass on head, 0 flaky,
 2 fix-pinning confirmed, 640 lines of the package covered. Model: `qwen/qwen3.8-27b`.
+Mutation: score 0.417 (5 of 12 sampled mutants killed, 157 sites on executed lines, seed 512944556). Tests that killed nothing: ['test_ghsa_6c5p_j8vq_pqhj_exposure', 'test_ghsa_6c5p_j8vq_pqhj_fix_pinning', 'test_ghsa_cjwg_qfpm_7377_exposure']. Target in the blueprint: 0.6.
 
 ## Findings
 - **defect** (0.4): python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33663); NOT corroborated by stage 4 verdicts. Route: escalate: below confidence threshold. Evidence: `generate/python-jose/manifest.agent.json`
@@ -35,7 +36,7 @@ Advisories: 0 open at head, 5 on the replaced version.
 | vulnerability | status | basis |
 |---|---|---|
 | CVE-2024-33663 | under_investigation | bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet |
-| CVE-2024-33664 | fixed | fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_fix_pinning', 'test_ghsa_cjwg_qfpm_7377_exposure'] fail on pkg: |
+| CVE-2024-33664 | fixed | fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_exposure', 'test_ghsa_cjwg_qfpm_7377_fix_pinning'] fail on pkg: |
 | CVE-2024-29370 | under_investigation | bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet |
 
 ## Upgrade path

@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="9" time="0.272" timestamp="2026-09-13T13:06:16.708588+00:00" hostname="40518b1722b1"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.004" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.003" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip" time="0.001"><failure message="jose.exceptions.JWTError: Signature verification failed.">signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'pfv\x99p\x05r\xca\xcf)\xce\xc20\x1fH\xe6Ogu!5Ne\x12\x9fWh\xa4!\xeb\x10\x82'
+key = b'unit-test-secret-key', algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+&gt;               raise JWSSignatureError()
+E               jose.exceptions.JWSSignatureError
+
+venv/lib/python3.12/site-packages/jose/jws.py:264: JWSSignatureError
+
+During handling of the above exception, another exception occurred:
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ.cGZ2mXAFcsrPKc7CMB9I5k9ndSE1TmUSn1dopCHrEII'
+key = b'unit-test-secret-key', algorithms = ['HS256'], options = None
+audience = None, issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+&gt;           payload = jws.verify(token, key, algorithms, verify=verify_signature)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jwt.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:77: in verify
+    _verify_signature(signing_input, header, signature, key, algorithms)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'pfv\x99p\x05r\xca\xcf)\xce\xc20\x1fH\xe6Ogu!5Ne\x12\x9fWh\xa4!\xeb\x10\x82'
+key = b'unit-test-secret-key', algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+                raise JWSSignatureError()
+        except JWSSignatureError:
+&gt;           raise JWSError("Signature verification failed.")
+E           jose.exceptions.JWSError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jws.py:266: JWSError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode with HS256 returns the original claims."""
+        key = b'unit-test-secret-key'
+        claims = {'sub': '1234567890', 'name': 'Alice', 'iat': 1700000000}
+        token = jwt.encode(claims, key, algorithm=Algorithms.HS256)
+        assert isinstance(token, str)
+&gt;       decoded = jwt.decode(token, key, algorithms=[Algorithms.HS256])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ.cGZ2mXAFcsrPKc7CMB9I5k9ndSE1TmUSn1dopCHrEII'
+key = b'unit-test-secret-key', algorithms = ['HS256'], options = None
+audience = None, issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+            payload = jws.verify(token, key, algorithms, verify=verify_signature)
+        except JWSError as e:
+&gt;           raise JWTError(e)
+E           jose.exceptions.JWTError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jwt.py:156: JWTError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwterror" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expiredsignatureerror" time="0.001"><failure message="jose.exceptions.JWTError: Signature verification failed.">signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEwMDAwMDAwMDB9'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xe1mDn\xf9n\\H\t\x11r\x9edb.\xb2\xedu?\xb4\x03\xd3\xce\xb6*\xd6:\x86\x9a&lt;\xae\x10'
+key = b'k', algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+&gt;               raise JWSSignatureError()
+E               jose.exceptions.JWSSignatureError
+
+venv/lib/python3.12/site-packages/jose/jws.py:264: JWSSignatureError
+
+During handling of the above exception, another exception occurred:
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEwMDAwMDAwMDB9.4W1EbvluXEgJEXKeZGIusu11P7QD0862KtY6hpo8rhA'
+key = b'k', algorithms = ['HS256'], options = None, audience = None
+issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+&gt;           payload = jws.verify(token, key, algorithms, verify=verify_signature)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jwt.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:77: in verify
+    _verify_signature(signing_input, header, signature, key, algorithms)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEwMDAwMDAwMDB9'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xe1mDn\xf9n\\H\t\x11r\x9edb.\xb2\xedu?\xb4\x03\xd3\xce\xb6*\xd6:\x86\x9a&lt;\xae\x10'
+key = b'k', algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+                raise JWSSignatureError()
+        except JWSSignatureError:
+&gt;           raise JWSError("Signature verification failed.")
+E           jose.exceptions.JWSError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jws.py:266: JWSError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_expired_raises_expiredsignatureerror():
+        """jwt.decode raises ExpiredSignatureError when exp is in the past."""
+        token = jwt.encode({'exp': 1000000000}, b'k', algorithm=Algorithms.HS256)
+        with pytest.raises(exceptions.ExpiredSignatureError):
+&gt;           jwt.decode(token, b'k', algorithms=[Algorithms.HS256])
+
+tests/test_python_jose_unit.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEwMDAwMDAwMDB9.4W1EbvluXEgJEXKeZGIusu11P7QD0862KtY6hpo8rhA'
+key = b'k', algorithms = ['HS256'], options = None, audience = None
+issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+            payload = jws.verify(token, key, algorithms, verify=verify_signature)
+        except JWSError as e:
+&gt;           raise JWTError(e)
+E           jose.exceptions.JWTError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jwt.py:156: JWTError</failure></testcase></testsuite></testsuites>

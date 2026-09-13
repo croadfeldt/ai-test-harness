@@ -56,6 +56,12 @@ def cmd_execute(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_mutate(a: argparse.Namespace) -> int:
+    from .stages.mutate import mutate
+    mutate(workdir=a.workdir, select=a.select, python_version=a.python_version, sample=a.sample)
+    print(a.workdir / "execute" / "mutation-summary.json"); return 0
+
+
 def cmd_triage(a: argparse.Namespace) -> int:
     from .stages.triage import triage
     triage(workdir=a.workdir, select=a.select); print(a.workdir / "triage" / "summary.json"); return 0
@@ -117,6 +123,13 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--select", nargs="*", default=None)
     s.add_argument("--python-version", default="3.12")
     s.set_defaults(func=cmd_execute)
+
+    s = sub.add_parser("mutate", help="stage 4 step 5: mutation testing of the passing tests on coverage-scoped mutants")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--python-version", default="3.12")
+    s.add_argument("--sample", type=int, default=25)
+    s.set_defaults(func=cmd_mutate)
 
     for name, fn, help_ in (("triage", cmd_triage, "stage 5: classify every verdict and finding with confidence and routing"),
                             ("packet", cmd_packet, "stage 6: review packet, tests as an overlay patch, draft OpenVEX"),

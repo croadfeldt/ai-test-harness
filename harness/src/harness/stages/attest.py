@@ -56,6 +56,9 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
     graph_new = read_json(workdir / "intake" / "graph.new.json")
     out = workdir / "attest" / pkg
     out.mkdir(parents=True, exist_ok=True)
+    mut_path = workdir / "execute" / pkg / "mutation" / "mutation.json"
+    mutation = read_json(mut_path) if mut_path.exists() else None
+    per_test = (mutation or {}).get("per_test", {})
     by_name = {t["name"]: t for t in results["tests"]}
     tri_by_name = {t["name"]: t for t in triage["tests"]}
     file_by_test = {t: f for f in gen["files"] for t in f["tests"]}
@@ -71,7 +74,9 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
                "run": {"run_id": wl["run_id"], "model_id": f.get("model", gen.get("model", {}).get("id", "")),
                        "prompt_sha256": f.get("prompt_sha256", "agent: see manifest.agent.json"), "tool_versions": tool_versions,
                        "image_digest": results["target"]["identity"], "execution_target": "podman"},
-               "validation": {"baseline_pass": r.get("versions", {}).get("new") == "pass", "coverage_delta": 0.0, "mutants_killed": 0,
+               "validation": {"baseline_pass": r.get("versions", {}).get("new") == "pass", "coverage_delta": 0.0,
+                              "mutants_killed": len(per_test.get(name, {}).get("killed", [])),
+                              "unique_mutants_killed": len(per_test.get(name, {}).get("unique", [])),
                               "flake_runs": 2, "differential": "changed" if r.get("versions", {}).get("old") != r.get("versions", {}).get("new") else "same"},
                "lifecycle": {"state": "candidate", "state_changed_at": now_iso(), "bumps_survived": 0, "regressions_caught": 0}}
         if f.get("category") == "cve":
@@ -101,10 +106,14 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
             "tests_promoted": [], "tests_retired": [],
             "findings": [{"class": f["class"], "confidence": f["confidence"], "evidence_ref": f["evidence_ref"], "summary": f["summary"]} for f in triage["findings"]],
             "vex_drafts": [{"vulnerability": st["vulnerability"]["name"], "status": st["status"], "evidence_test_ids": st["harness_evidence"]["tests"], "reviewed_by": None} for st in vex["statements"]],
-            "metrics": {"build_success_rate": None, "mutation_score": None, "flake_rate": results["counts"]["flaky"] / max(1, results["counts"]["total"]),
+            "metrics": {"build_success_rate": None, "mutation_score": (mutation or {}).get("score"),
+                        "mutation_sample": (mutation or {}).get("sampled"), "mutation_engine": (mutation or {}).get("engine"),
+                        "flake_rate": results["counts"]["flaky"] / max(1, results["counts"]["total"]),
                         "coverage_lines_in_target": results["coverage_summary"]["covered_lines_in_target"],
                         "fix_pinning_confirmed": results["counts"]["fix_pinning_confirmed"], "tests_total": results["counts"]["total"]},
-            "unverified": ["mutation score: mutation testing not in this slice", "coverage delta: no baseline overlay suite yet",
+            "unverified": ([] if mutation else ["mutation score: mutation testing was not run for this package"]) + [
+                          "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+                          "coverage delta: no baseline overlay suite yet",
                            "signer: local Ed25519 development key, not Trusted Artifact Signer",
                            "harness image digest: harness ran from a checkout, not a built image"]}}],
         "url": f"packet/{pkg}/packet.md",

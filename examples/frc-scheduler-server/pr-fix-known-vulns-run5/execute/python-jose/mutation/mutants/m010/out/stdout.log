@@ -1,0 +1,360 @@
+..F.FFFFF                                                                [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_cjwg_qfpm_7377_fix_pinning _____________________
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit."""
+        token = _make_bomb_jwe()
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, b'0123456789abcdef0123456789abcdef')
+
+tests/test_python_jose_cve_cve_2024_33664.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:521: in _get_key_bytes_from_key
+    jwk_data = key.to_dict()
+               ^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/base.py:88: in to_dict
+    "k": base64url_encode(self._key),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:74: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b'=', b'')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+_______________________ test_jwt_encode_decode_roundtrip _______________________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ'
+algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8a600>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+>           signature = key.sign(signing_input)
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8a600>
+msg = None
+
+    def sign(self, msg):
+        msg = ensure_binary(msg)
+        h = hmac.HMAC(self.prepared_key, self._hash_alg, backend=default_backend())
+>       h.update(msg)
+E       TypeError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+E       while processing 'data'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:595: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode with HS256 returns the original claims."""
+        key = b'unit-test-secret-key'
+        claims = {'sub': '1234567890', 'name': 'Alice', 'iat': 1700000000}
+>       token = jwt.encode(claims, key, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNzAwMDAwMDAwfQ'
+algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8a600>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+__________________ test_jwt_decode_wrong_key_raises_jwterror ___________________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f264e0>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+>           signature = key.sign(signing_input)
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f264e0>
+msg = None
+
+    def sign(self, msg):
+        msg = ensure_binary(msg)
+        h = hmac.HMAC(self.prepared_key, self._hash_alg, backend=default_backend())
+>       h.update(msg)
+E       TypeError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+E       while processing 'data'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:595: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_wrong_key_raises_jwterror():
+        """jwt.decode with a different key raises JWTError."""
+>       token = jwt.encode({'sub': 'x'}, b'key-one', algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f264e0>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+________________________ test_jwt_get_unverified_header ________________________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJhIjoxfQ', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f24290>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+>           signature = key.sign(signing_input)
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f24290>
+msg = None
+
+    def sign(self, msg):
+        msg = ensure_binary(msg)
+        h = hmac.HMAC(self.prepared_key, self._hash_alg, backend=default_backend())
+>       h.update(msg)
+E       TypeError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+E       while processing 'data'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:595: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_header():
+        """jwt.get_unverified_header returns the alg and typ without verification."""
+>       token = jwt.encode({'a': 1}, b'k', algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJhIjoxfQ', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f24290>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+________________________ test_jwt_get_unverified_claims ________________________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJhYmMiLCJjdXN0b20iOjQyfQ', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f26f90>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+>           signature = key.sign(signing_input)
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f26f90>
+msg = None
+
+    def sign(self, msg):
+        msg = ensure_binary(msg)
+        h = hmac.HMAC(self.prepared_key, self._hash_alg, backend=default_backend())
+>       h.update(msg)
+E       TypeError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+E       while processing 'data'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:595: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_claims():
+        """jwt.get_unverified_claims returns claims without signature verification."""
+>       token = jwt.encode({'sub': 'abc', 'custom': 42}, b'k', algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJhYmMiLCJjdXN0b20iOjQyfQ', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536f26f90>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+_____________ test_jwt_decode_expired_raises_expiredsignatureerror _____________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJleHAiOjEwMDAwMDAwMDB9', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8b560>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+>           signature = key.sign(signing_input)
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8b560>
+msg = None
+
+    def sign(self, msg):
+        msg = ensure_binary(msg)
+        h = hmac.HMAC(self.prepared_key, self._hash_alg, backend=default_backend())
+>       h.update(msg)
+E       TypeError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+E       while processing 'data'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:595: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_expired_raises_expiredsignatureerror():
+        """jwt.decode raises ExpiredSignatureError when exp is in the past."""
+>       token = jwt.encode({'exp': 1000000000}, b'k', algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJleHAiOjEwMDAwMDAwMDB9', algorithm = 'HS256'
+key = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fe536d8b560>
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: Cannot convert "<class 'NoneType'>" instance to a buffer.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_fix_pinning
+FAILED tests/test_python_jose_unit.py::test_jwt_encode_decode_roundtrip - jos...
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_wrong_key_raises_jwterror
+FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_header - jose....
+FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_claims - jose....
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_expired_raises_expiredsignatureerror
+6 failed, 3 passed in 0.47s

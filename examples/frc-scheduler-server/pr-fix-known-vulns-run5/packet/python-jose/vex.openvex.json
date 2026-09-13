@@ -30,8 +30,8 @@
       "harness_evidence": {
         "confirmed": true,
         "tests": [
-          "test_ghsa_cjwg_qfpm_7377_fix_pinning",
-          "test_ghsa_cjwg_qfpm_7377_exposure"
+          "test_ghsa_cjwg_qfpm_7377_exposure",
+          "test_ghsa_cjwg_qfpm_7377_fix_pinning"
         ]
       },
       "products": [
@@ -40,7 +40,7 @@
         }
       ],
       "status": "fixed",
-      "status_notes": "fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_fix_pinning', 'test_ghsa_cjwg_qfpm_7377_exposure'] fail on pkg:pypi/python-jose@3.3.0 and pass on pkg:pypi/python-jose@3.4.0",
+      "status_notes": "fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_exposure', 'test_ghsa_cjwg_qfpm_7377_fix_pinning'] fail on pkg:pypi/python-jose@3.3.0 and pass on pkg:pypi/python-jose@3.4.0",
       "vulnerability": {
         "aliases": [
           "CVE-2024-33664",
@@ -72,6 +72,6 @@
       }
     }
   ],
-  "timestamp": "2026-09-13T04:29:48+00:00",
+  "timestamp": "2026-09-13T13:06:50+00:00",
   "version": 1
 }

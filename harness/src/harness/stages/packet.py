@@ -110,6 +110,14 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
     vex = _vex(pkg, facts["purl"], f"pkg:pypi/{pkg}@{facts['old_version']}" if facts["old_version"] else None, vulns_doc, triage, run_id)
     write_json(out / "vex.openvex.json", vex)
 
+    mut_path = workdir / "execute" / pkg / "mutation" / "mutation.json"
+    mut = read_json(mut_path) if mut_path.exists() else None
+    if mut and mut.get("status") == "ran":
+        weak = sorted(set(mut["tests"]) - set(mut["per_test"]))
+        mut_md = (f"score {mut['score']} ({mut['killed']} of {mut['valid']} sampled mutants killed, {mut['sites']} sites on executed lines, "
+                  f"seed {mut['seed']}). Tests that killed nothing: {weak or 'none'}. Target in the blueprint: 0.6.")
+    else:
+        mut_md = "not run."
     s = triage["summary"]; c = results["counts"] if results else {}
     cov = results["coverage_summary"]["covered_lines_in_target"] if results else 0
     findings_md = "\n".join(f"- **{f['class']}** ({f['confidence']}): {f['summary']}. Route: {f['routing']}. Evidence: `{f['evidence_ref']}`" for f in triage["findings"]) or "- none"
@@ -139,6 +147,7 @@ Advisories: {facts['vulns_summary']['count']} open at head, {facts['vulns_summar
 ## What was tested
 {c.get('total', 0)} generated tests ran in the sealed sandbox on head, again for flakes, and on the base version. {c.get('pass_on_new', 0)} pass on head, {c.get('flaky', 0)} flaky,
 {c.get('fix_pinning_confirmed', 0)} fix-pinning confirmed, {cov} lines of the package covered. Model: `{gen.get('model', {}).get('id', 'n/a')}`.
+Mutation: {mut_md}
 
 ## Findings
 {findings_md}

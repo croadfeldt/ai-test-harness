@@ -44,7 +44,8 @@ def prefetch_wheelhouse(requirements: list[str], python_version: str, dest: Path
 
 
 def run_tests(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, out_dir: Path,
-              cover: list[str], label: str, image: str = IMAGE, limits: dict = LIMITS) -> dict:
+              cover: list[str], label: str, image: str = IMAGE, limits: dict = LIMITS,
+              overlay_dir: Path | None = None) -> dict:
     """Install from the wheelhouse offline, run pytest with coverage, return a summary.
 
     Writes junit.xml, coverage.json, stdout.log, stderr.log into out_dir.
@@ -58,6 +59,7 @@ python -m venv /work/venv >/dev/null
 /work/venv/bin/pip install --quiet --no-index --find-links /wheelhouse -r /out/requirements.txt || {{ echo "INSTALL_FAILED"; exit 97; }}
 cd /work
 cp -r /tests /work/tests
+if [ -d /mutant ]; then cp -r /mutant/. /work/venv/lib/python3.12/site-packages/; fi
 /work/venv/bin/python -m coverage run --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
     --junitxml=/out/junit.xml -o junit_family=xunit2 /work/tests ; rc=$?
 /work/venv/bin/python -m coverage json -o /out/coverage.json >/dev/null 2>&1 || true
@@ -69,6 +71,7 @@ exit $rc
            "--read-only", "--tmpfs", "/work:rw,size=1g", "--tmpfs", "/tmp:rw,size=256m",
            "-v", f"{wheelhouse.resolve()}:/wheelhouse:ro,Z", "-v", f"{tests_dir.resolve()}:/tests:ro,Z",
            "-v", f"{out_dir.resolve()}:/out:rw,Z",
+           *(["-v", f"{overlay_dir.resolve()}:/mutant:ro,Z"] if overlay_dir else []),
            "--label", f"ai-test-harness={label}", image,
            # env -i: the sandbox inherits nothing from the image or the host, only what is listed here.
            "env", "-i", "PATH=/usr/local/bin:/usr/bin:/bin", "HOME=/work", "LANG=C.UTF-8",

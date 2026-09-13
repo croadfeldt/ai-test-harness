@@ -238,6 +238,14 @@ That is the upgrade path, and it is a section of the packet.
 was first mis-judged: pytest parametrized it, stage 4 matched ids exactly, and the proof was filed as
 an uncategorized test. That is register entry GF-018; the rerun above is after the fix.
 
+## Mutation testing on python-jose's accepted tests (`-run5/execute/python-jose/mutation/`)
+
+12 mutants sampled from 157 sites on the 640 package lines the tests execute. 5 killed, 7 survived:
+**score 0.42 against the blueprint's target of 0.6.** The confirmed fix-pinning test killed a mutant
+in the base64 helper; the round-trip test killed five and was the only test with a unique kill. The
+survivors sit in the cryptography backend and the JWE path, which the accepted tests barely touch.
+Post-analysis goal G11 now reads "not met" instead of "not applicable", which is the honest state.
+
 ## The pull request, end to end
 
 Three packages through every stage, one model, one sandbox, stage 0 passing first.
@@ -248,8 +256,7 @@ Three packages through every stage, one model, one sandbox, stage 0 passing firs
 | pyasn1 | downgraded 0.6.4 to 0.4.8, unmentioned | 1 exposure introduced (unbounded recursion) | 3 | 1 affected with evidence, 3 under investigation |
 | starlette | untouched, 7 open advisories | 1 exposure at head (method handling) | 6 | 7 affected, 1 with evidence; upgrade path: fastapi 0.141.1 |
 
-Post-analysis: 9 of 11 goals met, one measured without a target, one not applicable until mutation
-testing. Three signed attestations, verified. Everything a reviewer needs is in `run5/packet/`.
+Post-analysis: 9 of 11 goals met, one measured without a target, and the mutation-score goal not met. Three signed attestations, verified. Everything a reviewer needs is in `run5/packet/`.
 
 ## What each output file is
 
