@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "id": "GF-001",
+      "status": "pass",
+      "title": "empty content after hidden reasoning is a failed attempt, and reasoning-off is sent"
+    },
+    {
+      "id": "GF-002",
+      "status": "pass",
+      "title": "repetition loop is detected and normal code is not"
+    },
+    {
+      "id": "GF-003",
+      "status": "pass",
+      "title": "catch-all and assertion-free tests are rejected as weak"
+    },
+    {
+      "id": "GF-004",
+      "status": "pass",
+      "title": "the package's declared dependencies may be imported; unrelated modules may not"
+    },
+    {
+      "id": "GF-005",
+      "status": "pass",
+      "title": "the fix diff reaches the CVE prompt when a patch exists"
+    },
+    {
+      "id": "GF-006",
+      "status": "pass",
+      "title": "constants are in the API surface and version-only names reach the prompt"
+    },
+    {
+      "id": "GF-007",
+      "status": "pass",
+      "title": "a crash on the fixed version is separated from an assertion failure"
+    },
+    {
+      "id": "GF-008",
+      "status": "pass",
+      "title": "the sandbox keeps running past a file that fails to collect"
+    },
+    {
+      "id": "GF-009",
+      "status": "pass",
+      "title": "advisory ids sharing a CVE collapse to one issue"
+    },
+    {
+      "id": "GF-010",
+      "status": "pass",
+      "title": "the differential environment is the base commit's own graph"
+    },
+    {
+      "id": "GF-011",
+      "status": "pass",
+      "title": "graph resolution runs inside the target interpreter's image when it can"
+    },
+    {
+      "id": "GF-013",
+      "status": "pass",
+      "title": "the agent may not read past the cap before running a test, and always keeps calls for run and submit"
+    },
+    {
+      "id": "GF-014",
+      "status": "pass",
+      "title": "a failure message that the fix diff introduced is recognized as 'fix reached'"
+    },
+    {
+      "id": "GF-015",
+      "status": "pass",
+      "title": "an identical run result twice in a row is reported as a blocked path and a candidate defect"
+    },
+    {
+      "id": "GF-016",
+      "status": "pass",
+      "title": "a downgrade derives vulnerable=new, fixed=old from the advisories, and the verdicts follow the roles"
+    },
+    {
+      "id": "GF-017",
+      "status": "pass",
+      "title": "existence-only assertions are rejected as trivial"
+    },
+    {
+      "id": "GF-018",
+      "status": "pass",
+      "title": "a parametrized pytest id resolves to its manifest test name"
+    },
+    {
+      "id": "GF-019",
+      "status": "pass",
+      "title": "reasoning leaking into content is detected and the call falls back to thinking off"
+    },
+    {
+      "id": "GF-012",
+      "status": "pass",
+      "title": "every old/new outcome maps to a fixed, honest verdict"
+    }
+  ],
+  "failed": [],
+  "generated": "2026-09-13T20:43:59+00:00",
+  "model": {
+    "reason": "probes disabled",
+    "status": "skipped"
+  },
+  "passed": true,
+  "sandbox": {
+    "reason": "probes disabled",
+    "status": "skipped"
+  },
+  "stage": 0
+}

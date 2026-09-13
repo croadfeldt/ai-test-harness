@@ -1,0 +1,32 @@
+{
+  "args": {
+    "base": null,
+    "cmd": "intake",
+    "ecosystem": "go",
+    "head": "main",
+    "manifest": "go.mod",
+    "python_version": "3.12",
+    "repo": "control-plane",
+    "workdir": "go-rescan"
+  },
+  "command": [
+    "intake",
+    "--repo",
+    "control-plane",
+    "--ecosystem",
+    "go",
+    "--manifest",
+    "go.mod",
+    "--head",
+    "main",
+    "--workdir",
+    "go-rescan"
+  ],
+  "harness_version": "0.1.0",
+  "started": "2026-09-13T20:43:59+00:00",
+  "tools": {
+    "git": "git version 2.55.0",
+    "pip": "pip 26.0.1",
+    "python": "3.14.7"
+  }
+}

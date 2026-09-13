@@ -1,0 +1,133 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/oapi-codegen/runtime"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/oapi-codegen/runtime",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-13T20:47:22+00:00",
+  "import_names": [
+    "github.com/gomarkdown/markdown"
+  ],
+  "new_version": "v0.0.0-20240328165702-4d01890c35c0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v0.0.0-20240328165702-4d01890c35c0",
+  "package": "github.com/gomarkdown/markdown",
+  "purl": "pkg:golang/github.com/gomarkdown/markdown@v0.0.0-20240328165702-4d01890c35c0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 4,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "4 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 23,
+    "files": [
+      "block_test.go",
+      "ref_test.go",
+      "fuzz_crashes_test.go",
+      "markdown_test.go",
+      "html_renderer_test.go",
+      "mmark_test.go",
+      "esc_test.go",
+      "helpers_test.go",
+      "md_test.go",
+      "inline_test.go",
+      "md/md_renderer_test.go",
+      "parser/esc_test.go",
+      "parser/include_test.go",
+      "parser/citation_test.go",
+      "parser/parser_test.go",
+      "parser/options_test.go",
+      "parser/caption_test.go",
+      "parser/block_table_test.go",
+      "parser/attribute_test.go",
+      "parser/callout_test.go",
+      "parser/ref_test.go",
+      "html/callouts_test.go",
+      "ast/node_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 4,
+    "count_old": 0,
+    "cves": [
+      "CVE-2024-44337",
+      "CVE-2026-40890"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "0.0.0-20240729212818-a2a9c4f76ef5",
+      "0.0.0-20260411013819-759bbc3e3207"
+    ],
+    "ids": [
+      "GHSA-77fj-vx54-gvh7",
+      "GHSA-xhr3-wf7j-h255",
+      "GO-2024-3205",
+      "GO-2026-5208"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

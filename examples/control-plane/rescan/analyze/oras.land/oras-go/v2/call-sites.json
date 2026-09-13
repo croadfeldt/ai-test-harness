@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "oras.land/oras-go/v2"
+  ],
+  "package": "oras.land/oras-go/v2",
+  "sites": []
+}

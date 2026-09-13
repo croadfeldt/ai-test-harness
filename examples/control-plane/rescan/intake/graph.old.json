@@ -1,0 +1,4216 @@
+{
+  "ecosystem": "go",
+  "manifest": "go.mod@147f74f4edc2",
+  "manifest_digest": "sha256:14114bb3fd90e03320d5d4205a1297677b72c029712872d2962e7b69be5b13e9",
+  "packages": {
+    "cloud.google.com/go/compute/metadata": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "cloud.google.com/go/compute/metadata",
+      "optional_requires": [],
+      "parents": [
+        "golang.org/x/oauth2"
+      ],
+      "purl": "pkg:golang/cloud.google.com/go/compute/metadata@v0.3.0",
+      "requires": [],
+      "version": "v0.3.0"
+    },
+    "github.com/BurntSushi/toml": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/BurntSushi/toml",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/BurntSushi/toml@v1.3.2",
+      "requires": [],
+      "version": "v1.3.2"
+    },
+    "github.com/CloudyKit/fastprinter": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/CloudyKit/fastprinter",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/CloudyKit/fastprinter@v0.0.0-20200109182630-33d98a066a53",
+      "requires": [],
+      "version": "v0.0.0-20200109182630-33d98a066a53"
+    },
+    "github.com/CloudyKit/jet/v6": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/CloudyKit/jet/v6",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/CloudyKit/jet/v6@v6.2.0",
+      "requires": [],
+      "version": "v6.2.0"
+    },
+    "github.com/Joker/jade": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/Joker/jade",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/Joker/jade@v1.1.3",
+      "requires": [],
+      "version": "v1.1.3"
+    },
+    "github.com/Masterminds/semver/v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/Masterminds/semver/v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/Masterminds/semver/v3@v3.4.0",
+      "requires": [],
+      "version": "v3.4.0"
+    },
+    "github.com/RaveNoX/go-jsoncommentstrip": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/RaveNoX/go-jsoncommentstrip",
+      "optional_requires": [],
+      "parents": [
+        "github.com/apapsch/go-jsonmerge/v2"
+      ],
+      "purl": "pkg:golang/github.com/RaveNoX/go-jsoncommentstrip@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/Shopify/goreferrer": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/Shopify/goreferrer",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/Shopify/goreferrer@v0.0.0-20220729165902-8cddb4f5de06",
+      "requires": [],
+      "version": "v0.0.0-20220729165902-8cddb4f5de06"
+    },
+    "github.com/agnivade/levenshtein": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/agnivade/levenshtein",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/agnivade/levenshtein@v1.2.1",
+      "requires": [
+        "github.com/arbovm/levenshtein",
+        "github.com/dgryski/trifles"
+      ],
+      "version": "v1.2.1"
+    },
+    "github.com/andreyvit/diff": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/andreyvit/diff",
+      "optional_requires": [],
+      "parents": [
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/andreyvit/diff@v0.0.0-20170406064948-c7f18ee00883",
+      "requires": [],
+      "version": "v0.0.0-20170406064948-c7f18ee00883"
+    },
+    "github.com/andybalholm/brotli": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/andybalholm/brotli",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/andybalholm/brotli@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/antithesishq/antithesis-sdk-go": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/antithesishq/antithesis-sdk-go",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2"
+      ],
+      "purl": "pkg:golang/github.com/antithesishq/antithesis-sdk-go@v0.6.0-default-no-op",
+      "requires": [
+        "golang.org/x/mod",
+        "golang.org/x/tools"
+      ],
+      "version": "v0.6.0-default-no-op"
+    },
+    "github.com/apapsch/go-jsonmerge/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/apapsch/go-jsonmerge/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/apapsch/go-jsonmerge/v2@v2.0.0",
+      "requires": [
+        "github.com/RaveNoX/go-jsoncommentstrip",
+        "github.com/bmatcuk/doublestar",
+        "github.com/juju/gnuflag",
+        "github.com/spkg/bom",
+        "github.com/stretchr/testify"
+      ],
+      "version": "v2.0.0"
+    },
+    "github.com/arbovm/levenshtein": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/arbovm/levenshtein",
+      "optional_requires": [],
+      "parents": [
+        "github.com/agnivade/levenshtein"
+      ],
+      "purl": "pkg:golang/github.com/arbovm/levenshtein@v0.0.0-20160628152529-48b4e1c0c4d0",
+      "requires": [],
+      "version": "v0.0.0-20160628152529-48b4e1c0c4d0"
+    },
+    "github.com/aymerick/douceur": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/aymerick/douceur",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/aymerick/douceur@v0.2.0",
+      "requires": [],
+      "version": "v0.2.0"
+    },
+    "github.com/beorn7/perks": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/beorn7/perks",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/beorn7/perks@v1.0.1",
+      "requires": [],
+      "version": "v1.0.1"
+    },
+    "github.com/bmatcuk/doublestar": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/bmatcuk/doublestar",
+      "optional_requires": [],
+      "parents": [
+        "github.com/apapsch/go-jsonmerge/v2"
+      ],
+      "purl": "pkg:golang/github.com/bmatcuk/doublestar@v1.1.1",
+      "requires": [],
+      "version": "v1.1.1"
+    },
+    "github.com/brunoga/deep/v4": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/brunoga/deep/v4",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/brunoga/deep/v4@v4.1.0",
+      "requires": [],
+      "version": "v4.1.0"
+    },
+    "github.com/bytecodealliance/wasmtime-go/v44": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/bytecodealliance/wasmtime-go/v44",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/bytecodealliance/wasmtime-go/v44@v44.0.0",
+      "requires": [],
+      "version": "v44.0.0"
+    },
+    "github.com/bytedance/sonic": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/bytedance/sonic",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/bytedance/sonic@v1.11.6",
+      "requires": [],
+      "version": "v1.11.6"
+    },
+    "github.com/bytedance/sonic/loader": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/bytedance/sonic/loader",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/bytedance/sonic/loader@v0.1.1",
+      "requires": [],
+      "version": "v0.1.1"
+    },
+    "github.com/cenkalti/backoff/v5": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cenkalti/backoff/v5",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/cenkalti/backoff/v5@v5.0.3",
+      "requires": [],
+      "version": "v5.0.3"
+    },
+    "github.com/cespare/xxhash/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cespare/xxhash/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/cespare/xxhash/v2@v2.3.0",
+      "requires": [],
+      "version": "v2.3.0"
+    },
+    "github.com/chzyer/readline": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/chzyer/readline",
+      "optional_requires": [],
+      "parents": [
+        "github.com/google/pprof"
+      ],
+      "purl": "pkg:golang/github.com/chzyer/readline@v1.5.1",
+      "requires": [],
+      "version": "v1.5.1"
+    },
+    "github.com/clipperhouse/displaywidth": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/clipperhouse/displaywidth",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/clipperhouse/displaywidth@v0.10.0",
+      "requires": [],
+      "version": "v0.10.0"
+    },
+    "github.com/clipperhouse/uax29/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/clipperhouse/uax29/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/clipperhouse/uax29/v2@v2.6.0",
+      "requires": [],
+      "version": "v2.6.0"
+    },
+    "github.com/cloudevents/sdk-go/v2": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cloudevents/sdk-go/v2",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/cloudevents/sdk-go/v2@v2.16.2",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/google/go-cmp",
+        "github.com/google/uuid",
+        "github.com/json-iterator/go",
+        "github.com/modern-go/concurrent",
+        "github.com/modern-go/reflect2",
+        "github.com/niemeyer/pretty",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "github.com/valyala/bytebufferpool",
+        "go.uber.org/multierr",
+        "go.uber.org/zap",
+        "golang.org/x/sync",
+        "golang.org/x/time",
+        "gopkg.in/check.v1",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v2.16.2"
+    },
+    "github.com/cloudwego/base64x": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cloudwego/base64x",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/cloudwego/base64x@v0.1.4",
+      "requires": [],
+      "version": "v0.1.4"
+    },
+    "github.com/cloudwego/iasm": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cloudwego/iasm",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/cloudwego/iasm@v0.2.0",
+      "requires": [],
+      "version": "v0.2.0"
+    },
+    "github.com/coreos/go-oidc/v3": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/coreos/go-oidc/v3",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/coreos/go-oidc/v3@v3.20.0",
+      "requires": [
+        "github.com/go-jose/go-jose/v4",
+        "golang.org/x/oauth2"
+      ],
+      "version": "v3.20.0"
+    },
+    "github.com/cpuguy83/go-md2man/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/cpuguy83/go-md2man/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/cpuguy83/go-md2man/v2@v2.0.7",
+      "requires": [],
+      "version": "v2.0.7"
+    },
+    "github.com/davecgh/go-spew": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/davecgh/go-spew",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/getkin/kin-openapi",
+        "github.com/go-task/slim-sprig/v3",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/json-iterator/go",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa",
+        "github.com/sirupsen/logrus",
+        "github.com/stretchr/testify",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/davecgh/go-spew@v1.1.2-0.20180830191138-d8f796af33cc",
+      "requires": [],
+      "version": "v1.1.2-0.20180830191138-d8f796af33cc"
+    },
+    "github.com/decred/dcrd/crypto/blake256": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/decred/dcrd/crypto/blake256",
+      "optional_requires": [],
+      "parents": [
+        "github.com/decred/dcrd/dcrec/secp256k1/v4"
+      ],
+      "purl": "pkg:golang/github.com/decred/dcrd/crypto/blake256@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/decred/dcrd/dcrec/secp256k1/v4": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/decred/dcrd/dcrec/secp256k1/v4",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.4.1",
+      "requires": [
+        "github.com/decred/dcrd/crypto/blake256"
+      ],
+      "version": "v4.4.1"
+    },
+    "github.com/dgraph-io/badger/v4": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/dgraph-io/badger/v4",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/dgraph-io/badger/v4@v4.9.1",
+      "requires": [],
+      "version": "v4.9.1"
+    },
+    "github.com/dgraph-io/ristretto/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/dgraph-io/ristretto/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/dgraph-io/ristretto/v2@v2.2.0",
+      "requires": [],
+      "version": "v2.2.0"
+    },
+    "github.com/dgryski/trifles": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/dgryski/trifles",
+      "optional_requires": [],
+      "parents": [
+        "github.com/agnivade/levenshtein"
+      ],
+      "purl": "pkg:golang/github.com/dgryski/trifles@v0.0.0-20230903005119-f50d829f2e54",
+      "requires": [],
+      "version": "v0.0.0-20230903005119-f50d829f2e54"
+    },
+    "github.com/dlclark/regexp2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/dlclark/regexp2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/santhosh-tekuri/jsonschema/v6"
+      ],
+      "purl": "pkg:golang/github.com/dlclark/regexp2@v1.11.5",
+      "requires": [],
+      "version": "v1.11.5"
+    },
+    "github.com/dustin/go-humanize": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/dustin/go-humanize",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/dustin/go-humanize@v1.0.1",
+      "requires": [],
+      "version": "v1.0.1"
+    },
+    "github.com/fatih/color": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/fatih/color",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/fatih/color@v1.18.0",
+      "requires": [],
+      "version": "v1.18.0"
+    },
+    "github.com/fatih/structs": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/fatih/structs",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/fatih/structs@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/felixge/httpsnoop": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/felixge/httpsnoop",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/felixge/httpsnoop@v1.0.4",
+      "requires": [],
+      "version": "v1.0.4"
+    },
+    "github.com/flosch/pongo2/v4": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/flosch/pongo2/v4",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/flosch/pongo2/v4@v4.0.2",
+      "requires": [],
+      "version": "v4.0.2"
+    },
+    "github.com/fortytw2/leaktest": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/fortytw2/leaktest",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/fortytw2/leaktest@v1.3.0",
+      "requires": [],
+      "version": "v1.3.0"
+    },
+    "github.com/foxcpp/go-mockdns": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/foxcpp/go-mockdns",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/foxcpp/go-mockdns@v1.2.0",
+      "requires": [],
+      "version": "v1.2.0"
+    },
+    "github.com/fsnotify/fsnotify": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/fsnotify/fsnotify",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/fsnotify/fsnotify@v1.10.1",
+      "requires": [],
+      "version": "v1.10.1"
+    },
+    "github.com/gabriel-vasile/mimetype": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gabriel-vasile/mimetype",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/gabriel-vasile/mimetype@v1.4.3",
+      "requires": [],
+      "version": "v1.4.3"
+    },
+    "github.com/getkin/kin-openapi": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/getkin/kin-openapi",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/go-openapi/jsonpointer",
+        "github.com/go-openapi/swag",
+        "github.com/gorilla/mux",
+        "github.com/josharian/intern",
+        "github.com/mailru/easyjson",
+        "github.com/mohae/deepcopy",
+        "github.com/oasdiff/yaml",
+        "github.com/oasdiff/yaml3",
+        "github.com/perimeterx/marshmallow",
+        "github.com/pmezard/go-difflib",
+        "github.com/rogpeppe/go-internal",
+        "github.com/santhosh-tekuri/jsonschema/v6",
+        "github.com/stretchr/testify",
+        "github.com/woodsbury/decimal128",
+        "golang.org/x/text",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v0.139.0"
+    },
+    "github.com/gin-contrib/sse": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gin-contrib/sse",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/gin-contrib/sse@v0.1.0",
+      "requires": [],
+      "version": "v0.1.0"
+    },
+    "github.com/gin-gonic/gin": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gin-gonic/gin",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/gin-gonic/gin@v1.10.1",
+      "requires": [],
+      "version": "v1.10.1"
+    },
+    "github.com/gkampitakis/ciinfo": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gkampitakis/ciinfo",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/gkampitakis/ciinfo@v0.3.2",
+      "requires": [],
+      "version": "v0.3.2"
+    },
+    "github.com/gkampitakis/go-diff": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gkampitakis/go-diff",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/gkampitakis/go-diff@v1.3.2",
+      "requires": [],
+      "version": "v1.3.2"
+    },
+    "github.com/gkampitakis/go-snaps": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gkampitakis/go-snaps",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/gkampitakis/go-snaps@v0.5.15",
+      "requires": [],
+      "version": "v0.5.15"
+    },
+    "github.com/go-chi/chi/v5": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-chi/chi/v5",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/go-chi/chi/v5@v5.3.0",
+      "requires": [],
+      "version": "v5.3.0"
+    },
+    "github.com/go-jose/go-jose/v4": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-jose/go-jose/v4",
+      "optional_requires": [],
+      "parents": [
+        "github.com/coreos/go-oidc/v3"
+      ],
+      "purl": "pkg:golang/github.com/go-jose/go-jose/v4@v4.1.4",
+      "requires": [],
+      "version": "v4.1.4"
+    },
+    "github.com/go-logr/logr": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-logr/logr",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/go-logr/logr@v1.4.3",
+      "requires": [],
+      "version": "v1.4.3"
+    },
+    "github.com/go-logr/stdr": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-logr/stdr",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/go-logr/stdr@v1.2.2",
+      "requires": [],
+      "version": "v1.2.2"
+    },
+    "github.com/go-openapi/jsonpointer": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-openapi/jsonpointer",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/go-openapi/jsonpointer@v0.22.4",
+      "requires": [
+        "github.com/go-openapi/swag/jsonname",
+        "github.com/go-openapi/testify/v2"
+      ],
+      "version": "v0.22.4"
+    },
+    "github.com/go-openapi/swag": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-openapi/swag",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/go-openapi/swag@v0.23.0",
+      "requires": [],
+      "version": "v0.23.0"
+    },
+    "github.com/go-openapi/swag/jsonname": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-openapi/swag/jsonname",
+      "optional_requires": [],
+      "parents": [
+        "github.com/go-openapi/jsonpointer"
+      ],
+      "purl": "pkg:golang/github.com/go-openapi/swag/jsonname@v0.25.4",
+      "requires": [
+        "github.com/go-openapi/testify/v2"
+      ],
+      "version": "v0.25.4"
+    },
+    "github.com/go-openapi/testify/v2": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-openapi/testify/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/go-openapi/jsonpointer",
+        "github.com/go-openapi/swag/jsonname"
+      ],
+      "purl": "pkg:golang/github.com/go-openapi/testify/v2@v2.0.2",
+      "requires": [],
+      "version": "v2.0.2"
+    },
+    "github.com/go-playground/locales": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-playground/locales",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/go-playground/locales@v0.14.1",
+      "requires": [],
+      "version": "v0.14.1"
+    },
+    "github.com/go-playground/universal-translator": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-playground/universal-translator",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/go-playground/universal-translator@v0.18.1",
+      "requires": [],
+      "version": "v0.18.1"
+    },
+    "github.com/go-playground/validator/v10": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-playground/validator/v10",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/go-playground/validator/v10@v10.20.0",
+      "requires": [],
+      "version": "v10.20.0"
+    },
+    "github.com/go-resty/resty/v2": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-resty/resty/v2",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/go-resty/resty/v2@v2.17.2",
+      "requires": [
+        "golang.org/x/net",
+        "golang.org/x/time"
+      ],
+      "version": "v2.17.2"
+    },
+    "github.com/go-task/slim-sprig/v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-task/slim-sprig/v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/go-task/slim-sprig/v3@v3.0.0",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v3.0.0"
+    },
+    "github.com/go-test/deep": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-test/deep",
+      "optional_requires": [],
+      "parents": [
+        "github.com/perimeterx/marshmallow"
+      ],
+      "purl": "pkg:golang/github.com/go-test/deep@v1.0.8",
+      "requires": [],
+      "version": "v1.0.8"
+    },
+    "github.com/go-viper/mapstructure/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/go-viper/mapstructure/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/go-viper/mapstructure/v2@v2.4.0",
+      "requires": [],
+      "version": "v2.4.0"
+    },
+    "github.com/gobwas/glob": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gobwas/glob",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/gobwas/glob@v0.2.3",
+      "requires": [],
+      "version": "v0.2.3"
+    },
+    "github.com/goccy/go-json": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/goccy/go-json",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/goccy/go-json@v0.10.6",
+      "requires": [],
+      "version": "v0.10.6"
+    },
+    "github.com/goccy/go-yaml": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/goccy/go-yaml",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/goccy/go-yaml@v1.18.0",
+      "requires": [],
+      "version": "v1.18.0"
+    },
+    "github.com/golang/snappy": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/golang/snappy",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/golang/snappy@v0.0.4",
+      "requires": [],
+      "version": "v0.0.4"
+    },
+    "github.com/gomarkdown/markdown": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gomarkdown/markdown",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/gomarkdown/markdown@v0.0.0-20240328165702-4d01890c35c0",
+      "requires": [],
+      "version": "v0.0.0-20240328165702-4d01890c35c0"
+    },
+    "github.com/google/flatbuffers": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/flatbuffers",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/google/flatbuffers@v25.2.10+incompatible",
+      "requires": [],
+      "version": "v25.2.10+incompatible"
+    },
+    "github.com/google/go-cmp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/go-cmp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/google/go-tpm",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/tools",
+        "sigs.k8s.io/yaml"
+      ],
+      "purl": "pkg:golang/github.com/google/go-cmp@v0.7.0",
+      "requires": [],
+      "version": "v0.7.0"
+    },
+    "github.com/google/go-tpm": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/go-tpm",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2"
+      ],
+      "purl": "pkg:golang/github.com/google/go-tpm@v0.9.8",
+      "requires": [
+        "github.com/google/go-cmp",
+        "github.com/google/go-tpm-tools",
+        "golang.org/x/sys"
+      ],
+      "version": "v0.9.8"
+    },
+    "github.com/google/go-tpm-tools": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/go-tpm-tools",
+      "optional_requires": [],
+      "parents": [
+        "github.com/google/go-tpm"
+      ],
+      "purl": "pkg:golang/github.com/google/go-tpm-tools@v0.3.13-0.20230620182252-4639ecce2aba",
+      "requires": [],
+      "version": "v0.3.13-0.20230620182252-4639ecce2aba"
+    },
+    "github.com/google/gofuzz": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/gofuzz",
+      "optional_requires": [],
+      "parents": [
+        "github.com/json-iterator/go"
+      ],
+      "purl": "pkg:golang/github.com/google/gofuzz@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/google/pprof": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/pprof",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/google/pprof@v0.0.0-20260402051712-545e8a4df936",
+      "requires": [
+        "github.com/chzyer/readline",
+        "github.com/ianlancetaylor/demangle",
+        "golang.org/x/sys"
+      ],
+      "version": "v0.0.0-20260402051712-545e8a4df936"
+    },
+    "github.com/google/uuid": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/google/uuid",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/google/uuid@v1.6.0",
+      "requires": [],
+      "version": "v1.6.0"
+    },
+    "github.com/gorilla/css": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gorilla/css",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/gorilla/css@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/gorilla/mux": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/gorilla/mux",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/gorilla/mux@v1.8.1",
+      "requires": [],
+      "version": "v1.8.1"
+    },
+    "github.com/grpc-ecosystem/grpc-gateway/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/grpc-ecosystem/grpc-gateway/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/grpc-ecosystem/grpc-gateway/v2@v2.28.0",
+      "requires": [],
+      "version": "v2.28.0"
+    },
+    "github.com/hashicorp/golang-lru/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/hashicorp/golang-lru/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/hashicorp/golang-lru/v2@v2.0.7",
+      "requires": [],
+      "version": "v2.0.7"
+    },
+    "github.com/huandu/go-clone": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/huandu/go-clone",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/huandu/go-clone@v1.7.3",
+      "requires": [],
+      "version": "v1.7.3"
+    },
+    "github.com/huandu/go-sqlbuilder": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/huandu/go-sqlbuilder",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/huandu/go-sqlbuilder@v1.41.0",
+      "requires": [],
+      "version": "v1.41.0"
+    },
+    "github.com/huandu/xstrings": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/huandu/xstrings",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/huandu/xstrings@v1.4.0",
+      "requires": [],
+      "version": "v1.4.0"
+    },
+    "github.com/ianlancetaylor/demangle": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/ianlancetaylor/demangle",
+      "optional_requires": [],
+      "parents": [
+        "github.com/google/pprof"
+      ],
+      "purl": "pkg:golang/github.com/ianlancetaylor/demangle@v0.0.0-20250417193237-f615e6bd150b",
+      "requires": [],
+      "version": "v0.0.0-20250417193237-f615e6bd150b"
+    },
+    "github.com/inconshreveable/mousetrap": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/inconshreveable/mousetrap",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/inconshreveable/mousetrap@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/iris-contrib/schema": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/iris-contrib/schema",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/iris-contrib/schema@v0.0.6",
+      "requires": [],
+      "version": "v0.0.6"
+    },
+    "github.com/jackc/pgpassfile": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jackc/pgpassfile",
+      "optional_requires": [],
+      "parents": [
+        "github.com/jackc/pgx/v5",
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/github.com/jackc/pgpassfile@v1.0.0",
+      "requires": [
+        "github.com/stretchr/testify"
+      ],
+      "version": "v1.0.0"
+    },
+    "github.com/jackc/pgservicefile": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jackc/pgservicefile",
+      "optional_requires": [],
+      "parents": [
+        "github.com/jackc/pgx/v5",
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/github.com/jackc/pgservicefile@v0.0.0-20240606120523-5a60cdf6a761",
+      "requires": [
+        "github.com/stretchr/testify"
+      ],
+      "version": "v0.0.0-20240606120523-5a60cdf6a761"
+    },
+    "github.com/jackc/pgx/v5": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jackc/pgx/v5",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/github.com/jackc/pgx/v5@v5.8.0",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/jackc/pgpassfile",
+        "github.com/jackc/pgservicefile",
+        "github.com/jackc/puddle/v2",
+        "github.com/kr/pretty",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "golang.org/x/sync",
+        "golang.org/x/text",
+        "gopkg.in/check.v1",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v5.8.0"
+    },
+    "github.com/jackc/puddle/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jackc/puddle/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/jackc/pgx/v5",
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/github.com/jackc/puddle/v2@v2.2.2",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "golang.org/x/sync",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v2.2.2"
+    },
+    "github.com/jinzhu/inflection": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jinzhu/inflection",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/driver/postgres",
+        "gorm.io/driver/sqlite",
+        "gorm.io/gorm"
+      ],
+      "purl": "pkg:golang/github.com/jinzhu/inflection@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/jinzhu/now": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/jinzhu/now",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/driver/postgres",
+        "gorm.io/driver/sqlite",
+        "gorm.io/gorm"
+      ],
+      "purl": "pkg:golang/github.com/jinzhu/now@v1.1.5",
+      "requires": [],
+      "version": "v1.1.5"
+    },
+    "github.com/josharian/intern": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/josharian/intern",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/mailru/easyjson",
+        "github.com/oapi-codegen/nethttp-middleware",
+        "github.com/oapi-codegen/runtime",
+        "github.com/perimeterx/marshmallow"
+      ],
+      "purl": "pkg:golang/github.com/josharian/intern@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/joshdk/go-junit": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/joshdk/go-junit",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/joshdk/go-junit@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/json-iterator/go": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/json-iterator/go",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/json-iterator/go@v1.1.12",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/google/gofuzz",
+        "github.com/modern-go/concurrent",
+        "github.com/modern-go/reflect2",
+        "github.com/stretchr/testify"
+      ],
+      "version": "v1.1.12"
+    },
+    "github.com/juju/gnuflag": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/juju/gnuflag",
+      "optional_requires": [],
+      "parents": [
+        "github.com/apapsch/go-jsonmerge/v2"
+      ],
+      "purl": "pkg:golang/github.com/juju/gnuflag@v0.0.0-20171113085948-2ce1bb71843d",
+      "requires": [],
+      "version": "v0.0.0-20171113085948-2ce1bb71843d"
+    },
+    "github.com/kataras/blocks": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/blocks",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/blocks@v0.0.8",
+      "requires": [],
+      "version": "v0.0.8"
+    },
+    "github.com/kataras/golog": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/golog",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/golog@v0.1.11",
+      "requires": [],
+      "version": "v0.1.11"
+    },
+    "github.com/kataras/iris/v12": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/iris/v12",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/iris/v12@v12.2.11",
+      "requires": [],
+      "version": "v12.2.11"
+    },
+    "github.com/kataras/pio": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/pio",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/pio@v0.0.13",
+      "requires": [],
+      "version": "v0.0.13"
+    },
+    "github.com/kataras/sitemap": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/sitemap",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/sitemap@v0.0.6",
+      "requires": [],
+      "version": "v0.0.6"
+    },
+    "github.com/kataras/tunnel": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kataras/tunnel",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/kataras/tunnel@v0.0.4",
+      "requires": [],
+      "version": "v0.0.4"
+    },
+    "github.com/kelseyhightower/envconfig": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kelseyhightower/envconfig",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/kelseyhightower/envconfig@v1.4.0",
+      "requires": [],
+      "version": "v1.4.0"
+    },
+    "github.com/klauspost/compress": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/klauspost/compress",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2",
+        "github.com/nats-io/nats.go",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/klauspost/compress@v1.18.5",
+      "requires": [],
+      "version": "v1.18.5"
+    },
+    "github.com/klauspost/cpuid/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/klauspost/cpuid/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/klauspost/cpuid/v2@v2.2.7",
+      "requires": [],
+      "version": "v2.2.7"
+    },
+    "github.com/kr/pretty": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kr/pretty",
+      "optional_requires": [],
+      "parents": [
+        "github.com/jackc/pgx/v5",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/kr/pretty@v0.3.1",
+      "requires": [],
+      "version": "v0.3.1"
+    },
+    "github.com/kr/text": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kr/text",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/kr/text@v0.2.0",
+      "requires": [],
+      "version": "v0.2.0"
+    },
+    "github.com/kylelemons/godebug": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/kylelemons/godebug",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/kylelemons/godebug@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/labstack/echo/v4": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/labstack/echo/v4",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/labstack/echo/v4@v4.15.1",
+      "requires": [],
+      "version": "v4.15.1"
+    },
+    "github.com/labstack/gommon": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/labstack/gommon",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/labstack/gommon@v0.4.2",
+      "requires": [],
+      "version": "v0.4.2"
+    },
+    "github.com/leodido/go-urn": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/leodido/go-urn",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/leodido/go-urn@v1.4.0",
+      "requires": [],
+      "version": "v1.4.0"
+    },
+    "github.com/lestrrat-go/blackmagic": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/blackmagic",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/blackmagic@v1.0.4",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.0.4"
+    },
+    "github.com/lestrrat-go/dsig": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/dsig",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/dsig@v1.2.1",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.2.1"
+    },
+    "github.com/lestrrat-go/dsig-secp256k1": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/dsig-secp256k1",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/dsig-secp256k1@v1.0.0",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/decred/dcrd/dcrec/secp256k1/v4",
+        "github.com/lestrrat-go/dsig",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.0.0"
+    },
+    "github.com/lestrrat-go/httpcc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/httpcc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/httpcc@v1.0.1",
+      "requires": [
+        "github.com/stretchr/testify"
+      ],
+      "version": "v1.0.1"
+    },
+    "github.com/lestrrat-go/httprc/v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/httprc/v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/httprc/v3@v3.0.5",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/httpcc",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v3.0.5"
+    },
+    "github.com/lestrrat-go/jwx/v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/jwx/v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/jwx/v3@v3.1.1",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/decred/dcrd/dcrec/secp256k1/v4",
+        "github.com/goccy/go-json",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httpcc",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/pmezard/go-difflib",
+        "github.com/segmentio/asm",
+        "github.com/stretchr/testify",
+        "github.com/valyala/fastjson",
+        "golang.org/x/crypto",
+        "golang.org/x/sys",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v3.1.1"
+    },
+    "github.com/lestrrat-go/option/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/lestrrat-go/option/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/lestrrat-go/option/v2@v2.0.0",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v2.0.0"
+    },
+    "github.com/mailgun/raymond/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mailgun/raymond/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/mailgun/raymond/v2@v2.0.48",
+      "requires": [],
+      "version": "v2.0.48"
+    },
+    "github.com/mailru/easyjson": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mailru/easyjson",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware",
+        "github.com/oapi-codegen/runtime",
+        "github.com/perimeterx/marshmallow"
+      ],
+      "purl": "pkg:golang/github.com/mailru/easyjson@v0.9.1",
+      "requires": [
+        "github.com/josharian/intern"
+      ],
+      "version": "v0.9.1"
+    },
+    "github.com/maruel/natural": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/maruel/natural",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/maruel/natural@v1.1.1",
+      "requires": [],
+      "version": "v1.1.1"
+    },
+    "github.com/mattn/go-colorable": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mattn/go-colorable",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-colorable@v0.1.14",
+      "requires": [],
+      "version": "v0.1.14"
+    },
+    "github.com/mattn/go-isatty": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mattn/go-isatty",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-isatty@v0.0.20",
+      "requires": [],
+      "version": "v0.0.20"
+    },
+    "github.com/mattn/go-runewidth": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mattn/go-runewidth",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-runewidth@v0.0.19",
+      "requires": [],
+      "version": "v0.0.19"
+    },
+    "github.com/mattn/go-sqlite3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mattn/go-sqlite3",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/driver/sqlite",
+        "gorm.io/gorm"
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-sqlite3@v1.14.33",
+      "requires": [],
+      "version": "v1.14.33"
+    },
+    "github.com/mfridman/tparse": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mfridman/tparse",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/mfridman/tparse@v0.18.0",
+      "requires": [],
+      "version": "v0.18.0"
+    },
+    "github.com/microcosm-cc/bluemonday": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/microcosm-cc/bluemonday",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/microcosm-cc/bluemonday@v1.0.26",
+      "requires": [],
+      "version": "v1.0.26"
+    },
+    "github.com/miekg/dns": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/miekg/dns",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/miekg/dns@v1.1.57",
+      "requires": [],
+      "version": "v1.1.57"
+    },
+    "github.com/minio/highwayhash": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/minio/highwayhash",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2"
+      ],
+      "purl": "pkg:golang/github.com/minio/highwayhash@v1.0.4-0.20251030100505-070ab1a87a76",
+      "requires": [
+        "golang.org/x/sys"
+      ],
+      "version": "v1.0.4-0.20251030100505-070ab1a87a76"
+    },
+    "github.com/modern-go/concurrent": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/modern-go/concurrent",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/json-iterator/go",
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/modern-go/concurrent@v0.0.0-20180306012644-bacd9c7ef1dd",
+      "requires": [],
+      "version": "v0.0.0-20180306012644-bacd9c7ef1dd"
+    },
+    "github.com/modern-go/reflect2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/modern-go/reflect2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/json-iterator/go",
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/modern-go/reflect2@v1.0.2",
+      "requires": [],
+      "version": "v1.0.2"
+    },
+    "github.com/mohae/deepcopy": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/mohae/deepcopy",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/mohae/deepcopy@v0.0.0-20170929034955-c48cc78d4826",
+      "requires": [],
+      "version": "v0.0.0-20170929034955-c48cc78d4826"
+    },
+    "github.com/munnerz/goautoneg": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/munnerz/goautoneg",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/munnerz/goautoneg@v0.0.0-20191010083416-a7dc8b61c822",
+      "requires": [],
+      "version": "v0.0.0-20191010083416-a7dc8b61c822"
+    },
+    "github.com/nats-io/jwt/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/nats-io/jwt/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2"
+      ],
+      "purl": "pkg:golang/github.com/nats-io/jwt/v2@v2.8.0",
+      "requires": [
+        "github.com/nats-io/nkeys",
+        "golang.org/x/crypto",
+        "golang.org/x/sys"
+      ],
+      "version": "v2.8.0"
+    },
+    "github.com/nats-io/nats-server/v2": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/nats-io/nats-server/v2",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/nats-io/nats-server/v2@v2.12.5",
+      "requires": [
+        "github.com/antithesishq/antithesis-sdk-go",
+        "github.com/google/go-tpm",
+        "github.com/klauspost/compress",
+        "github.com/minio/highwayhash",
+        "github.com/nats-io/jwt/v2",
+        "github.com/nats-io/nats.go",
+        "github.com/nats-io/nkeys",
+        "github.com/nats-io/nuid",
+        "golang.org/x/crypto",
+        "golang.org/x/sys",
+        "golang.org/x/time"
+      ],
+      "version": "v2.12.5"
+    },
+    "github.com/nats-io/nats.go": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/nats-io/nats.go",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2"
+      ],
+      "purl": "pkg:golang/github.com/nats-io/nats.go@v1.50.0",
+      "requires": [
+        "github.com/klauspost/compress",
+        "github.com/nats-io/nkeys",
+        "github.com/nats-io/nuid",
+        "golang.org/x/crypto",
+        "golang.org/x/sys"
+      ],
+      "version": "v1.50.0"
+    },
+    "github.com/nats-io/nkeys": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/nats-io/nkeys",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/jwt/v2",
+        "github.com/nats-io/nats-server/v2",
+        "github.com/nats-io/nats.go"
+      ],
+      "purl": "pkg:golang/github.com/nats-io/nkeys@v0.4.15",
+      "requires": [
+        "golang.org/x/crypto",
+        "golang.org/x/sys"
+      ],
+      "version": "v0.4.15"
+    },
+    "github.com/nats-io/nuid": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/nats-io/nuid",
+      "optional_requires": [],
+      "parents": [
+        "github.com/nats-io/nats-server/v2",
+        "github.com/nats-io/nats.go"
+      ],
+      "purl": "pkg:golang/github.com/nats-io/nuid@v1.0.1",
+      "requires": [],
+      "version": "v1.0.1"
+    },
+    "github.com/niemeyer/pretty": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/niemeyer/pretty",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2"
+      ],
+      "purl": "pkg:golang/github.com/niemeyer/pretty@v0.0.0-20200227124842-a10e7caefd8e",
+      "requires": [],
+      "version": "v0.0.0-20200227124842-a10e7caefd8e"
+    },
+    "github.com/oapi-codegen/nethttp-middleware": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/oapi-codegen/nethttp-middleware",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/oapi-codegen/nethttp-middleware@v1.1.2",
+      "requires": [
+        "github.com/getkin/kin-openapi",
+        "github.com/go-openapi/jsonpointer",
+        "github.com/go-openapi/swag",
+        "github.com/gorilla/mux",
+        "github.com/josharian/intern",
+        "github.com/mailru/easyjson",
+        "github.com/mohae/deepcopy",
+        "github.com/oasdiff/yaml",
+        "github.com/oasdiff/yaml3",
+        "github.com/perimeterx/marshmallow",
+        "github.com/ugorji/go/codec",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.1.2"
+    },
+    "github.com/oapi-codegen/nullable": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/oapi-codegen/nullable",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/oapi-codegen/nullable@v1.1.0",
+      "requires": [],
+      "version": "v1.1.0"
+    },
+    "github.com/oapi-codegen/runtime": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/oapi-codegen/runtime",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/oapi-codegen/runtime@v1.4.1",
+      "requires": [
+        "github.com/BurntSushi/toml",
+        "github.com/CloudyKit/fastprinter",
+        "github.com/CloudyKit/jet/v6",
+        "github.com/Joker/jade",
+        "github.com/Shopify/goreferrer",
+        "github.com/andybalholm/brotli",
+        "github.com/apapsch/go-jsonmerge/v2",
+        "github.com/aymerick/douceur",
+        "github.com/bytedance/sonic",
+        "github.com/bytedance/sonic/loader",
+        "github.com/cloudwego/base64x",
+        "github.com/cloudwego/iasm",
+        "github.com/davecgh/go-spew",
+        "github.com/fatih/structs",
+        "github.com/flosch/pongo2/v4",
+        "github.com/gabriel-vasile/mimetype",
+        "github.com/gin-contrib/sse",
+        "github.com/gin-gonic/gin",
+        "github.com/go-playground/locales",
+        "github.com/go-playground/universal-translator",
+        "github.com/go-playground/validator/v10",
+        "github.com/goccy/go-json",
+        "github.com/golang/snappy",
+        "github.com/gomarkdown/markdown",
+        "github.com/google/uuid",
+        "github.com/gorilla/css",
+        "github.com/iris-contrib/schema",
+        "github.com/josharian/intern",
+        "github.com/json-iterator/go",
+        "github.com/kataras/blocks",
+        "github.com/kataras/golog",
+        "github.com/kataras/iris/v12",
+        "github.com/kataras/pio",
+        "github.com/kataras/sitemap",
+        "github.com/kataras/tunnel",
+        "github.com/klauspost/compress",
+        "github.com/klauspost/cpuid/v2",
+        "github.com/labstack/echo/v4",
+        "github.com/labstack/gommon",
+        "github.com/leodido/go-urn",
+        "github.com/mailgun/raymond/v2",
+        "github.com/mailru/easyjson",
+        "github.com/mattn/go-colorable",
+        "github.com/mattn/go-isatty",
+        "github.com/microcosm-cc/bluemonday",
+        "github.com/modern-go/concurrent",
+        "github.com/modern-go/reflect2",
+        "github.com/oapi-codegen/nullable",
+        "github.com/pelletier/go-toml/v2",
+        "github.com/pmezard/go-difflib",
+        "github.com/russross/blackfriday/v2",
+        "github.com/schollz/closestmatch",
+        "github.com/sirupsen/logrus",
+        "github.com/stretchr/testify",
+        "github.com/tdewolff/minify/v2",
+        "github.com/tdewolff/parse/v2",
+        "github.com/twitchyliquid64/golang-asm",
+        "github.com/ugorji/go/codec",
+        "github.com/valyala/bytebufferpool",
+        "github.com/valyala/fasttemplate",
+        "github.com/vmihailenco/msgpack/v5",
+        "github.com/vmihailenco/tagparser/v2",
+        "github.com/yosssi/ace",
+        "golang.org/x/arch",
+        "golang.org/x/crypto",
+        "golang.org/x/exp",
+        "golang.org/x/net",
+        "golang.org/x/sys",
+        "golang.org/x/text",
+        "golang.org/x/time",
+        "google.golang.org/protobuf",
+        "gopkg.in/ini.v1",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.4.1"
+    },
+    "github.com/oasdiff/yaml": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/oasdiff/yaml",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/oasdiff/yaml@v0.1.0",
+      "requires": [
+        "github.com/oasdiff/yaml3"
+      ],
+      "version": "v0.1.0"
+    },
+    "github.com/oasdiff/yaml3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/oasdiff/yaml3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware",
+        "github.com/oasdiff/yaml"
+      ],
+      "purl": "pkg:golang/github.com/oasdiff/yaml3@v0.0.13",
+      "requires": [
+        "gopkg.in/check.v1"
+      ],
+      "version": "v0.0.13"
+    },
+    "github.com/olekukonko/cat": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/olekukonko/cat",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/olekukonko/cat@v0.0.0-20250911104152-50322a0618f6",
+      "requires": [],
+      "version": "v0.0.0-20250911104152-50322a0618f6"
+    },
+    "github.com/olekukonko/errors": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/olekukonko/errors",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/olekukonko/errors@v1.2.0",
+      "requires": [],
+      "version": "v1.2.0"
+    },
+    "github.com/olekukonko/ll": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/olekukonko/ll",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/olekukonko/ll@v0.1.6",
+      "requires": [],
+      "version": "v0.1.6"
+    },
+    "github.com/olekukonko/tablewriter": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/olekukonko/tablewriter",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/olekukonko/tablewriter@v1.1.4",
+      "requires": [],
+      "version": "v1.1.4"
+    },
+    "github.com/onsi/ginkgo/v2": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/onsi/ginkgo/v2",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/onsi/ginkgo/v2@v2.29.0",
+      "requires": [
+        "github.com/Masterminds/semver/v3",
+        "github.com/gkampitakis/ciinfo",
+        "github.com/gkampitakis/go-diff",
+        "github.com/gkampitakis/go-snaps",
+        "github.com/go-logr/logr",
+        "github.com/go-task/slim-sprig/v3",
+        "github.com/goccy/go-yaml",
+        "github.com/google/go-cmp",
+        "github.com/google/pprof",
+        "github.com/joshdk/go-junit",
+        "github.com/kr/pretty",
+        "github.com/kr/text",
+        "github.com/maruel/natural",
+        "github.com/mfridman/tparse",
+        "github.com/onsi/gomega",
+        "github.com/rogpeppe/go-internal",
+        "github.com/tidwall/gjson",
+        "github.com/tidwall/match",
+        "github.com/tidwall/pretty",
+        "github.com/tidwall/sjson",
+        "go.yaml.in/yaml/v3",
+        "golang.org/x/mod",
+        "golang.org/x/net",
+        "golang.org/x/sync",
+        "golang.org/x/sys",
+        "golang.org/x/text",
+        "golang.org/x/tools",
+        "google.golang.org/protobuf"
+      ],
+      "version": "v2.29.0"
+    },
+    "github.com/onsi/gomega": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/onsi/gomega",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/onsi/gomega@v1.41.0",
+      "requires": [
+        "github.com/google/go-cmp",
+        "github.com/kr/pretty",
+        "github.com/rogpeppe/go-internal",
+        "go.yaml.in/yaml/v3",
+        "golang.org/x/net",
+        "golang.org/x/text",
+        "google.golang.org/protobuf",
+        "gopkg.in/check.v1"
+      ],
+      "version": "v1.41.0"
+    },
+    "github.com/open-policy-agent/opa": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/open-policy-agent/opa",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/github.com/open-policy-agent/opa@v1.17.0",
+      "requires": [
+        "github.com/agnivade/levenshtein",
+        "github.com/beorn7/perks",
+        "github.com/bytecodealliance/wasmtime-go/v44",
+        "github.com/cenkalti/backoff/v5",
+        "github.com/cespare/xxhash/v2",
+        "github.com/clipperhouse/displaywidth",
+        "github.com/clipperhouse/uax29/v2",
+        "github.com/cpuguy83/go-md2man/v2",
+        "github.com/davecgh/go-spew",
+        "github.com/decred/dcrd/dcrec/secp256k1/v4",
+        "github.com/dgraph-io/badger/v4",
+        "github.com/dgraph-io/ristretto/v2",
+        "github.com/dustin/go-humanize",
+        "github.com/fatih/color",
+        "github.com/felixge/httpsnoop",
+        "github.com/fortytw2/leaktest",
+        "github.com/foxcpp/go-mockdns",
+        "github.com/fsnotify/fsnotify",
+        "github.com/go-logr/logr",
+        "github.com/go-logr/stdr",
+        "github.com/go-viper/mapstructure/v2",
+        "github.com/gobwas/glob",
+        "github.com/goccy/go-json",
+        "github.com/google/flatbuffers",
+        "github.com/google/go-cmp",
+        "github.com/google/uuid",
+        "github.com/grpc-ecosystem/grpc-gateway/v2",
+        "github.com/hashicorp/golang-lru/v2",
+        "github.com/huandu/go-clone",
+        "github.com/huandu/go-sqlbuilder",
+        "github.com/huandu/xstrings",
+        "github.com/inconshreveable/mousetrap",
+        "github.com/klauspost/compress",
+        "github.com/kr/pretty",
+        "github.com/kr/text",
+        "github.com/kylelemons/godebug",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httpcc",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/mattn/go-colorable",
+        "github.com/mattn/go-isatty",
+        "github.com/mattn/go-runewidth",
+        "github.com/miekg/dns",
+        "github.com/munnerz/goautoneg",
+        "github.com/olekukonko/cat",
+        "github.com/olekukonko/errors",
+        "github.com/olekukonko/ll",
+        "github.com/olekukonko/tablewriter",
+        "github.com/opencontainers/go-digest",
+        "github.com/opencontainers/image-spec",
+        "github.com/pelletier/go-toml/v2",
+        "github.com/peterh/liner",
+        "github.com/pmezard/go-difflib",
+        "github.com/prometheus/client_golang",
+        "github.com/prometheus/client_model",
+        "github.com/prometheus/common",
+        "github.com/prometheus/procfs",
+        "github.com/rcrowley/go-metrics",
+        "github.com/rogpeppe/go-internal",
+        "github.com/russross/blackfriday/v2",
+        "github.com/sagikazarmark/locafero",
+        "github.com/santhosh-tekuri/jsonschema/v6",
+        "github.com/segmentio/asm",
+        "github.com/sergi/go-diff",
+        "github.com/sirupsen/logrus",
+        "github.com/sourcegraph/conc",
+        "github.com/spf13/afero",
+        "github.com/spf13/cast",
+        "github.com/spf13/cobra",
+        "github.com/spf13/pflag",
+        "github.com/spf13/viper",
+        "github.com/subosito/gotenv",
+        "github.com/tchap/go-patricia/v2",
+        "github.com/valyala/fastjson",
+        "github.com/vektah/gqlparser/v2",
+        "github.com/xeipuuv/gojsonpointer",
+        "github.com/xeipuuv/gojsonreference",
+        "github.com/yashtewari/glob-intersection",
+        "go.opentelemetry.io/auto/sdk",
+        "go.opentelemetry.io/contrib/bridges/prometheus",
+        "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+        "go.opentelemetry.io/otel",
+        "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc",
+        "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp",
+        "go.opentelemetry.io/otel/exporters/otlp/otlptrace",
+        "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc",
+        "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp",
+        "go.opentelemetry.io/otel/metric",
+        "go.opentelemetry.io/otel/sdk",
+        "go.opentelemetry.io/otel/sdk/metric",
+        "go.opentelemetry.io/otel/trace",
+        "go.opentelemetry.io/proto/otlp",
+        "go.yaml.in/yaml/v2",
+        "go.yaml.in/yaml/v3",
+        "golang.org/x/crypto",
+        "golang.org/x/mod",
+        "golang.org/x/net",
+        "golang.org/x/sync",
+        "golang.org/x/sys",
+        "golang.org/x/text",
+        "golang.org/x/time",
+        "golang.org/x/tools",
+        "google.golang.org/genproto/googleapis/api",
+        "google.golang.org/genproto/googleapis/rpc",
+        "google.golang.org/grpc",
+        "google.golang.org/protobuf",
+        "gopkg.in/check.v1",
+        "gopkg.in/ini.v1",
+        "gopkg.in/natefinch/lumberjack.v2",
+        "oras.land/oras-go/v2",
+        "sigs.k8s.io/yaml"
+      ],
+      "version": "v1.17.0"
+    },
+    "github.com/opencontainers/go-digest": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/opencontainers/go-digest",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/opencontainers/go-digest@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/opencontainers/image-spec": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/opencontainers/image-spec",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/opencontainers/image-spec@v1.1.1",
+      "requires": [],
+      "version": "v1.1.1"
+    },
+    "github.com/pelletier/go-toml/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/pelletier/go-toml/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/pelletier/go-toml/v2@v2.2.4",
+      "requires": [],
+      "version": "v2.2.4"
+    },
+    "github.com/perimeterx/marshmallow": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/perimeterx/marshmallow",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/oapi-codegen/nethttp-middleware"
+      ],
+      "purl": "pkg:golang/github.com/perimeterx/marshmallow@v1.1.5",
+      "requires": [
+        "github.com/go-test/deep",
+        "github.com/josharian/intern",
+        "github.com/mailru/easyjson",
+        "github.com/ugorji/go/codec"
+      ],
+      "version": "v1.1.5"
+    },
+    "github.com/peterh/liner": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/peterh/liner",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/peterh/liner@v1.2.2",
+      "requires": [],
+      "version": "v1.2.2"
+    },
+    "github.com/pmezard/go-difflib": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/pmezard/go-difflib",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/getkin/kin-openapi",
+        "github.com/go-task/slim-sprig/v3",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa",
+        "github.com/sirupsen/logrus",
+        "github.com/stretchr/testify",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/pmezard/go-difflib@v1.0.1-0.20181226105442-5d4384ee4fb2",
+      "requires": [],
+      "version": "v1.0.1-0.20181226105442-5d4384ee4fb2"
+    },
+    "github.com/prometheus/client_golang": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/prometheus/client_golang",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/prometheus/client_golang@v1.23.2",
+      "requires": [],
+      "version": "v1.23.2"
+    },
+    "github.com/prometheus/client_model": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/prometheus/client_model",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/prometheus/client_model@v0.6.2",
+      "requires": [],
+      "version": "v0.6.2"
+    },
+    "github.com/prometheus/common": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/prometheus/common",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/prometheus/common@v0.67.5",
+      "requires": [],
+      "version": "v0.67.5"
+    },
+    "github.com/prometheus/procfs": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/prometheus/procfs",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/prometheus/procfs@v0.20.1",
+      "requires": [],
+      "version": "v0.20.1"
+    },
+    "github.com/rcrowley/go-metrics": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/rcrowley/go-metrics",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/rcrowley/go-metrics@v0.0.0-20250401214520-65e299d6c5c9",
+      "requires": [],
+      "version": "v0.0.0-20250401214520-65e299d6c5c9"
+    },
+    "github.com/rogpeppe/go-internal": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/rogpeppe/go-internal",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/rogpeppe/go-internal@v1.14.1",
+      "requires": [],
+      "version": "v1.14.1"
+    },
+    "github.com/russross/blackfriday/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/russross/blackfriday/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/russross/blackfriday/v2@v2.1.0",
+      "requires": [],
+      "version": "v2.1.0"
+    },
+    "github.com/sagikazarmark/locafero": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/sagikazarmark/locafero",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/sagikazarmark/locafero@v0.11.0",
+      "requires": [],
+      "version": "v0.11.0"
+    },
+    "github.com/santhosh-tekuri/jsonschema/v6": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/santhosh-tekuri/jsonschema/v6",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/santhosh-tekuri/jsonschema/v6@v6.0.2",
+      "requires": [
+        "github.com/dlclark/regexp2",
+        "golang.org/x/text"
+      ],
+      "version": "v6.0.2"
+    },
+    "github.com/schollz/closestmatch": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/schollz/closestmatch",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/schollz/closestmatch@v2.1.0+incompatible",
+      "requires": [],
+      "version": "v2.1.0+incompatible"
+    },
+    "github.com/segmentio/asm": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/segmentio/asm",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/segmentio/asm@v1.2.1",
+      "requires": [
+        "golang.org/x/sys"
+      ],
+      "version": "v1.2.1"
+    },
+    "github.com/sergi/go-diff": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/sergi/go-diff",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/sergi/go-diff@v1.4.0",
+      "requires": [],
+      "version": "v1.4.0"
+    },
+    "github.com/sirupsen/logrus": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/sirupsen/logrus",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/sirupsen/logrus@v1.9.4",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/testify",
+        "golang.org/x/sys",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.9.4"
+    },
+    "github.com/sourcegraph/conc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/sourcegraph/conc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/sourcegraph/conc@v0.3.1-0.20240121214520-5f936abd7ae8",
+      "requires": [],
+      "version": "v0.3.1-0.20240121214520-5f936abd7ae8"
+    },
+    "github.com/spf13/afero": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spf13/afero",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/spf13/afero@v1.15.0",
+      "requires": [],
+      "version": "v1.15.0"
+    },
+    "github.com/spf13/cast": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spf13/cast",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/spf13/cast@v1.10.0",
+      "requires": [],
+      "version": "v1.10.0"
+    },
+    "github.com/spf13/cobra": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spf13/cobra",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/spf13/cobra@v1.10.2",
+      "requires": [],
+      "version": "v1.10.2"
+    },
+    "github.com/spf13/pflag": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spf13/pflag",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/spf13/pflag@v1.0.10",
+      "requires": [],
+      "version": "v1.0.10"
+    },
+    "github.com/spf13/viper": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spf13/viper",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/spf13/viper@v1.21.0",
+      "requires": [],
+      "version": "v1.21.0"
+    },
+    "github.com/spkg/bom": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/spkg/bom",
+      "optional_requires": [],
+      "parents": [
+        "github.com/apapsch/go-jsonmerge/v2"
+      ],
+      "purl": "pkg:golang/github.com/spkg/bom@v0.0.0-20160624110644-59b7046e48ad",
+      "requires": [],
+      "version": "v0.0.0-20160624110644-59b7046e48ad"
+    },
+    "github.com/stretchr/objx": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/stretchr/objx",
+      "optional_requires": [],
+      "parents": [
+        "github.com/stretchr/testify"
+      ],
+      "purl": "pkg:golang/github.com/stretchr/objx@v0.5.2",
+      "requires": [],
+      "version": "v0.5.2"
+    },
+    "github.com/stretchr/testify": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/stretchr/testify",
+      "optional_requires": [],
+      "parents": [
+        "github.com/apapsch/go-jsonmerge/v2",
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/getkin/kin-openapi",
+        "github.com/go-task/slim-sprig/v3",
+        "github.com/jackc/pgpassfile",
+        "github.com/jackc/pgservicefile",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/json-iterator/go",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httpcc",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/sirupsen/logrus",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/github.com/stretchr/testify@v1.11.1",
+      "requires": [
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/stretchr/objx",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v1.11.1"
+    },
+    "github.com/subosito/gotenv": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/subosito/gotenv",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/subosito/gotenv@v1.6.0",
+      "requires": [],
+      "version": "v1.6.0"
+    },
+    "github.com/tchap/go-patricia/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tchap/go-patricia/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/tchap/go-patricia/v2@v2.3.3",
+      "requires": [],
+      "version": "v2.3.3"
+    },
+    "github.com/tdewolff/minify/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tdewolff/minify/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/tdewolff/minify/v2@v2.20.19",
+      "requires": [],
+      "version": "v2.20.19"
+    },
+    "github.com/tdewolff/parse/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tdewolff/parse/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/tdewolff/parse/v2@v2.7.12",
+      "requires": [],
+      "version": "v2.7.12"
+    },
+    "github.com/tidwall/gjson": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tidwall/gjson",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/tidwall/gjson@v1.18.0",
+      "requires": [],
+      "version": "v1.18.0"
+    },
+    "github.com/tidwall/match": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tidwall/match",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/tidwall/match@v1.1.1",
+      "requires": [],
+      "version": "v1.1.1"
+    },
+    "github.com/tidwall/pretty": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tidwall/pretty",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/tidwall/pretty@v1.2.1",
+      "requires": [],
+      "version": "v1.2.1"
+    },
+    "github.com/tidwall/sjson": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/tidwall/sjson",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2"
+      ],
+      "purl": "pkg:golang/github.com/tidwall/sjson@v1.2.5",
+      "requires": [],
+      "version": "v1.2.5"
+    },
+    "github.com/twitchyliquid64/golang-asm": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/twitchyliquid64/golang-asm",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/twitchyliquid64/golang-asm@v0.15.1",
+      "requires": [],
+      "version": "v0.15.1"
+    },
+    "github.com/ugorji/go/codec": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/ugorji/go/codec",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/nethttp-middleware",
+        "github.com/oapi-codegen/runtime",
+        "github.com/perimeterx/marshmallow"
+      ],
+      "purl": "pkg:golang/github.com/ugorji/go/codec@v1.2.12",
+      "requires": [],
+      "version": "v1.2.12"
+    },
+    "github.com/valyala/bytebufferpool": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/valyala/bytebufferpool",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/valyala/bytebufferpool@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "github.com/valyala/fastjson": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/valyala/fastjson",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/valyala/fastjson@v1.6.10",
+      "requires": [],
+      "version": "v1.6.10"
+    },
+    "github.com/valyala/fasttemplate": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/valyala/fasttemplate",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/valyala/fasttemplate@v1.2.2",
+      "requires": [],
+      "version": "v1.2.2"
+    },
+    "github.com/vektah/gqlparser/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/vektah/gqlparser/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/vektah/gqlparser/v2@v2.5.33",
+      "requires": [
+        "github.com/agnivade/levenshtein",
+        "github.com/andreyvit/diff",
+        "github.com/davecgh/go-spew",
+        "github.com/pmezard/go-difflib",
+        "github.com/sergi/go-diff",
+        "github.com/stretchr/testify",
+        "gopkg.in/yaml.v3"
+      ],
+      "version": "v2.5.33"
+    },
+    "github.com/vmihailenco/msgpack/v5": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/vmihailenco/msgpack/v5",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/vmihailenco/msgpack/v5@v5.4.1",
+      "requires": [],
+      "version": "v5.4.1"
+    },
+    "github.com/vmihailenco/tagparser/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/vmihailenco/tagparser/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/vmihailenco/tagparser/v2@v2.0.0",
+      "requires": [],
+      "version": "v2.0.0"
+    },
+    "github.com/woodsbury/decimal128": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/woodsbury/decimal128",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi"
+      ],
+      "purl": "pkg:golang/github.com/woodsbury/decimal128@v1.4.0",
+      "requires": [],
+      "version": "v1.4.0"
+    },
+    "github.com/xeipuuv/gojsonpointer": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/xeipuuv/gojsonpointer",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/xeipuuv/gojsonpointer@v0.0.0-20190905194746-02993c407bfb",
+      "requires": [],
+      "version": "v0.0.0-20190905194746-02993c407bfb"
+    },
+    "github.com/xeipuuv/gojsonreference": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/xeipuuv/gojsonreference",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/xeipuuv/gojsonreference@v0.0.0-20180127040603-bd5ef7bd5415",
+      "requires": [],
+      "version": "v0.0.0-20180127040603-bd5ef7bd5415"
+    },
+    "github.com/yashtewari/glob-intersection": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/yashtewari/glob-intersection",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/github.com/yashtewari/glob-intersection@v0.2.0",
+      "requires": [],
+      "version": "v0.2.0"
+    },
+    "github.com/yosssi/ace": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/yosssi/ace",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/github.com/yosssi/ace@v0.0.5",
+      "requires": [],
+      "version": "v0.0.5"
+    },
+    "github.com/yuin/goldmark": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "github.com/yuin/goldmark",
+      "optional_requires": [],
+      "parents": [
+        "golang.org/x/tools"
+      ],
+      "purl": "pkg:golang/github.com/yuin/goldmark@v1.4.13",
+      "requires": [],
+      "version": "v1.4.13"
+    },
+    "go.opentelemetry.io/auto/sdk": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/auto/sdk",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/auto/sdk@v1.2.1",
+      "requires": [],
+      "version": "v1.2.1"
+    },
+    "go.opentelemetry.io/contrib/bridges/prometheus": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/contrib/bridges/prometheus",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/contrib/bridges/prometheus@v0.68.0",
+      "requires": [],
+      "version": "v0.68.0"
+    },
+    "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.68.0",
+      "requires": [],
+      "version": "v0.68.0"
+    },
+    "go.opentelemetry.io/otel": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/exporters/otlp/otlptrace": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/exporters/otlp/otlptrace",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlptrace@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/metric": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/metric",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/metric@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/sdk": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/sdk",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/sdk@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/sdk/metric": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/sdk/metric",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/sdk/metric@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/otel/trace": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/otel/trace",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/otel/trace@v1.43.0",
+      "requires": [],
+      "version": "v1.43.0"
+    },
+    "go.opentelemetry.io/proto/otlp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.opentelemetry.io/proto/otlp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/go.opentelemetry.io/proto/otlp@v1.10.0",
+      "requires": [],
+      "version": "v1.10.0"
+    },
+    "go.uber.org/multierr": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.uber.org/multierr",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2"
+      ],
+      "purl": "pkg:golang/go.uber.org/multierr@v1.11.0",
+      "requires": [],
+      "version": "v1.11.0"
+    },
+    "go.uber.org/zap": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.uber.org/zap",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2"
+      ],
+      "purl": "pkg:golang/go.uber.org/zap@v1.27.0",
+      "requires": [],
+      "version": "v1.27.0"
+    },
+    "go.yaml.in/yaml/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.yaml.in/yaml/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa",
+        "sigs.k8s.io/yaml"
+      ],
+      "purl": "pkg:golang/go.yaml.in/yaml/v2@v2.4.4",
+      "requires": [],
+      "version": "v2.4.4"
+    },
+    "go.yaml.in/yaml/v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "go.yaml.in/yaml/v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa",
+        "sigs.k8s.io/yaml"
+      ],
+      "purl": "pkg:golang/go.yaml.in/yaml/v3@v3.0.4",
+      "requires": [
+        "gopkg.in/check.v1"
+      ],
+      "version": "v3.0.4"
+    },
+    "golang.org/x/arch": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/arch",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/golang.org/x/arch@v0.8.0",
+      "requires": [],
+      "version": "v0.8.0"
+    },
+    "golang.org/x/crypto": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/crypto",
+      "optional_requires": [],
+      "parents": [
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/nats-io/jwt/v2",
+        "github.com/nats-io/nats-server/v2",
+        "github.com/nats-io/nats.go",
+        "github.com/nats-io/nkeys",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/net",
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/golang.org/x/crypto@v0.51.0",
+      "requires": [
+        "golang.org/x/net",
+        "golang.org/x/sys",
+        "golang.org/x/term",
+        "golang.org/x/text"
+      ],
+      "version": "v0.51.0"
+    },
+    "golang.org/x/exp": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/exp",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime"
+      ],
+      "purl": "pkg:golang/golang.org/x/exp@v0.0.0-20240404231335-c0f41cb1a7a0",
+      "requires": [],
+      "version": "v0.0.0-20240404231335-c0f41cb1a7a0"
+    },
+    "golang.org/x/mod": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/mod",
+      "optional_requires": [],
+      "parents": [
+        "github.com/antithesishq/antithesis-sdk-go",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/text",
+        "golang.org/x/tools"
+      ],
+      "purl": "pkg:golang/golang.org/x/mod@v0.35.0",
+      "requires": [
+        "golang.org/x/tools"
+      ],
+      "version": "v0.35.0"
+    },
+    "golang.org/x/net": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/net",
+      "optional_requires": [],
+      "parents": [
+        "github.com/go-resty/resty/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/crypto",
+        "golang.org/x/tools"
+      ],
+      "purl": "pkg:golang/golang.org/x/net@v0.53.0",
+      "requires": [
+        "golang.org/x/crypto",
+        "golang.org/x/sys",
+        "golang.org/x/term",
+        "golang.org/x/text"
+      ],
+      "version": "v0.53.0"
+    },
+    "golang.org/x/oauth2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/oauth2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/coreos/go-oidc/v3"
+      ],
+      "purl": "pkg:golang/golang.org/x/oauth2@v0.36.0",
+      "requires": [
+        "cloud.google.com/go/compute/metadata"
+      ],
+      "version": "v0.36.0"
+    },
+    "golang.org/x/sync": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/sync",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/text",
+        "golang.org/x/tools",
+        "gorm.io/driver/postgres"
+      ],
+      "purl": "pkg:golang/golang.org/x/sync@v0.20.0",
+      "requires": [],
+      "version": "v0.20.0"
+    },
+    "golang.org/x/sys": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/sys",
+      "optional_requires": [],
+      "parents": [
+        "github.com/google/go-tpm",
+        "github.com/google/pprof",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/minio/highwayhash",
+        "github.com/nats-io/jwt/v2",
+        "github.com/nats-io/nats-server/v2",
+        "github.com/nats-io/nats.go",
+        "github.com/nats-io/nkeys",
+        "github.com/oapi-codegen/runtime",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa",
+        "github.com/segmentio/asm",
+        "github.com/sirupsen/logrus",
+        "golang.org/x/crypto",
+        "golang.org/x/net",
+        "golang.org/x/tools"
+      ],
+      "purl": "pkg:golang/golang.org/x/sys@v0.44.0",
+      "requires": [],
+      "version": "v0.44.0"
+    },
+    "golang.org/x/telemetry": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/telemetry",
+      "optional_requires": [],
+      "parents": [
+        "golang.org/x/tools"
+      ],
+      "purl": "pkg:golang/golang.org/x/telemetry@v0.0.0-20260409153401-be6f6cb8b1fa",
+      "requires": [],
+      "version": "v0.0.0-20260409153401-be6f6cb8b1fa"
+    },
+    "golang.org/x/term": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/term",
+      "optional_requires": [],
+      "parents": [
+        "golang.org/x/crypto",
+        "golang.org/x/net"
+      ],
+      "purl": "pkg:golang/golang.org/x/term@v0.43.0",
+      "requires": [],
+      "version": "v0.43.0"
+    },
+    "golang.org/x/text": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/text",
+      "optional_requires": [],
+      "parents": [
+        "github.com/getkin/kin-openapi",
+        "github.com/jackc/pgx/v5",
+        "github.com/oapi-codegen/runtime",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa",
+        "github.com/santhosh-tekuri/jsonschema/v6",
+        "golang.org/x/crypto",
+        "golang.org/x/net",
+        "gorm.io/driver/postgres",
+        "gorm.io/driver/sqlite",
+        "gorm.io/gorm"
+      ],
+      "purl": "pkg:golang/golang.org/x/text@v0.37.0",
+      "requires": [
+        "golang.org/x/mod",
+        "golang.org/x/sync",
+        "golang.org/x/tools"
+      ],
+      "version": "v0.37.0"
+    },
+    "golang.org/x/time": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/time",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/go-resty/resty/v2",
+        "github.com/nats-io/nats-server/v2",
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/golang.org/x/time@v0.15.0",
+      "requires": [],
+      "version": "v0.15.0"
+    },
+    "golang.org/x/tools": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "golang.org/x/tools",
+      "optional_requires": [],
+      "parents": [
+        "github.com/antithesishq/antithesis-sdk-go",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/open-policy-agent/opa",
+        "golang.org/x/mod",
+        "golang.org/x/text"
+      ],
+      "purl": "pkg:golang/golang.org/x/tools@v0.44.0",
+      "requires": [
+        "github.com/google/go-cmp",
+        "github.com/yuin/goldmark",
+        "golang.org/x/mod",
+        "golang.org/x/net",
+        "golang.org/x/sync",
+        "golang.org/x/sys",
+        "golang.org/x/telemetry"
+      ],
+      "version": "v0.44.0"
+    },
+    "google.golang.org/genproto/googleapis/api": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "google.golang.org/genproto/googleapis/api",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/google.golang.org/genproto/googleapis/api@v0.0.0-20260401024825-9d38bb4040a9",
+      "requires": [],
+      "version": "v0.0.0-20260401024825-9d38bb4040a9"
+    },
+    "google.golang.org/genproto/googleapis/rpc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "google.golang.org/genproto/googleapis/rpc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/google.golang.org/genproto/googleapis/rpc@v0.0.0-20260401024825-9d38bb4040a9",
+      "requires": [],
+      "version": "v0.0.0-20260401024825-9d38bb4040a9"
+    },
+    "google.golang.org/grpc": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "google.golang.org/grpc",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/google.golang.org/grpc@v1.81.0",
+      "requires": [],
+      "version": "v1.81.0"
+    },
+    "google.golang.org/protobuf": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "google.golang.org/protobuf",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/onsi/ginkgo/v2",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/google.golang.org/protobuf@v1.36.11",
+      "requires": [],
+      "version": "v1.36.11"
+    },
+    "gopkg.in/check.v1": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "gopkg.in/check.v1",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/jackc/pgx/v5",
+        "github.com/oasdiff/yaml3",
+        "github.com/onsi/gomega",
+        "github.com/open-policy-agent/opa",
+        "go.yaml.in/yaml/v3",
+        "gopkg.in/yaml.v3"
+      ],
+      "purl": "pkg:golang/gopkg.in/check.v1@v1.0.0-20201130134442-10cb98267c6c",
+      "requires": [],
+      "version": "v1.0.0-20201130134442-10cb98267c6c"
+    },
+    "gopkg.in/ini.v1": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "gopkg.in/ini.v1",
+      "optional_requires": [],
+      "parents": [
+        "github.com/oapi-codegen/runtime",
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/gopkg.in/ini.v1@v1.67.2",
+      "requires": [],
+      "version": "v1.67.2"
+    },
+    "gopkg.in/natefinch/lumberjack.v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "gopkg.in/natefinch/lumberjack.v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/gopkg.in/natefinch/lumberjack.v2@v2.2.1",
+      "requires": [],
+      "version": "v2.2.1"
+    },
+    "gopkg.in/yaml.v3": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "gopkg.in/yaml.v3",
+      "optional_requires": [],
+      "parents": [
+        "github.com/cloudevents/sdk-go/v2",
+        "github.com/getkin/kin-openapi",
+        "github.com/go-task/slim-sprig/v3",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/lestrrat-go/blackmagic",
+        "github.com/lestrrat-go/dsig",
+        "github.com/lestrrat-go/dsig-secp256k1",
+        "github.com/lestrrat-go/httprc/v3",
+        "github.com/lestrrat-go/jwx/v3",
+        "github.com/lestrrat-go/option/v2",
+        "github.com/oapi-codegen/nethttp-middleware",
+        "github.com/oapi-codegen/runtime",
+        "github.com/sirupsen/logrus",
+        "github.com/stretchr/testify",
+        "github.com/vektah/gqlparser/v2"
+      ],
+      "purl": "pkg:golang/gopkg.in/yaml.v3@v3.0.1",
+      "requires": [
+        "gopkg.in/check.v1"
+      ],
+      "version": "v3.0.1"
+    },
+    "gorm.io/driver/postgres": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "gorm.io/driver/postgres",
+      "optional_requires": [],
+      "parents": [],
+      "purl": "pkg:golang/gorm.io/driver/postgres@v1.6.0",
+      "requires": [
+        "github.com/jackc/pgpassfile",
+        "github.com/jackc/pgservicefile",
+        "github.com/jackc/pgx/v5",
+        "github.com/jackc/puddle/v2",
+        "github.com/jinzhu/inflection",
+        "github.com/jinzhu/now",
+        "golang.org/x/crypto",
+        "golang.org/x/sync",
+        "golang.org/x/text",
+        "gorm.io/gorm"
+      ],
+      "version": "v1.6.0"
+    },
+    "gorm.io/driver/sqlite": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "gorm.io/driver/sqlite",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/gorm"
+      ],
+      "purl": "pkg:golang/gorm.io/driver/sqlite@v1.6.0",
+      "requires": [
+        "github.com/jinzhu/inflection",
+        "github.com/jinzhu/now",
+        "github.com/mattn/go-sqlite3",
+        "golang.org/x/text",
+        "gorm.io/gorm"
+      ],
+      "version": "v1.6.0"
+    },
+    "gorm.io/gorm": {
+      "depth": 1,
+      "direct": true,
+      "download_url": null,
+      "import_names": [],
+      "name": "gorm.io/gorm",
+      "optional_requires": [],
+      "parents": [
+        "gorm.io/driver/postgres",
+        "gorm.io/driver/sqlite"
+      ],
+      "purl": "pkg:golang/gorm.io/gorm@v1.31.1",
+      "requires": [
+        "github.com/jinzhu/inflection",
+        "github.com/jinzhu/now",
+        "github.com/mattn/go-sqlite3",
+        "golang.org/x/text",
+        "gorm.io/driver/sqlite"
+      ],
+      "version": "v1.31.1"
+    },
+    "oras.land/oras-go/v2": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "oras.land/oras-go/v2",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/oras.land/oras-go/v2@v2.6.0",
+      "requires": [],
+      "version": "v2.6.0"
+    },
+    "sigs.k8s.io/randfill": {
+      "depth": 3,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "sigs.k8s.io/randfill",
+      "optional_requires": [],
+      "parents": [
+        "sigs.k8s.io/yaml"
+      ],
+      "purl": "pkg:golang/sigs.k8s.io/randfill@v1.0.0",
+      "requires": [],
+      "version": "v1.0.0"
+    },
+    "sigs.k8s.io/yaml": {
+      "depth": 2,
+      "direct": false,
+      "download_url": null,
+      "import_names": [],
+      "name": "sigs.k8s.io/yaml",
+      "optional_requires": [],
+      "parents": [
+        "github.com/open-policy-agent/opa"
+      ],
+      "purl": "pkg:golang/sigs.k8s.io/yaml@v1.6.0",
+      "requires": [
+        "github.com/google/go-cmp",
+        "go.yaml.in/yaml/v2",
+        "go.yaml.in/yaml/v3",
+        "sigs.k8s.io/randfill"
+      ],
+      "version": "v1.6.0"
+    }
+  },
+  "python_version": null,
+  "resolver": "go list -m -json all + go mod graph (go version go1.26.8-X:nodwarf5 linux/amd64)",
+  "source_dir": "control-plane"
+}

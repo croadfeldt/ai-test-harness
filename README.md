@@ -60,6 +60,7 @@ harness/
   tests/                     Unit tests for the parts that need no network
 examples/
   frc-scheduler-server/      Two runs against a real FastAPI service: a scheduled rescan and a dependency-fix PR
+  control-plane/             A Go service: the Go adapter's rescan (stages 1 and 2)
 deploy/tekton/
   tasks.yaml, pipeline.yaml  The harness as a Tekton PipelineRun; the execute pod is the sandbox
 tools/

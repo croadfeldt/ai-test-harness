@@ -96,10 +96,10 @@ def _matches(symbol: str, changed: set[str]) -> str | None:
     return None
 
 
-def relevance_package(workdir: Path, pkg: str, python_version: str) -> dict:
+def relevance_package(workdir: Path, pkg: str, python_version: str, repo: str | None = None) -> dict:
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
     roots = [r.split("/")[0] for r in facts["import_names"]]
-    adapter = adapters.get("python")
+    adapter = adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
     out = workdir / "execute" / pkg / "relevance.json"
     # The API diff this change implies: bump (old -> new), or head -> fixed candidate.
     diff_path = workdir / "analyze" / pkg / "api-diff.json"
@@ -128,7 +128,8 @@ def relevance_package(workdir: Path, pkg: str, python_version: str) -> dict:
     gen_tests = workdir / "generate" / pkg / "tests"
     if gen_tests.exists():
         populations.append(("generated", sorted(gen_tests.glob("test_*.py")), gen_tests))
-    repo = config.target_repo(None)
+    wl = read_json(workdir / "intake" / "worklist.json")
+    repo = config.resolve_repo(wl["source_dir"], repo)
     app_tests = [p for p in adapter.first_party_files(repo) if any(x in ("tests", "test") for x in p.relative_to(repo).parts) or p.name.startswith("test_")]
     populations.append(("application", app_tests, repo))
 
@@ -209,11 +210,11 @@ def relevance_package(workdir: Path, pkg: str, python_version: str) -> dict:
     return rec
 
 
-def relevance(*, workdir: Path, select: list[str] | None = None, python_version: str = "3.12") -> list[dict]:
+def relevance(*, workdir: Path, select: list[str] | None = None, python_version: str = "3.12", repo: str | None = None) -> list[dict]:
     from .. import selfcheck
     from ..util import merge_summary
     selfcheck.require(workdir, python_version, probes=False)
-    pkgs = sorted(d.name for d in (workdir / "execute").iterdir() if d.is_dir() and (d / "results.json").exists())
-    outs = [relevance_package(workdir, p, python_version) for p in pkgs if not select or p in select]
+    pkgs = [p["package"] for p in read_json(workdir / "execute" / "summary.json")["packages"]] if (workdir / "execute" / "summary.json").exists() else []
+    outs = [relevance_package(workdir, p, python_version, repo) for p in pkgs if not select or p in select]
     merge_summary(workdir / "execute" / "relevance-summary.json", [{"package": o["package"], **o["counts"], "horizon": o["horizon"]} for o in outs])
     return outs
