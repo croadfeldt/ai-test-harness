@@ -54,9 +54,8 @@
     "test": 0
   },
   "change": "bumped",
-  "dependency_import_names": [],
   "depth": 2,
-  "generated": "2026-09-13T01:35:26+00:00",
+  "generated": "2026-09-13T02:49:35+00:00",
   "import_names": [
     "pyasn1"
   ],

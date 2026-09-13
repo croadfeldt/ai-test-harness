@@ -13,7 +13,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -54,7 +54,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -105,7 +105,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -156,7 +156,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -197,7 +197,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -238,7 +238,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -279,7 +279,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -320,7 +320,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -361,7 +361,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -402,7 +402,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T02:40:04+00:00"
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
       },
       "run": {
         "execution_target": "podman",

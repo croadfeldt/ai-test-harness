@@ -80,6 +80,8 @@
                 "GF-014",
                 "GF-015",
                 "GF-016",
+                "GF-017",
+                "GF-018",
                 "GF-012"
               ],
               "passed": true,
@@ -171,8 +173,8 @@
             },
             {
               "evidence_test_ids": [
-                "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
-                "test_ghsa_jr27_m4p2_rc6r_exposure"
+                "test_ghsa_jr27_m4p2_rc6r_exposure",
+                "test_ghsa_jr27_m4p2_rc6r_fix_pinning"
               ],
               "reviewed_by": null,
               "status": "affected",
@@ -197,7 +199,7 @@
           ]
         },
         "digest": {
-          "sha256": "591ff8d1c60031c8079edf0289ddd4a75e00cf4c3b957d2c67cd2bcaf1b7a35b"
+          "sha256": "d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1"
         },
         "name": "ai-test-harness-record"
       }
@@ -236,7 +238,7 @@
     },
     {
       "digest": {
-        "sha256": "591ff8d1c60031c8079edf0289ddd4a75e00cf4c3b957d2c67cd2bcaf1b7a35b"
+        "sha256": "d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1"
       },
       "name": "attest/pyasn1/MANIFEST.json"
     }

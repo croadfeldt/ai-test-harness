@@ -76,13 +76,23 @@
       "title": "a downgrade derives vulnerable=new, fixed=old from the advisories, and the verdicts follow the roles"
     },
     {
+      "id": "GF-017",
+      "status": "pass",
+      "title": "existence-only assertions are rejected as trivial"
+    },
+    {
+      "id": "GF-018",
+      "status": "pass",
+      "title": "a parametrized pytest id resolves to its manifest test name"
+    },
+    {
       "id": "GF-012",
       "status": "pass",
       "title": "every old/new outcome maps to a fixed, honest verdict"
     }
   ],
   "failed": [],
-  "generated": "2026-09-13T02:40:04+00:00",
+  "generated": "2026-09-13T04:29:48+00:00",
   "model": {
     "reason": "probes disabled",
     "status": "skipped"

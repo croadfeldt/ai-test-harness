@@ -1,6 +1,6 @@
 # Review packet: pyasn1 0.6.4 -> 0.4.8
 
-Run `76a3fa863e76`. Generated 2026-09-13T02:40:04+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+Run `76a3fa863e76`. Generated 2026-09-13T04:29:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 pyasn1 at depth 2, change `bumped`, reachable from first-party code: **unknown**
@@ -42,8 +42,11 @@ Advisories: 8 open at head, 0 on the replaced version.
 |---|---|---|
 | CVE-2026-59885 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
 | CVE-2026-59886 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
-| CVE-2026-30922 | affected | exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_fix_pinning', 'test_ghsa_jr27_m4p2_rc6r_exposure'] fail on pkg:pyp |
+| CVE-2026-30922 | affected | exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_exposure', 'test_ghsa_jr27_m4p2_rc6r_fix_pinning'] fail on pkg:pyp |
 | CVE-2026-59884 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
+
+## Upgrade path
+Not applicable: the change brought the fixed version, or no advisory is open at head.
 
 ## Recommended action
 **Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.

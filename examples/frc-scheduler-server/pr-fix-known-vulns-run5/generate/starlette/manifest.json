@@ -1,0 +1,364 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": false,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "candidate_moved": {
+      "fastapi": [
+        "0.115.5",
+        "0.141.1"
+      ],
+      "starlette": [
+        "0.41.3",
+        "1.3.1"
+      ]
+    },
+    "candidate_note": "also let direct dependents move: ['fastapi']",
+    "direction": "candidate",
+    "fixed": "1.3.1",
+    "vulnerable": "0.41.3"
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 848,
+        "status": {
+          "test_base_http_middleware_dispatch": "fail",
+          "test_compile_path_integer_convertor": "fail",
+          "test_cookie_parser_basic": "pass",
+          "test_headers_case_insensitive_lookup": "fail",
+          "test_json_response_renders_json": "pass",
+          "test_query_params_get_all": "fail",
+          "test_replace_params_substitutes_values": "fail",
+          "test_response_status_and_body": "pass",
+          "test_simple_user_authenticated": "pass",
+          "test_url_parse_components": "fail"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "AssertionError: assert 'x=1&y=2' == b'x=1&y=2'\n +  where 'x=1&y=2' = URL('https://example.com:8080/path/to?x=1&y=2').query",
+          "reason": "fails on baseline after repair",
+          "test": "test_url_parse_components"
+        },
+        {
+          "message": "AttributeError: 'QueryParams' object has no attribute 'get_all'",
+          "reason": "fails on baseline after repair",
+          "test": "test_query_params_get_all"
+        },
+        {
+          "message": "KeyError: 'content-type'",
+          "reason": "fails on baseline after repair",
+          "test": "test_headers_case_insensitive_lookup"
+        },
+        {
+          "message": "AssertionError: assert '[0-9]+' == '\\\\d+'\n  \n  - \\d+\n  + [0-9]+",
+          "reason": "fails on baseline after repair",
+          "test": "test_compile_path_integer_convertor"
+        },
+        {
+          "message": "AssertionError: assert '/items/{item_id:int}' == '/items/42'\n  \n  - /items/42\n  + /items/{item_id:int}",
+          "reason": "fails on baseline after repair",
+          "test": "test_replace_params_substitutes_values"
+        },
+        {
+          "message": "NotImplementedError",
+          "reason": "fails on baseline after repair",
+          "test": "test_base_http_middleware_dispatch"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_starlette_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:93af7aea1ed63dcfc517a5becc5f49b4e4ff81f127c757661ef59f63e0080ad9",
+      "response_sha256": "sha256:e373c69284e825fb2419e3a6a28eeded2063390ad5c4d5ba298c2f9b394911f1",
+      "sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f",
+      "targets": [
+        "starlette.middleware.base.BaseHTTPMiddleware",
+        "starlette.responses.Response"
+      ],
+      "tests": [
+        "test_simple_user_authenticated",
+        "test_cookie_parser_basic",
+        "test_response_status_and_body",
+        "test_json_response_renders_json"
+      ]
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_54121.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert a >1MB multipart file upload raises MultiPartException per GHSA-2c2j-9gv5-cj73. Caveat: the fix (file-size cap in MultiPartParser) is not present in the resolved 1.3.1 candidate either, so both tests fail on both versions; the harness flagged this as an environment defect.",
+      "sha256": "sha256:1f3e69e963d303374fc08bf42a4faa2d491c6d4674a955d3abcb9e3f73b362e4",
+      "targets": [
+        "GHSA-2c2j-9gv5-cj73",
+        "PYSEC-2026-1941"
+      ],
+      "tests": [
+        "test_GHSA_2c2j_9gv5_cj73_fix_pinning",
+        "test_GHSA_2c2j_9gv5_cj73_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_62727.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests trigger the O(n^2) Range-header merging DoS (GHSA-7f5h-v6xp-fcq8) with 100k overlapping ranges; caveat: in the sandbox both versions completed under the 2s threshold, so the timing assertion may not fail on 0.41.3 on fast hardware.",
+      "sha256": "sha256:97f2833df69db5856e265fa955b63dd65049f6b4d794cd473f657817e8fd232a",
+      "targets": [
+        "GHSA-7f5h-v6xp-fcq8",
+        "PYSEC-2026-1942"
+      ],
+      "tests": [
+        "test_ghsa_7f5h_v6xp_fcq8_fix_pinning",
+        "test_ghsa_7f5h_v6xp_fcq8_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert urlencoded request.form(max_fields=5) rejects 50 fields with 400 (limit enforced, per GHSA-82w8-qh3p-5jfq). Caveat: in the sandbox both 0.41.3 and 1.3.1 returned 200 (limit not enforced in either), so the differential could not be confirmed here; the trigger and assertion follow the advisory's description of the fix.",
+      "sha256": "sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57",
+      "targets": [
+        "GHSA-82w8-qh3p-5jfq",
+        "PYSEC-2026-249"
+      ],
+      "tests": [
+        "test_ghsa_82w8_qh3p_5jfq_fix_pinning",
+        "test_ghsa_82w8_qh3p_5jfq_exposure"
+      ],
+      "tool_calls": 12
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48710.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert URL(scope=...) with a crafted Host header preserves scope path (safe behavior per GHSA-86qp-5c8j-p5mr). Caveat: harness ran both environments as 0.41.3, so both tests passed on both; the differential could not be verified because the fixed 1.3.1 environment was not actually installed.",
+      "sha256": "sha256:e9c86ce10e25d5a6d0e6fc62a82ee471b4afdca61c5e16695b3365af594e5601",
+      "targets": [
+        "GHSA-86qp-5c8j-p5mr",
+        "PYSEC-2026-161"
+      ],
+      "tests": [
+        "test_ghsa_86qp_5c8j_p5mr_fix_pinning",
+        "test_ghsa_86qp_5c8j_p5mr_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 11,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54282.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Pins GHSA-jp82-jpqv-5vv3: a non-slash request path must not be re-parsed as an authority, so URL(scope=...)/request.url.hostname must remain the server host. Caveat: I could not observe the old-version failure in the sandbox (probe passed on both), so the exact fixed-version behavior is inferred from the advisory; the assertions encode the safe behavior (hostname == server host, path preserved).",
+      "sha256": "sha256:80febe82d1ebd548411944bf3bc731cfdf6ea5295202b996fcb6ffc4ca9f4480",
+      "targets": [
+        "GHSA-jp82-jpqv-5vv3",
+        "PYSEC-2026-248"
+      ],
+      "tests": [
+        "test_ghsa_jp82_jpqv_5vv3_fix_pinning",
+        "test_ghsa_jp82_jpqv_5vv3_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 11,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48818.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert StaticFiles rejects UNC share paths before os.path.realpath is invoked (spied via monkeypatch), preventing the Windows SMB/NTLM SSRF of GHSA-wqp7-x3pw-xc5r. Caveat: the vulnerability is Windows-specific and the sandbox is POSIX, where realpath on a UNC string is inert, so the spy-based assertion could not be made to fail on 0.41.3 in this environment; both tests pass on both versions here.",
+      "sha256": "sha256:008c48a4265452dd5fbbfe424d95f535fb4d2e07dc056c79bb5521f0657885ee",
+      "targets": [
+        "GHSA-wqp7-x3pw-xc5r",
+        "PYSEC-2026-2281"
+      ],
+      "tests": [
+        "test_gdsa_wqp7_x3pw_xc5r_fix_pinning",
+        "test_gdsa_wqp7_x3pw_xc5r_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "fastapi": [
+            "0.115.5",
+            "0.141.1"
+          ],
+          "starlette": [
+            "0.41.3",
+            "1.3.1"
+          ]
+        },
+        "candidate_note": "also let direct dependents move: ['fastapi']",
+        "direction": "candidate",
+        "fixed": "1.3.1",
+        "vulnerable": "0.41.3"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48817.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests trigger CVE-2026-48817 by sending a non-standard HTTP method (TRACE) to an HTTPEndpoint that defines a matching attribute; fix-pinning asserts 405, exposure asserts the arbitrary handler is not invoked. Caveat: harness run showed both tests failing on BOTH 0.41.3 and 1.3.1, indicating the fixed candidate environment did not actually contain the 1.1.0+ fix (dispatch still uses the old getattr path); the tests are correct against the advisory's described fix.",
+      "sha256": "sha256:94199ca56f70dea10c0c1969e1d27737f3c2564b45d183e1d52dd96afc0a0931",
+      "targets": [
+        "GHSA-x746-7m8f-x49c",
+        "PYSEC-2026-2280"
+      ],
+      "tests": [
+        "test_ghsa_x746_7m8f_x49c_fix_pinning",
+        "test_ghsa_x746_7m8f_x49c_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-13T02:50:16+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "0.41.3",
+  "old_version": "0.41.3",
+  "package": "starlette",
+  "purl": "pkg:pypi/starlette@0.41.3",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

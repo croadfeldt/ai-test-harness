@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-13T02:40:04+00:00",
+  "generated": "2026-09-13T04:29:48+00:00",
   "package": "pyasn1",
   "packet_md": "packet/pyasn1/packet.md",
   "patch": "packet/pyasn1/tests.patch",

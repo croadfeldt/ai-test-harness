@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-13T01:35:26+00:00",
+  "generated": "2026-09-13T02:49:36+00:00",
   "items": [
     {
       "breaking": 146,
@@ -14,6 +14,34 @@
       "reachable": "unknown",
       "score": 90,
       "vulns": 8
+    },
+    {
+      "breaking": 0,
+      "budget": "full",
+      "call_sites": 8,
+      "change": "bumped",
+      "cve_targeted": true,
+      "depth": 1,
+      "new": "3.4.0",
+      "old": "3.3.0",
+      "package": "python-jose",
+      "reachable": "true",
+      "score": 51,
+      "vulns": 0
+    },
+    {
+      "breaking": 0,
+      "budget": "full",
+      "call_sites": 8,
+      "change": "unchanged",
+      "cve_targeted": true,
+      "depth": 2,
+      "new": "0.41.3",
+      "old": "0.41.3",
+      "package": "starlette",
+      "reachable": "true",
+      "score": 80,
+      "vulns": 14
     }
   ],
   "run_id": "76a3fa863e76"

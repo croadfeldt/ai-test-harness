@@ -27,8 +27,16 @@
     "test": 0
   },
   "change": "unchanged",
+  "dependency_import_names": [
+    "anyio",
+    "httpx",
+    "python_multipart",
+    "pyyaml",
+    "typing_extensions",
+    "yaml"
+  ],
   "depth": 2,
-  "generated": "2026-09-12T02:30:24+00:00",
+  "generated": "2026-09-13T02:49:36+00:00",
   "import_names": [
     "starlette"
   ],

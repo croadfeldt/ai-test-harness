@@ -1,0 +1,196 @@
+FF....FF..FFFF....                                                       [100%]
+=================================== FAILURES ===================================
+_____________________ test_GHSA_2c2j_9gv5_cj73_fix_pinning _____________________
+
+    def test_GHSA_2c2j_9gv5_cj73_fix_pinning():
+        """A multipart file upload larger than the 1MB file limit must be rejected
+        with MultiPartException on the fixed version (0.41.3 accepts it, a DoS vector)."""
+>       with pytest.raises(MultiPartException):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE MultiPartException
+
+tests/test_starlette_cve_cve_2025_54121.py:38: Failed
+______________________ test_GHSA_2c2j_9gv5_cj73_exposure _______________________
+
+    def test_GHSA_2c2j_9gv5_cj73_exposure():
+        """Same oversized multipart body through the app's request.form() call path
+        must not succeed on the fixed version."""
+>       with pytest.raises(MultiPartException):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE MultiPartException
+
+tests/test_starlette_cve_cve_2025_54121.py:45: Failed
+_____________________ test_ghsa_x746_7m8f_x49c_fix_pinning _____________________
+
+    def test_ghsa_x746_7m8f_x49c_fix_pinning():
+        """Non-standard HTTP method must not be dispatched to an arbitrary endpoint attribute (CVE-2026-48817)."""
+>       sent = run_endpoint("TRACE")
+               ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_starlette_cve_cve_2026_48817.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_starlette_cve_cve_2026_48817.py:47: in run_endpoint
+    asyncio.get_event_loop().run_until_complete(endpoint.dispatch())
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.unix_events._UnixDefaultEventLoopPolicy object at 0x7f93760e3fb0>
+
+    def get_event_loop(self):
+        """Get the event loop for the current context.
+    
+        Returns an instance of EventLoop or raises an exception.
+        """
+        if (self._local._loop is None and
+                not self._local._set_called and
+                threading.current_thread() is threading.main_thread()):
+            stacklevel = 2
+            try:
+                f = sys._getframe(1)
+            except AttributeError:
+                pass
+            else:
+                # Move up the call stack so that the warning is attached
+                # to the line outside asyncio itself.
+                while f:
+                    module = f.f_globals.get('__name__')
+                    if not (module == 'asyncio' or module.startswith('asyncio.')):
+                        break
+                    f = f.f_back
+                    stacklevel += 1
+            import warnings
+            warnings.warn('There is no current event loop',
+                          DeprecationWarning, stacklevel=stacklevel)
+            self.set_event_loop(self.new_event_loop())
+    
+        if self._local._loop is None:
+>           raise RuntimeError('There is no current event loop in thread %r.'
+                               % threading.current_thread().name)
+E           RuntimeError: There is no current event loop in thread 'MainThread'.
+
+/usr/local/lib/python3.12/asyncio/events.py:702: RuntimeError
+______________________ test_ghsa_x746_7m8f_x49c_exposure _______________________
+
+    def test_ghsa_x746_7m8f_x49c_exposure():
+        """Same trigger via the app's dispatch call pattern: dispatch() must not call the arbitrary handler."""
+>       sent = run_endpoint("TRACE")
+               ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_starlette_cve_cve_2026_48817.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_starlette_cve_cve_2026_48817.py:47: in run_endpoint
+    asyncio.get_event_loop().run_until_complete(endpoint.dispatch())
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <asyncio.unix_events._UnixDefaultEventLoopPolicy object at 0x7f93760e3fb0>
+
+    def get_event_loop(self):
+        """Get the event loop for the current context.
+    
+        Returns an instance of EventLoop or raises an exception.
+        """
+        if (self._local._loop is None and
+                not self._local._set_called and
+                threading.current_thread() is threading.main_thread()):
+            stacklevel = 2
+            try:
+                f = sys._getframe(1)
+            except AttributeError:
+                pass
+            else:
+                # Move up the call stack so that the warning is attached
+                # to the line outside asyncio itself.
+                while f:
+                    module = f.f_globals.get('__name__')
+                    if not (module == 'asyncio' or module.startswith('asyncio.')):
+                        break
+                    f = f.f_back
+                    stacklevel += 1
+            import warnings
+            warnings.warn('There is no current event loop',
+                          DeprecationWarning, stacklevel=stacklevel)
+            self.set_event_loop(self.new_event_loop())
+    
+        if self._local._loop is None:
+>           raise RuntimeError('There is no current event loop in thread %r.'
+                               % threading.current_thread().name)
+E           RuntimeError: There is no current event loop in thread 'MainThread'.
+
+/usr/local/lib/python3.12/asyncio/events.py:702: RuntimeError
+_____________________ test_ghsa_jp82_jpqv_5vv3_fix_pinning _____________________
+
+    def test_ghsa_jp82_jpqv_5vv3_fix_pinning():
+        """A request path not starting with '/' must not poison request.url.hostname (GHSA-jp82-jpqv-5vv3)."""
+        url = URL(scope=_scope(POISON))
+>       assert url.hostname == "testserver"
+E       AssertionError: assert 'evil.com' == 'testserver'
+E         
+E         - testserver
+E         + evil.com
+
+tests/test_starlette_cve_cve_2026_54282.py:25: AssertionError
+______________________ test_ghsa_jp82_jpqv_5vv3_exposure _______________________
+
+    def test_ghsa_jp82_jpqv_5vv3_exposure():
+        """Same trigger via the app's BaseHTTPMiddleware dispatch pattern: request.url.hostname stays the server host."""
+        from starlette.requests import Request
+    
+        request = Request(_scope(POISON))
+>       assert request.url.hostname == "testserver"
+E       AssertionError: assert 'evil.com' == 'testserver'
+E         
+E         - testserver
+E         + evil.com
+
+tests/test_starlette_cve_cve_2026_54282.py:34: AssertionError
+________________ test_ghsa_82w8_qh3p_5jfq_fix_pinning[asyncio] _________________
+
+    @pytest.mark.anyio
+    async def test_ghsa_82w8_qh3p_5jfq_fix_pinning():
+        """urlencoded form(max_fields=5) must reject 50 fields (400) instead of silently ignoring the limit."""
+        app = make_app()
+        body = "&".join(f"key{i}=v" for i in range(50))
+        transport = httpx.ASGITransport(app=app)
+        async with httpx.AsyncClient(transport=transport, base_url="http://t") as client:
+            resp = await client.post(
+                "/form",
+                content=body,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+            )
+>       assert resp.status_code == 400, f"expected 400, got {resp.status_code}"
+E       AssertionError: expected 400, got 200
+E       assert 200 == 400
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_starlette_cve_cve_2026_54283.py:33: AssertionError
+__________________ test_ghsa_82w8_qh3p_5jfq_exposure[asyncio] __________________
+
+    @pytest.mark.anyio
+    async def test_ghsa_82w8_qh3p_5jfq_exposure():
+        """app-style request.form(max_fields=...) on urlencoded must be enforced, not silently ignored."""
+        app = make_app()
+        body = "&".join(f"key{i}=v" for i in range(50))
+        transport = httpx.ASGITransport(app=app)
+        async with httpx.AsyncClient(transport=transport, base_url="http://t") as client:
+            resp = await client.post(
+                "/form",
+                content=body,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+            )
+>       assert resp.status_code == 400, f"expected 400, got {resp.status_code}"
+E       AssertionError: expected 400, got 200
+E       assert 200 == 400
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_starlette_cve_cve_2026_54283.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_starlette_cve_cve_2025_54121.py::test_GHSA_2c2j_9gv5_cj73_fix_pinning
+FAILED tests/test_starlette_cve_cve_2025_54121.py::test_GHSA_2c2j_9gv5_cj73_exposure
+FAILED tests/test_starlette_cve_cve_2026_48817.py::test_ghsa_x746_7m8f_x49c_fix_pinning
+FAILED tests/test_starlette_cve_cve_2026_48817.py::test_ghsa_x746_7m8f_x49c_exposure
+FAILED tests/test_starlette_cve_cve_2026_54282.py::test_ghsa_jp82_jpqv_5vv3_fix_pinning
+FAILED tests/test_starlette_cve_cve_2026_54282.py::test_ghsa_jp82_jpqv_5vv3_exposure
+FAILED tests/test_starlette_cve_cve_2026_54283.py::test_ghsa_82w8_qh3p_5jfq_fix_pinning[asyncio]
+FAILED tests/test_starlette_cve_cve_2026_54283.py::test_ghsa_82w8_qh3p_5jfq_exposure[asyncio]
+8 failed, 10 passed in 1.65s

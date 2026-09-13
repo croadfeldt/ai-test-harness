@@ -1,9 +1,11 @@
 {
-  "generated": "2026-09-13T02:40:04+00:00",
+  "generated": "2026-09-13T04:29:48+00:00",
   "goals": [
     {
       "evidence_ref": [
-        "packet/pyasn1/packet.md"
+        "packet/pyasn1/packet.md",
+        "packet/python-jose/packet.md",
+        "packet/starlette/packet.md"
       ],
       "goal": "Nothing merges without a person",
       "id": "G1",
@@ -13,21 +15,25 @@
     },
     {
       "evidence_ref": [
-        "execute/pyasn1/results.json"
+        "execute/pyasn1/results.json",
+        "execute/python-jose/results.json",
+        "execute/starlette/results.json"
       ],
       "goal": "Every kept test was compiled and run in the sandbox before a reviewer sees it",
       "id": "G2",
-      "measurement": "16 tests ran on head, again for flakes, and on base; 0 flaky",
+      "measurement": "45 tests ran on head, again for flakes, and on base; 0 flaky",
       "source": "principle: generated tests are hypotheses until executed",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "triage/pyasn1/triage.json"
+        "triage/pyasn1/triage.json",
+        "triage/python-jose/triage.json",
+        "triage/starlette/triage.json"
       ],
       "goal": "A test that passes on both versions is not presented as CVE evidence",
       "id": "G3",
-      "measurement": "2 fix-pinning confirmed; pass-on-both CVE tests are classified test-bug and excluded from VEX 'fixed'",
+      "measurement": "6 fix-pinning confirmed; pass-on-both CVE tests are classified test-bug and excluded from VEX 'fixed'",
       "source": "principle: strong, not just green",
       "verdict": "met"
     },
@@ -37,13 +43,15 @@
       ],
       "goal": "Stage 0 passed before evidence was produced",
       "id": "G4",
-      "measurement": "16 of 16 register checks; sandbox probe skipped; model probe skipped",
+      "measurement": "18 of 18 register checks; sandbox probe skipped; model probe skipped",
       "source": "section 8.5, section 17: self-verification",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "execute/pyasn1/new/sandbox.json"
+        "execute/pyasn1/new/sandbox.json",
+        "execute/python-jose/new/sandbox.json",
+        "execute/starlette/new/sandbox.json"
       ],
       "goal": "Generated tests ran with no network, no secrets, read-only root, disposable container",
       "id": "G5",
@@ -53,31 +61,37 @@
     },
     {
       "evidence_ref": [
-        "attest/pyasn1/statement.dsse.json"
+        "attest/pyasn1/statement.dsse.json",
+        "attest/python-jose/statement.dsse.json",
+        "attest/starlette/statement.dsse.json"
       ],
       "goal": "Every accepted test carries a provenance record and a signed attestation",
       "id": "G6",
-      "measurement": "10 records; envelopes verified locally: [True]; signer is a development key",
+      "measurement": "23 records; envelopes verified locally: [True, True, True]; signer is a development key",
       "source": "section 8.2: provenance",
       "verdict": "met (development signer)"
     },
     {
       "evidence_ref": [
-        "packet/pyasn1/vex.openvex.json"
+        "packet/pyasn1/vex.openvex.json",
+        "packet/python-jose/vex.openvex.json",
+        "packet/starlette/vex.openvex.json"
       ],
       "goal": "Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement",
       "id": "G7",
-      "measurement": "pyasn1: {'CVE-2026-30922': 'affected', 'CVE-2026-59884': 'under_investigation', 'CVE-2026-59885': 'under_investigation', 'CVE-2026-59886': 'under_investigation'}",
+      "measurement": "pyasn1: {'CVE-2026-30922': 'affected', 'CVE-2026-59884': 'under_investigation', 'CVE-2026-59885': 'under_investigation', 'CVE-2026-59886': 'under_investigation'}; python-jose: {'CVE-2024-29370': 'under_investigation', 'CVE-2024-33663': 'under_investigation', 'CVE-2024-33664': 'fixed'}; starlette: {'CVE-2025-54121': 'affected', 'CVE-2025-62727': 'affected', 'CVE-2026-48710': 'affected', 'CVE-2026-48817': 'affected', 'CVE-2026-48818': 'affected', 'CVE-2026-54282': 'affected', 'CVE-2026-54283': 'affected'}",
       "source": "section 10: known vulnerabilities with a CVE-targeted test",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "triage/pyasn1/triage.json"
+        "triage/pyasn1/triage.json",
+        "triage/python-jose/triage.json",
+        "triage/starlette/triage.json"
       ],
       "goal": "The run surfaces a finding the PR diff does not show",
       "id": "G8",
-      "measurement": "pyasn1: ['pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories', 'pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown', 'pyasn1: a code path raised the same internal error on both versions during CVE t']",
+      "measurement": "pyasn1: ['pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories', 'pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown', 'pyasn1: a code path raised the same internal error on both versions during CVE t']; python-jose: ['python-jose: a code path raised the same internal error on both versions during ', 'python-jose: a code path raised the same internal error on both versions during ']; starlette: ['starlette 0.41.3 has 14 open advisories at head; reachable=true', 'starlette: a code path raised the same internal error on both versions during CV', 'starlette: a code path raised the same internal error on both versions during CV', 'starlette: a code path raised the same internal error on both versions during CV']",
       "source": "exec summary: catches what a reviewer would miss",
       "verdict": "met"
     },
@@ -88,13 +102,15 @@
       ],
       "goal": "Packet within 2 hours of trigger for depth 0 and 1",
       "id": "G9",
-      "measurement": "intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T02:40:04+00:00",
+      "measurement": "intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T04:29:48+00:00",
       "source": "section 10: time to packet",
       "verdict": "see measurement"
     },
     {
       "evidence_ref": [
-        "attest/pyasn1/statement.json"
+        "attest/pyasn1/statement.json",
+        "attest/python-jose/statement.json",
+        "attest/starlette/statement.json"
       ],
       "goal": "Every number in the packet points at a file in the work directory",
       "id": "G10",
@@ -112,7 +128,9 @@
     }
   ],
   "packages": [
-    "pyasn1"
+    "pyasn1",
+    "python-jose",
+    "starlette"
   ],
   "run_id": "76a3fa863e76",
   "summary": {

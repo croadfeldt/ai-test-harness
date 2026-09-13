@@ -1,0 +1,23 @@
+{
+  "call": 2,
+  "endpoint": "http://10.0.0.122:1234/v1",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 120.2,
+  "max_tokens": 4000,
+  "model": "qwen/qwen3.8-27b",
+  "prompt_sha256": "sha256:866ee9b13811e76d738a697368bbf37b7be6b87564227c8642d8746af52ef107",
+  "reasoning_effort": "none",
+  "response_chars": 3600,
+  "response_sha256": "sha256:95fee3ab702c25dc756a978b7333a90ada7d32cceba478811871d5093cc57ce3",
+  "tag": "starlette-unit-a1",
+  "temperature": 0.2,
+  "usage": {
+    "completion_tokens": 956,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 5023,
+    "total_tokens": 5979
+  }
+}

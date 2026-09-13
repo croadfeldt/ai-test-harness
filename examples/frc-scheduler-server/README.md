@@ -219,6 +219,38 @@ The eight pyasn1 unit tests are weak: the application has no call sites into pya
 back to asserting that classes are subclasses and functions are callable. They pass every gate and
 prove nothing. That is register entry GF-017.
 
+## starlette: vulnerable at head, unchanged by the PR, proven against a fixed candidate
+
+starlette 0.41.3 arrives through fastapi, the app imports it directly, and it carries seven open
+advisories the PR does not touch. There is no old-versus-new to compare, so the harness resolved a
+**fixed-candidate environment**: pinning starlette to 1.3.1 alone is unsatisfiable because fastapi
+0.115.5 pins it, so the harness let fastapi move and resolved fastapi 0.141.1 with starlette 1.3.1.
+That is the upgrade path, and it is a section of the packet.
+
+| Issue | Agent | Differential (head 0.41.3 vs candidate 1.3.1) | VEX draft |
+|---|---|---|---|
+| CVE-2026-48817, non-standard HTTP method reaches an endpoint | 13 calls, 7 runs | **Exposure confirmed**: fails at head, passes on the candidate | `affected`, with evidence |
+| CVE-2025-54121, multipart size; CVE-2026-54282, path re-parsed as authority | 13 calls each | fail on both: test bug | `affected` (reachable, no test evidence) |
+| CVE-2025-62727, Range merging; CVE-2026-54283, form field limit; CVE-2026-48710, Host header | 12 to 13 calls each | pass on both: no trigger | `affected` (reachable, no test evidence) |
+| CVE-2026-48818, UNC path in StaticFiles | 13 calls | blocked: `RuntimeError` on both | `affected` (reachable, no test evidence) |
+
+18 tests, 6 accepted (4 unit, 2 confirmed CVE), 0 flaky, 848 package lines covered. The confirmed pair
+was first mis-judged: pytest parametrized it, stage 4 matched ids exactly, and the proof was filed as
+an uncategorized test. That is register entry GF-018; the rerun above is after the fix.
+
+## The pull request, end to end
+
+Three packages through every stage, one model, one sandbox, stage 0 passing first.
+
+| Package | What the PR did to it | Proven | Left unproven | VEX |
+|---|---|---|---|---|
+| python-jose | bumped 3.3.0 to 3.4.0 | 1 exposure closed (JWE bomb) | 2 | 1 fixed, 2 under investigation |
+| pyasn1 | downgraded 0.6.4 to 0.4.8, unmentioned | 1 exposure introduced (unbounded recursion) | 3 | 1 affected with evidence, 3 under investigation |
+| starlette | untouched, 7 open advisories | 1 exposure at head (method handling) | 6 | 7 affected, 1 with evidence; upgrade path: fastapi 0.141.1 |
+
+Post-analysis: 9 of 11 goals met, one measured without a target, one not applicable until mutation
+testing. Three signed attestations, verified. Everything a reviewer needs is in `run5/packet/`.
+
 ## What each output file is
 
 ```
@@ -260,6 +292,5 @@ execute/<package>/{new,new-rerun,old}/  junit.xml, coverage.json, logs, sandbox.
 
 ## Next for this example
 
-starlette, the transitive package the PR leaves exposed. Then mutation testing for the strength gate,
-the relevance engine for retirements, and the Tekton wrapping so stage 0 through attestation run as
-one PipelineRun.
+Mutation testing for the strength gate, the relevance engine for retirements, a stronger model as the
+next ladder variable, and the Tekton wrapping so stage 0 through attestation run as one PipelineRun.

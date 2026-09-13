@@ -50,8 +50,8 @@
       "harness_evidence": {
         "confirmed": true,
         "tests": [
-          "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
-          "test_ghsa_jr27_m4p2_rc6r_exposure"
+          "test_ghsa_jr27_m4p2_rc6r_exposure",
+          "test_ghsa_jr27_m4p2_rc6r_fix_pinning"
         ]
       },
       "products": [
@@ -60,7 +60,7 @@
         }
       ],
       "status": "affected",
-      "status_notes": "exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_fix_pinning', 'test_ghsa_jr27_m4p2_rc6r_exposure'] fail on pkg:pypi/pyasn1@0.4.8 and pass on pkg:pypi/pyasn1@0.6.4: the change introduces this exposure",
+      "status_notes": "exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_exposure', 'test_ghsa_jr27_m4p2_rc6r_fix_pinning'] fail on pkg:pypi/pyasn1@0.4.8 and pass on pkg:pypi/pyasn1@0.6.4: the change introduces this exposure",
       "vulnerability": {
         "aliases": [
           "CVE-2026-30922",
@@ -92,6 +92,6 @@
       }
     }
   ],
-  "timestamp": "2026-09-13T02:40:04+00:00",
+  "timestamp": "2026-09-13T04:29:48+00:00",
   "version": 1
 }

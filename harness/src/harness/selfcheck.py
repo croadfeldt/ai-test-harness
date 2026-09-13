@@ -183,6 +183,13 @@ def gf017():
     assert _weak_assertions("def test_c():\n    assert decode(b'\\x02\\x01\\x05') == (5, b'')\n") == []
 
 
+@check("GF-018", "a parametrized pytest id resolves to its manifest test name")
+def gf018():
+    from .stages.execute import base_name
+    assert base_name("tests.test_x::test_a[asyncio]") == "test_a"
+    assert base_name("tests.test_x::test_a[1-2]") == "test_a" and base_name("test_b") == "test_b"
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute

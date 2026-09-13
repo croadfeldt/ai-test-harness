@@ -28,14 +28,8 @@
     "test": 0
   },
   "change": "bumped",
-  "dependency_import_names": [
-    "cryptography",
-    "ecdsa",
-    "pyasn1",
-    "rsa"
-  ],
   "depth": 1,
-  "generated": "2026-09-12T03:45:43+00:00",
+  "generated": "2026-09-13T02:49:35+00:00",
   "import_names": [
     "jose",
     "jose/backends"

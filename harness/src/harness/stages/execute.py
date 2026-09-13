@@ -13,6 +13,12 @@ from .. import sandbox
 from ..util import log, now_iso, read_json, sha256_file, write_json
 
 
+def base_name(test_id: str) -> str:
+    """GF-018. 'tests.test_x::test_a[asyncio]' -> 'test_a'. Manifests name tests by function."""
+    name = test_id.split("::")[-1]
+    return name.split("[", 1)[0]
+
+
 def _reqs(workdir: Path, tag: str) -> list[str]:
     g = read_json(workdir / "intake" / f"graph.{tag}.json")["packages"]
     return [f"{p['name']}=={p['version']}" for p in g.values()]
@@ -67,14 +73,14 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
             by_file[t] = f
     tests = []
     for tid, r_new in runs["new"]["results"].items():
-        name = tid.split("::")[-1]
+        name = base_name(tid)
         f = by_file.get(name, {})
         rerun = runs["new-rerun"]["results"].get(tid, {}).get("status", "na")
         old = runs["old"]["results"].get(tid, {}).get("status", "na") if "old" in runs else "na"
         status = r_new["status"]
         if rerun != "na" and rerun != status:
             status = "flaky"
-        tests.append({"id": tid, "name": name, "category": f.get("category", "unknown"), "file": f.get("file"),
+        tests.append({"id": tid, "name": name, "param_id": tid.split("::")[-1], "category": f.get("category", "unknown"), "file": f.get("file"),
                       "status": status, "duration_ms": r_new["duration_ms"], "message": r_new["message"][:500],
                       "versions": {"old": old, "new": r_new["status"]},
                       "expected_differential": f.get("expected_differential"),
