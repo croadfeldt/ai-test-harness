@@ -62,7 +62,8 @@ def fixed_candidate(workdir: Path, pkg: str, python_version: str = "3.12") -> di
             rec["note"] = f"advisories' fixed version {fixed} is not above head {head}"; write_json(out_path, rec); return rec
     except InvalidVersion:
         pass
-    repo = Path(wl["source_dir"])
+    from .. import config
+    repo = config.target_repo(None) if not Path(wl["source_dir"]).is_absolute() else Path(wl["source_dir"])
     manifest_name = wl["new_manifest"].split("@")[0]
     manifest_text = (repo / manifest_name).read_text()
     adapter = adapters.get("python")

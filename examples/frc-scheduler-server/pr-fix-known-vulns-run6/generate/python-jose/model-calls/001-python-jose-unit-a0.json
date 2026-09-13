@@ -3,7 +3,7 @@
   "chat_template_kwargs": {
     "enable_thinking": true
   },
-  "endpoint": "https://qwen38-27b-llm-serving.apps.ocp.roadfeldt.com/v1",
+  "endpoint": "gpu-server-vllm", "endpoint_digest": "sha256:8870f0d1a4df5ebc",
   "finish_reason": "loop_detected",
   "frequency_penalty": 0.3,
   "latency_s": 344.1,

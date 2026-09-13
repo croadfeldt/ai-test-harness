@@ -47,12 +47,12 @@
             ],
             "harness_image_digest": "local-dev (not a container build)",
             "harness_version": "0.1.0",
-            "model_endpoint": "http://10.0.0.122:1234/v1",
+            "model_endpoint": "laptop-lmstudio",
             "model_id": "qwen/qwen3.8-27b",
             "pipeline_run": [
               "intake",
               "--repo",
-              "/Users/chris/git/frc-scheduler-server",
+              "frc-scheduler-server",
               "--base",
               "main",
               "--head",
@@ -202,7 +202,7 @@
           ]
         },
         "digest": {
-          "sha256": "c9b4c2b05c3bd4b5d5eb6beeb08939ace6c2ce34e5ddbcd954f152878a660e58"
+          "sha256": "64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069"
         },
         "name": "ai-test-harness-record"
       }
@@ -241,7 +241,7 @@
     },
     {
       "digest": {
-        "sha256": "c9b4c2b05c3bd4b5d5eb6beeb08939ace6c2ce34e5ddbcd954f152878a660e58"
+        "sha256": "64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069"
       },
       "name": "attest/pyasn1/MANIFEST.json"
     }

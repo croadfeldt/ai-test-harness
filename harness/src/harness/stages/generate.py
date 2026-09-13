@@ -274,7 +274,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     tests_dir = gen_dir / "tests"
     tests_dir.mkdir(exist_ok=True)
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
-                "generated": now_iso(), "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model,
+                "generated": now_iso(), "model": {"endpoint": model.cfg.label, "endpoint_digest": model.cfg.endpoint_digest, "id": model.cfg.model,
                                                   "temperature": model.cfg.temperature},
                 "budget": budget, "selfcheck_ref": "../../selfcheck/selfcheck.json", "cve_roles": roles, "files": [], "discarded": []}
     plan = []   # (category, count, advisories-for-this-call, file suffix)
@@ -405,7 +405,7 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
     reqs_old = [f"{p['name']}=={p['version']}" for p in graph_old.values()]
     wheelhouse_old = sandbox.prefetch_wheelhouse(reqs_old, python_version, workdir / "cache" / "wheelhouse" / "old") if reqs_old != reqs_new else None
     cfg = ModelConfig.from_env()
-    log(f"generate: model {cfg.model} at {cfg.base_url}")
+    log(f"generate: model {cfg.model} at endpoint '{cfg.label}'")
     outs = []
     for item in summary["items"]:
         pkg = item["package"]

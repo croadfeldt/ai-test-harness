@@ -1,5 +1,0 @@
-packaging>=23.0
-cryptography>=42.0
-
-[dev]
-pytest>=8.0

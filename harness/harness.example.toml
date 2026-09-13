@@ -1,0 +1,22 @@
+# Local configuration for the AI Test Harness. Copy to harness.local.toml (git-ignored) and fill in.
+# Precedence: command-line flag, then environment variable, then this file. Nothing about a
+# particular machine, network, or account belongs in the repository; it belongs here.
+
+[model]
+# Any OpenAI-compatible chat endpoint (vLLM, LM Studio, OpenShift AI, a hosted API).
+base_url = "http://localhost:1234/v1"          # env: HARNESS_MODEL_BASE_URL
+name = ""                                      # env: HARNESS_MODEL; empty = first id the endpoint lists
+label = "local"                                # what the records call this endpoint; the address itself is never recorded
+api_key_env = ""                               # name of an env var holding a bearer token, if the endpoint needs one
+reasoning = "none"                             # LM Studio: reasoning_effort ("none" | "low" | "medium" | "high" | "default")
+thinking = "off"                               # vLLM: chat_template_kwargs.enable_thinking ("off" | "on" | "default")
+max_tokens = 6000
+
+[target]
+# The repository the harness reacts to, on this machine.
+repo = "../../my-application"                  # env: HARNESS_TARGET_REPO; a path on this machine, recorded only by its name
+manifest = "requirements.txt"
+python_version = "3.12"
+
+[sandbox]
+image = "docker.io/library/python:3.12-slim"   # recorded by tag and by digest

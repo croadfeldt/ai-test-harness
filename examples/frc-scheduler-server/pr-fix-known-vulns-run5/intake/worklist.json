@@ -1781,5 +1781,5 @@
   "new_manifest": "requirements.txt@cfa8f4a3292b",
   "old_manifest": "requirements.txt@2ad04243861b",
   "run_id": "76a3fa863e76",
-  "source_dir": "/Users/chris/git/frc-scheduler-server"
+  "source_dir": "frc-scheduler-server"
 }

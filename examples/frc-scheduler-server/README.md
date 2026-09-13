@@ -98,8 +98,14 @@ D=../examples/frc-scheduler-server/pr-fix-known-vulns-run5
 ```
 
 The trigger is a branch in the application's repository, `deps/fix-known-vulns`, that bumps the four
-pins. The model was `qwen/qwen3.8-27b` at 8-bit through LM Studio on a Mac, reasoning off. Set
-`HARNESS_MODEL_BASE_URL` to any OpenAI-compatible endpoint; every call's prompt and response is kept.
+pins. The model was `qwen/qwen3.8-27b` at 8-bit through LM Studio on a laptop, reasoning off; run 6
+used the same model served by vLLM on a two-GPU server. Point the harness at any OpenAI-compatible
+endpoint in `harness/harness.local.toml`; every call's prompt and response is kept.
+
+The records name endpoints by a label and a digest of their address, and the target repository by its
+name, never by an address or a local path. Records from the earlier runs were rewritten to that form
+before this repository went public, and the attestations that covered them were re-signed; test file
+digests, verdicts, and every other recorded fact are unchanged (`tools/redact-local-details.py`).
 
 ## What is in each run directory
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 from .util import HarnessError, sha256_text, write_json
 
-DEFAULT_BASE_URL = "https://qwen36-27b.llm.ocp.roadfeldt.com/v1"
+from . import config as _config
 
 
 @dataclass
@@ -26,6 +26,7 @@ class ModelConfig:
     temperature: float = 0.2
     max_tokens: int = 6000                  # per call; reasoning tokens count against it on vLLM, so thinking runs raise it
     timeout_s: int = 1800
+    _label: str = "local"
     no_think: bool = False    # Qwen3 soft switch in the prompt; ignored by LM Studio for qwen3.8
     reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
     frequency_penalty: float = 0.3          # discourages the repetition loops a 27B falls into on long literals
@@ -40,18 +41,34 @@ class ModelConfig:
         base = max_tokens or self.max_tokens
         return base * 4 if self.thinking else base
 
+    @property
+    def label(self) -> str:
+        return self._label
+
+    @property
+    def endpoint_digest(self) -> str:
+        return _config.endpoint_digest(self.base_url)
+
     @classmethod
     def from_env(cls) -> "ModelConfig":
-        base = os.environ.get("HARNESS_MODEL_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
-        model = os.environ.get("HARNESS_MODEL") or discover_model(base, os.environ.get("HARNESS_MODEL_API_KEY"))
-        return cls(base_url=base, model=model, api_key=os.environ.get("HARNESS_MODEL_API_KEY"),
-                   max_tokens=int(os.environ.get("HARNESS_MODEL_MAX_TOKENS", "6000")),
-                   temperature=float(os.environ.get("HARNESS_MODEL_TEMPERATURE", "0.2")),
-                   no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
-                   reasoning_effort=(None if os.environ.get("HARNESS_MODEL_REASONING", "none") == "default"
-                                     else os.environ.get("HARNESS_MODEL_REASONING", "none")),
-                   chat_template_kwargs=(None if os.environ.get("HARNESS_MODEL_THINKING", "off") == "default"
-                                         else {"enable_thinking": os.environ.get("HARNESS_MODEL_THINKING", "off") == "on"}))
+        """Environment variables first, then harness.local.toml, then the example defaults."""
+        base = _config.get("model", "base_url", "HARNESS_MODEL_BASE_URL")
+        if not base:
+            raise HarnessError("no model endpoint configured: set HARNESS_MODEL_BASE_URL or [model].base_url in harness/harness.local.toml")
+        base = base.rstrip("/")
+        key_env = _config.get("model", "api_key_env", None, "") or "HARNESS_MODEL_API_KEY"
+        api_key = os.environ.get(key_env) or os.environ.get("HARNESS_MODEL_API_KEY")
+        model = _config.get("model", "name", "HARNESS_MODEL") or discover_model(base, api_key)
+        reasoning = str(_config.get("model", "reasoning", "HARNESS_MODEL_REASONING", "none"))
+        thinking = str(_config.get("model", "thinking", "HARNESS_MODEL_THINKING", "off"))
+        cfg = cls(base_url=base, model=model, api_key=api_key,
+                  max_tokens=int(_config.get("model", "max_tokens", "HARNESS_MODEL_MAX_TOKENS", 6000)),
+                  temperature=float(os.environ.get("HARNESS_MODEL_TEMPERATURE", "0.2")),
+                  no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
+                  reasoning_effort=None if reasoning == "default" else reasoning,
+                  chat_template_kwargs=None if thinking == "default" else {"enable_thinking": thinking == "on"})
+        cfg._label = str(_config.get("model", "label", "HARNESS_MODEL_LABEL", "local"))
+        return cfg
 
 
 def _headers(api_key: str | None) -> dict:
@@ -139,7 +156,7 @@ class Model:
             (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
             return text2, rec2
         self.calls += 1
-        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": model_id,
+        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
                   "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
                   "frequency_penalty": self.cfg.frequency_penalty, "max_tokens": self.cfg.cap(max_tokens),
                   "chat_template_kwargs": self.cfg.chat_template_kwargs, "thinking": self.cfg.thinking,
@@ -202,7 +219,7 @@ class Model:
             msg["tool_calls"] = [calls_acc[i] for i in sorted(calls_acc)]
         choice = {"finish_reason": finish}
         self.calls += 1
-        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": model_id,
+        record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
                   "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
                   "messages_sha256": sha256_text(json.dumps(messages, sort_keys=True)), "usage": usage,
                   "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"),

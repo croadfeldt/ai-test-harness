@@ -6,13 +6,13 @@
     "head": "main",
     "manifest": "requirements.txt",
     "python_version": "3.12",
-    "repo": "/Users/chris/git/frc-scheduler-server",
+    "repo": "frc-scheduler-server",
     "workdir": "../examples/frc-scheduler-server/rescan"
   },
   "command": [
     "intake",
     "--repo",
-    "/Users/chris/git/frc-scheduler-server",
+    "frc-scheduler-server",
     "--head",
     "main",
     "--manifest",
@@ -26,7 +26,7 @@
   "started": "2026-09-12T01:42:31+00:00",
   "tools": {
     "git": "git version 2.55.0",
-    "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+    "pip": "pip 26.0.1",
     "python": "3.14.7"
   }
 }
