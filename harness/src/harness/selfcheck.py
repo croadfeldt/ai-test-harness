@@ -279,6 +279,11 @@ def run(workdir: Path | None, python_version: str = "3.12", probes: bool = True,
             results.append({"id": gf_id, "title": title, "status": "fail", "detail": f"{type(e).__name__}: {e}"[:300]})
     import os
     skip_sb = os.environ.get("HARNESS_SELFCHECK_SKIP_SANDBOX") == "1"   # the sandbox probe runs inside the execute pod instead
+    pre = os.environ.get("HARNESS_PROBE_WHEELHOUSE")
+    if skip_sb and probes and pre:
+        # This pod has the network and the execute pod does not: fetch the probe's wheels for it now.
+        from . import sandbox
+        sandbox.prefetch_wheelhouse(["six==1.17.0"], python_version, Path(pre))
     record = {"stage": 0, "generated": now_iso(), "checks": results,
               "sandbox": (probe_sandbox(python_version) if probes and not skip_sb else
                           {"status": "skipped", "reason": "runs inside the execute pod" if skip_sb else "probes disabled"}),

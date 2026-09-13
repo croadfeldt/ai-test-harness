@@ -15,7 +15,8 @@ spec:
     - name: selfcheck
       image: $(params.image)
       envFrom: [{ secretRef: { name: $(params.model-secret) } }]
-      env: [{ name: HARNESS_SANDBOX_TARGET, value: pod }, { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }]
+      env: [{ name: HARNESS_SANDBOX_TARGET, value: pod }, { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" },
+            { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.shared.path)/run/cache/wheelhouse/probe }]   # fetched here, used by the sealed execute pod
       args: ["selfcheck", "--workdir", "$(workspaces.shared.path)/run"]
 ---
 apiVersion: tekton.dev/v1
@@ -37,6 +38,7 @@ spec:
       env:
         - { name: HARNESS_SANDBOX_TARGET, value: pod }
         - { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }   # the isolation proof runs in the execute pod, where the isolation is
+        - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.shared.path)/run/cache/wheelhouse/probe }
         # The clone task and the harness run as different random UIDs; git refuses the checkout otherwise.
         - { name: GIT_CONFIG_COUNT, value: "1" }
         - { name: GIT_CONFIG_KEY_0, value: safe.directory }
