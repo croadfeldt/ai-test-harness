@@ -1,0 +1,295 @@
+{
+  "package": "starlette",
+  "records": [
+    {
+      "category": "unit",
+      "file": "tests/test_starlette_unit.py",
+      "file_sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:93af7aea1ed63dcfc517a5becc5f49b4e4ff81f127c757661ef59f63e0080ad9",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "starlette.middleware.base.BaseHTTPMiddleware",
+          "starlette.responses.Response"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_cookie_parser_basic::0ebd72960612",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      }
+    },
+    {
+      "category": "cve",
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "file_sha256": "sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "agent: see manifest.agent.json",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "GHSA-82w8-qh3p-5jfq",
+          "PYSEC-2026-249"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_ghsa_82w8_qh3p_5jfq_exposure::cff378923492",
+      "validation": {
+        "baseline_pass": false,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      },
+      "vulnerability": {
+        "id": "CVE-2026-54283",
+        "role": "exposure",
+        "vex_justification": "accept as CVE evidence; VEX status affected: the change introduces the exposure",
+        "vex_statement_ref": "packet/starlette/vex.openvex.json",
+        "vex_status": "affected"
+      }
+    },
+    {
+      "category": "cve",
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "file_sha256": "sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "agent: see manifest.agent.json",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "GHSA-82w8-qh3p-5jfq",
+          "PYSEC-2026-249"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_ghsa_82w8_qh3p_5jfq_fix_pinning::cff378923492",
+      "validation": {
+        "baseline_pass": false,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      },
+      "vulnerability": {
+        "id": "CVE-2026-54283",
+        "role": "fix-pinning",
+        "vex_justification": "accept as CVE evidence; VEX status affected: the change introduces the exposure",
+        "vex_statement_ref": "packet/starlette/vex.openvex.json",
+        "vex_status": "affected"
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_starlette_unit.py",
+      "file_sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:93af7aea1ed63dcfc517a5becc5f49b4e4ff81f127c757661ef59f63e0080ad9",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "starlette.middleware.base.BaseHTTPMiddleware",
+          "starlette.responses.Response"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_json_response_renders_json::0ebd72960612",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_starlette_unit.py",
+      "file_sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:93af7aea1ed63dcfc517a5becc5f49b4e4ff81f127c757661ef59f63e0080ad9",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "starlette.middleware.base.BaseHTTPMiddleware",
+          "starlette.responses.Response"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_response_status_and_body::0ebd72960612",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_starlette_unit.py",
+      "file_sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/starlette@0.41.3",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T04:29:48+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:93af7aea1ed63dcfc517a5becc5f49b4e4ff81f127c757661ef59f63e0080ad9",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/main.py"
+        ],
+        "purl": "pkg:pypi/starlette@0.41.3",
+        "symbols": [
+          "starlette.middleware.base.BaseHTTPMiddleware",
+          "starlette.responses.Response"
+        ],
+        "version_range": "==0.41.3"
+      },
+      "test_id": "starlette::test_simple_user_authenticated::0ebd72960612",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="18" time="1.647" timestamp="2026-09-13T04:28:58.129270+00:00" hostname="f60ef37ea8af"><testcase classname="tests.test_starlette_cve_cve_2025_54121" name="test_GHSA_2c2j_9gv5_cj73_fix_pinning" time="0.017"><failure message="Failed: DID NOT RAISE MultiPartException">def test_GHSA_2c2j_9gv5_cj73_fix_pinning():
+        """A multipart file upload larger than the 1MB file limit must be rejected
+        with MultiPartException on the fixed version (0.41.3 accepts it, a DoS vector)."""
+&gt;       with pytest.raises(MultiPartException):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE MultiPartException
+
+tests/test_starlette_cve_cve_2025_54121.py:38: Failed</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2025_54121" name="test_GHSA_2c2j_9gv5_cj73_exposure" time="0.012"><failure message="Failed: DID NOT RAISE MultiPartException">def test_GHSA_2c2j_9gv5_cj73_exposure():
+        """Same oversized multipart body through the app's request.form() call path
+        must not succeed on the fixed version."""
+&gt;       with pytest.raises(MultiPartException):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE MultiPartException
+
+tests/test_starlette_cve_cve_2025_54121.py:45: Failed</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2025_62727" name="test_ghsa_7f5h_v6xp_fcq8_fix_pinning" time="0.578" /><testcase classname="tests.test_starlette_cve_cve_2025_62727" name="test_ghsa_7f5h_v6xp_fcq8_exposure" time="0.614" /><testcase classname="tests.test_starlette_cve_cve_2026_48710" name="test_ghsa_86qp_5c8j_p5mr_fix_pinning" time="0.001" /><testcase classname="tests.test_starlette_cve_cve_2026_48710" name="test_ghsa_86qp_5c8j_p5mr_exposure" time="0.001" /><testcase classname="tests.test_starlette_cve_cve_2026_48817" name="test_ghsa_x746_7m8f_x49c_fix_pinning" time="0.001"><failure message="RuntimeError: There is no current event loop in thread 'MainThread'.">def test_ghsa_x746_7m8f_x49c_fix_pinning():
+        """Non-standard HTTP method must not be dispatched to an arbitrary endpoint attribute (CVE-2026-48817)."""
+&gt;       sent = run_endpoint("TRACE")
+               ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_starlette_cve_cve_2026_48817.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_starlette_cve_cve_2026_48817.py:47: in run_endpoint
+    asyncio.get_event_loop().run_until_complete(endpoint.dispatch())
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;asyncio.unix_events._UnixDefaultEventLoopPolicy object at 0x7faeb5dd38c0&gt;
+
+    def get_event_loop(self):
+        """Get the event loop for the current context.
+    
+        Returns an instance of EventLoop or raises an exception.
+        """
+        if (self._local._loop is None and
+                not self._local._set_called and
+                threading.current_thread() is threading.main_thread()):
+            stacklevel = 2
+            try:
+                f = sys._getframe(1)
+            except AttributeError:
+                pass
+            else:
+                # Move up the call stack so that the warning is attached
+                # to the line outside asyncio itself.
+                while f:
+                    module = f.f_globals.get('__name__')
+                    if not (module == 'asyncio' or module.startswith('asyncio.')):
+                        break
+                    f = f.f_back
+                    stacklevel += 1
+            import warnings
+            warnings.warn('There is no current event loop',
+                          DeprecationWarning, stacklevel=stacklevel)
+            self.set_event_loop(self.new_event_loop())
+    
+        if self._local._loop is None:
+&gt;           raise RuntimeError('There is no current event loop in thread %r.'
+                               % threading.current_thread().name)
+E           RuntimeError: There is no current event loop in thread 'MainThread'.
+
+/usr/local/lib/python3.12/asyncio/events.py:702: RuntimeError</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2026_48817" name="test_ghsa_x746_7m8f_x49c_exposure" time="0.001"><failure message="RuntimeError: There is no current event loop in thread 'MainThread'.">def test_ghsa_x746_7m8f_x49c_exposure():
+        """Same trigger via the app's dispatch call pattern: dispatch() must not call the arbitrary handler."""
+&gt;       sent = run_endpoint("TRACE")
+               ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_starlette_cve_cve_2026_48817.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_starlette_cve_cve_2026_48817.py:47: in run_endpoint
+    asyncio.get_event_loop().run_until_complete(endpoint.dispatch())
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;asyncio.unix_events._UnixDefaultEventLoopPolicy object at 0x7faeb5dd38c0&gt;
+
+    def get_event_loop(self):
+        """Get the event loop for the current context.
+    
+        Returns an instance of EventLoop or raises an exception.
+        """
+        if (self._local._loop is None and
+                not self._local._set_called and
+                threading.current_thread() is threading.main_thread()):
+            stacklevel = 2
+            try:
+                f = sys._getframe(1)
+            except AttributeError:
+                pass
+            else:
+                # Move up the call stack so that the warning is attached
+                # to the line outside asyncio itself.
+                while f:
+                    module = f.f_globals.get('__name__')
+                    if not (module == 'asyncio' or module.startswith('asyncio.')):
+                        break
+                    f = f.f_back
+                    stacklevel += 1
+            import warnings
+            warnings.warn('There is no current event loop',
+                          DeprecationWarning, stacklevel=stacklevel)
+            self.set_event_loop(self.new_event_loop())
+    
+        if self._local._loop is None:
+&gt;           raise RuntimeError('There is no current event loop in thread %r.'
+                               % threading.current_thread().name)
+E           RuntimeError: There is no current event loop in thread 'MainThread'.
+
+/usr/local/lib/python3.12/asyncio/events.py:702: RuntimeError</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2026_48818" name="test_gdsa_wqp7_x3pw_xc5r_fix_pinning" time="0.001" /><testcase classname="tests.test_starlette_cve_cve_2026_48818" name="test_gdsa_wqp7_x3pw_xc5r_exposure" time="0.003" /><testcase classname="tests.test_starlette_cve_cve_2026_54282" name="test_ghsa_jp82_jpqv_5vv3_fix_pinning" time="0.001"><failure message="AssertionError: assert '/@evil.com' == '@evil.com'&#10;  &#10;  - @evil.com&#10;  + /@evil.com&#10;  ? +">def test_ghsa_jp82_jpqv_5vv3_fix_pinning():
+        """A request path not starting with '/' must not poison request.url.hostname (GHSA-jp82-jpqv-5vv3)."""
+        url = URL(scope=_scope(POISON))
+        assert url.hostname == "testserver"
+&gt;       assert url.path == POISON
+E       AssertionError: assert '/@evil.com' == '@evil.com'
+E         
+E         - @evil.com
+E         + /@evil.com
+E         ? +
+
+tests/test_starlette_cve_cve_2026_54282.py:26: AssertionError</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2026_54282" name="test_ghsa_jp82_jpqv_5vv3_exposure" time="0.001"><failure message="AssertionError: assert '/@evil.com' == '@evil.com'&#10;  &#10;  - @evil.com&#10;  + /@evil.com&#10;  ? +">def test_ghsa_jp82_jpqv_5vv3_exposure():
+        """Same trigger via the app's BaseHTTPMiddleware dispatch pattern: request.url.hostname stays the server host."""
+        from starlette.requests import Request
+    
+        request = Request(_scope(POISON))
+        assert request.url.hostname == "testserver"
+&gt;       assert request.url.path == POISON
+E       AssertionError: assert '/@evil.com' == '@evil.com'
+E         
+E         - @evil.com
+E         + /@evil.com
+E         ? +
+
+tests/test_starlette_cve_cve_2026_54282.py:35: AssertionError</failure></testcase><testcase classname="tests.test_starlette_cve_cve_2026_54283" name="test_ghsa_82w8_qh3p_5jfq_fix_pinning[asyncio]" time="0.008" /><testcase classname="tests.test_starlette_cve_cve_2026_54283" name="test_ghsa_82w8_qh3p_5jfq_exposure[asyncio]" time="0.002" /><testcase classname="tests.test_starlette_unit" name="test_simple_user_authenticated" time="0.000" /><testcase classname="tests.test_starlette_unit" name="test_cookie_parser_basic" time="0.000" /><testcase classname="tests.test_starlette_unit" name="test_response_status_and_body" time="0.000" /><testcase classname="tests.test_starlette_unit" name="test_json_response_renders_json" time="0.001" /></testsuite></testsuites>

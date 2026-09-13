@@ -1,0 +1,115 @@
+# harness: the opinionated implementation
+
+This directory is the second of the three layers in this repository: the blueprint (`docs/`,
+`blueprint/`) says what the harness must do; this package is one opinionated way of doing it; the
+`examples/` directory holds what this package produced when pointed at real repositories, and the
+post-analysis of whether it met the blueprint's goals.
+
+Opinionated means the capability map's primary choices are hard-wired here, not configurable:
+
+| Capability | Choice in this implementation |
+|---|---|
+| Dependency graph | pip's own resolver in `--dry-run --report` mode, targeting the project's interpreter (from its Containerfile) with wheels only, falling back to the running interpreter. Hermeto output will replace it when the harness runs inside Konflux. |
+| SBOM | CycloneDX 1.5 JSON emitted from that graph |
+| Known vulnerabilities and malicious-package gate | OSV.dev batch query; MAL- entries are the OpenSSF Malicious Packages feed |
+| Pre-flight scanners | GuardDog when installed, recorded as not installed otherwise; Capslock is Go-only |
+| API surface and contract diff | Standard-library `ast` over the downloaded wheel: public modules, functions, classes, methods with signatures. A change to the required parameters is breaking. |
+| First-party call sites | `ast` over the target repository with venv, node_modules and build directories excluded; test files flagged |
+| Release notes | PyPI long description, written to `notes.untrusted.md` with a banner. Never an instruction to a model. |
+| Risk score and budget | `risk.py`, weights listed once, every contribution written to the fact bundle as a reason |
+| Mutation testing | The harness's own AST mutator (compare swap, and/or swap, constant tweak, raise drop, return None, not drop) on a bounded, seeded sample of sites on lines the tests execute; each mutant is overlaid onto the installed package in the sandbox and the passing tests run against it. The capability map names mutmut; it mutates a project's own source tree, and an integration for a dependency installed from a wheel does not exist yet. Engine and seed are recorded in the attestation. |
+| Model for generation | Any OpenAI-compatible chat endpoint; default is the homelab vLLM route serving Qwen3.6-27B. Set `HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL`, `HARNESS_MODEL_API_KEY`. Every call's prompt, response, digests, usage, and latency are written under `generate/<package>/model-calls/`. |
+| Sandbox | Podman: `--network none`, all capabilities dropped, no new privileges, read-only root, tmpfs work dir, memory / pid / cpu / time limits, environment cleared with `env -i`, wheels installed offline from a prefetched wheelhouse. `tests/test_sandbox_integration.py` proves each claim with a probe. The Kubernetes target with a Kata or gVisor RuntimeClass reuses the same plan. |
+
+Nothing in stages 1 and 2 calls a model. Facts come from tools; the model gets them in stage 3.
+
+## Run it
+
+```
+python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/pytest
+
+# Stage 0 on its own (every later stage also runs it first and stops if it fails):
+.venv/bin/harness selfcheck --workdir out/run1
+
+# Stage 1, react to a commit range on a target repo (the product team's PR):
+.venv/bin/harness intake --repo ../../frc-scheduler-server --base main --head HEAD \
+    --manifest requirements.txt --python-version 3.12 --workdir out/run1
+
+# Or a scheduled rescan of one ref:
+.venv/bin/harness intake --repo ../../frc-scheduler-server --head main --python-version 3.12 --workdir out/rescan
+
+# Stage 2, facts and risk for every changed or vulnerable row:
+.venv/bin/harness analyze --workdir out/run1 --python-version 3.12
+
+# Stage 3, the model writes candidate tests, verified in the sandbox as it goes:
+.venv/bin/harness generate --workdir out/run1 --select python-jose --categories cve unit
+
+# Stage 4, the gauntlet: head run, flake re-run, coverage, differential against the old version:
+.venv/bin/harness execute --workdir out/run1 --select python-jose
+
+# Stage 4 step 5, mutation testing of the passing tests (25 sampled mutants by default):
+.venv/bin/harness mutate --workdir out/run1 --select python-jose
+
+# Stages 5, 6, attestation, and the post-analysis:
+.venv/bin/harness triage --workdir out/run1 --select python-jose
+.venv/bin/harness packet --workdir out/run1 --select python-jose
+.venv/bin/harness attest --workdir out/run1 --select python-jose
+.venv/bin/harness assess --workdir out/run1
+```
+
+## Work directory layout
+
+```
+run.json                       harness version, tool versions, exact command
+selfcheck/selfcheck.json       stage 0: every register check by id, pass/fail; sandbox and model probes
+intake/
+  graph.old.json graph.new.json   full transitive graph at base and head, depth and parents per package
+  sbom.new.cdx.json             CycloneDX SBOM of the head graph
+  vulns.json                    every OSV entry for every (package, version) in either graph
+  worklist.json                 one row per package: change, depth, reachable, pre-flight, vulns
+analyze/<package>/
+  api.old.json api.new.json     public API surface, tool-derived
+  api-diff.json                 added / removed / changed symbols, breaking flag and reason
+  call-sites.json               every first-party reference, production and test
+  vulns.json                    advisories with fixed versions and any named symbols
+  notes.untrusted.md            maintainer text from PyPI, banner says untrusted
+  facts.json                    the fact bundle stage 3 consumes, including the risk score and budget
+analyze/summary.json            one line per analyzed package
+generate/<package>/
+  tests/test_<package>_<category>.py   candidate tests, pytest, header says generated and unreviewed
+  manifest.json                 per file: category, tests kept and cut, attempts, model, prompt and response digests
+  model-calls/                  every prompt and response verbatim, with usage and latency
+  scratch/                      baseline sandbox runs made during repair
+execute/<package>/
+  results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
+  new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
+  mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills
+triage/<package>/triage.json    findings and per-test classes with confidence, routing, evidence refs
+packet/<package>/
+  packet.md                     the one-page review packet
+  tests.patch                   accepted tests as a patch against overlays/python/<package>/<major.minor>.x/
+  vex.openvex.json              draft OpenVEX, one statement per vulnerability, for Product Security
+attest/<package>/
+  MANIFEST.json                 provenance record per accepted test (blueprint/manifest.schema.yaml)
+  statement.json                in-toto Statement, predicate test-result/v0.1 with the harness record
+  statement.dsse.json           DSSE envelope; signer.pub.pem verifies it
+assess/assess.md                the run against the blueprint's goals
+cache/                          downloaded archives, unpacked trees, OSV and PyPI responses
+```
+
+## Status
+
+| Stage | State |
+|---|---|
+| 0 self-verification | implemented: one check per failure-register entry (blueprint section 17), sandbox probe, model probe; runs before intake, generate, and execute; fails closed; record referenced from every manifest |
+| 1 intake | implemented, Python |
+| 2 analyze | implemented, Python |
+| 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |
+| 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential against the base graph or a resolved fixed candidate, TestResults in the adapter-interface schema. `harness mutate` adds the mutation score and per-test kills; the relevance check on existing tests is next. |
+| 5 triage | implemented: deterministic classes with confidence and routing; below threshold escalates; agent-reported defects need stage 4 corroboration |
+| 6 packet | implemented: one-page packet, accepted tests as a patch in the overlay layout, draft OpenVEX per vulnerability (fixed only with a confirmed fix-pinning test) |
+| 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |
+| attest | implemented: provenance record per accepted test (manifest.schema.yaml), in-toto Statement with the test-result/v0.1 predicate, DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
+| assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |
+| Go adapter | after the Python adapter is complete end to end |

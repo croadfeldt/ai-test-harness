@@ -23,6 +23,7 @@ RACI: **R** does the work. **A** owns the outcome, exactly one per row. **C** is
 
 | Workflow | HT | PT | PS | SCS | QE | PLAT | LEG | SPO |
 |---|---|---|---|---|---|---|---|---|
+| 0 Self-verification | R/A | | | I | | C | | |
 | 1 Intake and inventory | R/A | I | I | C | | C | | |
 | 2 Analysis and risk scoring | R/A | C | C | C | | | | |
 | 3 Test generation | R/A | C | | | C | | | |
@@ -40,6 +41,32 @@ RACI: **R** does the work. **A** owns the outcome, exactly one per row. **C** is
 | 15 Quarterly report | R | C | C | C | C | | | A |
 | F1 Description fidelity (future) | R/A | C | C | C | | | | |
 | F2 Malicious change detection (future) | R | C | A | C | | | | I |
+
+---
+
+## 0. Self-verification
+
+**Trigger.** Every harness PipelineRun, before intake.
+
+```mermaid
+flowchart LR
+    R[PipelineRun starts] --> SC[Run every self-check in the failure register]
+    SC --> SB[Probe the sandbox: no network, no env, read-only, offline install]
+    SB --> M[Probe the model endpoint: id, reasoning and sampling settings]
+    M --> OK{All pass?}
+    OK -- yes --> REC[selfcheck record written, attested with the run] --> S1[Stage 1]
+    OK -- no --> STOP[Stop. No evidence produced. Harness Team notified]
+```
+
+| Step | R | A | C | I |
+|---|---|---|---|---|
+| Maintain the register and its self-checks | HT | HT | QE | SCS |
+| Run self-checks | HT (automated) | HT | | |
+| Act on a failing check | HT on-call | HT | PLAT | SCS |
+| Add an entry for a new failure mode | HT | HT | QE, PS, SCS | |
+
+**Outputs.** `selfcheck.json`: every check, its register id, pass or fail. **Service level.** Under
+two minutes. A failing check blocks the run; there is no override.
 
 ---
 

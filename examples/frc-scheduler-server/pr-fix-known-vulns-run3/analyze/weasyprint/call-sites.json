@@ -1,0 +1,50 @@
+{
+  "import_names": [
+    "weasyprint"
+  ],
+  "package": "weasyprint",
+  "sites": [
+    {
+      "context": "from weasyprint import HTML, CSS  # noqa: F401",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 83,
+      "symbol": "weasyprint.CSS"
+    },
+    {
+      "context": "_WEASYPRINT = (HTML, CSS)",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 84,
+      "symbol": "weasyprint.CSS"
+    },
+    {
+      "context": "stylesheets=[CSS(string=css_text)],",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 638,
+      "symbol": "weasyprint.CSS"
+    },
+    {
+      "context": "from weasyprint import HTML, CSS  # noqa: F401",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 83,
+      "symbol": "weasyprint.HTML"
+    },
+    {
+      "context": "_WEASYPRINT = (HTML, CSS)",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 84,
+      "symbol": "weasyprint.HTML"
+    },
+    {
+      "context": "HTML(string=full_html).write_pdf(",
+      "file": "app/pdf_render.py",
+      "in_test": false,
+      "line": 636,
+      "symbol": "weasyprint.HTML"
+    }
+  ]
+}

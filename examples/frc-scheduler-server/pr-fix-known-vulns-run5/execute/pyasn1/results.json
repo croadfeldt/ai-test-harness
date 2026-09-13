@@ -1,0 +1,517 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 2,
+    "cve_roles": {
+      "direction": "downgrade",
+      "fixed": "0.6.4",
+      "vulnerable": "0.4.8"
+    },
+    "fix_pinning_confirmed": 2,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 12,
+    "total": 16
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 1423,
+    "files": {
+      "pyasn1/__init__.py": {
+        "covered": 3,
+        "statements": 4
+      },
+      "pyasn1/codec/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/codec/ber/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/codec/ber/decoder.py": {
+        "covered": 266,
+        "statements": 818
+      },
+      "pyasn1/codec/ber/encoder.py": {
+        "covered": 0,
+        "statements": 455
+      },
+      "pyasn1/codec/ber/eoo.py": {
+        "covered": 12,
+        "statements": 12
+      },
+      "pyasn1/codec/cer/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/codec/cer/decoder.py": {
+        "covered": 0,
+        "statements": 32
+      },
+      "pyasn1/codec/cer/encoder.py": {
+        "covered": 0,
+        "statements": 139
+      },
+      "pyasn1/codec/der/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/codec/der/decoder.py": {
+        "covered": 0,
+        "statements": 19
+      },
+      "pyasn1/codec/der/encoder.py": {
+        "covered": 0,
+        "statements": 27
+      },
+      "pyasn1/codec/native/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/codec/native/decoder.py": {
+        "covered": 0,
+        "statements": 66
+      },
+      "pyasn1/codec/native/encoder.py": {
+        "covered": 0,
+        "statements": 95
+      },
+      "pyasn1/compat/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/compat/binary.py": {
+        "covered": 3,
+        "statements": 18
+      },
+      "pyasn1/compat/calling.py": {
+        "covered": 4,
+        "statements": 7
+      },
+      "pyasn1/compat/dateandtime.py": {
+        "covered": 6,
+        "statements": 9
+      },
+      "pyasn1/compat/integer.py": {
+        "covered": 10,
+        "statements": 68
+      },
+      "pyasn1/compat/octets.py": {
+        "covered": 12,
+        "statements": 22
+      },
+      "pyasn1/compat/string.py": {
+        "covered": 3,
+        "statements": 11
+      },
+      "pyasn1/debug.py": {
+        "covered": 62,
+        "statements": 85
+      },
+      "pyasn1/error.py": {
+        "covered": 7,
+        "statements": 10
+      },
+      "pyasn1/type/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "pyasn1/type/base.py": {
+        "covered": 129,
+        "statements": 249
+      },
+      "pyasn1/type/char.py": {
+        "covered": 78,
+        "statements": 131
+      },
+      "pyasn1/type/constraint.py": {
+        "covered": 91,
+        "statements": 177
+      },
+      "pyasn1/type/error.py": {
+        "covered": 3,
+        "statements": 3
+      },
+      "pyasn1/type/namedtype.py": {
+        "covered": 116,
+        "statements": 232
+      },
+      "pyasn1/type/namedval.py": {
+        "covered": 37,
+        "statements": 89
+      },
+      "pyasn1/type/opentype.py": {
+        "covered": 0,
+        "statements": 22
+      },
+      "pyasn1/type/tag.py": {
+        "covered": 83,
+        "statements": 123
+      },
+      "pyasn1/type/tagmap.py": {
+        "covered": 20,
+        "statements": 44
+      },
+      "pyasn1/type/univ.py": {
+        "covered": 431,
+        "statements": 1274
+      },
+      "pyasn1/type/useful.py": {
+        "covered": 47,
+        "statements": 99
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-13T02:40:04+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "0.4.8",
+    "old_version": "0.6.4",
+    "purl": "pkg:pypi/pyasn1@0.4.8"
+  },
+  "run_id": "76a3fa863e76",
+  "runs": {
+    "new": {
+      "duration_s": 75.3,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 76.3,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 20.6,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_pyasn1_unit.py",
+      "sha256": "sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17"
+    },
+    {
+      "file": "tests/test_pyasn1_cve_cve_2026_59885.py",
+      "sha256": "sha256:5af4924164c884fa10b2faf13877c27bf9427ec92bd231af6b1d91a1ccfb3264"
+    },
+    {
+      "file": "tests/test_pyasn1_cve_cve_2026_59886.py",
+      "sha256": "sha256:fec793f9ce7dba8860996ec271a754a483af1d3676cb005f6aa4fc62bb6a3296"
+    },
+    {
+      "file": "tests/test_pyasn1_cve_cve_2026_30922.py",
+      "sha256": "sha256:fc7615226dd23e4dd0dc021f132c7e20a6430300b3bda8386d95a2606e004481"
+    },
+    {
+      "file": "tests/test_pyasn1_cve_cve_2026_59884.py",
+      "sha256": "sha256:a7d98bca9b2d699727da704c4e234a05c6597f0c8812ac79eab5aefed5d8a88d"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 43,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_30922.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_30922::test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+      "message": "RecursionError: maximum recursion depth exceeded",
+      "name": "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-jr27-m4p2-rc6r",
+        "PYSEC-2026-2263"
+      ],
+      "verdict": "exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 48,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_30922.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_30922::test_ghsa_jr27_m4p2_rc6r_exposure",
+      "message": "RecursionError: maximum recursion depth exceeded",
+      "name": "test_ghsa_jr27_m4p2_rc6r_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-jr27-m4p2-rc6r",
+        "PYSEC-2026-2263"
+      ],
+      "verdict": "exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59884.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59884::test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-m4p7-r5rc-7g4j",
+        "PYSEC-2026-3455"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59884.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59884::test_ghsa_m4p7_r5rc_7g4j_exposure",
+      "message": "",
+      "name": "test_ghsa_m4p7_r5rc_7g4j_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-m4p7-r5rc-7g4j",
+        "PYSEC-2026-3455"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59885.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59885::test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+      "message": "ValueError: bytes must be in range(0, 256)",
+      "name": "test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-8ppf-4f7h-5ppj",
+        "PYSEC-2026-3456"
+      ],
+      "verdict": "blocked on both versions: ValueError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59885.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59885::test_ghsa_8ppf_4f7h_5ppj_exposure",
+      "message": "ValueError: bytes must be in range(0, 256)",
+      "name": "test_ghsa_8ppf_4f7h_5ppj_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-8ppf-4f7h-5ppj",
+        "PYSEC-2026-3456"
+      ],
+      "verdict": "blocked on both versions: ValueError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59886.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59886::test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-hm4w-wwcw-mr6r",
+        "PYSEC-2026-3457"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59886.py",
+      "id": "tests.test_pyasn1_cve_cve_2026_59886::test_ghsa_hm4w_wwcw_mr6r_exposure",
+      "message": "",
+      "name": "test_ghsa_hm4w_wwcw_mr6r_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-hm4w-wwcw-mr6r",
+        "PYSEC-2026-3457"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_printer_is_callable",
+      "message": "",
+      "name": "test_printer_is_callable",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_debug_is_callable",
+      "message": "",
+      "name": "test_debug_is_callable",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_setlogger_returns_none",
+      "message": "",
+      "name": "test_setlogger_returns_none",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_hexdump_empty_bytes",
+      "message": "",
+      "name": "test_hexdump_empty_bytes",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_pyasn1error_is_exception_subclass",
+      "message": "",
+      "name": "test_pyasn1error_is_exception_subclass",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_value_constraint_error_is_pyasn1error_subclass",
+      "message": "",
+      "name": "test_value_constraint_error_is_pyasn1error_subclass",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_substrate_underrun_error_is_pyasn1error_subclass",
+      "message": "",
+      "name": "test_substrate_underrun_error_is_pyasn1error_subclass",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "id": "tests.test_pyasn1_unit::test_pyasn1unicode_error_is_unicode_error_subclass",
+      "message": "",
+      "name": "test_pyasn1unicode_error_is_unicode_error_subclass",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

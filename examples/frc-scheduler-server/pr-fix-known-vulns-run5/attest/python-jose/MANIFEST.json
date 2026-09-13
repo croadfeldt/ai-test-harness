@@ -1,0 +1,363 @@
+{
+  "package": "python-jose",
+  "records": [
+    {
+      "category": "cve",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "file_sha256": "sha256:5645aafeb0e88272a82afa9b176fa8b6c8a528c82948369193daefcb223df966",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "agent: see manifest.agent.json",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "GHSA-cjwg-qfpm-7377",
+          "PYSEC-2024-233"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_exposure::5645aafeb0e8",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      },
+      "vulnerability": {
+        "id": "CVE-2024-33664",
+        "role": "exposure",
+        "vex_justification": "accept as CVE evidence; VEX status fixed",
+        "vex_statement_ref": "packet/python-jose/vex.openvex.json",
+        "vex_status": "fixed"
+      }
+    },
+    {
+      "category": "cve",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "file_sha256": "sha256:5645aafeb0e88272a82afa9b176fa8b6c8a528c82948369193daefcb223df966",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "agent: see manifest.agent.json",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "GHSA-cjwg-qfpm-7377",
+          "PYSEC-2024-233"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_fix_pinning::5645aafeb0e8",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 1,
+        "unique_mutants_killed": 0
+      },
+      "vulnerability": {
+        "id": "CVE-2024-33664",
+        "role": "fix-pinning",
+        "vex_justification": "accept as CVE evidence; VEX status fixed",
+        "vex_statement_ref": "packet/python-jose/vex.openvex.json",
+        "vex_status": "fixed"
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_expired_raises_expiredsignatureerror::71ee873ade96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 4,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_wrong_key_raises_jwterror::71ee873ade96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 2,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_encode_decode_roundtrip::71ee873ade96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 5,
+        "unique_mutants_killed": 1
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_claims::71ee873ade96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 2,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-13T13:06:51+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image_digest": "docker.io/library/python:3.12-slim",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+        "run_id": "76a3fa863e76",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_header::71ee873ade96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 2,
+        "unique_mutants_killed": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "generated": "2026-09-12T02:54:47+00:00",
+  "packages": [
+    {
+      "behavior_changed": 0,
+      "fix_pinning_confirmed": 0,
+      "flaky": 0,
+      "package": "python-jose",
+      "pass_on_new": 12,
+      "total": 16
+    }
+  ]
+}

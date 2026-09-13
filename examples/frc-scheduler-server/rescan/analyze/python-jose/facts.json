@@ -1,0 +1,122 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [],
+    "files": [
+      "app/auth.py"
+    ],
+    "production": 8,
+    "reachable": "true",
+    "reachable_note": "8 first-party references",
+    "symbols_used": [
+      "jose.JWTError",
+      "jose.jwt",
+      "jose.jwt.decode",
+      "jose.jwt.encode",
+      "jose.jwt.get_unverified_header"
+    ],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 1,
+  "generated": "2026-09-12T01:43:21+00:00",
+  "import_names": [
+    "jose",
+    "jose/backends"
+  ],
+  "new_version": "3.3.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.3.0",
+  "risk": {
+    "budget": {
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": true,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "true",
+      "sensitive": [
+        "authentication",
+        "cryptography",
+        "parsing"
+      ],
+      "vuln_count": 5
+    },
+    "reasons": [
+      "reachable from first-party code (+35)",
+      "5 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "sensitive domain: authentication, cryptography, parsing (+10)",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 80
+  },
+  "sensitivity": [
+    "authentication",
+    "cryptography",
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "bandit not installed",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 5,
+    "cves": [
+      "CVE-2024-29370",
+      "CVE-2024-33663",
+      "CVE-2024-33664",
+      "CVE-2026-85394"
+    ],
+    "fixed_versions": [
+      "3.4.0"
+    ],
+    "ids": [
+      "GHSA-6c5p-j8vq-pqhj",
+      "GHSA-cjwg-qfpm-7377",
+      "PYSEC-2024-232",
+      "PYSEC-2024-233",
+      "PYSEC-2025-185"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

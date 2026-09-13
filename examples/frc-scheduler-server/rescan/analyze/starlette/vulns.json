@@ -1,0 +1,305 @@
+{
+  "affected_symbols_in_use": [],
+  "package": "starlette",
+  "version": "0.41.3",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-54121",
+        "PYSEC-2026-1941"
+      ],
+      "fixed_versions": [
+        "0.47.2"
+      ],
+      "id": "GHSA-2c2j-9gv5-cj73",
+      "malicious": false,
+      "references": [
+        "https://github.com/encode/starlette/security/advisories/GHSA-2c2j-9gv5-cj73",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-54121",
+        "https://github.com/encode/starlette/commit/9f7ec2eb512fcc3fe90b43cb9dd9e1d08696bec1",
+        "https://github.com/encode/starlette",
+        "https://github.com/encode/starlette/blob/fa5355442753f794965ae1af0f87f9fec1b9a3de/starlette/datastructures.py#L436C5-L447C14",
+        "https://github.com/encode/starlette/discussions/2927#discussioncomment-13721403"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "Starlette has possible denial-of-service vector when parsing large files in multipart forms"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-62727",
+        "PYSEC-2026-1942"
+      ],
+      "fixed_versions": [
+        "0.49.1"
+      ],
+      "id": "GHSA-7f5h-v6xp-fcq8",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-7f5h-v6xp-fcq8",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-62727",
+        "https://github.com/Kludex/starlette/commit/4ea6e22b489ec388d6004cfbca52dd5b147127c5",
+        "https://github.com/Kludex/starlette/commit/69ed26a85956ef4bd0161807eb27abf49be7cd3c",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/0.49.1"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette vulnerable to O(n^2) DoS via Range header merging in ``starlette.responses.FileResponse``"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54283",
+        "PYSEC-2026-249"
+      ],
+      "fixed_versions": [
+        "1.3.1"
+      ],
+      "id": "GHSA-82w8-qh3p-5jfq",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-82w8-qh3p-5jfq",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48710",
+        "PYSEC-2026-161",
+        "X41-2026-002"
+      ],
+      "fixed_versions": [
+        "1.0.1"
+      ],
+      "id": "GHSA-86qp-5c8j-p5mr",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-48710",
+        "https://github.com/Kludex/starlette/commit/764dab0dcfb9033d75442d7a359645c9f94648c6",
+        "https://www.x41-dsec.de/lab/advisories/x41-2026-002-starlette",
+        "https://www.secwest.net/starlette",
+        "https://www.cve.org/CVERecord?id=CVE-2026-48710",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48710.json",
+        "https://ostif.org/disclosing-the-badhost-vulnerability-in-starlette",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/starlette/PYSEC-2026-161.yaml",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "Starlette has missing Host header validation that poisons request.url.path, bypassing path-based security checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54282",
+        "PYSEC-2026-248"
+      ],
+      "fixed_versions": [
+        "1.3.0"
+      ],
+      "id": "GHSA-jp82-jpqv-5vv3",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-jp82-jpqv-5vv3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54282",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/starlette/PYSEC-2026-248.yaml"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette: Unvalidated request path concatenated into authority poisons request.url.hostname"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48818",
+        "PYSEC-2026-2281"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "GHSA-wqp7-x3pw-xc5r",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-wqp7-x3pw-xc5r",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48817",
+        "PYSEC-2026-2280"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "GHSA-x746-7m8f-x49c",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-x746-7m8f-x49c",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-48817",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette: Arbitrary HTTP method dispatched to `HTTPEndpoint` attributes via `getattr`"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48710",
+        "GHSA-86qp-5c8j-p5mr",
+        "X41-2026-002"
+      ],
+      "fixed_versions": [
+        "1.0.1"
+      ],
+      "id": "PYSEC-2026-161",
+      "malicious": false,
+      "references": [
+        "https://badhost.org",
+        "https://www.secwest.net/starlette",
+        "https://ostif.org/disclosing-the-badhost-vulnerability-in-starlette/",
+        "https://badhost.org",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://www.x41-dsec.de/lab/advisories/x41-2026-002-starlette/",
+        "https://github.com/Kludex/starlette/commit/764dab0dcfb9033d75442d7a359645c9f94648c6"
+      ],
+      "severity": null,
+      "summary": "BadHost: Missing Host header validation poisons request.url.path, bypassing path-based security checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-54121",
+        "GHSA-2c2j-9gv5-cj73"
+      ],
+      "fixed_versions": [
+        "0.47.2"
+      ],
+      "id": "PYSEC-2026-1941",
+      "malicious": false,
+      "references": [
+        "https://github.com/encode/starlette/security/advisories/GHSA-2c2j-9gv5-cj73",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-54121",
+        "https://github.com/encode/starlette/commit/9f7ec2eb512fcc3fe90b43cb9dd9e1d08696bec1",
+        "https://github.com/encode/starlette",
+        "https://github.com/encode/starlette/blob/fa5355442753f794965ae1af0f87f9fec1b9a3de/starlette/datastructures.py#L436C5-L447C14",
+        "https://github.com/encode/starlette/discussions/2927#discussioncomment-13721403",
+        "https://pypi.org/project/starlette",
+        "https://github.com/advisories/GHSA-2c2j-9gv5-cj73"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "Starlette has possible denial-of-service vector when parsing large files in multipart forms"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-62727",
+        "GHSA-7f5h-v6xp-fcq8"
+      ],
+      "fixed_versions": [
+        "0.49.1"
+      ],
+      "id": "PYSEC-2026-1942",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-7f5h-v6xp-fcq8",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-62727",
+        "https://github.com/Kludex/starlette/commit/4ea6e22b489ec388d6004cfbca52dd5b147127c5",
+        "https://github.com/Kludex/starlette/commit/69ed26a85956ef4bd0161807eb27abf49be7cd3c",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/0.49.1",
+        "https://pypi.org/project/starlette",
+        "https://github.com/advisories/GHSA-7f5h-v6xp-fcq8"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette vulnerable to O(n^2) DoS via Range header merging in ``starlette.responses.FileResponse``"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48817",
+        "GHSA-x746-7m8f-x49c"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "PYSEC-2026-2280",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-x746-7m8f-x49c"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoin"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48818",
+        "GHSA-wqp7-x3pw-xc5r"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "PYSEC-2026-2281",
+      "malicious": false,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-48818",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48818.json",
+        "https://access.redhat.com/errata/RHSA-2026:30087",
+        "https://access.redhat.com/errata/RHSA-2026:30088",
+        "https://access.redhat.com/errata/RHSA-2026:30089",
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-wqp7-x3pw-xc5r",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2490020",
+        "https://github.com/Kludex/starlette/commit/fd53168a7767b6b55ba5af787fd88f49e33cabc5",
+        "https://github.com/Kludex/starlette/pull/3287"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account\u2019s NTLMv"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54282",
+        "GHSA-jp82-jpqv-5vv3"
+      ],
+      "fixed_versions": [
+        "1.3.0"
+      ],
+      "id": "PYSEC-2026-248",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-jp82-jpqv-5vv3"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @g"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54283",
+        "GHSA-82w8-qh3p-5jfq"
+      ],
+      "fixed_versions": [
+        "1.3.1"
+      ],
+      "id": "PYSEC-2026-249",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-82w8-qh3p-5jfq"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unau"
+    }
+  ]
+}

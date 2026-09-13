@@ -1,0 +1,157 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 5,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 558,
+        "status": {
+          "test_jwe_encrypt_decrypt_roundtrip": "fail",
+          "test_jwe_get_unverified_header": "fail",
+          "test_jws_sign_verify_roundtrip": "fail",
+          "test_jws_verify_invalid_signature_raises": "fail",
+          "test_jwt_decode_expired_raises_expiredsignatureerror": "pass",
+          "test_jwt_decode_wrong_key_raises_jwterror": "pass",
+          "test_jwt_encode_decode_roundtrip": "pass",
+          "test_jwt_get_unverified_claims": "pass",
+          "test_jwt_get_unverified_header": "pass",
+          "test_utils_base64url_roundtrip": "fail"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "AssertionError: assert b'hello world' is True\n +  where b'hello world' = <function verify at 0x7fb4e2f02a20>('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.aGVsbG8gd29ybGQ.KaXV6oU850cz-aqBhWYRK6N4gS-CTAoPQFJfP3aGXLQ', b'jws-secret', ['HS256'])\n +    where <function verify at 0x7fb4e2f02a20> = jws.verify",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_sign_verify_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWSError: Signature verification failed.",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_verify_invalid_signature_raises"
+        },
+        {
+          "message": "jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_encrypt_decrypt_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_get_unverified_header"
+        },
+        {
+          "message": "AssertionError: assert False\n +  where False = isinstance(b'aGVsbG8gAAECIHdvcmxk', str)",
+          "reason": "fails on baseline after repair",
+          "test": "test_utils_base64url_roundtrip"
+        }
+      ],
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:9b26fa1c077fe79605863b6fc1af18249c82045c1c183422f6d339fb7142bb97",
+      "response_sha256": "sha256:79b9a892abc4570d401cf37b6a6cb05a1ff9cab093a25a9136c9579984087ae2",
+      "sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+      "targets": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "tests": [
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_decode_wrong_key_raises_jwterror",
+        "test_jwt_get_unverified_header",
+        "test_jwt_get_unverified_claims",
+        "test_jwt_decode_expired_raises_expiredsignatureerror"
+      ]
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert OpenSSH ECDSA keys are rejected (JWKError) by jwk.construct and that jwt.decode with such a key in the header raises JOSEError. Caveat: in the sandbox both 3.3.0 and 3.4.0 raised JWKError for the OpenSSH key (cryptography's load_pem_* already rejects the format), so the differential old-fail/new-pass outcome could not be reproduced here; the tests still pin the safe behavior on the fixed version.",
+      "sha256": "sha256:269c2adad0db1e8fb693e6fcf9fc1dec617224e5a719a460522a0fb08a68c4fa",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 4,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Builds a valid dir/A256GCM JWE with zip=DEF whose plaintext is 300KB (> 250KB JWE_SIZE_LIMIT); 3.3.0 decrypts it (DID NOT RAISE), 3.4.0 raises JWEError via the decompress max_length check.",
+      "sha256": "sha256:5645aafeb0e88272a82afa9b176fa8b6c8a528c82948369193daefcb223df966",
+      "targets": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "tests": [
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure"
+      ],
+      "tool_calls": 3
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests target the JWE decompression-bomb DoS fix (PYSEC-2025-185): oversized JWE strings must raise JWEError in 3.4.0. Caveat: sandbox's cryptography backend is broken (lib.RAND_bytes missing), so jwe.encrypt fails on BOTH versions and the differential could not be verified by run_tests; the trigger logic (size-limit check added in 3.4.0's jwe.decrypt) is correct per the fix diff.",
+      "sha256": "sha256:88b92c86bf713a316b4218f77838e61feb5f10ce383ba733fcf3713c82a151a4",
+      "targets": [
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-12T05:58:17+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

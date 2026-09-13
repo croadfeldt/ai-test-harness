@@ -1,0 +1,108 @@
+{
+  "affected_symbols_in_use": [],
+  "package": "python-jose",
+  "version": "3.3.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33663",
+        "CVE-2026-85394",
+        "PYSEC-2024-232"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "GHSA-6c5p-j8vq-pqhj",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-33663",
+        "https://github.com/mpdavis/python-jose/issues/346",
+        "https://github.com/mpdavis/python-jose",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/python-jose/PYSEC-2024-232.yaml",
+        "https://www.vicarius.io/vsociety/posts/algorithm-confusion-in-python-jose-cve-2024-33663"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "python-jose algorithm confusion with OpenSSH ECDSA keys"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33664",
+        "PYSEC-2024-233"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "GHSA-cjwg-qfpm-7377",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-33664",
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/mpdavis/python-jose/pull/345",
+        "https://github.com/mpdavis/python-jose",
+        "https://github.com/mpdavis/python-jose/releases/tag/3.4.0",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/python-jose/PYSEC-2024-233.yaml",
+        "https://www.vicarius.io/vsociety/posts/jwt-bomb-in-python-jose-cve-2024-33664"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-jose denial of service via compressed JWE content"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33663",
+        "CVE-2026-85394",
+        "GHSA-6c5p-j8vq-pqhj"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "PYSEC-2024-232",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/346",
+        "https://www.vicarius.io/vsociety/posts/algorithm-confusion-in-python-jose-cve-2024-33663",
+        "https://github.com/advisories/GHSA-6c5p-j8vq-pqhj"
+      ],
+      "severity": null,
+      "summary": "python-jose through 3.3.0 has algorithm confusion with OpenSSH ECDSA keys and other key formats. This is similar to CVE-2022-29217."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33664",
+        "GHSA-cjwg-qfpm-7377"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "PYSEC-2024-233",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/mpdavis/python-jose/pull/345",
+        "https://www.vicarius.io/vsociety/posts/jwt-bomb-in-python-jose-cve-2024-33664",
+        "https://github.com/advisories/GHSA-cjwg-qfpm-7377"
+      ],
+      "severity": null,
+      "summary": "python-jose through 3.3.0 allows attackers to cause a denial of service (resource consumption) during a decode via a crafted JSON Web Encryption (JWE) token with a high compression ratio, aka a \"JWT bomb.\" This is similar to CVE-2024-21319."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-29370",
+        "GHSA-h4pw-wxh7-4vjj"
+      ],
+      "fixed_versions": [],
+      "id": "PYSEC-2025-185",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/advisories/GHSA-h4pw-wxh7-4vjj"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "In python-jose 3.3.0 (specifically jwe.decrypt), a vulnerability allows an attacker to cause a Denial-of-Service (DoS) condition by crafting a malicious JSON Web Encryption (JWE) token with an exceptionally high compression ratio. When this token is processed by the server, it results in significant"
+    }
+  ]
+}

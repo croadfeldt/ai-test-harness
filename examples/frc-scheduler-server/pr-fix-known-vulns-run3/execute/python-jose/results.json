@@ -1,0 +1,429 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "fix_pinning_confirmed": 0,
+    "flaky": 0,
+    "pass_on_new": 8,
+    "total": 14
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 560,
+    "files": {
+      "jose/__init__.py": {
+        "covered": 8,
+        "statements": 8
+      },
+      "jose/backends/__init__.py": {
+        "covered": 11,
+        "statements": 27
+      },
+      "jose/backends/_asn1.py": {
+        "covered": 0,
+        "statements": 38
+      },
+      "jose/backends/base.py": {
+        "covered": 18,
+        "statements": 28
+      },
+      "jose/backends/cryptography_backend.py": {
+        "covered": 119,
+        "statements": 368
+      },
+      "jose/backends/ecdsa_backend.py": {
+        "covered": 0,
+        "statements": 80
+      },
+      "jose/backends/native.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "jose/backends/rsa_backend.py": {
+        "covered": 0,
+        "statements": 160
+      },
+      "jose/constants.py": {
+        "covered": 66,
+        "statements": 66
+      },
+      "jose/exceptions.py": {
+        "covered": 24,
+        "statements": 24
+      },
+      "jose/jwe.py": {
+        "covered": 66,
+        "statements": 212
+      },
+      "jose/jwk.py": {
+        "covered": 32,
+        "statements": 56
+      },
+      "jose/jws.py": {
+        "covered": 91,
+        "statements": 124
+      },
+      "jose/jwt.py": {
+        "covered": 89,
+        "statements": 160
+      },
+      "jose/utils.py": {
+        "covered": 36,
+        "statements": 62
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-12T04:05:40+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "3.4.0",
+    "old_version": "3.3.0",
+    "purl": "pkg:pypi/python-jose@3.4.0"
+  },
+  "run_id": "76a3fa863e76",
+  "runs": {
+    "new": {
+      "duration_s": 20.9,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 20.9,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 21.7,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "sha256": "sha256:bdf7ed4733272d77c06eab64672b7cb393690b6df606de4e3d16bc4cad23131d"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "sha256": "sha256:3dbbec7ca30a5a5759633f7f15a404fbbc72752641930a8ef01c5aef2f65e173"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "sha256": "sha256:e7cd72bd9f9a7940876f5aa70430fa377e56d4955685fb7c1c9a109715be0fb7"
+    },
+    {
+      "file": "tests/test_python_jose_unit.py",
+      "sha256": "sha256:3bfb42e7abb0cc769522f941bdbca4d35b42db6375c55261f017d21d02b2c88b"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_fix_pinning",
+      "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte",
+      "name": "test_pysec_2025_185_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_exposure",
+      "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x9c in position 1: invalid start byte",
+      "name": "test_pysec_2025_185_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "message": "jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "message": "jose.exceptions.JWTError: Not enough segments",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "message": "jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "message": "jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 2,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_encode_decode_roundtrip_hs256",
+      "message": "",
+      "name": "test_jwt_encode_decode_roundtrip_hs256",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_wrong_key_raises_jwt_error",
+      "message": "",
+      "name": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_get_unverified_header_returns_alg",
+      "message": "",
+      "name": "test_jwt_get_unverified_header_returns_alg",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_expired_token_raises_expired_signature_error",
+      "message": "",
+      "name": "test_jwt_decode_expired_token_raises_expired_signature_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jws_sign_verify_roundtrip",
+      "message": "",
+      "name": "test_jws_sign_verify_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwk_construct_hmac_key",
+      "message": "",
+      "name": "test_jwk_construct_hmac_key",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_utils_base64url_encode_decode_roundtrip",
+      "message": "",
+      "name": "test_utils_base64url_encode_decode_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_utils_ensure_binary",
+      "message": "",
+      "name": "test_utils_ensure_binary",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

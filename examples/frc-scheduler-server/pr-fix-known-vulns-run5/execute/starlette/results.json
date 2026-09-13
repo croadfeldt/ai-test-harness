@@ -1,0 +1,616 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 2,
+    "cve_roles": {
+      "candidate_moved": {
+        "fastapi": [
+          "0.115.5",
+          "0.141.1"
+        ],
+        "starlette": [
+          "0.41.3",
+          "1.3.1"
+        ]
+      },
+      "candidate_note": "also let direct dependents move: ['fastapi']",
+      "direction": "candidate",
+      "fixed": "1.3.1",
+      "vulnerable": "0.41.3"
+    },
+    "fix_pinning_confirmed": 2,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 10,
+    "total": 18
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 1368,
+    "files": {
+      "starlette/__init__.py": {
+        "covered": 1,
+        "statements": 1
+      },
+      "starlette/_compat.py": {
+        "covered": 3,
+        "statements": 3
+      },
+      "starlette/_exception_handler.py": {
+        "covered": 23,
+        "statements": 44
+      },
+      "starlette/_utils.py": {
+        "covered": 32,
+        "statements": 50
+      },
+      "starlette/applications.py": {
+        "covered": 51,
+        "statements": 78
+      },
+      "starlette/authentication.py": {
+        "covered": 42,
+        "statements": 91
+      },
+      "starlette/background.py": {
+        "covered": 13,
+        "statements": 25
+      },
+      "starlette/concurrency.py": {
+        "covered": 15,
+        "statements": 32
+      },
+      "starlette/config.py": {
+        "covered": 0,
+        "statements": 76
+      },
+      "starlette/convertors.py": {
+        "covered": 31,
+        "statements": 51
+      },
+      "starlette/datastructures.py": {
+        "covered": 221,
+        "statements": 433
+      },
+      "starlette/endpoints.py": {
+        "covered": 30,
+        "statements": 86
+      },
+      "starlette/exceptions.py": {
+        "covered": 20,
+        "statements": 28
+      },
+      "starlette/formparsers.py": {
+        "covered": 150,
+        "statements": 171
+      },
+      "starlette/middleware/__init__.py": {
+        "covered": 15,
+        "statements": 21
+      },
+      "starlette/middleware/authentication.py": {
+        "covered": 0,
+        "statements": 31
+      },
+      "starlette/middleware/base.py": {
+        "covered": 21,
+        "statements": 131
+      },
+      "starlette/middleware/cors.py": {
+        "covered": 0,
+        "statements": 108
+      },
+      "starlette/middleware/errors.py": {
+        "covered": 37,
+        "statements": 77
+      },
+      "starlette/middleware/exceptions.py": {
+        "covered": 25,
+        "statements": 38
+      },
+      "starlette/middleware/gzip.py": {
+        "covered": 0,
+        "statements": 82
+      },
+      "starlette/middleware/httpsredirect.py": {
+        "covered": 0,
+        "statements": 15
+      },
+      "starlette/middleware/sessions.py": {
+        "covered": 0,
+        "statements": 47
+      },
+      "starlette/middleware/trustedhost.py": {
+        "covered": 0,
+        "statements": 37
+      },
+      "starlette/middleware/wsgi.py": {
+        "covered": 0,
+        "statements": 81
+      },
+      "starlette/requests.py": {
+        "covered": 110,
+        "statements": 201
+      },
+      "starlette/responses.py": {
+        "covered": 171,
+        "statements": 292
+      },
+      "starlette/routing.py": {
+        "covered": 167,
+        "statements": 471
+      },
+      "starlette/schemas.py": {
+        "covered": 0,
+        "statements": 78
+      },
+      "starlette/staticfiles.py": {
+        "covered": 58,
+        "statements": 127
+      },
+      "starlette/status.py": {
+        "covered": 85,
+        "statements": 91
+      },
+      "starlette/templating.py": {
+        "covered": 0,
+        "statements": 88
+      },
+      "starlette/testclient.py": {
+        "covered": 0,
+        "statements": 355
+      },
+      "starlette/types.py": {
+        "covered": 13,
+        "statements": 13
+      },
+      "starlette/websockets.py": {
+        "covered": 34,
+        "statements": 143
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-13T04:29:47+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "0.41.3",
+    "old_version": "0.41.3",
+    "purl": "pkg:pypi/starlette@0.41.3"
+  },
+  "run_id": "76a3fa863e76",
+  "runs": {
+    "new": {
+      "duration_s": 23.1,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 23.3,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 23.0,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_starlette_unit.py",
+      "sha256": "sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2025_54121.py",
+      "sha256": "sha256:1f3e69e963d303374fc08bf42a4faa2d491c6d4674a955d3abcb9e3f73b362e4"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2025_62727.py",
+      "sha256": "sha256:97f2833df69db5856e265fa955b63dd65049f6b4d794cd473f657817e8fd232a"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "sha256": "sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2026_48710.py",
+      "sha256": "sha256:e9c86ce10e25d5a6d0e6fc62a82ee471b4afdca61c5e16695b3365af594e5601"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2026_54282.py",
+      "sha256": "sha256:80febe82d1ebd548411944bf3bc731cfdf6ea5295202b996fcb6ffc4ca9f4480"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2026_48818.py",
+      "sha256": "sha256:008c48a4265452dd5fbbfe424d95f535fb4d2e07dc056c79bb5521f0657885ee"
+    },
+    {
+      "file": "tests/test_starlette_cve_cve_2026_48817.py",
+      "sha256": "sha256:94199ca56f70dea10c0c1969e1d27737f3c2564b45d183e1d52dd96afc0a0931"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 14,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_54121.py",
+      "id": "tests.test_starlette_cve_cve_2025_54121::test_GHSA_2c2j_9gv5_cj73_fix_pinning",
+      "message": "Failed: DID NOT RAISE MultiPartException",
+      "name": "test_GHSA_2c2j_9gv5_cj73_fix_pinning",
+      "param_id": "test_GHSA_2c2j_9gv5_cj73_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-2c2j-9gv5-cj73",
+        "PYSEC-2026-1941"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 9,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_54121.py",
+      "id": "tests.test_starlette_cve_cve_2025_54121::test_GHSA_2c2j_9gv5_cj73_exposure",
+      "message": "Failed: DID NOT RAISE MultiPartException",
+      "name": "test_GHSA_2c2j_9gv5_cj73_exposure",
+      "param_id": "test_GHSA_2c2j_9gv5_cj73_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-2c2j-9gv5-cj73",
+        "PYSEC-2026-1941"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 589,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_62727.py",
+      "id": "tests.test_starlette_cve_cve_2025_62727::test_ghsa_7f5h_v6xp_fcq8_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_7f5h_v6xp_fcq8_fix_pinning",
+      "param_id": "test_ghsa_7f5h_v6xp_fcq8_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-7f5h-v6xp-fcq8",
+        "PYSEC-2026-1942"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 600,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2025_62727.py",
+      "id": "tests.test_starlette_cve_cve_2025_62727::test_ghsa_7f5h_v6xp_fcq8_exposure",
+      "message": "",
+      "name": "test_ghsa_7f5h_v6xp_fcq8_exposure",
+      "param_id": "test_ghsa_7f5h_v6xp_fcq8_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-7f5h-v6xp-fcq8",
+        "PYSEC-2026-1942"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48710.py",
+      "id": "tests.test_starlette_cve_cve_2026_48710::test_ghsa_86qp_5c8j_p5mr_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_86qp_5c8j_p5mr_fix_pinning",
+      "param_id": "test_ghsa_86qp_5c8j_p5mr_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-86qp-5c8j-p5mr",
+        "PYSEC-2026-161"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48710.py",
+      "id": "tests.test_starlette_cve_cve_2026_48710::test_ghsa_86qp_5c8j_p5mr_exposure",
+      "message": "",
+      "name": "test_ghsa_86qp_5c8j_p5mr_exposure",
+      "param_id": "test_ghsa_86qp_5c8j_p5mr_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-86qp-5c8j-p5mr",
+        "PYSEC-2026-161"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48817.py",
+      "id": "tests.test_starlette_cve_cve_2026_48817::test_ghsa_x746_7m8f_x49c_fix_pinning",
+      "message": "RuntimeError: There is no current event loop in thread 'MainThread'.",
+      "name": "test_ghsa_x746_7m8f_x49c_fix_pinning",
+      "param_id": "test_ghsa_x746_7m8f_x49c_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-x746-7m8f-x49c",
+        "PYSEC-2026-2280"
+      ],
+      "verdict": "blocked on both versions: RuntimeError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48817.py",
+      "id": "tests.test_starlette_cve_cve_2026_48817::test_ghsa_x746_7m8f_x49c_exposure",
+      "message": "RuntimeError: There is no current event loop in thread 'MainThread'.",
+      "name": "test_ghsa_x746_7m8f_x49c_exposure",
+      "param_id": "test_ghsa_x746_7m8f_x49c_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-x746-7m8f-x49c",
+        "PYSEC-2026-2280"
+      ],
+      "verdict": "blocked on both versions: RuntimeError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48818.py",
+      "id": "tests.test_starlette_cve_cve_2026_48818::test_gdsa_wqp7_x3pw_xc5r_fix_pinning",
+      "message": "",
+      "name": "test_gdsa_wqp7_x3pw_xc5r_fix_pinning",
+      "param_id": "test_gdsa_wqp7_x3pw_xc5r_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-wqp7-x3pw-xc5r",
+        "PYSEC-2026-2281"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 3,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_48818.py",
+      "id": "tests.test_starlette_cve_cve_2026_48818::test_gdsa_wqp7_x3pw_xc5r_exposure",
+      "message": "",
+      "name": "test_gdsa_wqp7_x3pw_xc5r_exposure",
+      "param_id": "test_gdsa_wqp7_x3pw_xc5r_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-wqp7-x3pw-xc5r",
+        "PYSEC-2026-2281"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54282.py",
+      "id": "tests.test_starlette_cve_cve_2026_54282::test_ghsa_jp82_jpqv_5vv3_fix_pinning",
+      "message": "AssertionError: assert 'evil.com' == 'testserver'\n  \n  - testserver\n  + evil.com",
+      "name": "test_ghsa_jp82_jpqv_5vv3_fix_pinning",
+      "param_id": "test_ghsa_jp82_jpqv_5vv3_fix_pinning",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-jp82-jpqv-5vv3",
+        "PYSEC-2026-248"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54282.py",
+      "id": "tests.test_starlette_cve_cve_2026_54282::test_ghsa_jp82_jpqv_5vv3_exposure",
+      "message": "AssertionError: assert 'evil.com' == 'testserver'\n  \n  - testserver\n  + evil.com",
+      "name": "test_ghsa_jp82_jpqv_5vv3_exposure",
+      "param_id": "test_ghsa_jp82_jpqv_5vv3_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-jp82-jpqv-5vv3",
+        "PYSEC-2026-248"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 8,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "id": "tests.test_starlette_cve_cve_2026_54283::test_ghsa_82w8_qh3p_5jfq_fix_pinning[asyncio]",
+      "message": "AssertionError: expected 400, got 200\nassert 200 == 400\n +  where 200 = <Response [200 OK]>.status_code",
+      "name": "test_ghsa_82w8_qh3p_5jfq_fix_pinning",
+      "param_id": "test_ghsa_82w8_qh3p_5jfq_fix_pinning[asyncio]",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-82w8-qh3p-5jfq",
+        "PYSEC-2026-249"
+      ],
+      "verdict": "exposure confirmed: fails at head 0.41.3, passes with the fixed candidate 1.3.1",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 3,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_starlette_cve_cve_2026_54283.py",
+      "id": "tests.test_starlette_cve_cve_2026_54283::test_ghsa_82w8_qh3p_5jfq_exposure[asyncio]",
+      "message": "AssertionError: expected 400, got 200\nassert 200 == 400\n +  where 200 = <Response [200 OK]>.status_code",
+      "name": "test_ghsa_82w8_qh3p_5jfq_exposure",
+      "param_id": "test_ghsa_82w8_qh3p_5jfq_exposure[asyncio]",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-82w8-qh3p-5jfq",
+        "PYSEC-2026-249"
+      ],
+      "verdict": "exposure confirmed: fails at head 0.41.3, passes with the fixed candidate 1.3.1",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_starlette_unit.py",
+      "id": "tests.test_starlette_unit::test_simple_user_authenticated",
+      "message": "",
+      "name": "test_simple_user_authenticated",
+      "param_id": "test_simple_user_authenticated",
+      "status": "pass",
+      "symbols_exercised": [
+        "starlette.middleware.base.BaseHTTPMiddleware",
+        "starlette.responses.Response"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_starlette_unit.py",
+      "id": "tests.test_starlette_unit::test_cookie_parser_basic",
+      "message": "",
+      "name": "test_cookie_parser_basic",
+      "param_id": "test_cookie_parser_basic",
+      "status": "pass",
+      "symbols_exercised": [
+        "starlette.middleware.base.BaseHTTPMiddleware",
+        "starlette.responses.Response"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_starlette_unit.py",
+      "id": "tests.test_starlette_unit::test_response_status_and_body",
+      "message": "",
+      "name": "test_response_status_and_body",
+      "param_id": "test_response_status_and_body",
+      "status": "pass",
+      "symbols_exercised": [
+        "starlette.middleware.base.BaseHTTPMiddleware",
+        "starlette.responses.Response"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_starlette_unit.py",
+      "id": "tests.test_starlette_unit::test_json_response_renders_json",
+      "message": "",
+      "name": "test_json_response_renders_json",
+      "param_id": "test_json_response_renders_json",
+      "status": "pass",
+      "symbols_exercised": [
+        "starlette.middleware.base.BaseHTTPMiddleware",
+        "starlette.responses.Response"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "coverage": "../examples/frc-scheduler-server/pr-fix-known-vulns-run5/execute/pyasn1/old/coverage.json",
+  "duration_s": 20.6,
+  "finished": "2026-09-13T02:40:04+00:00",
+  "image": "docker.io/library/python:3.12-slim",
+  "install_failed": false,
+  "isolation": {
+    "capabilities": "all dropped",
+    "disposable": true,
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 900
+    },
+    "network": "none",
+    "no_new_privileges": true,
+    "rootfs": "read-only",
+    "secrets": "none mounted; environment cleared with env -i"
+  },
+  "junit": "../examples/frc-scheduler-server/pr-fix-known-vulns-run5/execute/pyasn1/old/junit.xml",
+  "label": "pyasn1-old",
+  "returncode": 1,
+  "timed_out": false
+}

@@ -1,0 +1,133 @@
+{
+  "budget": {
+    "cve_fix_pinning": 5,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 1,
+      "baseline_run": {
+        "covered_lines_in_target": 430,
+        "status": {
+          "test_ghsa_6c5p_j8vq_pqhj_exposure": "fail",
+          "test_ghsa_6c5p_j8vq_pqhj_fix_pinning": "fail",
+          "test_ghsa_cjwg_qfpm_7377_exposure": "pass",
+          "test_ghsa_cjwg_qfpm_7377_fix_pinning": "pass",
+          "test_pysec_2024_232_exposure": "fail",
+          "test_pysec_2024_232_fix_pinning": "fail",
+          "test_pysec_2024_233_exposure": "pass",
+          "test_pysec_2024_233_fix_pinning": "pass",
+          "test_pysec_2025_185_exposure": "pass",
+          "test_pysec_2025_185_fix_pinning": "pass"
+        }
+      },
+      "category": "cve",
+      "cut": [],
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:57d458730d51c54c5037ba541c13c7b84e1fa7ae46109a0f03c3ea20f906d7c0",
+      "response_sha256": "sha256:aef4085aadd73bb1af4d346f1ebd1876c64f8a5e0dae41bd4e98ac55c9f33bec",
+      "sha256": "sha256:0f3cda04dbe870611fabb328c31095a877eab2ac479ebfce2e45306592cfcc96",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-232",
+        "PYSEC-2024-233",
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_pysec_2024_232_fix_pinning",
+        "test_pysec_2024_232_exposure",
+        "test_pysec_2024_233_fix_pinning",
+        "test_pysec_2024_233_exposure",
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ]
+    },
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 542,
+        "status": {
+          "test_jwe_decrypt_wrong_key_raises_jwe_error": "fail",
+          "test_jwe_encrypt_decrypt_roundtrip": "fail",
+          "test_jws_sign_verify_roundtrip": "fail",
+          "test_jws_verify_wrong_key_raises_jws_signature_error": "fail",
+          "test_jwt_decode_expired_token_raises_expired_signature_error": "pass",
+          "test_jwt_decode_invalid_token_raises_jwt_error": "pass",
+          "test_jwt_decode_wrong_key_raises_jwt_error": "pass",
+          "test_jwt_encode_decode_roundtrip": "pass",
+          "test_jwt_get_unverified_header_returns_algorithm": "pass",
+          "test_utils_base64url_encode_decode_roundtrip": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "jose.exceptions.JWKError: Key must be 256 bit for alg A256GCM",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_encrypt_decrypt_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWKError: Key must be 256 bit for alg A256GCM",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_decrypt_wrong_key_raises_jwe_error"
+        },
+        {
+          "message": "AssertionError: assert b'test payload' is True",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_sign_verify_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWSError: Signature verification failed.",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_verify_wrong_key_raises_jws_signature_error"
+        }
+      ],
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:62938d99a9149037c16d9b9353de456b7e104472c12f143570d2c0fde05baa04",
+      "response_sha256": "sha256:efa1d5fc851fa568627d9aa61aed27b639cceb010fc80c3d95d4a9ac0a2e39a2",
+      "sha256": "sha256:8019da9dcbb472212be785b1d22d62799557bbf11d1456bad59856bb38c9e02b",
+      "targets": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "tests": [
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_get_unverified_header_returns_algorithm",
+        "test_jwt_decode_expired_token_raises_expired_signature_error",
+        "test_jwt_decode_invalid_token_raises_jwt_error",
+        "test_utils_base64url_encode_decode_roundtrip"
+      ]
+    }
+  ],
+  "generated": "2026-09-12T02:30:24+00:00",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0"
+}

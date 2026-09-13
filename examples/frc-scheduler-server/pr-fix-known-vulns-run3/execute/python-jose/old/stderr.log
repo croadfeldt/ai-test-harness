@@ -1,0 +1,2 @@
+/work/venv/lib/python3.12/site-packages/coverage/inorout.py:574: CoverageWarning: Module jose was previously imported, but not measured (module-not-measured); see https://coverage.readthedocs.io/en/7.16.0/messages.html#warning-module-not-measured
+  self.warn(msg, slug="module-not-measured")

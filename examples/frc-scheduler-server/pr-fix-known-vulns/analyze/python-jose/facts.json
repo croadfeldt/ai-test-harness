@@ -1,0 +1,138 @@
+{
+  "api_diff_ref": "api-diff.json",
+  "api_diff_summary": {
+    "added": 2,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": "api.old.json",
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [],
+    "files": [
+      "app/auth.py"
+    ],
+    "production": 8,
+    "reachable": "true",
+    "reachable_note": "8 first-party references",
+    "symbols_used": [
+      "jose.JWTError",
+      "jose.jwt",
+      "jose.jwt.decode",
+      "jose.jwt.encode",
+      "jose.jwt.get_unverified_header"
+    ],
+    "test": 0
+  },
+  "change": "bumped",
+  "depth": 1,
+  "generated": "2026-09-12T02:30:23+00:00",
+  "import_names": [
+    "jose",
+    "jose/backends"
+  ],
+  "new_version": "3.4.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 5,
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": true,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "bumped",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": false,
+      "lines_changed": 159,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "true",
+      "sensitive": [
+        "authentication",
+        "cryptography",
+        "parsing"
+      ],
+      "vuln_count": 0,
+      "vulns_fixed": 5
+    },
+    "reasons": [
+      "reachable from first-party code (+35)",
+      "159 source lines changed (+6)",
+      "sensitive domain: authentication, cryptography, parsing (+10)",
+      "depth 1 version change: full generation by policy",
+      "5 advisories on the replaced version: fix-pinning tests, then a VEX 'fixed' statement"
+    ],
+    "score": 51
+  },
+  "sensitivity": [
+    "authentication",
+    "cryptography",
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "counts": {
+      "added": 0,
+      "changed": 10,
+      "removed": 0
+    },
+    "files_added": [],
+    "files_changed": [
+      "jose/__init__.py",
+      "jose/backends/_asn1.py",
+      "jose/backends/cryptography_backend.py",
+      "jose/backends/native.py",
+      "jose/backends/rsa_backend.py",
+      "jose/constants.py",
+      "jose/jwe.py",
+      "jose/jws.py",
+      "jose/jwt.py",
+      "jose/utils.py"
+    ],
+    "files_removed": [],
+    "lines_added": 120,
+    "lines_removed": 39,
+    "tool": "difflib unified, python files only"
+  },
+  "static_analysis": {
+    "reason": "bandit not installed",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 0,
+    "count_old": 5,
+    "cves": [],
+    "fixed_by_this_change": [
+      "GHSA-6c5p-j8vq-pqhj",
+      "GHSA-cjwg-qfpm-7377",
+      "PYSEC-2024-232",
+      "PYSEC-2024-233",
+      "PYSEC-2025-185"
+    ],
+    "fixed_versions": [],
+    "ids": [],
+    "symbols_named_by_advisories": false
+  }
+}

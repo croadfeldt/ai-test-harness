@@ -9,7 +9,8 @@ Every incoming change, regardless of where it came from, goes through the same s
 
 ```mermaid
 flowchart LR
-    I[1 Intake] --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
+    V[0 Verify harness] --> I[1 Intake]
+    I --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
     R --> F[7 Feedback]
     F -.-> G
     F -.-> A
@@ -48,6 +49,14 @@ flowchart TB
 ```
 
 ## Stage by stage
+
+### 0. Self-verification
+
+Before anything else, the harness proves it is fit to run: every entry in its failure register has a
+passing self-check, the sandbox's isolation claims hold, and the model endpoint honors the settings the
+run will record. Any failure stops the run before intake. The [blueprint, section 17](03-blueprint.md#17-generation-failure-register-detect-correct-verify)
+is the register: for every way the generator has failed, the issue, the reason, the cause, the automatic
+correction, and the check that proves it on every run.
 
 ### 1. Intake
 

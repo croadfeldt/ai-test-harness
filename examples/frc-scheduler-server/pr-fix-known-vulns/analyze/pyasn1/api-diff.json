@@ -1,0 +1,1495 @@
+{
+  "changes": [
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractConstructedPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractPayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractSimplePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(asn1Object, substrate, length, options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractSimplePayloadDecoder.substrateCollector"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.AnyPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.AnyPayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.AnyPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.BMPStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringPayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(IntegerPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.BooleanPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ConstructedPayloadDecoderBase)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.ChoicePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.ChoicePayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.ChoicePayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractConstructedPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.GeneralStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.GeneralizedTimePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.GraphicStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.IA5StringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.IntegerPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.IntegerPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.NullPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.NullPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.NumericStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectDescriptorPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectIdentifierPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectIdentifierPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringPayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.PrintableStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.RawPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.RawPayloadDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.RawPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.RealPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.RealPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.RelativeOIDPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.RelativeOIDPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(SequenceOrSequenceOfPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SequenceOfPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ConstructedPayloadDecoderBase)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SequenceOrSequenceOfPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(SequenceOrSequenceOfPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SequencePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(SetOrSetOfPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SetOfPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ConstructedPayloadDecoderBase)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SetOrSetOfPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(SetOrSetOfPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SetPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.SingleItemDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **ignored)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.SingleItemDecoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.StreamingDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.decoder.StreamingDecoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.TeletexStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.UTCTimePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.UTF8StringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.UniversalStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.VideotexStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.decoder.VisibleStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractItemEncoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.encoder.RelativeOIDEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value, asn1Spec, encodeFun, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.encoder.RelativeOIDEncoder.encodeValue"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.ber.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **ignored)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.ber.encoder.SingleItemEncoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.AbstractSimplePayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.cer.decoder.BooleanPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.cer.decoder.BooleanPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.SingleItemDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.cer.decoder.SingleItemDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.StreamingDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.cer.decoder.StreamingDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(encoder.SingleItemEncoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.cer.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.BitStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.der.decoder.BitStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.OctetStringPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.der.decoder.OctetStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.SingleItemDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.der.decoder.SingleItemDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(decoder.StreamingDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.der.decoder.StreamingDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(encoder.SingleItemEncoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.der.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.AbstractScalarPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractScalarPayloadDecoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.BitStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.ChoicePayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.SequenceOfOrSetOfPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.SequenceOrSetPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.decoder.SingleItemDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **ignored)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.native.decoder.SingleItemDecoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(AbstractItemEncoder)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.encoder.RelativeOIDEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value, encodeFun, **options)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.native.encoder.RelativeOIDEncoder.encode"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(object)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.native.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **ignored)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.native.encoder.SingleItemEncoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module removed",
+      "symbol": "pyasn1.codec.streaming"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(io.IOBase)",
+      "reason": "class removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, raw)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.markedPosition"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, n)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.peek"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, n=-1)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.read"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, n=-1, whence=os.SEEK_SET)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.seek"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.seekable"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.codec.streaming.CachingStreamWrapper.tell"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(substrate)",
+      "reason": "function removed",
+      "symbol": "pyasn1.codec.streaming.asSeekableStream"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(substrate)",
+      "reason": "function removed",
+      "symbol": "pyasn1.codec.streaming.isEndOfStream"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(substrate, size=-1)",
+      "reason": "function removed",
+      "symbol": "pyasn1.codec.streaming.peekIntoStream"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(substrate, size=-1, context=None)",
+      "reason": "function removed",
+      "symbol": "pyasn1.codec.streaming.readFromStream"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(value, signed=False, length=0)",
+      "reason": "function removed",
+      "symbol": "pyasn1.compat.integer.to_bytes"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(SubstrateUnderrunError)",
+      "reason": "class removed",
+      "symbol": "pyasn1.error.EndOfStreamError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, *args, **kwargs)",
+      "reason": "method removed",
+      "symbol": "pyasn1.error.PyAsn1Error.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.error.PyAsn1Error.context"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(PyAsn1Error)",
+      "reason": "class removed",
+      "symbol": "pyasn1.error.UnsupportedSubstrateError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, padding=True)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.char.AbstractCharacterString.asNumbers"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, padding=True)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.char.AbstractCharacterString.asOctets"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.char.AbstractCharacterString.prettyIn"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.OctetString.asNumbers"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.OctetString.asOctets"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.OctetString.prettyIn"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(base.SimpleAsn1Type)",
+      "reason": "class removed",
+      "symbol": "pyasn1.type.univ.RelativeOID"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.RelativeOID.asTuple"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, suboid)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.RelativeOID.index"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, other)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.RelativeOID.isPrefixOf"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.RelativeOID.prettyIn"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, value)",
+      "reason": "method removed",
+      "symbol": "pyasn1.type.univ.RelativeOID.prettyOut"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractConstructedDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(object)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractSimpleDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(asn1Object, substrate, length)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.AbstractSimpleDecoder.substrateCollector"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.AnyDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.AnyDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.AnyDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.BMPStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.BitStringDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(IntegerDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.BooleanDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractConstructedDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.ChoiceDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.ChoiceDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.ChoiceDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, tagMap, typeMap={})",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.Decoder.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.ExplicitTagDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.ExplicitTagDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.ExplicitTagDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.GeneralStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.GeneralizedTimeDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.GraphicStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.IA5StringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.IntegerDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.IntegerDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.NullDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.NullDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.NumericStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectDescriptorDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectIdentifierDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.ObjectIdentifierDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.OctetStringDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.PrintableStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.RealDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.RealDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(SequenceOrSequenceOfDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SequenceDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(SequenceOrSequenceOfDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SequenceOfDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(UniversalConstructedTypeDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SequenceOrSequenceOfDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(SetOrSetOfDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SetDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(SetOrSetOfDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SetOfDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(UniversalConstructedTypeDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.SetOrSetOfDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.TeletexStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.UTCTimeDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.UTF8StringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractConstructedDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder.indefLenValueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.ber.decoder.UniversalConstructedTypeDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.UniversalStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.VideotexStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.ber.decoder.VisibleStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(decoder.AbstractSimpleDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.cer.decoder.BooleanDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "pyasn1.codec.cer.decoder.BooleanDecoder.valueDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(decoder.BitStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.der.decoder.BitStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(decoder.OctetStringDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.der.decoder.OctetStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(object)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.native.decoder.AbstractScalarDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(AbstractScalarDecoder)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.native.decoder.BitStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(object)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.native.decoder.ChoiceDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(object)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.native.decoder.SequenceOfOrSetOfDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(object)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "pyasn1.codec.native.decoder.SequenceOrSetDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "pyasn1.compat.binary"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "pyasn1.compat.calling"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "pyasn1.compat.dateandtime"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "pyasn1.compat.octets"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "pyasn1.compat.string"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tagMap, typeMap={})",
+      "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **options)",
+      "reason": "required parameters changed: [] -> ['tagMap']",
+      "symbol": "pyasn1.codec.ber.encoder.Encoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tagMap, typeMap)",
+      "old_signature": "(self, **options)",
+      "reason": "required parameters changed: [] -> ['tagMap', 'typeMap']",
+      "symbol": "pyasn1.codec.native.decoder.Decoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tagMap, typeMap={})",
+      "old_signature": "(self, **options)",
+      "reason": "required parameters changed: [] -> ['tagMap']",
+      "symbol": "pyasn1.codec.native.encoder.Encoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(SizedIntegerBase)",
+      "old_signature": "(int)",
+      "reason": "required parameters changed: ['int'] -> ['SizedIntegerBase']",
+      "symbol": "pyasn1.type.univ.SizedInteger"
+    }
+  ],
+  "new": "0.4.8",
+  "old": "0.6.4",
+  "package": "pyasn1"
+}

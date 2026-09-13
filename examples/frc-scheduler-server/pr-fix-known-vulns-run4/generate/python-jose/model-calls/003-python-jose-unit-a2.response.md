@@ -1,0 +1,91 @@
+```python
+import pytest
+from jose import jwt, jwe, jws, JWTError, JWSError, ExpiredSignatureError
+from jose.exceptions import JWSSignatureError
+from jose.constants import Algorithms
+from jose.utils import base64url_encode, base64url_decode, ensure_binary, timedelta_total_seconds
+import datetime
+
+
+def test_jwt_encode_decode_roundtrip_hs256():
+    """jwt.encode with HS256 produces a token that jwt.decode verifies to the same claims."""
+    key = b"secret-key-for-testing"
+    claims = {"sub": "1234567890", "name": "Test User", "iat": 1700000000}
+    token = jwt.encode(claims, key, algorithm=Algorithms.HS256)
+    decoded = jwt.decode(token, key, algorithms=[Algorithms.HS256])
+    assert decoded["sub"] == "1234567890"
+    assert decoded["name"] == "Test User"
+    assert decoded["iat"] == 1700000000
+
+
+def test_jwt_decode_wrong_key_raises_jwt_error():
+    """jwt.decode raises JWTError when the key does not match the token's signature."""
+    token = jwt.encode({"sub": "abc"}, b"correct-key", algorithm=Algorithms.HS256)
+    with pytest.raises(JWTError):
+        jwt.decode(token, b"wrong-key", algorithms=[Algorithms.HS256])
+
+
+def test_jwt_decode_expired_token_raises_expired_signature_error():
+    """jwt.decode raises ExpiredSignatureError when the token's exp claim is in the past."""
+    key = b"test-key"
+    claims = {"sub": "x", "exp": 1000000000}  # far in the past
+    token = jwt.encode(claims, key, algorithm=Algorithms.HS256)
+    with pytest.raises(ExpiredSignatureError):
+        jwt.decode(token, key, algorithms=[Algorithms.HS256])
+
+
+def test_jwt_get_unverified_header_returns_alg():
+    """jwt.get_unverified_header returns the header dict with the correct alg field."""
+    token = jwt.encode({"sub": "test"}, b"key", algorithm=Algorithms.HS256)
+    header = jwt.get_unverified_header(token)
+    assert header["alg"] == "HS256"
+    assert header["typ"] == "JWT"
+
+
+def test_jwt_get_unverified_claims_returns_claims_without_verification():
+    """jwt.get_unverified_claims returns the claims dict even with an invalid signature."""
+    token = jwt.encode({"sub": "unverified", "data": 42}, b"key", algorithm=Algorithms.HS256)
+    claims = jwt.get_unverified_claims(token)
+    assert claims["sub"] == "unverified"
+    assert claims["data"] == 42
+
+
+def test_jwe_encrypt_decrypt_roundtrip():
+    """jwe.encrypt and jwe.decrypt roundtrip preserves the original plaintext."""
+    key = b"A" * 32  # 256-bit key for A256GCM
+    plaintext = b"hello world"
+    jwe_str = jwe.encrypt(plaintext, key, algorithm=Algorithms.DIR, encryption=Algorithms.A256GCM)
+    decrypted = jwe.decrypt(jwe_str, key)
+    assert decrypted == plaintext
+
+
+def test_jws_sign_verify_roundtrip():
+    """jws.sign produces a token that jws.verify accepts with the correct key."""
+    key = b"jws-secret-key"
+    payload = b"some payload data"
+    token = jws.sign(payload, key, algorithm=Algorithms.HS256)
+    assert jws.verify(token, key, algorithms=[Algorithms.HS256]) is True
+
+
+def test_jws_verify_wrong_key_raises_jwt_error():
+    """jws.verify raises JWTError when the key does not match."""
+    token = jws.sign(b"payload", b"key-one", algorithm=Algorithms.HS256)
+    with pytest.raises(JWTError):
+        jws.verify(token, b"key-two", algorithms=[Algorithms.HS256])
+
+
+def test_base64url_encode_decode_roundtrip():
+    """base64url_encode and base64url_decode are inverses for arbitrary bytes."""
+    data = b"\x00\x01\x02\xff\xfe"
+    encoded = base64url_encode(data)
+    decoded = base64url_decode(encoded)
+    assert decoded == data
+
+
+def test_ensure_binary_and_timedelta_total_seconds():
+    """ensure_binary coerces str to bytes; timedelta_total_seconds returns float seconds."""
+    assert ensure_binary("hello") == b"hello"
+    assert ensure_binary(b"hello") == b"hello"
+    delta = datetime.timedelta(hours=1, minutes=30)
+    assert timedelta_total_seconds(delta) == 5400.0
+```

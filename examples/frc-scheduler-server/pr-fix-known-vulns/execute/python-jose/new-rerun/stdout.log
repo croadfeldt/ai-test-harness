@@ -1,0 +1,248 @@
+FF..FF..........                                                         [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """jws.verify must reject an OpenSSH ECDSA key used with an ECDSA algorithm (no algorithm confusion)."""
+        ssh_key = _make_ssh_ecdsa_key()
+        # Sign a token with a normal EC key first to get a valid JWS structure,
+        # then attempt verification with the SSH key.
+        # Actually, the vulnerability is that python-jose 3.3.0 would accept an
+        # OpenSSH ECDSA key as if it were a standard EC key.  We craft a JWS
+        # token and try to verify it with the SSH key.
+        #
+        # The simplest trigger: call jws.verify with an SSH key and an ECDSA
+        # algorithm.  In 3.3.0 the key is parsed as a valid EC key (algorithm
+        # confusion); in 3.4.0 it should raise an error.
+        #
+        # We need a token that was signed with a *different* key so the signature
+        # check would fail anyway, but the key-parsing step is what we're testing.
+        # Use a valid EC key to sign, then verify with the SSH key.
+        from jose.jwk import construct
+        # Generate a valid EC P-256 key for signing
+>       ec_key = construct(
+            {
+                "kty": "EC",
+                "crv": "P-256",
+                "x": "M111111111111111111111111111111111111111111",
+                "y": "M222222222222222222222222222222222222222222",
+                "d": "M333333333333333333333333333333333333333333",
+            },
+            algorithm=Algorithms.ES256,
+        )
+
+tests/test_python_jose_cve.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:83: in __init__
+    self.prepared_key = self._process_jwk(key)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7f46b6516960>
+jwk_dict = {'kty': 'EC', 'crv': 'P-256', 'x': 'M111111111111111111111111111111111111111111', 'y': 'M222222222222222222222222222222222222222222', ...}
+
+    def _process_jwk(self, jwk_dict):
+        if not jwk_dict.get("kty") == "EC":
+            raise JWKError("Incorrect key type. Expected: 'EC', Received: %s" % jwk_dict.get("kty"))
+    
+        if not all(k in jwk_dict for k in ["x", "y", "crv"]):
+            raise JWKError("Mandatory parameters are missing")
+    
+        x = base64_to_long(jwk_dict.get("x"))
+        y = base64_to_long(jwk_dict.get("y"))
+        curve = {
+            "P-256": ec.SECP256R1,
+            "P-384": ec.SECP384R1,
+            "P-521": ec.SECP521R1,
+        }[jwk_dict["crv"]]
+    
+        public = ec.EllipticCurvePublicNumbers(x, y, curve())
+    
+        if "d" in jwk_dict:
+            d = base64_to_long(jwk_dict.get("d"))
+            private = ec.EllipticCurvePrivateNumbers(d, public)
+    
+>           return private.private_key(self.cryptography_backend())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           ValueError: Invalid EC key. Point is not on the curve specified.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:127: ValueError
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """Application call pattern: jwt.decode with an SSH ECDSA key must not succeed (algorithm confusion)."""
+        ssh_key = _make_ssh_ecdsa_key()
+        # The application calls jwt.decode(token, key, algorithms=[alg]).
+        # Craft a token signed with a valid EC key, then decode with the SSH key.
+        from jose.jwk import construct
+>       ec_key = construct(
+            {
+                "kty": "EC",
+                "crv": "P-256",
+                "x": "M11111111111111111111111111111111111111111",
+                "y": "M222222222222222222222222222222222222222222",
+                "d": "M333333333333333333333333333333333333333333",
+            },
+            algorithm=Algorithms.ES256,
+        )
+
+tests/test_python_jose_cve.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:83: in __init__
+    self.prepared_key = self._process_jwk(key)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7f46b6516450>
+jwk_dict = {'kty': 'EC', 'crv': 'P-256', 'x': 'M11111111111111111111111111111111111111111', 'y': 'M222222222222222222222222222222222222222222', ...}
+
+    def _process_jwk(self, jwk_dict):
+        if not jwk_dict.get("kty") == "EC":
+            raise JWKError("Incorrect key type. Expected: 'EC', Received: %s" % jwk_dict.get("kty"))
+    
+        if not all(k in jwk_dict for k in ["x", "y", "crv"]):
+            raise JWKError("Mandatory parameters are missing")
+    
+        x = base64_to_long(jwk_dict.get("x"))
+        y = base64_to_long(jwk_dict.get("y"))
+        curve = {
+            "P-256": ec.SECP256R1,
+            "P-384": ec.SECP384R1,
+            "P-521": ec.SECP521R1,
+        }[jwk_dict["crv"]]
+    
+        public = ec.EllipticCurvePublicNumbers(x, y, curve())
+    
+        if "d" in jwk_dict:
+            d = base64_to_long(jwk_dict.get("d"))
+            private = ec.EllipticCurvePrivateNumbers(d, public)
+    
+>           return private.private_key(self.cryptography_backend())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           ValueError: Invalid EC key. Point is not on the curve specified.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:127: ValueError
+_______________________ test_pysec_2024_232_fix_pinning ________________________
+
+    def test_pysec_2024_232_fix_pinning():
+        """jws.verify must reject OpenSSH ECDSA keys to prevent algorithm confusion (PYSEC-2024-232)."""
+        ssh_key = _make_ssh_ecdsa_key()
+        from jose.jwk import construct
+>       ec_key = construct(
+            {
+                "kty": "EC",
+                "crv": "P-256",
+                "x": "M11111111111111111111111111111111111111111",
+                "y": "M222222222222222222222222222222222222222222",
+                "d": "M333333333333333333333333333333333333333333",
+            },
+            algorithm=Algorithms.ES256,
+        )
+
+tests/test_python_jose_cve.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:83: in __init__
+    self.prepared_key = self._process_jwk(key)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7f46b67af080>
+jwk_dict = {'kty': 'EC', 'crv': 'P-256', 'x': 'M11111111111111111111111111111111111111111', 'y': 'M222222222222222222222222222222222222222222', ...}
+
+    def _process_jwk(self, jwk_dict):
+        if not jwk_dict.get("kty") == "EC":
+            raise JWKError("Incorrect key type. Expected: 'EC', Received: %s" % jwk_dict.get("kty"))
+    
+        if not all(k in jwk_dict for k in ["x", "y", "crv"]):
+            raise JWKError("Mandatory parameters are missing")
+    
+        x = base64_to_long(jwk_dict.get("x"))
+        y = base64_to_long(jwk_dict.get("y"))
+        curve = {
+            "P-256": ec.SECP256R1,
+            "P-384": ec.SECP384R1,
+            "P-521": ec.SECP521R1,
+        }[jwk_dict["crv"]]
+    
+        public = ec.EllipticCurvePublicNumbers(x, y, curve())
+    
+        if "d" in jwk_dict:
+            d = base64_to_long(jwk_dict.get("d"))
+            private = ec.EllipticCurvePrivateNumbers(d, public)
+    
+>           return private.private_key(self.cryptography_backend())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           ValueError: Invalid EC key. Point is not on the curve specified.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:127: ValueError
+_________________________ test_pysec_2024_232_exposure _________________________
+
+    def test_pysec_2024_232_exposure():
+        """Application call pattern: jwt.decode with an SSH ECDSA key must raise (PYSEC-2024-232)."""
+        ssh_key = _make_ssh_ecdsa_key()
+        from jose.jwk import construct
+>       ec_key = construct(
+            {
+                "kty": "EC",
+                "crv": "P-256",
+                "x": "M11111111111111111111111111111111111111111",
+                "y": "M222222222222222222222222222222222222222222",
+                "d": "M333333333333333333333333333333333333333333",
+            },
+            algorithm=Algorithms.ES256,
+        )
+
+tests/test_python_jose_cve.py:230: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:83: in __init__
+    self.prepared_key = self._process_jwk(key)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyECKey object at 0x7f46b67adc10>
+jwk_dict = {'kty': 'EC', 'crv': 'P-256', 'x': 'M11111111111111111111111111111111111111111', 'y': 'M222222222222222222222222222222222222222222', ...}
+
+    def _process_jwk(self, jwk_dict):
+        if not jwk_dict.get("kty") == "EC":
+            raise JWKError("Incorrect key type. Expected: 'EC', Received: %s" % jwk_dict.get("kty"))
+    
+        if not all(k in jwk_dict for k in ["x", "y", "crv"]):
+            raise JWKError("Mandatory parameters are missing")
+    
+        x = base64_to_long(jwk_dict.get("x"))
+        y = base64_to_long(jwk_dict.get("y"))
+        curve = {
+            "P-256": ec.SECP256R1,
+            "P-384": ec.SECP384R1,
+            "P-521": ec.SECP521R1,
+        }[jwk_dict["crv"]]
+    
+        public = ec.EllipticCurvePublicNumbers(x, y, curve())
+    
+        if "d" in jwk_dict:
+            d = base64_to_long(jwk_dict.get("d"))
+            private = ec.EllipticCurvePrivateNumbers(d, public)
+    
+>           return private.private_key(self.cryptography_backend())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           ValueError: Invalid EC key. Point is not on the curve specified.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:127: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve.py::test_ghsa_6c5p_j8vq_pqhj_fix_pinning - ...
+FAILED tests/test_python_jose_cve.py::test_ghsa_6c5p_j8vq_pqhj_exposure - Val...
+FAILED tests/test_python_jose_cve.py::test_pysec_2024_232_fix_pinning - Value...
+FAILED tests/test_python_jose_cve.py::test_pysec_2024_232_exposure - ValueErr...
+4 failed, 12 passed in 0.40s

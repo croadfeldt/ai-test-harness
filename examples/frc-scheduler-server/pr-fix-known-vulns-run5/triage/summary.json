@@ -1,0 +1,32 @@
+{
+  "generated": "2026-09-13T04:29:47+00:00",
+  "packages": [
+    {
+      "blocking": [],
+      "cve_confirmed": 2,
+      "escalated": 0,
+      "findings": 3,
+      "package": "pyasn1",
+      "tests_accept": 10,
+      "tests_discard_or_regenerate": 6
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 2,
+      "escalated": 1,
+      "findings": 2,
+      "package": "python-jose",
+      "tests_accept": 7,
+      "tests_discard_or_regenerate": 4
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 2,
+      "escalated": 2,
+      "findings": 4,
+      "package": "starlette",
+      "tests_accept": 6,
+      "tests_discard_or_regenerate": 12
+    }
+  ]
+}

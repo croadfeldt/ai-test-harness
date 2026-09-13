@@ -1,0 +1,44 @@
+{
+  "generated": "2026-09-13T13:06:51+00:00",
+  "packages": [
+    {
+      "envelope": "attest/pyasn1/statement.dsse.json",
+      "generated": "2026-09-13T04:29:48+00:00",
+      "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+      "manifest": "attest/pyasn1/MANIFEST.json",
+      "manifest_sha256": "sha256:d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1",
+      "package": "pyasn1",
+      "records": 10,
+      "result": "PASSED",
+      "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
+      "statement": "attest/pyasn1/statement.json",
+      "verified_locally": true
+    },
+    {
+      "envelope": "attest/starlette/statement.dsse.json",
+      "generated": "2026-09-13T04:29:48+00:00",
+      "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+      "manifest": "attest/starlette/MANIFEST.json",
+      "manifest_sha256": "sha256:abc1a46f20225dc1b8e54f386dce4e6ef4d6335c19ee83607856dcc1072a5729",
+      "package": "starlette",
+      "records": 6,
+      "result": "PASSED",
+      "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
+      "statement": "attest/starlette/statement.json",
+      "verified_locally": true
+    },
+    {
+      "envelope": "attest/python-jose/statement.dsse.json",
+      "generated": "2026-09-13T13:06:51+00:00",
+      "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+      "manifest": "attest/python-jose/MANIFEST.json",
+      "manifest_sha256": "sha256:147f1c3b1a881acb08ab743bf2182d3826cf3bb34875b35a21fbba88c9571491",
+      "package": "python-jose",
+      "records": 7,
+      "result": "PASSED",
+      "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
+      "statement": "attest/python-jose/statement.json",
+      "verified_locally": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-13T04:26:14+00:00",
+  "mode": "agent",
+  "model": "qwen/qwen3.8-27b",
+  "packages": [
+    {
+      "discarded": 0,
+      "files": 8,
+      "mode": "agent",
+      "model": "qwen/qwen3.8-27b",
+      "package": "starlette",
+      "tests": 18
+    }
+  ]
+}

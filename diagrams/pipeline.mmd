@@ -1,5 +1,6 @@
 flowchart LR
-    I[1 Intake] --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
+    V[0 Verify harness] --> I[1 Intake]
+    I --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
     R --> F[7 Feedback]
     F -.-> G
     F -.-> A

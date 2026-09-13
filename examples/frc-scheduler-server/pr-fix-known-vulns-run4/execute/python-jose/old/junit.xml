@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="13" time="1.659" timestamp="2026-09-12T05:54:26.391142+00:00" hostname="26bb99048e0e"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.006"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f5058076de0&gt;
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x10\xbe@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|\x06\xb1\x8c&lt;\xf1'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+&gt;           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_pysec_2025_185_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit (CVE-2024-29370)."""
+&gt;       token = _make_token()
+                ^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_29370.py:22: in _make_token
+    token = jwe.encrypt(zlib.compress(big), KEY, algorithm="dir", encryption="A128GCM")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f5058076de0&gt;
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x10\xbe@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|\x06\xb1\x8c&lt;\xf1'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.005"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50580757c0&gt;
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x10\xbe@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|\x06\xb1\x8c&lt;\xf1'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+&gt;           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_pysec_2025_185_exposure():
+        """App-style jwe.decrypt call on an attacker-supplied compressed token must raise JWEError, not decompress unbounded data."""
+&gt;       token = _make_token()
+                ^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_29370.py:22: in _make_token
+    token = jwe.encrypt(zlib.compress(big), KEY, algorithm="dir", encryption="A128GCM")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50580757c0&gt;
+plain_text = b'x\x9c\xed\xc11\x01\x00\x00\x00\xc2\xa0l\xeb_\xca\x10\xbe@\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|\x06\xb1\x8c&lt;\xf1'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.003"><failure message="Failed: DID NOT RAISE JWKError">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key used as HMAC secret must be rejected (CVE-2024-33663)."""
+&gt;       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:24: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.574"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50581b1760&gt;
+plain_text = b'x\x9c\xec\xc1\x81\x00\x00\x00\x00\x80 \xb6\xfd\xa5\x16\xa9\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00...x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00^\x022&amp;\xcf\x1a'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+&gt;           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """A compressed JWE bomb must be rejected instead of decompressing ~100MB."""
+        key = "asecret128bitkey"
+&gt;       token = _make_bomb_jwe(key)
+                ^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_33664.py:23: in _make_bomb_jwe
+    token = jwe.encrypt(compressed, key, algorithm="dir", encryption="A128GCM")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50581b1760&gt;
+plain_text = b'x\x9c\xec\xc1\x81\x00\x00\x00\x00\x80 \xb6\xfd\xa5\x16\xa9\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00...x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00^\x022&amp;\xcf\x1a'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.484"><failure message="jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'">self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50581b2000&gt;
+plain_text = b'x\x9c\xec\xc1\x81\x00\x00\x00\x00\x80 \xb6\xfd\xa5\x16\xa9\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00...x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00^\x022&amp;\xcf\x1a'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+&gt;           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+&gt;       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Same bomb via the app's jwe.decrypt call pattern must raise JWEError."""
+        key = "asecret128bitkey"
+&gt;       token = _make_bomb_jwe(key)
+                ^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_python_jose_cve_cve_2024_33664.py:23: in _make_bomb_jwe
+    token = jwe.encrypt(compressed, key, algorithm="dir", encryption="A128GCM")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7f50581b2000&gt;
+plain_text = b'x\x9c\xec\xc1\x81\x00\x00\x00\x00\x80 \xb6\xfd\xa5\x16\xa9\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00...x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00^\x022&amp;\xcf\x1a'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4R0NNIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+&gt;           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip_hs256" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_token_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims_without_verification" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_base64url_encode_decode_roundtrip" time="0.000" /><testcase classname="tests.test_python_jose_unit" name="test_ensure_binary_and_timedelta_total_seconds" time="0.000" /></testsuite></testsuites>

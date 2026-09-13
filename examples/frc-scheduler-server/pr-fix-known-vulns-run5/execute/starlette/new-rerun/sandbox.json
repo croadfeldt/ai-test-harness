@@ -1,0 +1,25 @@
+{
+  "coverage": "../examples/frc-scheduler-server/pr-fix-known-vulns-run5/execute/starlette/new-rerun/coverage.json",
+  "duration_s": 23.3,
+  "finished": "2026-09-13T04:29:47+00:00",
+  "image": "docker.io/library/python:3.12-slim",
+  "install_failed": false,
+  "isolation": {
+    "capabilities": "all dropped",
+    "disposable": true,
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 900
+    },
+    "network": "none",
+    "no_new_privileges": true,
+    "rootfs": "read-only",
+    "secrets": "none mounted; environment cleared with env -i"
+  },
+  "junit": "../examples/frc-scheduler-server/pr-fix-known-vulns-run5/execute/starlette/new-rerun/junit.xml",
+  "label": "starlette-new-rerun",
+  "returncode": 1,
+  "timed_out": false
+}

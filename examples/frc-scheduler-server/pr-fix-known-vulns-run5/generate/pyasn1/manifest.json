@@ -1,0 +1,185 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": false,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "direction": "downgrade",
+    "fixed": "0.6.4",
+    "vulnerable": "0.4.8"
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 80,
+        "status": {
+          "test_debug_is_callable": "pass",
+          "test_hexdump_empty_bytes": "pass",
+          "test_hexdump_single_byte": "fail",
+          "test_hexdump_two_bytes": "fail",
+          "test_printer_is_callable": "pass",
+          "test_pyasn1error_is_exception_subclass": "pass",
+          "test_pyasn1unicode_error_is_unicode_error_subclass": "pass",
+          "test_setlogger_returns_none": "pass",
+          "test_substrate_underrun_error_is_pyasn1error_subclass": "pass",
+          "test_value_constraint_error_is_pyasn1error_subclass": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "AssertionError: assert '\\n00000: 00' == '00'\n  \n  - 00\n  + \n  + 00000: 00",
+          "reason": "fails on baseline after repair",
+          "test": "test_hexdump_single_byte"
+        },
+        {
+          "message": "AssertionError: assert '\\n00000: 01 02' == '0102'\n  \n  - 0102\n  + \n  + 00000: 01 02",
+          "reason": "fails on baseline after repair",
+          "test": "test_hexdump_two_bytes"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_pyasn1_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
+      "response_sha256": "sha256:f73d27a9e25820f0980245c5ed196d96c0a009ffad050bdc3ddd00103227c510",
+      "sha256": "sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17",
+      "targets": [],
+      "tests": [
+        "test_printer_is_callable",
+        "test_debug_is_callable",
+        "test_setlogger_returns_none",
+        "test_hexdump_empty_bytes",
+        "test_pyasn1error_is_exception_subclass",
+        "test_value_constraint_error_is_pyasn1error_subclass",
+        "test_substrate_underrun_error_is_pyasn1error_subclass",
+        "test_pyasn1unicode_error_is_unicode_error_subclass"
+      ]
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "downgrade",
+        "fixed": "0.6.4",
+        "vulnerable": "0.4.8"
+      },
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59885.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests target GHSA-8ppf-4f7h-5ppj (quadratic OID/REL-OID decode): an OID with arcs of 21 continuation octets must be rejected with PyAsn1Error by fixed 0.6.4 (MAX_OID_ARC_CONTINUATION_OCTETS=20) and accepted by vulnerable 0.4.8. Caveat: sandbox runs showed both versions failing with a ValueError in payload construction, so the intended old-fail/new-pass differential could not be verified in the harness.",
+      "sha256": "sha256:5af4924164c884fa10b2faf13877c27bf9427ec92bd231af6b1d91a1ccfb3264",
+      "targets": [
+        "GHSA-8ppf-4f7h-5ppj",
+        "PYSEC-2026-3456"
+      ],
+      "tests": [
+        "test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+        "test_ghsa_8ppf_4f7h_5ppj_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "downgrade",
+        "fixed": "0.6.4",
+        "vulnerable": "0.4.8"
+      },
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59886.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests decode a 10-byte BER REAL with exponent 100000; caveat: sandbox runs passed on both versions, so the vulnerable 0.4.8 hang was not reproduced (likely sandbox timeout masking), but the trigger is the exact payload class from the advisory.",
+      "sha256": "sha256:fec793f9ce7dba8860996ec271a754a483af1d3676cb005f6aa4fc62bb6a3296",
+      "targets": [
+        "GHSA-hm4w-wwcw-mr6r",
+        "PYSEC-2026-3457"
+      ],
+      "tests": [
+        "test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+        "test_ghsa_hm4w_wwcw_mr6r_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 7,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "downgrade",
+        "fixed": "0.6.4",
+        "vulnerable": "0.4.8"
+      },
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_30922.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Both tests feed a 5000-deep nested SEQUENCE BER payload to pyasn1.codec.ber.decoder.decode; fixed 0.6.4 raises PyAsn1Error (nesting depth limit), vulnerable 0.4.8 hits RecursionError. Verified: fail on 0.4.8, pass on 0.6.4.",
+      "sha256": "sha256:fc7615226dd23e4dd0dc021f132c7e20a6430300b3bda8386d95a2606e004481",
+      "targets": [
+        "GHSA-jr27-m4p2-rc6r",
+        "PYSEC-2026-2263"
+      ],
+      "tests": [
+        "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+        "test_ghsa_jr27_m4p2_rc6r_exposure"
+      ],
+      "tool_calls": 7
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "downgrade",
+        "fixed": "0.6.4",
+        "vulnerable": "0.4.8"
+      },
+      "expected_differential": "new=fail old=pass",
+      "file": "tests/test_pyasn1_cve_cve_2026_59884.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert ber.decode rejects a long-form tag ID with 25 continuation octets (> MAX_TAG_OCTETS=20 in 0.6.4). Caveat: harness reported the input errors on BOTH versions (likely the fixed version's tagMap lookup fails first), so the fix-pinning test may not actually fail on 0.4.8; best reading of the advisory given no direct call sites.",
+      "sha256": "sha256:a7d98bca9b2d699727da704c4e234a05c6597f0c8812ac79eab5aefed5d8a88d",
+      "targets": [
+        "GHSA-m4p7-r5rc-7g4j",
+        "PYSEC-2026-3455"
+      ],
+      "tests": [
+        "test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+        "test_ghsa_m4p7_r5rc_7g4j_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-13T01:36:57+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "http://10.0.0.122:1234/v1",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "0.4.8",
+  "old_version": "0.6.4",
+  "package": "pyasn1",
+  "purl": "pkg:pypi/pyasn1@0.4.8",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

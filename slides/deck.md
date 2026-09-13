@@ -92,7 +92,8 @@ Konflux already builds hermetically, produces SBOMs, signs provenance at SLSA Bu
 
 ```mermaid
 flowchart LR
-    I[1 Intake] --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
+    V[0 Verify harness] --> I[1 Intake]
+    I --> A[2 Analyze] --> G[3 Generate] --> X[4 Execute] --> T[5 Triage] --> R[6 Review]
     R --> F[7 Feedback]
     F -.-> G
     F -.-> A
@@ -100,6 +101,7 @@ flowchart LR
 
 | Stage | What happens |
 |---|---|
+| Verify | The harness proves its own gates, sandbox, and model settings first. Fails closed. |
 | Intake | SBOM diff against last known-good, pre-flight scans, work list |
 | Analyze | Facts from tools, not the model: API surface, contract diff, call sites, CVEs |
 | Generate | Tests in the ecosystem's own framework: unit, functional, negative, CVE, fuzz |
@@ -259,6 +261,7 @@ Where the harness cannot verify something, it says "unverified." It never turns 
 - **Generated tests are provenance** and **candidates for the standard suite.**
 - **The harness retires tests as well as writing them.** Proposes, never deletes.
 - **Reuse before building.** Every stage but the assembly already has a maintained open source component.
+- **The harness tests itself first.** Every observed failure mode becomes a register entry with a self-check that runs on every pipeline run.
 
 ---
 
