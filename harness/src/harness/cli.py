@@ -49,7 +49,7 @@ def cmd_analyze(a: argparse.Namespace) -> int:
 
 def cmd_selfcheck(a: argparse.Namespace) -> int:
     from . import selfcheck
-    rec = selfcheck.run(a.workdir, a.python_version, probes=not a.no_probes)
+    rec = selfcheck.run(a.workdir, a.python_version, probes=not a.no_probes, sandbox_only=a.sandbox_only)
     if a.workdir:
         print(a.workdir / "selfcheck" / "selfcheck.json")
     return 0 if rec["passed"] else 3
@@ -104,6 +104,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--workdir", type=Path, default=None)
     s.add_argument("--python-version", default="3.12")
     s.add_argument("--no-probes", action="store_true", help="register checks only; skip the sandbox and model probes")
+    s.add_argument("--sandbox-only", action="store_true", help="only the sandbox probe, run from inside the execute pod")
     s.set_defaults(func=cmd_selfcheck)
 
     s = sub.add_parser("intake", help="stage 1: resolve graphs at base and head, diff, pre-flight, work list")

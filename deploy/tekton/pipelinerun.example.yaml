@@ -1,0 +1,23 @@
+# A run. Copy, fill the image digest and the repository, and `oc create -f`. The model endpoint comes
+# from a Secret in the namespace (see secret.example.yaml); nothing about a machine is in this repo.
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: ai-test-harness-
+spec:
+  pipelineRef: { name: ai-test-harness }
+  params:
+    - { name: image, value: "quay.io/example/ai-test-harness@sha256:REPLACE" }
+    - { name: repo-url, value: "https://github.com/example/my-application.git" }
+    - { name: base, value: main }
+    - { name: head, value: deps/fix-known-vulns }
+    - { name: select, value: ["python-jose"] }
+    - { name: udlm-repo-url, value: "https://github.com/croadfeldt/udlm.git" }
+  workspaces:
+    - name: results
+      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 5Gi } } } }
+    - name: source
+      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 1Gi } } } }
+    - name: udlm
+      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 1Gi } } } }
+  timeouts: { pipeline: 4h }
