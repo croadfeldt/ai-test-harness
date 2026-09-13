@@ -28,7 +28,7 @@ spec:
     - { name: image, type: string }
     - { name: stage, type: string }
     - { name: args, type: array, default: [] }
-    - { name: model-secret, type: string, default: "" }
+    - { name: model-secret, type: string, description: "every stage gets the same secret; an empty secretRef name is rejected by the API server" }
   workspaces: [{ name: shared }]
   steps:
     - name: run
