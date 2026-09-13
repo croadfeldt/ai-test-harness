@@ -54,6 +54,7 @@
             "harness_image_digest": "local-dev (not a container build)",
             "harness_version": "0.1.0",
             "model_endpoint": "laptop-lmstudio",
+            "model_endpoint_digest": "sha256:657141afb9ad95bf",
             "model_id": "qwen/qwen3.8-27b",
             "pipeline_run": [
               "intake",
@@ -137,11 +138,24 @@
           ],
           "tests_promoted": [],
           "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/starlette/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
           "unverified": [
             "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
-            "harness image digest: harness ran from a checkout, not a built image"
+            "harness image digest: harness ran from a checkout, not a built image",
+            "sandbox image digest: not recorded at run time; the image is pinned by tag only"
           ],
           "vex_drafts": [
             {
@@ -202,7 +216,7 @@
           ]
         },
         "digest": {
-          "sha256": "22d61d0c0514c84926c741d6c51b837eb70a71bc2bf829a26ab7c4ab1bb8c7ec"
+          "sha256": "fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98"
         },
         "name": "ai-test-harness-record"
       }
@@ -243,9 +257,45 @@
     },
     {
       "digest": {
-        "sha256": "22d61d0c0514c84926c741d6c51b837eb70a71bc2bf829a26ab7c4ab1bb8c7ec"
+        "sha256": "fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98"
       },
       "name": "attest/starlette/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "1e1bc6a4fde98fa0d578f99efde97fadd4cae607d7f0550124e486f991d847e9"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-cookie-parser-basic@intent"
+    },
+    {
+      "digest": {
+        "sha256": "f5a7bab10e8a9c0525c682bbadc8229072160585d623679f93f2be61dd621f9a"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-exposure@intent"
+    },
+    {
+      "digest": {
+        "sha256": "8830983fe20553bb2dfa6d96b878b6c67f10fb107fe019be15b1f109e2384607"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "0a2f9244dddfef3c8e8211b5cc54791ad9f0ac98e9e99fc612b874a7a80106b4"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-json-response-renders-json@intent"
+    },
+    {
+      "digest": {
+        "sha256": "0d1a5b1062a7491f3ada16a3863cc2cc7cff435dae8e04b9d70d505b3013d249"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-response-status-and-body@intent"
+    },
+    {
+      "digest": {
+        "sha256": "84d38b2b86ee325e89ed381ec404c57725b3f9a28a2050131471cffd3eefc447"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/starlette-test-simple-user-authenticated@intent"
     }
   ]
 }

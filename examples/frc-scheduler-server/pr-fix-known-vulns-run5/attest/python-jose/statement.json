@@ -42,6 +42,7 @@
             "harness_image_digest": "local-dev (not a container build)",
             "harness_version": "0.1.0",
             "model_endpoint": "laptop-lmstudio",
+            "model_endpoint_digest": "sha256:657141afb9ad95bf",
             "model_id": "qwen/qwen3.8-27b",
             "pipeline_run": [
               "intake",
@@ -131,11 +132,24 @@
           ],
           "tests_promoted": [],
           "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/python-jose/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
           "unverified": [
             "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
-            "harness image digest: harness ran from a checkout, not a built image"
+            "harness image digest: harness ran from a checkout, not a built image",
+            "sandbox image digest: not recorded at run time; the image is pinned by tag only"
           ],
           "vex_drafts": [
             {
@@ -172,7 +186,7 @@
           ]
         },
         "digest": {
-          "sha256": "d44fa3bd7c667f6ac79c1b78b2e2d12574019b998547ff2dbabee91b23746814"
+          "sha256": "0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855"
         },
         "name": "ai-test-harness-record"
       }
@@ -206,9 +220,51 @@
     },
     {
       "digest": {
-        "sha256": "d44fa3bd7c667f6ac79c1b78b2e2d12574019b998547ff2dbabee91b23746814"
+        "sha256": "0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855"
       },
       "name": "attest/python-jose/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "3f106ccf23847e69746149796f2288867917c59ba37894adf3f367bb6ad4de84"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent"
+    },
+    {
+      "digest": {
+        "sha256": "77f2fd43530f6309ed6e3b7fc328925d5ae62fba3033c0d63135709a504d1e12"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "472d8009dd83675a9955a8a0804959ffaa1674afffbeb146200c2720cc04eee7"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expiredsignatureerro@intent"
+    },
+    {
+      "digest": {
+        "sha256": "d06b8c55416392bdb0232cf022bae49e1ac9af5513414071028a485ee048e36a"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwterror@intent"
+    },
+    {
+      "digest": {
+        "sha256": "690957d9cc83dc35836e8a6be9440d957750ff426ed48fb2ca821873ca3283a3"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip@intent"
+    },
+    {
+      "digest": {
+        "sha256": "3e9037e5b695fc736a4d35d9c814cb802bc83c2b4081a54153cfdf33d3b2ce77"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims@intent"
+    },
+    {
+      "digest": {
+        "sha256": "dc5924c785b151317b9a34ad853a54a4739b96e2b54b12cf078aad8dc4959b19"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header@intent"
     }
   ]
 }

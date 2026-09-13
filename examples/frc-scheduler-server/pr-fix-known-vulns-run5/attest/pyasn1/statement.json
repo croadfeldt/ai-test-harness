@@ -48,6 +48,7 @@
             "harness_image_digest": "local-dev (not a container build)",
             "harness_version": "0.1.0",
             "model_endpoint": "laptop-lmstudio",
+            "model_endpoint_digest": "sha256:657141afb9ad95bf",
             "model_id": "qwen/qwen3.8-27b",
             "pipeline_run": [
               "intake",
@@ -155,11 +156,24 @@
           ],
           "tests_promoted": [],
           "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/pyasn1/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
           "unverified": [
             "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
-            "harness image digest: harness ran from a checkout, not a built image"
+            "harness image digest: harness ran from a checkout, not a built image",
+            "sandbox image digest: not recorded at run time; the image is pinned by tag only"
           ],
           "vex_drafts": [
             {
@@ -202,7 +216,7 @@
           ]
         },
         "digest": {
-          "sha256": "64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069"
+          "sha256": "898053da155df83f81c7a3837bcca3fd4e08c00ccd328571d4cdaa68741deb9f"
         },
         "name": "ai-test-harness-record"
       }
@@ -241,9 +255,69 @@
     },
     {
       "digest": {
-        "sha256": "64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069"
+        "sha256": "898053da155df83f81c7a3837bcca3fd4e08c00ccd328571d4cdaa68741deb9f"
       },
       "name": "attest/pyasn1/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "3cfadc6db6e3a582b627914e4f0af460d9624be17e62ba5d265305931d1ac9df"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-debug-is-callable@intent"
+    },
+    {
+      "digest": {
+        "sha256": "fd19be53e12f16bf90cc32c1687836aa6ad62fbf9513a41bcf2e9d4446f0d876"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-exposure@intent"
+    },
+    {
+      "digest": {
+        "sha256": "ef7e72302d191ed09d8d633b23e831ed8bba39988a22b21cd47f99dacb7b8eaf"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "6db7d66db148aec6d5d60512c14cc4e23da6ba28f70ce4946fcab6c7d239b241"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-hexdump-empty-bytes@intent"
+    },
+    {
+      "digest": {
+        "sha256": "86e42bd3a7a892532993543e08d23bf0b0740ac01dc4b3db4be0a416fc0a696d"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-printer-is-callable@intent"
+    },
+    {
+      "digest": {
+        "sha256": "3086c14523067ad8ce9b1aece7b68989b7ef213b2ce4a94ca47435f36376ceff"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-pyasn1error-is-exception-subclass@intent"
+    },
+    {
+      "digest": {
+        "sha256": "2ecf3fae930432e8fd21ac347fbe2689e546128100a2263ef425964b1665741d"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-pyasn1unicode-error-is-unicode-error-subclass@intent"
+    },
+    {
+      "digest": {
+        "sha256": "fe49d87693c88f4dee75f739153fa7cc038b2bd21026fa598453bca0304e651f"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-setlogger-returns-none@intent"
+    },
+    {
+      "digest": {
+        "sha256": "351f0e0a345d43ec9b766d1f9aa9d934b93b1d1c7c504a72a23ca41ffaf7678a"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-substrate-underrun-error-is-pyasn1error-subclass@intent"
+    },
+    {
+      "digest": {
+        "sha256": "7fa80ce8e87262bf881b2de13469fc525ca6aa85771c5dbdc635199e4c58fb3c"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/pyasn1-test-value-constraint-error-is-pyasn1error-subclass@intent"
     }
   ]
 }

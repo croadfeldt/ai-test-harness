@@ -1,0 +1,35 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-13T15:34:54+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-76a3fa863e76@realized": "sha256:0f72c4cc3f918ee4073b05d616010e499e4faab8680e7a8c16084682fc29d7cf",
+    "lab/knowledge/software-package/starlette-0-41-3@discovered": "sha256:c98bc35858045f9859869ea70685528cbbbb73c35f800341a561b514c4604fb9",
+    "lab/knowledge/test-evidence/starlette-test-cookie-parser-basic@intent": "sha256:1e1bc6a4fde98fa0d578f99efde97fadd4cae607d7f0550124e486f991d847e9",
+    "lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-exposure@intent": "sha256:f5a7bab10e8a9c0525c682bbadc8229072160585d623679f93f2be61dd621f9a",
+    "lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-fix-pinning@intent": "sha256:8830983fe20553bb2dfa6d96b878b6c67f10fb107fe019be15b1f109e2384607",
+    "lab/knowledge/test-evidence/starlette-test-json-response-renders-json@intent": "sha256:0a2f9244dddfef3c8e8211b5cc54791ad9f0ac98e9e99fc612b874a7a80106b4",
+    "lab/knowledge/test-evidence/starlette-test-response-status-and-body@intent": "sha256:0d1a5b1062a7491f3ada16a3863cc2cc7cff435dae8e04b9d70d505b3013d249",
+    "lab/knowledge/test-evidence/starlette-test-simple-user-authenticated@intent": "sha256:84d38b2b86ee325e89ed381ec404c57725b3f9a28a2050131471cffd3eefc447",
+    "lab/knowledge/vulnerability/cve-2025-54121@discovered": "sha256:52756cc0b6ebbc39366d1f5b887a59bd386649b522d4eb4fec8ea88555edd654",
+    "lab/knowledge/vulnerability/cve-2025-62727@discovered": "sha256:c9b347d303b70f1eebc2ca4c6cc30995168709acd02d6f5052a56580612aafbb",
+    "lab/knowledge/vulnerability/cve-2026-48710@discovered": "sha256:37efde2933fa30fd181e3d2602ca82c9e5520145d0dae44144c29f535a017d69",
+    "lab/knowledge/vulnerability/cve-2026-48817@discovered": "sha256:51a4d1b500b2d42fd21a59c1fb642a6e477b41238d4d0ddb47d8da8e3d353d70",
+    "lab/knowledge/vulnerability/cve-2026-48818@discovered": "sha256:294e6d1345eabdb44edc07a2d533f9d61453095441c904971a94f7c68680720f",
+    "lab/knowledge/vulnerability/cve-2026-54282@discovered": "sha256:fee277bf7a1ca3a726595ad2d0c83a0b529fac3b69c7a21a50803de52f861de9",
+    "lab/knowledge/vulnerability/cve-2026-54283@discovered": "sha256:aa834ed8db28b019ed3edf65fa240463341599ef2573aef9c8d09298e3aa3d41"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

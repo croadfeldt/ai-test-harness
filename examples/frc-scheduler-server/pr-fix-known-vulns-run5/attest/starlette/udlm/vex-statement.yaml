@@ -1,0 +1,206 @@
+# UDLM vex-statement records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 8802033a-7a60-4234-ae59-330f95d78e68
+record_uuid: 01a09b68-3c5c-72c2-9eae-fada68b23277
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2025-54121-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2025-54121
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.47.2']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 802aa165-989e-4d8a-a076-e114ffea4647
+record_uuid: 01a09b68-3c5c-72c2-9eae-fadbf3d6b978
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2025-62727-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2025-62727
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.49.1']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 68d097b6-6614-4202-b491-5c619df4085d
+record_uuid: 01a09b68-3c5c-72c2-9eae-fadc845e3da2
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-54283-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-54283
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: 'exposure test(s) [''test_ghsa_82w8_qh3p_5jfq_exposure'', ''test_ghsa_82w8_qh3p_5jfq_fix_pinning'']
+    fail on pkg:pypi/starlette@0.41.3 and pass on pkg:pypi/starlette@0.41.3: the change introduces this exposure'
+  evidence_refs:
+  - estate/lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-exposure
+  - estate/lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-fix-pinning
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 040ea24d-acad-477c-9e7f-0dea13dd994e
+record_uuid: 01a09b68-3c5c-72c2-9eae-fadd79fd227e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-48710-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-48710
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['1.0.1']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: fb01c399-5614-4155-9422-48c75964f0df
+record_uuid: 01a09b68-3c5c-72c2-9eae-fade7ff2217c
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-54282-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-54282
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['1.3.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 31293bd7-c40e-4ca4-a783-97a62a880e4a
+record_uuid: 01a09b68-3c5c-72c2-9eae-fadff967e3ef
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-48818-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-48818
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['1.1.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: d52ece3b-8949-4982-9d3d-0872108b802b
+record_uuid: 01a09b68-3c5c-72c2-9eae-fae0735c357f
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-48817-starlette
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-48817
+  software_package_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['1.1.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'

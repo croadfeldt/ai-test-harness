@@ -1,0 +1,262 @@
+# UDLM test-evidence records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: e509289b-e9c1-41ae-8087-4b5f87a56992
+record_uuid: 01a09b68-3c5b-72cd-99f6-409fe95e041e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/starlette-test-cookie-parser-basic
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_cookie_parser_basic::0ebd72960612
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_unit.py
+  file_digest: sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:1e1bc6a4fde98fa0d578f99efde97fadd4cae607d7f0550124e486f991d847e9
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: f9bde1ee-0f07-4d91-9523-2fc239f8c2ee
+record_uuid: 01a09b68-3c5b-72cd-99f6-40a071cf9685
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence.VulnerabilityCheck.AiTestHarness
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence.VulnerabilityCheck.AiTestHarness/0.1.0
+handle: lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-exposure
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_ghsa_82w8_qh3p_5jfq_exposure::cff378923492
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: security
+  result:
+    outcome: failed
+    duration_ms: 3
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_cve_cve_2026_54283.py
+  file_digest: sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-54283
+  vulnerability_role: exposure
+  version_range: ==0.41.3
+  source_version: requirements.txt@cfa8f4a3292b
+  call_sites:
+  - app/main.py
+  validation:
+    baseline_pass: false
+    coverage_delta: 0.0
+    differential: changed
+    flake_runs: 2
+    mutants_killed: 0
+    unique_mutants_killed: 0
+  vex_statement_ref: estate/lab/knowledge/vex-statement/cve-2026-54283-starlette
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:f5a7bab10e8a9c0525c682bbadc8229072160585d623679f93f2be61dd621f9a
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: f90dee53-3d6d-4a2b-9caf-d623c3d1aad3
+record_uuid: 01a09b68-3c5b-72cd-99f6-40a1c7d24f7e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence.VulnerabilityCheck.AiTestHarness
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence.VulnerabilityCheck.AiTestHarness/0.1.0
+handle: lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-fix-pinning
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_ghsa_82w8_qh3p_5jfq_fix_pinning::cff378923492
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: security
+  result:
+    outcome: failed
+    duration_ms: 8
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_cve_cve_2026_54283.py
+  file_digest: sha256:cff378923492ee5743dcd0bb2b411b7fb943ebc05b9f160135692c684f9dca57
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-54283
+  vulnerability_role: fix-pinning
+  version_range: ==0.41.3
+  source_version: requirements.txt@cfa8f4a3292b
+  call_sites:
+  - app/main.py
+  validation:
+    baseline_pass: false
+    coverage_delta: 0.0
+    differential: changed
+    flake_runs: 2
+    mutants_killed: 0
+    unique_mutants_killed: 0
+  vex_statement_ref: estate/lab/knowledge/vex-statement/cve-2026-54283-starlette
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:8830983fe20553bb2dfa6d96b878b6c67f10fb107fe019be15b1f109e2384607
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: fccf9ff5-cf95-46fa-b6ef-6f487e98d513
+record_uuid: 01a09b68-3c5b-72cd-99f6-40a24af5626f
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/starlette-test-json-response-renders-json
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_json_response_renders_json::0ebd72960612
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_unit.py
+  file_digest: sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:0a2f9244dddfef3c8e8211b5cc54791ad9f0ac98e9e99fc612b874a7a80106b4
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: c839cb7b-fab6-418c-a168-7b318faf8581
+record_uuid: 01a09b68-3c5c-72c2-9eae-fad8b3c4bf8e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/starlette-test-response-status-and-body
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_response_status_and_body::0ebd72960612
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_unit.py
+  file_digest: sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:0d1a5b1062a7491f3ada16a3863cc2cc7cff435dae8e04b9d70d505b3013d249
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 6d20e3c4-5559-497f-859d-fe76928b5c84
+record_uuid: 01a09b68-3c5c-72c2-9eae-fad9f60d9010
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/starlette-test-simple-user-authenticated
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  test_id: starlette::test_simple_user_authenticated::0ebd72960612
+  subject_ref: estate/lab/knowledge/software-package/starlette-0-41-3
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/starlette/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_starlette_unit.py
+  file_digest: sha256:0ebd7296061200637b82a7ec09f47aabed97964e216a8b7ece922164c27d4f9f
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T04:29:47Z'
+integrity:
+  head: sha256:84d38b2b86ee325e89ed381ec404c57725b3f9a28a2050131471cffd3eefc447
+  previous: null
+  algorithm: sha256-jcs

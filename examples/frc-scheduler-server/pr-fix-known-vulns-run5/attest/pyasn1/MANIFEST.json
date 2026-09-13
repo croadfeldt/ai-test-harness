@@ -13,11 +13,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -55,11 +56,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "agent: see manifest.agent.json",
         "run_id": "76a3fa863e76",
@@ -107,11 +109,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "agent: see manifest.agent.json",
         "run_id": "76a3fa863e76",
@@ -159,11 +162,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -201,11 +205,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -243,11 +248,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -285,11 +291,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -327,11 +334,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -369,11 +377,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",
@@ -411,11 +420,12 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T14:56:09+00:00"
+        "state_changed_at": "2026-09-13T15:34:54+00:00"
       },
       "run": {
         "execution_target": "podman",
-        "image_digest": "docker.io/library/python:3.12-slim",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "unknown: digest not recorded at run time",
         "model_id": "qwen/qwen3.8-27b",
         "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
         "run_id": "76a3fa863e76",

@@ -1,12 +1,18 @@
 {
   "envelope": "attest/starlette/statement.dsse.json",
-  "generated": "2026-09-13T14:56:09+00:00",
+  "generated": "2026-09-13T15:34:54+00:00",
   "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
   "manifest": "attest/starlette/MANIFEST.json",
-  "manifest_sha256": "sha256:22d61d0c0514c84926c741d6c51b837eb70a71bc2bf829a26ab7c4ab1bb8c7ec",
+  "manifest_sha256": "sha256:fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98",
   "package": "starlette",
   "records": 6,
   "result": "PASSED",
   "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
-  "statement": "attest/starlette/statement.json"
+  "statement": "attest/starlette/statement.json",
+  "udlm": {
+    "index": "attest/starlette/udlm/index.json",
+    "schema_problems": 0,
+    "sealed": true,
+    "subjects": 6
+  }
 }

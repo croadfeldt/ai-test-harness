@@ -1,43 +1,61 @@
 {
-  "generated": "2026-09-13T14:56:09+00:00",
+  "generated": "2026-09-13T15:34:54+00:00",
   "packages": [
     {
       "envelope": "attest/pyasn1/statement.dsse.json",
-      "generated": "2026-09-13T14:56:09+00:00",
+      "generated": "2026-09-13T15:34:54+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/pyasn1/MANIFEST.json",
-      "manifest_sha256": "sha256:64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069",
+      "manifest_sha256": "sha256:898053da155df83f81c7a3837bcca3fd4e08c00ccd328571d4cdaa68741deb9f",
       "package": "pyasn1",
       "records": 10,
       "result": "PASSED",
       "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
       "statement": "attest/pyasn1/statement.json",
+      "udlm": {
+        "index": "attest/pyasn1/udlm/index.json",
+        "schema_problems": 0,
+        "sealed": true,
+        "subjects": 10
+      },
       "verified_locally": true
     },
     {
       "envelope": "attest/python-jose/statement.dsse.json",
-      "generated": "2026-09-13T14:56:09+00:00",
+      "generated": "2026-09-13T15:34:54+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/python-jose/MANIFEST.json",
-      "manifest_sha256": "sha256:d44fa3bd7c667f6ac79c1b78b2e2d12574019b998547ff2dbabee91b23746814",
+      "manifest_sha256": "sha256:0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855",
       "package": "python-jose",
       "records": 7,
       "result": "PASSED",
       "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
       "statement": "attest/python-jose/statement.json",
+      "udlm": {
+        "index": "attest/python-jose/udlm/index.json",
+        "schema_problems": 0,
+        "sealed": true,
+        "subjects": 7
+      },
       "verified_locally": true
     },
     {
       "envelope": "attest/starlette/statement.dsse.json",
-      "generated": "2026-09-13T14:56:09+00:00",
+      "generated": "2026-09-13T15:34:54+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/starlette/MANIFEST.json",
-      "manifest_sha256": "sha256:22d61d0c0514c84926c741d6c51b837eb70a71bc2bf829a26ab7c4ab1bb8c7ec",
+      "manifest_sha256": "sha256:fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98",
       "package": "starlette",
       "records": 6,
       "result": "PASSED",
       "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
       "statement": "attest/starlette/statement.json",
+      "udlm": {
+        "index": "attest/starlette/udlm/index.json",
+        "schema_problems": 0,
+        "sealed": true,
+        "subjects": 6
+      },
       "verified_locally": true
     }
   ]

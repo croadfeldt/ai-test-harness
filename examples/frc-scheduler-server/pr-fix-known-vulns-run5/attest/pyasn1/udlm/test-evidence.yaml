@@ -1,0 +1,416 @@
+# UDLM test-evidence records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 4ab663a3-5fc5-4313-85ec-1121ff741512
+record_uuid: 01a09b68-3bb9-7302-b0db-878990a8cb81
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-debug-is-callable
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_debug_is_callable::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:3cfadc6db6e3a582b627914e4f0af460d9624be17e62ba5d265305931d1ac9df
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 7d318689-701c-4c55-8afb-fdb4feeed771
+record_uuid: 01a09b68-3bb9-7302-b0db-878a7c5b62f9
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence.VulnerabilityCheck.AiTestHarness
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence.VulnerabilityCheck.AiTestHarness/0.1.0
+handle: lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-exposure
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_ghsa_jr27_m4p2_rc6r_exposure::fc7615226dd2
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: security
+  result:
+    outcome: failed
+    duration_ms: 48
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_cve_cve_2026_30922.py
+  file_digest: sha256:fc7615226dd23e4dd0dc021f132c7e20a6430300b3bda8386d95a2606e004481
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-30922
+  vulnerability_role: exposure
+  version_range: ==0.4.8
+  source_version: requirements.txt@cfa8f4a3292b
+  call_sites: []
+  validation:
+    baseline_pass: false
+    coverage_delta: 0.0
+    differential: changed
+    flake_runs: 2
+    mutants_killed: 0
+    unique_mutants_killed: 0
+  vex_statement_ref: estate/lab/knowledge/vex-statement/cve-2026-30922-pyasn1
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:fd19be53e12f16bf90cc32c1687836aa6ad62fbf9513a41bcf2e9d4446f0d876
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: b9a960a8-e072-475c-8ee7-219fa9b0b013
+record_uuid: 01a09b68-3bb9-7302-b0db-878bf93492e9
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence.VulnerabilityCheck.AiTestHarness
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence.VulnerabilityCheck.AiTestHarness/0.1.0
+handle: lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-fix-pinning
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_ghsa_jr27_m4p2_rc6r_fix_pinning::fc7615226dd2
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: security
+  result:
+    outcome: failed
+    duration_ms: 43
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_cve_cve_2026_30922.py
+  file_digest: sha256:fc7615226dd23e4dd0dc021f132c7e20a6430300b3bda8386d95a2606e004481
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-30922
+  vulnerability_role: fix-pinning
+  version_range: ==0.4.8
+  source_version: requirements.txt@cfa8f4a3292b
+  call_sites: []
+  validation:
+    baseline_pass: false
+    coverage_delta: 0.0
+    differential: changed
+    flake_runs: 2
+    mutants_killed: 0
+    unique_mutants_killed: 0
+  vex_statement_ref: estate/lab/knowledge/vex-statement/cve-2026-30922-pyasn1
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:ef7e72302d191ed09d8d633b23e831ed8bba39988a22b21cd47f99dacb7b8eaf
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: d7d29fda-34f3-4ff5-829f-731fb3fdd020
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1a839d60aa
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-hexdump-empty-bytes
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_hexdump_empty_bytes::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:6db7d66db148aec6d5d60512c14cc4e23da6ba28f70ce4946fcab6c7d239b241
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 7ceb416d-0ddf-47d7-ac2d-811c7592f338
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1b17f3c991
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-printer-is-callable
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_printer_is_callable::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:86e42bd3a7a892532993543e08d23bf0b0740ac01dc4b3db4be0a416fc0a696d
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: cad6ac64-eda7-4c51-a55f-2daae5ec581b
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1ce04025d8
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-pyasn1error-is-exception-subclass
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_pyasn1error_is_exception_subclass::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:3086c14523067ad8ce9b1aece7b68989b7ef213b2ce4a94ca47435f36376ceff
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: db58f87e-654c-4785-9dae-52128dc7a077
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1dffe4d949
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-pyasn1unicode-error-is-unicode-error-subclass
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_pyasn1unicode_error_is_unicode_error_subclass::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:2ecf3fae930432e8fd21ac347fbe2689e546128100a2263ef425964b1665741d
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: f61bdf7b-5fd2-4a79-9215-c4f3cad6c7e6
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1e9180545e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-setlogger-returns-none
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_setlogger_returns_none::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:fe49d87693c88f4dee75f739153fa7cc038b2bd21026fa598453bca0304e651f
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 360c1c56-7593-446f-822e-4fe2c87a7d19
+record_uuid: 01a09b68-3bba-7604-a5ee-0e1f1f1f2bf0
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-substrate-underrun-error-is-pyasn1error-subclass
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_substrate_underrun_error_is_pyasn1error_subclass::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:351f0e0a345d43ec9b766d1f9aa9d934b93b1d1c7c504a72a23ca41ffaf7678a
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: e53660e6-da14-40d2-b6ea-d705a6f1fe76
+record_uuid: 01a09b68-3bba-7604-a5ee-0e20036a2672
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/pyasn1-test-value-constraint-error-is-pyasn1error-subclass
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  test_id: pyasn1::test_value_constraint_error_is_pyasn1error_subclass::0463752cd4d6
+  subject_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/pyasn1/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-76a3fa863e76
+  file_path: tests/test_pyasn1_unit.py
+  file_digest: sha256:0463752cd4d64baf70c529e2e866cd8ce926fbcbc05b9defef37e51f27257b17
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+integrity:
+  head: sha256:7fa80ce8e87262bf881b2de13469fc525ca6aa85771c5dbdc635199e4c58fb3c
+  previous: null
+  algorithm: sha256-jcs

@@ -126,11 +126,24 @@
           ],
           "tests_promoted": [],
           "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/python-jose/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
           "unverified": [
             "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
-            "harness image digest: harness ran from a checkout, not a built image"
+            "harness image digest: harness ran from a checkout, not a built image",
+            "sandbox image digest: not recorded at run time; the image is pinned by tag only"
           ],
           "vex_drafts": [
             {
@@ -169,7 +182,7 @@
           ]
         },
         "digest": {
-          "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
+          "sha256": "4668d8026f0e8f8e22774901848231d3e3eef641455953304fe6caced9d48151"
         },
         "name": "ai-test-harness-record"
       }
@@ -202,9 +215,51 @@
     },
     {
       "digest": {
-        "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
+        "sha256": "4668d8026f0e8f8e22774901848231d3e3eef641455953304fe6caced9d48151"
       },
       "name": "attest/python-jose/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "2d38b57cda2a5729b5d2b27f66d8529bd5831a7b641163706b3b5bdbeac9003c"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "21ba46e22c8bfc738dd267038a73c8864e5c76209ff6dcc5ffffedfd50832b03"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent"
+    },
+    {
+      "digest": {
+        "sha256": "7a70ed7479dc0f8ee3315176e267b1ead73af6452666d6f6ff24e0045c0b8acf"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "9694b6921e4bd5eb92e3ea8a29fe036f3936c8374bf022477dd61147fc86cec9"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@intent"
+    },
+    {
+      "digest": {
+        "sha256": "2a8345da366ebfe87187e3aa5afa1b1b4fe95d69332ecc3818a69afef2cb1867"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-roundtrip-hs256@intent"
+    },
+    {
+      "digest": {
+        "sha256": "7324a782be935ee87227d825fa91f19add7ec06abc98bb2144d78a93f3cc82ed"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@intent"
+    },
+    {
+      "digest": {
+        "sha256": "bbd74dbeb5cab4683d5bf93be9596315011ee2f0a56fe9c5737ad4c296b19237"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-encode-hs256-structure@intent"
     }
   ]
 }

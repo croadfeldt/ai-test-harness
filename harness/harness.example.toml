@@ -20,3 +20,12 @@ python_version = "3.12"
 
 [sandbox]
 image = "docker.io/library/python:3.12-slim"   # recorded by tag and by digest
+
+[udlm]
+# Records in UDLM form (TestEvidence, VexStatement, Vulnerability, SoftwarePackage, Job) are emitted by
+# `harness attest`. Sealing uses UDLM's own chain code from a local checkout of croadfeldt/udlm.
+repo = "../../udlm"                            # env: HARNESS_UDLM_REPO; path on this machine, never recorded
+estate = "example"                             # handle prefix for the records this install emits
+tenant_uuid = "00000000-0000-4000-8000-000000000000"   # the tenant the records belong to
+provider_handle = "example/providers/ai-test-harness"  # how this harness names itself as a provenance source
+time_source = "harness-clock"

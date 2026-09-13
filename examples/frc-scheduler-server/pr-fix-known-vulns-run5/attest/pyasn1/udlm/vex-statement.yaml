@@ -1,0 +1,119 @@
+# UDLM vex-statement records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 388af825-4f67-494f-92de-d9c0aded7d91
+record_uuid: 01a09b68-3bbb-717b-8722-bc075abb6dc8
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-59885-pyasn1
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-59885
+  software_package_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  status: under_investigation
+  status_notes: open at head; reachable=unknown; fixed in ['0.6.4']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 5969d89f-f8ec-4bf6-ba01-8b969f997470
+record_uuid: 01a09b68-3bbb-717b-8722-bc089582ed71
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-59886-pyasn1
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-59886
+  software_package_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  status: under_investigation
+  status_notes: open at head; reachable=unknown; fixed in ['0.6.4']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 84e9de1a-d957-4f8d-b8dc-fb08e3525847
+record_uuid: 01a09b68-3bbb-717b-8722-bc09b997ab19
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-30922-pyasn1
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-30922
+  software_package_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  status: affected
+  status_notes: 'exposure test(s) [''test_ghsa_jr27_m4p2_rc6r_fix_pinning'', ''test_ghsa_jr27_m4p2_rc6r_exposure'']
+    fail on pkg:pypi/pyasn1@0.4.8 and pass on pkg:pypi/pyasn1@0.6.4: the change introduces this exposure'
+  evidence_refs:
+  - estate/lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-exposure
+  - estate/lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-fix-pinning
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 06bf0c02-f1e0-4a23-94e1-572a966ca160
+record_uuid: 01a09b68-3bbb-717b-8722-bc0ae71f6964
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-59884-pyasn1
+at: '2026-09-13T02:40:04Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-59884
+  software_package_ref: estate/lab/knowledge/software-package/pyasn1-0-4-8
+  status: under_investigation
+  status_notes: open at head; reachable=unknown; fixed in ['0.6.4']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T02:40:04Z'

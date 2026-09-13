@@ -185,7 +185,10 @@ sequenceDiagram
 ## Provenance and SLSA
 
 Every input the harness reads is already attested by Konflux. Every output the harness produces is
-attested by Konflux too, with an additional in-toto predicate carrying the test-evidence record. The
+attested by Konflux too, with an additional in-toto predicate carrying the test-evidence record. That
+record is a UDLM record: the test, the package, the vulnerability, the run, and the draft VEX statement
+are records in the Unified Data Lifecycle Model with its own tamper-evident head, and the signed
+statement names those heads as its subjects. The
 harness's own code, prompts, images, and models are built and attested the same way. Conforma verifies
 the chain and emits a Verification Summary Attestation.
 
