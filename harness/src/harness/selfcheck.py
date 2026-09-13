@@ -190,6 +190,16 @@ def gf018():
     assert base_name("tests.test_x::test_a[1-2]") == "test_a" and base_name("test_b") == "test_b"
 
 
+@check("GF-019", "reasoning leaking into content is detected and the call falls back to thinking off")
+def gf019():
+    from .llm import reasoning_leak
+    assert reasoning_leak("We need answer user's request: write pytest tests. Need think thoroughly. We need produce 10 unit tests" + " ok" * 200)
+    assert not reasoning_leak("```python\ndef test_a():\n    assert 1 == 1\n```")
+    assert not reasoning_leak("")
+    src = inspect.getsource(__import__("harness.llm", fromlist=["x"]).Model.chat)
+    assert "thinking_fallback" in src
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute

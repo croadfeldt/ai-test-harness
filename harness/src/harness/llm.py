@@ -77,6 +77,7 @@ def discover_model(base_url: str, api_key: str | None) -> str:
 class Model:
     def __init__(self, cfg: ModelConfig, record_dir: Path):
         self.cfg, self.record_dir, self.calls = cfg, record_dir, 0
+        self.thinking_unsupported = False
         record_dir.mkdir(parents=True, exist_ok=True)
 
     def chat(self, system: str, user: str, tag: str, max_tokens: int | None = None) -> tuple[str, dict]:
@@ -117,6 +118,26 @@ class Model:
                         break
         except Exception as e:
             raise HarnessError(f"model call failed ({tag}): {e}") from e
+        thinking_fallback = False
+        if self.cfg.thinking and (reasoning_leak(text) or finish == "loop_detected") and not getattr(self, "_in_fallback", False):
+            # GF-019: the serving layer is not separating reasoning from the answer. Retry once with
+            # thinking off and say so in the record; the endpoint is reported as not supporting thinking.
+            self._in_fallback = True
+            try:
+                saved = self.cfg.chat_template_kwargs
+                self.cfg.chat_template_kwargs = {"enable_thinking": False}
+                text2, rec2 = self.chat(system, user, tag + "-nothink", max_tokens)
+            finally:
+                self.cfg.chat_template_kwargs = saved
+                self._in_fallback = False
+            rec2["thinking_fallback"] = {"from_call": self.calls + 1, "reason": "reasoning leaked into content" if reasoning_leak(text) else finish}
+            self.thinking_unsupported = True
+            write_json(self.record_dir / f"{rec2['call']:03d}-{tag}-nothink.json", rec2)
+            self.calls += 1
+            write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", {"tag": tag, "call": self.calls, "finish_reason": finish,
+                       "reasoning_leak": reasoning_leak(text), "response_chars": len(text), "superseded_by": rec2["call"]})
+            (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
+            return text2, rec2
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.base_url, "model": model_id,
                   "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
@@ -190,6 +211,15 @@ class Model:
         (self.record_dir / f"{self.calls:03d}-{tag}.response.json").write_text(json.dumps(msg, indent=1))
         write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
         return msg, record
+
+
+def reasoning_leak(text: str) -> bool:
+    """GF-019. True when a response is reasoning prose rather than an answer: long, no code fence,
+    and opening the way chain-of-thought does."""
+    if not text or "```" in text:
+        return False
+    head = text.lstrip()[:200].lower()
+    return len(text) > 600 and any(head.startswith(p) for p in ("we need", "we must", "the user", "let me", "let's", "first,", "okay", "i need"))
 
 
 def _looping(text: str, window: int = 120, repeats: int = 4) -> bool:
