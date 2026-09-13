@@ -1,0 +1,77 @@
+# One Tekton Task per harness stage. All run the harness image and share the `results` workspace.
+# Konflux mapping: intake reads Hermeto's graph and SBOM from the snapshot; here it resolves them
+# itself. Signing: the attest task signs with the key it is given; Trusted Artifact Signer in Konflux.
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: harness-selfcheck
+spec:
+  description: "Stage 0: failure-register checks and the model probe. Fails closed. The sandbox probe runs inside the execute pod, where the isolation actually is."
+  params:
+    - { name: image, type: string }
+    - { name: model-secret, type: string, description: "Secret with HARNESS_MODEL_BASE_URL, HARNESS_MODEL, optional HARNESS_MODEL_API_KEY" }
+  workspaces: [{ name: results }]
+  steps:
+    - name: selfcheck
+      image: $(params.image)
+      envFrom: [{ secretRef: { name: $(params.model-secret) } }]
+      env: [{ name: HARNESS_SANDBOX_TARGET, value: pod }, { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }]
+      args: ["selfcheck", "--workdir", "$(workspaces.results.path)/run"]
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: harness-stage
+spec:
+  description: "Any stage that needs the network (intake, analyze, generate, triage, packet, attest, assess, relevance): runs one harness subcommand against the shared work directory and the cloned target repository."
+  params:
+    - { name: image, type: string }
+    - { name: stage, type: string }
+    - { name: args, type: array, default: [] }
+    - { name: model-secret, type: string, default: "" }
+  workspaces: [{ name: results }, { name: source }, { name: udlm, optional: true }]
+  steps:
+    - name: run
+      image: $(params.image)
+      envFrom: [{ secretRef: { name: $(params.model-secret), optional: true } }]
+      env:
+        - { name: HARNESS_SANDBOX_TARGET, value: pod }
+        - { name: HARNESS_TARGET_REPO, value: $(workspaces.source.path) }
+        - { name: HARNESS_UDLM_REPO, value: $(workspaces.udlm.path) }
+      args: ["$(params.stage)", "--workdir", "$(workspaces.results.path)/run", "$(params.args[*])"]
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: harness-execute
+  labels: { ai-test-harness/sandbox: "true" }
+spec:
+  description: "Stage 4: generated tests run in THIS pod. The pod is the sandbox: deny-all NetworkPolicy (by label), no service-account token, read-only root, limits; the first step proves it from inside before any generated code runs. Kata or gVisor via a RuntimeClass where available."
+  params:
+    - { name: image, type: string }
+    - { name: select, type: array, default: [] }
+  workspaces: [{ name: results }]
+  podTemplate:
+    automountServiceAccountToken: false
+    securityContext: { runAsNonRoot: true, seccompProfile: { type: RuntimeDefault } }
+  stepTemplate:
+    env:
+      - { name: HARNESS_SANDBOX_TARGET, value: pod }
+      - { name: HARNESS_WORK_TMP, value: /workspace/tmp }
+      - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.results.path)/run/cache/wheelhouse/probe }
+    securityContext: { readOnlyRootFilesystem: true, allowPrivilegeEscalation: false, capabilities: { drop: [ALL] } }
+    computeResources: { limits: { memory: 2Gi, cpu: "2" }, requests: { memory: 512Mi, cpu: 500m } }
+    volumeMounts: [{ name: tmp, mountPath: /workspace/tmp }, { name: home, mountPath: /tmp }]
+  volumes:
+    - { name: tmp, emptyDir: { sizeLimit: 2Gi } }
+    - { name: home, emptyDir: { sizeLimit: 256Mi } }
+  steps:
+    - name: prove-isolation
+      image: $(params.image)
+      args: ["selfcheck", "--sandbox-only", "--workdir", "$(workspaces.results.path)/run"]
+    - name: execute
+      image: $(params.image)
+      args: ["execute", "--workdir", "$(workspaces.results.path)/run", "--select", "$(params.select[*])"]
+    - name: mutate
+      image: $(params.image)
+      args: ["mutate", "--workdir", "$(workspaces.results.path)/run", "--select", "$(params.select[*])"]

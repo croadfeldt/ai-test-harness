@@ -218,10 +218,10 @@ def gf012():
 
 def probe_sandbox(python_version: str) -> dict:
     """Runs the isolation probe inside the real sandbox. Skipped, not failed, when podman is absent."""
-    if not tool_available("podman"):
+    from . import sandbox
+    if sandbox.TARGET != "pod" and not tool_available("podman"):
         return {"status": "skipped", "reason": "podman not installed"}
     import tempfile
-    from . import sandbox
     tmp = Path(tempfile.mkdtemp(prefix="harness-selfcheck-"))
     (tmp / "tests").mkdir()
     (tmp / "tests" / "test_probe.py").write_text(
@@ -230,7 +230,9 @@ def probe_sandbox(python_version: str) -> dict:
         "def test_no_secrets_in_env():\n    assert not [k for k in os.environ if any(x in k.upper() for x in ('TOKEN','SECRET','PASSWORD','KEY'))]\n"
         "def test_rootfs_read_only():\n    with pytest.raises(OSError):\n        open('/usr/harness-probe', 'w')\n"
         "def test_offline_install_worked():\n    import six\n")
-    wh = sandbox.prefetch_wheelhouse(["six==1.17.0"], python_version, tmp / "wh")
+    import os
+    pre = os.environ.get("HARNESS_PROBE_WHEELHOUSE")   # a deny-all pod cannot download; a networked stage prefetched it
+    wh = Path(pre) if pre and (Path(pre) / ".complete").exists() else sandbox.prefetch_wheelhouse(["six==1.17.0"], python_version, tmp / "wh")
     s = sandbox.run_tests(wheelhouse=wh, requirements=["six==1.17.0"], tests_dir=tmp / "tests", out_dir=tmp / "out", cover=["six"], label="selfcheck")
     r = sandbox.parse_junit(Path(s["junit"])) if s["junit"] else {}
     statuses = {k.split("::")[-1]: v["status"] for k, v in r.items()}
@@ -257,7 +259,15 @@ def probe_model() -> dict:
         return {"status": "fail", "error": str(e)[:300]}
 
 
-def run(workdir: Path | None, python_version: str = "3.12", probes: bool = True) -> dict:
+def run(workdir: Path | None, python_version: str = "3.12", probes: bool = True, sandbox_only: bool = False) -> dict:
+    """sandbox_only: the execute pod's own probe; register checks and the model probe ran in the selfcheck task."""
+    if sandbox_only:
+        rec = {"stage": 0, "generated": now_iso(), "checks": [], "sandbox": probe_sandbox(python_version), "model": {"status": "skipped", "reason": "sandbox-only probe"}}
+        rec["passed"] = rec["sandbox"]["status"] == "pass"; rec["failed"] = [] if rec["passed"] else ["sandbox"]
+        log(f"  probe sandbox (in this pod): {rec['sandbox']['status']}")
+        if workdir:
+            write_json(workdir / "selfcheck" / "selfcheck-sandbox.json", rec)
+        return rec
     results = []
     for gf_id, title, fn in CHECKS:
         try:
@@ -267,8 +277,11 @@ def run(workdir: Path | None, python_version: str = "3.12", probes: bool = True)
             results.append({"id": gf_id, "title": title, "status": "fail", "detail": str(e)[:300]})
         except Exception as e:
             results.append({"id": gf_id, "title": title, "status": "fail", "detail": f"{type(e).__name__}: {e}"[:300]})
+    import os
+    skip_sb = os.environ.get("HARNESS_SELFCHECK_SKIP_SANDBOX") == "1"   # the sandbox probe runs inside the execute pod instead
     record = {"stage": 0, "generated": now_iso(), "checks": results,
-              "sandbox": probe_sandbox(python_version) if probes else {"status": "skipped", "reason": "probes disabled"},
+              "sandbox": (probe_sandbox(python_version) if probes and not skip_sb else
+                          {"status": "skipped", "reason": "runs inside the execute pod" if skip_sb else "probes disabled"}),
               "model": probe_model() if probes else {"status": "skipped", "reason": "probes disabled"}}
     failed = [r["id"] for r in results if r["status"] != "pass"]
     for name in ("sandbox", "model"):

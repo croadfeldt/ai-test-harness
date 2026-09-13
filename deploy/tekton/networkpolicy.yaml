@@ -1,0 +1,12 @@
+# The execute task's pod is the sandbox. This policy denies every connection from any pod carrying the
+# sandbox label, including DNS; the probe step inside the pod proves it before generated code runs.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ai-test-harness-sandbox-deny-all
+spec:
+  podSelector:
+    matchLabels: { tekton.dev/task: harness-execute }
+  policyTypes: [Ingress, Egress]
+  ingress: []
+  egress: []

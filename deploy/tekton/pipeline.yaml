@@ -1,0 +1,75 @@
+# The harness as one PipelineRun: stage 0 first, fail closed; the execute task pod is the sandbox.
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: ai-test-harness
+spec:
+  params:
+    - { name: image, type: string, description: "the harness image, by digest" }
+    - { name: repo-url, type: string, description: "the target repository" }
+    - { name: base, type: string, default: main }
+    - { name: head, type: string }
+    - { name: select, type: array, default: [] , description: "packages to generate for; empty = every changed or vulnerable row" }
+    - { name: model-secret, type: string, default: harness-model }
+    - { name: udlm-repo-url, type: string, default: "" }
+  workspaces: [{ name: results }, { name: source }, { name: udlm }]
+  tasks:
+    - name: clone
+      taskRef: { resolver: cluster, params: [{ name: kind, value: task }, { name: name, value: git-clone }, { name: namespace, value: openshift-pipelines }] }
+      workspaces: [{ name: output, workspace: source }]
+      params: [{ name: URL, value: $(params.repo-url) }, { name: REVISION, value: $(params.head) }, { name: DEPTH, value: "0" }]
+    - name: clone-udlm
+      taskRef: { resolver: cluster, params: [{ name: kind, value: task }, { name: name, value: git-clone }, { name: namespace, value: openshift-pipelines }] }
+      workspaces: [{ name: output, workspace: udlm }]
+      params: [{ name: URL, value: $(params.udlm-repo-url) }, { name: DEPTH, value: "1" }]
+      when: [{ input: $(params.udlm-repo-url), operator: notin, values: [""] }]
+    - name: selfcheck
+      taskRef: { name: harness-selfcheck }
+      params: [{ name: image, value: $(params.image) }, { name: model-secret, value: $(params.model-secret) }]
+      workspaces: [{ name: results, workspace: results }]
+    - name: intake
+      runAfter: [selfcheck, clone]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: intake }, { name: args, value: ["--base", "$(params.base)", "--head", "$(params.head)"] }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: analyze
+      runAfter: [intake]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: analyze }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: generate
+      runAfter: [analyze]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: generate }, { name: model-secret, value: $(params.model-secret) },
+               { name: args, value: ["--mode", "agent", "--categories", "cve", "unit", "--select", "$(params.select[*])"] }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: execute
+      runAfter: [generate]
+      taskRef: { name: harness-execute }
+      params: [{ name: image, value: $(params.image) }, { name: select, value: ["$(params.select[*])"] }]
+      workspaces: [{ name: results, workspace: results }]
+    - name: relevance
+      runAfter: [execute]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: relevance }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: triage
+      runAfter: [relevance]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: triage }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: packet
+      runAfter: [triage]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: packet }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]
+    - name: attest
+      runAfter: [packet, clone-udlm]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: attest }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }, { name: udlm, workspace: udlm }]
+    - name: assess
+      runAfter: [attest]
+      taskRef: { name: harness-stage }
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: assess }]
+      workspaces: [{ name: results, workspace: results }, { name: source, workspace: source }]

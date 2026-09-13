@@ -60,6 +60,8 @@ harness/
   tests/                     Unit tests for the parts that need no network
 examples/
   frc-scheduler-server/      Two runs against a real FastAPI service: a scheduled rescan and a dependency-fix PR
+deploy/tekton/
+  tasks.yaml, pipeline.yaml  The harness as a Tekton PipelineRun; the execute pod is the sandbox
 tools/
   build-site.py              Builds a single-page HTML site from docs/ and blueprint/ into site/ (git-ignored)
   site.css, site.js          Styling and audience-path navigation for that page

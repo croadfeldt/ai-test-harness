@@ -1,0 +1,11 @@
+# The harness as a container image, for the Tekton pipeline. One image runs every stage; the execute
+# task runs it as the sandbox pod itself (deny-all network, no service-account token, read-only root).
+FROM docker.io/library/python:3.12-slim
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /opt/harness
+COPY pyproject.toml README.md ./
+COPY src ./src
+RUN pip install --no-cache-dir . && harness --version
+# The UDLM checkout for sealing records is mounted or cloned at run time ([udlm].repo); not baked in.
+ENV HARNESS_SANDBOX_TARGET=pod
+ENTRYPOINT ["harness"]

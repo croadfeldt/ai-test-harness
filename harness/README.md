@@ -59,6 +59,14 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/harness assess --workdir out/run1
 ```
 
+## On a cluster
+
+`deploy/tekton/` runs the same stages as one Tekton PipelineRun: stage 0 first, then intake through
+the post-analysis, with the execute task's pod as the sandbox (deny-all network policy, no
+service-account token, read-only root, a probe from inside before any generated code runs). The
+image is built from `Containerfile`. Set `HARNESS_SANDBOX_TARGET=pod` to use the in-pod sandbox
+outside Tekton too. See `deploy/tekton/README.md`.
+
 ## Work directory layout
 
 ```
