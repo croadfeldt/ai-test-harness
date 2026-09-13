@@ -14,6 +14,6 @@ Packages: pyasn1, python-jose, starlette.
 | G6 | Every accepted test carries a provenance record and a signed attestation | 23 records; envelopes verified locally: [True, True, True]; signer is a development key | **met (development signer)** |
 | G7 | Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement | pyasn1: {'CVE-2026-30922': 'affected', 'CVE-2026-59884': 'under_investigation', 'CVE-2026-59885': 'under_investigation', 'CVE-2026-59886': 'under_investigation' | **met** |
 | G8 | The run surfaces a finding the PR diff does not show | pyasn1: ['pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories', 'pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown', 'pyasn1: a  | **met** |
-| G9 | Packet within 2 hours of trigger for depth 0 and 1 | intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T13:17:26+00:00 | **see measurement** |
+| G9 | Packet within 2 hours of trigger for depth 0 and 1 | intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T16:25:41+00:00 | **see measurement** |
 | G10 | Every number in the packet points at a file in the work directory | packet sections cite artifact paths; attestation subjects are the patch and the manifest digests | **met** |
 | G11 | Test strength measured by mutation and coverage delta | pyasn1: score 0.417 on 12 sampled mutants; python-jose: score 0.417 on 12 sampled mutants; starlette: score 0.0 on 12 sampled mutants; coverage delta: no baseli | **not met (target 0.6 on sampled mutants)** |

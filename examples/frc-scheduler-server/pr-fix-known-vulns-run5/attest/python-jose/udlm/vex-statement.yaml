@@ -3,7 +3,7 @@
 record_type: intent_record
 state: Intent
 entity_uuid: df5b4d01-a69a-41ba-80ba-5d2951e472d5
-record_uuid: 01a09b68-3c2d-752f-89d6-4943d910fd1f
+record_uuid: 01a09b96-bb01-7730-b55b-ba895f778bcb
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: VexStatement
@@ -32,7 +32,7 @@ provenance:
 record_type: intent_record
 state: Intent
 entity_uuid: c42b1391-06d6-4fe6-9595-006202093113
-record_uuid: 01a09b68-3c2d-752f-89d6-4944c3670e40
+record_uuid: 01a09b96-bb01-7730-b55b-ba8aecc30ed0
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: VexStatement
@@ -45,7 +45,7 @@ fields:
   vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2024-33664
   software_package_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
   status: fixed
-  status_notes: fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_fix_pinning', 'test_ghsa_cjwg_qfpm_7377_exposure']
+  status_notes: fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_exposure', 'test_ghsa_cjwg_qfpm_7377_fix_pinning']
     fail on pkg:pypi/python-jose@3.3.0 and pass on pkg:pypi/python-jose@3.4.0
   evidence_refs:
   - estate/lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure
@@ -64,7 +64,7 @@ provenance:
 record_type: intent_record
 state: Intent
 entity_uuid: e945b09f-b9cb-4064-91c4-95d1e8440dab
-record_uuid: 01a09b68-3c2d-752f-89d6-4945b57b0033
+record_uuid: 01a09b96-bb01-7730-b55b-ba8b7b3c68b6
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: VexStatement

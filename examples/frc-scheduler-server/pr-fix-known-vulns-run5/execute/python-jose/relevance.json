@@ -1,0 +1,139 @@
+{
+  "api_changes_considered": {
+    "added": 3,
+    "breaking_changed": 0,
+    "removed": 0
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 0,
+    "redundant": 4,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 11
+  },
+  "generated": "2026-09-13T16:25:40+00:00",
+  "horizon": "this change",
+  "package": "python-jose",
+  "proposals": [
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m009",
+          "m010",
+          "m012"
+        ],
+        "killed": [
+          "m001",
+          "m010"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_decode_expired_raises_expiredsignatureerror"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_decode_wrong_key_raises_jwterror",
+      "text": "test_jwt_decode_wrong_key_raises_jwterror's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m009",
+          "m010",
+          "m012"
+        ],
+        "killed": [
+          "m001",
+          "m010"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_decode_expired_raises_expiredsignatureerror"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_get_unverified_header",
+      "text": "test_jwt_get_unverified_header's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m009",
+          "m010",
+          "m012"
+        ],
+        "killed": [
+          "m001",
+          "m010"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_decode_expired_raises_expiredsignatureerror"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_get_unverified_claims",
+      "text": "test_jwt_get_unverified_claims's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m003",
+          "m009",
+          "m010",
+          "m012"
+        ],
+        "killed": [
+          "m001",
+          "m009",
+          "m010",
+          "m012"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_encode_decode_roundtrip"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_decode_expired_raises_expiredsignatureerror",
+      "text": "test_jwt_decode_expired_raises_expiredsignatureerror's 4 mutant kill(s) are all among test_jwt_encode_decode_roundtrip's 5"
+    }
+  ],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}

@@ -75,6 +75,12 @@ def cmd_mutate(a: argparse.Namespace) -> int:
     print(a.workdir / "execute" / "mutation-summary.json"); return 0
 
 
+def cmd_relevance(a: argparse.Namespace) -> int:
+    from .stages.relevance import relevance
+    relevance(workdir=a.workdir, select=a.select, python_version=a.python_version)
+    print(a.workdir / "execute" / "relevance-summary.json"); return 0
+
+
 def cmd_triage(a: argparse.Namespace) -> int:
     from .stages.triage import triage
     triage(workdir=a.workdir, select=a.select); print(a.workdir / "triage" / "summary.json"); return 0
@@ -143,6 +149,12 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--python-version", default="3.12")
     s.add_argument("--sample", type=int, default=25)
     s.set_defaults(func=cmd_mutate)
+
+    s = sub.add_parser("relevance", help="stage 4 step 7: which existing tests this change makes obsolete or redundant; proposals only")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--python-version", default="3.12")
+    s.set_defaults(func=cmd_relevance)
 
     for name, fn, help_ in (("triage", cmd_triage, "stage 5: classify every verdict and finding with confidence and routing"),
                             ("packet", cmd_packet, "stage 6: review packet, tests as an overlay patch, draft OpenVEX"),

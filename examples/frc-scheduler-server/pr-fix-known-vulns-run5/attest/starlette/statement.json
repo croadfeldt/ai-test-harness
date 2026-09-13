@@ -28,6 +28,36 @@
               "confidence": 0.8,
               "evidence_ref": "generate/starlette/manifest.agent.json",
               "summary": "starlette: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-48817)"
+            },
+            {
+              "class": "obsolete",
+              "confidence": 0.85,
+              "evidence_ref": "execute/starlette/relevance.json",
+              "summary": "starlette: test_ghsa_jp82_jpqv_5vv3_exposure references starlette.requests.Request, which the upgrade to 1.3.1 changes the required parameters of"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/starlette/relevance.json",
+              "summary": "starlette: test_simple_user_authenticated killed none of 12 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/starlette/relevance.json",
+              "summary": "starlette: test_cookie_parser_basic killed none of 12 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/starlette/relevance.json",
+              "summary": "starlette: test_response_status_and_body killed none of 12 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/starlette/relevance.json",
+              "summary": "starlette: test_json_response_renders_json killed none of 12 sampled mutants in this run"
             }
           ],
           "inputs": {
@@ -216,7 +246,7 @@
           ]
         },
         "digest": {
-          "sha256": "fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98"
+          "sha256": "a81ee67a3b4d12aa6a6e786c6f2f1ca1969e98fca06fd0274a740016f719130c"
         },
         "name": "ai-test-harness-record"
       }
@@ -257,43 +287,43 @@
     },
     {
       "digest": {
-        "sha256": "fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98"
+        "sha256": "a81ee67a3b4d12aa6a6e786c6f2f1ca1969e98fca06fd0274a740016f719130c"
       },
       "name": "attest/starlette/MANIFEST.json"
     },
     {
       "digest": {
-        "sha256": "1e1bc6a4fde98fa0d578f99efde97fadd4cae607d7f0550124e486f991d847e9"
+        "sha256": "c61fd4582d9638e3b35d71b43e7a736ae6ccd3a9059d419a98ed9b900efff507"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-cookie-parser-basic@intent"
     },
     {
       "digest": {
-        "sha256": "f5a7bab10e8a9c0525c682bbadc8229072160585d623679f93f2be61dd621f9a"
+        "sha256": "cb6fc0d46f3502d20d199e68b8f880a13cc0575a9c60e1e22fdc2ffb6f2f8785"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-exposure@intent"
     },
     {
       "digest": {
-        "sha256": "8830983fe20553bb2dfa6d96b878b6c67f10fb107fe019be15b1f109e2384607"
+        "sha256": "8d6a652252e10b14a51d816120afd01a75c3eabdc6631cb18fbd4a266b9f18c7"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-ghsa-82w8-qh3p-5jfq-fix-pinning@intent"
     },
     {
       "digest": {
-        "sha256": "0a2f9244dddfef3c8e8211b5cc54791ad9f0ac98e9e99fc612b874a7a80106b4"
+        "sha256": "4a38b18345741636ac08e187b721ff900904808ac10889b45590b86e70e89c83"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-json-response-renders-json@intent"
     },
     {
       "digest": {
-        "sha256": "0d1a5b1062a7491f3ada16a3863cc2cc7cff435dae8e04b9d70d505b3013d249"
+        "sha256": "7d63e0be6e2dc73da05d106d59fe45e39ef81db45f4c386a1962dd9a67d6e328"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-response-status-and-body@intent"
     },
     {
       "digest": {
-        "sha256": "84d38b2b86ee325e89ed381ec404c57725b3f9a28a2050131471cffd3eefc447"
+        "sha256": "f47c8cea9e41a0d13afc4f04ae16c2d82995962f531728c2fc67db58a4973510"
       },
       "name": "udlm:lab/knowledge/test-evidence/starlette-test-simple-user-authenticated@intent"
     }

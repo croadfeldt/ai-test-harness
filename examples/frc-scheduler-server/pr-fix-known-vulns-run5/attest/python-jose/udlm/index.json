@@ -7,20 +7,20 @@
     "vex-statement": "vex-statement.yaml",
     "vulnerability": "vulnerability.yaml"
   },
-  "generated": "2026-09-13T15:34:54+00:00",
+  "generated": "2026-09-13T16:25:41+00:00",
   "heads": {
-    "lab/jobs/ai-test-harness-run-76a3fa863e76@realized": "sha256:7e62bd6101ba4b4089b1b59951d720bd7456975a8b47c56283802e70912d9449",
-    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:b8cae94b9d408880a486d9cbe5ac379b487d8dcbcb7511a126cc4edfcb015b53",
-    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent": "sha256:3f106ccf23847e69746149796f2288867917c59ba37894adf3f367bb6ad4de84",
-    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent": "sha256:77f2fd43530f6309ed6e3b7fc328925d5ae62fba3033c0d63135709a504d1e12",
-    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expiredsignatureerro@intent": "sha256:472d8009dd83675a9955a8a0804959ffaa1674afffbeb146200c2720cc04eee7",
-    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwterror@intent": "sha256:d06b8c55416392bdb0232cf022bae49e1ac9af5513414071028a485ee048e36a",
-    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip@intent": "sha256:690957d9cc83dc35836e8a6be9440d957750ff426ed48fb2ca821873ca3283a3",
-    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims@intent": "sha256:3e9037e5b695fc736a4d35d9c814cb802bc83c2b4081a54153cfdf33d3b2ce77",
-    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header@intent": "sha256:dc5924c785b151317b9a34ad853a54a4739b96e2b54b12cf078aad8dc4959b19",
-    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:d655e98fec896bbb6477388f9189bc9375679bf754bbbdbd381e9e923cf8d010",
-    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:b0f9380b53f04c8e4c67fc8a19e244cee694deac094624582a0a4d5754878141",
-    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:ae07c3d8761c12d1ed5010033d9a341d2a69521dad659b747826b47bec638ff1"
+    "lab/jobs/ai-test-harness-run-76a3fa863e76@realized": "sha256:31244a6d8621908efbf049b6bfaff038f9b7c9c1939e05045323fcb7d4e46e8d",
+    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:c6ff563c7142c3a2bed5851542744e68294364b7631a8b62f525dcca8e4bd472",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent": "sha256:3011196e95206025c45b8c978c9cf0734bc8cb9df1314c6d0e3c858c0eeb3efd",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent": "sha256:3bf687c39dcfd100e57f89130073366d0ca105070fe1f627c66d51d44b90e9b8",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expiredsignatureerro@intent": "sha256:beaa966e0ab9e3d676009e974a2c5e033d4e0a1034715efcaf20ab8ba99576c1",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwterror@intent": "sha256:c2361618efe158ecc697729ac8d392d8520662ac915c17b47e08350a140c0e66",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip@intent": "sha256:04c029022207bdd32b0de31133b221ecbca80b6d70fc29eccfb29071fc6f52f8",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims@intent": "sha256:fb83cf686e9b5597f94376a62f528599d6c98ab0dfe7bdf7a78a6d56c8df445a",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header@intent": "sha256:b9a2482df432f2f2d0f9bfa14dac8b899d24ff24970ee036e6539f5a763b7619",
+    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:4a00015735c8d3e86aebfaae88f825174bb5f8e951ca403b3919caa7714d6dcc",
+    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:bdb4b9644b9280dd5615cb77eaab1025e2c09f82746c6d616469de7a53d189b2",
+    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:5b9c2849ac280a69d4c2292734236361a0b6dce942a7c76ad18b907d52fac835"
   },
   "schema_validation": {
     "count": 0,

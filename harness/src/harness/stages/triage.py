@@ -109,6 +109,15 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                                  + ("" if corroborated else "; NOT corroborated by stage 4 verdicts"),
                                  f"generate/{pkg}/manifest.agent.json", pkg, reproducer=cd["blocked_paths"][0][:200],
                                  corroborating_tests=[t["name"] for t in corroborated]))
+    # Relevance proposals become obsolete / redundant findings: advisory, never blocking, a person approves.
+    rel_path = workdir / "execute" / pkg / "relevance.json"
+    if rel_path.exists():
+        rel = read_json(rel_path)
+        for pr in rel["proposals"]:
+            conf = 0.85 if pr["reason"] == "obsolete-symbol-removed" else (0.6 if pr["reason"] == "redundant-subsumed" else 0.5)
+            findings.append(_finding(pr["class"], conf, f"{pkg}: {pr['text']}", f"execute/{pkg}/relevance.json", pkg,
+                                     retirement_reason=pr["reason"], test=pr["test"], file=pr["file"], horizon=pr["horizon"],
+                                     rewrite_candidate=pr["rewrite_candidate"], human_written=pr["human_written"], priority=pr["priority"]))
     # Advisory pairing: a confirmed fix-pinning test for one issue is evidence for any other advisory in the same fix.
     confirmed = [t for t in tests if t["action"].startswith("accept as CVE evidence")]
     out = {"package": pkg, "generated": now_iso(), "threshold": THRESHOLD, "findings": findings, "tests": tests,

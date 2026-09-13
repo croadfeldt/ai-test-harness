@@ -1,0 +1,118 @@
+{
+  "api_changes_considered": {
+    "added": 20,
+    "breaking_changed": 6,
+    "removed": 20
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 1,
+    "redundant": 4,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 18
+  },
+  "generated": "2026-09-13T16:25:41+00:00",
+  "horizon": "the upgrade to 1.3.1",
+  "package": "starlette",
+  "proposals": [
+    {
+      "class": "obsolete",
+      "evidence": {
+        "api_change": "starlette.requests.Request",
+        "kind": "required parameters changed",
+        "line": 33,
+        "symbol": "starlette.requests.Request"
+      },
+      "file": "test_starlette_cve_cve_2026_54282.py",
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": false,
+      "population": "generated",
+      "priority": "normal",
+      "reason": "obsolete-symbol-removed",
+      "rewrite_candidate": false,
+      "test": "test_ghsa_jp82_jpqv_5vv3_exposure",
+      "text": "test_ghsa_jp82_jpqv_5vv3_exposure references starlette.requests.Request, which the upgrade to 1.3.1 changes the required parameters of"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_starlette_unit.py",
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_simple_user_authenticated",
+      "text": "test_simple_user_authenticated killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_starlette_unit.py",
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_cookie_parser_basic",
+      "text": "test_cookie_parser_basic killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_starlette_unit.py",
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_response_status_and_body",
+      "text": "test_response_status_and_body killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_starlette_unit.py",
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_json_response_renders_json",
+      "text": "test_json_response_renders_json killed none of 12 sampled mutants in this run"
+    }
+  ],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}

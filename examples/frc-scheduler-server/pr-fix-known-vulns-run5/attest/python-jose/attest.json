@@ -1,9 +1,9 @@
 {
   "envelope": "attest/python-jose/statement.dsse.json",
-  "generated": "2026-09-13T15:34:54+00:00",
+  "generated": "2026-09-13T16:25:41+00:00",
   "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
   "manifest": "attest/python-jose/MANIFEST.json",
-  "manifest_sha256": "sha256:0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855",
+  "manifest_sha256": "sha256:eb1402f57298c05b3184849295a7ec2907dcff408ed2f3744eb11a30d008fb34",
   "package": "python-jose",
   "records": 7,
   "result": "PASSED",

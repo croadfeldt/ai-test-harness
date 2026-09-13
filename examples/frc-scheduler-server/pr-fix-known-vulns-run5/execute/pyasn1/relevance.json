@@ -1,0 +1,168 @@
+{
+  "api_changes_considered": {
+    "added": 50,
+    "breaking_changed": 4,
+    "removed": 142
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 0,
+    "redundant": 8,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 16
+  },
+  "generated": "2026-09-13T16:25:40+00:00",
+  "horizon": "this change",
+  "package": "pyasn1",
+  "proposals": [
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_printer_is_callable",
+      "text": "test_printer_is_callable killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_debug_is_callable",
+      "text": "test_debug_is_callable killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_setlogger_returns_none",
+      "text": "test_setlogger_returns_none killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_hexdump_empty_bytes",
+      "text": "test_hexdump_empty_bytes killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_pyasn1error_is_exception_subclass",
+      "text": "test_pyasn1error_is_exception_subclass killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_value_constraint_error_is_pyasn1error_subclass",
+      "text": "test_value_constraint_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_substrate_underrun_error_is_pyasn1error_subclass",
+      "text": "test_substrate_underrun_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 12,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_pyasn1_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_pyasn1unicode_error_is_unicode_error_subclass",
+      "text": "test_pyasn1unicode_error_is_unicode_error_subclass killed none of 12 sampled mutants in this run"
+    }
+  ],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}
