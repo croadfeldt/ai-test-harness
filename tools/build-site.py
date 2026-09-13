@@ -20,7 +20,8 @@ OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 AUDIENCES = [
     ("exec", "Executive", "CEO, managing director, board", ["00"], "5 min"),
     ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "07"], "20 min"),
-    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "bp"], "2 h"),
+    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "bp", "hi", "ex"], "2 h"),
+    ("proof", "See it work", "Anyone who wants the evidence", ["ex", "hi"], "15 min"),
     ("public", "Public", "Journalist, student, customer", ["00", "08"], "10 min"),
 ]
 
@@ -81,6 +82,19 @@ for path in DOCS:
     sections.append(f'<section class="doc" id="doc-{num}"><div class="eyebrow">Document {num}</div>'
                     f'<h1>{html.escape(title)}</h1>{body}</section>')
 
+# The implementation and the example write-ups, as documents after the docs
+for extra_num, extra_path, extra_title in (("hi", ROOT / "harness" / "README.md", "The implementation"),
+                                            ("ex", ROOT / "examples" / "frc-scheduler-server" / "README.md", "Example: frc-scheduler-server")):
+    text = extra_path.read_text()
+    body, toc = convert(text, extra_num)
+    body = re.sub(r"<h1[^>]*>.*?</h1>", "", body, count=1)
+    sub = "".join(f'<li><a href="#{t["id"]}">{html.escape(t["name"])}</a></li>'
+                  for t in (toc[0]["children"] if toc else []) if t["level"] == 2)
+    nav.append(f'<li data-doc="{extra_num}"><a href="#doc-{extra_num}"><span class="num">{extra_num}</span>{html.escape(extra_title)}</a>'
+               f'<ul class="sub">{sub}</ul></li>')
+    sections.append(f'<section class="doc" id="doc-{extra_num}"><div class="eyebrow">{"Layer 2" if extra_num == "hi" else "Layer 3"}</div>'
+                    f'<h1>{html.escape(extra_title)}</h1>{body}</section>')
+
 # Blueprint files
 bp_parts = []
 for path in sorted((ROOT / "blueprint").iterdir()):
@@ -109,10 +123,22 @@ aud_cards = "".join(
 CSS = (ROOT / "tools" / "site.css").read_text()
 JS = (ROOT / "tools" / "site.js").read_text()
 
-page = f"""<title>AI Test Harness</title>
+page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Test Harness</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:ital,wght@0,400;0,500;1,400&family=Red+Hat+Mono:wght@400;500&display=swap">
 <style>{CSS}</style>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", securityLevel: "strict" }});
+</script>
+</head>
+<body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
 <nav class="rail" aria-label="Documents">
@@ -123,7 +149,7 @@ page = f"""<title>AI Test Harness</title>
     <div class="aud-list">{aud_cards}</div>
     <div class="rail-label">Documents</div>
     <ol class="docs">{"".join(nav)}</ol>
-    <div class="rail-foot">Diagrams are Mermaid. Slide deck and sources live in the repository.</div>
+    <div class="rail-foot"><a href="https://github.com/croadfeldt/ai-test-harness">Repository on GitHub</a>. Slides: <a href="slides/deck.md">deck.md</a>. Diagram sources under <a href="diagrams/">diagrams/</a>.</div>
   </div>
 </nav>
 <main id="main">
@@ -138,6 +164,8 @@ page = f"""<title>AI Test Harness</title>
 </main>
 </div>
 <script>{JS}</script>
+</body>
+</html>
 """
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(page)
