@@ -88,7 +88,7 @@ exit $rc
     (out_dir / "stdout.log").write_text(stdout)
     (out_dir / "stderr.log").write_text(stderr)
     summary = {
-        "label": label, "image": image, "returncode": rc, "timed_out": timed_out,
+        "label": label, "image": image, "image_digest": image_digest(image), "returncode": rc, "timed_out": timed_out,
         "duration_s": round(time.time() - started, 1), "install_failed": "INSTALL_FAILED" in stdout,
         "isolation": {"network": "none", "capabilities": "all dropped", "no_new_privileges": True, "rootfs": "read-only",
                       "secrets": "none mounted; environment cleared with env -i", "limits": limits, "disposable": True},
@@ -98,6 +98,18 @@ exit $rc
     }
     write_json(out_dir / "sandbox.json", summary)
     return summary
+
+
+_DIGESTS: dict[str, str | None] = {}
+
+
+def image_digest(image: str) -> str | None:
+    """The sha256 digest of the local image, so a provenance claim pins bytes, not a tag."""
+    if image not in _DIGESTS:
+        proc = subprocess.run(["podman", "image", "inspect", image, "--format", "{{.Digest}}"], capture_output=True, text=True)
+        d = proc.stdout.strip()
+        _DIGESTS[image] = d if proc.returncode == 0 and d.startswith("sha256:") else None
+    return _DIGESTS[image]
 
 
 def parse_junit(path: Path) -> dict[str, dict]:

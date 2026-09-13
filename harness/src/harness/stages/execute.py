@@ -124,7 +124,7 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
         "selfcheck_ref": "../../selfcheck/selfcheck.json",
         "artifact_digest": None, "generated": now_iso(),
         "target": {"class": "podman", "provisioner": "local podman", "identity": runs["new"]["sandbox"]["image"],
-                   "isolation": runs["new"]["sandbox"]["isolation"]},
+                   "image_digest": runs["new"]["sandbox"].get("image_digest"), "isolation": runs["new"]["sandbox"]["isolation"]},
         "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
         "tests": tests,
         "counts": {"total": len(tests),
