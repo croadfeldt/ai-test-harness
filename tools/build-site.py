@@ -17,6 +17,46 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = sorted((ROOT / "docs").glob("*.md"))
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 
+DECK_CSS = """
+body { margin: 0; background: #F5F7F6; color: #1A222B; font-family: "Red Hat Text", "Helvetica Neue", Arial, sans-serif; }
+@media (prefers-color-scheme: dark) { body { background: #12181D; color: #E4EAE7; } .slide { background: #181F25; border-color: #2C363C; } .nav a { color: #8AD6D1; } }
+.deck { max-width: 62rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+.nav { font-size: .85rem; margin-bottom: 1rem; } .nav a { color: #0A4F4D; }
+.slide { background: #fff; border: 1px solid #D3DAD7; border-radius: 6px; padding: 2rem 2.5rem; margin: 0 0 1.5rem; min-height: 14rem; position: relative; }
+.slide h1 { font-family: "Red Hat Display", "Helvetica Neue", Arial, sans-serif; font-size: 1.7rem; margin: 0 0 1rem; letter-spacing: -.01em; }
+.slide h2 { font-size: 1.15rem; font-weight: 500; color: #5A6772; margin: 0 0 1rem; }
+.slide .n { position: absolute; right: 1rem; bottom: .6rem; font-size: .75rem; color: #5A6772; font-variant-numeric: tabular-nums; }
+.slide table { border-collapse: collapse; width: 100%; font-size: .92rem; } .slide th, .slide td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid #D3DAD7; }
+.slide .mermaid { background: transparent; }
+.slide p, .slide li { line-height: 1.55; } .slide pre { background: #E8EDEB; padding: .8rem; border-radius: 4px; overflow-x: auto; font-size: .82rem; }
+"""
+
+
+def render_deck(md_path: Path, out_path: Path, decks: list[tuple[str, str]]) -> None:
+    """A slide deck as one scrolling page: every '---' becomes a card, Mermaid blocks render."""
+    text = md_path.read_text()
+    if text.startswith("---\n"):
+        text = text.split("\n---\n", 1)[1]           # drop the Marp front matter
+    slides = [s for s in text.split("\n---\n") if s.strip()]
+    cards = []
+    for i, s in enumerate(slides, 1):
+        s = re.sub(r"<!--.*?-->", "", s, flags=re.S)
+        body, _ = convert(s, f"s{i}")
+        cards.append(f'<section class="slide">{body}<span class="n">{i} / {len(slides)}</span></section>')
+    title = re.search(r"^title:\s*(.+)$", md_path.read_text(), re.M)
+    title = title.group(1).strip() if title else md_path.stem
+    nav = " · ".join(f'<a href="{n}.html">{t}</a>' for n, t in decks)
+    out_path.write_text(f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;900&family=Red+Hat+Text:wght@400;500&display=swap">
+<style>{DECK_CSS}</style>
+<script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({{ startOnLoad: true, theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "neutral", securityLevel: "strict" }});</script>
+</head><body><div class="deck"><div class="nav"><a href="../">AI Test Harness</a> · decks: {nav} · <a href="{md_path.name}">markdown source</a></div>
+{"".join(cards)}</div></body></html>
+""")
+
 AUDIENCES = [
     ("exec", "Executive", "CEO, managing director, board", ["00"], "5 min"),
     ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "07"], "20 min"),
@@ -149,7 +189,9 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
     <div class="aud-list">{aud_cards}</div>
     <div class="rail-label">Documents</div>
     <ol class="docs">{"".join(nav)}</ol>
-    <div class="rail-foot"><a href="https://github.com/croadfeldt/ai-test-harness">Repository on GitHub</a>. Slides: <a href="slides/deck.md">deck.md</a>. Diagram sources under <a href="diagrams/">diagrams/</a>.</div>
+    <div class="rail-label">Presentations</div>
+    <ul class="docs decks"><li><a href="slides/executive.html"><span class="num">5m</span>Executives</a></li><li><a href="slides/funding.html"><span class="num">15m</span>Funding decision</a></li><li><a href="slides/builder.html"><span class="num">30m</span>Build or run it</a></li><li><a href="slides/public.html"><span class="num">10m</span>Readers</a></li></ul>
+    <div class="rail-foot"><a href="https://github.com/croadfeldt/ai-test-harness">Repository on GitHub</a>. Diagram sources under <a href="diagrams/">diagrams/</a>.</div>
   </div>
 </nav>
 <main id="main">
@@ -169,4 +211,12 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
 """
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(page)
+DECKS = [("executive", "Executives"), ("funding", "Funding decision"), ("builder", "Build or run it"), ("public", "Readers"), ("deck", "Full deck")]
+slides_out = OUT.parent / "slides"
+slides_out.mkdir(exist_ok=True)
+for name, label in DECKS:
+    src = ROOT / "slides" / f"{name}.md"
+    if src.exists():
+        render_deck(src, slides_out / f"{name}.html", [(n, l) for n, l in DECKS if (ROOT / "slides" / f"{n}.md").exists()])
+        (slides_out / f"{name}.md").write_text(src.read_text())
 print(f"wrote {OUT} ({OUT.stat().st_size // 1024} KB), {len(DOCS)} docs")

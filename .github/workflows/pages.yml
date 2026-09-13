@@ -19,7 +19,7 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install markdown
       - run: python3 tools/build-site.py site/index.html
-      - run: cp -r diagrams site/ && cp -r slides site/
+      - run: cp -r diagrams site/
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }
   deploy:
