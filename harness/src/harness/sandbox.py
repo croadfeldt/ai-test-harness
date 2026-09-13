@@ -145,7 +145,10 @@ exit $rc
     finally:
         shutil.rmtree(work, ignore_errors=True)
     (out_dir / "stdout.log").write_text(stdout); (out_dir / "stderr.log").write_text(stderr)
-    summary = {"label": label, "image": os.environ.get("HARNESS_POD_IMAGE", "the pod's own image"), "image_digest": os.environ.get("HARNESS_POD_IMAGE_DIGEST"),
+    pod_image = os.environ.get("HARNESS_POD_IMAGE", "the pod's own image")
+    # The pipeline references the image by digest, so the reference itself pins the bytes.
+    pod_digest = os.environ.get("HARNESS_POD_IMAGE_DIGEST") or (pod_image.split("@", 1)[1] if "@sha256:" in pod_image else None)
+    summary = {"label": label, "image": pod_image, "image_digest": pod_digest,
                "returncode": rc, "timed_out": timed_out, "duration_s": round(time.time() - started, 1), "install_failed": "INSTALL_FAILED" in stdout,
                "isolation": {"target": "pod", "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
                              "service_account_token": "not mounted (claim)", "rootfs": "read-only (claim)", "secrets": "none mounted; environment cleared for the run",
