@@ -1,0 +1,23 @@
+{
+  "call": 3,
+  "endpoint": "http://10.0.0.122:1234/v1",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 66.5,
+  "max_tokens": 4000,
+  "model": "qwen/qwen3.8-27b",
+  "prompt_sha256": "sha256:f266c508dbba6e5e8093b520f7cad507770441f7c51003ce67b42c32c44cd77e",
+  "reasoning_effort": "none",
+  "response_chars": 1856,
+  "response_sha256": "sha256:f73d27a9e25820f0980245c5ed196d96c0a009ffad050bdc3ddd00103227c510",
+  "tag": "pyasn1-unit-a2",
+  "temperature": 0.2,
+  "usage": {
+    "completion_tokens": 499,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 1673,
+    "total_tokens": 2172
+  }
+}

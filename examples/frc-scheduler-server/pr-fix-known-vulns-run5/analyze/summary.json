@@ -1,19 +1,19 @@
 {
-  "generated": "2026-09-12T03:45:43+00:00",
+  "generated": "2026-09-13T01:35:26+00:00",
   "items": [
     {
-      "breaking": 0,
+      "breaking": 146,
       "budget": "full",
-      "call_sites": 8,
+      "call_sites": 0,
       "change": "bumped",
       "cve_targeted": true,
-      "depth": 1,
-      "new": "3.4.0",
-      "old": "3.3.0",
-      "package": "python-jose",
-      "reachable": "true",
-      "score": 51,
-      "vulns": 0
+      "depth": 2,
+      "new": "0.4.8",
+      "old": "0.6.4",
+      "package": "pyasn1",
+      "reachable": "unknown",
+      "score": 90,
+      "vulns": 8
     }
   ],
   "run_id": "76a3fa863e76"

@@ -1,8 +1,8 @@
 {
   "api_diff_ref": "api-diff.json",
   "api_diff_summary": {
-    "added": 68,
-    "breaking": 118,
+    "added": 90,
+    "breaking": 146,
     "breaking_symbols": [
       "pyasn1.codec.ber.decoder.AbstractConstructedPayloadDecoder",
       "pyasn1.codec.ber.decoder.AbstractPayloadDecoder",
@@ -24,19 +24,19 @@
       "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase",
       "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.indefLenValueDecoder",
       "pyasn1.codec.ber.decoder.ConstructedPayloadDecoderBase.valueDecoder",
+      "pyasn1.codec.ber.decoder.EOO_SENTINEL",
       "pyasn1.codec.ber.decoder.GeneralStringPayloadDecoder",
       "pyasn1.codec.ber.decoder.GeneralizedTimePayloadDecoder",
       "pyasn1.codec.ber.decoder.GraphicStringPayloadDecoder",
       "pyasn1.codec.ber.decoder.IA5StringPayloadDecoder",
       "pyasn1.codec.ber.decoder.IntegerPayloadDecoder",
       "pyasn1.codec.ber.decoder.IntegerPayloadDecoder.valueDecoder",
-      "pyasn1.codec.ber.decoder.NullPayloadDecoder",
-      "pyasn1.codec.ber.decoder.NullPayloadDecoder.valueDecoder",
-      "pyasn1.codec.ber.decoder.NumericStringPayloadDecoder",
-      "pyasn1.codec.ber.decoder.ObjectDescriptorPayloadDecoder"
+      "pyasn1.codec.ber.decoder.MAX_LENGTH_OCTETS",
+      "pyasn1.codec.ber.decoder.MAX_NESTING_DEPTH",
+      "pyasn1.codec.ber.decoder.MAX_OID_ARC_CONTINUATION_OCTETS"
     ],
-    "changed": 4,
-    "removed": 114
+    "changed": 12,
+    "removed": 142
   },
   "api_new_ref": "api.new.json",
   "api_old_ref": "api.old.json",
@@ -54,8 +54,9 @@
     "test": 0
   },
   "change": "bumped",
+  "dependency_import_names": [],
   "depth": 2,
-  "generated": "2026-09-12T02:30:23+00:00",
+  "generated": "2026-09-13T01:35:26+00:00",
   "import_names": [
     "pyasn1"
   ],
@@ -77,9 +78,9 @@
       "unit": 10
     },
     "inputs": {
-      "breaking_changes": 118,
+      "breaking_changes": 146,
       "change": "bumped",
-      "changed_symbols": 4,
+      "changed_symbols": 12,
       "depth": 2,
       "high_severity": true,
       "lines_changed": 3711,
@@ -97,7 +98,7 @@
       "reachability unknown, treated as reachable (+20)",
       "8 known vulnerabilities for this version (+25)",
       "at least one advisory carries a severity rating (+10)",
-      "118 breaking API change(s) (+15)",
+      "146 breaking API change(s) (+15)",
       "3711 source lines changed (+10)",
       "sensitive domain: data-access, parsing (+10)",
       "transitive but reachable or high risk: full generation",
@@ -154,6 +155,8 @@
     ],
     "lines_added": 1480,
     "lines_removed": 2231,
+    "patch_lines": 1501,
+    "patch_ref": "source-diff.patch",
     "tool": "difflib unified, python files only"
   },
   "static_analysis": {

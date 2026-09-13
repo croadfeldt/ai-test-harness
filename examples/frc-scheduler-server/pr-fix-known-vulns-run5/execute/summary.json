@@ -1,15 +1,20 @@
 {
-  "generated": "2026-09-12T06:51:29+00:00",
+  "generated": "2026-09-13T02:40:04+00:00",
   "packages": [
     {
       "behavior_changed": 0,
       "blocked_both_versions": 2,
+      "cve_roles": {
+        "direction": "downgrade",
+        "fixed": "0.6.4",
+        "vulnerable": "0.4.8"
+      },
       "fix_pinning_confirmed": 2,
       "fix_reached_assertion_wrong": 0,
       "flaky": 0,
-      "package": "python-jose",
-      "pass_on_new": 9,
-      "total": 11
+      "package": "pyasn1",
+      "pass_on_new": 12,
+      "total": 16
     }
   ]
 }

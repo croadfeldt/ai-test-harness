@@ -164,6 +164,14 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= bytes((0, 0))",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.EOO_SENTINEL"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(OctetStringPayloadDecoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.ber.decoder.GeneralStringPayloadDecoder"
@@ -207,6 +215,38 @@
       "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
       "reason": "method removed",
       "symbol": "pyasn1.codec.ber.decoder.IntegerPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 8",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.MAX_LENGTH_OCTETS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 100",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.MAX_NESTING_DEPTH"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 20",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.MAX_OID_ARC_CONTINUATION_OCTETS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 20",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.MAX_TAG_OCTETS"
     },
     {
       "breaking": true,
@@ -428,6 +468,30 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= error.SubstrateUnderrunError",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.SubstrateUnderrunError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Integer.tagSet: IntegerPayloadDecoder(), univ.Boolean.tagSet: BooleanPaylo",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Set.typeId: SetPayloadDecoder(), univ.SetOf.typeId: SetOfPayloadDecoder(),",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.TYPE_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(OctetStringPayloadDecoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.ber.decoder.TeletexStringPayloadDecoder"
@@ -476,6 +540,14 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= RawPayloadDecoder()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.decoder.rawPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(AbstractItemEncoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.ber.encoder.RelativeOIDEncoder"
@@ -508,6 +580,30 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= {eoo.endOfOctets.tagSet: EndOfOctetsEncoder(), univ.Boolean.tagSet: BooleanEncod",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.encoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Boolean.typeId: BooleanEncoder(), univ.Integer.typeId: IntegerEncoder(), u",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.ber.encoder.TYPE_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.BitStringPayloadDecoder",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.BitStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(decoder.AbstractSimplePayloadDecoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.cer.decoder.BooleanPayloadDecoder"
@@ -519,6 +615,22 @@
       "old_signature": "(self, substrate, asn1Spec, tagSet=None, length=None, state=None, decodeFun=None, substrateFun=None, **options)",
       "reason": "method removed",
       "symbol": "pyasn1.codec.cer.decoder.BooleanPayloadDecoder.valueDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.OctetStringPayloadDecoder",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.OctetStringPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.RealPayloadDecoder",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.RealPayloadDecoder"
     },
     {
       "breaking": true,
@@ -540,9 +652,49 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= error.SubstrateUnderrunError",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.SubstrateUnderrunError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.TAG_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.TYPE_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.decoder.TYPE_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(encoder.SingleItemEncoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.cer.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= encoder.TAG_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.encoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= encoder.TYPE_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.cer.encoder.TYPE_MAP"
     },
     {
       "breaking": true,
@@ -564,6 +716,14 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= decoder.RealPayloadDecoder",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.der.decoder.RealPayloadDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(decoder.SingleItemDecoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.der.decoder.SingleItemDecoder"
@@ -580,9 +740,41 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= decoder.TAG_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.der.decoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= decoder.TYPE_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.der.decoder.TYPE_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(encoder.SingleItemEncoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.der.encoder.SingleItemEncoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= encoder.TAG_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.der.encoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= encoder.TYPE_MAP.copy()",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.der.encoder.TYPE_MAP"
     },
     {
       "breaking": true,
@@ -644,6 +836,22 @@
       "breaking": true,
       "kind": "removed",
       "new_signature": null,
+      "old_signature": "= {univ.Integer.tagSet: AbstractScalarPayloadDecoder(), univ.Boolean.tagSet: Abstr",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.native.decoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Integer.typeId: AbstractScalarPayloadDecoder(), univ.Boolean.typeId: Abstr",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.native.decoder.TYPE_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
       "old_signature": "(AbstractItemEncoder)",
       "reason": "class removed",
       "symbol": "pyasn1.codec.native.encoder.RelativeOIDEncoder"
@@ -671,6 +879,22 @@
       "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **ignored)",
       "reason": "method removed",
       "symbol": "pyasn1.codec.native.encoder.SingleItemEncoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Boolean.tagSet: BooleanEncoder(), univ.Integer.tagSet: IntegerEncoder(), u",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.native.encoder.TAG_MAP"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {univ.Boolean.typeId: BooleanEncoder(), univ.Integer.typeId: IntegerEncoder(), u",
+      "reason": "constant removed",
+      "symbol": "pyasn1.codec.native.encoder.TYPE_MAP"
     },
     {
       "breaking": true,
@@ -1347,6 +1571,54 @@
     {
       "breaking": false,
       "kind": "added",
+      "new_signature": "= ExplicitTagDecoder()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.ber.decoder.explicitTagDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Integer.tagSet: IntegerDecoder(), univ.Boolean.tagSet: BooleanDecoder(), u",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.ber.decoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Set.typeId: SetDecoder(), univ.SetOf.typeId: SetOfDecoder(), univ.Sequence",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.ber.decoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {eoo.endOfOctets.tagSet: EndOfOctetsEncoder(), univ.Boolean.tagSet: BooleanEncod",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.ber.encoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Boolean.typeId: BooleanEncoder(), univ.Integer.typeId: IntegerEncoder(), u",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.ber.encoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.BitStringDecoder",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.decoder.BitStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
       "new_signature": "(decoder.AbstractSimpleDecoder)",
       "old_signature": null,
       "reason": "class added",
@@ -1363,6 +1635,54 @@
     {
       "breaking": false,
       "kind": "added",
+      "new_signature": "= decoder.OctetStringDecoder",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.decoder.OctetStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.RealDecoder",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.decoder.RealDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.tagMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.decoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.typeMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.decoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= encoder.tagMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.encoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= encoder.typeMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.cer.encoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
       "new_signature": "(decoder.BitStringDecoder)",
       "old_signature": null,
       "reason": "class added",
@@ -1375,6 +1695,46 @@
       "old_signature": null,
       "reason": "class added",
       "symbol": "pyasn1.codec.der.decoder.OctetStringDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.RealDecoder",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.der.decoder.RealDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.tagMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.der.decoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= decoder.typeMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.der.decoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= encoder.tagMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.der.encoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= encoder.typeMap.copy()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.der.encoder.typeMap"
     },
     {
       "breaking": false,
@@ -1419,6 +1779,38 @@
     {
       "breaking": false,
       "kind": "added",
+      "new_signature": "= {univ.Integer.tagSet: AbstractScalarDecoder(), univ.Boolean.tagSet: AbstractScal",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.native.decoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Integer.typeId: AbstractScalarDecoder(), univ.Boolean.typeId: AbstractScal",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.native.decoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Boolean.tagSet: BooleanEncoder(), univ.Integer.tagSet: IntegerEncoder(), u",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.native.encoder.tagMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {univ.Boolean.typeId: BooleanEncoder(), univ.Integer.typeId: IntegerEncoder(), u",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.codec.native.encoder.typeMap"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
       "new_signature": null,
       "old_signature": null,
       "reason": "module added",
@@ -1457,12 +1849,68 @@
       "symbol": "pyasn1.compat.string"
     },
     {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= intTypes + (float,)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "pyasn1.type.univ.numericTypes"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Decoder(tagMap, typeMap)",
+      "old_signature": "= Decoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.ber.decoder.decode"
+    },
+    {
       "breaking": true,
       "kind": "changed",
       "new_signature": "(self, tagMap, typeMap={})",
       "old_signature": "(self, tagMap=_MISSING, typeMap=_MISSING, **options)",
       "reason": "required parameters changed: [] -> ['tagMap']",
       "symbol": "pyasn1.codec.ber.encoder.Encoder.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Encoder(tagMap, typeMap)",
+      "old_signature": "= Encoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.ber.encoder.encode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Decoder(tagMap, decoder.typeMap)",
+      "old_signature": "= Decoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.cer.decoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Encoder(tagMap, typeMap)",
+      "old_signature": "= Encoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.cer.encoder.encode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Decoder(tagMap, typeMap)",
+      "old_signature": "= Decoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.der.decoder.decode"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Encoder(tagMap, typeMap)",
+      "old_signature": "= Encoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.der.encoder.encode"
     },
     {
       "breaking": true,
@@ -1473,12 +1921,28 @@
       "symbol": "pyasn1.codec.native.decoder.Decoder.__init__"
     },
     {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Decoder(tagMap, typeMap)",
+      "old_signature": "= Decoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.native.decoder.decode"
+    },
+    {
       "breaking": true,
       "kind": "changed",
       "new_signature": "(self, tagMap, typeMap={})",
       "old_signature": "(self, **options)",
       "reason": "required parameters changed: [] -> ['tagMap']",
       "symbol": "pyasn1.codec.native.encoder.Encoder.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= Encoder(tagMap, typeMap)",
+      "old_signature": "= SingleItemEncoder()",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "pyasn1.codec.native.encoder.encode"
     },
     {
       "breaking": true,

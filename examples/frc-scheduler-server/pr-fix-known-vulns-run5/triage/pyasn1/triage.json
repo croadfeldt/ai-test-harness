@@ -1,0 +1,301 @@
+{
+  "findings": [
+    {
+      "advisories": [
+        "CVE-2026-30922",
+        "CVE-2026-59884",
+        "CVE-2026-59885",
+        "CVE-2026-59886"
+      ],
+      "class": "security",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "analyze/pyasn1/facts.json",
+      "package": "pyasn1",
+      "routing": "Product Security",
+      "summary": "pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories"
+    },
+    {
+      "advisories": [
+        "CVE-2026-30922",
+        "CVE-2026-59884",
+        "CVE-2026-59885",
+        "CVE-2026-59886"
+      ],
+      "class": "security",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "analyze/pyasn1/vulns.json",
+      "package": "pyasn1",
+      "routing": "Product Security",
+      "summary": "pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown"
+    },
+    {
+      "class": "defect",
+      "confidence": 0.8,
+      "corroborating_tests": [
+        "test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+        "test_ghsa_8ppf_4f7h_5ppj_exposure"
+      ],
+      "escalated": false,
+      "evidence_ref": "generate/pyasn1/manifest.agent.json",
+      "package": "pyasn1",
+      "reproducer": "[new 0.4.8 = VULNERABLE] test_ghsa_8ppf_4f7h_5ppj_fix_pinning=fail (ValueError: bytes must be in range(0, 256)); test_ghsa_8ppf_4f7h_5ppj_exposure=fail (ValueError: bytes must be in range(0, 256))",
+      "routing": "open issue with reproducer",
+      "summary": "pyasn1: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-59885)"
+    }
+  ],
+  "generated": "2026-09-13T02:40:04+00:00",
+  "package": "pyasn1",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 2,
+    "escalated": 0,
+    "findings": 3,
+    "tests_accept": 10,
+    "tests_discard_or_regenerate": 6
+  },
+  "tests": [
+    {
+      "action": "accept as CVE evidence; VEX status affected: the change introduces the exposure",
+      "category": "cve",
+      "class": "security",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_30922::test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+      "verdict": "exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as CVE evidence; VEX status affected: the change introduces the exposure",
+      "category": "cve",
+      "class": "security",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_jr27_m4p2_rc6r_exposure",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_30922::test_ghsa_jr27_m4p2_rc6r_exposure",
+      "verdict": "exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it",
+      "versions": {
+        "new": "fail",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59884::test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_m4p7_r5rc_7g4j_exposure",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59884::test_ghsa_m4p7_r5rc_7g4j_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "open issue; reproducer is the test; advisory stays under investigation",
+      "category": "cve",
+      "class": "defect",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59885::test_ghsa_8ppf_4f7h_5ppj_fix_pinning",
+      "verdict": "blocked on both versions: ValueError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "open issue; reproducer is the test; advisory stays under investigation",
+      "category": "cve",
+      "class": "defect",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_8ppf_4f7h_5ppj_exposure",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59885::test_ghsa_8ppf_4f7h_5ppj_exposure",
+      "verdict": "blocked on both versions: ValueError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59886::test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_ghsa_hm4w_wwcw_mr6r_exposure",
+      "test_id": "tests.test_pyasn1_cve_cve_2026_59886::test_ghsa_hm4w_wwcw_mr6r_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_printer_is_callable",
+      "test_id": "tests.test_pyasn1_unit::test_printer_is_callable",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_debug_is_callable",
+      "test_id": "tests.test_pyasn1_unit::test_debug_is_callable",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_setlogger_returns_none",
+      "test_id": "tests.test_pyasn1_unit::test_setlogger_returns_none",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_hexdump_empty_bytes",
+      "test_id": "tests.test_pyasn1_unit::test_hexdump_empty_bytes",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_pyasn1error_is_exception_subclass",
+      "test_id": "tests.test_pyasn1_unit::test_pyasn1error_is_exception_subclass",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_value_constraint_error_is_pyasn1error_subclass",
+      "test_id": "tests.test_pyasn1_unit::test_value_constraint_error_is_pyasn1error_subclass",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_substrate_underrun_error_is_pyasn1error_subclass",
+      "test_id": "tests.test_pyasn1_unit::test_substrate_underrun_error_is_pyasn1error_subclass",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/pyasn1/results.json",
+      "name": "test_pyasn1unicode_error_is_unicode_error_subclass",
+      "test_id": "tests.test_pyasn1_unit::test_pyasn1unicode_error_is_unicode_error_subclass",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

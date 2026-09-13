@@ -1,9 +1,9 @@
 {
-  "generated": "2026-09-13T01:32:00+00:00",
+  "generated": "2026-09-13T02:40:04+00:00",
   "goals": [
     {
       "evidence_ref": [
-        "packet/python-jose/packet.md"
+        "packet/pyasn1/packet.md"
       ],
       "goal": "Nothing merges without a person",
       "id": "G1",
@@ -13,17 +13,17 @@
     },
     {
       "evidence_ref": [
-        "execute/python-jose/results.json"
+        "execute/pyasn1/results.json"
       ],
       "goal": "Every kept test was compiled and run in the sandbox before a reviewer sees it",
       "id": "G2",
-      "measurement": "11 tests ran on head, again for flakes, and on base; 0 flaky",
+      "measurement": "16 tests ran on head, again for flakes, and on base; 0 flaky",
       "source": "principle: generated tests are hypotheses until executed",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "triage/python-jose/triage.json"
+        "triage/pyasn1/triage.json"
       ],
       "goal": "A test that passes on both versions is not presented as CVE evidence",
       "id": "G3",
@@ -37,13 +37,13 @@
       ],
       "goal": "Stage 0 passed before evidence was produced",
       "id": "G4",
-      "measurement": "15 of 15 register checks; sandbox probe skipped; model probe skipped",
+      "measurement": "16 of 16 register checks; sandbox probe skipped; model probe skipped",
       "source": "section 8.5, section 17: self-verification",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "execute/python-jose/new/sandbox.json"
+        "execute/pyasn1/new/sandbox.json"
       ],
       "goal": "Generated tests ran with no network, no secrets, read-only root, disposable container",
       "id": "G5",
@@ -53,31 +53,31 @@
     },
     {
       "evidence_ref": [
-        "attest/python-jose/statement.dsse.json"
+        "attest/pyasn1/statement.dsse.json"
       ],
       "goal": "Every accepted test carries a provenance record and a signed attestation",
       "id": "G6",
-      "measurement": "7 records; envelopes verified locally: [True]; signer is a development key",
+      "measurement": "10 records; envelopes verified locally: [True]; signer is a development key",
       "source": "section 8.2: provenance",
       "verdict": "met (development signer)"
     },
     {
       "evidence_ref": [
-        "packet/python-jose/vex.openvex.json"
+        "packet/pyasn1/vex.openvex.json"
       ],
       "goal": "Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement",
       "id": "G7",
-      "measurement": "python-jose: {'CVE-2024-29370': 'under_investigation', 'CVE-2024-33663': 'under_investigation', 'CVE-2024-33664': 'fixed'}",
+      "measurement": "pyasn1: {'CVE-2026-30922': 'affected', 'CVE-2026-59884': 'under_investigation', 'CVE-2026-59885': 'under_investigation', 'CVE-2026-59886': 'under_investigation'}",
       "source": "section 10: known vulnerabilities with a CVE-targeted test",
       "verdict": "met"
     },
     {
       "evidence_ref": [
-        "triage/python-jose/triage.json"
+        "triage/pyasn1/triage.json"
       ],
       "goal": "The run surfaces a finding the PR diff does not show",
       "id": "G8",
-      "measurement": "python-jose: ['python-jose: a code path raised the same internal error on both versions during ', 'python-jose: a code path raised the same internal error on both versions during ']",
+      "measurement": "pyasn1: ['pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories', 'pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown', 'pyasn1: a code path raised the same internal error on both versions during CVE t']",
       "source": "exec summary: catches what a reviewer would miss",
       "verdict": "met"
     },
@@ -88,13 +88,13 @@
       ],
       "goal": "Packet within 2 hours of trigger for depth 0 and 1",
       "id": "G9",
-      "measurement": "intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T01:31:59+00:00",
+      "measurement": "intake 2026-09-12T01:42:29+00:00 -> packet 2026-09-13T02:40:04+00:00",
       "source": "section 10: time to packet",
       "verdict": "see measurement"
     },
     {
       "evidence_ref": [
-        "attest/python-jose/statement.json"
+        "attest/pyasn1/statement.json"
       ],
       "goal": "Every number in the packet points at a file in the work directory",
       "id": "G10",
@@ -112,7 +112,7 @@
     }
   ],
   "packages": [
-    "python-jose"
+    "pyasn1"
   ],
   "run_id": "76a3fa863e76",
   "summary": {

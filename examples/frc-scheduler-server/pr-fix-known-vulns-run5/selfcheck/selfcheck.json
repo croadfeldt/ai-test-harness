@@ -71,13 +71,18 @@
       "title": "an identical run result twice in a row is reported as a blocked path and a candidate defect"
     },
     {
+      "id": "GF-016",
+      "status": "pass",
+      "title": "a downgrade derives vulnerable=new, fixed=old from the advisories, and the verdicts follow the roles"
+    },
+    {
       "id": "GF-012",
       "status": "pass",
       "title": "every old/new outcome maps to a fixed, honest verdict"
     }
   ],
   "failed": [],
-  "generated": "2026-09-13T01:32:00+00:00",
+  "generated": "2026-09-13T02:40:04+00:00",
   "model": {
     "reason": "probes disabled",
     "status": "skipped"
