@@ -36,6 +36,11 @@ spec:
       envFrom: [{ secretRef: { name: $(params.model-secret), optional: true } }]
       env:
         - { name: HARNESS_SANDBOX_TARGET, value: pod }
+        - { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }   # the isolation proof runs in the execute pod, where the isolation is
+        # The clone task and the harness run as different random UIDs; git refuses the checkout otherwise.
+        - { name: GIT_CONFIG_COUNT, value: "1" }
+        - { name: GIT_CONFIG_KEY_0, value: safe.directory }
+        - { name: GIT_CONFIG_VALUE_0, value: "*" }
         - { name: HARNESS_TARGET_REPO, value: $(workspaces.shared.path)/source }
         - { name: HARNESS_UDLM_REPO, value: $(workspaces.shared.path)/udlm }
       args: ["$(params.stage)", "--workdir", "$(workspaces.shared.path)/run", "$(params.args[*])"]
