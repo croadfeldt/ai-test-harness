@@ -197,6 +197,28 @@ The back half of the pipeline ran on run 5's outputs. No model was involved in a
   run's files. Nine met, one measured without a target yet (time to packet, since the trigger was
   manual), one not applicable (mutation score). Verdicts cite the file they came from.
 
+## pyasn1: the downgrade, proven (`-run5/{analyze,generate,execute,triage,packet,attest}/pyasn1`)
+
+The PR's python-jose bump made pip resolve pyasn1 from 0.6.4 down to 0.4.8, a version with eight
+advisories. The full pipeline ran on it with the same model and the tool-using stage 3. Because this is
+a downgrade, the roles flip: the new version is the vulnerable one (register entry GF-016).
+
+| Issue | Agent | Differential | VEX draft |
+|---|---|---|---|
+| CVE-2026-30922, unbounded recursion | 7 calls: a 5000-deep nested SEQUENCE fed to the BER decoder | **Exposure confirmed**: passes on 0.6.4, fails on 0.4.8 | `affected` |
+| CVE-2026-59884, long-form tag ids | 13 calls, 7 runs | passes on both | `under_investigation` |
+| CVE-2026-59885, quadratic OID decode | 13 calls, 7 runs | blocked: `ValueError` on both | `under_investigation` |
+| CVE-2026-59886, REAL conversion | 13 calls, 7 runs | passes on both | `under_investigation` |
+
+So the harness's verdict on this pull request, end to end: it closes one python-jose exposure with
+proof, leaves two python-jose advisories unproven, and **introduces a proven denial-of-service
+exposure through a package the PR never mentions**. The packet for pyasn1 says `affected`, backed by
+two tests a reviewer can run with plain pytest, and the attestation carries the record.
+
+The eight pyasn1 unit tests are weak: the application has no call sites into pyasn1, so the model fell
+back to asserting that classes are subclasses and functions are callable. They pass every gate and
+prove nothing. That is register entry GF-017.
+
 ## What each output file is
 
 ```
@@ -238,6 +260,6 @@ execute/<package>/{new,new-rerun,old}/  junit.xml, coverage.json, logs, sandbox.
 
 ## Next for this example
 
-The same full pipeline on pyasn1, the package the PR downgraded, and on starlette, the transitive
-package left exposed. Then mutation testing for the strength gate, the relevance engine for
-retirements, and the Tekton wrapping so stage 0 through attestation run as one PipelineRun.
+starlette, the transitive package the PR leaves exposed. Then mutation testing for the strength gate,
+the relevance engine for retirements, and the Tekton wrapping so stage 0 through attestation run as
+one PipelineRun.

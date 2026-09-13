@@ -45,7 +45,10 @@ Output exactly one Python file inside a single ```python fence and nothing else.
 CATEGORY_TASK = {
     "unit": "Write {n} unit tests that characterize the current behavior of the symbols the application uses "
             "(listed under CALL SITES) and the most important public functions of the package. Each test should "
-            "assert a specific output for a specific input, so that a change in behavior would make it fail.",
+            "assert a specific output for a specific input, so that a change in behavior would make it fail. "
+            "When CALL SITES is empty, pick the package's core operations (encode/decode, parse/serialize, the main "
+            "entry points in the API DATA) and assert concrete results; never assert only that something is callable, "
+            "an instance, or a subclass.",
     "functional": "Write {n} functional tests that mirror how the application calls this package (see CALL SITES: "
                   "the same functions, argument shapes, and error handling), without importing the application itself. "
                   "Cover the success path and the error path the application handles.",
@@ -181,6 +184,26 @@ def _imports_ok(code: str, allowed_roots: set[str]) -> list[str]:
     return sorted(set(bad))
 
 
+_TRIVIAL_CALLS = {"callable", "isinstance", "issubclass", "hasattr"}
+
+
+def _all_trivial(fn) -> bool:
+    """GF-017. True when every assert in the test is an existence check."""
+    asserts = [n for n in ast.walk(fn) if isinstance(n, ast.Assert)]
+    for a in asserts:
+        test = a.test
+        if isinstance(test, ast.Call) and isinstance(test.func, ast.Name) and test.func.id in _TRIVIAL_CALLS:
+            continue
+        if isinstance(test, ast.Compare) and len(test.ops) == 1 and isinstance(test.ops[0], (ast.IsNot, ast.Is)) \
+                and isinstance(test.comparators[0], ast.Constant) and test.comparators[0].value is None:
+            continue
+        if isinstance(test, ast.UnaryOp) and isinstance(test.op, ast.Not) and isinstance(test.operand, ast.Call) \
+                and isinstance(test.operand.func, ast.Name) and test.operand.func.id in _TRIVIAL_CALLS:
+            continue
+        return False
+    return bool(asserts)
+
+
 def _weak_assertions(code: str) -> list[str]:
     """Tests whose assertions cannot fail: pytest.raises(Exception) or a tuple containing Exception,
     or a test body with no assert and no raises at all. A test that accepts any error tells the
@@ -203,6 +226,9 @@ def _weak_assertions(code: str) -> list[str]:
             weak.append(f"{fn.name}: pytest.raises(Exception) accepts any error; name the specific exception the fixed version raises")
         elif not has_assert and not raises_any:
             weak.append(f"{fn.name}: no assert and no pytest.raises; the test cannot fail")
+        elif has_assert and not raises_any and _all_trivial(fn):
+            weak.append(f"{fn.name}: every assertion is an existence check (callable, isinstance, issubclass, is not None, hasattr); "
+                        "assert a specific output for a specific input instead")
     return weak
 
 

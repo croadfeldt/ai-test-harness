@@ -175,6 +175,14 @@ def gf016():
     assert "exposure confirmed" in src and "downgrade" in src
 
 
+@check("GF-017", "existence-only assertions are rejected as trivial")
+def gf017():
+    from .stages.generate import _weak_assertions
+    trivial = "def test_a():\n    assert callable(f)\n    assert isinstance(x, int)\ndef test_b():\n    assert issubclass(E, Exception)\n"
+    assert len(_weak_assertions(trivial)) == 2, _weak_assertions(trivial)
+    assert _weak_assertions("def test_c():\n    assert decode(b'\\x02\\x01\\x05') == (5, b'')\n") == []
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
