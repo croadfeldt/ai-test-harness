@@ -15,6 +15,10 @@ each of those from inside the pod before any generated code runs.
 Apply with `oc apply -k deploy/tekton -n <namespace>`, create the model Secret, then `oc create -f`
 a filled PipelineRun. The harness image is built from `harness/Containerfile` and referenced by digest.
 
+**One workspace.** Every task binds one workspace, `shared`, and uses `run/`, `source/`, and `udlm/`
+under it. Tekton's coscheduling helper allows a task pod one persistent claim, and binding one claim to
+three workspaces left the helper for the second binding uncreated, so the pods never scheduled.
+
 **What differs from the laptop path.** The wheelhouse for the sandbox is downloaded by the networked
 stages into the shared workspace; the execute pod installs from it offline. The sandbox's isolation
 comes from the pod spec and the network policy rather than from Podman flags, and the records say so
