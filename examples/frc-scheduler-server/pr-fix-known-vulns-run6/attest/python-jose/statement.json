@@ -35,12 +35,13 @@
             ],
             "harness_image_digest": "local-dev (not a container build)",
             "harness_version": "0.1.0",
-            "model_endpoint": "https://qwen38-27b-llm-serving.apps.ocp.roadfeldt.com/v1",
+            "model_endpoint": "gpu-server-vllm",
+            "model_endpoint_digest": "sha256:8870f0d1a4df5ebc",
             "model_id": "qwen38-27b",
             "pipeline_run": [
               "intake",
               "--repo",
-              "/Users/chris/git/frc-scheduler-server",
+              "frc-scheduler-server",
               "--base",
               "main",
               "--head",
@@ -168,7 +169,7 @@
           ]
         },
         "digest": {
-          "sha256": "88e343c8d8290afcc9cbceb3f071b468d02a0a57ee4c3afa0c64d98a74f9705c"
+          "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
         },
         "name": "ai-test-harness-record"
       }
@@ -201,7 +202,7 @@
     },
     {
       "digest": {
-        "sha256": "88e343c8d8290afcc9cbceb3f071b468d02a0a57ee4c3afa0c64d98a74f9705c"
+        "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
       },
       "name": "attest/python-jose/MANIFEST.json"
     }

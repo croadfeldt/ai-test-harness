@@ -97,7 +97,7 @@
   "generated": "2026-09-13T13:13:42+00:00",
   "mode": "agent",
   "model": {
-    "endpoint": "https://qwen38-27b-llm-serving.apps.ocp.roadfeldt.com/v1",
+    "endpoint": "gpu-server-vllm", "endpoint_digest": "sha256:8870f0d1a4df5ebc",
     "id": "qwen38-27b",
     "temperature": 0.2
   },
