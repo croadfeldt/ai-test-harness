@@ -201,6 +201,9 @@ def gf019():
     assert not reasoning_leak("")
     src = inspect.getsource(__import__("harness.llm", fromlist=["x"]).Model.chat)
     assert "thinking_fallback" in src
+    from .llm import strip_think
+    assert strip_think("<think>plan plan</think>\n```python\nx=1\n```") == ("```python\nx=1\n```", 25)
+    assert strip_think("<think>never closed")[0] == ""
 
 
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")

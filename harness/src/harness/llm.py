@@ -135,6 +135,7 @@ class Model:
                         break
         except Exception as e:
             raise HarnessError(f"model call failed ({tag}): {e}") from e
+        text, stripped = strip_think(text)
         thinking_fallback = False
         if self.cfg.thinking and (reasoning_leak(text) or finish == "loop_detected") and not getattr(self, "_in_fallback", False):
             # GF-019: the serving layer is not separating reasoning from the answer. Retry once with
@@ -161,7 +162,7 @@ class Model:
                   "frequency_penalty": self.cfg.frequency_penalty, "max_tokens": self.cfg.cap(max_tokens),
                   "chat_template_kwargs": self.cfg.chat_template_kwargs, "thinking": self.cfg.thinking,
                   "prompt_sha256": sha256_text(system + "\n---\n" + user),
-                  "response_sha256": sha256_text(text), "usage": usage, "response_chars": len(text),
+                  "response_sha256": sha256_text(text), "usage": usage, "response_chars": len(text), "think_chars_stripped": stripped,
                   "latency_s": round(time.time() - t0, 1), "finish_reason": finish}
         (self.record_dir / f"{self.calls:03d}-{tag}.prompt.md").write_text(f"# system\n\n{system}\n\n# user\n\n{user}\n")
         (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
@@ -214,6 +215,7 @@ class Model:
                         finish = ch.get("finish_reason") or finish
         except Exception as e:
             raise HarnessError(f"model call failed ({tag}): {e}") from e
+        content, stripped = strip_think(content)
         msg = {"role": "assistant", "content": content}
         if calls_acc:
             msg["tool_calls"] = [calls_acc[i] for i in sorted(calls_acc)]
@@ -222,12 +224,22 @@ class Model:
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
                   "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
                   "messages_sha256": sha256_text(json.dumps(messages, sort_keys=True)), "usage": usage,
-                  "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"),
+                  "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"), "think_chars_stripped": stripped,
                   "tool_calls": [{"name": c["function"]["name"], "arguments": c["function"]["arguments"][:500]} for c in (msg.get("tool_calls") or [])]}
         (self.record_dir / f"{self.calls:03d}-{tag}.messages.json").write_text(json.dumps(messages, indent=1))
         (self.record_dir / f"{self.calls:03d}-{tag}.response.json").write_text(json.dumps(msg, indent=1))
         write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
         return msg, record
+
+
+def strip_think(text: str) -> tuple[str, int]:
+    """Remove in-band reasoning a serving layer failed to separate: <think>...</think> blocks, and an
+    unterminated <think> that runs to the end. Returns the answer and the characters removed."""
+    import re
+    before = len(text)
+    text = re.sub(r"<think>.*?</think>\s*", "", text, flags=re.S)
+    text = re.sub(r"<think>.*$", "", text, flags=re.S)
+    return text, before - len(text)
 
 
 def reasoning_leak(text: str) -> bool:
