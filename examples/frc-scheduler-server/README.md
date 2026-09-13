@@ -172,6 +172,31 @@ for the symbols the application uses, first time, every run. It does not produce
 fix-pinning test in three tries, and the harness says so instead of shipping green tests. Run 4 added
 tools; run 5 added the corrections run 4 exposed, and produced the first confirmed fix-pinning tests.
 
+## Stages 5, 6, attestation, and post-analysis on run 5 (`-run5/triage`, `packet`, `attest`, `assess`)
+
+The back half of the pipeline ran on run 5's outputs. No model was involved in any of it.
+
+- **Triage** (`triage/python-jose/triage.json`): 7 tests to accept (5 unit, 2 confirmed CVE), 4 to
+  discard or regenerate, 2 findings. One finding is the JWE encryption defect, routed at 0.8 because
+  stage 4 corroborates it with tests blocked on both versions. The other is the agent's blocked-path
+  note on the key-confusion issue, which stage 4 does not corroborate (those tests pass on both
+  versions), so triage escalates it at 0.4 instead of routing it. A deterministic signal has to back
+  an agent's claim before it becomes a finding.
+- **Packet** (`packet/python-jose/packet.md`): one page, the seven accepted tests as a patch against
+  `overlays/python/python-jose/3.4.x/`, and a draft OpenVEX document with one statement per
+  vulnerability: CVE-2024-33664 `fixed`, backed by the two confirmed tests; CVE-2024-33663 and
+  CVE-2024-29370 `under_investigation`. Every statement is a draft for Product Security. The packet
+  recommends: advisory, accept the candidates, route the findings, confirm the VEX drafts.
+- **Attestation** (`attest/python-jose/`): a provenance record per accepted test in the shape of
+  `blueprint/manifest.schema.yaml`, an in-toto Statement whose subjects are the patch and the record
+  digests and whose predicate is the vetted `test-result/v0.1` type carrying the harness record, and a
+  DSSE envelope. Signed with a local Ed25519 development key and verified; the statement's
+  `unverified` list says so, along with the missing mutation score, the missing coverage baseline,
+  and the fact that the harness ran from a checkout rather than a built image.
+- **Post-analysis** (`assess/assess.md`): eleven goals from the blueprint, each measured from the
+  run's files. Nine met, one measured without a target yet (time to packet, since the trigger was
+  manual), one not applicable (mutation score). Verdicts cite the file they came from.
+
 ## What each output file is
 
 ```
@@ -213,5 +238,6 @@ execute/<package>/{new,new-rerun,old}/  junit.xml, coverage.json, logs, sandbox.
 
 ## Next for this example
 
-The tool-using variant of stage 3 on the same package, then a model A/B. Then pyasn1 and starlette.
-Stages 5 through 7, the attestation, and the post-analysis against the blueprint's core goals follow.
+The same full pipeline on pyasn1, the package the PR downgraded, and on starlette, the transitive
+package left exposed. Then mutation testing for the strength gate, the relevance engine for
+retirements, and the Tekton wrapping so stage 0 through attestation run as one PipelineRun.

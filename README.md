@@ -83,7 +83,7 @@ Security to confirm. The whole thing runs on Konflux and targets SLSA Build Leve
 
 ## Status and how to contribute
 
-The blueprint is complete for review. The implementation covers intake and analysis; generation and execution are next. Open decisions are listed in
+The blueprint is complete for review. The implementation covers every stage from self-verification through the signed attestation and the post-analysis, for Python; mutation testing, the relevance engine, and the Go adapter are next. Open decisions are listed in
 [the blueprint, section 15](docs/03-blueprint.md#15-open-questions). Comments, corrections, and pull
 requests against any document are welcome. I would especially like to hear from maintainers of the
 projects named in the [landscape](docs/04-landscape.md) if I have described their work inaccurately.

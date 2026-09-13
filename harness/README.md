@@ -46,6 +46,12 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 
 # Stage 4, the gauntlet: head run, flake re-run, coverage, differential against the old version:
 .venv/bin/harness execute --workdir out/run1 --select python-jose
+
+# Stages 5, 6, attestation, and the post-analysis:
+.venv/bin/harness triage --workdir out/run1 --select python-jose
+.venv/bin/harness packet --workdir out/run1 --select python-jose
+.venv/bin/harness attest --workdir out/run1 --select python-jose
+.venv/bin/harness assess --workdir out/run1
 ```
 
 ## Work directory layout
@@ -74,6 +80,16 @@ generate/<package>/
 execute/<package>/
   results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
   new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
+triage/<package>/triage.json    findings and per-test classes with confidence, routing, evidence refs
+packet/<package>/
+  packet.md                     the one-page review packet
+  tests.patch                   accepted tests as a patch against overlays/python/<package>/<major.minor>.x/
+  vex.openvex.json              draft OpenVEX, one statement per vulnerability, for Product Security
+attest/<package>/
+  MANIFEST.json                 provenance record per accepted test (blueprint/manifest.schema.yaml)
+  statement.json                in-toto Statement, predicate test-result/v0.1 with the harness record
+  statement.dsse.json           DSSE envelope; signer.pub.pem verifies it
+assess/assess.md                the run against the blueprint's goals
 cache/                          downloaded archives, unpacked trees, OSV and PyPI responses
 ```
 
@@ -86,7 +102,9 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | 2 analyze | implemented, Python |
 | 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |
 | 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential with the package pinned to its old version, TestResults in the adapter-interface schema. Mutation and relevance arrive with triage. |
-| 5 triage, 6 packet, 7 feedback | after that |
-| attest | after that: manifest.schema.yaml + in-toto test-result predicate, Tekton Chains |
-| assess | post-analysis of a run against the blueprint's core goals |
+| 5 triage | implemented: deterministic classes with confidence and routing; below threshold escalates; agent-reported defects need stage 4 corroboration |
+| 6 packet | implemented: one-page packet, accepted tests as a patch in the overlay layout, draft OpenVEX per vulnerability (fixed only with a confirmed fix-pinning test) |
+| 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |
+| attest | implemented: provenance record per accepted test (manifest.schema.yaml), in-toto Statement with the test-result/v0.1 predicate, DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
+| assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |
 | Go adapter | after the Python adapter is complete end to end |

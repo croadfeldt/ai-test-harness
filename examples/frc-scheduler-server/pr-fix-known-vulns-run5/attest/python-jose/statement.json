@@ -1,0 +1,208 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/python-jose/manifest.agent.json",
+              "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33663); NOT corroborated by stage 4 verdicts"
+            },
+            {
+              "class": "defect",
+              "confidence": 0.8,
+              "evidence_ref": "generate/python-jose/manifest.agent.json",
+              "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-29370)"
+            }
+          ],
+          "inputs": {
+            "base": "requirements.txt@2ad04243861b",
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+            "sbom_digest": "sha256:46141ffeb87a55c3eed23c4a1865c7ee08210f1a5778258116aa4497209d04bc",
+            "snapshot": "requirements.txt@cfa8f4a3292b"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 640,
+            "fix_pinning_confirmed": 2,
+            "flake_rate": 0.0,
+            "mutation_score": null,
+            "tests_total": 11
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "http://10.0.0.122:1234/v1",
+            "model_id": "qwen/qwen3.8-27b",
+            "pipeline_run": [
+              "intake",
+              "--repo",
+              "/Users/chris/git/frc-scheduler-server",
+              "--base",
+              "main",
+              "--head",
+              "deps/fix-known-vulns",
+              "--manifest",
+              "requirements.txt",
+              "--python-version",
+              "3.12",
+              "--workdir",
+              "../examples/frc-scheduler-server/pr-fix-known-vulns"
+            ],
+            "run_id": "76a3fa863e76",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [
+            {
+              "category": "cve",
+              "file_sha256": "sha256:5645aafeb0e88272a82afa9b176fa8b6c8a528c82948369193daefcb223df966",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_exposure::5645aafeb0e8"
+            },
+            {
+              "category": "cve",
+              "file_sha256": "sha256:5645aafeb0e88272a82afa9b176fa8b6c8a528c82948369193daefcb223df966",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_fix_pinning::5645aafeb0e8"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_expired_raises_expiredsignatureerror::71ee873ade96"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_wrong_key_raises_jwterror::71ee873ade96"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_encode_decode_roundtrip::71ee873ade96"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_get_unverified_claims::71ee873ade96"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:71ee873ade96be68a0406a7679759e5f9a449b723cdfe181d577e2624967ebbb",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_get_unverified_header::71ee873ade96"
+            }
+          ],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "unverified": [
+            "mutation score: mutation testing not in this slice",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image"
+          ],
+          "vex_drafts": [
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "under_investigation",
+              "vulnerability": "CVE-2024-33663"
+            },
+            {
+              "evidence_test_ids": [
+                "test_ghsa_cjwg_qfpm_7377_exposure",
+                "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+              ],
+              "reviewed_by": null,
+              "status": "fixed",
+              "vulnerability": "CVE-2024-33664"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "under_investigation",
+              "vulnerability": "CVE-2024-29370"
+            }
+          ],
+          "work_items": [
+            {
+              "depth": 1,
+              "old_version": "3.3.0",
+              "preflight": "clean",
+              "purl": "pkg:pypi/python-jose@3.4.0",
+              "reachable": "true",
+              "risk_score": 0.51
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "93ca71be09959bd005340d99c1a86dff11db88e6c4afcc1f08e207ffabe86ee0"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [
+      "test_pysec_2025_185_fix_pinning",
+      "test_pysec_2025_185_exposure"
+    ],
+    "passedTests": [
+      "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "test_ghsa_cjwg_qfpm_7377_exposure",
+      "test_jwt_encode_decode_roundtrip",
+      "test_jwt_decode_wrong_key_raises_jwterror",
+      "test_jwt_get_unverified_header",
+      "test_jwt_get_unverified_claims",
+      "test_jwt_decode_expired_raises_expiredsignatureerror"
+    ],
+    "result": "PASSED",
+    "url": "packet/python-jose/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "b46762ea95fd1577ada3c2eb535b12c92b24a2dfeb3e5f2015193a36fa25ada4"
+      },
+      "name": "packet/python-jose/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "93ca71be09959bd005340d99c1a86dff11db88e6c4afcc1f08e207ffabe86ee0"
+      },
+      "name": "attest/python-jose/MANIFEST.json"
+    }
+  ]
+}

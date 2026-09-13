@@ -56,6 +56,26 @@ def cmd_execute(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_triage(a: argparse.Namespace) -> int:
+    from .stages.triage import triage
+    triage(workdir=a.workdir, select=a.select); print(a.workdir / "triage" / "summary.json"); return 0
+
+
+def cmd_packet(a: argparse.Namespace) -> int:
+    from .stages.packet import packet
+    packet(workdir=a.workdir, select=a.select); print(a.workdir / "packet" / "summary.json"); return 0
+
+
+def cmd_attest(a: argparse.Namespace) -> int:
+    from .stages.attest import attest
+    attest(workdir=a.workdir, select=a.select); print(a.workdir / "attest" / "summary.json"); return 0
+
+
+def cmd_assess(a: argparse.Namespace) -> int:
+    from .stages.assess import assess
+    assess(workdir=a.workdir); print(a.workdir / "assess" / "assess.md"); return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="harness", description="AI Test Harness: opinionated implementation of the blueprint")
     p.add_argument("--version", action="version", version=f"harness {__version__}")
@@ -97,6 +117,16 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--select", nargs="*", default=None)
     s.add_argument("--python-version", default="3.12")
     s.set_defaults(func=cmd_execute)
+
+    for name, fn, help_ in (("triage", cmd_triage, "stage 5: classify every verdict and finding with confidence and routing"),
+                            ("packet", cmd_packet, "stage 6: review packet, tests as an overlay patch, draft OpenVEX"),
+                            ("attest", cmd_attest, "provenance records, in-toto test-result statement, signed DSSE envelope"),
+                            ("assess", cmd_assess, "post-analysis: the run against the blueprint's core goals")):
+        s = sub.add_parser(name, help=help_)
+        s.add_argument("--workdir", type=Path, required=True)
+        if name != "assess":
+            s.add_argument("--select", nargs="*", default=None)
+        s.set_defaults(func=fn)
 
     a = p.parse_args(argv)
     try:
