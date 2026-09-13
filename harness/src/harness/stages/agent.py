@@ -241,12 +241,14 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse:
     sites = read_json(facts_dir / "call-sites.json")["sites"]
     vdoc = read_json(facts_dir / "vulns.json")
     seen = set(); vulns = [v for v in vdoc.get("vulns_old", []) + vdoc["vulns"] if not (v["id"] in seen or seen.add(v["id"]))]
-    roles = fixed.cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"])
+    cand_path = facts_dir / "fixed-candidate.json"
+    candidate = read_json(cand_path) if cand_path.exists() else None
+    roles = fixed.cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"], candidate)
     roots = [r.split("/")[0] for r in facts["import_names"]]
     pkg = facts["package"]
     cache = gen_dir.parent.parent / "cache"
     dirs = {}
-    for tagv, ver in (("old", facts["old_version"]), ("new", facts["new_version"])):
+    for tagv, ver in (("old", roles["fixed"] if roles.get("direction") == "candidate" else facts["old_version"]), ("new", facts["new_version"])):
         dirs[tagv] = _pkg_root(adapter.unpack(adapter.fetch(pkg, ver, cache, python_version), cache))
     old_q = {s["qualname"] for s in api_old["symbols"]}; new_q = {s["qualname"] for s in api["symbols"]}
     patch_path = facts_dir / "source-diff.patch"
@@ -265,6 +267,8 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse:
             out = []
             for tagv, wh, reqs in (("new", wheelhouse, reqs_new), ("old", wheelhouse_old, reqs_old)):
                 ver = facts[tagv + "_version"]
+                if tagv == "old" and roles.get("direction") == "candidate":
+                    tagv, ver = "fixed-candidate", roles["fixed"]
                 role = " = VULNERABLE" if ver == roles.get("vulnerable") else (" = FIXED" if ver == roles.get("fixed") else "")
                 r = fixed._run_baseline(code, gen_dir, wh, reqs, roots, f"{label_base}-r{counter['n']}-{tagv}")
                 if not r["results"]:

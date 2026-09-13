@@ -28,18 +28,32 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
     from .agent import fix_reached
     from .generate import cve_roles
     vdoc = read_json(workdir / "analyze" / pkg / "vulns.json")
-    roles = cve_roles(gen["old_version"], gen["new_version"], vdoc.get("vulns_old", []), vdoc.get("vulns", []))
+    cand_path0 = workdir / "analyze" / pkg / "fixed-candidate.json"
+    roles = cve_roles(gen["old_version"], gen["new_version"], vdoc.get("vulns_old", []), vdoc.get("vulns", []),
+                      read_json(cand_path0) if cand_path0.exists() else None)
     patch_path = workdir / "analyze" / pkg / "source-diff.patch"
     fix_patch = patch_path.read_text() if patch_path.exists() else None
     reqs_new = _reqs(workdir, "new")
     runs = {}
     plans = [("new", reqs_new), ("new-rerun", reqs_new)]
+    cand_path = workdir / "analyze" / pkg / "fixed-candidate.json"
+    candidate = read_json(cand_path) if cand_path.exists() else None
+    if roles["direction"] == "candidate" and candidate and candidate.get("status") == "resolved":
+        wh_c = sandbox.prefetch_wheelhouse(candidate["requirements"], python_version, workdir / "cache" / "wheelhouse" / f"fixed-{pkg}")
+        log(f"    sandbox run fixed-candidate ({pkg} {candidate['fixed_version']})")
+        s = sandbox.run_tests(wheelhouse=wh_c, requirements=candidate["requirements"], tests_dir=tests_dir, out_dir=out / "fixed-candidate",
+                              cover=roots, label=f"{pkg}-fixed-candidate")
+        runs["old"] = {"sandbox": s, "results": sandbox.parse_junit(Path(s["junit"])) if s["junit"] else {},
+                       "coverage": sandbox.coverage_for(Path(s["coverage"]), roots) if s["coverage"] else {"available": False}}
+        plans = [p for p in plans if p[0] != "old"]
     if gen["old_version"] and gen["old_version"] != gen["new_version"]:
         # Differential: the base commit's own resolved graph, which is the state the application
         # actually ran with before the change. Swapping one package inside the head graph produces
         # sets that never existed and may not resolve (python-jose 3.3.0 with head's pyasn1 did not).
         plans.append(("old", _reqs(workdir, "old")))
     for label, reqs in plans:
+        if label == "old" and "old" in runs:
+            continue
         wh_tag = "old" if label == "old" else "new"
         wheelhouse = sandbox.prefetch_wheelhouse(reqs, python_version, workdir / "cache" / "wheelhouse" / wh_tag)
         log(f"    sandbox run {label}")
@@ -74,10 +88,12 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
             msg_new = t["message"]
             msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
             # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
-            vuln_status, fixed_status = (n, o) if roles["direction"] == "downgrade" else (o, n)
+            vuln_status, fixed_status = (n, o) if roles["direction"] in ("downgrade", "candidate") else (o, n)
             if vuln_status == "fail" and fixed_status == "pass":
                 t["verdict"] = ("exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it"
-                                if roles["direction"] == "downgrade" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
+                                if roles["direction"] == "downgrade" else
+                                f"exposure confirmed: fails at head {roles['vulnerable']}, passes with the fixed candidate {roles['fixed']}"
+                                if roles["direction"] == "candidate" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
             elif o == "pass" and n == "pass":
                 t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
             elif n in ("fail", "error") and fix_reached(msg_new, fix_patch):

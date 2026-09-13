@@ -65,7 +65,8 @@ CATEGORY_TASK = {
 }
 
 
-def cve_roles(old_version: str | None, new_version: str | None, vulns_old: list[dict], vulns_new: list[dict]) -> dict:
+def cve_roles(old_version: str | None, new_version: str | None, vulns_old: list[dict], vulns_new: list[dict],
+              candidate: dict | None = None) -> dict:
     """GF-016. Which version is the vulnerable one and which the fixed one, from the advisories, not
     from commit order. A bump that closes advisories: vulnerable=old, fixed=new. A downgrade that
     opens them: vulnerable=new, fixed=old. Same version or advisories on both: vulnerable=new,
@@ -75,6 +76,9 @@ def cve_roles(old_version: str | None, new_version: str | None, vulns_old: list[
             return {"vulnerable": old_version, "fixed": new_version, "direction": "fix"}
         if vulns_new and not vulns_old:
             return {"vulnerable": new_version, "fixed": old_version, "direction": "downgrade"}
+    if candidate and candidate.get("status") == "resolved":
+        return {"vulnerable": new_version or old_version, "fixed": candidate["fixed_version"], "direction": "candidate",
+                "candidate_note": candidate.get("note", ""), "candidate_moved": candidate.get("moved", {})}
     return {"vulnerable": new_version or old_version, "fixed": None, "direction": "none"}
 
 
@@ -120,6 +124,11 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
              f"Test framework: pytest. Python 3.12.", "",
              "TASK: " + CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
                                                         vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
+    if category == "cve" and roles.get("direction") == "candidate":
+        parts.append(f"NOTE: the application is on the VULNERABLE version {roles['vulnerable']} and the change did not move it. "
+                     f"The FIXED version {roles['fixed']} is a candidate environment the harness resolved ({roles.get('candidate_note', '')}); "
+                     f"packages that move in it: {list(roles.get('candidate_moved', {}).items())[:6]}. The test must fail on {roles['vulnerable']} "
+                     f"and pass on {roles['fixed']}.")
     if category == "cve" and roles.get("direction") == "downgrade":
         parts.append(f"NOTE: this change is a DOWNGRADE. The NEW version {facts['new_version']} is the vulnerable one and the "
                      f"OLD version {facts['old_version']} is the fixed one. The test must fail on {facts['new_version']} and pass on {facts['old_version']}.")
@@ -255,7 +264,9 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     # fix-pinning test proves the bump closed them) plus any still open on the head version.
     seen = set()
     vulns = [v for v in vdoc.get("vulns_old", []) + vdoc["vulns"] if not (v["id"] in seen or seen.add(v["id"]))]
-    roles = cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"])
+    cand_path = facts_dir / "fixed-candidate.json"
+    candidate = read_json(cand_path) if cand_path.exists() else None
+    roles = cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"], candidate)
     roots = [r.split("/")[0] for r in facts["import_names"]]
     budget = facts["risk"]["budget"]
     pkg = facts["package"]
@@ -409,13 +420,21 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
         facts_path = workdir / "analyze" / pkg / "facts.json"
         facts = read_json(facts_path); facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
         cats = categories or ["unit", "functional", "negative", "cve"]
+        # Package unchanged and vulnerable at head: resolve a fixed-candidate environment as the second
+        # environment for CVE tests (blueprint stage 3, CVE-targeted tests against vulnerable and fixed).
+        pkg_wh_old, pkg_reqs_old = wheelhouse_old, reqs_old
+        if "cve" in cats and not wheelhouse_old:
+            from .candidate import fixed_candidate
+            cand = fixed_candidate(workdir, pkg, python_version)
+            if cand["status"] == "resolved":
+                pkg_wh_old, pkg_reqs_old = Path(cand["wheelhouse"]), cand["requirements"]
         fixed_cats = [c for c in cats if not (mode == "agent" and c == "cve")]
         m = generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, fixed_cats, dep_roots=dep_roots,
-                             wheelhouse_old=wheelhouse_old, reqs_old=reqs_old if wheelhouse_old else None)
-        if mode == "agent" and "cve" in cats and wheelhouse_old:
+                             wheelhouse_old=pkg_wh_old, reqs_old=pkg_reqs_old if pkg_wh_old else None)
+        if mode == "agent" and "cve" in cats and pkg_wh_old:
             from . import agent
             from .. import adapters
-            am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, wheelhouse_old, reqs_old,
+            am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, pkg_wh_old, pkg_reqs_old,
                                           dep_roots, adapters.get("python"), python_version)
             m["mode"] = "agent (cve), fixed (other categories)"; m["files"] += am["files"]; m["discarded"] += am["discarded"]
             m["agent_budget"] = am["budget"]; m["agent_traces_ref"] = "manifest.agent.json"

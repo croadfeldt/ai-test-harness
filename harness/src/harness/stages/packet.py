@@ -115,6 +115,15 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
     findings_md = "\n".join(f"- **{f['class']}** ({f['confidence']}): {f['summary']}. Route: {f['routing']}. Evidence: `{f['evidence_ref']}`" for f in triage["findings"]) or "- none"
     tests_md = "\n".join(f"| {t['name']} | {t['category']} | {t['versions']['old']} | {t['versions']['new']} | {t['class']} | {t['action']} |" for t in triage["tests"]) or "| none | | | | | |"
     vex_md = "\n".join(f"| {st['vulnerability']['name']} | {st['status']} | {st['status_notes'][:110]} |" for st in vex["statements"]) or "| none | | |"
+    cand_path = workdir / "analyze" / pkg / "fixed-candidate.json"
+    cand = read_json(cand_path) if cand_path.exists() else None
+    if cand and cand.get("status") == "resolved":
+        upgrade_md = (f"The advisories are fixed in {pkg} {cand['fixed_version']}. The harness resolved an environment with it: {cand['note']}. "
+                      f"Packages that move: " + (", ".join(f"{k} {a} -> {b}" for k, (a, b) in cand.get("moved", {}).items()) or "none") + ".")
+    elif cand:
+        upgrade_md = f"No environment with the fixed version ({cand['fixed_version']}) resolves: {cand['note']}. " + "; ".join(a.get("error", "") for a in cand.get("attempts", []) if a.get("error"))
+    else:
+        upgrade_md = "Not applicable: the change brought the fixed version, or no advisory is open at head."
     recommended = ("**Do not merge** until Supply Chain Security clears the suspicious finding." if s.get("blocking") else
                    "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.")
     md = f"""# Review packet: {pkg} {facts['old_version']} -> {facts['new_version']}
@@ -143,6 +152,9 @@ Advisories: {facts['vulns_summary']['count']} open at head, {facts['vulns_summar
 | vulnerability | status | basis |
 |---|---|---|
 {vex_md}
+
+## Upgrade path
+{upgrade_md}
 
 ## Recommended action
 {recommended}
