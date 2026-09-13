@@ -19,7 +19,7 @@ to approve. Nothing merges without a person. Everything the harness produces is 
 | A CTO, VP of Engineering, or CISO deciding whether to fund this | [Executive summary](docs/00-executive-summary.md), then [The case](docs/01-the-case.md) and [Roadmap](docs/07-roadmap.md) | 20 minutes |
 | An engineer, architect, or security analyst who will build or run it | [How it works](docs/02-how-it-works.md), then [Blueprint](docs/03-blueprint.md), [Capability map](docs/05-capability-map.md), [Workflows and RACI](docs/06-workflows-and-raci.md) | 2 hours |
 | A member of the public, a journalist, a student, or a customer | [Executive summary](docs/00-executive-summary.md) and [Glossary](docs/08-glossary.md) | 10 minutes |
-| Someone presenting this | [Slide deck](slides/deck.md), 25 slides | 30 minutes |
+| Someone presenting this | Decks per audience: [executives](slides/executive.md) 5 min, [funding decision](slides/funding.md) 15 min, [builders and operators](slides/builder.md) 30 min, [readers](slides/public.md) 10 min; the [full deck](slides/deck.md) | |
 
 ## Three layers
 
@@ -45,7 +45,8 @@ docs/
   08-glossary.md             Plain-language definitions
   09-language-and-target-flows.md  Creation and execution flows per language, on Kubernetes, Podman, VM, bare metal
 slides/
-  deck.md                    A slide deck in markdown with Mermaid diagrams
+  executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
+  deck.md                    The full deck
 blueprint/
   adapter-interface.md       The contract each language ecosystem adapter implements
   manifest.schema.yaml       The provenance record every generated test carries
