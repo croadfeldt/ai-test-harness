@@ -135,7 +135,7 @@
   "generated": "2026-09-12T04:57:17+00:00",
   "mode": "agent (cve), fixed (other categories)",
   "model": {
-    "endpoint": "http://10.0.0.122:1234/v1",
+    "endpoint": "laptop-lmstudio", "endpoint_digest": "sha256:657141afb9ad95bf",
     "id": "qwen/qwen3.8-27b",
     "temperature": 0.2
   },

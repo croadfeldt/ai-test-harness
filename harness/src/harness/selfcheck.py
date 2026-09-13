@@ -30,6 +30,9 @@ def gf001():
     from .llm import ModelConfig
     cfg = ModelConfig(base_url="http://x/v1", model="m", api_key=None)
     assert cfg.reasoning_effort == "none", "client does not send reasoning_effort=none by default"
+    import inspect as _i
+    src = _i.getsource(__import__("harness.llm", fromlist=["x"]).Model.chat)
+    assert "self.cfg.base_url" not in src.split("record = {")[1].split("}")[0], "a call record must not carry the endpoint address"
     from .stages.generate import extract_python
     assert extract_python("") is None, "empty response must not yield a candidate"
 
@@ -244,7 +247,7 @@ def probe_model() -> dict:
         m = Model(cfg, Path(tempfile.mkdtemp(prefix="harness-selfcheck-model-")))
         text, rec = m.chat("Answer with one word.", "Reply: ready", "selfcheck", max_tokens=16)
         ok = bool(text.strip()) and rec["finish_reason"] in ("stop", "length")
-        return {"status": "pass" if ok else "fail", "endpoint": cfg.base_url, "model": rec["model"],
+        return {"status": "pass" if ok else "fail", "endpoint": cfg.label, "endpoint_digest": cfg.endpoint_digest, "model": rec["model"],
                 "reasoning_effort": cfg.reasoning_effort, "reasoning_tokens": (rec["usage"].get("completion_tokens_details") or {}).get("reasoning_tokens"),
                 "latency_s": rec["latency_s"]}
     except Exception as e:

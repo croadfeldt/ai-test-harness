@@ -132,7 +132,7 @@ def resolve_graph(source_dir: Path, manifest: Path, python_version: str | None =
         if p.depth == 99:
             p.depth = 2  # resolved through an extra or environment marker we could not evaluate
             p.parents = p.parents or ["<unresolved-edge>"]
-    return DependencyGraph(ecosystem=ECOSYSTEM, source_dir=str(source_dir), manifest=str(manifest),
+    return DependencyGraph(ecosystem=ECOSYSTEM, source_dir=source_dir.name, manifest=manifest.name,
                            manifest_digest=sha256_file(manifest), resolver=resolver,
                            python_version=python_version, packages=dict(sorted(pkgs.items())))
 

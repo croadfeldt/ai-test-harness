@@ -1,0 +1,210 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/python-jose/manifest.agent.json",
+              "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33663); NOT corroborated by stage 4 verdicts"
+            }
+          ],
+          "inputs": {
+            "base": "requirements.txt@2ad04243861b",
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+            "sbom_digest": "sha256:46141ffeb87a55c3eed23c4a1865c7ee08210f1a5778258116aa4497209d04bc",
+            "snapshot": "requirements.txt@cfa8f4a3292b"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 573,
+            "fix_pinning_confirmed": 3,
+            "flake_rate": 0.0,
+            "mutation_engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+            "mutation_sample": 12,
+            "mutation_score": 0.25,
+            "tests_total": 10
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "gpu-server-vllm",
+            "model_endpoint_digest": "sha256:8870f0d1a4df5ebc",
+            "model_id": "qwen38-27b",
+            "pipeline_run": [
+              "intake",
+              "--repo",
+              "frc-scheduler-server",
+              "--base",
+              "main",
+              "--head",
+              "deps/fix-known-vulns",
+              "--manifest",
+              "requirements.txt",
+              "--python-version",
+              "3.12",
+              "--workdir",
+              "../examples/frc-scheduler-server/pr-fix-known-vulns"
+            ],
+            "run_id": "76a3fa863e76",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-016",
+                "GF-017",
+                "GF-018",
+                "GF-019",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [
+            {
+              "category": "cve",
+              "file_sha256": "sha256:364897d14221e775ca38a9c2cf6f8f2f574b8c998b4790fba13c853056ccc649",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_6c5p_j8vq_pqhj_fix_pinning::364897d14221"
+            },
+            {
+              "category": "cve",
+              "file_sha256": "sha256:a5fdc51f9fef32f2d1da538a25a08ba60f114272f3a0e31ff00e56b3823ed00d",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_exposure::a5fdc51f9fef"
+            },
+            {
+              "category": "cve",
+              "file_sha256": "sha256:a5fdc51f9fef32f2d1da538a25a08ba60f114272f3a0e31ff00e56b3823ed00d",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_cjwg_qfpm_7377_fix_pinning::a5fdc51f9fef"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:d5a333108315db7da720ee1f4741da0fa2a8441340917a9a0624aadf49c3b5c3",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_expired_raises_expired_signature_error::d5a333108315"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:d5a333108315db7da720ee1f4741da0fa2a8441340917a9a0624aadf49c3b5c3",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_roundtrip_hs256::d5a333108315"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:d5a333108315db7da720ee1f4741da0fa2a8441340917a9a0624aadf49c3b5c3",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_wrong_key_raises_jwt_error::d5a333108315"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:d5a333108315db7da720ee1f4741da0fa2a8441340917a9a0624aadf49c3b5c3",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_encode_hs256_structure::d5a333108315"
+            }
+          ],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "unverified": [
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image"
+          ],
+          "vex_drafts": [
+            {
+              "evidence_test_ids": [
+                "test_ghsa_6c5p_j8vq_pqhj_fix_pinning"
+              ],
+              "reviewed_by": null,
+              "status": "fixed",
+              "vulnerability": "CVE-2024-33663"
+            },
+            {
+              "evidence_test_ids": [
+                "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+                "test_ghsa_cjwg_qfpm_7377_exposure"
+              ],
+              "reviewed_by": null,
+              "status": "fixed",
+              "vulnerability": "CVE-2024-33664"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "under_investigation",
+              "vulnerability": "CVE-2024-29370"
+            }
+          ],
+          "work_items": [
+            {
+              "depth": 1,
+              "old_version": "3.3.0",
+              "preflight": "clean",
+              "purl": "pkg:pypi/python-jose@3.4.0",
+              "reachable": "true",
+              "risk_score": 0.51
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [
+      "test_ghsa_6c5p_j8vq_pqhj_exposure"
+    ],
+    "passedTests": [
+      "test_pysec_2025_185_fix_pinning",
+      "test_pysec_2025_185_exposure",
+      "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "test_ghsa_cjwg_qfpm_7377_exposure",
+      "test_jwt_encode_hs256_structure",
+      "test_jwt_decode_roundtrip_hs256",
+      "test_jwt_decode_wrong_key_raises_jwt_error",
+      "test_jwt_decode_expired_raises_expired_signature_error"
+    ],
+    "result": "PASSED",
+    "url": "packet/python-jose/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "4c23edf397e9d34701f5f82bc79cd4f5a6c8976231e73a85dfb8ea69543b81da"
+      },
+      "name": "packet/python-jose/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "ce28ca5cf401f534d1cdd75d73539dff9c26fd64d46f0564cfca5e8412888c7f"
+      },
+      "name": "attest/python-jose/MANIFEST.json"
+    }
+  ]
+}

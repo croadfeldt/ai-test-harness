@@ -137,7 +137,7 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
                                                   tools={"openssf-malicious-packages": "ran (via OSV)", "guarddog": gd.get("status", "not_installed"),
                                                          "capslock": "n/a (Go only)"}),
                               vulns_old=v_old, vulns_new=v_new, parents=pkg.parents))
-    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, source_dir=str(repo),
+    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, source_dir=repo.name,
                   old_manifest=old_graph.manifest if base else None, new_manifest=new_graph.manifest, items=items)
     write_json(out / "worklist.json", wl)
     changed = [i for i in items if i.change in ("added", "removed", "bumped")]

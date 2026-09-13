@@ -10,18 +10,31 @@ from .util import HarnessError, log, now_iso, tool_version, write_json
 
 
 def _record_run(workdir: Path, args: argparse.Namespace) -> None:
+    """The run record names things, never local paths: the repository by name, the work directory by its last segment."""
+    def public(k, v):
+        if k == "repo":
+            return Path(v).name if v else None
+        if isinstance(v, Path):
+            return v.name
+        return v
     write_json(workdir / "run.json", {
-        "harness_version": __version__, "started": now_iso(), "command": sys.argv[1:],
+        "harness_version": __version__, "started": now_iso(),
+        "command": [Path(a).name if "/" in a else a for a in sys.argv[1:]],
         "tools": {"python": sys.version.split()[0], "pip": tool_version([sys.executable, "-m", "pip", "--version"]),
                   "git": tool_version(["git", "--version"])},
-        "args": {k: (str(v) if isinstance(v, Path) else v) for k, v in vars(args).items() if k != "func"},
+        "args": {k: public(k, v) for k, v in vars(args).items() if k != "func"},
     })
 
 
 def cmd_intake(a: argparse.Namespace) -> int:
+    from . import config
     from .stages.intake import intake
+    repo = config.target_repo(str(a.repo) if a.repo else None)
+    a.repo = repo
+    a.manifest = a.manifest or config.get("target", "manifest", None, "requirements.txt")
+    a.python_version = a.python_version or config.get("target", "python_version", None, None)
     _record_run(a.workdir, a)
-    wl = intake(repo=a.repo.resolve(), head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir,
+    wl = intake(repo=repo, head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir,
                 ecosystem=a.ecosystem, python_version=a.python_version)
     print(a.workdir / "intake" / "worklist.json")
     return 0
@@ -94,10 +107,10 @@ def main(argv: list[str] | None = None) -> int:
     s.set_defaults(func=cmd_selfcheck)
 
     s = sub.add_parser("intake", help="stage 1: resolve graphs at base and head, diff, pre-flight, work list")
-    s.add_argument("--repo", type=Path, required=True, help="target repository (a git checkout)")
+    s.add_argument("--repo", type=Path, default=None, help="target repository on this machine (default: [target].repo in harness.local.toml)")
     s.add_argument("--head", default="HEAD", help="ref of the incoming change (default HEAD)")
     s.add_argument("--base", default=None, help="ref of the last known-good state; omit for a rescan of --head")
-    s.add_argument("--manifest", default="requirements.txt", help="dependency manifest path inside the repo")
+    s.add_argument("--manifest", default=None, help="dependency manifest path inside the repo (default from config: requirements.txt)")
     s.add_argument("--ecosystem", default="python", choices=["python"])
     s.add_argument("--python-version", default=None, help="resolve for this interpreter version, e.g. 3.12")
     s.add_argument("--workdir", type=Path, required=True)

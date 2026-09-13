@@ -142,7 +142,8 @@ def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = 
     from ..model import Preflight
     wl = WorkList(**{**raw, "items": [WorkItem(**{**i, "preflight": Preflight(**i["preflight"])}) for i in raw["items"]]})
     adapter = adapters.get("python")
-    repo = Path(wl.source_dir)
+    from .. import config
+    repo = config.target_repo(None) if not Path(wl.source_dir).is_absolute() else Path(wl.source_dir)
     vuln_index = read_json(workdir / "intake" / "vulns.json")
     graph = read_json(workdir / "intake" / "graph.new.json")["packages"]
     dependents_of = {name: sorted(p for p, d in graph.items() if name in d["requires"])

@@ -326,4 +326,5 @@ TASK: Write 10 unit tests that characterize the current behavior of the symbols 
 
 
 PREVIOUS ATTEMPT FAILED:
-The response was cut off (loop_detected). Write a SHORTER file: fewer helper lines, no long literal strings or byte blobs; build any large or repetitive data with expressions such as b'A' * 100000 or with the cryptography library.
+These tests are too weak to prove anything:
+- test_jws_sign_verify_roundtrip: no assert and no pytest.raises; the test cannot fail

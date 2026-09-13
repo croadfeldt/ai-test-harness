@@ -1021,5 +1021,5 @@
   },
   "python_version": "3.12",
   "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
-  "source_dir": "/Users/chris/git/frc-scheduler-server"
+  "source_dir": "frc-scheduler-server"
 }

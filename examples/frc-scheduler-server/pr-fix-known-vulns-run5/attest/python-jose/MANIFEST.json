@@ -13,7 +13,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -23,7 +23,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -67,7 +67,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -77,7 +77,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -121,7 +121,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -131,7 +131,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -171,7 +171,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -181,7 +181,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -221,7 +221,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -231,7 +231,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -271,7 +271,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -281,7 +281,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },
@@ -321,7 +321,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T13:17:27+00:00"
+        "state_changed_at": "2026-09-13T14:56:09+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -331,7 +331,7 @@
         "run_id": "76a3fa863e76",
         "tool_versions": {
           "git": "git version 2.55.0",
-          "pip": "pip 26.0.1 from /Users/chris/git/ai-test-harness/harness/.venv/lib64/python3.14/site-packages/pip (python 3.14)",
+          "pip": "pip 26.0.1",
           "python": "3.14.7"
         }
       },

@@ -1,6 +1,6 @@
 {
   "call": 3,
-  "endpoint": "http://10.0.0.122:1234/v1",
+  "endpoint": "laptop-lmstudio", "endpoint_digest": "sha256:657141afb9ad95bf",
   "finish_reason": "stop",
   "latency_s": 378.5,
   "model": "qwen/qwen3.8-27b",

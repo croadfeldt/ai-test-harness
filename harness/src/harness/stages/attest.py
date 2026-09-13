@@ -94,7 +94,8 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
         "configuration": [{"name": "ai-test-harness-record", "digest": {"sha256": manifest_digest[7:]}, "annotations": {
             "run": {"run_id": wl["run_id"], "pipeline_run": run.get("command", []), "harness_version": __version__,
                     "harness_image_digest": "local-dev (not a container build)", "model_id": gen.get("model", {}).get("id", ""),
-                    "model_endpoint": gen.get("model", {}).get("endpoint", ""), "execution_targets": ["podman"],
+                    "model_endpoint": gen.get("model", {}).get("endpoint", ""), "model_endpoint_digest": gen.get("model", {}).get("endpoint_digest", ""),
+                    "execution_targets": ["podman"],
                     "selfcheck": {"passed": selfcheck.get("passed"), "checks": [c["id"] for c in selfcheck.get("checks", []) if c["status"] == "pass"],
                                   "ref": "selfcheck/selfcheck.json"}},
             "inputs": {"snapshot": wl["new_manifest"], "base": wl.get("old_manifest"), "sbom_digest": sha256_file(workdir / "intake" / "sbom.new.cdx.json"),

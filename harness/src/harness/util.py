@@ -68,9 +68,13 @@ def tool_available(name: str) -> bool:
 
 
 def tool_version(cmd: list[str]) -> str | None:
+    """First line of a tool's version output, with any local path removed ('pip 26.0.1 from /home/...' -> 'pip 26.0.1')."""
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-        return (proc.stdout or proc.stderr).strip().splitlines()[0] if proc.returncode == 0 else None
+        if proc.returncode != 0:
+            return None
+        line = (proc.stdout or proc.stderr).strip().splitlines()[0]
+        return line.split(" from ")[0].strip()
     except (OSError, subprocess.TimeoutExpired, IndexError):
         return None
 

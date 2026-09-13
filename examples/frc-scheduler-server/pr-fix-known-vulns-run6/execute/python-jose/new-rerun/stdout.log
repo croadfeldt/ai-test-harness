@@ -1,0 +1,86 @@
+...F......                                                               [100%]
+=================================== FAILURES ===================================
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ0ZXN0In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpHOq75PZ3VuZVEWMRuzT4kA97hskUTfUSRnuayUCCmEXLeeKgLpU8YMj4XLxz3pI6eJKHZOaXenLaUYji8RN0g== user@host'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+>               key = jwk.construct(key, algorithm)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fb054b12ab0>
+key = b'ecdsa-sha2-nistp256 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpHOq75PZ3VuZVEWMRuzT4kA97hskUTfUSRnuayUCCmEXLeeKgLpU8YMj4XLxz3pI6eJKHZOaXenLaUYji8RN0g== user@host'
+algorithm = 'HS256'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.HMAC:
+            raise JWKError("hash_alg: %s is not a valid hash algorithm" % algorithm)
+        self._algorithm = algorithm
+        self._hash_alg = self.ALG_MAP.get(algorithm)
+    
+        if isinstance(key, dict):
+            self.prepared_key = self._process_jwk(key)
+            return
+    
+        if not isinstance(key, str) and not isinstance(key, bytes):
+            raise JWKError("Expecting a string- or bytes-formatted key.")
+    
+        if isinstance(key, str):
+            key = key.encode("utf-8")
+    
+        if is_pem_format(key) or is_ssh_key(key):
+>           raise JWKError(
+                "The specified key is an asymmetric key or x509 certificate and"
+                " should not be used as an HMAC secret."
+            )
+E           jose.exceptions.JWKError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:567: JWKError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) rejects SSH keys."""
+        with pytest.raises(JWKError):
+>           jwt.encode({"sub": "test"}, _ec_ssh_public_key(), algorithm="HS256")
+
+tests/test_python_jose_cve_cve_2024_33663.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ0ZXN0In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpHOq75PZ3VuZVEWMRuzT4kA97hskUTfUSRnuayUCCmEXLeeKgLpU8YMj4XLxz3pI6eJKHZOaXenLaUYji8RN0g== user@host'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+>           raise JWSError(e)
+E           jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+1 failed, 9 passed in 0.26s

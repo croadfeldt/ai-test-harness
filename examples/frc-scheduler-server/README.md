@@ -60,7 +60,10 @@ a permanent, self-checked rule in the blueprint's failure register (section 17).
 | 5 | cap reading before a test run; tell the model when it reached the fix; flag repeated failures | **1 of 3** |
 
 Runs 1 to 4 each took 15 to 60 minutes on a 27B model on a laptop. The run that worked used three tool
-calls. Then pyasn1 and starlette went through the same pipeline once each and each proved one
+calls. Run 6 (`-run6/`) held everything from run 5 and moved the same model to a two-GPU server,
+five times faster: 2 of 3 vulnerabilities proven in 22 minutes end to end, the
+key-confusion one included. Same model, same rules; the speed bought more attempts inside the
+same budget. Then pyasn1 and starlette went through the same pipeline once each and each proved one
 vulnerability. The register grew to nineteen entries along the way; every one has a check that runs
 before every pipeline run.
 
@@ -98,8 +101,14 @@ D=../examples/frc-scheduler-server/pr-fix-known-vulns-run5
 ```
 
 The trigger is a branch in the application's repository, `deps/fix-known-vulns`, that bumps the four
-pins. The model was `qwen/qwen3.8-27b` at 8-bit through LM Studio on a Mac, reasoning off. Set
-`HARNESS_MODEL_BASE_URL` to any OpenAI-compatible endpoint; every call's prompt and response is kept.
+pins. The model was `qwen/qwen3.8-27b` at 8-bit through LM Studio on a laptop, reasoning off; run 6
+used the same model served by vLLM on a two-GPU server. Point the harness at any OpenAI-compatible
+endpoint in `harness/harness.local.toml`; every call's prompt and response is kept.
+
+The records name endpoints by a label and a digest of their address, and the target repository by its
+name, never by an address or a local path. Records from the earlier runs were rewritten to that form
+before this repository went public, and the attestations that covered them were re-signed; test file
+digests, verdicts, and every other recorded fact are unchanged (`tools/redact-local-details.py`).
 
 ## What is in each run directory
 

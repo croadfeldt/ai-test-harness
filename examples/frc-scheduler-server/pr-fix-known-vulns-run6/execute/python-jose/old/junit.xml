@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="10" time="0.217" timestamp="2026-09-13T13:29:47.479940+00:00" hostname="af40652e415f"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.018" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.007" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001"><failure message="Failed: DID NOT RAISE JWKError">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA public key must be rejected as an HMAC secret (JWKError)."""
+&gt;       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:26: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.002"><failure message="Failed: DID NOT RAISE JWKError">def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) rejects SSH keys."""
+&gt;       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:32: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.003"><failure message="Failed: DID NOT RAISE JWEError">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decompressing a JWE whose plaintext exceeds the size limit must raise JWEError."""
+        token = _make_bomb_token()
+&gt;       with pytest.raises(JWEError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWEError
+
+tests/test_python_jose_cve_cve_2024_33664.py:44: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.006"><failure message="AssertionError: decrypt returned 307200 bytes of decompressed data&#10;assert (b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' is None or 307200 &lt;= (250 * 1024))&#10; +  where 307200 = len(b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """A caller passing an attacker-supplied token to jwe.decrypt must not get a huge plaintext back."""
+        token = _make_bomb_token()
+        try:
+            result = jwe.decrypt(token, "asecret128bitkey")
+&gt;           assert result is None or len(result) &lt;= 250 * 1024, (
+                f"decrypt returned {len(result)} bytes of decompressed data" if result else ""
+            )
+E           AssertionError: decrypt returned 307200 bytes of decompressed data
+E           assert (b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' is None or 307200 &lt;= (250 * 1024))
+E            +  where 307200 = len(b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+
+tests/test_python_jose_cve_cve_2024_33664.py:53: AssertionError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_hs256_structure" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_roundtrip_hs256" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /></testsuite></testsuites>

@@ -255,7 +255,7 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse:
     fix_patch = patch_path.read_text()[:60000] if patch_path.exists() else None
     gen_dir.mkdir(parents=True, exist_ok=True); (gen_dir / "tests").mkdir(exist_ok=True)
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
-                "generated": now_iso(), "mode": "agent", "model": {"endpoint": model.cfg.base_url, "id": model.cfg.model, "temperature": model.cfg.temperature},
+                "generated": now_iso(), "mode": "agent", "model": {"endpoint": model.cfg.label, "endpoint_digest": model.cfg.endpoint_digest, "id": model.cfg.model, "temperature": model.cfg.temperature},
                 "budget": {"max_tool_calls": 14, "max_turns": 18, "max_reads_before_run": Budget.MAX_READS_BEFORE_RUN, "reserved_for_run_and_submit": Budget.RESERVE},
                 "cve_roles": roles,
                 "files": [], "discarded": [], "traces": {}}

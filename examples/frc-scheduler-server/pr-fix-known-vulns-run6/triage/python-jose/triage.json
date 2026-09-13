@@ -1,0 +1,178 @@
+{
+  "findings": [
+    {
+      "class": "defect",
+      "confidence": 0.4,
+      "corroborating_tests": [],
+      "escalated": true,
+      "evidence_ref": "generate/python-jose/manifest.agent.json",
+      "package": "python-jose",
+      "reproducer": "[new 3.4.0 = FIXED] test_ghsa_6c5p_j8vq_pqhj_fix_pinning=fail (jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.); test_ghs",
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33663); NOT corroborated by stage 4 verdicts"
+    }
+  ],
+  "generated": "2026-09-13T13:33:56+00:00",
+  "package": "python-jose",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 3,
+    "escalated": 1,
+    "findings": 1,
+    "tests_accept": 7,
+    "tests_discard_or_regenerate": 3
+  },
+  "tests": [
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_pysec_2025_185_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_pysec_2025_185_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as CVE evidence; VEX status fixed",
+      "category": "cve",
+      "class": "behavior-change",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "regenerate or discard",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "accept as CVE evidence; VEX status fixed",
+      "category": "cve",
+      "class": "behavior-change",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "accept as CVE evidence; VEX status fixed",
+      "category": "cve",
+      "class": "behavior-change",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_encode_hs256_structure",
+      "test_id": "tests.test_python_jose_unit::test_jwt_encode_hs256_structure",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_roundtrip_hs256",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_roundtrip_hs256",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_wrong_key_raises_jwt_error",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_expired_raises_expired_signature_error",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_expired_raises_expired_signature_error",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

@@ -1,0 +1,25 @@
+{
+  "coverage": "../examples/frc-scheduler-server/pr-fix-known-vulns-run6/execute/python-jose/new/coverage.json",
+  "duration_s": 20.5,
+  "finished": "2026-09-13T13:29:07+00:00",
+  "image": "docker.io/library/python:3.12-slim",
+  "install_failed": false,
+  "isolation": {
+    "capabilities": "all dropped",
+    "disposable": true,
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 900
+    },
+    "network": "none",
+    "no_new_privileges": true,
+    "rootfs": "read-only",
+    "secrets": "none mounted; environment cleared with env -i"
+  },
+  "junit": "../examples/frc-scheduler-server/pr-fix-known-vulns-run6/execute/python-jose/new/junit.xml",
+  "label": "python-jose-new",
+  "returncode": 1,
+  "timed_out": false
+}

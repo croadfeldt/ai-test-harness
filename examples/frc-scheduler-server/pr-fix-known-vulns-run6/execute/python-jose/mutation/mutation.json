@@ -1,0 +1,185 @@
+{
+  "engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+  "generated": "2026-09-13T13:33:55+00:00",
+  "killed": 3,
+  "mutants": [
+    {
+      "duration_s": 20.4,
+      "file": "jose/utils.py",
+      "id": "m001",
+      "killed_by": [],
+      "line": 139,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m002",
+      "killed_by": [],
+      "line": 463,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.5,
+      "file": "jose/jwe.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 237,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.6,
+      "file": "jose/jwt.py",
+      "id": "m004",
+      "killed_by": [
+        "test_jwt_decode_expired_raises_expired_signature_error"
+      ],
+      "line": 326,
+      "operator": "raise-drop",
+      "status": "killed"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "jose/utils.py",
+      "id": "m005",
+      "killed_by": [],
+      "line": 75,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "jose/jwt.py",
+      "id": "m006",
+      "killed_by": [
+        "test_jwt_decode_roundtrip_hs256"
+      ],
+      "line": 179,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 20.6,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m007",
+      "killed_by": [],
+      "line": 467,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "jose/jwe.py",
+      "id": "m008",
+      "killed_by": [],
+      "line": 84,
+      "operator": "raise-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.3,
+      "file": "jose/jwe.py",
+      "id": "m009",
+      "killed_by": [],
+      "line": 240,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.5,
+      "file": "jose/jwe.py",
+      "id": "m010",
+      "killed_by": [],
+      "line": 134,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.9,
+      "file": "jose/utils.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 76,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.9,
+      "file": "jose/jws.py",
+      "id": "m012",
+      "killed_by": [
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_roundtrip_hs256",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_hs256_structure"
+      ],
+      "line": 163,
+      "operator": "not-drop",
+      "status": "killed"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "python-jose",
+  "per_test": {
+    "test_jwt_decode_expired_raises_expired_signature_error": {
+      "killed": [
+        "m004",
+        "m012"
+      ],
+      "unique": [
+        "m004"
+      ]
+    },
+    "test_jwt_decode_roundtrip_hs256": {
+      "killed": [
+        "m006",
+        "m012"
+      ],
+      "unique": [
+        "m006"
+      ]
+    },
+    "test_jwt_decode_wrong_key_raises_jwt_error": {
+      "killed": [
+        "m012"
+      ],
+      "unique": []
+    },
+    "test_jwt_encode_hs256_structure": {
+      "killed": [
+        "m012"
+      ],
+      "unique": []
+    }
+  },
+  "sampled": 12,
+  "score": 0.25,
+  "seed": 512944556,
+  "sites": 139,
+  "status": "ran",
+  "survived": 9,
+  "tests": [
+    "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+    "test_ghsa_cjwg_qfpm_7377_exposure",
+    "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+    "test_jwt_decode_expired_raises_expired_signature_error",
+    "test_jwt_decode_roundtrip_hs256",
+    "test_jwt_decode_wrong_key_raises_jwt_error",
+    "test_jwt_encode_hs256_structure",
+    "test_pysec_2025_185_exposure",
+    "test_pysec_2025_185_fix_pinning"
+  ],
+  "valid": 12,
+  "version": "3.4.0"
+}

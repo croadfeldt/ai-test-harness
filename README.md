@@ -54,6 +54,7 @@ blueprint/
 diagrams/
   *.mmd                      Mermaid sources for every diagram, reusable in slides
 harness/
+  harness.example.toml       Copy to harness.local.toml (git-ignored): the only place a machine, endpoint, or path is named
   src/harness/               The implementation: cli, model, risk, adapters/, sources/, stages/
   tests/                     Unit tests for the parts that need no network
 examples/

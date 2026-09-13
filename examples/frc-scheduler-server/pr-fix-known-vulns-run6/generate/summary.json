@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-13T13:28:46+00:00",
+  "mode": "agent",
+  "model": "qwen38-27b",
+  "packages": [
+    {
+      "discarded": 0,
+      "files": 4,
+      "mode": "agent",
+      "model": "qwen38-27b",
+      "package": "python-jose",
+      "tests": 10
+    }
+  ]
+}

@@ -20,7 +20,8 @@ from pathlib import Path
 
 from .util import HarnessError, log, now_iso, run, sha256_file, write_json
 
-IMAGE = "docker.io/library/python:3.12-slim"
+from . import config as _config
+IMAGE = str(_config.get("sandbox", "image", "HARNESS_SANDBOX_IMAGE", "docker.io/library/python:3.12-slim"))
 LIMITS = {"memory": "2g", "pids": 512, "timeout_s": 900, "cpus": "2"}
 RUNNER_DEPS = ["pytest", "coverage"]
 

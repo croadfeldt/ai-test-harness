@@ -1,0 +1,57 @@
+..FFFF....                                                               [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA public key must be rejected as an HMAC secret (JWKError)."""
+>       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:26: Failed
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) rejects SSH keys."""
+>       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:32: Failed
+_____________________ test_ghsa_cjwg_qfpm_7377_fix_pinning _____________________
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decompressing a JWE whose plaintext exceeds the size limit must raise JWEError."""
+        token = _make_bomb_token()
+>       with pytest.raises(JWEError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWEError
+
+tests/test_python_jose_cve_cve_2024_33664.py:44: Failed
+______________________ test_ghsa_cjwg_qfpm_7377_exposure _______________________
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """A caller passing an attacker-supplied token to jwe.decrypt must not get a huge plaintext back."""
+        token = _make_bomb_token()
+        try:
+            result = jwe.decrypt(token, "asecret128bitkey")
+>           assert result is None or len(result) <= 250 * 1024, (
+                f"decrypt returned {len(result)} bytes of decompressed data" if result else ""
+            )
+E           AssertionError: decrypt returned 307200 bytes of decompressed data
+E           assert (b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' is None or 307200 <= (250 * 1024))
+E            +  where 307200 = len(b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+
+tests/test_python_jose_cve_cve_2024_33664.py:53: AssertionError
+=============================== warnings summary ===============================
+tests/test_python_jose_unit.py::test_jwt_decode_expired_raises_expired_signature_error
+  /work/venv/lib/python3.12/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_exposure
+4 failed, 6 passed, 1 warning in 0.21s

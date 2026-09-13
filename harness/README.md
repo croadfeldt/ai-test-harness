@@ -13,6 +13,15 @@ harness must do; this package is one way of doing it; `examples/` holds what it 
 
 Opinionated means the capability map's primary choices are fixed here, not configurable:
 
+## Configure a local install
+
+Nothing about a particular machine, network, or account is in this repository. Copy
+`harness.example.toml` to `harness.local.toml` (git-ignored) and set the model endpoint, the target
+repository path, and the interpreter version. Environment variables override the file
+(`HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL`, `HARNESS_TARGET_REPO`, and the others named in the example
+file). Records never carry the endpoint address or a local path: they carry the endpoint's label from
+the file and a digest of its address, and the repository by name.
+
 ## Run it
 
 ```
@@ -23,11 +32,10 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/harness selfcheck --workdir out/run1
 
 # Stage 1, react to a commit range on a target repo (the product team's PR):
-.venv/bin/harness intake --repo ../../frc-scheduler-server --base main --head HEAD \
-    --manifest requirements.txt --python-version 3.12 --workdir out/run1
+.venv/bin/harness intake --base main --head HEAD --workdir out/run1      # repo, manifest, interpreter from harness.local.toml
 
 # Or a scheduled rescan of one ref:
-.venv/bin/harness intake --repo ../../frc-scheduler-server --head main --python-version 3.12 --workdir out/rescan
+.venv/bin/harness intake --head main --workdir out/rescan
 
 # Stage 2, facts and risk for every changed or vulnerable row:
 .venv/bin/harness analyze --workdir out/run1 --python-version 3.12
