@@ -158,6 +158,7 @@ def execute(*, workdir: Path, select: list[str] | None = None, python_version: s
             log(f"  {pkg}: nothing generated"); continue
         log(f"  {pkg}")
         outs.append(execute_package(workdir, pkg, python_version))
-    write_json(workdir / "execute" / "summary.json", {"generated": now_iso(), "packages": [
-        {"package": r["package"]["purl"].split("/")[-1].split("@")[0], **r["counts"]} for r in outs]})
+    from ..util import merge_summary
+    merge_summary(workdir / "execute" / "summary.json", [
+        {"package": r["package"]["purl"].split("/")[-1].split("@")[0], **{k: v for k, v in r["counts"].items() if k != "cve_roles"}} for r in outs])
     return outs

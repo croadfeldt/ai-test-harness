@@ -159,7 +159,8 @@ def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = 
                 "vulns": b.vulns_summary["count"], "breaking": b.api_diff_summary["breaking"],
                 "score": b.risk.score, "budget": b.risk.budget["level"], "cve_targeted": b.risk.budget["cve_targeted"]}
                for b in bundles]
-    write_json(workdir / "analyze" / "summary.json", {"run_id": wl.run_id, "generated": now_iso(), "items": summary})
+    from ..util import merge_summary
+    merge_summary(workdir / "analyze" / "summary.json", summary, extra={"run_id": wl.run_id}, list_key="items")
     for s in summary:
         log(f"  {s['package']:<20} score {s['score']:>3}  budget {s['budget']:<8} reachable {s['reachable']:<7} vulns {s['vulns']:>2}  breaking {s['breaking']}")
     return bundles

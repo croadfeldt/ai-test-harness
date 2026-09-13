@@ -92,3 +92,14 @@ def http_json(url: str, body: Any | None = None, timeout: int = 30) -> Any:
 
 def log(msg: str) -> None:
     print(msg, file=sys.stderr, flush=True)
+
+
+def merge_summary(path: Path, rows: list[dict], key: str = "package", extra: dict | None = None, list_key: str = "packages") -> dict:
+    """Stage summaries accumulate across selective runs: rows for the packages this run touched
+    replace their previous rows; rows for other packages are kept. A --select run must never hide
+    the rest of the work list from later stages."""
+    existing = read_json(path) if path.exists() else {}
+    kept = [r for r in existing.get(list_key, []) if r.get(key) not in {row.get(key) for row in rows}]
+    doc = {**existing, **(extra or {}), "generated": now_iso(), list_key: kept + rows}
+    write_json(path, doc)
+    return doc

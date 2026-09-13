@@ -440,7 +440,8 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
             m["agent_budget"] = am["budget"]; m["agent_traces_ref"] = "manifest.agent.json"
             write_json(gen_dir / "manifest.json", m)
         outs.append(m)
-    write_json(workdir / "generate" / "summary.json", {"generated": now_iso(), "model": cfg.model, "mode": mode, "packages": [
+    from ..util import merge_summary
+    merge_summary(workdir / "generate" / "summary.json", [
         {"package": m["package"], "files": len(m["files"]), "tests": sum(len(f["tests"]) for f in m["files"]),
-         "discarded": len(m["discarded"])} for m in outs]})
+         "discarded": len(m["discarded"]), "mode": mode, "model": cfg.model} for m in outs], extra={"model": cfg.model, "mode": mode})
     return outs

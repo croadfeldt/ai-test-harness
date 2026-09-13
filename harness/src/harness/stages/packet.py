@@ -185,5 +185,6 @@ def packet(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
     run_id = read_json(workdir / "intake" / "worklist.json")["run_id"]
     tri = read_json(workdir / "triage" / "summary.json")
     outs = [packet_package(workdir, p["package"], run_id) for p in tri["packages"] if not select or p["package"] in select]
-    write_json(workdir / "packet" / "summary.json", {"generated": now_iso(), "packages": outs})
+    from ..util import merge_summary
+    merge_summary(workdir / "packet" / "summary.json", outs)
     return outs

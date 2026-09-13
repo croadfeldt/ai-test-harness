@@ -132,5 +132,6 @@ def triage(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
         if select and item["package"] not in select:
             continue
         outs.append(triage_package(workdir, item["package"]))
-    write_json(workdir / "triage" / "summary.json", {"generated": now_iso(), "packages": [{"package": o["package"], **o["summary"]} for o in outs]})
+    from ..util import merge_summary
+    merge_summary(workdir / "triage" / "summary.json", [{"package": o["package"], **o["summary"]} for o in outs])
     return outs

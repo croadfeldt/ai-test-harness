@@ -157,5 +157,6 @@ def attest(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
     outs = [attest_package(workdir, p["package"], run, selfcheck) for p in pk["packages"] if not select or p["package"] in select]
     for o in outs:
         o["verified_locally"] = verify(workdir / o["envelope"], workdir / "attest" / o["package"] / "signer.pub.pem")
-    write_json(workdir / "attest" / "summary.json", {"generated": now_iso(), "packages": outs})
+    from ..util import merge_summary
+    merge_summary(workdir / "attest" / "summary.json", outs)
     return outs
