@@ -38,6 +38,7 @@ spec:
       env:
         - { name: HARNESS_SANDBOX_TARGET, value: pod }
         - { name: HARNESS_SELFCHECK_SKIP_SANDBOX, value: "1" }   # the isolation proof runs in the execute pod, where the isolation is
+        - { name: HARNESS_POD_IMAGE, value: $(params.image) }   # recorded by generate's sandbox runs; a digest reference pins the bytes
         - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.shared.path)/run/cache/wheelhouse/probe }
         # The clone task and the harness run as different random UIDs; git refuses the checkout otherwise.
         - { name: GIT_CONFIG_COUNT, value: "1" }
@@ -64,6 +65,7 @@ spec:
   stepTemplate:
     env:
       - { name: HARNESS_SANDBOX_TARGET, value: pod }
+      - { name: HARNESS_POD_IMAGE, value: $(params.image) }
       - { name: HARNESS_WORK_TMP, value: /workspace/tmp }
       - { name: HARNESS_PROBE_WHEELHOUSE, value: $(workspaces.shared.path)/run/cache/wheelhouse/probe }
     securityContext: { readOnlyRootFilesystem: true, allowPrivilegeEscalation: false, capabilities: { drop: [ALL] } }

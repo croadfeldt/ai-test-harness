@@ -19,7 +19,8 @@ def _record_run(workdir: Path, args: argparse.Namespace) -> None:
         return v
     write_json(workdir / "run.json", {
         "harness_version": __version__, "started": now_iso(),
-        "command": [Path(a).name if "/" in a else a for a in sys.argv[1:]],
+        # Only an argument that is a path on this machine is shortened; a branch name such as deps/x is kept.
+        "command": [Path(a).name if "/" in a and Path(a).exists() else a for a in sys.argv[1:]],
         "tools": {"python": sys.version.split()[0], "pip": tool_version([sys.executable, "-m", "pip", "--version"]),
                   "git": tool_version(["git", "--version"])},
         "args": {k: public(k, v) for k, v in vars(args).items() if k != "func"},
