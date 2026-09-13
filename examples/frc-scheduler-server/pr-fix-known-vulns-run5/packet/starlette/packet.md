@@ -1,6 +1,8 @@
 # Review packet: starlette 0.41.3 -> 0.41.3
 
-Run `76a3fa863e76`. Generated 2026-09-13T04:29:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+**In plain terms.** This change leaves starlette at 0.41.3, which has 7 known vulnerabilities the application is exposed to. The harness proved 1 of the 7 with a test that fails on the vulnerable version and passes on the fixed one; the other 6 are unproven and marked so. Accept the 6 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
+
+Run `76a3fa863e76`. Generated 2026-09-13T13:17:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 starlette at depth 2, change `unchanged`, reachable from first-party code: **true**
@@ -11,6 +13,7 @@ Advisories: 14 open at head, 0 on the replaced version.
 ## What was tested
 18 generated tests ran in the sealed sandbox on head, again for flakes, and on the base version. 10 pass on head, 0 flaky,
 2 fix-pinning confirmed, 1368 lines of the package covered. Model: `qwen/qwen3.8-27b`.
+Mutation: score 0.0 (0 of 12 sampled mutants killed, 319 sites on executed lines, seed 3701344546). Tests that killed nothing: ['test_cookie_parser_basic', 'test_gdsa_wqp7_x3pw_xc5r_exposure', 'test_gdsa_wqp7_x3pw_xc5r_fix_pinning', 'test_ghsa_7f5h_v6xp_fcq8_exposure', 'test_ghsa_7f5h_v6xp_fcq8_fix_pinning', 'test_ghsa_86qp_5c8j_p5mr_exposure', 'test_ghsa_86qp_5c8j_p5mr_fix_pinning', 'test_json_response_renders_json', 'test_response_status_and_body', 'test_simple_user_authenticated']. Target in the blueprint: 0.6.
 
 ## Findings
 - **security** (0.9): starlette 0.41.3 has 14 open advisories at head; reachable=true. Route: Product Security. Evidence: `analyze/starlette/vulns.json`
@@ -45,7 +48,7 @@ Advisories: 14 open at head, 0 on the replaced version.
 |---|---|---|
 | CVE-2025-54121 | affected | open at head; reachable=true; fixed in ['0.47.2'] |
 | CVE-2025-62727 | affected | open at head; reachable=true; fixed in ['0.49.1'] |
-| CVE-2026-54283 | affected | exposure test(s) ['test_ghsa_82w8_qh3p_5jfq_fix_pinning', 'test_ghsa_82w8_qh3p_5jfq_exposure'] fail on pkg:pyp |
+| CVE-2026-54283 | affected | exposure test(s) ['test_ghsa_82w8_qh3p_5jfq_exposure', 'test_ghsa_82w8_qh3p_5jfq_fix_pinning'] fail on pkg:pyp |
 | CVE-2026-48710 | affected | open at head; reachable=true; fixed in ['1.0.1'] |
 | CVE-2026-54282 | affected | open at head; reachable=true; fixed in ['1.3.0'] |
 | CVE-2026-48818 | affected | open at head; reachable=true; fixed in ['1.1.0'] |

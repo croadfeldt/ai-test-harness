@@ -13,7 +13,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -44,7 +44,8 @@
         "coverage_delta": 0.0,
         "differential": "same",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       }
     },
     {
@@ -59,7 +60,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -90,7 +91,8 @@
         "coverage_delta": 0.0,
         "differential": "changed",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       },
       "vulnerability": {
         "id": "CVE-2026-54283",
@@ -112,7 +114,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -143,7 +145,8 @@
         "coverage_delta": 0.0,
         "differential": "changed",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       },
       "vulnerability": {
         "id": "CVE-2026-54283",
@@ -165,7 +168,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -196,7 +199,8 @@
         "coverage_delta": 0.0,
         "differential": "same",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       }
     },
     {
@@ -211,7 +215,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -242,7 +246,8 @@
         "coverage_delta": 0.0,
         "differential": "same",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       }
     },
     {
@@ -257,7 +262,7 @@
         "bumps_survived": 0,
         "regressions_caught": 0,
         "state": "candidate",
-        "state_changed_at": "2026-09-13T04:29:48+00:00"
+        "state_changed_at": "2026-09-13T13:17:27+00:00"
       },
       "run": {
         "execution_target": "podman",
@@ -288,7 +293,8 @@
         "coverage_delta": 0.0,
         "differential": "same",
         "flake_runs": 2,
-        "mutants_killed": 0
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
       }
     }
   ]

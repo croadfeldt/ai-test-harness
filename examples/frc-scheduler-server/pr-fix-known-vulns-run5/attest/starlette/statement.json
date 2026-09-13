@@ -42,7 +42,9 @@
             "coverage_lines_in_target": 1368,
             "fix_pinning_confirmed": 2,
             "flake_rate": 0.0,
-            "mutation_score": null,
+            "mutation_engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+            "mutation_sample": 12,
+            "mutation_score": 0.0,
             "tests_total": 18
           },
           "run": {
@@ -88,6 +90,7 @@
                 "GF-016",
                 "GF-017",
                 "GF-018",
+                "GF-019",
                 "GF-012"
               ],
               "passed": true,
@@ -135,7 +138,7 @@
           "tests_promoted": [],
           "tests_retired": [],
           "unverified": [
-            "mutation score: mutation testing not in this slice",
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
             "harness image digest: harness ran from a checkout, not a built image"
@@ -199,7 +202,7 @@
           ]
         },
         "digest": {
-          "sha256": "abc1a46f20225dc1b8e54f386dce4e6ef4d6335c19ee83607856dcc1072a5729"
+          "sha256": "3677be83f860c076ceabd149ee8dedd96bb93aa03a8cdfd1392c921a2efd5f25"
         },
         "name": "ai-test-harness-record"
       }
@@ -240,7 +243,7 @@
     },
     {
       "digest": {
-        "sha256": "abc1a46f20225dc1b8e54f386dce4e6ef4d6335c19ee83607856dcc1072a5729"
+        "sha256": "3677be83f860c076ceabd149ee8dedd96bb93aa03a8cdfd1392c921a2efd5f25"
       },
       "name": "attest/starlette/MANIFEST.json"
     }

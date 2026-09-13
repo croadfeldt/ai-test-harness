@@ -1,27 +1,17 @@
 # harness: the opinionated implementation
 
-This directory is the second of the three layers in this repository: the blueprint (`docs/`,
-`blueprint/`) says what the harness must do; this package is one opinionated way of doing it; the
-`examples/` directory holds what this package produced when pointed at real repositories, and the
-post-analysis of whether it met the blueprint's goals.
+**In plain terms.** This is the code that does what the blueprint describes, for Python packages. It
+reacts to a commit or pull request, works out which dependencies changed and which carry known
+vulnerabilities, has a model write tests, runs them in a sealed container against both versions, scores
+them, and produces a one-page review packet, draft VEX statements, and a signed record. It checks
+itself before every run and stops if any check fails.
 
-Opinionated means the capability map's primary choices are hard-wired here, not configurable:
+This directory is the second of three layers: the blueprint (`docs/`, `blueprint/`) says what the
+harness must do; this package is one way of doing it; `examples/` holds what it produced on real code.
 
-| Capability | Choice in this implementation |
-|---|---|
-| Dependency graph | pip's own resolver in `--dry-run --report` mode, targeting the project's interpreter (from its Containerfile) with wheels only, falling back to the running interpreter. Hermeto output will replace it when the harness runs inside Konflux. |
-| SBOM | CycloneDX 1.5 JSON emitted from that graph |
-| Known vulnerabilities and malicious-package gate | OSV.dev batch query; MAL- entries are the OpenSSF Malicious Packages feed |
-| Pre-flight scanners | GuardDog when installed, recorded as not installed otherwise; Capslock is Go-only |
-| API surface and contract diff | Standard-library `ast` over the downloaded wheel: public modules, functions, classes, methods with signatures. A change to the required parameters is breaking. |
-| First-party call sites | `ast` over the target repository with venv, node_modules and build directories excluded; test files flagged |
-| Release notes | PyPI long description, written to `notes.untrusted.md` with a banner. Never an instruction to a model. |
-| Risk score and budget | `risk.py`, weights listed once, every contribution written to the fact bundle as a reason |
-| Mutation testing | The harness's own AST mutator (compare swap, and/or swap, constant tweak, raise drop, return None, not drop) on a bounded, seeded sample of sites on lines the tests execute; each mutant is overlaid onto the installed package in the sandbox and the passing tests run against it. The capability map names mutmut; it mutates a project's own source tree, and an integration for a dependency installed from a wheel does not exist yet. Engine and seed are recorded in the attestation. |
-| Model for generation | Any OpenAI-compatible chat endpoint; default is the homelab vLLM route serving Qwen3.6-27B. Set `HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL`, `HARNESS_MODEL_API_KEY`. Every call's prompt, response, digests, usage, and latency are written under `generate/<package>/model-calls/`. |
-| Sandbox | Podman: `--network none`, all capabilities dropped, no new privileges, read-only root, tmpfs work dir, memory / pid / cpu / time limits, environment cleared with `env -i`, wheels installed offline from a prefetched wheelhouse. `tests/test_sandbox_integration.py` proves each claim with a probe. The Kubernetes target with a Kata or gVisor RuntimeClass reuses the same plan. |
+## The choices it makes
 
-Nothing in stages 1 and 2 calls a model. Facts come from tools; the model gets them in stage 3.
+Opinionated means the capability map's primary choices are fixed here, not configurable:
 
 ## Run it
 

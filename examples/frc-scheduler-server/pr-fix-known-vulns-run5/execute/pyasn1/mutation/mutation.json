@@ -1,0 +1,208 @@
+{
+  "engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+  "generated": "2026-09-13T13:13:12+00:00",
+  "killed": 5,
+  "mutants": [
+    {
+      "duration_s": 20.4,
+      "file": "pyasn1/codec/ber/decoder.py",
+      "id": "m001",
+      "killed_by": [
+        "test_ghsa_hm4w_wwcw_mr6r_exposure",
+        "test_ghsa_hm4w_wwcw_mr6r_fix_pinning"
+      ],
+      "line": 406,
+      "operator": "not-drop",
+      "status": "killed"
+    },
+    {
+      "duration_s": 20.3,
+      "file": "pyasn1/type/base.py",
+      "id": "m002",
+      "killed_by": [],
+      "line": 26,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "pyasn1/type/univ.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 1346,
+      "operator": "boolop-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.5,
+      "file": "pyasn1/type/univ.py",
+      "id": "m004",
+      "killed_by": [
+        "test_ghsa_hm4w_wwcw_mr6r_exposure",
+        "test_ghsa_hm4w_wwcw_mr6r_fix_pinning"
+      ],
+      "line": 1349,
+      "operator": "const-int",
+      "status": "killed"
+    },
+    {
+      "duration_s": 20.6,
+      "file": "pyasn1/compat/dateandtime.py",
+      "id": "m005",
+      "killed_by": [],
+      "line": 14,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.8,
+      "file": "pyasn1/codec/ber/decoder.py",
+      "id": "m006",
+      "killed_by": [
+        "test_ghsa_hm4w_wwcw_mr6r_exposure",
+        "test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+        "test_ghsa_m4p7_r5rc_7g4j_exposure",
+        "test_ghsa_m4p7_r5rc_7g4j_fix_pinning"
+      ],
+      "line": 1454,
+      "operator": "compare-swap",
+      "status": "killed"
+    },
+    {
+      "duration_s": 20.7,
+      "file": "pyasn1/type/constraint.py",
+      "id": "m007",
+      "killed_by": [
+        "tests.test_pyasn1_cve_cve_2026_59884",
+        "tests.test_pyasn1_cve_cve_2026_59886"
+      ],
+      "line": 74,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 21.0,
+      "file": "pyasn1/codec/ber/decoder.py",
+      "id": "m008",
+      "killed_by": [],
+      "line": 414,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.8,
+      "file": "pyasn1/type/univ.py",
+      "id": "m009",
+      "killed_by": [],
+      "line": 1468,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.5,
+      "file": "pyasn1/type/char.py",
+      "id": "m010",
+      "killed_by": [],
+      "line": 134,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.5,
+      "file": "pyasn1/type/univ.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 1502,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.4,
+      "file": "pyasn1/type/univ.py",
+      "id": "m012",
+      "killed_by": [
+        "tests.test_pyasn1_cve_cve_2026_59884",
+        "tests.test_pyasn1_cve_cve_2026_59886"
+      ],
+      "line": 1116,
+      "operator": "const-int",
+      "status": "killed"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "pyasn1",
+  "per_test": {
+    "test_ghsa_hm4w_wwcw_mr6r_exposure": {
+      "killed": [
+        "m001",
+        "m004",
+        "m006"
+      ],
+      "unique": []
+    },
+    "test_ghsa_hm4w_wwcw_mr6r_fix_pinning": {
+      "killed": [
+        "m001",
+        "m004",
+        "m006"
+      ],
+      "unique": []
+    },
+    "test_ghsa_m4p7_r5rc_7g4j_exposure": {
+      "killed": [
+        "m006"
+      ],
+      "unique": []
+    },
+    "test_ghsa_m4p7_r5rc_7g4j_fix_pinning": {
+      "killed": [
+        "m006"
+      ],
+      "unique": []
+    },
+    "tests.test_pyasn1_cve_cve_2026_59884": {
+      "killed": [
+        "m007",
+        "m012"
+      ],
+      "unique": []
+    },
+    "tests.test_pyasn1_cve_cve_2026_59886": {
+      "killed": [
+        "m007",
+        "m012"
+      ],
+      "unique": []
+    }
+  },
+  "sampled": 12,
+  "score": 0.417,
+  "seed": 4242360759,
+  "sites": 385,
+  "status": "ran",
+  "survived": 7,
+  "tests": [
+    "test_debug_is_callable",
+    "test_ghsa_hm4w_wwcw_mr6r_exposure",
+    "test_ghsa_hm4w_wwcw_mr6r_fix_pinning",
+    "test_ghsa_m4p7_r5rc_7g4j_exposure",
+    "test_ghsa_m4p7_r5rc_7g4j_fix_pinning",
+    "test_hexdump_empty_bytes",
+    "test_printer_is_callable",
+    "test_pyasn1error_is_exception_subclass",
+    "test_pyasn1unicode_error_is_unicode_error_subclass",
+    "test_setlogger_returns_none",
+    "test_substrate_underrun_error_is_pyasn1error_subclass",
+    "test_value_constraint_error_is_pyasn1error_subclass"
+  ],
+  "valid": 12,
+  "version": "0.4.8"
+}

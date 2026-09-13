@@ -1,0 +1,146 @@
+{
+  "engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+  "generated": "2026-09-13T13:17:26+00:00",
+  "killed": 0,
+  "mutants": [
+    {
+      "duration_s": 21.2,
+      "file": "starlette/datastructures.py",
+      "id": "m001",
+      "killed_by": [],
+      "line": 630,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.2,
+      "file": "starlette/datastructures.py",
+      "id": "m002",
+      "killed_by": [],
+      "line": 435,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.0,
+      "file": "starlette/status.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 141,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.2,
+      "file": "starlette/_utils.py",
+      "id": "m004",
+      "killed_by": [],
+      "line": 39,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.0,
+      "file": "starlette/status.py",
+      "id": "m005",
+      "killed_by": [],
+      "line": 137,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.0,
+      "file": "starlette/datastructures.py",
+      "id": "m006",
+      "killed_by": [],
+      "line": 664,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.8,
+      "file": "starlette/responses.py",
+      "id": "m007",
+      "killed_by": [],
+      "line": 460,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.0,
+      "file": "starlette/routing.py",
+      "id": "m008",
+      "killed_by": [],
+      "line": 134,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.3,
+      "file": "starlette/formparsers.py",
+      "id": "m009",
+      "killed_by": [],
+      "line": 165,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.2,
+      "file": "starlette/datastructures.py",
+      "id": "m010",
+      "killed_by": [],
+      "line": 100,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 21.3,
+      "file": "starlette/responses.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 442,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 20.9,
+      "file": "starlette/formparsers.py",
+      "id": "m012",
+      "killed_by": [],
+      "line": 187,
+      "operator": "compare-swap",
+      "status": "survived"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "starlette",
+  "per_test": {},
+  "sampled": 12,
+  "score": 0.0,
+  "seed": 3701344546,
+  "sites": 319,
+  "status": "ran",
+  "survived": 12,
+  "tests": [
+    "test_cookie_parser_basic",
+    "test_gdsa_wqp7_x3pw_xc5r_exposure",
+    "test_gdsa_wqp7_x3pw_xc5r_fix_pinning",
+    "test_ghsa_7f5h_v6xp_fcq8_exposure",
+    "test_ghsa_7f5h_v6xp_fcq8_fix_pinning",
+    "test_ghsa_86qp_5c8j_p5mr_exposure",
+    "test_ghsa_86qp_5c8j_p5mr_fix_pinning",
+    "test_json_response_renders_json",
+    "test_response_status_and_body",
+    "test_simple_user_authenticated"
+  ],
+  "valid": 12,
+  "version": "0.41.3"
+}

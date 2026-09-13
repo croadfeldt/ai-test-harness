@@ -134,7 +134,33 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
         upgrade_md = "Not applicable: the change brought the fixed version, or no advisory is open at head."
     recommended = ("**Do not merge** until Supply Chain Security clears the suspicious finding." if s.get("blocking") else
                    "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.")
+    # In plain terms: the verdict first, in words, then the evidence.
+    # Count vulnerabilities, not advisory ids or tests: one CVE may carry three ids and two tests.
+    from .generate import _group_advisories
+    groups_open = _group_advisories(vulns_doc.get("vulns", [])); groups_fixed = _group_advisories(vulns_doc.get("vulns_old", []))
+    n_open, n_fixed = len(groups_open), len(groups_fixed)
+    proven_ids = {t["name"] for t in triage["tests"] if t["action"].startswith("accept as CVE evidence")}
+    def _proven(groups):
+        return sum(1 for key, grp in groups.items() if any(x.lower().replace("-", "_") in n for n in proven_ids for v in grp for x in [v["id"], *v.get("aliases", [])]))
+    confirmed = _proven(groups_open) + _proven(groups_fixed)
+    n_issues = n_open + n_fixed
+    if facts["change"] == "bumped" and n_fixed and not n_open:
+        what = f"This change updates {pkg} from {facts['old_version']} to {facts['new_version']}, which closes {n_fixed} known vulnerabilit{'y' if n_fixed == 1 else 'ies'}."
+    elif facts["change"] == "bumped" and n_open and not n_fixed:
+        what = f"This change moves {pkg} from {facts['old_version']} to {facts['new_version']}, a version with {n_open} known vulnerabilit{'y' if n_open == 1 else 'ies'}. That is a downgrade."
+    elif facts["change"] == "unchanged" and n_open:
+        what = f"This change leaves {pkg} at {facts['new_version']}, which has {n_open} known vulnerabilit{'y' if n_open == 1 else 'ies'} the application is exposed to."
+    else:
+        what = f"This change moves {pkg} from {facts['old_version']} to {facts['new_version']}."
+    proven = (f"The harness proved {confirmed} of the {n_issues} with a test that fails on the vulnerable version and passes on the fixed one; the other {n_issues - confirmed} {'is' if n_issues - confirmed == 1 else 'are'} unproven and marked so."
+              if confirmed else f"The harness could not prove any of the {n_issues} with a test; that is stated, not hidden.")
+    accepted_n = len(accept)
+    todo = ("Do not merge until Supply Chain Security clears the suspicious finding." if s.get("blocking") else
+            f"Accept the {accepted_n} candidate test{'s' if accepted_n != 1 else ''} if they look right, act on the findings below, and send the draft VEX statements to Product Security.")
+    plain = f"{what} {proven} {todo}"
     md = f"""# Review packet: {pkg} {facts['old_version']} -> {facts['new_version']}
+
+**In plain terms.** {plain}
 
 Run `{run_id}`. Generated {now_iso()}. This packet proposes; a reviewer decides. Nothing here has been merged.
 

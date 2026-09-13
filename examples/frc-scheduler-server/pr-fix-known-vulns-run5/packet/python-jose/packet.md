@@ -1,6 +1,8 @@
 # Review packet: python-jose 3.3.0 -> 3.4.0
 
-Run `76a3fa863e76`. Generated 2026-09-13T13:06:50+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+**In plain terms.** This change updates python-jose from 3.3.0 to 3.4.0, which closes 3 known vulnerabilities. The harness proved 1 of the 3 with a test that fails on the vulnerable version and passes on the fixed one; the other 2 are unproven and marked so. Accept the 7 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
+
+Run `76a3fa863e76`. Generated 2026-09-13T13:17:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 python-jose at depth 1, change `bumped`, reachable from first-party code: **true**
@@ -36,7 +38,7 @@ Mutation: score 0.417 (5 of 12 sampled mutants killed, 157 sites on executed lin
 | vulnerability | status | basis |
 |---|---|---|
 | CVE-2024-33663 | under_investigation | bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet |
-| CVE-2024-33664 | fixed | fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_exposure', 'test_ghsa_cjwg_qfpm_7377_fix_pinning'] fail on pkg: |
+| CVE-2024-33664 | fixed | fix-pinning test(s) ['test_ghsa_cjwg_qfpm_7377_fix_pinning', 'test_ghsa_cjwg_qfpm_7377_exposure'] fail on pkg: |
 | CVE-2024-29370 | under_investigation | bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet |
 
 ## Upgrade path

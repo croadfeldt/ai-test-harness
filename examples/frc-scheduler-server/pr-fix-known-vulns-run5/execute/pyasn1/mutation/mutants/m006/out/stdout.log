@@ -1,0 +1,610 @@
+FFFF........                                                             [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_m4p7_r5rc_7g4j_fix_pinning _____________________
+
+    def test_ghsa_m4p7_r5rc_7g4j_fix_pinning():
+        """Fixed decoder rejects long-form tag IDs longer than 20 octets; vulnerable one accepts them."""
+>       assert _decode(MALICIOUS) == 'error'
+               ^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59884.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_pyasn1_cve_cve_2026_59884.py:13: in _decode
+    decoder.decode(data)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyasn1.codec.ber.decoder.Decoder object at 0x7fc327122810>
+substrate = b'\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x00d\x00\x00\x0...00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+asn1Spec = None, tagSet = <TagSet object, tags 128:0:1>, length = 31, state = 3
+decodeFun = None, substrateFun = None, options = {}
+
+    def __call__(self, substrate, asn1Spec=None, tagSet=None, length=None, state=stDecodeTag, decodeFun=None, substrateFun=None, **options):
+        if LOG:
+            LOG('decoder called at scope %s with state %d, working with up to %d octets of substrate: %s' % (debug.scope, state, len(substrate), debug.hexdump(substrate)))
+        allowEoo = options.pop('allowEoo', False)
+        if allowEoo and self.supportIndefLength:
+            if substrate[:2] == self.__eooSentinel:
+                if LOG:
+                    LOG('end-of-octets sentinel found')
+                return (eoo.endOfOctets, substrate[2:])
+        value = noValue
+        tagMap = self.__tagMap
+        typeMap = self.__typeMap
+        tagCache = self.__tagCache
+        tagSetCache = self.__tagSetCache
+        fullSubstrate = substrate
+        while state is not stStop:
+            if state is stDecodeTag:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on tag decoding')
+                isShortTag = True
+                firstOctet = substrate[0]
+                substrate = substrate[1:]
+                try:
+                    lastTag = tagCache[firstOctet]
+                except KeyError:
+                    integerTag = oct2int(firstOctet)
+                    tagClass = integerTag & 192
+                    tagFormat = integerTag & 32
+                    tagId = integerTag & 31
+                    if tagId == 31:
+                        isShortTag = False
+                        lengthOctetIdx = 0
+                        tagId = 0
+                        try:
+                            while True:
+                                integerTag = oct2int(substrate[lengthOctetIdx])
+                                lengthOctetIdx += 1
+                                tagId <<= 7
+                                tagId |= integerTag & 127
+                                if not integerTag & 128:
+                                    break
+                            substrate = substrate[lengthOctetIdx:]
+                        except IndexError:
+                            raise error.SubstrateUnderrunError('Short octet stream on long tag decoding')
+                    lastTag = tag.Tag(tagClass=tagClass, tagFormat=tagFormat, tagId=tagId)
+                    if isShortTag:
+                        tagCache[firstOctet] = lastTag
+                if tagSet is None:
+                    if isShortTag:
+                        try:
+                            tagSet = tagSetCache[firstOctet]
+                        except KeyError:
+                            tagSet = tag.TagSet((), lastTag)
+                            tagSetCache[firstOctet] = tagSet
+                    else:
+                        tagSet = tag.TagSet((), lastTag)
+                else:
+                    tagSet = lastTag + tagSet
+                state = stDecodeLength
+                if LOG:
+                    LOG('tag decoded into %s, decoding length' % tagSet)
+            if state is stDecodeLength:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on length decoding')
+                firstOctet = oct2int(substrate[0])
+                if firstOctet < 128:
+                    size = 1
+                    length = firstOctet
+                elif firstOctet > 128:
+                    size = firstOctet & 127
+                    encodedLength = octs2ints(substrate[1:size + 1])
+                    if len(encodedLength) != size:
+                        raise error.SubstrateUnderrunError('%s<%s at %s' % (size, len(encodedLength), tagSet))
+                    length = 0
+                    for lengthOctet in encodedLength:
+                        length <<= 8
+                        length |= lengthOctet
+                    size += 1
+                else:
+                    size = 1
+                    length = -1
+                substrate = substrate[size:]
+                if length == -1:
+                    if not self.supportIndefLength:
+                        raise error.PyAsn1Error('Indefinite length encoding not supported by this codec')
+                elif len(substrate) < length:
+                    raise error.SubstrateUnderrunError('%d-octet short' % (length - len(substrate)))
+                state = stGetValueDecoder
+                if LOG:
+                    LOG('value length decoded into %d, payload substrate is: %s' % (length, debug.hexdump(length == -1 and substrate or substrate[:length])))
+            if state is stGetValueDecoder:
+                if asn1Spec is not None:
+                    state = stGetValueDecoderByTag
+                else:
+                    state = stGetValueDecoderByAsn1Spec
+            if state is stGetValueDecoderByTag:
+                try:
+                    concreteDecoder = tagMap[tagSet]
+                except KeyError:
+                    concreteDecoder = None
+                if concreteDecoder:
+                    state = stDecodeValue
+                else:
+                    try:
+                        concreteDecoder = tagMap[tagSet[:1]]
+                    except KeyError:
+                        concreteDecoder = None
+                    if concreteDecoder:
+                        state = stDecodeValue
+                    else:
+                        state = stTryAsExplicitTag
+                if LOG:
+                    LOG('codec %s chosen by a built-in type, decoding %s' % (concreteDecoder and concreteDecoder.__class__.__name__ or '<none>', state is stDecodeValue and 'value' or 'as explicit tag'))
+                    debug.scope.push(concreteDecoder is None and '?' or concreteDecoder.protoComponent.__class__.__name__)
+            if state is stGetValueDecoderByAsn1Spec:
+                if asn1Spec.__class__ is tagmap.TagMap:
+                    try:
+                        chosenSpec = asn1Spec[tagSet]
+                    except KeyError:
+                        chosenSpec = None
+                    if LOG:
+                        LOG('candidate ASN.1 spec is a map of:')
+                        for firstOctet, v in asn1Spec.presentTypes.items():
+                            LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        if asn1Spec.skipTypes:
+                            LOG('but neither of: ')
+                            for firstOctet, v in asn1Spec.skipTypes.items():
+                                LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        LOG('new candidate ASN.1 spec is %s, chosen by %s' % (chosenSpec is None and '<none>' or chosenSpec.prettyPrintType(), tagSet))
+>               elif tagSet == asn1Spec.tagSet or tagSet in asn1Spec.tagMap:
+                               ^^^^^^^^^^^^^^^
+E               AttributeError: 'NoneType' object has no attribute 'tagSet'
+
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:859: AttributeError
+______________________ test_ghsa_m4p7_r5rc_7g4j_exposure _______________________
+
+    def test_ghsa_m4p7_r5rc_7g4j_exposure():
+        """Same oversized long-form tag trigger via the public ber.decode entry point."""
+>       assert _decode(MALICIOUS) == 'error'
+               ^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59884.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_pyasn1_cve_cve_2026_59884.py:13: in _decode
+    decoder.decode(data)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyasn1.codec.ber.decoder.Decoder object at 0x7fc327122810>
+substrate = b'\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x00d\x00\x00\x0...00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+asn1Spec = None, tagSet = <TagSet object, tags 128:0:1>, length = 31, state = 3
+decodeFun = None, substrateFun = None, options = {}
+
+    def __call__(self, substrate, asn1Spec=None, tagSet=None, length=None, state=stDecodeTag, decodeFun=None, substrateFun=None, **options):
+        if LOG:
+            LOG('decoder called at scope %s with state %d, working with up to %d octets of substrate: %s' % (debug.scope, state, len(substrate), debug.hexdump(substrate)))
+        allowEoo = options.pop('allowEoo', False)
+        if allowEoo and self.supportIndefLength:
+            if substrate[:2] == self.__eooSentinel:
+                if LOG:
+                    LOG('end-of-octets sentinel found')
+                return (eoo.endOfOctets, substrate[2:])
+        value = noValue
+        tagMap = self.__tagMap
+        typeMap = self.__typeMap
+        tagCache = self.__tagCache
+        tagSetCache = self.__tagSetCache
+        fullSubstrate = substrate
+        while state is not stStop:
+            if state is stDecodeTag:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on tag decoding')
+                isShortTag = True
+                firstOctet = substrate[0]
+                substrate = substrate[1:]
+                try:
+                    lastTag = tagCache[firstOctet]
+                except KeyError:
+                    integerTag = oct2int(firstOctet)
+                    tagClass = integerTag & 192
+                    tagFormat = integerTag & 32
+                    tagId = integerTag & 31
+                    if tagId == 31:
+                        isShortTag = False
+                        lengthOctetIdx = 0
+                        tagId = 0
+                        try:
+                            while True:
+                                integerTag = oct2int(substrate[lengthOctetIdx])
+                                lengthOctetIdx += 1
+                                tagId <<= 7
+                                tagId |= integerTag & 127
+                                if not integerTag & 128:
+                                    break
+                            substrate = substrate[lengthOctetIdx:]
+                        except IndexError:
+                            raise error.SubstrateUnderrunError('Short octet stream on long tag decoding')
+                    lastTag = tag.Tag(tagClass=tagClass, tagFormat=tagFormat, tagId=tagId)
+                    if isShortTag:
+                        tagCache[firstOctet] = lastTag
+                if tagSet is None:
+                    if isShortTag:
+                        try:
+                            tagSet = tagSetCache[firstOctet]
+                        except KeyError:
+                            tagSet = tag.TagSet((), lastTag)
+                            tagSetCache[firstOctet] = tagSet
+                    else:
+                        tagSet = tag.TagSet((), lastTag)
+                else:
+                    tagSet = lastTag + tagSet
+                state = stDecodeLength
+                if LOG:
+                    LOG('tag decoded into %s, decoding length' % tagSet)
+            if state is stDecodeLength:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on length decoding')
+                firstOctet = oct2int(substrate[0])
+                if firstOctet < 128:
+                    size = 1
+                    length = firstOctet
+                elif firstOctet > 128:
+                    size = firstOctet & 127
+                    encodedLength = octs2ints(substrate[1:size + 1])
+                    if len(encodedLength) != size:
+                        raise error.SubstrateUnderrunError('%s<%s at %s' % (size, len(encodedLength), tagSet))
+                    length = 0
+                    for lengthOctet in encodedLength:
+                        length <<= 8
+                        length |= lengthOctet
+                    size += 1
+                else:
+                    size = 1
+                    length = -1
+                substrate = substrate[size:]
+                if length == -1:
+                    if not self.supportIndefLength:
+                        raise error.PyAsn1Error('Indefinite length encoding not supported by this codec')
+                elif len(substrate) < length:
+                    raise error.SubstrateUnderrunError('%d-octet short' % (length - len(substrate)))
+                state = stGetValueDecoder
+                if LOG:
+                    LOG('value length decoded into %d, payload substrate is: %s' % (length, debug.hexdump(length == -1 and substrate or substrate[:length])))
+            if state is stGetValueDecoder:
+                if asn1Spec is not None:
+                    state = stGetValueDecoderByTag
+                else:
+                    state = stGetValueDecoderByAsn1Spec
+            if state is stGetValueDecoderByTag:
+                try:
+                    concreteDecoder = tagMap[tagSet]
+                except KeyError:
+                    concreteDecoder = None
+                if concreteDecoder:
+                    state = stDecodeValue
+                else:
+                    try:
+                        concreteDecoder = tagMap[tagSet[:1]]
+                    except KeyError:
+                        concreteDecoder = None
+                    if concreteDecoder:
+                        state = stDecodeValue
+                    else:
+                        state = stTryAsExplicitTag
+                if LOG:
+                    LOG('codec %s chosen by a built-in type, decoding %s' % (concreteDecoder and concreteDecoder.__class__.__name__ or '<none>', state is stDecodeValue and 'value' or 'as explicit tag'))
+                    debug.scope.push(concreteDecoder is None and '?' or concreteDecoder.protoComponent.__class__.__name__)
+            if state is stGetValueDecoderByAsn1Spec:
+                if asn1Spec.__class__ is tagmap.TagMap:
+                    try:
+                        chosenSpec = asn1Spec[tagSet]
+                    except KeyError:
+                        chosenSpec = None
+                    if LOG:
+                        LOG('candidate ASN.1 spec is a map of:')
+                        for firstOctet, v in asn1Spec.presentTypes.items():
+                            LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        if asn1Spec.skipTypes:
+                            LOG('but neither of: ')
+                            for firstOctet, v in asn1Spec.skipTypes.items():
+                                LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        LOG('new candidate ASN.1 spec is %s, chosen by %s' % (chosenSpec is None and '<none>' or chosenSpec.prettyPrintType(), tagSet))
+>               elif tagSet == asn1Spec.tagSet or tagSet in asn1Spec.tagMap:
+                               ^^^^^^^^^^^^^^^
+E               AttributeError: 'NoneType' object has no attribute 'tagSet'
+
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:859: AttributeError
+_____________________ test_ghsa_hm4w_wwcw_mr6r_fix_pinning _____________________
+
+    def test_ghsa_hm4w_wwcw_mr6r_fix_pinning():
+        """Decoding a tiny BER REAL with a huge exponent must not hang (fixed 0.6.4)."""
+>       r, _ = decoder.decode(_real_bytes())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59886.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyasn1.codec.ber.decoder.Decoder object at 0x7fc327122810>
+substrate = b'\x85\x03\x01\x86\x01\x86\xd0\x01', asn1Spec = None
+tagSet = <TagSet object, tags 0:0:9>, length = 6, state = 3, decodeFun = None
+substrateFun = None, options = {}
+
+    def __call__(self, substrate, asn1Spec=None, tagSet=None, length=None, state=stDecodeTag, decodeFun=None, substrateFun=None, **options):
+        if LOG:
+            LOG('decoder called at scope %s with state %d, working with up to %d octets of substrate: %s' % (debug.scope, state, len(substrate), debug.hexdump(substrate)))
+        allowEoo = options.pop('allowEoo', False)
+        if allowEoo and self.supportIndefLength:
+            if substrate[:2] == self.__eooSentinel:
+                if LOG:
+                    LOG('end-of-octets sentinel found')
+                return (eoo.endOfOctets, substrate[2:])
+        value = noValue
+        tagMap = self.__tagMap
+        typeMap = self.__typeMap
+        tagCache = self.__tagCache
+        tagSetCache = self.__tagSetCache
+        fullSubstrate = substrate
+        while state is not stStop:
+            if state is stDecodeTag:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on tag decoding')
+                isShortTag = True
+                firstOctet = substrate[0]
+                substrate = substrate[1:]
+                try:
+                    lastTag = tagCache[firstOctet]
+                except KeyError:
+                    integerTag = oct2int(firstOctet)
+                    tagClass = integerTag & 192
+                    tagFormat = integerTag & 32
+                    tagId = integerTag & 31
+                    if tagId == 31:
+                        isShortTag = False
+                        lengthOctetIdx = 0
+                        tagId = 0
+                        try:
+                            while True:
+                                integerTag = oct2int(substrate[lengthOctetIdx])
+                                lengthOctetIdx += 1
+                                tagId <<= 7
+                                tagId |= integerTag & 127
+                                if not integerTag & 128:
+                                    break
+                            substrate = substrate[lengthOctetIdx:]
+                        except IndexError:
+                            raise error.SubstrateUnderrunError('Short octet stream on long tag decoding')
+                    lastTag = tag.Tag(tagClass=tagClass, tagFormat=tagFormat, tagId=tagId)
+                    if isShortTag:
+                        tagCache[firstOctet] = lastTag
+                if tagSet is None:
+                    if isShortTag:
+                        try:
+                            tagSet = tagSetCache[firstOctet]
+                        except KeyError:
+                            tagSet = tag.TagSet((), lastTag)
+                            tagSetCache[firstOctet] = tagSet
+                    else:
+                        tagSet = tag.TagSet((), lastTag)
+                else:
+                    tagSet = lastTag + tagSet
+                state = stDecodeLength
+                if LOG:
+                    LOG('tag decoded into %s, decoding length' % tagSet)
+            if state is stDecodeLength:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on length decoding')
+                firstOctet = oct2int(substrate[0])
+                if firstOctet < 128:
+                    size = 1
+                    length = firstOctet
+                elif firstOctet > 128:
+                    size = firstOctet & 127
+                    encodedLength = octs2ints(substrate[1:size + 1])
+                    if len(encodedLength) != size:
+                        raise error.SubstrateUnderrunError('%s<%s at %s' % (size, len(encodedLength), tagSet))
+                    length = 0
+                    for lengthOctet in encodedLength:
+                        length <<= 8
+                        length |= lengthOctet
+                    size += 1
+                else:
+                    size = 1
+                    length = -1
+                substrate = substrate[size:]
+                if length == -1:
+                    if not self.supportIndefLength:
+                        raise error.PyAsn1Error('Indefinite length encoding not supported by this codec')
+                elif len(substrate) < length:
+                    raise error.SubstrateUnderrunError('%d-octet short' % (length - len(substrate)))
+                state = stGetValueDecoder
+                if LOG:
+                    LOG('value length decoded into %d, payload substrate is: %s' % (length, debug.hexdump(length == -1 and substrate or substrate[:length])))
+            if state is stGetValueDecoder:
+                if asn1Spec is not None:
+                    state = stGetValueDecoderByTag
+                else:
+                    state = stGetValueDecoderByAsn1Spec
+            if state is stGetValueDecoderByTag:
+                try:
+                    concreteDecoder = tagMap[tagSet]
+                except KeyError:
+                    concreteDecoder = None
+                if concreteDecoder:
+                    state = stDecodeValue
+                else:
+                    try:
+                        concreteDecoder = tagMap[tagSet[:1]]
+                    except KeyError:
+                        concreteDecoder = None
+                    if concreteDecoder:
+                        state = stDecodeValue
+                    else:
+                        state = stTryAsExplicitTag
+                if LOG:
+                    LOG('codec %s chosen by a built-in type, decoding %s' % (concreteDecoder and concreteDecoder.__class__.__name__ or '<none>', state is stDecodeValue and 'value' or 'as explicit tag'))
+                    debug.scope.push(concreteDecoder is None and '?' or concreteDecoder.protoComponent.__class__.__name__)
+            if state is stGetValueDecoderByAsn1Spec:
+                if asn1Spec.__class__ is tagmap.TagMap:
+                    try:
+                        chosenSpec = asn1Spec[tagSet]
+                    except KeyError:
+                        chosenSpec = None
+                    if LOG:
+                        LOG('candidate ASN.1 spec is a map of:')
+                        for firstOctet, v in asn1Spec.presentTypes.items():
+                            LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        if asn1Spec.skipTypes:
+                            LOG('but neither of: ')
+                            for firstOctet, v in asn1Spec.skipTypes.items():
+                                LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        LOG('new candidate ASN.1 spec is %s, chosen by %s' % (chosenSpec is None and '<none>' or chosenSpec.prettyPrintType(), tagSet))
+>               elif tagSet == asn1Spec.tagSet or tagSet in asn1Spec.tagMap:
+                               ^^^^^^^^^^^^^^^
+E               AttributeError: 'NoneType' object has no attribute 'tagSet'
+
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:859: AttributeError
+______________________ test_ghsa_hm4w_wwcw_mr6r_exposure _______________________
+
+    def test_ghsa_hm4w_wwcw_mr6r_exposure():
+        """Application-style decode() call on a hostile REAL payload completes (fixed 0.6.4)."""
+>       r, rest = decoder.decode(_real_bytes())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59886.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyasn1.codec.ber.decoder.Decoder object at 0x7fc327122810>
+substrate = b'\x85\x03\x01\x86\x01\x86\xd0\x01', asn1Spec = None
+tagSet = <TagSet object, tags 0:0:9>, length = 6, state = 3, decodeFun = None
+substrateFun = None, options = {}
+
+    def __call__(self, substrate, asn1Spec=None, tagSet=None, length=None, state=stDecodeTag, decodeFun=None, substrateFun=None, **options):
+        if LOG:
+            LOG('decoder called at scope %s with state %d, working with up to %d octets of substrate: %s' % (debug.scope, state, len(substrate), debug.hexdump(substrate)))
+        allowEoo = options.pop('allowEoo', False)
+        if allowEoo and self.supportIndefLength:
+            if substrate[:2] == self.__eooSentinel:
+                if LOG:
+                    LOG('end-of-octets sentinel found')
+                return (eoo.endOfOctets, substrate[2:])
+        value = noValue
+        tagMap = self.__tagMap
+        typeMap = self.__typeMap
+        tagCache = self.__tagCache
+        tagSetCache = self.__tagSetCache
+        fullSubstrate = substrate
+        while state is not stStop:
+            if state is stDecodeTag:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on tag decoding')
+                isShortTag = True
+                firstOctet = substrate[0]
+                substrate = substrate[1:]
+                try:
+                    lastTag = tagCache[firstOctet]
+                except KeyError:
+                    integerTag = oct2int(firstOctet)
+                    tagClass = integerTag & 192
+                    tagFormat = integerTag & 32
+                    tagId = integerTag & 31
+                    if tagId == 31:
+                        isShortTag = False
+                        lengthOctetIdx = 0
+                        tagId = 0
+                        try:
+                            while True:
+                                integerTag = oct2int(substrate[lengthOctetIdx])
+                                lengthOctetIdx += 1
+                                tagId <<= 7
+                                tagId |= integerTag & 127
+                                if not integerTag & 128:
+                                    break
+                            substrate = substrate[lengthOctetIdx:]
+                        except IndexError:
+                            raise error.SubstrateUnderrunError('Short octet stream on long tag decoding')
+                    lastTag = tag.Tag(tagClass=tagClass, tagFormat=tagFormat, tagId=tagId)
+                    if isShortTag:
+                        tagCache[firstOctet] = lastTag
+                if tagSet is None:
+                    if isShortTag:
+                        try:
+                            tagSet = tagSetCache[firstOctet]
+                        except KeyError:
+                            tagSet = tag.TagSet((), lastTag)
+                            tagSetCache[firstOctet] = tagSet
+                    else:
+                        tagSet = tag.TagSet((), lastTag)
+                else:
+                    tagSet = lastTag + tagSet
+                state = stDecodeLength
+                if LOG:
+                    LOG('tag decoded into %s, decoding length' % tagSet)
+            if state is stDecodeLength:
+                if not substrate:
+                    raise error.SubstrateUnderrunError('Short octet stream on length decoding')
+                firstOctet = oct2int(substrate[0])
+                if firstOctet < 128:
+                    size = 1
+                    length = firstOctet
+                elif firstOctet > 128:
+                    size = firstOctet & 127
+                    encodedLength = octs2ints(substrate[1:size + 1])
+                    if len(encodedLength) != size:
+                        raise error.SubstrateUnderrunError('%s<%s at %s' % (size, len(encodedLength), tagSet))
+                    length = 0
+                    for lengthOctet in encodedLength:
+                        length <<= 8
+                        length |= lengthOctet
+                    size += 1
+                else:
+                    size = 1
+                    length = -1
+                substrate = substrate[size:]
+                if length == -1:
+                    if not self.supportIndefLength:
+                        raise error.PyAsn1Error('Indefinite length encoding not supported by this codec')
+                elif len(substrate) < length:
+                    raise error.SubstrateUnderrunError('%d-octet short' % (length - len(substrate)))
+                state = stGetValueDecoder
+                if LOG:
+                    LOG('value length decoded into %d, payload substrate is: %s' % (length, debug.hexdump(length == -1 and substrate or substrate[:length])))
+            if state is stGetValueDecoder:
+                if asn1Spec is not None:
+                    state = stGetValueDecoderByTag
+                else:
+                    state = stGetValueDecoderByAsn1Spec
+            if state is stGetValueDecoderByTag:
+                try:
+                    concreteDecoder = tagMap[tagSet]
+                except KeyError:
+                    concreteDecoder = None
+                if concreteDecoder:
+                    state = stDecodeValue
+                else:
+                    try:
+                        concreteDecoder = tagMap[tagSet[:1]]
+                    except KeyError:
+                        concreteDecoder = None
+                    if concreteDecoder:
+                        state = stDecodeValue
+                    else:
+                        state = stTryAsExplicitTag
+                if LOG:
+                    LOG('codec %s chosen by a built-in type, decoding %s' % (concreteDecoder and concreteDecoder.__class__.__name__ or '<none>', state is stDecodeValue and 'value' or 'as explicit tag'))
+                    debug.scope.push(concreteDecoder is None and '?' or concreteDecoder.protoComponent.__class__.__name__)
+            if state is stGetValueDecoderByAsn1Spec:
+                if asn1Spec.__class__ is tagmap.TagMap:
+                    try:
+                        chosenSpec = asn1Spec[tagSet]
+                    except KeyError:
+                        chosenSpec = None
+                    if LOG:
+                        LOG('candidate ASN.1 spec is a map of:')
+                        for firstOctet, v in asn1Spec.presentTypes.items():
+                            LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        if asn1Spec.skipTypes:
+                            LOG('but neither of: ')
+                            for firstOctet, v in asn1Spec.skipTypes.items():
+                                LOG('  %s -> %s' % (firstOctet, v.__class__.__name__))
+                        LOG('new candidate ASN.1 spec is %s, chosen by %s' % (chosenSpec is None and '<none>' or chosenSpec.prettyPrintType(), tagSet))
+>               elif tagSet == asn1Spec.tagSet or tagSet in asn1Spec.tagMap:
+                               ^^^^^^^^^^^^^^^
+E               AttributeError: 'NoneType' object has no attribute 'tagSet'
+
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:859: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_pyasn1_cve_cve_2026_59884.py::test_ghsa_m4p7_r5rc_7g4j_fix_pinning
+FAILED tests/test_pyasn1_cve_cve_2026_59884.py::test_ghsa_m4p7_r5rc_7g4j_exposure
+FAILED tests/test_pyasn1_cve_cve_2026_59886.py::test_ghsa_hm4w_wwcw_mr6r_fix_pinning
+FAILED tests/test_pyasn1_cve_cve_2026_59886.py::test_ghsa_hm4w_wwcw_mr6r_exposure
+4 failed, 8 passed in 0.29s

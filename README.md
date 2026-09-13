@@ -81,6 +81,13 @@ earn their keep are promoted into our standard suite. Tests that code changes ha
 retired. Known vulnerabilities get targeted tests whose results become draft VEX statements for Product
 Security to confirm. The whole thing runs on Konflux and targets SLSA Build Level 3.
 
+## How this is written
+
+Two rules, in order: the quality of a result comes first, and then it is written so a person can read
+it, because a result nobody can read loses its value. Plain English, concise over detail unless detail
+adds a quantitative result. That covers every document here, the harness's packets and assessments,
+and the site. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Status and how to contribute
 
 The blueprint is complete for review. The implementation covers every stage from self-verification through the signed attestation and the post-analysis, for Python; mutation testing, the relevance engine, and the Go adapter are next. Open decisions are listed in

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="10" time="0.375" timestamp="2026-09-13T13:11:27.681887+00:00" hostname="73c244688209"><testcase classname="" name="tests.test_pyasn1_cve_cve_2026_59884" time="0.000"><error message="collection failure">tests/test_pyasn1_cve_cve_2026_59884.py:5: in &lt;module&gt;
+    from pyasn1.codec.ber import decoder
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:13: in &lt;module&gt;
+    from pyasn1.type import char
+venv/lib/python3.12/site-packages/pyasn1/type/char.py:11: in &lt;module&gt;
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:282: in &lt;module&gt;
+    class Boolean(Integer):
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:336: in Boolean
+    subtypeSpec = Integer.subtypeSpec + constraint.SingleValueConstraint(0, 1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:589: in __add__
+    return self.__class__(*self._values + (value,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:9: in __init__
+    self._setValues(values)
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:601: in _setValues
+    self._valueMap.add(constraint)
+E   TypeError: __hash__ method should return an integer</error></testcase><testcase classname="" name="tests.test_pyasn1_cve_cve_2026_59886" time="0.000"><error message="collection failure">tests/test_pyasn1_cve_cve_2026_59886.py:5: in &lt;module&gt;
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:282: in &lt;module&gt;
+    class Boolean(Integer):
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:336: in Boolean
+    subtypeSpec = Integer.subtypeSpec + constraint.SingleValueConstraint(0, 1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:589: in __add__
+    return self.__class__(*self._values + (value,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:9: in __init__
+    self._setValues(values)
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:601: in _setValues
+    self._valueMap.add(constraint)
+E   TypeError: __hash__ method should return an integer</error></testcase><testcase classname="tests.test_pyasn1_unit" name="test_printer_is_callable" time="0.001" /><testcase classname="tests.test_pyasn1_unit" name="test_debug_is_callable" time="0.001" /><testcase classname="tests.test_pyasn1_unit" name="test_setlogger_returns_none" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_hexdump_empty_bytes" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_pyasn1error_is_exception_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_value_constraint_error_is_pyasn1error_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_substrate_underrun_error_is_pyasn1error_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_pyasn1unicode_error_is_unicode_error_subclass" time="0.000" /></testsuite></testsuites>
