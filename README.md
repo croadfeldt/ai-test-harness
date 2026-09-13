@@ -16,7 +16,7 @@ to approve. Nothing merges without a person. Everything the harness produces is 
 | If you are | Read | Time |
 |---|---|---|
 | A CEO, managing director, board member, or anyone who wants the point without the mechanics | [Executive summary](docs/00-executive-summary.md) | 5 minutes |
-| A CTO, VP of Engineering, or CISO deciding whether to fund this | [Executive summary](docs/00-executive-summary.md), then [The case](docs/01-the-case.md) and [Roadmap](docs/07-roadmap.md) | 20 minutes |
+| A CTO, VP of Engineering, or CISO deciding whether to fund this | [Executive summary](docs/00-executive-summary.md), then [The case](docs/01-the-case.md), [Roadmap](docs/07-roadmap.md), and the [blueprint business case](docs/10-blueprint-business-case.md) | 25 minutes |
 | An engineer, architect, or security analyst who will build or run it | [How it works](docs/02-how-it-works.md), then [Blueprint](docs/03-blueprint.md), [Capability map](docs/05-capability-map.md), [Workflows and RACI](docs/06-workflows-and-raci.md) | 2 hours |
 | A member of the public, a journalist, a student, or a customer | [Executive summary](docs/00-executive-summary.md) and [Glossary](docs/08-glossary.md) | 10 minutes |
 | Someone presenting this | [Slide deck](slides/deck.md), 25 slides | 30 minutes |
@@ -44,6 +44,7 @@ docs/
   07-roadmap.md              Phases, exit criteria, and what "done" means
   08-glossary.md             Plain-language definitions
   09-language-and-target-flows.md  Creation and execution flows per language, on Kubernetes, Podman, VM, bare metal
+  10-blueprint-business-case.md    The blueprint in the FlightPath business-case structure: pain, impact, solution, milestones, done
 slides/
   deck.md                    A slide deck in markdown with Mermaid diagrams
 blueprint/

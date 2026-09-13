@@ -19,7 +19,7 @@ OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 
 AUDIENCES = [
     ("exec", "Executive", "CEO, managing director, board", ["00"], "5 min"),
-    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "07"], "20 min"),
+    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "07", "10"], "25 min"),
     ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "bp", "hi", "ex"], "2 h"),
     ("proof", "See it work", "Anyone who wants the evidence", ["ex", "hi"], "15 min"),
     ("public", "Public", "Journalist, student, customer", ["00", "08"], "10 min"),
