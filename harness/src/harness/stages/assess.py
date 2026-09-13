@@ -72,7 +72,11 @@ def assess(*, workdir: Path) -> dict:
            "summary": {"met": met, "not_met": sum(1 for g in goals if g["verdict"] == "not met"),
                        "not_applicable": sum(1 for g in goals if g["verdict"] == "not applicable"), "other": sum(1 for g in goals if g["verdict"] == "see measurement")}}
     write_json(workdir / "assess" / "assess.json", rec)
-    md = [f"# Post-analysis of run {wl['run_id']}", "", f"Packages: {', '.join(pkgs)}. {met} of {len(goals)} goals met.", "",
+    not_met = [g["goal"] for g in goals if g["verdict"].startswith("not met")]
+    plain = (f"This run met {met} of {len(goals)} goals from the blueprint." +
+             (f" Not met: {'; '.join(not_met)}." if not_met else "") +
+             " Every verdict below points at the file it was measured from.")
+    md = [f"# Post-analysis of run {wl['run_id']}", "", f"**In plain terms.** {plain}", "", f"Packages: {', '.join(pkgs)}.", "",
           "| id | goal | measurement | verdict |", "|---|---|---|---|"]
     md += [f"| {g['id']} | {g['goal']} | {g['measurement'][:160]} | **{g['verdict']}** |" for g in goals]
     (workdir / "assess" / "assess.md").write_text("\n".join(md) + "\n")

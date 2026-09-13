@@ -1,9 +1,9 @@
 {
   "envelope": "attest/pyasn1/statement.dsse.json",
-  "generated": "2026-09-13T04:29:48+00:00",
+  "generated": "2026-09-13T13:17:27+00:00",
   "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
   "manifest": "attest/pyasn1/MANIFEST.json",
-  "manifest_sha256": "sha256:d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1",
+  "manifest_sha256": "sha256:c9b4c2b05c3bd4b5d5eb6beeb08939ace6c2ce34e5ddbcd954f152878a660e58",
   "package": "pyasn1",
   "records": 10,
   "result": "PASSED",

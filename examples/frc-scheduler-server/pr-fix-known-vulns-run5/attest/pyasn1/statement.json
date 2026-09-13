@@ -36,7 +36,9 @@
             "coverage_lines_in_target": 1423,
             "fix_pinning_confirmed": 2,
             "flake_rate": 0.0,
-            "mutation_score": null,
+            "mutation_engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+            "mutation_sample": 12,
+            "mutation_score": 0.417,
             "tests_total": 16
           },
           "run": {
@@ -82,6 +84,7 @@
                 "GF-016",
                 "GF-017",
                 "GF-018",
+                "GF-019",
                 "GF-012"
               ],
               "passed": true,
@@ -153,7 +156,7 @@
           "tests_promoted": [],
           "tests_retired": [],
           "unverified": [
-            "mutation score: mutation testing not in this slice",
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
             "coverage delta: no baseline overlay suite yet",
             "signer: local Ed25519 development key, not Trusted Artifact Signer",
             "harness image digest: harness ran from a checkout, not a built image"
@@ -173,8 +176,8 @@
             },
             {
               "evidence_test_ids": [
-                "test_ghsa_jr27_m4p2_rc6r_exposure",
-                "test_ghsa_jr27_m4p2_rc6r_fix_pinning"
+                "test_ghsa_jr27_m4p2_rc6r_fix_pinning",
+                "test_ghsa_jr27_m4p2_rc6r_exposure"
               ],
               "reviewed_by": null,
               "status": "affected",
@@ -199,7 +202,7 @@
           ]
         },
         "digest": {
-          "sha256": "d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1"
+          "sha256": "c9b4c2b05c3bd4b5d5eb6beeb08939ace6c2ce34e5ddbcd954f152878a660e58"
         },
         "name": "ai-test-harness-record"
       }
@@ -238,7 +241,7 @@
     },
     {
       "digest": {
-        "sha256": "d24b7d1cddd16223fb2d8efa280faec19abd194f722e392de56654bf159299d1"
+        "sha256": "c9b4c2b05c3bd4b5d5eb6beeb08939ace6c2ce34e5ddbcd954f152878a660e58"
       },
       "name": "attest/pyasn1/MANIFEST.json"
     }

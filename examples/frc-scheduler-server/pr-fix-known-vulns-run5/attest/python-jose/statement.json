@@ -78,6 +78,7 @@
                 "GF-016",
                 "GF-017",
                 "GF-018",
+                "GF-019",
                 "GF-012"
               ],
               "passed": true,
@@ -171,7 +172,7 @@
           ]
         },
         "digest": {
-          "sha256": "147f1c3b1a881acb08ab743bf2182d3826cf3bb34875b35a21fbba88c9571491"
+          "sha256": "b020e90ca49f2b0817fd0748a690feb506a3f9c465a5f51ad6a047dd7fb7c028"
         },
         "name": "ai-test-harness-record"
       }
@@ -205,7 +206,7 @@
     },
     {
       "digest": {
-        "sha256": "147f1c3b1a881acb08ab743bf2182d3826cf3bb34875b35a21fbba88c9571491"
+        "sha256": "b020e90ca49f2b0817fd0748a690feb506a3f9c465a5f51ad6a047dd7fb7c028"
       },
       "name": "attest/python-jose/MANIFEST.json"
     }

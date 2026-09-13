@@ -1,0 +1,42 @@
+........                                                                 [100%]
+==================================== ERRORS ====================================
+___________ ERROR collecting tests/test_pyasn1_cve_cve_2026_59884.py ___________
+tests/test_pyasn1_cve_cve_2026_59884.py:5: in <module>
+    from pyasn1.codec.ber import decoder
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:13: in <module>
+    from pyasn1.type import char
+venv/lib/python3.12/site-packages/pyasn1/type/char.py:11: in <module>
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:282: in <module>
+    class Boolean(Integer):
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:336: in Boolean
+    subtypeSpec = Integer.subtypeSpec + constraint.SingleValueConstraint(0, 1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:589: in __add__
+    return self.__class__(*self._values + (value,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:9: in __init__
+    self._setValues(values)
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:601: in _setValues
+    self._valueMap.add(constraint)
+E   TypeError: __hash__ method should return an integer
+___________ ERROR collecting tests/test_pyasn1_cve_cve_2026_59886.py ___________
+tests/test_pyasn1_cve_cve_2026_59886.py:5: in <module>
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:282: in <module>
+    class Boolean(Integer):
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:336: in Boolean
+    subtypeSpec = Integer.subtypeSpec + constraint.SingleValueConstraint(0, 1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:589: in __add__
+    return self.__class__(*self._values + (value,))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:9: in __init__
+    self._setValues(values)
+venv/lib/python3.12/site-packages/pyasn1/type/constraint.py:601: in _setValues
+    self._valueMap.add(constraint)
+E   TypeError: __hash__ method should return an integer
+=========================== short test summary info ============================
+ERROR tests/test_pyasn1_cve_cve_2026_59884.py - TypeError: __hash__ method sh...
+ERROR tests/test_pyasn1_cve_cve_2026_59886.py - TypeError: __hash__ method sh...
+8 passed, 2 errors in 0.37s

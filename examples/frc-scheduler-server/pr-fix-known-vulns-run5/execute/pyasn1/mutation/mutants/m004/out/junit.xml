@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="12" time="0.455" timestamp="2026-09-13T13:10:25.437920+00:00" hostname="f182a3d99a1a"><testcase classname="tests.test_pyasn1_cve_cve_2026_59884" name="test_ghsa_m4p7_r5rc_7g4j_fix_pinning" time="0.001" /><testcase classname="tests.test_pyasn1_cve_cve_2026_59884" name="test_ghsa_m4p7_r5rc_7g4j_exposure" time="0.001" /><testcase classname="tests.test_pyasn1_cve_cve_2026_59886" name="test_ghsa_hm4w_wwcw_mr6r_fix_pinning" time="0.001"><failure message="pyasn1.error.PyAsn1Error: Prohibited base for Real value: 2">def test_ghsa_hm4w_wwcw_mr6r_fix_pinning():
+        """Decoding a tiny BER REAL with a huge exponent must not hang (fixed 0.6.4)."""
+&gt;       r, _ = decoder.decode(_real_bytes())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59886.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:1581: in __call__
+    value, substrate = concreteDecoder.valueDecoder(
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:478: in valueDecoder
+    return self._createComponent(asn1Spec, tagSet, value, **options), tail
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:51: in _createComponent
+    return self.protoComponent.clone(value, tagSet=tagSet)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/base.py:376: in clone
+    return self.__class__(value, **initializers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/base.py:267: in __init__
+    value = self.prettyIn(value)
+            ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;[AttributeError("'Real' object has no attribute '_value'") raised in repr()] Real object at 0x7ff088ca7c20&gt;
+value = (17564428, 2, 769)
+
+    def prettyIn(self, value):
+        if isinstance(value, tuple) and len(value) == 3:
+            if not isinstance(value[0], numericTypes) or not isinstance(value[1], intTypes) or (not isinstance(value[2], intTypes)):
+                raise error.PyAsn1Error('Lame Real value syntax: %s' % (value,))
+            if isinstance(value[0], float) and self._inf and (value[0] in self._inf):
+                return value[0]
+            if value[1] not in (3, 10):
+&gt;               raise error.PyAsn1Error('Prohibited base for Real value: %s' % (value[1],))
+E               pyasn1.error.PyAsn1Error: Prohibited base for Real value: 2
+
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:1094: PyAsn1Error</failure></testcase><testcase classname="tests.test_pyasn1_cve_cve_2026_59886" name="test_ghsa_hm4w_wwcw_mr6r_exposure" time="0.001"><failure message="pyasn1.error.PyAsn1Error: Prohibited base for Real value: 2">def test_ghsa_hm4w_wwcw_mr6r_exposure():
+        """Application-style decode() call on a hostile REAL payload completes (fixed 0.6.4)."""
+&gt;       r, rest = decoder.decode(_real_bytes())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_pyasn1_cve_cve_2026_59886.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:1581: in __call__
+    value, substrate = concreteDecoder.valueDecoder(
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:478: in valueDecoder
+    return self._createComponent(asn1Spec, tagSet, value, **options), tail
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:51: in _createComponent
+    return self.protoComponent.clone(value, tagSet=tagSet)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/base.py:376: in clone
+    return self.__class__(value, **initializers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/pyasn1/type/base.py:267: in __init__
+    value = self.prettyIn(value)
+            ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;[AttributeError("'Real' object has no attribute '_value'") raised in repr()] Real object at 0x7ff088ca5040&gt;
+value = (17564428, 2, 769)
+
+    def prettyIn(self, value):
+        if isinstance(value, tuple) and len(value) == 3:
+            if not isinstance(value[0], numericTypes) or not isinstance(value[1], intTypes) or (not isinstance(value[2], intTypes)):
+                raise error.PyAsn1Error('Lame Real value syntax: %s' % (value,))
+            if isinstance(value[0], float) and self._inf and (value[0] in self._inf):
+                return value[0]
+            if value[1] not in (3, 10):
+&gt;               raise error.PyAsn1Error('Prohibited base for Real value: %s' % (value[1],))
+E               pyasn1.error.PyAsn1Error: Prohibited base for Real value: 2
+
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:1094: PyAsn1Error</failure></testcase><testcase classname="tests.test_pyasn1_unit" name="test_printer_is_callable" time="0.001" /><testcase classname="tests.test_pyasn1_unit" name="test_debug_is_callable" time="0.001" /><testcase classname="tests.test_pyasn1_unit" name="test_setlogger_returns_none" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_hexdump_empty_bytes" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_pyasn1error_is_exception_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_value_constraint_error_is_pyasn1error_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_substrate_underrun_error_is_pyasn1error_subclass" time="0.000" /><testcase classname="tests.test_pyasn1_unit" name="test_pyasn1unicode_error_is_unicode_error_subclass" time="0.000" /></testsuite></testsuites>

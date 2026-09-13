@@ -1,0 +1,24 @@
+........                                                                 [100%]
+==================================== ERRORS ====================================
+___________ ERROR collecting tests/test_pyasn1_cve_cve_2026_59884.py ___________
+tests/test_pyasn1_cve_cve_2026_59884.py:5: in <module>
+    from pyasn1.codec.ber import decoder
+venv/lib/python3.12/site-packages/pyasn1/codec/ber/decoder.py:13: in <module>
+    from pyasn1.type import char
+venv/lib/python3.12/site-packages/pyasn1/type/char.py:11: in <module>
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:905: in <module>
+    intTypes = (int, long)
+                     ^^^^
+E   NameError: name 'long' is not defined
+___________ ERROR collecting tests/test_pyasn1_cve_cve_2026_59886.py ___________
+tests/test_pyasn1_cve_cve_2026_59886.py:5: in <module>
+    from pyasn1.type import univ
+venv/lib/python3.12/site-packages/pyasn1/type/univ.py:905: in <module>
+    intTypes = (int, long)
+                     ^^^^
+E   NameError: name 'long' is not defined
+=========================== short test summary info ============================
+ERROR tests/test_pyasn1_cve_cve_2026_59884.py - NameError: name 'long' is not...
+ERROR tests/test_pyasn1_cve_cve_2026_59886.py - NameError: name 'long' is not...
+8 passed, 2 errors in 0.27s

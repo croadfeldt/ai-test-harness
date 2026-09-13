@@ -50,8 +50,8 @@
       "harness_evidence": {
         "confirmed": true,
         "tests": [
-          "test_ghsa_82w8_qh3p_5jfq_fix_pinning",
-          "test_ghsa_82w8_qh3p_5jfq_exposure"
+          "test_ghsa_82w8_qh3p_5jfq_exposure",
+          "test_ghsa_82w8_qh3p_5jfq_fix_pinning"
         ]
       },
       "products": [
@@ -60,7 +60,7 @@
         }
       ],
       "status": "affected",
-      "status_notes": "exposure test(s) ['test_ghsa_82w8_qh3p_5jfq_fix_pinning', 'test_ghsa_82w8_qh3p_5jfq_exposure'] fail on pkg:pypi/starlette@0.41.3 and pass on pkg:pypi/starlette@0.41.3: the change introduces this exposure",
+      "status_notes": "exposure test(s) ['test_ghsa_82w8_qh3p_5jfq_exposure', 'test_ghsa_82w8_qh3p_5jfq_fix_pinning'] fail on pkg:pypi/starlette@0.41.3 and pass on pkg:pypi/starlette@0.41.3: the change introduces this exposure",
       "vulnerability": {
         "aliases": [
           "CVE-2026-54283",
@@ -156,6 +156,6 @@
       }
     }
   ],
-  "timestamp": "2026-09-13T04:29:48+00:00",
+  "timestamp": "2026-09-13T13:17:48+00:00",
   "version": 1
 }

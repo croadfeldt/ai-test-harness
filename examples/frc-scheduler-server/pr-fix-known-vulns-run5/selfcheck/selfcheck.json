@@ -86,13 +86,18 @@
       "title": "a parametrized pytest id resolves to its manifest test name"
     },
     {
+      "id": "GF-019",
+      "status": "pass",
+      "title": "reasoning leaking into content is detected and the call falls back to thinking off"
+    },
+    {
       "id": "GF-012",
       "status": "pass",
       "title": "every old/new outcome maps to a fixed, honest verdict"
     }
   ],
   "failed": [],
-  "generated": "2026-09-13T13:06:51+00:00",
+  "generated": "2026-09-13T13:17:48+00:00",
   "model": {
     "reason": "probes disabled",
     "status": "skipped"

@@ -1,6 +1,8 @@
 # Review packet: pyasn1 0.6.4 -> 0.4.8
 
-Run `76a3fa863e76`. Generated 2026-09-13T04:29:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+**In plain terms.** This change moves pyasn1 from 0.6.4 to 0.4.8, a version with 4 known vulnerabilities. That is a downgrade. The harness proved 1 of the 4 with a test that fails on the vulnerable version and passes on the fixed one; the other 3 are unproven and marked so. Accept the 10 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
+
+Run `76a3fa863e76`. Generated 2026-09-13T13:17:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 pyasn1 at depth 2, change `bumped`, reachable from first-party code: **unknown**
@@ -11,6 +13,7 @@ Advisories: 8 open at head, 0 on the replaced version.
 ## What was tested
 16 generated tests ran in the sealed sandbox on head, again for flakes, and on the base version. 12 pass on head, 0 flaky,
 2 fix-pinning confirmed, 1423 lines of the package covered. Model: `qwen/qwen3.8-27b`.
+Mutation: score 0.417 (5 of 12 sampled mutants killed, 385 sites on executed lines, seed 4242360759). Tests that killed nothing: ['test_debug_is_callable', 'test_hexdump_empty_bytes', 'test_printer_is_callable', 'test_pyasn1error_is_exception_subclass', 'test_pyasn1unicode_error_is_unicode_error_subclass', 'test_setlogger_returns_none', 'test_substrate_underrun_error_is_pyasn1error_subclass', 'test_value_constraint_error_is_pyasn1error_subclass']. Target in the blueprint: 0.6.
 
 ## Findings
 - **security** (0.95): pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories. Route: Product Security. Evidence: `analyze/pyasn1/facts.json`
@@ -42,7 +45,7 @@ Advisories: 8 open at head, 0 on the replaced version.
 |---|---|---|
 | CVE-2026-59885 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
 | CVE-2026-59886 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
-| CVE-2026-30922 | affected | exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_exposure', 'test_ghsa_jr27_m4p2_rc6r_fix_pinning'] fail on pkg:pyp |
+| CVE-2026-30922 | affected | exposure test(s) ['test_ghsa_jr27_m4p2_rc6r_fix_pinning', 'test_ghsa_jr27_m4p2_rc6r_exposure'] fail on pkg:pyp |
 | CVE-2026-59884 | under_investigation | open at head; reachable=unknown; fixed in ['0.6.4'] |
 
 ## Upgrade path

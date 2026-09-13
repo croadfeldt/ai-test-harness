@@ -1,9 +1,9 @@
 {
   "envelope": "attest/starlette/statement.dsse.json",
-  "generated": "2026-09-13T04:29:48+00:00",
+  "generated": "2026-09-13T13:17:27+00:00",
   "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
   "manifest": "attest/starlette/MANIFEST.json",
-  "manifest_sha256": "sha256:abc1a46f20225dc1b8e54f386dce4e6ef4d6335c19ee83607856dcc1072a5729",
+  "manifest_sha256": "sha256:3677be83f860c076ceabd149ee8dedd96bb93aa03a8cdfd1392c921a2efd5f25",
   "package": "starlette",
   "records": 6,
   "result": "PASSED",
