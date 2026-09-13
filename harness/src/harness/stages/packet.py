@@ -132,6 +132,19 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
         upgrade_md = f"No environment with the fixed version ({cand['fixed_version']}) resolves: {cand['note']}. " + "; ".join(a.get("error", "") for a in cand.get("attempts", []) if a.get("error"))
     else:
         upgrade_md = "Not applicable: the change brought the fixed version, or no advisory is open at head."
+    rel_path = workdir / "execute" / pkg / "relevance.json"
+    rel = read_json(rel_path) if rel_path.exists() else None
+    if rel and rel["proposals"]:
+        rows = "\n".join(f"| {p['test']} | {p['file']} | {p['class']} | {p['reason']} | {'yes' if p['rewrite_candidate'] else ''} | {'owning team, low' if p['human_written'] else p['priority']} | {p['text'][:110]} |" for p in rel["proposals"])
+        retire_md = (f"Promotions: none yet; promotion needs a survived version change or a caught regression (section 8.3).\n\n"
+                     f"Retirement proposals, for {rel['horizon']}. Advisory: a person approves, a retired test is kept and re-run once on the next change, nothing is deleted.\n\n"
+                     f"| test | file | class | reason | rewrite | priority | evidence |\n|---|---|---|---|---|---|---|\n{rows}")
+    elif rel:
+        retire_md = (f"Promotions: none yet (section 8.3). Retirements: none proposed for {rel['horizon']}; "
+                     f"{rel['examined']['generated']} generated and {rel['examined']['application']} application test(s) examined against "
+                     f"{rel['api_changes_considered']['removed']} removed and {rel['api_changes_considered']['breaking_changed']} changed symbols.")
+    else:
+        retire_md = "Promotions: none yet (section 8.3). Retirements: relevance stage not run."
     recommended = ("**Do not merge** until Supply Chain Security clears the suspicious finding." if s.get("blocking") else
                    "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.")
     # In plain terms: the verdict first, in words, then the evidence.
@@ -195,7 +208,7 @@ Mutation: {mut_md}
 {recommended}
 
 ## Promotions and retirements
-None proposed: promotion needs a survived bump or a caught regression (section 8.3); the relevance engine is not in this slice.
+{retire_md}
 
 ## Artifacts
 - tests as a patch against the overlay layout: `packet/{pkg}/tests.patch`

@@ -3,7 +3,7 @@
 record_type: requested_record
 state: Requested
 entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
-record_uuid: 01a09b68-3c2b-7689-b5bc-58b722ef08e2
+record_uuid: 01a09b96-baff-76fd-98e6-9856f4344cd7
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: Job
@@ -24,13 +24,13 @@ fields:
   max_execution_time: PT3H
   on_max_exceeded: terminate
   trigger: manual
-intent_ref: 01a09b68-3c2b-7689-b5bc-58b8e8c84d2d
+intent_ref: 01a09b96-baff-76fd-98e6-9857c488a121
 
 ---
 record_type: realized_record
 state: Realized
 entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
-record_uuid: 01a09b68-3c2b-7689-b5bc-58ba6a4f9c94
+record_uuid: 01a09b96-baff-76fd-98e6-98590e2fe738
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: Job
@@ -51,7 +51,7 @@ fields:
   max_execution_time: PT3H
   on_max_exceeded: terminate
   trigger: manual
-requested_ref: 01a09b68-3c2b-7689-b5bc-58b722ef08e2
+requested_ref: 01a09b96-baff-76fd-98e6-9856f4344cd7
 provider: lab/providers/ai-test-harness
 outputs:
   started_at: '2026-09-12T01:41:41Z'
@@ -84,6 +84,6 @@ process:
     effect_type: read
     effect_description: downloaded and ran the package in a sealed sandbox on two versions
 integrity:
-  head: sha256:7e62bd6101ba4b4089b1b59951d720bd7456975a8b47c56283802e70912d9449
+  head: sha256:31244a6d8621908efbf049b6bfaff038f9b7c9c1939e05045323fcb7d4e46e8d
   previous: null
   algorithm: sha256-jcs

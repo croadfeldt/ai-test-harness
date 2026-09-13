@@ -1,0 +1,29 @@
+{
+  "generated": "2026-09-13T16:25:41+00:00",
+  "packages": [
+    {
+      "horizon": "this change",
+      "human_written": 0,
+      "obsolete": 0,
+      "package": "pyasn1",
+      "redundant": 8,
+      "rewrite_candidates": 0
+    },
+    {
+      "horizon": "this change",
+      "human_written": 0,
+      "obsolete": 0,
+      "package": "python-jose",
+      "redundant": 4,
+      "rewrite_candidates": 0
+    },
+    {
+      "horizon": "the upgrade to 1.3.1",
+      "human_written": 0,
+      "obsolete": 1,
+      "package": "starlette",
+      "redundant": 4,
+      "rewrite_candidates": 0
+    }
+  ]
+}

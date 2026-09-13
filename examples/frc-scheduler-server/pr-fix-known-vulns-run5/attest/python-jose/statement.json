@@ -16,6 +16,30 @@
               "confidence": 0.8,
               "evidence_ref": "generate/python-jose/manifest.agent.json",
               "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-29370)"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_decode_wrong_key_raises_jwterror's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_get_unverified_header's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_get_unverified_claims's 2 mutant kill(s) are all among test_jwt_decode_expired_raises_expiredsignatureerror's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_decode_expired_raises_expiredsignatureerror's 4 mutant kill(s) are all among test_jwt_encode_decode_roundtrip's 5"
             }
           ],
           "inputs": {
@@ -160,8 +184,8 @@
             },
             {
               "evidence_test_ids": [
-                "test_ghsa_cjwg_qfpm_7377_fix_pinning",
-                "test_ghsa_cjwg_qfpm_7377_exposure"
+                "test_ghsa_cjwg_qfpm_7377_exposure",
+                "test_ghsa_cjwg_qfpm_7377_fix_pinning"
               ],
               "reviewed_by": null,
               "status": "fixed",
@@ -186,7 +210,7 @@
           ]
         },
         "digest": {
-          "sha256": "0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855"
+          "sha256": "eb1402f57298c05b3184849295a7ec2907dcff408ed2f3744eb11a30d008fb34"
         },
         "name": "ai-test-harness-record"
       }
@@ -220,49 +244,49 @@
     },
     {
       "digest": {
-        "sha256": "0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855"
+        "sha256": "eb1402f57298c05b3184849295a7ec2907dcff408ed2f3744eb11a30d008fb34"
       },
       "name": "attest/python-jose/MANIFEST.json"
     },
     {
       "digest": {
-        "sha256": "3f106ccf23847e69746149796f2288867917c59ba37894adf3f367bb6ad4de84"
+        "sha256": "3011196e95206025c45b8c978c9cf0734bc8cb9df1314c6d0e3c858c0eeb3efd"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent"
     },
     {
       "digest": {
-        "sha256": "77f2fd43530f6309ed6e3b7fc328925d5ae62fba3033c0d63135709a504d1e12"
+        "sha256": "3bf687c39dcfd100e57f89130073366d0ca105070fe1f627c66d51d44b90e9b8"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent"
     },
     {
       "digest": {
-        "sha256": "472d8009dd83675a9955a8a0804959ffaa1674afffbeb146200c2720cc04eee7"
+        "sha256": "beaa966e0ab9e3d676009e974a2c5e033d4e0a1034715efcaf20ab8ba99576c1"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expiredsignatureerro@intent"
     },
     {
       "digest": {
-        "sha256": "d06b8c55416392bdb0232cf022bae49e1ac9af5513414071028a485ee048e36a"
+        "sha256": "c2361618efe158ecc697729ac8d392d8520662ac915c17b47e08350a140c0e66"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwterror@intent"
     },
     {
       "digest": {
-        "sha256": "690957d9cc83dc35836e8a6be9440d957750ff426ed48fb2ca821873ca3283a3"
+        "sha256": "04c029022207bdd32b0de31133b221ecbca80b6d70fc29eccfb29071fc6f52f8"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip@intent"
     },
     {
       "digest": {
-        "sha256": "3e9037e5b695fc736a4d35d9c814cb802bc83c2b4081a54153cfdf33d3b2ce77"
+        "sha256": "fb83cf686e9b5597f94376a62f528599d6c98ab0dfe7bdf7a78a6d56c8df445a"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims@intent"
     },
     {
       "digest": {
-        "sha256": "dc5924c785b151317b9a34ad853a54a4739b96e2b54b12cf078aad8dc4959b19"
+        "sha256": "b9a2482df432f2f2d0f9bfa14dac8b899d24ff24970ee036e6539f5a763b7619"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header@intent"
     }

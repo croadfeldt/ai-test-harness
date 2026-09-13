@@ -2,7 +2,7 @@
 
 **In plain terms.** This change leaves starlette at 0.41.3, which has 7 known vulnerabilities the application is exposed to. The harness proved 1 of the 7 with a test that fails on the vulnerable version and passes on the fixed one; the other 6 are unproven and marked so. Accept the 6 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
 
-Run `76a3fa863e76`. Generated 2026-09-13T13:17:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+Run `76a3fa863e76`. Generated 2026-09-13T16:25:41+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 starlette at depth 2, change `unchanged`, reachable from first-party code: **true**
@@ -20,6 +20,11 @@ Mutation: score 0.0 (0 of 12 sampled mutants killed, 319 sites on executed lines
 - **defect** (0.4): starlette: a code path raised the same internal error on both versions during CVE test generation (CVE-2025-54121); NOT corroborated by stage 4 verdicts. Route: escalate: below confidence threshold. Evidence: `generate/starlette/manifest.agent.json`
 - **defect** (0.4): starlette: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-54283); NOT corroborated by stage 4 verdicts. Route: escalate: below confidence threshold. Evidence: `generate/starlette/manifest.agent.json`
 - **defect** (0.8): starlette: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-48817). Route: open issue with reproducer. Evidence: `generate/starlette/manifest.agent.json`
+- **obsolete** (0.85): starlette: test_ghsa_jp82_jpqv_5vv3_exposure references starlette.requests.Request, which the upgrade to 1.3.1 changes the required parameters of. Route: propose retirement. Evidence: `execute/starlette/relevance.json`
+- **redundant** (0.5): starlette: test_simple_user_authenticated killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/starlette/relevance.json`
+- **redundant** (0.5): starlette: test_cookie_parser_basic killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/starlette/relevance.json`
+- **redundant** (0.5): starlette: test_response_status_and_body killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/starlette/relevance.json`
+- **redundant** (0.5): starlette: test_json_response_renders_json killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/starlette/relevance.json`
 
 ## Tests
 | test | category | old | new | class | action |
@@ -61,7 +66,17 @@ The advisories are fixed in starlette 1.3.1. The harness resolved an environment
 **Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.
 
 ## Promotions and retirements
-None proposed: promotion needs a survived bump or a caught regression (section 8.3); the relevance engine is not in this slice.
+Promotions: none yet; promotion needs a survived version change or a caught regression (section 8.3).
+
+Retirement proposals, for the upgrade to 1.3.1. Advisory: a person approves, a retired test is kept and re-run once on the next change, nothing is deleted.
+
+| test | file | class | reason | rewrite | priority | evidence |
+|---|---|---|---|---|---|---|
+| test_ghsa_jp82_jpqv_5vv3_exposure | test_starlette_cve_cve_2026_54282.py | obsolete | obsolete-symbol-removed |  | normal | test_ghsa_jp82_jpqv_5vv3_exposure references starlette.requests.Request, which the upgrade to 1.3.1 changes th |
+| test_simple_user_authenticated | test_starlette_unit.py | redundant | redundant-no-kills |  | low | test_simple_user_authenticated killed none of 12 sampled mutants in this run |
+| test_cookie_parser_basic | test_starlette_unit.py | redundant | redundant-no-kills |  | low | test_cookie_parser_basic killed none of 12 sampled mutants in this run |
+| test_response_status_and_body | test_starlette_unit.py | redundant | redundant-no-kills |  | low | test_response_status_and_body killed none of 12 sampled mutants in this run |
+| test_json_response_renders_json | test_starlette_unit.py | redundant | redundant-no-kills |  | low | test_json_response_renders_json killed none of 12 sampled mutants in this run |
 
 ## Artifacts
 - tests as a patch against the overlay layout: `packet/starlette/tests.patch`

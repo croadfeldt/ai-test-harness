@@ -2,7 +2,7 @@
 
 **In plain terms.** This change moves pyasn1 from 0.6.4 to 0.4.8, a version with 4 known vulnerabilities. That is a downgrade. The harness proved 1 of the 4 with a test that fails on the vulnerable version and passes on the fixed one; the other 3 are unproven and marked so. Accept the 10 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
 
-Run `76a3fa863e76`. Generated 2026-09-13T13:17:48+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+Run `76a3fa863e76`. Generated 2026-09-13T16:25:41+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 pyasn1 at depth 2, change `bumped`, reachable from first-party code: **unknown**
@@ -19,6 +19,14 @@ Mutation: score 0.417 (5 of 12 sampled mutants killed, 385 sites on executed lin
 - **security** (0.95): pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories. Route: Product Security. Evidence: `analyze/pyasn1/facts.json`
 - **security** (0.75): pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown. Route: Product Security. Evidence: `analyze/pyasn1/vulns.json`
 - **defect** (0.8): pyasn1: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-59885). Route: open issue with reproducer. Evidence: `generate/pyasn1/manifest.agent.json`
+- **redundant** (0.5): pyasn1: test_printer_is_callable killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_debug_is_callable killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_setlogger_returns_none killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_hexdump_empty_bytes killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_pyasn1error_is_exception_subclass killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_value_constraint_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_substrate_underrun_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
+- **redundant** (0.5): pyasn1: test_pyasn1unicode_error_is_unicode_error_subclass killed none of 12 sampled mutants in this run. Route: escalate: below confidence threshold. Evidence: `execute/pyasn1/relevance.json`
 
 ## Tests
 | test | category | old | new | class | action |
@@ -55,7 +63,20 @@ Not applicable: the change brought the fixed version, or no advisory is open at 
 **Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.
 
 ## Promotions and retirements
-None proposed: promotion needs a survived bump or a caught regression (section 8.3); the relevance engine is not in this slice.
+Promotions: none yet; promotion needs a survived version change or a caught regression (section 8.3).
+
+Retirement proposals, for this change. Advisory: a person approves, a retired test is kept and re-run once on the next change, nothing is deleted.
+
+| test | file | class | reason | rewrite | priority | evidence |
+|---|---|---|---|---|---|---|
+| test_printer_is_callable | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_printer_is_callable killed none of 12 sampled mutants in this run |
+| test_debug_is_callable | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_debug_is_callable killed none of 12 sampled mutants in this run |
+| test_setlogger_returns_none | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_setlogger_returns_none killed none of 12 sampled mutants in this run |
+| test_hexdump_empty_bytes | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_hexdump_empty_bytes killed none of 12 sampled mutants in this run |
+| test_pyasn1error_is_exception_subclass | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_pyasn1error_is_exception_subclass killed none of 12 sampled mutants in this run |
+| test_value_constraint_error_is_pyasn1error_subclass | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_value_constraint_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run |
+| test_substrate_underrun_error_is_pyasn1error_subclass | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_substrate_underrun_error_is_pyasn1error_subclass killed none of 12 sampled mutants in this run |
+| test_pyasn1unicode_error_is_unicode_error_subclass | test_pyasn1_unit.py | redundant | redundant-no-kills |  | low | test_pyasn1unicode_error_is_unicode_error_subclass killed none of 12 sampled mutants in this run |
 
 ## Artifacts
 - tests as a patch against the overlay layout: `packet/pyasn1/tests.patch`

@@ -45,6 +45,20 @@ blueprint's target is 0.6.
 Starlette's accepted tests noticed nothing. They are not wrong, they are weak, and the packet says so.
 That is the gate working: a weak test is reported, not promoted.
 
+## Which tests the change makes irrelevant (`-run5/execute/*/relevance.json`)
+
+The relevance engine proposes retirements with evidence; a person approves; nothing is deleted.
+
+| Package | Proposals | What they say |
+|---|---|---|
+| python-jose | 4 redundant | four characterization tests whose mutant kills are all among another test's kills |
+| pyasn1 | 8 redundant | the eight existence-only unit tests killed no sampled mutant, the same tests the trivial-assertion rule now rejects at generation time |
+| starlette | 1 obsolete, 4 redundant | one CVE exposure test references a class whose required parameters change in the 1.3.1 upgrade, so it breaks when that upgrade lands; four unit tests killed nothing |
+
+Forty-seven of the application's own tests were examined too; five files reference these packages and
+none references a symbol the changes remove. The proposals appear in each packet's "Promotions and
+retirements" section, marked advisory, with the horizon they apply to.
+
 ## The same facts as UDLM records (`-run5/attest/*/udlm/`)
 
 Every attestation directory also holds the run's facts as records in the Unified Data Lifecycle

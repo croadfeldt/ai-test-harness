@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-13T15:34:54+00:00",
+  "generated": "2026-09-13T16:25:41+00:00",
   "packages": [
     {
       "envelope": "attest/pyasn1/statement.dsse.json",
-      "generated": "2026-09-13T15:34:54+00:00",
+      "generated": "2026-09-13T16:25:41+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/pyasn1/MANIFEST.json",
-      "manifest_sha256": "sha256:898053da155df83f81c7a3837bcca3fd4e08c00ccd328571d4cdaa68741deb9f",
+      "manifest_sha256": "sha256:b3a51a5e70b5279bfb89f4af4dcb0dd921092f63ebb0175266a6aee30e3c32c9",
       "package": "pyasn1",
       "records": 10,
       "result": "PASSED",
@@ -22,10 +22,10 @@
     },
     {
       "envelope": "attest/python-jose/statement.dsse.json",
-      "generated": "2026-09-13T15:34:54+00:00",
+      "generated": "2026-09-13T16:25:41+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/python-jose/MANIFEST.json",
-      "manifest_sha256": "sha256:0859fdb5710098b12051fbd7f65ed7c300fe653153211baaa4bc0b16dea6a855",
+      "manifest_sha256": "sha256:eb1402f57298c05b3184849295a7ec2907dcff408ed2f3744eb11a30d008fb34",
       "package": "python-jose",
       "records": 7,
       "result": "PASSED",
@@ -41,10 +41,10 @@
     },
     {
       "envelope": "attest/starlette/statement.dsse.json",
-      "generated": "2026-09-13T15:34:54+00:00",
+      "generated": "2026-09-13T16:25:41+00:00",
       "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
       "manifest": "attest/starlette/MANIFEST.json",
-      "manifest_sha256": "sha256:fc91f804c21c858fc4c8f61620742acb14065a3471ea3fc4b51c128ed79b9b98",
+      "manifest_sha256": "sha256:a81ee67a3b4d12aa6a6e786c6f2f1ca1969e98fca06fd0274a740016f719130c",
       "package": "starlette",
       "records": 6,
       "result": "PASSED",
