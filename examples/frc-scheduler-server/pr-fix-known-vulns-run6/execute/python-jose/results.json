@@ -1,0 +1,359 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "direction": "fix",
+      "fixed": "3.4.0",
+      "vulnerable": "3.3.0"
+    },
+    "fix_pinning_confirmed": 3,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 9,
+    "total": 10
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 573,
+    "files": {
+      "jose/__init__.py": {
+        "covered": 8,
+        "statements": 8
+      },
+      "jose/backends/__init__.py": {
+        "covered": 11,
+        "statements": 27
+      },
+      "jose/backends/_asn1.py": {
+        "covered": 0,
+        "statements": 38
+      },
+      "jose/backends/base.py": {
+        "covered": 18,
+        "statements": 28
+      },
+      "jose/backends/cryptography_backend.py": {
+        "covered": 121,
+        "statements": 368
+      },
+      "jose/backends/ecdsa_backend.py": {
+        "covered": 0,
+        "statements": 80
+      },
+      "jose/backends/native.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "jose/backends/rsa_backend.py": {
+        "covered": 0,
+        "statements": 160
+      },
+      "jose/constants.py": {
+        "covered": 66,
+        "statements": 66
+      },
+      "jose/exceptions.py": {
+        "covered": 24,
+        "statements": 24
+      },
+      "jose/jwe.py": {
+        "covered": 81,
+        "statements": 212
+      },
+      "jose/jwk.py": {
+        "covered": 32,
+        "statements": 56
+      },
+      "jose/jws.py": {
+        "covered": 89,
+        "statements": 124
+      },
+      "jose/jwt.py": {
+        "covered": 87,
+        "statements": 160
+      },
+      "jose/utils.py": {
+        "covered": 36,
+        "statements": 62
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-13T13:29:49+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "3.4.0",
+    "old_version": "3.3.0",
+    "purl": "pkg:pypi/python-jose@3.4.0"
+  },
+  "run_id": "76a3fa863e76",
+  "runs": {
+    "new": {
+      "duration_s": 20.5,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 20.8,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 20.5,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_python_jose_unit.py",
+      "sha256": "sha256:d5a333108315db7da720ee1f4741da0fa2a8441340917a9a0624aadf49c3b5c3"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "sha256": "sha256:364897d14221e775ca38a9c2cf6f8f2f574b8c998b4790fba13c853056ccc649"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "sha256": "sha256:a5fdc51f9fef32f2d1da538a25a08ba60f114272f3a0e31ff00e56b3823ed00d"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "sha256": "sha256:11635cca105d491648200a46fbbcd1579b266520a1125af36f22cab0d32cc687"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 11,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_fix_pinning",
+      "message": "",
+      "name": "test_pysec_2025_185_fix_pinning",
+      "param_id": "test_pysec_2025_185_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 4,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_exposure",
+      "message": "",
+      "name": "test_pysec_2025_185_exposure",
+      "param_id": "test_pysec_2025_185_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "message": "jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "status": "fail",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 3,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 2,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_encode_hs256_structure",
+      "message": "",
+      "name": "test_jwt_encode_hs256_structure",
+      "param_id": "test_jwt_encode_hs256_structure",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_roundtrip_hs256",
+      "message": "",
+      "name": "test_jwt_decode_roundtrip_hs256",
+      "param_id": "test_jwt_decode_roundtrip_hs256",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_wrong_key_raises_jwt_error",
+      "message": "",
+      "name": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "param_id": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_expired_raises_expired_signature_error",
+      "message": "",
+      "name": "test_jwt_decode_expired_raises_expired_signature_error",
+      "param_id": "test_jwt_decode_expired_raises_expired_signature_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "call": 3,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "endpoint": "https://qwen38-27b-llm-serving.apps.ocp.roadfeldt.com/v1",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 36.2,
+  "max_tokens": 4000,
+  "model": "qwen38-27b",
+  "prompt_sha256": "sha256:2ddfa7331cd7885bbd69fd31a857598af2dddf902fdd0b3953f090a68ae30362",
+  "reasoning_effort": null,
+  "response_chars": 3895,
+  "response_sha256": "sha256:bc033d12840f4cda08e068fde587e2fce5c56cf0964978094ee478ebc2e30d1b",
+  "tag": "python-jose-unit-a2",
+  "temperature": 0.2,
+  "thinking": false,
+  "usage": {
+    "completion_tokens": 1192,
+    "prompt_tokens": 2913,
+    "total_tokens": 4105
+  }
+}

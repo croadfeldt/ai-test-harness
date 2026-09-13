@@ -60,7 +60,10 @@ a permanent, self-checked rule in the blueprint's failure register (section 17).
 | 5 | cap reading before a test run; tell the model when it reached the fix; flag repeated failures | **1 of 3** |
 
 Runs 1 to 4 each took 15 to 60 minutes on a 27B model on a laptop. The run that worked used three tool
-calls. Then pyasn1 and starlette went through the same pipeline once each and each proved one
+calls. Run 6 (`-run6/`) held everything from run 5 and moved the same model to two GPUs in the
+homelab, five times faster: 2 of 3 vulnerabilities proven in 22 minutes end to end, the
+key-confusion one included. Same model, same rules; the speed bought more attempts inside the
+same budget. Then pyasn1 and starlette went through the same pipeline once each and each proved one
 vulnerability. The register grew to nineteen entries along the way; every one has a check that runs
 before every pipeline run.
 

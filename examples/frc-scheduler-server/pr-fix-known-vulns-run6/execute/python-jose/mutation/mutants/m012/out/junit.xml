@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="9" time="0.318" timestamp="2026-09-13T13:33:54.208262+00:00" hostname="461ea10ae8b6"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.012" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.004" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.003" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_hs256_structure" time="0.001"><failure message="jose.exceptions.JWSError: 'str' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSJ9', algorithm = 'HS256', key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:138: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_encode_hs256_structure():
+        """jwt.encode with HS256 produces a three-part token whose header is alg=HS256."""
+&gt;       token = jwt.encode({'sub': 'u1'}, 'secret', algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSJ9', algorithm = 'HS256', key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:140: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_roundtrip_hs256" time="0.001"><failure message="jose.exceptions.JWSError: 'str' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSIsIm5hbWUiOiJBbGljZSJ9', algorithm = 'HS256'
+key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:138: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_roundtrip_hs256():
+        """jwt.decode returns the original claims for a valid HS256 token."""
+        claims = {'sub': 'u1', 'name': 'Alice'}
+&gt;       token = jwt.encode(claims, 'secret', algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSIsIm5hbWUiOiJBbGljZSJ9', algorithm = 'HS256'
+key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:140: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001"><failure message="jose.exceptions.JWSError: 'str' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSJ9', algorithm = 'HS256', key = 'secret-a'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:138: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_wrong_key_raises_jwt_error():
+        """jwt.decode raises JWTError when the key does not match the signature."""
+&gt;       token = jwt.encode({'sub': 'u1'}, 'secret-a', algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSJ9', algorithm = 'HS256', key = 'secret-a'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:140: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001"><failure message="jose.exceptions.JWSError: 'str' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSIsImV4cCI6MTc4OTMwNjMzNH0', algorithm = 'HS256'
+key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:138: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_expired_raises_expired_signature_error():
+        """jwt.decode raises ExpiredSignatureError for a token past its exp claim."""
+        now = int(time.time())
+&gt;       token = jwt.encode({'sub': 'u1', 'exp': now - 100}, 'secret', algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1MSIsImV4cCI6MTc4OTMwNjMzNH0', algorithm = 'HS256'
+key = 'secret'
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if +bool(isinstance(key, Key)):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'str' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:140: JWSError</failure></testcase></testsuite></testsuites>
