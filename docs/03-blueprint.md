@@ -1,11 +1,17 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.8
-**Date:** 2026-09-12
+**Status:** Draft v0.9
+**Date:** 2026-09-13
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.9:** the provenance record is a UDLM record (section 8.2). Test evidence, the draft
+VEX statement, the vulnerability, the package, and the run are records in the Unified Data Lifecycle
+Model, with UDLM's own tamper-evident head; the signed in-toto statement is the projection of those
+records, and each evidence record's head is a subject of the statement. This is the shape UDLM adopted
+in its own registry (TestEvidence in three tiers, VexStatement) after the first real run produced them.
 
 **Changes in v0.8:** added stage 0, self-verification, to the pipeline (section 5) and the generation
 failure register (section 17): every way the generator has been observed to fail is recorded with the
@@ -531,6 +537,24 @@ AI-generated in the commit message and file header, and carry the same provenanc
 Every generated test has a provenance record, kept in the manifest next to the test and embedded in the
 build attestation. Konflux already produces SLSA provenance as in-toto attestations, so the harness adds
 a predicate rather than inventing a format.
+
+The record is a UDLM record. UDLM (the Unified Data Lifecycle Model) already keeps one record per
+lifecycle state, provenance per field, a tamper-evident head on every record chained to its
+predecessor, and knowledge records for vulnerabilities and packages. The harness does not invent a
+parallel model: it emits UDLM records and lets the attestation be their projection.
+
+| What the harness produces | The UDLM record |
+|---|---|
+| One record per accepted test | `TestEvidence`: a base any test suite can fill (subject, kind, result in an adopted report format, producing run); the `VulnerabilityCheck` type for package-and-CVE checks; the `AiTestHarness` provider class for what only this harness knows (source revision, call sites, sandbox validation) |
+| The package and the vulnerability a test is about | References to `SoftwarePackage` and `Vulnerability` records, which the harness also emits as a discovery source |
+| The run | A `Job`: model, prompt digests, tool versions, sandbox image and its digest, execution target, self-check result |
+| The draft VEX statement | `VexStatement`, one per vulnerability and package, resting on the evidence records by reference |
+| Findings | Sealed findings on UDLM's ledger, never a record of their own |
+
+A candidate the harness proposes is an intent record; a reviewer's acceptance is a realized record,
+by a human act; a retired test is deprecated with its reason. The signed in-toto statement names each
+evidence record's integrity head as a subject, so a consumer verifies the envelope, matches the
+subject to the record, and walks the record's history. The join runs one way, statement to record.
 
 The record contains:
 

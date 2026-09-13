@@ -1,0 +1,89 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
+record_uuid: 01a09b68-3d49-729a-b81b-d4b603243eeb
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-76a3fa863e76
+at: '2026-09-12T01:41:41Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/python-jose-3-4-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a09b68-3d49-729a-b81b-d4b72d27fe1e
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
+record_uuid: 01a09b68-3d49-729a-b81b-d4b95baca2a8
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-76a3fa863e76
+at: '2026-09-13T13:29:49Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/python-jose-3-4-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a09b68-3d49-729a-b81b-d4b603243eeb
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-12T01:41:41Z'
+  completed_at: '2026-09-13T13:29:49Z'
+  results:
+    status: COMPLETED
+    run_id: 76a3fa863e76
+    harness_version: 0.1.0
+    model_id: qwen38-27b
+    model_endpoint: gpu-server-vllm
+    model_endpoint_digest: sha256:8870f0d1a4df5ebc
+    model_reasoning: 'off'
+    tool_versions:
+      git: git version 2.55.0
+      pip: pip 26.0.1
+      python: 3.14.7
+    sandbox_image: docker.io/library/python:3.12-slim
+    sandbox_image_digest: unknown
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 19
+    tests_produced: 10
+    fix_pinning_confirmed: 3
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: 2d132030-6c87-4236-9421-0a6e7ed30bc4
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:af2fe93f8db5c5e67b9a6cb0062dee8b4d7a8cf4bc2d29628a128e4fa5cda67f
+  previous: null
+  algorithm: sha256-jcs

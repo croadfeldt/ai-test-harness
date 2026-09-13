@@ -125,9 +125,22 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
         "warnedTests": [t["name"] for t in results["tests"] if t["status"] == "flaky"],
         "failedTests": [t["name"] for t in results["tests"] if t["versions"]["new"] in ("fail", "error")],
     }
+    # UDLM records: the provenance record is a UDLM record, and its integrity head is a subject of
+    # the statement (blueprint section 8.2). Emitted before the statement so the heads are known.
+    from . import udlm_records
+    udlm_index = udlm_records.emit(workdir, pkg)
+    udlm_subjects = [{"name": f"udlm:{handle_state}", "digest": {"sha256": head[7:]}}
+                     for handle_state, head in sorted(udlm_index.get("heads", {}).items()) if handle_state.endswith("@intent") and "/test-evidence/" in handle_state]
+    if not udlm_index.get("sealed"):
+        predicate["configuration"][0]["annotations"]["unverified"].append(f"UDLM records unsealed: {udlm_index.get('seal_note')}")
+    if udlm_index.get("schema_validation", {}).get("count"):
+        predicate["configuration"][0]["annotations"]["unverified"].append(
+            f"UDLM records: {udlm_index['schema_validation']['count']} schema problem(s), see attest/{pkg}/udlm/index.json")
+    predicate["configuration"][0]["annotations"]["udlm"] = {"records": udlm_index.get("files", {}), "sealed": udlm_index.get("sealed"),
+                                                            "estate": udlm_index.get("estate"), "index_ref": f"attest/{pkg}/udlm/index.json"}
     statement = {"_type": STATEMENT_TYPE,
                  "subject": [{"name": f"packet/{pkg}/tests.patch", "digest": {"sha256": pk["patch_sha256"][7:]}},
-                             {"name": f"attest/{pkg}/MANIFEST.json", "digest": {"sha256": manifest_digest[7:]}}],
+                             {"name": f"attest/{pkg}/MANIFEST.json", "digest": {"sha256": manifest_digest[7:]}}] + udlm_subjects,
                  "predicateType": PREDICATE_TYPE, "predicate": predicate}
     stmt_path = out / "statement.json"
     write_json(stmt_path, statement)
@@ -139,7 +152,9 @@ def attest_package(workdir: Path, pkg: str, run: dict, selfcheck: dict) -> dict:
     rec = {"package": pkg, "generated": now_iso(), "manifest": f"attest/{pkg}/MANIFEST.json", "manifest_sha256": manifest_digest,
            "statement": f"attest/{pkg}/statement.json", "envelope": f"attest/{pkg}/statement.dsse.json", "keyid": keyid,
            "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
-           "records": len(records), "result": predicate["result"]}
+           "records": len(records), "result": predicate["result"],
+           "udlm": {"index": f"attest/{pkg}/udlm/index.json", "sealed": udlm_index.get("sealed"), "subjects": len(udlm_subjects),
+                    "schema_problems": udlm_index.get("schema_validation", {}).get("count")}}
     write_json(out / "attest.json", rec)
     log(f"    {pkg}: {len(records)} provenance record(s), statement {predicate['result']}, signed with {keyid[:19]}")
     return rec

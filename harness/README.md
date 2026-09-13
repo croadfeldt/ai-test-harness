@@ -90,6 +90,7 @@ packet/<package>/
   vex.openvex.json              draft OpenVEX, one statement per vulnerability, for Product Security
 attest/<package>/
   MANIFEST.json                 provenance record per accepted test (blueprint/manifest.schema.yaml)
+  udlm/*.yaml, udlm/index.json  the same facts as UDLM records, sealed; index lists heads and schema validation
   statement.json                in-toto Statement, predicate test-result/v0.1 with the harness record
   statement.dsse.json           DSSE envelope; signer.pub.pem verifies it
 assess/assess.md                the run against the blueprint's goals
@@ -108,6 +109,6 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | 5 triage | implemented: deterministic classes with confidence and routing; below threshold escalates; agent-reported defects need stage 4 corroboration |
 | 6 packet | implemented: one-page packet, accepted tests as a patch in the overlay layout, draft OpenVEX per vulnerability (fixed only with a confirmed fix-pinning test) |
 | 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |
-| attest | implemented: provenance record per accepted test (manifest.schema.yaml), in-toto Statement with the test-result/v0.1 predicate, DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
+| attest | implemented: provenance record per accepted test (manifest.schema.yaml) and the same facts as UDLM records (TestEvidence at the harness's provider class, VexStatement, Vulnerability, SoftwarePackage, Job) sealed with UDLM's chain code from a local checkout; in-toto Statement with the test-result/v0.1 predicate whose subjects include each evidence record's head; DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
 | assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |
 | Go adapter | after the Python adapter is complete end to end |

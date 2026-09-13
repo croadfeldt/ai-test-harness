@@ -1,0 +1,36 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-13T15:34:54+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-76a3fa863e76@realized": "sha256:8cd57660725c9c47594208b09c12130552c558e615b979f04783aed05a80bb69",
+    "lab/knowledge/software-package/pyasn1-0-4-8@discovered": "sha256:33f75f17411603c9f59f523ee7505795197a6d58c8bb1fabb635864319f35433",
+    "lab/knowledge/test-evidence/pyasn1-test-debug-is-callable@intent": "sha256:3cfadc6db6e3a582b627914e4f0af460d9624be17e62ba5d265305931d1ac9df",
+    "lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-exposure@intent": "sha256:fd19be53e12f16bf90cc32c1687836aa6ad62fbf9513a41bcf2e9d4446f0d876",
+    "lab/knowledge/test-evidence/pyasn1-test-ghsa-jr27-m4p2-rc6r-fix-pinning@intent": "sha256:ef7e72302d191ed09d8d633b23e831ed8bba39988a22b21cd47f99dacb7b8eaf",
+    "lab/knowledge/test-evidence/pyasn1-test-hexdump-empty-bytes@intent": "sha256:6db7d66db148aec6d5d60512c14cc4e23da6ba28f70ce4946fcab6c7d239b241",
+    "lab/knowledge/test-evidence/pyasn1-test-printer-is-callable@intent": "sha256:86e42bd3a7a892532993543e08d23bf0b0740ac01dc4b3db4be0a416fc0a696d",
+    "lab/knowledge/test-evidence/pyasn1-test-pyasn1error-is-exception-subclass@intent": "sha256:3086c14523067ad8ce9b1aece7b68989b7ef213b2ce4a94ca47435f36376ceff",
+    "lab/knowledge/test-evidence/pyasn1-test-pyasn1unicode-error-is-unicode-error-subclass@intent": "sha256:2ecf3fae930432e8fd21ac347fbe2689e546128100a2263ef425964b1665741d",
+    "lab/knowledge/test-evidence/pyasn1-test-setlogger-returns-none@intent": "sha256:fe49d87693c88f4dee75f739153fa7cc038b2bd21026fa598453bca0304e651f",
+    "lab/knowledge/test-evidence/pyasn1-test-substrate-underrun-error-is-pyasn1error-subclass@intent": "sha256:351f0e0a345d43ec9b766d1f9aa9d934b93b1d1c7c504a72a23ca41ffaf7678a",
+    "lab/knowledge/test-evidence/pyasn1-test-value-constraint-error-is-pyasn1error-subclass@intent": "sha256:7fa80ce8e87262bf881b2de13469fc525ca6aa85771c5dbdc635199e4c58fb3c",
+    "lab/knowledge/vulnerability/cve-2026-30922@discovered": "sha256:7a3623a94aa0608a5237f8267ee81e605e9db4985690dffb93aafd74226ce8ac",
+    "lab/knowledge/vulnerability/cve-2026-59884@discovered": "sha256:395a1c03ced6711eed833849a616ca917a6f15ef4fd7f4c76d1b499c026e3c0c",
+    "lab/knowledge/vulnerability/cve-2026-59885@discovered": "sha256:8274aeab698f9efd8e32e34e8b7eeb978351a880e3dd101b74f3a24fe569c551",
+    "lab/knowledge/vulnerability/cve-2026-59886@discovered": "sha256:3eb10e3a6c7bf4968ba15205371a12edea452c25471152273138319be48984f0"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

@@ -1,0 +1,32 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-13T15:34:54+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-76a3fa863e76@realized": "sha256:7e62bd6101ba4b4089b1b59951d720bd7456975a8b47c56283802e70912d9449",
+    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:b8cae94b9d408880a486d9cbe5ac379b487d8dcbcb7511a126cc4edfcb015b53",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@intent": "sha256:3f106ccf23847e69746149796f2288867917c59ba37894adf3f367bb6ad4de84",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@intent": "sha256:77f2fd43530f6309ed6e3b7fc328925d5ae62fba3033c0d63135709a504d1e12",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expiredsignatureerro@intent": "sha256:472d8009dd83675a9955a8a0804959ffaa1674afffbeb146200c2720cc04eee7",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwterror@intent": "sha256:d06b8c55416392bdb0232cf022bae49e1ac9af5513414071028a485ee048e36a",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip@intent": "sha256:690957d9cc83dc35836e8a6be9440d957750ff426ed48fb2ca821873ca3283a3",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims@intent": "sha256:3e9037e5b695fc736a4d35d9c814cb802bc83c2b4081a54153cfdf33d3b2ce77",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header@intent": "sha256:dc5924c785b151317b9a34ad853a54a4739b96e2b54b12cf078aad8dc4959b19",
+    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:d655e98fec896bbb6477388f9189bc9375679bf754bbbdbd381e9e923cf8d010",
+    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:b0f9380b53f04c8e4c67fc8a19e244cee694deac094624582a0a4d5754878141",
+    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:ae07c3d8761c12d1ed5010033d9a341d2a69521dad659b747826b47bec638ff1"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

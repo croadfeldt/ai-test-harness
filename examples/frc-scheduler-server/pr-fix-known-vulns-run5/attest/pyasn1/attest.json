@@ -1,12 +1,18 @@
 {
   "envelope": "attest/pyasn1/statement.dsse.json",
-  "generated": "2026-09-13T14:56:09+00:00",
+  "generated": "2026-09-13T15:34:54+00:00",
   "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
   "manifest": "attest/pyasn1/MANIFEST.json",
-  "manifest_sha256": "sha256:64df51a7e5aa62fd29e4652246ab52bb51538274ec5bcce94d4b0c244398a069",
+  "manifest_sha256": "sha256:898053da155df83f81c7a3837bcca3fd4e08c00ccd328571d4cdaa68741deb9f",
   "package": "pyasn1",
   "records": 10,
   "result": "PASSED",
   "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
-  "statement": "attest/pyasn1/statement.json"
+  "statement": "attest/pyasn1/statement.json",
+  "udlm": {
+    "index": "attest/pyasn1/udlm/index.json",
+    "schema_problems": 0,
+    "sealed": true,
+    "subjects": 10
+  }
 }

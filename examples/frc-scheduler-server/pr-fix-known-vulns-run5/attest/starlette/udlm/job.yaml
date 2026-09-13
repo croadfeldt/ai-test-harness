@@ -1,0 +1,89 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
+record_uuid: 01a09b68-3c5a-71ed-a838-cf0a9af97db4
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-76a3fa863e76
+at: '2026-09-12T01:41:41Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/starlette-0-41-3
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a09b68-3c5a-71ed-a838-cf0b3e81e6cb
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: bc7b659e-eec2-4765-a782-05161752878c
+record_uuid: 01a09b68-3c5a-71ed-a838-cf0d0bb6efa2
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-76a3fa863e76
+at: '2026-09-13T04:29:47Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/starlette-0-41-3
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a09b68-3c5a-71ed-a838-cf0a9af97db4
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-12T01:41:41Z'
+  completed_at: '2026-09-13T04:29:47Z'
+  results:
+    status: COMPLETED
+    run_id: 76a3fa863e76
+    harness_version: 0.1.0
+    model_id: qwen/qwen3.8-27b
+    model_endpoint: laptop-lmstudio
+    model_endpoint_digest: sha256:657141afb9ad95bf
+    model_reasoning: 'off'
+    tool_versions:
+      git: git version 2.55.0
+      pip: pip 26.0.1
+      python: 3.14.7
+    sandbox_image: docker.io/library/python:3.12-slim
+    sandbox_image_digest: unknown
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 19
+    tests_produced: 18
+    fix_pinning_confirmed: 2
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: 4b015bbb-292f-4c86-8ca8-4d281d298e13
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:0f72c4cc3f918ee4073b05d616010e499e4faab8680e7a8c16084682fc29d7cf
+  previous: null
+  algorithm: sha256-jcs

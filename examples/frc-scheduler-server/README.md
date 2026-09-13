@@ -45,6 +45,19 @@ blueprint's target is 0.6.
 Starlette's accepted tests noticed nothing. They are not wrong, they are weak, and the packet says so.
 That is the gate working: a weak test is reported, not promoted.
 
+## The same facts as UDLM records (`-run5/attest/*/udlm/`)
+
+Every attestation directory also holds the run's facts as records in the Unified Data Lifecycle
+Model, the shape UDLM adopted in its own registry after this run produced them: one vulnerability
+record per CVE, the package version, the run as a job, one candidate test-evidence record per accepted
+test at the harness's provider class, and the draft VEX statement per vulnerability. Each record is
+sealed with UDLM's own chain code, and the signed statement names each evidence record's head as a
+subject, so a consumer can verify the signature, match a subject to a record, and follow references
+from the evidence to the vulnerability, the package, the run, and the claim. The records validate
+against UDLM's state-record schema; `udlm/index.json` says whether they were sealed and how many
+schema problems remain, and the attestation's "unverified" list repeats it when either is not clean.
+A candidate is an intent record; a reviewer's acceptance would be a realized record, by a human act.
+
 ## What it took
 
 The same package, python-jose, was run five times on one model, changing one thing each time. The
