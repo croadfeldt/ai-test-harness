@@ -140,6 +140,9 @@ def triage(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
     for item in summary["items"]:
         if select and item["package"] not in select:
             continue
+        if not (workdir / "execute" / item["package"] / "results.json").exists():
+            log(f"  {item['package']}: analyzed but nothing generated or executed in this run, not triaged")
+            continue
         outs.append(triage_package(workdir, item["package"]))
     from ..util import merge_summary
     merge_summary(workdir / "triage" / "summary.json", [{"package": o["package"], **o["summary"]} for o in outs])

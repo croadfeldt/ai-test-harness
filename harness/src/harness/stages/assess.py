@@ -19,7 +19,7 @@ def assess(*, workdir: Path) -> dict:
     tri = read_json(workdir / "triage" / "summary.json")
     pk = read_json(workdir / "packet" / "summary.json")
     att = read_json(workdir / "attest" / "summary.json")
-    pkgs = [p["package"] for p in pk["packages"]]
+    pkgs = [p["package"] for p in pk["packages"] if (workdir / "execute" / p["package"] / "results.json").exists()]
     results = {p: read_json(workdir / "execute" / p / "results.json") for p in pkgs}
     gens = {p: read_json(workdir / "generate" / p / "manifest.json") for p in pkgs}
     triages = {p: read_json(workdir / "triage" / p / "triage.json") for p in pkgs}

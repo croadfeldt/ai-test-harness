@@ -182,7 +182,12 @@ def attest(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
     run = read_json(workdir / "run.json") if (workdir / "run.json").exists() else {}
     selfcheck = read_json(workdir / "selfcheck" / "selfcheck.json")
     pk = read_json(workdir / "packet" / "summary.json")
-    outs = [attest_package(workdir, p["package"], run, selfcheck) for p in pk["packages"] if not select or p["package"] in select]
+    wanted = [p["package"] for p in pk["packages"] if not select or p["package"] in select]
+    # A package with a packet but no generated tests has nothing to attest (the run selected others).
+    skipped = [p for p in wanted if not (workdir / "generate" / p / "manifest.json").exists()]
+    for p in skipped:
+        log(f"  {p}: no generated tests in this run, nothing to attest")
+    outs = [attest_package(workdir, p, run, selfcheck) for p in wanted if p not in skipped]
     for o in outs:
         o["verified_locally"] = verify(workdir / o["envelope"], workdir / "attest" / o["package"] / "signer.pub.pem")
     from ..util import merge_summary
