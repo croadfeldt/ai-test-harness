@@ -1,0 +1,31 @@
+{
+  "api_changes_considered": {
+    "added": 3,
+    "breaking_changed": 0,
+    "removed": 0
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 0,
+    "redundant": 0,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 16
+  },
+  "generated": "2026-09-14T00:08:51+00:00",
+  "horizon": "this change",
+  "package": "python-jose",
+  "proposals": [],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}

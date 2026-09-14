@@ -1,0 +1,286 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "direction": "fix",
+      "fixed": "3.4.0",
+      "vulnerable": "3.3.0"
+    },
+    "fix_pinning_confirmed": 0,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 6,
+    "total": 7
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 543,
+    "files": {
+      "jose/__init__.py": {
+        "covered": 8,
+        "statements": 8
+      },
+      "jose/backends/__init__.py": {
+        "covered": 11,
+        "statements": 27
+      },
+      "jose/backends/_asn1.py": {
+        "covered": 0,
+        "statements": 38
+      },
+      "jose/backends/base.py": {
+        "covered": 18,
+        "statements": 28
+      },
+      "jose/backends/cryptography_backend.py": {
+        "covered": 144,
+        "statements": 368
+      },
+      "jose/backends/ecdsa_backend.py": {
+        "covered": 0,
+        "statements": 80
+      },
+      "jose/backends/native.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "jose/backends/rsa_backend.py": {
+        "covered": 0,
+        "statements": 160
+      },
+      "jose/constants.py": {
+        "covered": 66,
+        "statements": 66
+      },
+      "jose/exceptions.py": {
+        "covered": 24,
+        "statements": 24
+      },
+      "jose/jwe.py": {
+        "covered": 90,
+        "statements": 212
+      },
+      "jose/jwk.py": {
+        "covered": 34,
+        "statements": 56
+      },
+      "jose/jws.py": {
+        "covered": 78,
+        "statements": 124
+      },
+      "jose/jwt.py": {
+        "covered": 35,
+        "statements": 160
+      },
+      "jose/utils.py": {
+        "covered": 35,
+        "statements": 62
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-14T00:00:33+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "3.4.0",
+    "old_version": "3.3.0",
+    "purl": "pkg:pypi/python-jose@3.4.0"
+  },
+  "run_id": "5f493a6b7288",
+  "runs": {
+    "new": {
+      "duration_s": 19.7,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 19.4,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 19.4,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:96bf2da89d8bc47f46bc9f8f720c2d98d681ccdeaa2d9a0e9498c0ca2d8b16c1",
+    "image_digest": "sha256:96bf2da89d8bc47f46bc9f8f720c2d98d681ccdeaa2d9a0e9498c0ca2d8b16c1",
+    "isolation": {
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_python_jose_unit.py",
+      "sha256": "sha256:65ff2c25ee2c658f225f36d6fe9b1d2d2dd43814940ef057d0649804c2daf71a"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "sha256": "sha256:5f4ef69ccf9124dfc37f927afd5c658dc0732f36371176a3c5f667bafc9e52c6"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "sha256": "sha256:7a44f5c01177428af2f1f1d118cb8d1779b15a67f78520fe0e21d118301ca8e5"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "sha256": "sha256:69943c38b8ed3e0e20c341e2c5c39d6671d5df0ea5edf8bc549132e05e39c484"
+    }
+  ],
+  "tests": [
+    {
+      "category": "unknown",
+      "duration_ms": 0,
+      "expected_differential": null,
+      "file": null,
+      "id": "::tests.test_python_jose_unit",
+      "message": "collection failure",
+      "name": "tests.test_python_jose_unit",
+      "param_id": "tests.test_python_jose_unit",
+      "status": "error",
+      "symbols_exercised": [],
+      "verdict": "fails on head: test bug or defect (new=error)",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 5,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_fix_pinning",
+      "message": "",
+      "name": "test_PYSEC_2025_185_fix_pinning",
+      "param_id": "test_PYSEC_2025_185_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_exposure",
+      "message": "",
+      "name": "test_PYSEC_2025_185_exposure",
+      "param_id": "test_PYSEC_2025_185_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 1,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "message": "",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 431,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 431,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

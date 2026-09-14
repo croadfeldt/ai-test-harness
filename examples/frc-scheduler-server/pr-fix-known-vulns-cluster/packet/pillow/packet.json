@@ -1,0 +1,29 @@
+{
+  "generated": "2026-09-13T22:57:49+00:00",
+  "package": "pillow",
+  "packet_md": "packet/pillow/packet.md",
+  "patch": "packet/pillow/tests.patch",
+  "patch_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+  "tests_in_patch": [],
+  "vex": "packet/pillow/vex.openvex.json",
+  "vex_statements": {
+    "CVE-2026-25990": "under_investigation",
+    "CVE-2026-40192": "under_investigation",
+    "CVE-2026-42308": "under_investigation",
+    "CVE-2026-42310": "under_investigation",
+    "CVE-2026-42311": "under_investigation",
+    "CVE-2026-54058": "under_investigation",
+    "CVE-2026-54059": "under_investigation",
+    "CVE-2026-54060": "under_investigation",
+    "CVE-2026-55379": "under_investigation",
+    "CVE-2026-55380": "under_investigation",
+    "CVE-2026-55798": "under_investigation",
+    "CVE-2026-59197": "under_investigation",
+    "CVE-2026-59198": "under_investigation",
+    "CVE-2026-59199": "under_investigation",
+    "CVE-2026-59200": "under_investigation",
+    "CVE-2026-59204": "under_investigation",
+    "CVE-2026-59205": "under_investigation"
+  }
+}

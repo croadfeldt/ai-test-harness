@@ -1,0 +1,1501 @@
+--- old/weasyprint/__init__.py
++++ new/weasyprint/__init__.py
+@@ -5,7 +5,6 @@
+ 
+ """
+ 
+-import contextlib
+ from datetime import datetime
+ from os.path import getctime, getmtime
+ from pathlib import Path
+@@ -15,9 +14,9 @@
+ import tinycss2
+ import tinyhtml5
+ 
+-VERSION = __version__ = '63.1'
+-
+-#: Default values for command-line and Python API options. See
++VERSION = __version__ = '70.0'
++
++#: Default values for command-line and Python API rendering options. See
+ #: :func:`__main__.main` to learn more about specific options for
+ #: command-line.
+ #:
+@@ -39,15 +38,16 @@
+ #:     A PDF version number.
+ #: :param bool pdf_forms:
+ #:     Whether PDF forms have to be included.
++#: :param bool pdf_tags:
++#:     Whether PDF should be tagged for accessibility.
+ #: :param bool uncompressed_pdf:
+ #:     Whether PDF content should be compressed.
+ #: :param bool custom_metadata:
+ #:     Whether custom HTML metadata should be stored in the generated PDF.
+ #: :param bool presentational_hints:
+ #:     Whether HTML presentational hints are followed.
+-#: :param bool srgb:
+-#:     Whether sRGB color profile should be included and set as default for
+-#:     device-dependant RGB colors.
++#: :param str output_intent:
++#:     srgb, device-cmyk, or CSS identifier of the output intent color space.
+ #: :param bool optimize_images:
+ #:     Whether size of embedded images should be optimized, with no quality
+ #:     loss.
+@@ -65,16 +65,18 @@
+ #:     images are temporarily stored.
+ DEFAULT_OPTIONS = {
+     'stylesheets': None,
+-    'media_type': 'print',
+     'attachments': None,
++    'attachment_relationships': None,
+     'pdf_identifier': None,
+     'pdf_variant': None,
+     'pdf_version': None,
+     'pdf_forms': None,
++    'pdf_tags': False,
+     'uncompressed_pdf': False,
++    'xmp_metadata': None,
+     'custom_metadata': False,
+     'presentational_hints': False,
+-    'srgb': False,
++    'output_intent': None,
+     'optimize_images': False,
+     'jpeg_quality': None,
+     'dpi': None,
+@@ -85,12 +87,11 @@
+ 
+ __all__ = [
+     'CSS', 'DEFAULT_OPTIONS', 'HTML', 'VERSION', 'Attachment', 'Document', 'Page',
+-    '__version__', 'default_url_fetcher']
++    '__version__']
+ 
+ 
+ # Import after setting the version, as the version is used in other modules
+-from .urls import (  # noqa: I001, E402
+-    fetch, default_url_fetcher, path2url, ensure_url, url_is_absolute)
++from .urls import URLFetcher, select_source  # noqa: I001, E402
+ from .logger import LOGGER, PROGRESS_LOGGER  # noqa: E402
+ # Some imports are at the end of the file (after the CSS class)
+ # to work around circular imports.
+@@ -147,9 +148,7 @@
+         :term:`file objects <file object>`.
+     :type url_fetcher: :term:`callable`
+     :param url_fetcher:
+-        A function or other callable with the same signature as
+-        :func:`default_url_fetcher` called to fetch external resources such as
+-        stylesheets and images. (See :ref:`URL Fetchers`.)
++        An instance of :class:`urls.URLFetcher`. (See :ref:`URL Fetchers`.)
+     :param str media_type:
+         The media type to use for ``@media``. Defaults to ``'print'``.
+         **Note:** In some cases like ``HTML(string=foo)`` relative URLs will be
+@@ -158,25 +157,24 @@
+     """
+     def __init__(self, guess=None, filename=None, url=None, file_obj=None,
+                  string=None, encoding=None, base_url=None,
+-                 url_fetcher=default_url_fetcher, media_type='print'):
++                 url_fetcher=None, media_type='print'):
+         PROGRESS_LOGGER.info(
+             'Step 1 - Fetching and parsing HTML - %s',
+             guess or filename or url or
+             getattr(file_obj, 'name', 'HTML string'))
+         if isinstance(base_url, Path):
+             base_url = str(base_url)
+-        result = _select_source(
++        if url_fetcher is None:
++            url_fetcher = URLFetcher()
++        result = select_source(
+             guess, filename, url, file_obj, string, base_url, url_fetcher)
+-        with result as (source_type, source, base_url, protocol_encoding):
+-            if isinstance(source, str):
+-                result = tinyhtml5.parse(source, namespace_html_elements=False)
+-            else:
+-                kwargs = {'namespace_html_elements': False}
+-                if protocol_encoding is not None:
+-                    kwargs['transport_encoding'] = protocol_encoding
+-                if encoding is not None:
+-                    kwargs['override_encoding'] = encoding
+-                result = tinyhtml5.parse(source, **kwargs)
++        with result as (file_obj, base_url, protocol_encoding, _):
++            kwargs = {'namespace_html_elements': False}
++            if protocol_encoding is not None:
++                kwargs['transport_encoding'] = protocol_encoding
++            if encoding is not None:
++                kwargs['override_encoding'] = encoding
++            result = tinyhtml5.parse(file_obj, **kwargs)
+         self.base_url = _find_base_url(result, base_url)
+         self.url_fetcher = url_fetcher
+         self.media_type = media_type
+@@ -186,16 +184,17 @@
+ 
+     def _ua_stylesheets(self, forms=False):
+         if forms:
+-            return [HTML5_UA_STYLESHEET, HTML5_UA_FORM_STYLESHEET]
+-        return [HTML5_UA_STYLESHEET]
++            return [UA_STYLESHEET, UA_FORM_STYLESHEET]
++        return [UA_STYLESHEET]
+ 
+     def _ua_counter_style(self):
+-        return [HTML5_UA_COUNTER_STYLE.copy()]
++        return [UA_COUNTER_STYLE.copy()]
+ 
+     def _ph_stylesheets(self):
+-        return [HTML5_PH_STYLESHEET]
+-
+-    def render(self, font_config=None, counter_style=None, **options):
++        return [PH_STYLESHEET]
++
++    def render(self, font_config=None, counter_style=None, color_profiles=None,
++               **options):
+         """Lay out and paginate the document, but do not (yet) export it.
+ 
+         This returns a :class:`document.Document` object which provides
+@@ -214,15 +213,16 @@
+         :returns: A :class:`document.Document` object.
+ 
+         """
+-        for unknown in set(options) - set(DEFAULT_OPTIONS):
+-            LOGGER.warning('Unknown rendering option: %s.', unknown)
++        for unknown in sorted(set(options) - set(DEFAULT_OPTIONS)):
++            LOGGER.error('Unknown rendering option: %s.', unknown)
+         new_options = DEFAULT_OPTIONS.copy()
+         new_options.update(options)
+         options = new_options
+-        return Document._render(self, font_config, counter_style, options)
++        return Document._render(
++            self, font_config, counter_style, color_profiles, options)
+ 
+     def write_pdf(self, target=None, zoom=1, finisher=None,
+-                  font_config=None, counter_style=None, **options):
++                  font_config=None, counter_style=None, color_profiles=None, **options):
+         """Render the document to a PDF file.
+ 
+         This is a shortcut for calling :meth:`render`, then
+@@ -261,9 +261,12 @@
+         new_options = DEFAULT_OPTIONS.copy()
+         new_options.update(options)
+         options = new_options
+-        return (
+-            self.render(font_config, counter_style, **options)
+-            .write_pdf(target, zoom, finisher, **options))
++        document = self.render(
++            font_config, counter_style, color_profiles, **options)
++        # render() has already reported any unknown options; forward only the
++        # known ones so they are not reported a second time by write_pdf().
++        options = {key: options[key] for key in DEFAULT_OPTIONS}
++        return document.write_pdf(target, zoom, finisher, **options)
+ 
+ 
+ class CSS:
+@@ -281,34 +284,39 @@
+     of :class:`HTML` objects.
+ 
+     """
+-    def __init__(self, guess=None, filename=None, url=None, file_obj=None,
+-                 string=None, encoding=None, base_url=None,
+-                 url_fetcher=default_url_fetcher, _check_mime_type=False,
++    def __init__(self, guess=None, filename=None, url=None, file_obj=None, string=None,
++                 encoding=None, base_url=None, url_fetcher=None, _check_mime_type=False,
+                  media_type='print', font_config=None, counter_style=None,
+-                 matcher=None, page_rules=None):
++                 color_profiles=None, matcher=None, page_rules=None, layers=None,
++                 layer=None):
+         PROGRESS_LOGGER.info(
+             'Step 2 - Fetching and parsing CSS - %s',
+             filename or url or getattr(file_obj, 'name', 'CSS string'))
+-        result = _select_source(
+-            guess, filename, url, file_obj, string,
+-            base_url=base_url, url_fetcher=url_fetcher,
+-            check_css_mime_type=_check_mime_type)
+-        with result as (source_type, source, base_url, protocol_encoding):
+-            if source_type == 'file_obj':
+-                source = source.read()
+-            if isinstance(source, str):
+-                # unicode, no encoding
+-                stylesheet = tinycss2.parse_stylesheet(source)
++        if url_fetcher is None:
++            url_fetcher = URLFetcher()
++        if isinstance(base_url, Path):
++            base_url = str(base_url)
++        result = select_source(
++            guess, filename, url, file_obj, string, base_url=base_url,
++            url_fetcher=url_fetcher, check_css_mime_type=_check_mime_type)
++        with result as (file_obj, base_url, protocol_encoding, mime_type):
++            css = file_obj.read()
++            if isinstance(css, str):
++                stylesheet = tinycss2.parse_stylesheet(css)
+             else:
+-                stylesheet, encoding = tinycss2.parse_stylesheet_bytes(
+-                    source, environment_encoding=encoding,
++                stylesheet, _ = tinycss2.parse_stylesheet_bytes(
++                    css, environment_encoding=encoding,
+                     protocol_encoding=protocol_encoding)
+         self.base_url = base_url
+         self.matcher = matcher or cssselect2.Matcher()
+         self.page_rules = [] if page_rules is None else page_rules
++        self.layers = [] if layers is None else layers
++        counter_style = {} if counter_style is None else counter_style
++        color_profiles = {} if color_profiles is None else color_profiles
+         preprocess_stylesheet(
+             media_type, base_url, stylesheet, url_fetcher, self.matcher,
+-            self.page_rules, font_config, counter_style)
++            self.page_rules, self.layers, font_config, counter_style, color_profiles,
++            layer=layer)
+ 
+ 
+ class Attachment:
+@@ -318,6 +326,9 @@
+     HTML specific arguments (``encoding`` and ``media_type``) are not
+     supported.
+ 
++    :param str name:
++        The name of the attachment to be included in the PDF document.
++        May be :obj:`None`.
+     :param str description:
+         A description of the attachment to be included in the PDF document.
+         May be :obj:`None`.
+@@ -334,12 +345,15 @@
+ 
+     """
+     def __init__(self, guess=None, filename=None, url=None, file_obj=None,
+-                 string=None, base_url=None, url_fetcher=default_url_fetcher,
++                 string=None, base_url=None, url_fetcher=None, name=None,
+                  description=None, created=None, modified=None,
+                  relationship='Unspecified'):
+-        self.source = _select_source(
++        if url_fetcher is None:
++            url_fetcher = URLFetcher()
++        self.source = select_source(
+             guess, filename, url, file_obj, string, base_url=base_url,
+             url_fetcher=url_fetcher)
++        self.name = name
+         self.description = description
+         self.relationship = relationship
+         self.md5 = None
+@@ -358,72 +372,8 @@
+         self.modified = modified
+ 
+ 
+-@contextlib.contextmanager
+-def _select_source(guess=None, filename=None, url=None, file_obj=None,
+-                   string=None, base_url=None, url_fetcher=default_url_fetcher,
+-                   check_css_mime_type=False):
+-    """If only one input is given, return it with normalized ``base_url``."""
+-    if base_url is not None:
+-        base_url = ensure_url(base_url)
+-
+-    selected_params = [
+-        param for param in (guess, filename, url, file_obj, string) if
+-        param is not None]
+-    if len(selected_params) != 1:
+-        source = ', '.join(selected_params) or 'nothing'
+-        raise TypeError(f'Expected exactly one source, got {source}')
+-    elif guess is not None:
+-        if hasattr(guess, 'read'):
+-            type_ = 'file_obj'
+-        elif isinstance(guess, Path):
+-            type_ = 'filename'
+-        elif url_is_absolute(guess):
+-            type_ = 'url'
+-        else:
+-            type_ = 'filename'
+-        result = _select_source(
+-            base_url=base_url, url_fetcher=url_fetcher,
+-            check_css_mime_type=check_css_mime_type,
+-            **{type_: guess})
+-        with result as result:
+-            yield result
+-    elif filename is not None:
+-        if base_url is None:
+-            base_url = path2url(filename)
+-        with open(filename, 'rb') as file_obj:
+-            yield 'file_obj', file_obj, base_url, None
+-    elif url is not None:
+-        with fetch(url_fetcher, url) as result:
+-            if check_css_mime_type and result['mime_type'] != 'text/css':
+-                LOGGER.error(
+-                    'Unsupported stylesheet type %s for %s',
+-                    result['mime_type'], result['redirected_url'])
+-                yield 'string', '', base_url, None
+-            else:
+-                proto_encoding = result.get('encoding')
+-                if base_url is None:
+-                    base_url = result.get('redirected_url', url)
+-                if 'string' in result:
+-                    yield 'string', result['string'], base_url, proto_encoding
+-                else:
+-                    yield (
+-                        'file_obj', result['file_obj'], base_url,
+-                        proto_encoding)
+-    elif file_obj is not None:
+-        if base_url is None:
+-            # filesystem file-like objects have a 'name' attribute.
+-            name = getattr(file_obj, 'name', None)
+-            # Some streams have a .name like '<stdin>', not a filename.
+-            if name and not name.startswith('<'):
+-                base_url = ensure_url(name)
+-        yield 'file_obj', file_obj, base_url, None
+-    else:
+-        assert string is not None
+-        yield 'string', string, base_url, None
+-
+ # Work around circular imports.
+ from .css import preprocess_stylesheet  # noqa: I001, E402
+ from .html import (  # noqa: E402
+-    HTML5_UA_COUNTER_STYLE, HTML5_UA_STYLESHEET, HTML5_UA_FORM_STYLESHEET,
+-    HTML5_PH_STYLESHEET)
++    UA_COUNTER_STYLE, UA_STYLESHEET, UA_FORM_STYLESHEET, PH_STYLESHEET)
+ from .document import Document, Page  # noqa: E402
+--- old/weasyprint/__main__.py
++++ new/weasyprint/__main__.py
+@@ -4,139 +4,172 @@
+ import logging
+ import platform
+ import sys
+-from functools import partial
+ 
+ import pydyf
+ 
+ from . import DEFAULT_OPTIONS, HTML, LOGGER, __version__
+ from .pdf import VARIANTS
+ from .text.ffi import pango
+-from .urls import default_url_fetcher
++from .urls import URLFetcher
+ 
+ 
+ class PrintInfo(argparse.Action):
+     def __call__(*_, **__):
++        # TODO: ignore check at block-level when available.
++        # https://github.com/astral-sh/ruff/issues/3711
+         uname = platform.uname()
+-        print('System:', uname.system)
+-        print('Machine:', uname.machine)
+-        print('Version:', uname.version)
+-        print('Release:', uname.release)
+-        print()
+-        print('WeasyPrint version:', __version__)
+-        print('Python version:', sys.version.split()[0])
+-        print('Pydyf version:', pydyf.__version__)
+-        print('Pango version:', pango.pango_version())
++        print('System:', uname.system)  # noqa: T201
++        print('Machine:', uname.machine)  # noqa: T201
++        print('Version:', uname.version)  # noqa: T201
++        print('Release:', uname.release)  # noqa: T201
++        print()  # noqa: T201
++        print('WeasyPrint version:', __version__)  # noqa: T201
++        print('Python version:', sys.version.split()[0])  # noqa: T201
++        print('Pydyf version:', pydyf.__version__)  # noqa: T201
++        print('Pango version:', pango.pango_version())  # noqa: T201
+         sys.exit()
+ 
+ 
+ class Parser(argparse.ArgumentParser):
+     def __init__(self, *args, **kwargs):
+-        self._arguments = {}
++        self._groups = {None: {}}
+         super().__init__(*args, **kwargs)
+ 
+-    def add_argument(self, *args, **kwargs):
+-        super().add_argument(*args, **kwargs)
++    def add_argument(self, *args, _group_name=None, **kwargs):
++        if _group_name is None:
++            super().add_argument(*args, **kwargs)
+         key = args[-1].lstrip('-')
+         kwargs['flags'] = args
+         kwargs['positional'] = args[-1][0] != '-'
+-        self._arguments[key] = kwargs
++        self._groups[_group_name][key] = kwargs
++
++    def add_argument_group(self, name, *args, **kwargs):
++        group = super().add_argument_group(name, *args, **kwargs)
++        self._groups[name] = {}
++        def add_argument(*args, **kwargs):
++            group._add_argument(*args, **kwargs)
++            self.add_argument(*args, _group_name=name, **kwargs)
++        group._add_argument = group.add_argument
++        group.add_argument = add_argument
++        return group
+ 
+     @property
+     def docstring(self):
+-        self._arguments['help'] = self._arguments.pop('help')
++        self._groups[None].pop('help')
+         data = []
+-        for key, args in self._arguments.items():
+-            data.append('.. option:: ')
+-            action = args.get('action', 'store')
+-            for flag in args['flags']:
+-                data.append(flag)
+-                if not args['positional'] and action in ('store', 'append'):
+-                    data.append(f' <{key}>')
+-                data.append(', ')
+-            data[-1] = '\n\n'
+-            data.append(f'  {args["help"][0].upper()}{args["help"][1:]}.\n\n')
+-            if 'choices' in args:
+-                choices = ", ".join(args['choices'])
+-                data.append(f'  Possible choices: {choices}.\n\n')
+-            if action == 'append':
+-                data.append('  This option can be passed multiple times.\n\n')
++        for group, arguments in self._groups.items():
++            if not arguments:
++                continue
++            if group:
++                data.append(f'{group[0].title()}{group[1:]}\n')
++                data.append(f'{"~" * len(group)}\n\n')
++            for key, args in arguments.items():
++                data.append('.. option:: ')
++                action = args.get('action', 'store')
++                for flag in args['flags']:
++                    data.append(flag)
++                    if not args['positional'] and action in ('store', 'append'):
++                        data.append(f' <{key}>')
++                    data.append(', ')
++                data[-1] = '\n\n'
++                data.append(f'  {args["help"][0].upper()}{args["help"][1:]}.\n\n')
++                if 'choices' in args:
++                    choices = ', '.join(args['choices'])
++                    data.append(f'  Possible choices: {choices}.\n\n')
++                if action == 'append':
++                    data.append('  This option can be passed multiple times.\n\n')
+         return ''.join(data)
+ 
+ 
+ PARSER = Parser(prog='weasyprint', description='Render web pages to PDF.')
++PARSER.add_argument('input', help='URL or filename of the HTML input, or - for stdin')
++PARSER.add_argument('output', help='filename where output is written, or - for stdout')
+ PARSER.add_argument(
+-    'input', help='URL or filename of the HTML input, or - for stdin')
++    '-i', '--info', action=PrintInfo, nargs=0, help='print system information and exit')
+ PARSER.add_argument(
+-    'output', help='filename where output is written, or - for stdout')
+-PARSER.add_argument(
+-    '-e', '--encoding', help='force the input character encoding')
+-PARSER.add_argument(
++    '--version', action='version', version=f'WeasyPrint version {__version__}',
++    help='print WeasyPrint’s version number and exit')
++
++group = PARSER.add_argument_group('rendering options')
++group.add_argument(
+     '-s', '--stylesheet', action='append', dest='stylesheets',
+     help='URL or filename for a user CSS stylesheet')
+-PARSER.add_argument(
+-    '-m', '--media-type',
+-    help='media type to use for @media, defaults to print')
+-PARSER.add_argument(
++group.add_argument(
++    '-a', '--attachment', action='append', dest='attachments',
++    help='URL or filename of a file to attach to the PDF document')
++group.add_argument(
++    '--attachment-relationship', action='append', dest='attachment_relationships',
++    help='Relationship of the attachment file to attach to the PDF')
++group.add_argument('--pdf-identifier', help='PDF file identifier')
++group.add_argument('--pdf-variant', choices=VARIANTS, help='PDF variant to generate')
++group.add_argument('--pdf-version', help='PDF version number')
++group.add_argument('--pdf-forms', action='store_true', help='include PDF forms')
++group.add_argument('--pdf-tags', action='store_true', help='tag PDF for accessibility')
++group.add_argument(
++    '--uncompressed-pdf', action='store_true',
++    help='do not compress PDF content, mainly for debugging purpose')
++group.add_argument(
++    '--xmp-metadata', action='append',
++    help='URL or filename of a file to include into the XMP metadata')
++group.add_argument(
++    '--custom-metadata', action='store_true',
++    help='include custom HTML meta tags in PDF metadata')
++group.add_argument(
++    '--output-intent',
++    help='srgb, device-cmyk, or CSS identifier of the output intent color space')
++group.add_argument(
++    '-p', '--presentational-hints', action='store_true',
++    help='follow HTML presentational hints')
++group.add_argument(
++    '--optimize-images', action='store_true',
++    help='optimize size of embedded images with no quality loss')
++group.add_argument(
++    '-j', '--jpeg-quality', type=int,
++    help='JPEG quality between 0 (worst) to 95 (best)')
++group.add_argument(
++    '-D', '--dpi', type=int,
++    help='set maximum resolution of images embedded in the PDF')
++group.add_argument(
++    '--full-fonts', action='store_true',
++    help='embed unmodified font files when possible')
++group.add_argument(
++    '--hinting', action='store_true', help='keep hinting information in embedded fonts')
++group.add_argument(
++    '-c', '--cache-folder', dest='cache',
++    help='store cache on disk instead of memory, folder is '
++    'created if needed and cleaned after the PDF is generated')
++
++group = PARSER.add_argument_group('HTML options')
++group.add_argument('-e', '--encoding', help='force the input character encoding')
++group.add_argument(
++    '-m', '--media-type', help='media type to use for @media, defaults to print',
++    default='print')
++group.add_argument(
+     '-u', '--base-url',
+     help='base for relative URLs in the HTML input, defaults to the '
+     'input’s own filename or URL or the current directory for stdin')
+-PARSER.add_argument(
+-    '-a', '--attachment', action='append', dest='attachments',
+-    help='URL or filename of a file to attach to the PDF document')
+-PARSER.add_argument('--pdf-identifier', help='PDF file identifier')
+-PARSER.add_argument(
+-    '--pdf-variant', choices=VARIANTS, help='PDF variant to generate')
+-PARSER.add_argument('--pdf-version', help='PDF version number')
+-PARSER.add_argument(
+-    '--pdf-forms', action='store_true', help='include PDF forms')
+-PARSER.add_argument(
+-    '--uncompressed-pdf', action='store_true',
+-    help='do not compress PDF content, mainly for debugging purpose')
+-PARSER.add_argument(
+-    '--custom-metadata', action='store_true',
+-    help='include custom HTML meta tags in PDF metadata')
+-PARSER.add_argument(
+-    '-p', '--presentational-hints', action='store_true',
+-    help='follow HTML presentational hints')
+-PARSER.add_argument(
+-    '--srgb', action='store_true',
+-    help='include sRGB color profile')
+-PARSER.add_argument(
+-    '--optimize-images', action='store_true',
+-    help='optimize size of embedded images with no quality loss')
+-PARSER.add_argument(
+-    '-j', '--jpeg-quality', type=int,
+-    help='JPEG quality between 0 (worst) to 95 (best)')
+-PARSER.add_argument(
+-    '--full-fonts', action='store_true',
+-    help='embed unmodified font files when possible')
+-PARSER.add_argument(
+-    '--hinting', action='store_true',
+-    help='keep hinting information in embedded fonts')
+-PARSER.add_argument(
+-    '-c', '--cache-folder', dest='cache',
+-    help='store cache on disk instead of memory, folder is '
+-    'created if needed and cleaned after the PDF is generated')
+-PARSER.add_argument(
+-    '-D', '--dpi', type=int,
+-    help='set maximum resolution of images embedded in the PDF')
+-PARSER.add_argument(
++
++group = PARSER.add_argument_group('URL fetcher options')
++group.add_argument(
++    '-t', '--timeout', type=int, help='set timeout in seconds for HTTP requests')
++group.add_argument(
++    '--allowed-protocols', dest='allowed_protocols',
++    help='only authorize comma-separated list of protocols for fetching URLs')
++group.add_argument(
++    '--no-http-redirects', action='store_true', help='do not follow HTTP redirects')
++group.add_argument(
++    '--fail-on-http-errors', action='store_true',
++    help='abort document rendering on any HTTP error')
++
++group = PARSER.add_argument_group('command-line logging options')
++group = group.add_mutually_exclusive_group()
++group.add_argument(
+     '-v', '--verbose', action='store_true',
+     help='show warnings and information messages')
+-PARSER.add_argument(
++group.add_argument(
+     '-d', '--debug', action='store_true', help='show debugging messages')
+-PARSER.add_argument(
+-    '-q', '--quiet', action='store_true', help='hide logging messages')
+-PARSER.add_argument(
+-    '--version', action='version',
+-    version=f'WeasyPrint version {__version__}',
+-    help='print WeasyPrint’s version number and exit')
+-PARSER.add_argument(
+-    '-i', '--info', action=PrintInfo, nargs=0,
+-    help='print system information and exit')
+-PARSER.add_argument(
+-    '-t', '--timeout', type=int,
+-    help='Set timeout in seconds for HTTP requests')
++group.add_argument('-q', '--quiet', action='store_true', help='hide logging messages')
++
+ PARSER.set_defaults(**DEFAULT_OPTIONS)
+ 
+ 
+@@ -164,29 +197,31 @@
+     else:
+         output = args.output
+ 
+-    url_fetcher = default_url_fetcher
++    fetcher_args = {}
+     if args.timeout is not None:
+-        url_fetcher = partial(default_url_fetcher, timeout=args.timeout)
++        fetcher_args['timeout'] = args.timeout
++    if args.allowed_protocols is not None:
++        fetcher_args['allowed_protocols'] = {
++            protocol.strip().lower() for protocol in args.allowed_protocols.split(',')}
++    if args.no_http_redirects:
++        fetcher_args['allow_redirects'] = False
++    if args.fail_on_http_errors:
++        fetcher_args['fail_on_errors'] = True
++    url_fetcher = URLFetcher(**fetcher_args)
+ 
+     options = {
+         key: value for key, value in vars(args).items() if key in DEFAULT_OPTIONS}
+ 
+-    # Default to logging to stderr.
+-    if args.debug:
+-        LOGGER.setLevel(logging.DEBUG)
+-    elif args.verbose:
+-        LOGGER.setLevel(logging.INFO)
+     if not args.quiet:
+-        handler = logging.StreamHandler()
+         if args.debug:
+-            # Add extra information when debug logging
+-            handler.setFormatter(
+-                logging.Formatter(
+-                    '%(levelname)s: %(filename)s:%(lineno)d '
+-                    '(%(funcName)s): %(message)s'))
+-        else:
+-            handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+-        LOGGER.addHandler(handler)
++            LOGGER.setLevel(logging.DEBUG)
++        elif args.verbose:
++            LOGGER.setLevel(logging.INFO)
++        logging.basicConfig(format=
++            '%(levelname)s: %(name)s %(filename)s:%(lineno)d '
++            '(%(funcName)s): %(message)s'
++            if args.debug else '%(levelname)s: %(message)s',
++            level=logging.DEBUG if args.debug else None)
+ 
+     html = HTML(
+         source, base_url=args.base_url, encoding=args.encoding,
+--- old/weasyprint/anchors.py
++++ new/weasyprint/anchors.py
+@@ -28,7 +28,7 @@
+ 
+ 
+ def gather_anchors(box, anchors, links, bookmarks, forms, parent_matrix=None,
+-                   parent_form=None):
++                   parent_form=None, parent_link=None):
+     """Gather anchors and other data related to specific positions in PDF.
+ 
+     Currently finds anchors, links, bookmarks and forms.
+@@ -43,8 +43,8 @@
+         border_width = box.border_width()
+         border_height = box.border_height()
+         origin_x, origin_y = box.style['transform_origin']
+-        offset_x = percentage(origin_x, border_width)
+-        offset_y = percentage(origin_y, border_height)
++        offset_x = percentage(origin_x, box.style, border_width)
++        offset_y = percentage(origin_y, box.style, border_height)
+         origin_x = box.border_box_x() + offset_x
+         origin_y = box.border_box_y() + offset_y
+ 
+@@ -58,8 +58,8 @@
+                 b = math.sin(args)
+                 c = -b
+             elif name == 'translate':
+-                e = percentage(args[0], border_width)
+-                f = percentage(args[1], border_height)
++                e = percentage(args[0], box.style, border_width)
++                f = percentage(args[1], box.style, border_height)
+             elif name == 'skew':
+                 b, c = math.tan(args[1]), math.tan(args[0])
+             else:
+@@ -81,7 +81,7 @@
+     else:
+         bookmark_level = box.style['bookmark_level']
+     state = box.style['bookmark_state']
+-    link = box.style['link']
++    link = box.link or parent_link
+     anchor_name = box.style['anchor']
+     has_bookmark = bookmark_label and bookmark_level
+     # 'link' is inherited but redundant on text boxes
+@@ -91,7 +91,7 @@
+     is_input = box.is_input()
+ 
+     if box.is_form():
+-        parent_form = box.element
++        parent_form = box
+         if parent_form not in forms:
+             forms[parent_form] = []
+ 
+@@ -104,15 +104,15 @@
+         if has_link or is_input:
+             rectangle = rectangle_aabb(matrix, pos_x, pos_y, width, height)
+         if has_link:
+-            token_type, link = link
++            token_type, token_link = link
+             assert token_type == 'url'
+-            link_type, target = link
++            link_type, target = token_link
+             assert isinstance(target, str)
+             if link_type == 'external' and box.is_attachment():
+                 link_type = 'attachment'
+             links.append((link_type, target, rectangle, box))
+         if is_input:
+-            forms[parent_form].append((box.element, box.style, rectangle))
++            forms[parent_form].append((box, rectangle))
+         if has_bookmark:
+             if matrix:
+                 pos_x, pos_y = matrix.transform_point(pos_x, pos_y)
+@@ -126,7 +126,8 @@
+             anchors[anchor_name] = (pos_x1, pos_y1, pos_x2, pos_y2)
+ 
+     for child in box.all_children():
+-        gather_anchors(child, anchors, links, bookmarks, forms, matrix, parent_form)
++        gather_anchors(
++            child, anchors, links, bookmarks, forms, matrix, parent_form, link)
+ 
+ 
+ def make_page_bookmark_tree(page, skipped_levels, last_by_depth,
+--- old/weasyprint/css/__init__.py
++++ new/weasyprint/css/__init__.py
+@@ -12,32 +12,46 @@
+ 
+ """
+ 
++import math
+ from collections import namedtuple
++from functools import cached_property
+ from itertools import groupby
+ from logging import DEBUG, WARNING
++from math import inf
+ 
+ import cssselect2
+ import tinycss2
+ import tinycss2.ast
+ import tinycss2.nth
++from PIL.ImageCms import ImageCmsProfile
+ 
+ from .. import CSS
+ from ..logger import LOGGER, PROGRESS_LOGGER
+-from ..urls import URLFetchingError, get_url_attribute, url_join
++from ..text.fonts import FontConfiguration
++from ..urls import URLFetchingError, fetch, url_join
+ from . import counters, media_queries
+-from .computed_values import COMPUTER_FUNCTIONS
++from .computed_values import COMPUTER_FUNCTIONS, PHYSICAL_FUNCTIONS
++from .functions import Function, check_math, check_var
+ from .properties import INHERITED, INITIAL_NOT_COMPUTED, INITIAL_VALUES, ZERO_PIXELS
++from .units import ANGLE_UNITS, LENGTH_UNITS, RELATIVE_UNITS, to_pixels, to_radians
+ from .validation import preprocess_declarations
+ from .validation.descriptors import preprocess_descriptors
+-
+-from .utils import (  # isort:skip
+-    InvalidValues, Pending, check_var_function, get_url, parse_function,
+-    remove_whitespace)
++from .validation.properties import validate_non_shorthand
++
++from .tokens import (  # isort:skip
++    E, MINUS_INFINITY, NAN, PI, PLUS_INFINITY, InvalidValues, Pending, PercentageInMath,
++    RelativeLengthInMath, get_angle, get_length, get_url, remove_whitespace,
++    split_on_comma, tokenize)
+ 
+ # Reject anything not in here:
+-PSEUDO_ELEMENTS = (
++PSEUDO_ELEMENTS = frozenset((
+     None, 'before', 'after', 'marker', 'first-line', 'first-letter',
+-    'footnote-call', 'footnote-marker')
++    'footnote-call', 'footnote-marker', 'note-call', 'note-marker', 'note-callback'))
++PAGE_MARGIN_BOXES = frozenset((
++    'bottom-center', 'bottom-left', 'bottom-left-corner', 'bottom-right',
++    'bottom-right-corner', 'left-bottom', 'left-middle', 'left-top',
++    'right-bottom', 'right-middle', 'right-top', 'top-center', 'top-left',
++    'top-left-corner', 'top-right', 'top-right-corner', 'footnote', 'note-area'))
+ 
+ PageSelectorType = namedtuple(
+     'PageSelectorType', ['side', 'blank', 'first', 'index', 'name'])
+@@ -45,7 +59,8 @@
+ 
+ class StyleFor:
+     """Convenience function to get the computed styles for an element."""
+-    def __init__(self, html, sheets, presentational_hints, target_collector):
++    def __init__(self, html, sheets, presentational_hints, font_config,
++                 target_collector):
+         # keys: (element, pseudo_element_type)
+         #    element: an ElementTree Element or the '@page' string
+         #    pseudo_element_type: a string such as 'first' (for @page) or
+@@ -62,19 +77,25 @@
+         # values: style dict objects:
+         #     keys: property name as a string
+         #     values: a PropertyValue-like object
+-        self._computed_styles = {}
++        self._computed_styles = computed_styles = {}
++
++        # Set when the first page is created, used for viewport-based units.
++        self.initial_page_sizes = {'box': None, 'area': None}
+ 
+         self._sheets = sheets
++        self.font_config = font_config
+ 
+         PROGRESS_LOGGER.info('Step 3 - Applying CSS')
+-        for specificity, attributes in find_style_attributes(
++        layer_order = inf
++        elements_declarations = {}
++        for specificity, element, declarations, base_url in find_style_attributes(
+                 html.etree_element, presentational_hints, html.base_url):
+-            element, declarations, base_url = attributes
+             style = cascaded_styles.setdefault((element, None), {})
++            elements_declarations[element] = tuple(declarations)
+             for name, values, importance in preprocess_declarations(
+                     base_url, declarations):
+                 precedence = declaration_precedence('author', importance)
+-                weight = (precedence, specificity)
++                weight = (precedence, layer_order, specificity)
+                 old_weight = style.get(name, (None, None))[1]
+                 if old_weight is None or old_weight <= weight:
+                     style[name] = values, weight
+@@ -84,24 +105,40 @@
+         # computed styles before their children, for inheritance.
+ 
+         # Iterate on all elements, even if there is no cascaded style for them.
++        computed_cache = {}
+         for element in html.wrapper_element.iter_subtree():
++            etree_element = element.etree_element
++            parent = element.parent.etree_element if element.parent else None
++            parent_id = id(computed_styles[parent, None]) if element.parent else None
++            element_declarations = elements_declarations.get(etree_element)
++            selectors_keys = []
+             for sheet, origin, sheet_specificity in sheets:
+-                # Add declarations for matched elements
++                # Add declarations for matching elements.
+                 for selector in sheet.matcher.match(element):
+-                    specificity, order, pseudo_type, declarations = selector
++                    specificity, order, pseudo_type, (declarations, layer) = selector
++                    layer_order = inf if layer is None else sheet.layers.index(layer)
++                    selectors_keys.append(
++                        (sheet, specificity, id(declarations), layer_order))
+                     specificity = sheet_specificity or specificity
+-                    style = cascaded_styles.setdefault(
+-                        (element.etree_element, pseudo_type), {})
++                    style = cascaded_styles.setdefault((etree_element, pseudo_type), {})
+                     for name, values, importance in declarations:
+                         precedence = declaration_precedence(origin, importance)
+-                        weight = (precedence, specificity)
++                        weight = (precedence, layer_order, specificity)
+                         old_weight = style.get(name, (None, None))[1]
+                         if old_weight is None or old_weight <= weight:
+                             style[name] = values, weight
+-            parent = element.parent.etree_element if element.parent else None
+-            self.set_computed_styles(
+-                element.etree_element, root=html.etree_element, parent=parent,
+-                base_url=html.base_url, target_collector=target_collector)
++
++            # Store computed styles.
++            key = (parent_id, element_declarations, tuple(selectors_keys))
++            if key in computed_cache:
++                # Equivalent computed style already exsists, share it.
++                computed_styles[etree_element, None] = computed_cache[key]
++            else:
++                # No equivalent computed style found, create it.
++                self.set_computed_styles(
++                    etree_element, root=html.etree_element, parent=parent,
++                    base_url=html.base_url, target_collector=target_collector)
++                computed_cache[key] = computed_styles[etree_element, None]
+ 
+         # Then computed styles for pseudo elements, in any order.
+         # Pseudo-elements inherit from their associated element so they come
+@@ -151,22 +188,22 @@
+         if element == root and pseudo_type is None:
+             assert parent is None
+             parent_style = None
+-            root_style = {
+-                # When specified on the font-size property of the root element,
+-                # the rem units refer to the property’s initial value.
+-                'font_size': INITIAL_VALUES['font_size'],
+-            }
++            root_style = InitialStyle(self.font_config)
+         else:
+             assert parent is not None
+             parent_style = computed_styles[parent, None]
+             root_style = computed_styles[root, None]
+ 
+         cascaded = cascaded_styles.get((element, pseudo_type), {})
+-        computed_styles[element, pseudo_type] = computed_from_cascaded(
+-            element, cascaded, parent_style, pseudo_type, root_style, base_url,
+-            target_collector)
++        computed = computed_styles[element, pseudo_type] = ComputedStyle(
++            parent_style, cascaded, pseudo_type, root_style, base_url,
++            self.font_config, self.initial_page_sizes)
++        if target_collector and computed['anchor']:
++            target_collector.collect_anchor(computed['anchor'])
+ 
+     def add_page_declarations(self, page_type):
++        # TODO: use real layer order.
++        layer_order = None
+         for sheet, origin, sheet_specificity in self._sheets:
+             for _rule, selector_list, declarations in sheet.page_rules:
+                 for selector in selector_list:
+@@ -177,7 +214,7 @@
+                             (page_type, pseudo_type), {})
+                         for name, values, importance in declarations:
+                             precedence = declaration_precedence(origin, importance)
+-                            weight = (precedence, specificity)
++                            weight = (precedence, layer_order, specificity)
+                             old_weight = style.get(name, (None, None))[1]
+                             if old_weight is None or old_weight <= weight:
+                                 style[name] = values, weight
+@@ -200,12 +237,37 @@
+             return False
+         if page_selector_type.index is not None:
+             a, b, name = page_selector_type.index
+-            if name is not None and name != page_type.name:
++            if name is None:
++                index = page_type.index
++                offset = index + 1 - b
++                return offset == 0 if a == 0 else (offset / a >= 0 and not offset % a)
++            if name != page_type.name:
+                 return False
+-            index = page_type.index if name is None else page_type.group_index
+-            offset = index + 1 - b
+-            return offset == 0 if a == 0 else (offset / a >= 0 and not offset % a)
++            for group_name, index in page_type.groups:
++                if name != group_name:
++                    continue
++                offset = index + 1 - b
++                if (offset == 0 if a == 0 else (offset / a >= 0 and not offset % a)):
++                    return True
++            return False
+         return True
++
++
++def string_to_css(string):
++    """Transform a string to CSS-escaped string, including quotes."""
++    string = (
++        string
++        .replace('\\', '\\\\')
++        .replace('"', '\\"')
++        .replace('\n', '\\A')
++        .replace('\r', '\\D')
++        .replace('\f', '\\C'))
++    return f'"{string}"'
++
++
++def url_to_css(string):
++    """Transform a URL to url() string."""
++    return f'url({string_to_css(string)})'
+ 
+ 
+ def get_child_text(element):
+@@ -222,7 +284,9 @@
+     # using specific rules.
+     # See https://drafts.csswg.org/css-text-decor-3/#line-decoration
+     # TODO: these rules don’t follow the specification.
+-    if key in ('text_decoration_color', 'text_decoration_style'):
++    text_properties = (
++        'text_decoration_color', 'text_decoration_style', 'text_decoration_thickness')
++    if key in text_properties:
+         if not cascaded:
+             value = parent_value
+     elif key == 'text_decoration_line':
+@@ -235,13 +299,13 @@
+ 
+ 
+ def find_stylesheets(wrapper_element, device_media_type, url_fetcher, base_url,
+-                     font_config, counter_style, page_rules):
++                     font_config, counter_style, color_profiles, page_rules, layers):
+     """Yield the stylesheets in ``element_tree``.
+ 
+     The output order is the same as the source order.
+ 
+     """
+-    from ..html import element_has_link_type
++    from ..html import element_has_link_type, parse_url
+ 
+     for wrapper in wrapper_element.query_all('style', 'link'):
+         element = wrapper.etree_element
+@@ -263,20 +327,20 @@
+                 string=content, base_url=base_url,
+                 url_fetcher=url_fetcher, media_type=device_media_type,
+                 font_config=font_config, counter_style=counter_style,
+-                page_rules=page_rules)
++                page_rules=page_rules, color_profiles=color_profiles, layers=layers)
+             yield css
+         elif element.tag == 'link' and element.get('href'):
+             if not element_has_link_type(element, 'stylesheet') or \
+                     element_has_link_type(element, 'alternate'):
+                 continue
+-            href = get_url_attribute(element, 'href', base_url)
++            href = parse_url(element.get('href'), base_url)
+             if href is not None:
+                 try:
+                     yield CSS(
+-                        url=href, url_fetcher=url_fetcher,
+-                        _check_mime_type=True, media_type=device_media_type,
++                        url=href, url_fetcher=url_fetcher, media_type=device_media_type,
+                         font_config=font_config, counter_style=counter_style,
+-                        page_rules=page_rules)
++                        color_profiles=color_profiles, page_rules=page_rules,
++                        layers=layers, _check_mime_type=True)
+                 except URLFetchingError as exception:
+                     LOGGER.error('Failed to load stylesheet at %s: %s', href, exception)
+                     LOGGER.debug('Error while loading stylesheet:', exc_info=exception)
+@@ -292,66 +356,94 @@
+     are returned with specificity ``(0, 0, 0)``.
+ 
+     """
+-    def check_style_attribute(element, style_attribute):
+-        declarations = tinycss2.parse_blocks_contents(style_attribute)
+-        return element, declarations, base_url
++    from .. import html
+ 
+     for element in tree.iter():
+-        specificity = (1, 0, 0)
+-        style_attribute = element.get('style')
+-        if style_attribute:
+-            yield specificity, check_style_attribute(element, style_attribute)
++        # Apply style attribute.
++        if style := element.get('style'):
++            specificity = (1, 0, 0)
++            declarations = tinycss2.parse_blocks_contents(style)
++            yield specificity, element, declarations, base_url
++
++        specificity = (0, 0, 0)
++        def parse_declaration(style_attribute, element=element):
++            declaration = tinycss2.parse_one_declaration(style_attribute)
++            return specificity, element, (declaration,), base_url
++
++        if lang := element.get('lang'):
++            yield parse_declaration(f'-weasy-lang:"{lang}"')
++
++        if id_ := element.get('id'):
++            yield parse_declaration(f'-weasy-anchor:"{id_}"')
++
++        if element.tag == 'a':
++            if name := element.get('name'):
++                yield parse_declaration(f'-weasy-anchor:"{name}"')
++
++        if element.tag == '{http://www.w3.org/2000/svg}svg':
++            # Handle presentation attributes. Only do that for height and width at top
++            # level now, so that intrinsic size is defined by CSS, not SVG.
++            # See: https://www.w3.org/TR/SVG2/styling.html#PresentationAttributes.
++            for attribute in ('width', 'height'):
++                if length := element.get(attribute):
++                    token = tinycss2.parse_one_component_value(length)
++                    if get_length(token, percentage=True):
++                        yield parse_declaration(f'{attribute}:{length}')
++
++        # Apply presentational hints.
+         if not presentational_hints:
+             continue
+-        specificity = (0, 0, 0)
++
+         if element.tag == 'body':
+-            # TODO: we should check the container frame element
+-            for part, position in (
+-                    ('height', 'top'), ('height', 'bottom'),
+-                    ('width', 'left'), ('width', 'right')):
+-                style_attribute = None
+-                for prop in (f'margin{part}', f'{position}margin'):
+-                    if element.get(prop):
+-                        style_attribute = f'margin-{position}:{element.get(prop)}px'
+-                        break
+-                if style_attribute:
+-                    yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('background'):
+-                style_attribute = f'background-image:url({element.get("background")})'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('bgcolor'):
+-                style_attribute = f'background-color:{element.get("bgcolor")}'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('text'):
+-                style_attribute = f'color:{element.get("text")}'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            # TODO: we should support link, vlink, alink
++            # TODO: we should check the container frame element.
++            for attribute in ('marginheight', 'topmargin'):
++                value = html.map_to_pixel_length(element.get(attribute))
++                if value is not None:
++                    yield parse_declaration(f'margin-top:{value}')
++                    yield parse_declaration(f'margin-bottom:{value}')
++                    break
++            for attribute in ('marginwidth', 'leftmargin'):
++                value = html.map_to_pixel_length(element.get(attribute))
++                if value is not None:
++                    yield parse_declaration(f'margin-left:{value}')
++                    yield parse_declaration(f'margin-right:{value}')
++                    break
++            if background := html.parse_url(element.get('background'), base_url):
++                url = url_to_css(background)
++                style_attribute = f'background-image:{url}'
++                yield parse_declaration(style_attribute)
++            if bgcolor := element.get('bgcolor'):
++                color = html.parse_legacy_color(bgcolor)
++                style_attribute = f'background-color:{color}'
++                yield parse_declaration(style_attribute)
++            if text := element.get('text'):
++                color = html.parse_legacy_color(text)
++                style_attribute = f'color:{color}'
++                yield parse_declaration(style_attribute)
++            # TODO: we should support link, vlink, alink.
+         elif element.tag == 'center':
+-            yield specificity, check_style_attribute(element, 'text-align:center')
++            yield parse_declaration('text-align:center')
+         elif element.tag == 'div':
+             align = element.get('align', '').lower()
+             if align == 'middle':
+-                yield specificity, check_style_attribute(element, 'text-align:center')
++                yield parse_declaration('text-align:center')
+             elif align in ('center', 'left', 'right', 'justify'):
+-                yield specificity, check_style_attribute(element, f'text-align:{align}')
++                yield parse_declaration(f'text-align:{align}')
+         elif element.tag == 'font':
+-            if element.get('color'):
+-                yield specificity, check_style_attribute(
+-                    element, f'color:{element.get("color")}')
+-            if element.get('face'):
+-                yield specificity, check_style_attribute(
+-                    element, f'font-family:{element.get("face")}')
+-            if element.get('size'):
+-                size = element.get('size').strip()
++            if color := element.get('color'):
++                color = html.parse_legacy_color(color)
++                yield parse_declaration(f'color:{color}')
++            if face := element.get('face'):
++                face = string_to_css(face)
++                yield parse_declaration(f'font-family:{face}')
++            if size := element.get('size'):
++                size = size.strip(html.WHITESPACE)
+                 relative_plus = size.startswith('+')
+                 relative_minus = size.startswith('-')
+                 if relative_plus or relative_minus:
+-                    size = size[1:].strip()
+-                try:
+-                    size = int(size)
+-                except ValueError:
+-                    LOGGER.warning('Invalid value for size: %s', size)
+-                else:
++                    size = size[1:]
++                size = html.parse_integer(size)
++                if size is not None:
+                     font_sizes = {
+                         1: 'x-small',
+                         2: 'small',
+@@ -366,178 +458,146 @@
+                     elif relative_minus:
+                         size -= 3
+                     size = max(1, min(7, size))
+-                    yield specificity, check_style_attribute(
+-                        element, f'font-size:{font_sizes[size]}')
++                    yield parse_declaration(f'font-size:{font_sizes[size]}')
+         elif element.tag == 'table':
+-            if element.get('cellspacing'):
+-                yield specificity, check_style_attribute(
+-                    element, f'border-spacing:{element.get("cellspacing")}px')
+-            if element.get('cellpadding'):
+-                cellpadding = element.get('cellpadding')
+-                if cellpadding.isdigit():
+-                    cellpadding += 'px'
+-                # TODO: don't match subtables cells
+-                for subelement in element.iter():
+-                    if subelement.tag in ('td', 'th'):
+-                        yield specificity, check_style_attribute(
+-                            subelement,
+-                            f'padding-left:{cellpadding};'
+-                            f'padding-right:{cellpadding};'
+-                            f'padding-top:{cellpadding};'
+-                            f'padding-bottom:{cellpadding};')
+-            if element.get('hspace'):
+-                hspace = element.get('hspace')
+-                if hspace.isdigit():
+-                    hspace += 'px'
+-                yield specificity, check_style_attribute(
+-                    element, f'margin-left:{hspace};margin-right:{hspace}')
+-            if element.get('vspace'):
+-                vspace = element.get('vspace')
+-                if vspace.isdigit():
+-                    vspace += 'px'
+-                yield specificity, check_style_attribute(
+-                    element, f'margin-top:{vspace};margin-bottom:{vspace}')
+-            if element.get('width'):
+-                style_attribute = f'width:{element.get("width")}'
+-                if element.get('width').isdigit():
+-                    style_attribute += 'px'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('height'):
+-                style_attribute = f'height:{element.get("height")}'
+-                if element.get('height').isdigit():
+-                    style_attribute += 'px'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('background'):
+-                style_attribute = (
+-                    f'background-image:url({element.get("background")})')
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('bgcolor'):
+-                style_attribute = f'background-color:{element.get("bgcolor")}'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('bordercolor'):
+-                style_attribute = f'border-color:{element.get("bordercolor")}'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('border'):
+-                style_attribute = f'border-width:{element.get("border")}px'
+-                yield specificity, check_style_attribute(element, style_attribute)
++            if cellspacing := element.get('cellspacing'):
++                value = html.map_to_pixel_length(cellspacing)
++                if value is not None:
++                    yield parse_declaration(f'border-spacing:{value}')
++            if cellpadding := element.get('cellpadding'):
++                value = html.map_to_pixel_length(cellpadding)
++                if value is not None:
++                    # TODO: don't match subtables cells.
++                    for subelement in element.iter():
++                        if subelement.tag in ('td', 'th'):
++                            yield parse_declaration(f'padding:{value}', subelement)
++            if width := element.get('width'):
++                value = html.map_to_dimension_property_ignoring_zero(width)
++                if value is not None:
++                    yield parse_declaration(f'width:{value}')
++            if height := element.get('height'):
++                value = html.map_to_dimension_property(height)
++                if value is not None:
++                    yield parse_declaration(f'height:{value}')
++            if background := html.parse_url(element.get('background'), base_url):
++                url = url_to_css(background)
++                style_attribute = (f'background-image:{url}')
++                yield parse_declaration(style_attribute)
++            if bgcolor := element.get('bgcolor'):
++                color = html.parse_legacy_color(bgcolor)
++                style_attribute = f'background-color:{color}'
++                yield parse_declaration(style_attribute)
++            if bordercolor := element.get('bordercolor'):
++                color = html.parse_legacy_color(bordercolor)
++                style_attribute = f'border-color:{color}'
++                yield parse_declaration(style_attribute)
++            if border := element.get('border'):
++                value = html.map_to_pixel_length(border)
++                if value is not None:
++                    yield parse_declaration(f'border-width:{value}')
+         elif element.tag in ('tr', 'td', 'th', 'thead', 'tbody', 'tfoot'):
+             align = element.get('align', '').lower()
+-            # TODO: we should align descendants too
++            # TODO: we should align descendants too.
+             if align == 'middle':
+-                yield specificity, check_style_attribute(
+-                    element, 'text-align:center')
++                yield parse_declaration('text-align:center')
+             elif align in ('center', 'left', 'right', 'justify'):
+-                yield specificity, check_style_attribute(element, f'text-align:{align}')
+-            if element.get('background'):
+-                style_attribute = f'background-image:url({element.get("background")})'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('bgcolor'):
+-                style_attribute = f'background-color:{element.get("bgcolor")}'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.tag in ('tr', 'td', 'th'):
+-                if element.get('height'):
+-                    style_attribute = f'height:{element.get("height")}'
+-                    if element.get('height').isdigit():
+-                        style_attribute += 'px'
+-                    yield specificity, check_style_attribute(element, style_attribute)
+-                if element.tag in ('td', 'th'):
+-                    if element.get('width'):
+-                        style_attribute = f'width:{element.get("width")}'
+-                        if element.get('width').isdigit():
+-                            style_attribute += 'px'
+-                        yield specificity, check_style_attribute(
+-                            element, style_attribute)
++                yield parse_declaration(f'text-align:{align}')
++            if background := html.parse_url(element.get('background'), base_url):
++                url = url_to_css(background)
++                style_attribute = f'background-image:{url}'
++                yield parse_declaration(style_attribute)
++            if bgcolor := element.get('bgcolor'):
++                color = html.parse_legacy_color(bgcolor)
++                style_attribute = f'background-color:{color}'
++                yield parse_declaration(style_attribute)
++            if element.tag in ('td', 'th'):
++                if height := element.get('height'):
++                    value = html.map_to_dimension_property_ignoring_zero(height)
++                    if value is not None:
++                        yield parse_declaration(f'height:{value}')
++                if width := element.get('width'):
++                    value = html.map_to_dimension_property_ignoring_zero(width)
++                    if value is not None:
++                        yield parse_declaration(f'width:{value}')
++            elif element.tag == 'tr':
++                if height := element.get('height'):
++                    value = html.map_to_dimension_property(height)
++                    if value is not None:
++                        yield parse_declaration(f'height:{value}')
+         elif element.tag == 'caption':
+             align = element.get('align', '').lower()
+-            # TODO: we should align descendants too
++            # TODO: we should align descendants too.
+             if align == 'middle':
+-                yield specificity, check_style_attribute(element, 'text-align:center')
++                yield parse_declaration('text-align:center')
+             elif align in ('center', 'left', 'right', 'justify'):
+-                yield specificity, check_style_attribute(element, f'text-align:{align}')
++                yield parse_declaration(f'text-align:{align}')
+         elif element.tag == 'col':
+-            if element.get('width'):
+-                style_attribute = f'width:{element.get("width")}'
+-                if element.get('width').isdigit():
+-                    style_attribute += 'px'
+-                yield specificity, check_style_attribute(element, style_attribute)
++            if width := element.get('width'):
++                value = html.map_to_dimension_property(width)
++                if value is not None:
++                    yield parse_declaration(f'width:{value}')
+         elif element.tag == 'hr':
+-            size = 0
+-            if element.get('size'):
+-                try:
+-                    size = int(element.get('size'))
+-                except ValueError:
+-                    LOGGER.warning('Invalid value for size: %s', size)
+-            if (element.get('color'), element.get('noshade')) != (None, None):
++            size = html.parse_non_negative_integer(element.get('size')) or 0
++            if {element.get('color'), element.get('noshade')} != {None}:
+                 if size >= 1:
+-                    yield specificity, check_style_attribute(
+-                        element, f'border-width:{size / 2}px')
++                    yield parse_declaration(f'border-width:{size / 2}px')
+             elif size == 1:
+-                yield specificity, check_style_attribute(
+-                    element, 'border-bottom-width:0')
++                yield parse_declaration('border-bottom-width:0')
+             elif size > 1:
+-                yield specificity, check_style_attribute(
+-                    element, f'height:{size - 2}px')
+-            if element.get('width'):
+-                style_attribute = f'width:{element.get("width")}'
+-                if element.get('width').isdigit():
+-                    style_attribute += 'px'
+-                yield specificity, check_style_attribute(element, style_attribute)
+-            if element.get('color'):
+-                yield specificity, check_style_attribute(
+-                    element, f'color:{element.get("color")}')
+-        elif element.tag in (
+-                'iframe', 'applet', 'embed', 'img', 'input', 'object'):
+-            if (element.tag != 'input' or
+-                    element.get('type', '').lower() == 'image'):
++                yield parse_declaration(f'height:{size - 2}px')
++            if width := element.get('width'):
++                value = html.map_to_dimension_property(width)
++                if value is not None:
++                    yield parse_declaration(f'width:{value}')
++            if color := element.get('color'):
++                color = html.parse_legacy_color(color)
++                yield parse_declaration(f'color:{color}')
++        elif element.tag in ('iframe', 'applet', 'embed', 'img', 'input', 'object'):
++            if element.tag != 'input' or element.get('type', '').lower() == 'image':
+                 align = element.get('align', '').lower()
+                 if align in ('middle', 'center'):
+-                    # TODO: middle and center values are wrong
+-                    yield specificity, check_style_attribute(
+-                        element, 'vertical-align:middle')
+-                if element.get('hspace'):
+-                    hspace = element.get('hspace')
+-                    if hspace.isdigit():
+-                        hspace += 'px'
+-                    yield specificity, check_style_attribute(
+-                        element, f'margin-left:{hspace};margin-right:{hspace}')
+-                if element.get('vspace'):
+-                    vspace = element.get('vspace')
+-                    if vspace.isdigit():
+-                        vspace += 'px'
+-                    yield specificity, check_style_attribute(
+-                        element, f'margin-top:{vspace};margin-bottom:{vspace}')
++                    # TODO: middle and center values are wrong.
++                    yield parse_declaration('vertical-align:middle')
++                if hspace := element.get('hspace'):
++                    value = html.map_to_dimension_property(hspace)
++                    if value is not None:
++                        yield parse_declaration(f'margin-left:{value}')
++                        yield parse_declaration(f'margin-right:{value}')
++                if vspace := element.get('vspace'):
++                    value = html.map_to_dimension_property(vspace)
++                    if value is not None:
++                        yield parse_declaration(f'margin-top:{value}')
++                        yield parse_declaration(f'margin-bottom:{value}')
+                 # TODO: img seems to be excluded for width and height, but a
+-                # lot of W3C tests rely on this attribute being applied to img
+-                if element.get('width'):
+-                    style_attribute = f'width:{element.get("width")}'
+-                    if element.get('width').isdigit():
+-                        style_attribute += 'px'
+-                    yield specificity, check_style_attribute(element, style_attribute)
+-                if element.get('height'):
+-                    style_attribute = f'height:{element.get("height")}'
+-                    if element.get('height').isdigit():
+-                        style_attribute += 'px'
+-                    yield specificity, check_style_attribute(element, style_attribute)
++                # lot of W3C tests rely on this attribute being applied to img.
++                if width := element.get('width'):
++                    value = html.map_to_dimension_property(width)
++                    if value is not None:
++                        yield parse_declaration(f'width:{value}')
++                if height := element.get('height'):
++                    value = html.map_to_dimension_property(height)
++                    if value is not None:
++                        yield parse_declaration(f'height:{value}')
+                 if element.tag in ('img', 'object', 'input'):
+-                    if element.get('border'):
+-                        yield specificity, check_style_attribute(
+-                            element,
+-                            f'border-width:{element.get("border")}px;'
+-                            f'border-style:solid')
++                    if border := element.get('border'):
++                        value = html.map_to_pixel_length(border)
++                        if value is not None:
++                            yield parse_declaration(f'border-width:{value}')
++                            yield parse_declaration('border-style:solid')
+         elif element.tag == 'ol':
+-            # From https://www.w3.org/TR/css-lists-3/#ua-stylesheet
+-            if element.get('start'):
+-                yield specificity, check_style_attribute(
+-                    element,
+-                    f'counter-reset:list-item {element.get("start")};'
+-                    'counter-increment:list-item -1')
++            # From https://www.w3.org/TR/css-lists-3/#ua-stylesheet.
++            if start := element.get('start'):
++                value = html.parse_integer(start)
++                if value is not None:
++                    yield parse_declaration(f'counter-reset:list-item {value}')
++                    yield parse_declaration('counter-increment:list-item -1')
+         elif element.tag == 'li':
+-            # From https://www.w3.org/TR/css-lists-3/#ua-stylesheet
+-            if element.get('value'):
+-                yield specificity, check_style_attribute(
+-                    element,
+-                    f'counter-reset:list-item {element.get("value")};'
+-                    'counter-increment:none')
++            # From https://www.w3.org/TR/css-lists-3/#ua-stylesheet.
++            if value := element.get('value'):
++                value = html.parse_integer(value)
++                if value is not None:
++                    yield parse_declaration(f'counter-reset:list-item {value}')
++                    yield parse_declaration('counter-increment:none')
+ 
+ 
+ def declaration_precedence(origin, importance):
+@@ -565,31 +625,471 @@
+ 
+ def resolve_var(computed, token, parent_style):
+     """Return token with resolved CSS variables."""
+-    if not check_var_function(token):
++    if not check_var(token):
+         return
+ 
+-    if token.lower_name != 'var':
+-        arguments = []
+-        for i, argument in enumerate(token.arguments):
+-            if argument.type == 'function' and argument.lower_name == 'var':
+-                arguments.extend(resolve_var(computed, argument, parent_style))
++    if token.type == '() block' or token.lower_name != 'var':
++        items = []
++        token_items = token.arguments if token.type == 'function' else token.content
++        for i, argument in enumerate(token_items):
++            if argument.type in ('function', '() block'):
++                resolved = resolve_var(
++                    computed, argument, parent_style)
++                items.extend((argument,) if resolved is None else resolved)
+             else:
+-                arguments.append(argument)
+-        token = tinycss2.ast.FunctionBlock(
+-            token.source_line, token.source_column, token.name, arguments)
++                items.append(argument)
++        if token.type == '() block':
++            token = tinycss2.ast.ParenthesesBlock(
++                token.source_line, token.source_column, items)
++        else:
++            token = tinycss2.ast.FunctionBlock(
++                token.source_line, token.source_column, token.name, items)
+         return resolve_var(computed, token, parent_style) or (token,)
+ 
+... diff truncated at 1500 lines

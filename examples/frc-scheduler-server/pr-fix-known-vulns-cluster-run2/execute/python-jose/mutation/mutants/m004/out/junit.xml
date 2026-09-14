@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="1.098" timestamp="2026-09-14T00:01:50.835819+00:00" hostname="ai-test-harness-95xqh-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_fix_pinning" time="0.005" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_exposure" time="0.002" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001"><failure message="TypeError: a bytes-like object is required, not 'NoneType'">def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """jwt.decode with an OpenSSH ECDSA key as the ES256 key must raise in 3.4.0."""
+        key = _ec_key()
+        ssh = _ssh_pubkey(key).encode()
+&gt;       token = jwt.encode({'sub': 'u'}, key, algorithm='ES256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33663.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:169: in _sign_header_and_claims
+    encoded_signature = base64url_encode(signature)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:88: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b"=", b"")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+&gt;       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.428" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.428" /></testsuite></testsuites>

@@ -1,0 +1,24 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-14T00:09:04+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-5f493a6b7288@realized": "sha256:a4b47221df77134b30b04884660a0aa138c582d828cf0c0c289c1f5e845e3153",
+    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:fae10e8da2bf20ed08443a8a93922147f90495df2cb658867ddbb3086e167333",
+    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:f29207c75a1ee8dab9bea379fc4eb4060a355bd7254ebbd74f36e53b9946ac28",
+    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:dd246a5143d3add653281ec70250438fb61083793062439f65f82b9a934bc69a",
+    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:2886848c8a29c6423ba20fa4d5d4038d691f34badf67f29fa60202899f974fa7"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

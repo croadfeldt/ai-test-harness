@@ -1,0 +1,453 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "direction": "fix",
+      "fixed": "3.4.0",
+      "vulnerable": "3.3.0"
+    },
+    "fix_pinning_confirmed": 2,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 14,
+    "total": 14
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 582,
+    "files": {
+      "jose/__init__.py": {
+        "covered": 8,
+        "statements": 8
+      },
+      "jose/backends/__init__.py": {
+        "covered": 11,
+        "statements": 27
+      },
+      "jose/backends/_asn1.py": {
+        "covered": 0,
+        "statements": 38
+      },
+      "jose/backends/base.py": {
+        "covered": 18,
+        "statements": 28
+      },
+      "jose/backends/cryptography_backend.py": {
+        "covered": 124,
+        "statements": 368
+      },
+      "jose/backends/ecdsa_backend.py": {
+        "covered": 0,
+        "statements": 80
+      },
+      "jose/backends/native.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "jose/backends/rsa_backend.py": {
+        "covered": 0,
+        "statements": 160
+      },
+      "jose/constants.py": {
+        "covered": 66,
+        "statements": 66
+      },
+      "jose/exceptions.py": {
+        "covered": 24,
+        "statements": 24
+      },
+      "jose/jwe.py": {
+        "covered": 72,
+        "statements": 212
+      },
+      "jose/jwk.py": {
+        "covered": 32,
+        "statements": 56
+      },
+      "jose/jws.py": {
+        "covered": 91,
+        "statements": 124
+      },
+      "jose/jwt.py": {
+        "covered": 100,
+        "statements": 160
+      },
+      "jose/utils.py": {
+        "covered": 36,
+        "statements": 62
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-13T22:49:42+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "3.4.0",
+    "old_version": "3.3.0",
+    "purl": "pkg:pypi/python-jose@3.4.0"
+  },
+  "run_id": "3d9fa72b859b",
+  "runs": {
+    "new": {
+      "duration_s": 18.7,
+      "returncode": 0,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 18.6,
+      "returncode": 0,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 18.8,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "the pod's own image",
+    "image_digest": null,
+    "isolation": {
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_python_jose_unit.py",
+      "sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "sha256": "sha256:f7f715b157af79192ee35cb0cb49aff525ef1a5d0a4dc6ae91f5832a741ea7c8"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "sha256": "sha256:912c999edb8644b8da12f98adbbe0630e785e86e675f469283f0d59a22ce8182"
+    },
+    {
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "sha256": "sha256:5ae3cf608d5f90d33170a271372318d348fb83d483ce16be2cd35536e446b62f"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 4,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_fix_pinning",
+      "message": "",
+      "name": "test_PYSEC_2025_185_fix_pinning",
+      "param_id": "test_PYSEC_2025_185_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_exposure",
+      "message": "",
+      "name": "test_PYSEC_2025_185_exposure",
+      "param_id": "test_PYSEC_2025_185_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "PYSEC-2025-185"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 14,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "message": "",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "param_id": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 2,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "message": "",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "param_id": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 14,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_encode_decode_roundtrip_hmac",
+      "message": "",
+      "name": "test_jwt_encode_decode_roundtrip_hmac",
+      "param_id": "test_jwt_encode_decode_roundtrip_hmac",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_wrong_key_raises_jwt_error",
+      "message": "",
+      "name": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "param_id": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_expired_raises_expired_signature_error",
+      "message": "",
+      "name": "test_jwt_decode_expired_raises_expired_signature_error",
+      "param_id": "test_jwt_decode_expired_raises_expired_signature_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+      "message": "",
+      "name": "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+      "param_id": "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_get_unverified_header_returns_alg_and_typ",
+      "message": "",
+      "name": "test_jwt_get_unverified_header_returns_alg_and_typ",
+      "param_id": "test_jwt_get_unverified_header_returns_alg_and_typ",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jwt_get_unverified_claims_returns_claims_without_verification",
+      "message": "",
+      "name": "test_jwt_get_unverified_claims_returns_claims_without_verification",
+      "param_id": "test_jwt_get_unverified_claims_returns_claims_without_verification",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_jws_sign_verify_roundtrip",
+      "message": "",
+      "name": "test_jws_sign_verify_roundtrip",
+      "param_id": "test_jws_sign_verify_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "id": "tests.test_python_jose_unit::test_utils_base64url_roundtrip",
+      "message": "",
+      "name": "test_utils_base64url_roundtrip",
+      "param_id": "test_utils_base64url_roundtrip",
+      "status": "pass",
+      "symbols_exercised": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ]
+}

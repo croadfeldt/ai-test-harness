@@ -1,0 +1,52 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "0.19.2",
+  "package": "ecdsa",
+  "version": "0.19.2",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-23342",
+        "PYSEC-2026-1325"
+      ],
+      "fixed_versions": [],
+      "id": "GHSA-wj6h-64fc-37mp",
+      "malicious": false,
+      "references": [
+        "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+        "https://github.com/tlsfuzzer/python-ecdsa",
+        "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+        "https://minerva.crocs.fi.muni.cz",
+        "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "Minerva timing attack on P-256 in python-ecdsa"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-23342",
+        "GHSA-wj6h-64fc-37mp"
+      ],
+      "fixed_versions": [],
+      "id": "PYSEC-2026-1325",
+      "malicious": false,
+      "references": [
+        "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+        "https://github.com/tlsfuzzer/python-ecdsa",
+        "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+        "https://minerva.crocs.fi.muni.cz",
+        "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python",
+        "https://pypi.org/project/ecdsa",
+        "https://github.com/advisories/GHSA-wj6h-64fc-37mp"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "Minerva timing attack on P-256 in python-ecdsa"
+    }
+  ],
+  "vulns_old": []
+}

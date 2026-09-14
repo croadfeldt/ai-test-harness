@@ -1,0 +1,177 @@
+FF..FF                                                                   [100%]
+=================================== FAILURES ===================================
+_______________________ test_PYSEC_2025_185_fix_pinning ________________________
+
+    def test_PYSEC_2025_185_fix_pinning():
+        """A JWE whose compressed payload decompresses beyond the size limit must be rejected with JWEError."""
+        cek = b'0' * 32
+        iv = b'1' * 16
+        token = _make_gzip_jwe(b'A' * (300 * 1024), cek, iv)
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, cek)
+
+tests/test_python_jose_cve_cve_2024_29370.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:521: in _get_key_bytes_from_key
+    jwk_data = key.to_dict()
+               ^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/base.py:88: in to_dict
+    "k": base64url_encode(self._key),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:74: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b'=', b'')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+_________________________ test_PYSEC_2025_185_exposure _________________________
+
+    def test_PYSEC_2025_185_exposure():
+        """Same oversized-compression trigger via the app's jwe.decrypt call pattern must raise JWEError."""
+        cek = b'0' * 32
+        iv = b'1' * 16
+        token = _make_gzip_jwe(b'B' * (300 * 1024), cek, iv)
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, cek)
+
+tests/test_python_jose_cve_cve_2024_29370.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:521: in _get_key_bytes_from_key
+    jwk_data = key.to_dict()
+               ^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/base.py:88: in to_dict
+    "k": base64url_encode(self._key),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:74: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b'=', b'')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+_____________________ test_ghsa_cjwg_qfpm_7377_fix_pinning _____________________
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decompressing a bomb JWE must be capped: new version raises JWEError, old version returns 100 MB."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_33664.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:521: in _get_key_bytes_from_key
+    jwk_data = key.to_dict()
+               ^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/base.py:88: in to_dict
+    "k": base64url_encode(self._key),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:74: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b'=', b'')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+______________________ test_ghsa_cjwg_qfpm_7377_exposure _______________________
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Same bomb token through the app's jwe.decrypt call pattern must not expand unbounded."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+>           result = jwe.decrypt(token, KEY)
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:521: in _get_key_bytes_from_key
+    jwk_data = key.to_dict()
+               ^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/backends/base.py:88: in to_dict
+    "k": base64url_encode(self._key),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:74: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b'=', b'')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_PYSEC_2025_185_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_PYSEC_2025_185_exposure
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_exposure
+4 failed, 2 passed in 1.26s

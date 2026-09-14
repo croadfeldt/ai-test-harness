@@ -1,0 +1,73 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/3d9fa72b859b/weasyprint",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/weasyprint@70.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2025-68616",
+          "GHSA-983w-rhvv-gwmv",
+          "PYSEC-2026-2034"
+        ],
+        "name": "CVE-2025-68616"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/weasyprint@70.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-55073",
+          "GHSA-jf6q-chmf-3h3v",
+          "PYSEC-2026-3940"
+        ],
+        "name": "CVE-2026-55073"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/weasyprint@70.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-49452",
+          "GHSA-jhhc-3hcp-qhm5",
+          "PYSEC-2026-3412"
+        ],
+        "name": "CVE-2026-49452"
+      }
+    }
+  ],
+  "timestamp": "2026-09-13T22:57:49+00:00",
+  "version": 1
+}

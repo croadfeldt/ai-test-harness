@@ -1,0 +1,76 @@
+..FF..........                                                           [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key must be rejected as an HMAC secret in 3.4.0 (accepted in 3.3.0)."""
+        ssh_key = _ssh_ecdsa_key()
+        with pytest.raises(JWSError):
+>           jwt.encode({'a': 1}, ssh_key, algorithm=ALGORITHMS.HS256)
+
+tests/test_python_jose_cve_cve_2024_33663.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJhIjoxfQ', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 BDaeNhbfI5GFSXY0RJid464KBVfLh+gB2ictOE/JApQLMg61rML4jMXpeQyeasBzgfQXb9frg8lmIZqs6nFjvSo='
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+            pass
+>       encoded_signature = base64url_encode(signature)
+                                             ^^^^^^^^^
+E       UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value
+
+venv/lib/python3.12/site-packages/jose/jws.py:141: UnboundLocalError
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) must reject OpenSSH ECDSA keys."""
+        ssh_key = _ssh_ecdsa_key()
+        with pytest.raises(JWSError):
+>           jwt.encode({'sub': 'x'}, ssh_key, algorithm='HS256')
+
+tests/test_python_jose_cve_cve_2024_33663.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 BCCF3iYJLCDDwBljIKYl1AG+oG4I9fFgyNsNTP8BHQhIOJuU7Cco0adpXl4xFuTZKtJWzyY0WyhUSsyz+IAdt1o='
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+            pass
+>       encoded_signature = base64url_encode(signature)
+                                             ^^^^^^^^^
+E       UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value
+
+venv/lib/python3.12/site-packages/jose/jws.py:141: UnboundLocalError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+2 failed, 12 passed in 0.31s

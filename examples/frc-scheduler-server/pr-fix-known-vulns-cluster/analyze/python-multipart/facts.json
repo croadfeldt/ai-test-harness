@@ -1,0 +1,172 @@
+{
+  "api_diff_ref": "api-diff.json",
+  "api_diff_summary": {
+    "added": 92,
+    "breaking": 82,
+    "breaking_symbols": [
+      "multipart.decoders.Base64Decoder",
+      "multipart.decoders.Base64Decoder.__init__",
+      "multipart.decoders.Base64Decoder.close",
+      "multipart.decoders.Base64Decoder.finalize",
+      "multipart.decoders.Base64Decoder.write",
+      "multipart.decoders.QuotedPrintableDecoder",
+      "multipart.decoders.QuotedPrintableDecoder.__init__",
+      "multipart.decoders.QuotedPrintableDecoder.close",
+      "multipart.decoders.QuotedPrintableDecoder.finalize",
+      "multipart.decoders.QuotedPrintableDecoder.write",
+      "multipart.exceptions.DecodeError",
+      "multipart.exceptions.FileError",
+      "multipart.exceptions.FormParserError",
+      "multipart.exceptions.MultipartParseError",
+      "multipart.exceptions.ParseError",
+      "multipart.exceptions.QuerystringParseError",
+      "multipart.multipart.AMPERSAND",
+      "multipart.multipart.BaseParser",
+      "multipart.multipart.BaseParser.__init__",
+      "multipart.multipart.BaseParser.callback",
+      "multipart.multipart.BaseParser.close",
+      "multipart.multipart.BaseParser.finalize",
+      "multipart.multipart.BaseParser.set_callback",
+      "multipart.multipart.COLON",
+      "multipart.multipart.CR",
+      "multipart.multipart.FLAG_LAST_BOUNDARY",
+      "multipart.multipart.FLAG_PART_BOUNDARY",
+      "multipart.multipart.Field",
+      "multipart.multipart.Field.__init__",
+      "multipart.multipart.Field.close"
+    ],
+    "changed": 0,
+    "removed": 82
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": "api.old.json",
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "fastapi (optional extra)",
+      "starlette (optional extra)"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through fastapi (optional extra), starlette (optional extra)",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "bumped",
+  "depth": 1,
+  "generated": "2026-09-13T22:09:08+00:00",
+  "import_names": [
+    "multipart"
+  ],
+  "new_version": "0.0.31",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "0.0.12",
+  "package": "python-multipart",
+  "purl": "pkg:pypi/python-multipart@0.0.31",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 16,
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 82,
+      "change": "bumped",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": false,
+      "lines_changed": 4312,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [
+        "parsing"
+      ],
+      "vuln_count": 0,
+      "vulns_fixed": 16
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "82 breaking API change(s) (+15)",
+      "4312 source lines changed (+10)",
+      "sensitive domain: parsing (+10)",
+      "depth 1 version change: full generation by policy",
+      "16 advisories on the replaced version: fix-pinning tests, then a VEX 'fixed' statement"
+    ],
+    "score": 55
+  },
+  "sensitivity": [
+    "parsing"
+  ],
+  "source_diff_summary": {
+    "counts": {
+      "added": 4,
+      "changed": 4,
+      "removed": 0
+    },
+    "files_added": [
+      "python_multipart/__init__.py",
+      "python_multipart/decoders.py",
+      "python_multipart/exceptions.py",
+      "python_multipart/multipart.py"
+    ],
+    "files_changed": [
+      "multipart/__init__.py",
+      "multipart/decoders.py",
+      "multipart/exceptions.py",
+      "multipart/multipart.py"
+    ],
+    "files_removed": [],
+    "lines_added": 2217,
+    "lines_removed": 2095,
+    "patch_lines": 1501,
+    "patch_ref": "source-diff.patch",
+    "tool": "difflib unified, python files only"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 0,
+    "files": [],
+    "note": "wheels rarely ship tests; an sdist or the upstream repository is the source when count is 0",
+    "present": false
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 0,
+    "count_old": 16,
+    "cves": [],
+    "fixed_by_this_change": [
+      "GHSA-59g5-xgcq-4qw3",
+      "GHSA-5rvq-cxj2-64vf",
+      "GHSA-6jv3-5f52-599m",
+      "GHSA-mj87-hwqh-73pj",
+      "GHSA-pp6c-gr5w-3c5g",
+      "GHSA-v9pg-7xvm-68hf",
+      "GHSA-vffw-93wf-4j4q",
+      "GHSA-wp53-j4wj-2cfg",
+      "PYSEC-2026-1851",
+      "PYSEC-2026-1852",
+      "PYSEC-2026-3036",
+      "PYSEC-2026-3037",
+      "PYSEC-2026-3038",
+      "PYSEC-2026-3039",
+      "PYSEC-2026-3040",
+      "PYSEC-2026-3041"
+    ],
+    "fixed_versions": [],
+    "ids": [],
+    "symbols_named_by_advisories": false
+  }
+}

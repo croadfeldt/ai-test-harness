@@ -1,0 +1,29 @@
+{
+  "call": 2,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "endpoint": "laptop-lmstudio",
+  "endpoint_digest": "sha256:657141afb9ad95bf",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 100.6,
+  "max_tokens": 4000,
+  "model": "qwen/qwen3.8-27b",
+  "prompt_sha256": "sha256:e7f309084994d8b944e811dac41915a23b188a379a7cfd2bfb930bf5abc71f50",
+  "reasoning_effort": "none",
+  "response_chars": 2927,
+  "response_sha256": "sha256:ca7887111ffdc9213da79ffb0e90845482e53c2e64d2de3ee973f35f3da0ced8",
+  "tag": "python-jose-unit-a1",
+  "temperature": 0.2,
+  "think_chars_stripped": 0,
+  "thinking": false,
+  "usage": {
+    "completion_tokens": 838,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2966,
+    "total_tokens": 3804
+  }
+}

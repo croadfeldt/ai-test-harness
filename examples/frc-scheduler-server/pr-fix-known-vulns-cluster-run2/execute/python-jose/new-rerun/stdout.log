@@ -1,0 +1,15 @@
+......                                                                   [100%]
+==================================== ERRORS ====================================
+_______________ ERROR collecting tests/test_python_jose_unit.py ________________
+ImportError while importing test module '/workspace/tmp/harness-pod-pdpxfqrq/tests/test_python_jose_unit.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/local/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_jose_unit.py:5: in <module>
+    from jose import jwt, jwe, jws, JWTError, JWSError, JWSSignatureError, ExpiredSignatureError
+E   ImportError: cannot import name 'JWSSignatureError' from 'jose' (/workspace/tmp/harness-pod-pdpxfqrq/venv/lib/python3.12/site-packages/jose/__init__.py)
+=========================== short test summary info ============================
+ERROR tests/test_python_jose_unit.py
+6 passed, 1 error in 1.06s

@@ -1,0 +1,46 @@
+{
+  "findings": [
+    {
+      "advisories": [
+        "CVE-2026-30922",
+        "CVE-2026-59884",
+        "CVE-2026-59885",
+        "CVE-2026-59886"
+      ],
+      "class": "security",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "analyze/pyasn1/facts.json",
+      "package": "pyasn1",
+      "routing": "Product Security",
+      "summary": "pyasn1 downgraded 0.6.4 -> 0.4.8 into a version with 8 known advisories"
+    },
+    {
+      "advisories": [
+        "CVE-2026-30922",
+        "CVE-2026-59884",
+        "CVE-2026-59885",
+        "CVE-2026-59886"
+      ],
+      "class": "security",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "analyze/pyasn1/vulns.json",
+      "package": "pyasn1",
+      "routing": "Product Security",
+      "summary": "pyasn1 0.4.8 has 8 open advisories at head; reachable=unknown"
+    }
+  ],
+  "generated": "2026-09-13T22:57:45+00:00",
+  "package": "pyasn1",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 0,
+    "findings": 2,
+    "tests_accept": 0,
+    "tests_discard_or_regenerate": 0
+  },
+  "tests": [],
+  "threshold": 0.7
+}

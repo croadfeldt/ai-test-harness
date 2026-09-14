@@ -1,0 +1,52 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/3d9fa72b859b/pdfminer-six",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/pdfminer-six@20231228"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "open at head; reachable=unknown; fixed in ['20251230']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2025-70559",
+          "GHSA-f83h-ghpp-7wcc",
+          "PYSEC-2026-1761"
+        ],
+        "name": "CVE-2025-70559"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/pdfminer-six@20231228"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "open at head; reachable=unknown; fixed in ['20251107']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2025-64512",
+          "GHSA-wf5f-4jwr-ppcp",
+          "PYSEC-2026-1762"
+        ],
+        "name": "CVE-2025-64512"
+      }
+    }
+  ],
+  "timestamp": "2026-09-13T22:57:49+00:00",
+  "version": 1
+}

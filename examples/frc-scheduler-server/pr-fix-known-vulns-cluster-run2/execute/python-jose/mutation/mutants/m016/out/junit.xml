@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="6" time="1.173" timestamp="2026-09-14T00:05:46.848226+00:00" hostname="ai-test-harness-95xqh-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_fix_pinning" time="0.004"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_PYSEC_2025_185_fix_pinning():
+        """A JWE whose compressed payload decompresses beyond the size limit must be rejected with JWEError."""
+        cek = b'0' * 32
+        iv = b'1' * 16
+        token = _make_gzip_jwe(b'A' * (300 * 1024), cek, iv)
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, cek)
+
+tests/test_python_jose_cve_cve_2024_29370.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_exposure" time="0.002"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_PYSEC_2025_185_exposure():
+        """Same oversized-compression trigger via the app's jwe.decrypt call pattern must raise JWEError."""
+        cek = b'0' * 32
+        iv = b'1' * 16
+        token = _make_gzip_jwe(b'B' * (300 * 1024), cek, iv)
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, cek)
+
+tests/test_python_jose_cve_cve_2024_29370.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001"><failure message="Failed: DID NOT RAISE JWKError">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA public key must be rejected as an ES256 key in 3.4.0 (accepted in 3.3.0)."""
+        key = _ec_key()
+        ssh = _ssh_pubkey(key).encode()
+&gt;       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:23: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1In0', algorithm = 'ES256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """jwt.decode with an OpenSSH ECDSA key as the ES256 key must raise in 3.4.0."""
+        key = _ec_key()
+        ssh = _ssh_pubkey(key).encode()
+&gt;       token = jwt.encode({'sub': 'u'}, key, algorithm='ES256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33663.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1In0', algorithm = 'ES256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.431"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """Decompressing a bomb JWE must be capped: new version raises JWEError, old version returns 100 MB."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_33664.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.429"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Same bomb token through the app's jwe.decrypt call pattern must not expand unbounded."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+&gt;           result = jwe.decrypt(token, KEY)
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase></testsuite></testsuites>

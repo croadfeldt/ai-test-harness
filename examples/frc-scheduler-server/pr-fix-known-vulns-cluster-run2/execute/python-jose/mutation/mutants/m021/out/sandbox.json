@@ -1,0 +1,27 @@
+{
+  "coverage": "/workspace/shared/run/execute/python-jose/mutation/mutants/m021/out/coverage.json",
+  "duration_s": 19.5,
+  "finished": "2026-09-14T00:07:26+00:00",
+  "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:96bf2da89d8bc47f46bc9f8f720c2d98d681ccdeaa2d9a0e9498c0ca2d8b16c1",
+  "image_digest": "sha256:96bf2da89d8bc47f46bc9f8f720c2d98d681ccdeaa2d9a0e9498c0ca2d8b16c1",
+  "install_failed": false,
+  "isolation": {
+    "disposable": "the task pod",
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 300
+    },
+    "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+    "rootfs": "read-only (claim)",
+    "runtime_class": "default (no Kata or gVisor)",
+    "secrets": "none mounted; environment cleared for the run",
+    "service_account_token": "not mounted (claim)",
+    "target": "pod"
+  },
+  "junit": "/workspace/shared/run/execute/python-jose/mutation/mutants/m021/out/junit.xml",
+  "label": "python-jose-m021",
+  "returncode": 0,
+  "timed_out": false
+}

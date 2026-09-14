@@ -1,0 +1,89 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: 766920fd-d1cb-40af-9886-f3f2ccc43fcc
+record_uuid: 01a09cff-4771-7b34-9e51-9adb0e29e73d
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-3d9fa72b859b
+at: '2026-09-13T22:08:39Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: source
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/python-jose-3-4-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a09cff-4771-7244-8369-f4c96d75a9b6
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: 766920fd-d1cb-40af-9886-f3f2ccc43fcc
+record_uuid: 01a09cff-4771-7216-9a76-868b7155edd6
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-3d9fa72b859b
+at: '2026-09-13T22:49:42Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: source
+    base: 2ad04243861b
+    head: cfa8f4a3292b
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/python-jose-3-4-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a09cff-4771-7b34-9e51-9adb0e29e73d
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-13T22:08:39Z'
+  completed_at: '2026-09-13T22:49:42Z'
+  results:
+    status: COMPLETED
+    run_id: 3d9fa72b859b
+    harness_version: 0.1.0
+    model_id: qwen/qwen3.8-27b
+    model_endpoint: laptop-lmstudio
+    model_endpoint_digest: sha256:657141afb9ad95bf
+    model_reasoning: 'off'
+    tool_versions:
+      git: git version 2.47.3
+      pip: pip 25.0.1
+      python: 3.12.13
+    sandbox_image: the pod's own image
+    sandbox_image_digest: unknown
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 19
+    tests_produced: 14
+    fix_pinning_confirmed: 2
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: 2d132030-6c87-4236-9421-0a6e7ed30bc4
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:fdb02cf6fb66691d240892133b42fccf436b2dcea9de7ce6c23b15d0adf552b5
+  previous: null
+  algorithm: sha256-jcs

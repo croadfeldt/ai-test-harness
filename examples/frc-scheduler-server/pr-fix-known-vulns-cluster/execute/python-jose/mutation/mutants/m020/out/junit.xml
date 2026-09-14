@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="14" time="0.405" timestamp="2026-09-13T22:55:59.477167+00:00" hostname="ai-test-harness-fc4ls-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_fix_pinning" time="0.003"><failure message="jose.exceptions.JWKError: dir is not a valid AES algorithm">def test_PYSEC_2025_185_fix_pinning():
+        """A JWE whose compressed payload expands beyond the size limit must be rejected with JWEError."""
+        token = _make_token(zlib.compress(b'A' * (300 * 1024)))
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:108: in decrypt
+    key = jwk.construct(key, alg)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:63: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fda82cd58e0&gt;
+key = b'0123456789abcdef', algorithm = 'dir'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+&gt;           raise JWKError("%s is not a valid AES algorithm" % algorithm)
+E           jose.exceptions.JWKError: dir is not a valid AES algorithm
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:454: JWKError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_exposure" time="0.002"><failure message="jose.exceptions.JWKError: dir is not a valid AES algorithm">def test_PYSEC_2025_185_exposure():
+        """Same oversized compressed JWE through the app's jwe.decrypt call pattern must raise JWEError."""
+        token = _make_token(zlib.compress(b'B' * (300 * 1024)))
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:108: in decrypt
+    key = jwk.construct(key, alg)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:63: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fda82cd5280&gt;
+key = b'0123456789abcdef', algorithm = 'dir'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+&gt;           raise JWKError("%s is not a valid AES algorithm" % algorithm)
+E           jose.exceptions.JWKError: dir is not a valid AES algorithm
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:454: JWKError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.013" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.002"><failure message="jose.exceptions.JWKError: dir is not a valid AES algorithm">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit (CVE-2024-33664)."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, 'asecret128bitkey')
+
+tests/test_python_jose_cve_cve_2024_33664.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:108: in decrypt
+    key = jwk.construct(key, alg)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:63: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fda82cd41a0&gt;
+key = 'asecret128bitkey', algorithm = 'dir'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+&gt;           raise JWKError("%s is not a valid AES algorithm" % algorithm)
+E           jose.exceptions.JWKError: dir is not a valid AES algorithm
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:454: JWKError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002"><failure message="jose.exceptions.JWKError: dir is not a valid AES algorithm">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """Same JWT-bomb trigger via the app's decrypt call pattern must raise JWEError, not hang or OOM."""
+        token = _bomb_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, 'asecret128bitkey')
+
+tests/test_python_jose_cve_cve_2024_33664.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:108: in decrypt
+    key = jwk.construct(key, alg)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwk.py:63: in construct
+    return key_class(key_data, algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;jose.backends.cryptography_backend.CryptographyAESKey object at 0x7fda82cd7050&gt;
+key = 'asecret128bitkey', algorithm = 'dir'
+
+    def __init__(self, key, algorithm):
+        if algorithm not in ALGORITHMS.AES:
+&gt;           raise JWKError("%s is not a valid AES algorithm" % algorithm)
+E           jose.exceptions.JWKError: dir is not a valid AES algorithm
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:454: JWKError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip_hmac" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_audience_mismatch_raises_jwt_claims_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg_and_typ" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims_without_verification" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.000" /></testsuite></testsuites>

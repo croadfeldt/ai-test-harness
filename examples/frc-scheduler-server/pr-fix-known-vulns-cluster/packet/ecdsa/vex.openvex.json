@@ -1,0 +1,31 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/3d9fa72b859b/ecdsa",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/ecdsa@0.19.2"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "open at head; reachable=unknown; fixed in no fixed version published",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2024-23342",
+          "GHSA-wj6h-64fc-37mp",
+          "PYSEC-2026-1325"
+        ],
+        "name": "CVE-2024-23342"
+      }
+    }
+  ],
+  "timestamp": "2026-09-13T22:57:49+00:00",
+  "version": 1
+}

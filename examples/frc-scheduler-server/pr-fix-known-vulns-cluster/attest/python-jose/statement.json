@@ -1,0 +1,332 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_decode_wrong_key_raises_jwt_error's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_decode_expired_raises_expired_signature_error's 5 mutant kill(s) are all among test_jwt_encode_decode_roundtrip_hmac's 6"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_decode_audience_mismatch_raises_jwt_claims_error's 5 mutant kill(s) are all among test_jwt_encode_decode_roundtrip_hmac's 6"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_get_unverified_header_returns_alg_and_typ's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jwt_get_unverified_claims_returns_claims_without_verification's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.6,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_jws_sign_verify_roundtrip's 4 mutant kill(s) are all among test_jwt_decode_audience_mismatch_raises_jwt_claims_error's 5"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/python-jose/relevance.json",
+              "summary": "python-jose: test_utils_base64url_roundtrip killed none of 25 sampled mutants in this run"
+            }
+          ],
+          "inputs": {
+            "base": "requirements.txt@2ad04243861b",
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "pip 25.0.1 --dry-run --report, host interpreter 3.12.13 (markers evaluated for the host, not the target)",
+            "sbom_digest": "sha256:8f781cbc72a973d223b4d5392bfa8ea3cede0ccb53e273c2238c2c9c707fd623",
+            "snapshot": "requirements.txt@cfa8f4a3292b"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 582,
+            "fix_pinning_confirmed": 2,
+            "flake_rate": 0.0,
+            "mutation_engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+            "mutation_sample": 25,
+            "mutation_score": 0.4,
+            "tests_total": 14
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "laptop-lmstudio",
+            "model_endpoint_digest": "sha256:657141afb9ad95bf",
+            "model_id": "qwen/qwen3.8-27b",
+            "pipeline_run": [
+              "intake",
+              "--workdir",
+              "run",
+              "--base",
+              "main",
+              "--head",
+              "fix-known-vulns"
+            ],
+            "run_id": "3d9fa72b859b",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-016",
+                "GF-017",
+                "GF-018",
+                "GF-019",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [
+            {
+              "category": "cve",
+              "file_sha256": "sha256:f7f715b157af79192ee35cb0cb49aff525ef1a5d0a4dc6ae91f5832a741ea7c8",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_6c5p_j8vq_pqhj_exposure::f7f715b157af"
+            },
+            {
+              "category": "cve",
+              "file_sha256": "sha256:f7f715b157af79192ee35cb0cb49aff525ef1a5d0a4dc6ae91f5832a741ea7c8",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_ghsa_6c5p_j8vq_pqhj_fix_pinning::f7f715b157af"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jws_sign_verify_roundtrip::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_audience_mismatch_raises_jwt_claims_error::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_expired_raises_expired_signature_error::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_decode_wrong_key_raises_jwt_error::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_encode_decode_roundtrip_hmac::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_get_unverified_claims_returns_claims_without_verification::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_jwt_get_unverified_header_returns_alg_and_typ::6e650c8b4567"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+              "record_ref": "attest/python-jose/MANIFEST.json",
+              "test_id": "python-jose::test_utils_base64url_roundtrip::6e650c8b4567"
+            }
+          ],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/python-jose/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
+          "unverified": [
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image",
+            "sandbox image digest: not recorded at run time; the image is pinned by tag only"
+          ],
+          "vex_drafts": [
+            {
+              "evidence_test_ids": [
+                "test_ghsa_6c5p_j8vq_pqhj_exposure",
+                "test_ghsa_6c5p_j8vq_pqhj_fix_pinning"
+              ],
+              "reviewed_by": null,
+              "status": "fixed",
+              "vulnerability": "CVE-2024-33663"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "under_investigation",
+              "vulnerability": "CVE-2024-33664"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "under_investigation",
+              "vulnerability": "CVE-2024-29370"
+            }
+          ],
+          "work_items": [
+            {
+              "depth": 1,
+              "old_version": "3.3.0",
+              "preflight": "clean",
+              "purl": "pkg:pypi/python-jose@3.4.0",
+              "reachable": "true",
+              "risk_score": 0.51
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "088b078e2478d795937be9461d5457f22d6aec7ddaf27f13edef5f889c27d84f"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [],
+    "passedTests": [
+      "test_PYSEC_2025_185_fix_pinning",
+      "test_PYSEC_2025_185_exposure",
+      "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "test_ghsa_cjwg_qfpm_7377_exposure",
+      "test_jwt_encode_decode_roundtrip_hmac",
+      "test_jwt_decode_wrong_key_raises_jwt_error",
+      "test_jwt_decode_expired_raises_expired_signature_error",
+      "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+      "test_jwt_get_unverified_header_returns_alg_and_typ",
+      "test_jwt_get_unverified_claims_returns_claims_without_verification",
+      "test_jws_sign_verify_roundtrip",
+      "test_utils_base64url_roundtrip"
+    ],
+    "result": "PASSED",
+    "url": "packet/python-jose/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "2eee70be73a444a93ea3b938c08fdd6842c9337a28dfccc78e275dc5ce6fb19f"
+      },
+      "name": "packet/python-jose/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "088b078e2478d795937be9461d5457f22d6aec7ddaf27f13edef5f889c27d84f"
+      },
+      "name": "attest/python-jose/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "34260e8133be1553bc962e69f145a2c2b69ede7af895c7826cb0d2671c25f11d"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure@intent"
+    },
+    {
+      "digest": {
+        "sha256": "726883e7da7176f7bd60a3212366cbcde05a7a2ca025176d20422c6decf28b75"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@intent"
+    },
+    {
+      "digest": {
+        "sha256": "44aa3c106db764db72e74d4cb0960b5c94e13b659beb0ca22534fff882671068"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jws-sign-verify-roundtrip@intent"
+    },
+    {
+      "digest": {
+        "sha256": "872f7e836177c4d2a29d99861243bf29cecf845d74f5d4e41dac9a5745e7e992"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-audience-mismatch-raises-jwt-claims@intent"
+    },
+    {
+      "digest": {
+        "sha256": "30be64720a2559bcf4e0daed3b9088fcb1415333b4b6d91c882d14fc30ab29cf"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@intent"
+    },
+    {
+      "digest": {
+        "sha256": "34f4043cf7763e909e96862d7403885e465f99880d06d05117787d469786e85a"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@intent"
+    },
+    {
+      "digest": {
+        "sha256": "4132e58bc9d73613411c21cb21536bf13cad0c2839b7ff2f05ff5bfc61f439b5"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip-hmac@intent"
+    },
+    {
+      "digest": {
+        "sha256": "6837daa219f2008d624097817eeb9793262734413d773979283fa997eadf0817"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims-returns-claims-witho@intent"
+    },
+    {
+      "digest": {
+        "sha256": "6dbf34c9f4c27188c79046c804d22956fa64b10667b140424372b78cea81335d"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header-returns-alg-and-typ@intent"
+    },
+    {
+      "digest": {
+        "sha256": "2ef15f03729ccca9f7a53785064466bd383869a520faf866bb4f0d669ca15413"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/python-jose-test-utils-base64url-roundtrip@intent"
+    }
+  ]
+}

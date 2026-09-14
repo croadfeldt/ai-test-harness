@@ -1,0 +1,90 @@
+# UDLM vex-statement records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: df5b4d01-a69a-41ba-80ba-5d2951e472d5
+record_uuid: 01a09cff-4773-7cac-b597-3fb3769f9cc0
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2024-33663-python-jose
+at: '2026-09-13T22:49:42Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2024-33663
+  software_package_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  status: fixed
+  status_notes: fix-pinning test(s) ['test_ghsa_6c5p_j8vq_pqhj_exposure', 'test_ghsa_6c5p_j8vq_pqhj_fix_pinning']
+    fail on pkg:pypi/python-jose@3.3.0 and pass on pkg:pypi/python-jose@3.4.0
+  evidence_refs:
+  - estate/lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure
+  - estate/lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T22:49:42Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: c42b1391-06d6-4fe6-9595-006202093113
+record_uuid: 01a09cff-4774-75ae-a39c-8344c06ba28d
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2024-33664-python-jose
+at: '2026-09-13T22:49:42Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2024-33664
+  software_package_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  status: under_investigation
+  status_notes: bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T22:49:42Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: e945b09f-b9cb-4064-91c4-95d1e8440dab
+record_uuid: 01a09cff-4774-7be1-a8dc-4ff5c584c8dd
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2024-29370-python-jose
+at: '2026-09-13T22:49:42Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2024-29370
+  software_package_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  status: under_investigation
+  status_notes: bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-13T22:49:42Z'

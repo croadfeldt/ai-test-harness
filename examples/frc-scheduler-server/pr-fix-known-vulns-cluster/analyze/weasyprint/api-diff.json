@@ -1,0 +1,3143 @@
+{
+  "changes": [
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, name, values)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.anchor"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, character)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.character_ratio"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, name, value)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.column_width"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, values)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.compute_attr"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, name, values)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.link"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(style, context=None)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.computed_values.strut_layout"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module removed",
+      "symbol": "weasyprint.css.utils"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {'rad': 1, 'turn': 2 * math.pi, 'deg': math.pi / 180, 'grad': math.pi / 200}",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.ANGLE_TO_RADIANS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {'string': ('string', ''), 'color': ('ident', 'currentcolor'), 'url': ('external",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.ATTR_FALLBACKS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {'top': ZERO_PERCENT, 'left': ZERO_PERCENT, 'center': FIFTY_PERCENT, 'bottom': H",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.BACKGROUND_POSITION_PERCENTAGES"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "weasyprint.css.utils.CenterKeywordFakeToken"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {('to', 'top'): ('angle', 0), ('to', 'right'): ('angle', math.pi / 2), ('to', 'b",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.DIRECTION_KEYWORDS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= Dimension(50, '%')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.FIFTY_PERCENT"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= Dimension(100, '%')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.HUNDRED_PERCENT"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ValueError)",
+      "reason": "class removed",
+      "symbol": "weasyprint.css.utils.InvalidValues"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {'px': 1, 'pt': 1.0 / 0.75, 'pc': 16.0, 'in': 96.0, 'cm': 96.0 / 2.54, 'mm': 96.",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.LENGTHS_TO_PIXELS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= set(LENGTHS_TO_PIXELS) | set(['ex', 'em', 'ch', 'rem'])",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.LENGTH_UNITS"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ABC)",
+      "reason": "class removed",
+      "symbol": "weasyprint.css.utils.Pending"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tokens, name)",
+      "reason": "method removed",
+      "symbol": "weasyprint.css.utils.Pending.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tokens, wanted_key)",
+      "reason": "method removed",
+      "symbol": "weasyprint.css.utils.Pending.solve"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, tokens, wanted_key)",
+      "reason": "method removed",
+      "symbol": "weasyprint.css.utils.Pending.validate"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {'dppx': 1, 'dpi': 1 / LENGTHS_TO_PIXELS['in'], 'dpcm': 1 / LENGTHS_TO_PIXELS['c",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.RESOLUTION_TO_DPPX"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= Dimension(0, '%')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.css.utils.ZERO_PERCENT"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, allowed_type=None)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.check_attr_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.check_content_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, allowed_type=None)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.check_counter_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(string_or_element, token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.check_string_or_element_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.check_var_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(function)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.comma_separated_list"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_angle"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_content_list"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_content_list_token"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_custom_ident"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_image"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_keyword"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, negative=True, percentage=False)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_length"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_quote"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_resolution"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_single_keyword"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_string"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_target"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.get_url"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_2d_position"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_color_stop"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(function_token)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_function"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(arguments)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_linear_gradient_parameters"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_position"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(arguments)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.parse_radial_gradient_parameters"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.remove_whitespace"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(base_url, url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.safe_urljoin"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(function)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.single_keyword"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(function)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.single_token"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.split_on_comma"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(tokens)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.utils.split_on_optional_comma"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(token, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.css.validation.properties.link"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, structure, etree_element=None)",
+      "reason": "method removed",
+      "symbol": "weasyprint.document.Document.build_element_structure"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "weasyprint.document.DocumentMetadata"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, title=None, authors=None, description=None, keywords=None, generator=None, created=None, modified=None, attachments=None, lang=None, custom=None)",
+      "reason": "method removed",
+      "symbol": "weasyprint.document.DocumentMetadata.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module removed",
+      "symbol": "weasyprint.draw.stack"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(stream)",
+      "reason": "function removed",
+      "symbol": "weasyprint.draw.stack.stacked"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= {i: chr(i + 65248) for i in range(33, 127)}",
+      "reason": "constant removed",
+      "symbol": "weasyprint.formatting_structure.build.ASCII_TO_WIDE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= re.compile('\\r\\n?')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.formatting_structure.build.LINE_FEED_RE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= re.compile('[\\t ]+')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.formatting_structure.build.SPACE_RE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= re.compile('[\\t ]*\\n[\\t ]*')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.formatting_structure.build.TAB_RE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(box)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.box_text"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(text)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.capitalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(text_part, box)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.extract_text"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(box, _has_non_whitespace=re.compile('\\\\S').search)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.is_whitespace"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(box)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.process_text_transform"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(box, following_collapsible_space=False)",
+      "reason": "function removed",
+      "symbol": "weasyprint.formatting_structure.build.process_whitespace"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= (files(css) / 'html5_ph.css').read_text('utf-8')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_PH"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= CSS(string=HTML5_PH)",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_PH_STYLESHEET"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= (files(css) / 'html5_ua.css').read_text('utf-8')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_UA"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= CounterStyle()",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_UA_COUNTER_STYLE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= (files(css) / 'html5_ua_form.css').read_text('utf-8')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_UA_FORM"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= CSS(string=HTML5_UA_FORM, counter_style=HTML5_UA_COUNTER_STYLE)",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_UA_FORM_STYLESHEET"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= CSS(string=HTML5_UA, counter_style=HTML5_UA_COUNTER_STYLE)",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML5_UA_STYLESHEET"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= re.compile(f'[^{HTML_WHITESPACE}]+')",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML_SPACE_SEPARATED_TOKENS_RE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= ' \\t\\n\\x0c\\r'",
+      "reason": "constant removed",
+      "symbol": "weasyprint.html.HTML_WHITESPACE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(string)",
+      "reason": "function removed",
+      "symbol": "weasyprint.html.strip_whitespace"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(cls, exception)",
+      "reason": "method removed",
+      "symbol": "weasyprint.images.ImageLoadingError.from_exception"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(box)",
+      "reason": "function removed",
+      "symbol": "weasyprint.layout.inline.count_spaces"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(logging.Handler)",
+      "reason": "class removed",
+      "symbol": "weasyprint.logger.CallbackHandler"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, callback)",
+      "reason": "method removed",
+      "symbol": "weasyprint.logger.CallbackHandler.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(logger='weasyprint', level=None)",
+      "reason": "function removed",
+      "symbol": "weasyprint.logger.capture_logs"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(pdf, metadata, variant, version, conformance, compress)",
+      "reason": "function removed",
+      "symbol": "weasyprint.pdf.metadata.add_metadata"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, box, mcid=False, tag=None)",
+      "reason": "method removed",
+      "symbol": "weasyprint.pdf.stream.Stream.begin_marked_content"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "weasyprint.pdf.stream.Stream.end_marked_content"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, element_tag)",
+      "reason": "method removed",
+      "symbol": "weasyprint.pdf.stream.Stream.get_marked_content_tag"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(value)",
+      "reason": "method removed",
+      "symbol": "weasyprint.svg.SVG.get_paint"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self)",
+      "reason": "method removed",
+      "symbol": "weasyprint.svg.SVG.inherit_defs"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, node)",
+      "reason": "method removed",
+      "symbol": "weasyprint.svg.SVG.parse_defs"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(svg, node, font_size)",
+      "reason": "function removed",
+      "symbol": "weasyprint.svg.defs.clip_path"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(svg, node, name, font_size, opacity, stroke)",
+      "reason": "function removed",
+      "symbol": "weasyprint.svg.defs.draw_gradient_or_pattern"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(text, lang)",
+      "reason": "function removed",
+      "symbol": "weasyprint.text.line_break.next_break_point"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(url, timeout=10, ssl_context=None)",
+      "reason": "function removed",
+      "symbol": "weasyprint.urls.default_url_fetcher"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(element, attr_name, base_url)",
+      "reason": "function removed",
+      "symbol": "weasyprint.urls.get_link_attribute"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(element, attr_name, base_url, allow_relative=False)",
+      "reason": "function removed",
+      "symbol": "weasyprint.urls.get_url_attribute"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.ColorProfile"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, file_object, src, rendering_intent, components)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.ColorProfile.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.ColorProfile.content"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.ColorProfile.name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(Style)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.InitialStyle"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, font_config)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.InitialStyle.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= frozenset(('bottom-center', 'bottom-left', 'bottom-left-corner', 'bottom-right',",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.PAGE_MARGIN_BOXES"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(dict)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.Style"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.Style.anonymous_style"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {}",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.computed_values.PHYSICAL_FUNCTIONS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style, name, values)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.box_shadow"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style, name, values)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.color"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style, name, image)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.image"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style, name, value)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.length_pixels_only"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(name, prefix, suffix, block, inline)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.physical_inset"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(name, prefix, suffix, block, inline)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.physical_radius"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(name, prefix, suffix, block, inline)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.physical_size"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(names, prefixes=('',), suffixes=('',))",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.computed_values.register_logical"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.css.functions"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.functions.Function"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, token)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.functions.Function.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, single_tokens=True, trailing=False)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.functions.Function.split_comma"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.functions.Function.split_space"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, allowed_type=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_attr"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_content"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, allowed_type=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_counter"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_math"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string_or_element, token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_string_or_element"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.functions.check_var"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(prelude)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.parse_color_profile_name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, computed=None, property_name=None, refer_to=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.resolve_math"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.string_to_css"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.css.tokens"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'top': ZERO_PERCENT, 'left': ZERO_PERCENT, 'center': FIFTY_PERCENT, 'bottom': H",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.BACKGROUND_POSITION_PERCENTAGES"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {('to', 'top'): ('angle', 0), ('to', 'right'): ('angle', pi / 2), ('to', 'bottom",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.DIRECTION_KEYWORDS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= NumberToken(0, 0, e, None, 'e')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.E"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= Dimension(50, '%')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.FIFTY_PERCENT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= Dimension(100, '%')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.HUNDRED_PERCENT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ValueError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.tokens.InvalidValues"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= NumberToken(0, 0, -inf, None, '-\u221e')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.MINUS_INFINITY"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= NumberToken(0, 0, nan, None, 'NaN')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.NAN"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= NumberToken(0, 0, pi, None, '\u03c0')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.PI"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= NumberToken(0, 0, inf, None, '\u221e')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.PLUS_INFINITY"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ABC)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.tokens.Pending"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, tokens, name)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.tokens.Pending.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, tokens, wanted_key, base_url)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.tokens.Pending.solve"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, tokens, wanted_key, base_url)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.css.tokens.Pending.validate"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ValueError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.tokens.PercentageInMath"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ValueError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.css.tokens.RelativeLengthInMath"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= Dimension(0, '%')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.tokens.ZERO_PERCENT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(function)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.comma_separated_list"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_angle"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_content_list"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_content_list_token"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_custom_ident"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_image"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_keyword"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, negative=True, percentage=False)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_length"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, negative=True, integer=False)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_number"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, negative=True)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_percentage"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_quote"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_resolution"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_single_keyword"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_string"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_target"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.get_url"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_2d_position"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_color_hint"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_color_stop"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(color_stops_hints)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_color_stops_and_hints"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(arguments)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_linear_gradient_parameters"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_position"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(arguments)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.parse_radial_gradient_parameters"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.remove_whitespace"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(function)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.single_keyword"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(function)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.single_token"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.split_on_comma"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(item, function=None, unit=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.tokens.tokenize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.css.units"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= set(LENGTHS_TO_PIXELS)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.ABSOLUTE_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'rad': 1, 'turn': 2 * math.pi, 'deg': math.pi / 180, 'grad': math.pi / 200}",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.ANGLE_TO_RADIANS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= set(ANGLE_TO_RADIANS)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.ANGLE_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'em', 'ex', 'cap', 'ch', 'ic', 'lh', 'rem', 'rex', 'rcap', 'rch', 'ric', 'rlh'}",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.FONT_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'px': 1, 'pt': 1 / 0.75, 'pc': 16, 'in': 96, 'cm': 96 / 2.54, 'mm': 96 / 25.4, ",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.LENGTHS_TO_PIXELS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= ABSOLUTE_UNITS | RELATIVE_UNITS",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.LENGTH_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= FONT_UNITS | VIEWPORT_UNITS",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.RELATIVE_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'dppx': 1, 'x': 1, 'dpi': 1 / LENGTHS_TO_PIXELS['in'], 'dpcm': 1 / LENGTHS_TO_P",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.RESOLUTION_TO_DPPX"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'vw', 'vh', 'vi', 'vb', 'vmin', 'vmax', 'lvw', 'lvh', 'lvi', 'lvb', 'lvmin', 'l",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.css.units.VIEWPORT_UNITS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(value, style, property_name, font_size=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.units.to_pixels"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(value)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.units.to_radians"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.url_to_css"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.descriptors.color_profile_src"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.descriptors.components"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(keyword)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.descriptors.rendering_intent"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.descriptors.unicode_range"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens, name, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.expanders.expand_logical_border"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens, name, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.expanders.expand_two_logical_sides"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.properties.box_shadow"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(tokens)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.properties.color_scheme"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.properties.outline_offset"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(token)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.css.validation.properties.text_decoration_thickness"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(stream, box)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.draw.border.draw_column_rules"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(stream, box, style, width, color)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.draw.border.draw_dotted_dashed_border"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(page, stream, blocks_and_cells)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.draw.draw_block_level"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(stream, boxes, style, inset)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.draw.draw_box_shadows"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.content_text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, text_part)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.extract_text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.is_note"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.is_whitespace"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.process_text_transform"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, following_collapsible_space=False)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.Box.process_whitespace"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, element_tag, style, element, children)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.GridContainerBox.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.ParentBox.bottom_margin_collapses"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.ParentBox.content_text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.ParentBox.top_margin_collapses"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.TextBox.content_text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.TextBox.is_whitespace"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.TextBox.process_text_transform"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, following_collapsible_space=False)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.formatting_structure.boxes.TextBox.process_whitespace"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(box, layout=None)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.build.blockify"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.formatting_structure.text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {i: chr(i + 65248) for i in range(33, 127)}",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.formatting_structure.text.ASCII_TO_WIDE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile('\\r\\n?')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.formatting_structure.text.LINE_FEED_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile('[\\t ]+')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.formatting_structure.text.SPACE_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile('[\\t ]*\\n[\\t ]*')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.formatting_structure.text.TAB_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text, lang_code)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.capitalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text, lang_code)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.full_width"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.get_first_letter"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text, lang_code)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.lowercase"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(function, text, lang_code)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.transform"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text, lang_code)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.formatting_structure.text.uppercase"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile(f'^[{WHITESPACE}]*([0-9]+([.][0-9]*)?)(%)?')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.DIMENSION_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile(f'^[{WHITESPACE}]*([+-]?)([0-9]+)')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.INTEGER_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= (files(css) / 'html5_ph.css').read_text('utf-8')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.PH"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= CSS(string=PH)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.PH_STYLESHEET"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= re.compile(f'[^{WHITESPACE}]+')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.SPACE_SEPARATED_TOKENS_RE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= '\\t\\n\\r'",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.TAB_OR_NEWLINE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= (files(css) / 'html5_ua.css').read_text('utf-8')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.UA"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= CounterStyle()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.UA_COUNTER_STYLE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= (files(css) / 'html5_ua_form.css').read_text('utf-8')",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.UA_FORM"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= CSS(string=UA_FORM, counter_style=UA_COUNTER_STYLE)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.UA_FORM_STYLESHEET"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= CSS(string=UA, counter_style=UA_COUNTER_STYLE)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.UA_STYLESHEET"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= ' \\t\\n\\x0c\\r'",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.html.WHITESPACE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(element, box, get_image_from_uri, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.handle_a"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.map_to_dimension_property"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.map_to_dimension_property_ignoring_zero"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.map_to_pixel_length"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.parse_dimension_value"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.parse_integer"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.parse_legacy_color"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.parse_non_negative_integer"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string, base_url, allow_relative=False)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.html.parse_url"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(list)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.layout.FakeList"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, item)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.FakeList.append"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, new_box, box, containing_block, resume_at)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.add_broken_out_of_flow"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, box)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.add_running_element"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, root_box)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.create_flex_formatting_context"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, excluded_shapes)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.excluded_shapes"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, root_box)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.finish_flex_formatting_context"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, box)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.layout.LayoutContext.remove_running_element"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(children)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.layout.block.find_last_class_a_break_point_child"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(box)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.layout.inline.count_expandable_spaces"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(box, axis)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.layout.percent.adjust_box_sizing"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= mimetypes.MimeTypes()",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.pdf.anchors.MIMETYPES"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, codepoint)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.fonts.Font.get_unused_glyph_id"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.pdf.metadata.DocumentMetadata"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, title=None, authors=None, description=None, keywords=None, generator=None, created=None, modified=None, attachments=None, lang=None, custom=None, xmp_metadata=None)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.metadata.DocumentMetadata.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, variant, version, conformance)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.metadata.DocumentMetadata.generate_rdf_metadata"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, pdf, variant, version, conformance, compress)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.metadata.DocumentMetadata.include_in_pdf"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.pdf.pdfx"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'pdf/x-1a': (partial(pdfx, version=1, variant='a:2003'), _values('1.4')), 'pdf/",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.pdf.pdfx.VARIANTS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(pdf, document, page_streams, attachments, compress, version, variant)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.pdf.pdfx.pdfx"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.stream.Stream.artifact"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, box, tag)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.stream.Stream.marked"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.pdf.stream.Stream.stacked"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "weasyprint.pdf.tags"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(pdf, document, pdf_version, page_streams)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.pdf.tags.add_tags"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.svg.LazyDefs"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, name, svg)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.svg.LazyDefs.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, name)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.svg.LazyDefs.get"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, attribute, context=None)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.svg.Node.get_paint"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, node, font_size)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.svg.SVG.get_node_transform_matrix"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, node, font_size, context=None)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.svg.SVG.set_graphical_state"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(svg, node, font_size)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.svg.bounding_box.bounding_box_use"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(svg, node, font_size, bounding_box)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.svg.bounding_box.transform_bounding_box"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(svg, node, font_size)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.svg.defs.get_use_tree"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(dict)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.svg.text.Style"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(string)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.svg.utils.angle"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'ltr': pango.PANGO_DIRECTION_LTR, 'rtl': pango.PANGO_DIRECTION_RTL}",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.text.constants.PANGO_DIRECTION"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= {'normal': pango.PANGO_VARIANT_NORMAL, 'small-caps': pango.PANGO_VARIANT_SMALL_C",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.text.constants.PANGO_VARIANT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= _dlopen(ffi, 'libharfbuzz-vector-0', 'harfbuzz-vector', 'harfbuzz-vector-0.0', '",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.text.ffi.harfbuzz_vector"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= getpreferredencoding(False)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "weasyprint.text.fonts.PREFERRED_ENCODING"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style, unit)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.text.line_break.character_ratio"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(log_attrs)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.text.line_break.get_next_break_point"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(text, lang)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.text.line_break.get_next_break_point_from_text"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(style)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.text.line_break.strut"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(BaseException)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.urls.FatalURLFetchingError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(request.OpenerDirector)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.urls.URLFetcher"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, timeout=10, ssl_context=None, http_headers=None, allowed_protocols=None, allow_redirects=True, fail_on_errors=False, **kwargs)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcher.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, url, headers=None)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcher.fetch"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, url, data=None, timeout=None)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcher.open"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "weasyprint.urls.URLFetcherResponse"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, url, body=None, headers=None, status=200, **kwargs)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.charset"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.code"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.content_type"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.getcode"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.geturl"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.info"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.path"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, *args, **kwargs)",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "weasyprint.urls.URLFetcherResponse.read"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(url, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.urls.get_link"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(url, base_url)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.urls.get_url_tuple"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(guess=None, filename=None, url=None, file_obj=None, string=None, base_url=None, url_fetcher=None, check_css_mime_type=False)",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "weasyprint.urls.select_source"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, base_url=None, url_fetcher=None, name=None, description=None, created=None, modified=None, relationship='Unspecified')",
+      "old_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, base_url=None, url_fetcher=default_url_fetcher, description=None, created=None, modified=None, relationship='Unspecified')",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.Attachment.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, encoding=None, base_url=None, url_fetcher=None, _check_mime_type=False, media_type='print', font_config=None, counter_style=None, color_profiles=None, matcher=None, page_rules=None, layers=None, layer=None)",
+      "old_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, encoding=None, base_url=None, url_fetcher=default_url_fetcher, _check_mime_type=False, media_type='print', font_config=None, counter_style=None, matcher=None, page_rules=None)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.CSS.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {'stylesheets': None, 'attachments': None, 'attachment_relationships': None, 'pd",
+      "old_signature": "= {'stylesheets': None, 'media_type': 'print', 'attachments': None, 'pdf_identifie",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.DEFAULT_OPTIONS"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, encoding=None, base_url=None, url_fetcher=None, media_type='print')",
+      "old_signature": "(self, guess=None, filename=None, url=None, file_obj=None, string=None, encoding=None, base_url=None, url_fetcher=default_url_fetcher, media_type='print')",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.HTML.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, font_config=None, counter_style=None, color_profiles=None, **options)",
+      "old_signature": "(self, font_config=None, counter_style=None, **options)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.HTML.render"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, target=None, zoom=1, finisher=None, font_config=None, counter_style=None, color_profiles=None, **options)",
+      "old_signature": "(self, target=None, zoom=1, finisher=None, font_config=None, counter_style=None, **options)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.HTML.write_pdf"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= '70.0'",
+      "old_signature": "= '63.1'",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.VERSION"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(box, anchors, links, bookmarks, forms, parent_matrix=None, parent_form=None, parent_link=None)",
+      "old_signature": "(box, anchors, links, bookmarks, forms, parent_matrix=None, parent_form=None)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.anchors.gather_anchors"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(Style)",
+      "old_signature": "(dict)",
+      "reason": "required parameters changed: ['dict'] -> ['Style']",
+      "symbol": "weasyprint.css.AnonymousStyle"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(Style)",
+      "old_signature": "(dict)",
+      "reason": "required parameters changed: ['dict'] -> ['Style']",
+      "symbol": "weasyprint.css.ComputedStyle"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, parent_style, cascaded, pseudo_type, root_style, base_url, font_config, initial_page_sizes)",
+      "old_signature": "(self, parent_style, cascaded, element, pseudo_type, root_style, base_url)",
+      "reason": "required parameters changed: ['parent_style', 'cascaded', 'element', 'pseudo_type', 'root_style', 'base_url'] -> ['parent_style', 'cascaded', 'pseudo_type', 'root_style', 'base_url', 'font_config', 'initial_page_sizes']",
+      "symbol": "weasyprint.css.ComputedStyle.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= frozenset((None, 'before', 'after', 'marker', 'first-line', 'first-letter', 'foo",
+      "old_signature": "= (None, 'before', 'after', 'marker', 'first-line', 'first-letter', 'footnote-call",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.css.PSEUDO_ELEMENTS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, html, sheets, presentational_hints, font_config, target_collector)",
+      "old_signature": "(self, html, sheets, presentational_hints, target_collector)",
+      "reason": "required parameters changed: ['html', 'sheets', 'presentational_hints', 'target_collector'] -> ['html', 'sheets', 'presentational_hints', 'font_config', 'target_collector']",
+      "symbol": "weasyprint.css.StyleFor.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(wrapper_element, device_media_type, url_fetcher, base_url, font_config, counter_style, color_profiles, page_rules, layers)",
+      "old_signature": "(wrapper_element, device_media_type, url_fetcher, base_url, font_config, counter_style, page_rules)",
+      "reason": "required parameters changed: ['wrapper_element', 'device_media_type', 'url_fetcher', 'base_url', 'font_config', 'counter_style', 'page_rules'] -> ['wrapper_element', 'device_media_type', 'url_fetcher', 'base_url', 'font_config', 'counter_style', 'color_profiles', 'page_rules', 'layers']",
+      "symbol": "weasyprint.css.find_stylesheets"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(html, user_stylesheets=None, presentational_hints=False, font_config=None, counter_style=None, color_profiles=None, page_rules=None, layers=None, target_collector=None, forms=False)",
+      "old_signature": "(html, user_stylesheets=None, presentational_hints=False, font_config=None, counter_style=None, page_rules=None, target_collector=None, forms=False)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.css.get_all_computed_styles"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(device_media_type, base_url, stylesheet_rules, url_fetcher, matcher, page_rules, layers, font_config, counter_style, color_profiles, ignore_imports=False, layer=None)",
+      "old_signature": "(device_media_type, base_url, stylesheet_rules, url_fetcher, matcher, page_rules, font_config, counter_style, ignore_imports=False)",
+      "reason": "required parameters changed: ['device_media_type', 'base_url', 'stylesheet_rules', 'url_fetcher', 'matcher', 'page_rules', 'font_config', 'counter_style'] -> ['device_media_type', 'base_url', 'stylesheet_rules', 'url_fetcher', 'matcher', 'page_rules', 'layers', 'font_config', 'counter_style', 'color_profiles']",
+      "symbol": "weasyprint.css.preprocess_stylesheet"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {'font-face': {}, 'counter-style': {}, 'color-profile': {}}",
+      "old_signature": "= {'font-face': {}, 'counter-style': {}}",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.css.validation.descriptors.DESCRIPTORS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tokens, wanted_key, base_url)",
+      "old_signature": "(self, tokens, wanted_key)",
+      "reason": "required parameters changed: ['tokens', 'wanted_key'] -> ['tokens', 'wanted_key', 'base_url']",
+      "symbol": "weasyprint.css.validation.expanders.PendingExpander.validate"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tokens, wanted_key, base_url)",
+      "old_signature": "(self, tokens, wanted_key)",
+      "reason": "required parameters changed: ['tokens', 'wanted_key'] -> ['tokens', 'wanted_key', 'base_url']",
+      "symbol": "weasyprint.css.validation.properties.PendingProperty.validate"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, pages, metadata, url_fetcher, font_config, color_profiles, output_intent)",
+      "old_signature": "(self, pages, metadata, url_fetcher, font_config)",
+      "reason": "required parameters changed: ['pages', 'metadata', 'url_fetcher', 'font_config'] -> ['pages', 'metadata', 'url_fetcher', 'font_config', 'color_profiles', 'output_intent']",
+      "symbol": "weasyprint.document.Document.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(stream, background, clip_box=True, bleed=None, marks=())",
+      "old_signature": "(stream, bg, clip_box=True, bleed=None, marks=())",
+      "reason": "required parameters changed: ['stream', 'bg'] -> ['stream', 'background']",
+      "symbol": "weasyprint.draw.draw_background"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(stream, layer, style)",
+      "old_signature": "(stream, layer, image_rendering)",
+      "reason": "required parameters changed: ['stream', 'layer', 'image_rendering'] -> ['stream', 'layer', 'style']",
+      "symbol": "weasyprint.draw.draw_background_image"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(stream, style, x, y, emojis)",
+      "old_signature": "(stream, font_size, x, y, emojis)",
+      "reason": "required parameters changed: ['stream', 'font_size', 'x', 'y', 'emojis'] -> ['stream', 'style', 'x', 'y', 'emojis']",
+      "symbol": "weasyprint.draw.text.draw_emojis"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, color_stops, repeating, color_hints)",
+      "old_signature": "(self, color_stops, repeating)",
+      "reason": "required parameters changed: ['color_stops', 'repeating'] -> ['color_stops', 'repeating', 'color_hints']",
+      "symbol": "weasyprint.images.Gradient.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, stream, concrete_width, concrete_height, style)",
+      "old_signature": "(self, stream, concrete_width, concrete_height, _image_rendering)",
+      "reason": "required parameters changed: ['stream', 'concrete_width', 'concrete_height', '_image_rendering'] -> ['stream', 'concrete_width', 'concrete_height', 'style']",
+      "symbol": "weasyprint.images.Gradient.draw"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, width, height, style)",
+      "old_signature": "(self, width, height)",
+      "reason": "required parameters changed: ['width', 'height'] -> ['width', 'height', 'style']",
+      "symbol": "weasyprint.images.Gradient.layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, color_stops, direction, repeating, color_hints)",
+      "old_signature": "(self, color_stops, direction, repeating)",
+      "reason": "required parameters changed: ['color_stops', 'direction', 'repeating'] -> ['color_stops', 'direction', 'repeating', 'color_hints']",
+      "symbol": "weasyprint.images.LinearGradient.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, width, height, style)",
+      "old_signature": "(self, width, height)",
+      "reason": "required parameters changed: ['width', 'height'] -> ['width', 'height', 'style']",
+      "symbol": "weasyprint.images.LinearGradient.layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, color_stops, shape, size, center, repeating, color_hints)",
+      "old_signature": "(self, color_stops, shape, size, center, repeating)",
+      "reason": "required parameters changed: ['color_stops', 'shape', 'size', 'center', 'repeating'] -> ['color_stops', 'shape', 'size', 'center', 'repeating', 'color_hints']",
+      "symbol": "weasyprint.images.RadialGradient.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, width, height, style)",
+      "old_signature": "(self, width, height)",
+      "reason": "required parameters changed: ['width', 'height'] -> ['width', 'height', 'style']",
+      "symbol": "weasyprint.images.RadialGradient.layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, stream, concrete_width, concrete_height, style)",
+      "old_signature": "(self, stream, concrete_width, concrete_height, image_rendering)",
+      "reason": "required parameters changed: ['stream', 'concrete_width', 'concrete_height', 'image_rendering'] -> ['stream', 'concrete_width', 'concrete_height', 'style']",
+      "symbol": "weasyprint.images.RasterImage.draw"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, stream, concrete_width, concrete_height, _style)",
+      "old_signature": "(self, stream, concrete_width, concrete_height, image_rendering)",
+      "reason": "required parameters changed: ['stream', 'concrete_width', 'concrete_height', 'image_rendering'] -> ['stream', 'concrete_width', 'concrete_height', '_style']",
+      "symbol": "weasyprint.images.SVGImage.draw"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(vector_length, positions, hints, style)",
+      "old_signature": "(vector_length, positions)",
+      "reason": "required parameters changed: ['vector_length', 'positions'] -> ['vector_length', 'positions', 'hints', 'style']",
+      "symbol": "weasyprint.images.process_color_stops"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, root_box=None, new_list=None)",
+      "old_signature": "(self)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.LayoutContext.create_block_formatting_context"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, root_box=None)",
+      "old_signature": "(self, root_box)",
+      "reason": "required parameters changed: ['root_box'] -> []",
+      "symbol": "weasyprint.layout.LayoutContext.finish_block_formatting_context"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= namedtuple('Background', 'color, layers, style')",
+      "old_signature": "= namedtuple('Background', 'color, layers, image_rendering')",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.background.Background"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, first_letter_style, first_line_style, discard, max_lines)",
+      "old_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, discard, max_lines)",
+      "reason": "required parameters changed: ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'discard', 'max_lines'] -> ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'first_letter_style', 'first_line_style', 'discard', 'max_lines']",
+      "symbol": "weasyprint.layout.block.block_box_layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, first_letter_style, first_line_style, discard, max_lines)",
+      "old_signature": "(context, box, bottom_space, skip_stack, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, discard, max_lines)",
+      "reason": "required parameters changed: ['context', 'box', 'bottom_space', 'skip_stack', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'discard', 'max_lines'] -> ['context', 'box', 'bottom_space', 'skip_stack', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'first_letter_style', 'first_line_style', 'discard', 'max_lines']",
+      "symbol": "weasyprint.layout.block.block_container_layout"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty=True, absolute_boxes=None, fixed_boxes=None, adjoining_margins=None, first_letter_style=None, first_line_style=None, discard=False, max_lines=None)",
+      "old_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty=True, absolute_boxes=None, fixed_boxes=None, adjoining_margins=None, discard=False, max_lines=None)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.block.block_level_layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, first_letter_style, first_line_style, discard, max_lines)",
+      "old_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, discard, max_lines)",
+      "reason": "required parameters changed: ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'discard', 'max_lines'] -> ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'first_letter_style', 'first_line_style', 'discard', 'max_lines']",
+      "symbol": "weasyprint.layout.block.block_level_layout_switch"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(box, containing_block, with_min_max=True)",
+      "old_signature": "(box, containing_block)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.block.block_level_width"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins, first_letter_style, first_line_style)",
+      "old_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, adjoining_margins)",
+      "reason": "required parameters changed: ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins'] -> ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'adjoining_margins', 'first_letter_style', 'first_line_style']",
+      "symbol": "weasyprint.layout.column.columns_layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, discard)",
+      "old_signature": "(context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes)",
+      "reason": "required parameters changed: ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes'] -> ['context', 'box', 'bottom_space', 'skip_stack', 'containing_block', 'page_is_empty', 'absolute_boxes', 'fixed_boxes', 'discard']",
+      "symbol": "weasyprint.layout.flex.flex_layout"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, direction, collapsed_margin=0)",
+      "old_signature": "(context, box, collapsed_margin=0)",
+      "reason": "required parameters changed: ['context', 'box'] -> ['context', 'box', 'direction']",
+      "symbol": "weasyprint.layout.float.get_clearance"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, linebox, position_y, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, first_letter_style, first_line_style)",
+      "old_signature": "(context, linebox, position_y, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, first_letter_style)",
+      "reason": "required parameters changed: ['context', 'linebox', 'position_y', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'first_letter_style'] -> ['context', 'linebox', 'position_y', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'first_letter_style', 'first_line_style']",
+      "symbol": "weasyprint.layout.inline.get_next_linebox"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, position_y, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, first_letter_style, first_line_style)",
+      "old_signature": "(context, box, position_y, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, first_letter_style)",
+      "reason": "required parameters changed: ['context', 'box', 'position_y', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'first_letter_style'] -> ['context', 'box', 'position_y', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'first_letter_style', 'first_line_style']",
+      "symbol": "weasyprint.layout.inline.iter_line_boxes"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, line)",
+      "old_signature": "(context, box)",
+      "reason": "required parameters changed: ['context', 'box'] -> ['context', 'line']",
+      "symbol": "weasyprint.layout.inline.remove_last_whitespace"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, position_x, max_x, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, line_placeholders, waiting_floats, line_children, first_letter_style, first_line_style)",
+      "old_signature": "(context, box, position_x, max_x, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, line_placeholders, waiting_floats, line_children)",
+      "reason": "required parameters changed: ['context', 'box', 'position_x', 'max_x', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'line_placeholders', 'waiting_floats', 'line_children'] -> ['context', 'box', 'position_x', 'max_x', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'line_placeholders', 'waiting_floats', 'line_children', 'first_letter_style', 'first_line_style']",
+      "symbol": "weasyprint.layout.inline.split_inline_box"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(context, box, position_x, max_x, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, line_placeholders, waiting_floats, line_children, first_letter_style, first_line_style)",
+      "old_signature": "(context, box, position_x, max_x, bottom_space, skip_stack, containing_block, absolute_boxes, fixed_boxes, line_placeholders, waiting_floats, line_children)",
+      "reason": "required parameters changed: ['context', 'box', 'position_x', 'max_x', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'line_placeholders', 'waiting_floats', 'line_children'] -> ['context', 'box', 'position_x', 'max_x', 'bottom_space', 'skip_stack', 'containing_block', 'absolute_boxes', 'fixed_boxes', 'line_placeholders', 'waiting_floats', 'line_children', 'first_letter_style', 'first_line_style']",
+      "symbol": "weasyprint.layout.inline.split_inline_level"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= namedtuple('PageType', ['side', 'blank', 'name', 'index', 'groups'])",
+      "old_signature": "= namedtuple('PageType', ['side', 'blank', 'name', 'index', 'group_index'])",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.page.PageType"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(index, context, root_box, html)",
+      "old_signature": "(index, group_index, context, root_box, html)",
+      "reason": "required parameters changed: ['index', 'group_index', 'context', 'root_box', 'html'] -> ['index', 'context', 'root_box', 'html']",
+      "symbol": "weasyprint.layout.page.remake_page"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(value, computed, refer_to)",
+      "old_signature": "(value, refer_to)",
+      "reason": "required parameters changed: ['value', 'refer_to'] -> ['value', 'computed', 'refer_to']",
+      "symbol": "weasyprint.layout.percent.percentage"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(box, property_name, refer_to)",
+      "old_signature": "(box, property_name, refer_to, main_flex_direction=None)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.percent.resolve_one_percentage"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(box, containing_block)",
+      "old_signature": "(box, containing_block, main_flex_direction=None)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.percent.resolve_percentages"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= tinycss2.color5.parse_color('transparent')",
+      "old_signature": "= tinycss2.color4.parse_color('transparent')",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.layout.table.TRANSPARENT"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {name: data for variants in (pdfa.VARIANTS, pdfua.VARIANTS, pdfx.VARIANTS, debug",
+      "old_signature": "= {name: data for variants in (pdfa.VARIANTS, pdfua.VARIANTS, debug.VARIANTS) for ",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.pdf.VARIANTS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(links_and_anchors, matrix, pdf, page, names, tags)",
+      "old_signature": "(links_and_anchors, matrix, pdf, page, names, mark)",
+      "reason": "required parameters changed: ['links_and_anchors', 'matrix', 'pdf', 'page', 'names', 'mark'] -> ['links_and_anchors', 'matrix', 'pdf', 'page', 'names', 'tags']",
+      "symbol": "weasyprint.pdf.anchors.add_links"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, pango_font, description, font_size)",
+      "old_signature": "(self, pango_font)",
+      "reason": "required parameters changed: ['pango_font'] -> ['pango_font', 'description', 'font_size']",
+      "symbol": "weasyprint.pdf.fonts.Font.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, to_unicode, hinting)",
+      "old_signature": "(self, cmap, hinting)",
+      "reason": "required parameters changed: ['cmap', 'hinting'] -> ['to_unicode', 'hinting']",
+      "symbol": "weasyprint.pdf.fonts.Font.clean"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, to_unicode, hinting)",
+      "old_signature": "(self, cmap, hinting)",
+      "reason": "required parameters changed: ['cmap', 'hinting'] -> ['to_unicode', 'hinting']",
+      "symbol": "weasyprint.pdf.fonts.Font.subset"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {'pdf/a-1b': (partial(pdfa, version=1, variant='B'), _values('1.4')), 'pdf/a-2b'",
+      "old_signature": "= {'pdf/a-1b': (partial(pdfa, version=1, variant='B'), {'version': '1.4', 'identif",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.pdf.pdfa.VARIANTS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(pdf, document, page_streams, attachments, compress, version, variant)",
+      "old_signature": "(pdf, metadata, document, page_streams, attachments, compress, version, variant)",
+      "reason": "required parameters changed: ['pdf', 'metadata', 'document', 'page_streams', 'attachments', 'compress', 'version', 'variant'] -> ['pdf', 'document', 'page_streams', 'attachments', 'compress', 'version', 'variant']",
+      "symbol": "weasyprint.pdf.pdfa.pdfa"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {'pdf/ua-1': (partial(pdfua, version=1), {'pdf_version': '1.7', 'pdf_tags': True",
+      "old_signature": "= {'pdf/ua-1': (pdfua, {'mark': True})}",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.pdf.pdfua.VARIANTS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(pdf, document, page_streams, attachments, compress, version)",
+      "old_signature": "(pdf, metadata, document, page_streams, attachments, compress)",
+      "reason": "required parameters changed: ['pdf', 'metadata', 'document', 'page_streams', 'attachments', 'compress'] -> ['pdf', 'document', 'page_streams', 'attachments', 'compress', 'version']",
+      "symbol": "weasyprint.pdf.pdfua.pdfua"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, fonts, page_rectangle, resources, images, tags, color_profiles, output_intent, *args, **kwargs)",
+      "old_signature": "(self, fonts, page_rectangle, resources, images, mark, *args, **kwargs)",
+      "reason": "required parameters changed: ['fonts', 'page_rectangle', 'resources', 'images', 'mark'] -> ['fonts', 'page_rectangle', 'resources', 'images', 'tags', 'color_profiles', 'output_intent']",
+      "symbol": "weasyprint.pdf.stream.Stream.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, shading_type, domain, coords, extend, function, color_space=None)",
+      "old_signature": "(self, shading_type, color_space, domain, coords, extend, function)",
+      "reason": "required parameters changed: ['shading_type', 'color_space', 'domain', 'coords', 'extend', 'function'] -> ['shading_type', 'domain', 'coords', 'extend', 'function']",
+      "symbol": "weasyprint.pdf.stream.Stream.add_shading"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, node, font_size, fill_stroke=True, context=None)",
+      "old_signature": "(self, node, font_size, fill_stroke=True)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.svg.Pattern.draw_node"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, tree, url, font_config, url_fetcher=None)",
+      "old_signature": "(self, tree, url)",
+      "reason": "required parameters changed: ['tree', 'url'] -> ['tree', 'url', 'font_config']",
+      "symbol": "weasyprint.svg.SVG.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, stream, concrete_width, concrete_height, base_url, context)",
+      "old_signature": "(self, stream, concrete_width, concrete_height, base_url, url_fetcher, context)",
+      "reason": "required parameters changed: ['stream', 'concrete_width', 'concrete_height', 'base_url', 'url_fetcher', 'context'] -> ['stream', 'concrete_width', 'concrete_height', 'base_url', 'context']",
+      "symbol": "weasyprint.svg.SVG.draw"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "(self, node, font_size, fill_stroke=True, context=None)",
+      "old_signature": "(self, node, font_size, fill_stroke=True)",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.svg.SVG.draw_node"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, fill, stroke, even_odd=False, text=False)",
+      "old_signature": "(self, node, font_size, text=False)",
+      "reason": "required parameters changed: ['node', 'font_size'] -> ['fill', 'stroke']",
+      "symbol": "weasyprint.svg.SVG.fill_stroke"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, node, font_size)",
+      "old_signature": "(self, transform_string, font_size)",
+      "reason": "required parameters changed: ['transform_string', 'font_size'] -> ['node', 'font_size']",
+      "symbol": "weasyprint.svg.SVG.transform"
+    },
+    {
+      "breaking": false,
+      "kind": "changed",
+      "new_signature": "= {'a': text, 'circle': circle, 'ellipse': ellipse, 'image': image, 'line': line, ",
+      "old_signature": "= {'a': text, 'circle': circle, 'clipPath': clip_path, 'ellipse': ellipse, 'image'",
+      "reason": "optional parameters or annotations changed",
+      "symbol": "weasyprint.svg.TAGS"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(tree, stylesheet_rules, url, font_config, url_fetcher)",
+      "old_signature": "(tree, stylesheet_rules, url)",
+      "reason": "required parameters changed: ['tree', 'stylesheet_rules', 'url'] -> ['tree', 'stylesheet_rules', 'url', 'font_config', 'url_fetcher']",
+      "symbol": "weasyprint.svg.css.find_stylesheets_rules"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(tree, url, font_config, url_fetcher)",
+      "old_signature": "(tree, url)",
+      "reason": "required parameters changed: ['tree', 'url'] -> ['tree', 'url', 'font_config', 'url_fetcher']",
+      "symbol": "weasyprint.svg.css.parse_stylesheets"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(transform_string, transform_origin, font_size, normalized_diagonal)",
+      "old_signature": "(transform_string, font_size, normalized_diagonal)",
+      "reason": "required parameters changed: ['transform_string', 'font_size', 'normalized_diagonal'] -> ['transform_string', 'transform_origin', 'font_size', 'normalized_diagonal']",
+      "symbol": "weasyprint.svg.utils.transform"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, style, justification_spacing=0, max_width=None)",
+      "old_signature": "(self, context, style, justification_spacing=0, max_width=None)",
+      "reason": "required parameters changed: ['context', 'style'] -> ['style']",
+      "symbol": "weasyprint.text.line_break.Layout.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(self, style)",
+      "old_signature": "(self, context, style)",
+      "reason": "required parameters changed: ['context', 'style'] -> ['style']",
+      "symbol": "weasyprint.text.line_break.Layout.setup"
+    },
+    {
+      "breaking": true,
+      "kind": "changed",
+      "new_signature": "(base_url, url, allow_relative, context)",
+      "old_signature": "(base_url, url, allow_relative, context, context_args)",
+      "reason": "required parameters changed: ['base_url', 'url', 'allow_relative', 'context', 'context_args'] -> ['base_url', 'url', 'allow_relative', 'context']",
+      "symbol": "weasyprint.urls.url_join"
+    }
+  ],
+  "new": "70.0",
+  "old": "63.1",
+  "package": "weasyprint"
+}
