@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="14" time="0.485" timestamp="2026-09-14T01:18:27.480800+00:00" hostname="ai-test-harness-x4hxw-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.007"><failure message="AttributeError: 'NoneType' object has no attribute 'split'">def test_pysec_2025_185_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:86: in decrypt
+    header, encoded_header, encrypted_key, iv, cipher_text, auth_tag = _jwe_compact_deserialize(jwe_str)
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwe_bytes = None
+
+    def _jwe_compact_deserialize(jwe_bytes):
+        """
+        Deserialize and verify the header and segments are appropriate.
+    
+        Args:
+            jwe_bytes (bytes): The compact serialized JWE
+        Returns:
+            (dict, bytes, bytes, bytes, bytes, bytes)
+        """
+    
+        # Base64url decode the encoded representations of the JWE
+        # Protected Header, the JWE Encrypted Key, the JWE Initialization
+        # Vector, the JWE Ciphertext, the JWE Authentication Tag, and the
+        # JWE AAD, following the restriction that no line breaks,
+        # whitespace, or other additional characters have been used.
+        jwe_bytes = ensure_binary(jwe_bytes)
+        try:
+&gt;           header_segment, encrypted_key_segment, iv_segment, cipher_text_segment, auth_tag_segment = jwe_bytes.split(
+                                                                                                       ^^^^^^^^^^^^^^^
+                b".", 4
+            )
+E           AttributeError: 'NoneType' object has no attribute 'split'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:280: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.005"><failure message="AttributeError: 'NoneType' object has no attribute 'split'">def test_pysec_2025_185_exposure():
+        """App-style jwe.decrypt call on an attacker-supplied compressed token must not decompress unbounded data."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:86: in decrypt
+    header, encoded_header, encrypted_key, iv, cipher_text, auth_tag = _jwe_compact_deserialize(jwe_str)
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwe_bytes = None
+
+    def _jwe_compact_deserialize(jwe_bytes):
+        """
+        Deserialize and verify the header and segments are appropriate.
+    
+        Args:
+            jwe_bytes (bytes): The compact serialized JWE
+        Returns:
+            (dict, bytes, bytes, bytes, bytes, bytes)
+        """
+    
+        # Base64url decode the encoded representations of the JWE
+        # Protected Header, the JWE Encrypted Key, the JWE Initialization
+        # Vector, the JWE Ciphertext, the JWE Authentication Tag, and the
+        # JWE AAD, following the restriction that no line breaks,
+        # whitespace, or other additional characters have been used.
+        jwe_bytes = ensure_binary(jwe_bytes)
+        try:
+&gt;           header_segment, encrypted_key_segment, iv_segment, cipher_text_segment, auth_tag_segment = jwe_bytes.split(
+                                                                                                       ^^^^^^^^^^^^^^^
+                b".", 4
+            )
+E           AttributeError: 'NoneType' object has no attribute 'split'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:280: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.079"><failure message="AttributeError: 'NoneType' object has no attribute 'split'">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose decompressed size exceeds the limit."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, b'0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:86: in decrypt
+    header, encoded_header, encrypted_key, iv, cipher_text, auth_tag = _jwe_compact_deserialize(jwe_str)
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwe_bytes = None
+
+    def _jwe_compact_deserialize(jwe_bytes):
+        """
+        Deserialize and verify the header and segments are appropriate.
+    
+        Args:
+            jwe_bytes (bytes): The compact serialized JWE
+        Returns:
+            (dict, bytes, bytes, bytes, bytes, bytes)
+        """
+    
+        # Base64url decode the encoded representations of the JWE
+        # Protected Header, the JWE Encrypted Key, the JWE Initialization
+        # Vector, the JWE Ciphertext, the JWE Authentication Tag, and the
+        # JWE AAD, following the restriction that no line breaks,
+        # whitespace, or other additional characters have been used.
+        jwe_bytes = ensure_binary(jwe_bytes)
+        try:
+&gt;           header_segment, encrypted_key_segment, iv_segment, cipher_text_segment, auth_tag_segment = jwe_bytes.split(
+                                                                                                       ^^^^^^^^^^^^^^^
+                b".", 4
+            )
+E           AttributeError: 'NoneType' object has no attribute 'split'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:280: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.047"><failure message="AttributeError: 'NoneType' object has no attribute 'split'">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """App-style jwe.decrypt(token, key) on a bomb token must raise JWEError, not return 10MB."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, '0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:86: in decrypt
+    header, encoded_header, encrypted_key, iv, cipher_text, auth_tag = _jwe_compact_deserialize(jwe_str)
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwe_bytes = None
+
+    def _jwe_compact_deserialize(jwe_bytes):
+        """
+        Deserialize and verify the header and segments are appropriate.
+    
+        Args:
+            jwe_bytes (bytes): The compact serialized JWE
+        Returns:
+            (dict, bytes, bytes, bytes, bytes, bytes)
+        """
+    
+        # Base64url decode the encoded representations of the JWE
+        # Protected Header, the JWE Encrypted Key, the JWE Initialization
+        # Vector, the JWE Ciphertext, the JWE Authentication Tag, and the
+        # JWE AAD, following the restriction that no line breaks,
+        # whitespace, or other additional characters have been used.
+        jwe_bytes = ensure_binary(jwe_bytes)
+        try:
+&gt;           header_segment, encrypted_key_segment, iv_segment, cipher_text_segment, auth_tag_segment = jwe_bytes.split(
+                                                                                                       ^^^^^^^^^^^^^^^
+                b".", 4
+            )
+E           AttributeError: 'NoneType' object has no attribute 'split'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:280: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_ensure_binary_coerces_str_to_bytes" time="0.001"><failure message="AssertionError: assert None == b'hello'&#10; +  where None = &lt;function ensure_binary at 0x7f5f8a86e160&gt;('hello')&#10; +    where &lt;function ensure_binary at 0x7f5f8a86e160&gt; = utils.ensure_binary">def test_utils_ensure_binary_coerces_str_to_bytes():
+        """ensure_binary converts a str to its UTF-8 bytes."""
+&gt;       assert utils.ensure_binary('hello') == b'hello'
+E       AssertionError: assert None == b'hello'
+E        +  where None = &lt;function ensure_binary at 0x7f5f8a86e160&gt;('hello')
+E        +    where &lt;function ensure_binary at 0x7f5f8a86e160&gt; = utils.ensure_binary
+
+tests/test_python_jose_unit.py:55: AssertionError</failure></testcase></testsuite></testsuites>

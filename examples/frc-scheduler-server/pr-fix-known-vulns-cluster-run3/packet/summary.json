@@ -1,0 +1,29 @@
+{
+  "generated": "2026-09-14T01:20:33+00:00",
+  "packages": [
+    {
+      "generated": "2026-09-14T01:20:33+00:00",
+      "package": "python-jose",
+      "packet_md": "packet/python-jose/packet.md",
+      "patch": "packet/python-jose/tests.patch",
+      "patch_sha256": "sha256:c3299acc4aedce3da5106df0771b82baafa3de799c69f22b1258eb5062f0d721",
+      "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+      "tests_in_patch": [
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_utils_base64url_roundtrip",
+        "test_utils_ensure_binary_coerces_str_to_bytes"
+      ],
+      "vex": "packet/python-jose/vex.openvex.json",
+      "vex_statements": {
+        "CVE-2024-29370": "under_investigation",
+        "CVE-2024-33663": "under_investigation",
+        "CVE-2024-33664": "under_investigation"
+      }
+    }
+  ]
+}

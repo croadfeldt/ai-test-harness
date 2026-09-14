@@ -1,0 +1,290 @@
+......FFFFFF..                                                           [100%]
+=================================== FAILURES ===================================
+_______________________ test_jwt_encode_decode_roundtrip _______________________
+
+    def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode returns the original claims."""
+        claims = {'sub': 'user-1', 'name': 'Alice'}
+>       token = jwt.encode(claims, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = {'sub': 'user-1', 'name': 'Alice'}
+key = b'unit-test-secret-key-0123456789', headers = None, algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+__________________ test_jwt_decode_wrong_key_raises_jwt_error __________________
+
+    def test_jwt_decode_wrong_key_raises_jwt_error():
+        """Decoding with the wrong key raises JWTError."""
+>       token = jwt.encode({'sub': 'user-1'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = {'sub': 'user-1'}, key = b'unit-test-secret-key-0123456789'
+headers = None, algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+____________ test_jwt_decode_expired_raises_expired_signature_error ____________
+
+    def test_jwt_decode_expired_raises_expired_signature_error():
+        """A token whose exp is in the past raises ExpiredSignatureError."""
+>       token = jwt.encode({'sub': 'u', 'exp': 1}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = {'sub': 'u', 'exp': 1}, key = b'unit-test-secret-key-0123456789'
+headers = None, algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+__________________ test_jwt_get_unverified_header_returns_alg __________________
+
+    def test_jwt_get_unverified_header_returns_alg():
+        """get_unverified_header returns the header dict with the alg."""
+>       token = jwt.encode({'sub': 'u'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = {'sub': 'u'}, key = b'unit-test-secret-key-0123456789', headers = None
+algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+________________ test_jwt_get_unverified_claims_returns_claims _________________
+
+    def test_jwt_get_unverified_claims_returns_claims():
+        """get_unverified_claims returns the claims without verification."""
+>       token = jwt.encode({'sub': 'u', 'role': 'admin'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = {'sub': 'u', 'role': 'admin'}
+key = b'unit-test-secret-key-0123456789', headers = None, algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+________________________ test_jws_sign_verify_roundtrip ________________________
+
+    def test_jws_sign_verify_roundtrip():
+        """jws.sign then jws.verify returns the original payload."""
+        payload = b'hello world'
+>       token = jws.sign(payload, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+payload = b'hello world', key = b'unit-test-secret-key-0123456789'
+headers = None, algorithm = 'HS256'
+
+    def sign(payload, key, headers=None, algorithm=ALGORITHMS.HS256):
+        """Signs a claims set and returns a JWS string.
+    
+        Args:
+            payload (str or dict): A string to sign
+            key (str or dict): The key to use for signing the claim set. Can be
+                individual JWK or JWK set.
+            headers (dict, optional): A set of headers that will be added to
+                the default headers.  Any headers that are added as additional
+                headers will override the default headers.
+            algorithm (str, optional): The algorithm to use for signing the
+                the claims.  Defaults to HS256.
+    
+        Returns:
+            str: The string representation of the header, claims, and signature.
+    
+        Raises:
+            JWSError: If there is an error signing the token.
+    
+        Examples:
+    
+            >>> jws.sign({'a': 'b'}, 'secret', algorithm='HS256')
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+    
+        """
+        if algorithm in ALGORITHMS.SUPPORTED:
+>           raise JWSError('Algorithm %s not supported.' % algorithm)
+E           jose.exceptions.JWSError: Algorithm HS256 not supported.
+
+venv/lib/python3.12/site-packages/jose/jws.py:39: JWSError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_unit.py::test_jwt_encode_decode_roundtrip - jos...
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_wrong_key_raises_jwt_error
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_expired_raises_expired_signature_error
+FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_header_returns_alg
+FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_claims_returns_claims
+FAILED tests/test_python_jose_unit.py::test_jws_sign_verify_roundtrip - jose....
+6 failed, 8 passed in 0.41s

@@ -1,0 +1,413 @@
+{
+  "package": "python-jose",
+  "records": [
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jws_sign_verify_roundtrip::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 6,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_expired_raises_expired_signature_error::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 8,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_wrong_key_raises_jwt_error::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 5,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_encode_decode_roundtrip::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 9,
+        "unique_mutants_killed": 1
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_claims_returns_claims::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 6,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_header_returns_alg::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 7,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_utils_base64url_roundtrip::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 1,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-14T01:20:37+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "image_digest": "sha256:e8276d99ada9a46acc64a703ffaa2449b09e73830f61b401d1483d311fdd5ed0",
+        "model_id": "qwen/qwen3.8-27b",
+        "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+        "run_id": "333f5fa69d50",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.13"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_utils_ensure_binary_coerces_str_to_bytes::75e20527cb85",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 1,
+        "unique_mutants_killed": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "generated": "2026-09-14T01:20:22+00:00",
+  "packages": [
+    {
+      "killed": 11,
+      "package": "python-jose",
+      "sampled": 25,
+      "score": 0.44,
+      "status": "ran"
+    }
+  ]
+}

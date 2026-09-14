@@ -1,0 +1,126 @@
+{
+  "generated": "2026-09-14T01:20:41+00:00",
+  "goals": [
+    {
+      "evidence_ref": [
+        "packet/python-jose/packet.md"
+      ],
+      "goal": "Nothing merges without a person",
+      "id": "G1",
+      "measurement": "harness produced patches and drafts only; no git push, no VEX published",
+      "source": "exec summary: humans own the merge",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/python-jose/results.json"
+      ],
+      "goal": "Every kept test was compiled and run in the sandbox before a reviewer sees it",
+      "id": "G2",
+      "measurement": "14 tests ran on head, again for flakes, and on base; 0 flaky",
+      "source": "principle: generated tests are hypotheses until executed",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "triage/python-jose/triage.json"
+      ],
+      "goal": "A test that passes on both versions is not presented as CVE evidence",
+      "id": "G3",
+      "measurement": "0 fix-pinning confirmed; pass-on-both CVE tests are classified test-bug and excluded from VEX 'fixed'",
+      "source": "principle: strong, not just green",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "selfcheck/selfcheck.json"
+      ],
+      "goal": "Stage 0 passed before evidence was produced",
+      "id": "G4",
+      "measurement": "20 of 20 register checks; sandbox probe skipped; model probe skipped",
+      "source": "section 8.5, section 17: self-verification",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/python-jose/new/sandbox.json"
+      ],
+      "goal": "Generated tests ran with no network, no secrets, read-only root, disposable container",
+      "id": "G5",
+      "measurement": "{'disposable': 'the task pod', 'limits': {'cpus': '2', 'memory': '2g', 'pids': 512, 'timeout_s': 900}, 'network': 'deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)', 'rootfs': 'read-only (claim)', 'runtime_class': 'default (no Kata or gVisor)', 'secrets': 'none mounted; environment cleared for the run', 'service_account_token': 'not mounted (claim)', 'target': 'pod'}",
+      "source": "section 11: incoming code is untrusted",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "attest/python-jose/statement.dsse.json"
+      ],
+      "goal": "Every accepted test carries a provenance record and a signed attestation",
+      "id": "G6",
+      "measurement": "8 records; envelopes verified locally: [True]; signer is a development key",
+      "source": "section 8.2: provenance",
+      "verdict": "met (development signer)"
+    },
+    {
+      "evidence_ref": [
+        "packet/python-jose/vex.openvex.json"
+      ],
+      "goal": "Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement",
+      "id": "G7",
+      "measurement": "python-jose: {'CVE-2024-29370': 'under_investigation', 'CVE-2024-33663': 'under_investigation', 'CVE-2024-33664': 'under_investigation'}",
+      "source": "section 10: known vulnerabilities with a CVE-targeted test",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "triage/python-jose/triage.json"
+      ],
+      "goal": "The run surfaces a finding the PR diff does not show",
+      "id": "G8",
+      "measurement": "python-jose: ['python-jose: a code path raised the same internal error on both versions during ', 'python-jose: a code path raised the same internal error on both versions during ', \"python-jose: test_jwt_decode_wrong_key_raises_jwt_error's 5 mutant kill(s) are a\", \"python-jose: test_jwt_decode_expired_raises_expired_signature_error's 8 mutant k\", \"python-jose: test_jwt_get_unverified_header_returns_alg's 7 mutant kill(s) are a\", \"python-jose: test_jwt_get_unverified_claims_returns_claims's 6 mutant kill(s) ar\", \"python-jose: test_jws_sign_verify_roundtrip's 6 mutant kill(s) are all among tes\", \"python-jose: test_utils_base64url_roundtrip's 1 mutant kill(s) are all among tes\", \"python-jose: test_utils_ensure_binary_coerces_str_to_bytes's 1 mutant kill(s) ar\"]",
+      "source": "exec summary: catches what a reviewer would miss",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "run.json",
+        "packet/summary.json"
+      ],
+      "goal": "Packet within 2 hours of trigger for depth 0 and 1",
+      "id": "G9",
+      "measurement": "intake 2026-09-14T00:14:10+00:00 -> packet 2026-09-14T01:20:33+00:00",
+      "source": "section 10: time to packet",
+      "verdict": "see measurement"
+    },
+    {
+      "evidence_ref": [
+        "attest/python-jose/statement.json"
+      ],
+      "goal": "Every number in the packet points at a file in the work directory",
+      "id": "G10",
+      "measurement": "packet sections cite artifact paths; attestation subjects are the patch and the manifest digests",
+      "source": "section 17: every claim traceable",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/python-jose/mutation/mutation.json"
+      ],
+      "goal": "Test strength measured by mutation and coverage delta",
+      "id": "G11",
+      "measurement": "python-jose: score 0.44 on 25 sampled mutants; coverage delta: no baseline overlay suite yet",
+      "source": "section 10: mutation score, coverage delta",
+      "verdict": "not met (target 0.6 on sampled mutants)"
+    }
+  ],
+  "packages": [
+    "python-jose"
+  ],
+  "run_id": "333f5fa69d50",
+  "summary": {
+    "met": 9,
+    "not_applicable": 0,
+    "not_met": 0,
+    "other": 1
+  }
+}

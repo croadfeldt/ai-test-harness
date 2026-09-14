@@ -94,7 +94,7 @@ same budget. Then pyasn1 and starlette went through the same pipeline once each 
 vulnerability. The register grew to nineteen entries along the way; every one has a check that runs
 before every pipeline run.
 
-## The same pipeline on a cluster (`-cluster/`, `-cluster-run2/`)
+## The same pipeline on a cluster (`-cluster/`, `-cluster-run2/`, `-cluster-run3/`)
 
 Everything above ran on a workstation. These two runs are the same pipeline as a Tekton PipelineRun
 on OpenShift: one task per stage, stage 0 first, and the execute pod is the sandbox. A deny-all
@@ -106,6 +106,7 @@ beyond the image digest; the model was the same laptop model, reached from the p
 |---|---|---|---|---|---|---|
 | `-cluster/` | 14 | 1 vulnerability (CVE-2024-33663) | 10 | 0.40 (10 of 25) | 19, sealed | 49 minutes |
 | `-cluster-run2/` | 7 | 0 | 0 | 0.48 (12 of 25) | 9, sealed | 62 minutes |
+| `-cluster-run3/` | 14 | 0 | 8 | 0.44 (11 of 25) | 17, sealed | 66 minutes |
 
 The first cluster run proved the key-confusion vulnerability and signed the evidence, but two stages
 were re-run by hand on the same workspace: attest and assess had crashed on a package that was
@@ -114,10 +115,14 @@ fix, which is that later stages only handle what the run executed. The second ru
 unaided and proved nothing. Same model, same
 rules: the unit file it wrote imported a name the package does not have, and the generator shipped
 it anyway because the keep step cut only tests named in the baseline failures, and a file that fails
-to import names no test. That is register entry GF-020, with a check that now runs before every run.
+to import names no test. That is register entry GF-020, with a check that now runs before every run. The third run carried
+every fix and went end to end unaided: the unit file collected, eight tests were accepted and
+signed, and none of the three CVE tests told the two versions apart. Three runs, same model, same
+rules, one proof: at this model size the proof is a matter of attempts, which is what the
+stronger-model rung is for.
 
-Getting the pipeline through the cluster took ten runs. Each one stopped one stage further than the
-last, on something the workstation never sees, and each fix is one commit:
+Getting the pipeline through the cluster took ten runs. The first seven each stopped one stage further
+than the last, on something the workstation never sees, and each fix is one commit:
 
 | Stopped at | Cause | Fix |
 |---|---|---|
@@ -180,7 +185,7 @@ digests, verdicts, and every other recorded fact are unchanged (`tools/redact-lo
 | `rescan/` | A scheduled scan of `main`: 63 packages, 7 with known vulnerabilities, before any change |
 | `pr-fix-known-vulns/` through `-run4/` | python-jose runs 1 to 4, kept as produced, for the ladder above |
 | `pr-fix-known-vulns-run5/` | The full pipeline on all three packages: the packets, VEX drafts, signed attestations, mutation results, and the post-analysis |
-| `pr-fix-known-vulns-cluster/`, `-cluster-run2/` | python-jose through the same pipeline as a Tekton PipelineRun on OpenShift, the execute pod as the sandbox; see "The same pipeline on a cluster" |
+| `pr-fix-known-vulns-cluster/`, `-cluster-run2/`, `-cluster-run3/` | python-jose through the same pipeline as a Tekton PipelineRun on OpenShift, the execute pod as the sandbox; see "The same pipeline on a cluster" |
 
 Inside a run: `intake/` (dependency graph, SBOM, work list), `analyze/` (facts per package),
 `generate/` (candidate tests, every model prompt and response), `execute/` (results on both versions,

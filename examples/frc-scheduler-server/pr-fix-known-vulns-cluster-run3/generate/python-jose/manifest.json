@@ -1,0 +1,167 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 5,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "direction": "fix",
+    "fixed": "3.4.0",
+    "vulnerable": "3.3.0"
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 492,
+        "status": {
+          "test_jwk_construct_hmac_key": "fail",
+          "test_jws_sign_verify_roundtrip": "pass",
+          "test_jws_verify_wrong_key_raises_jws_signature_error": "fail",
+          "test_jwt_decode_expired_raises_expired_signature_error": "pass",
+          "test_jwt_decode_wrong_key_raises_jwt_error": "pass",
+          "test_jwt_encode_decode_roundtrip": "pass",
+          "test_jwt_get_unverified_claims_returns_claims": "pass",
+          "test_jwt_get_unverified_header_returns_alg": "pass",
+          "test_utils_base64url_roundtrip": "pass",
+          "test_utils_ensure_binary_coerces_str_to_bytes": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "jose.exceptions.JWSError: Signature verification failed.",
+          "reason": "fails on baseline after repair",
+          "test": "test_jws_verify_wrong_key_raises_jws_signature_error"
+        },
+        {
+          "message": "AttributeError: 'CryptographyHMACKey' object has no attribute 'as_dict'. Did you mean: 'to_dict'?",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwk_construct_hmac_key"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:77675d3e37915ad4c97caa40844f5ca90058b1ef1f17d4999dc82f595b35f035",
+      "response_sha256": "sha256:e608a5fadd9fc08a708db7f7c2135a988398f7846d965735299e9ce829c826c2",
+      "sha256": "sha256:75e20527cb852c810f75b30f1912380532e20eae41615d40d169f17c3dbc0f96",
+      "targets": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "tests": [
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jws_sign_verify_roundtrip",
+        "test_utils_base64url_roundtrip",
+        "test_utils_ensure_binary_coerces_str_to_bytes"
+      ]
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests assert that an OpenSSH ECDSA public key string is rejected as an HMAC secret (GHSA-6c5p-j8vq-pqhj / CVE-2024-33663). Caveat: in the sandbox both 3.3.0 and 3.4.0 reject the trigger because the embedded PEM header also matches the old invalid_strings check, so the tests pass on both versions and do not differentially pin the fix; the harness should verify against true 3.3.0.",
+      "sha256": "sha256:ad0ff2b55ba97e3aa402d5b1fe83babc22143fddc455b0cb141abb84980b878f",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "tool_calls": 12
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a valid DIR/A256GCM JWE with zip=DEF whose payload decompresses to 10MB; fixed 3.4.0 raises JWEError via the new JWE_SIZE_LIMIT checks, vulnerable 3.3.0 decompresses fully. Caveat: sandbox runs showed both versions passing (likely the old env already had the fix or the bomb did not reach decompression), so the old-failure was not directly observed.",
+      "sha256": "sha256:a91e17b4278b45af3246d7a55341e8a334f72baa539fd01837aead3587f5ed69",
+      "targets": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "tests": [
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a valid dir/A128GCM zip=DEF JWE whose ciphertext decompresses to ~1 MiB, exceeding the 250 KiB JWE_SIZE_LIMIT added in 3.4.0; assert JWEError is raised. Caveat: in the sandbox both 3.3.0 and 3.4.0 raised JWEError on this input (the old version's GCM decrypt path also errored), so the fix-pinning test could not be observed failing on the vulnerable version; the trigger and assertion match the fix diff (token-size check + bounded decompression in jose/jwe.py).",
+      "sha256": "sha256:d0bcace7815f4a7447ca9ab3001cd2e23c50e875166887d43e1de2533404fefc",
+      "targets": [
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-14T00:14:28+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "laptop-lmstudio",
+    "endpoint_digest": "sha256:657141afb9ad95bf",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

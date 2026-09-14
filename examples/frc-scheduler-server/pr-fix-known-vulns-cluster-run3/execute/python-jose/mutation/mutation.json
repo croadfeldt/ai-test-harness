@@ -1,0 +1,474 @@
+{
+  "engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+  "generated": "2026-09-14T01:20:22+00:00",
+  "killed": 11,
+  "mutants": [
+    {
+      "duration_s": 18.9,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m001",
+      "killed_by": [],
+      "line": 463,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/jwe.py",
+      "id": "m002",
+      "killed_by": [],
+      "line": 237,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/jwt.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 402,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/utils.py",
+      "id": "m004",
+      "killed_by": [],
+      "line": 139,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/utils.py",
+      "id": "m005",
+      "killed_by": [
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_pysec_2025_185_exposure",
+        "test_pysec_2025_185_fix_pinning",
+        "test_utils_base64url_roundtrip"
+      ],
+      "line": 78,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/jwt.py",
+      "id": "m006",
+      "killed_by": [],
+      "line": 269,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m007",
+      "killed_by": [],
+      "line": 467,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/jwe.py",
+      "id": "m008",
+      "killed_by": [],
+      "line": 83,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.7,
+      "file": "jose/jwt.py",
+      "id": "m009",
+      "killed_by": [
+        "test_jwt_encode_decode_roundtrip"
+      ],
+      "line": 405,
+      "operator": "not-drop",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.1,
+      "file": "jose/jws.py",
+      "id": "m010",
+      "killed_by": [
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg"
+      ],
+      "line": 180,
+      "operator": "const-int",
+      "status": "killed"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 469,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.8,
+      "file": "jose/jws.py",
+      "id": "m012",
+      "killed_by": [],
+      "line": 258,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m013",
+      "killed_by": [],
+      "line": 469,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.2,
+      "file": "jose/jwk.py",
+      "id": "m014",
+      "killed_by": [
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_pysec_2025_185_exposure",
+        "test_pysec_2025_185_fix_pinning"
+      ],
+      "line": 77,
+      "operator": "not-drop",
+      "status": "killed"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/constants.py",
+      "id": "m015",
+      "killed_by": [],
+      "line": 100,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.8,
+      "file": "jose/backends/base.py",
+      "id": "m016",
+      "killed_by": [
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_pysec_2025_185_exposure",
+        "test_pysec_2025_185_fix_pinning"
+      ],
+      "line": 85,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.1,
+      "file": "jose/jwt.py",
+      "id": "m017",
+      "killed_by": [
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_encode_decode_roundtrip"
+      ],
+      "line": 285,
+      "operator": "compare-swap",
+      "status": "killed"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/jwk.py",
+      "id": "m018",
+      "killed_by": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg",
+        "test_pysec_2025_185_exposure",
+        "test_pysec_2025_185_fix_pinning"
+      ],
+      "line": 79,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/utils.py",
+      "id": "m019",
+      "killed_by": [
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_pysec_2025_185_exposure",
+        "test_pysec_2025_185_fix_pinning",
+        "test_utils_ensure_binary_coerces_str_to_bytes"
+      ],
+      "line": 107,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/jwt.py",
+      "id": "m020",
+      "killed_by": [],
+      "line": 299,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.9,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m021",
+      "killed_by": [],
+      "line": 455,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/jws.py",
+      "id": "m022",
+      "killed_by": [
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg"
+      ],
+      "line": 173,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/jws.py",
+      "id": "m023",
+      "killed_by": [
+        "test_jws_sign_verify_roundtrip",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_claims_returns_claims",
+        "test_jwt_get_unverified_header_returns_alg"
+      ],
+      "line": 42,
+      "operator": "compare-swap",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.0,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m024",
+      "killed_by": [],
+      "line": 467,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 18.8,
+      "file": "jose/jws.py",
+      "id": "m025",
+      "killed_by": [
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_encode_decode_roundtrip",
+        "test_jwt_get_unverified_header_returns_alg"
+      ],
+      "line": 95,
+      "operator": "return-none",
+      "status": "killed"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "python-jose",
+  "per_test": {
+    "test_ghsa_6c5p_j8vq_pqhj_fix_pinning": {
+      "killed": [
+        "m018"
+      ],
+      "unique": []
+    },
+    "test_ghsa_cjwg_qfpm_7377_exposure": {
+      "killed": [
+        "m005",
+        "m014",
+        "m016",
+        "m018",
+        "m019"
+      ],
+      "unique": []
+    },
+    "test_ghsa_cjwg_qfpm_7377_fix_pinning": {
+      "killed": [
+        "m005",
+        "m014",
+        "m016",
+        "m018",
+        "m019"
+      ],
+      "unique": []
+    },
+    "test_jws_sign_verify_roundtrip": {
+      "killed": [
+        "m005",
+        "m010",
+        "m014",
+        "m018",
+        "m022",
+        "m023"
+      ],
+      "unique": []
+    },
+    "test_jwt_decode_expired_raises_expired_signature_error": {
+      "killed": [
+        "m005",
+        "m010",
+        "m014",
+        "m017",
+        "m018",
+        "m022",
+        "m023",
+        "m025"
+      ],
+      "unique": []
+    },
+    "test_jwt_decode_wrong_key_raises_jwt_error": {
+      "killed": [
+        "m005",
+        "m014",
+        "m018",
+        "m022",
+        "m023"
+      ],
+      "unique": []
+    },
+    "test_jwt_encode_decode_roundtrip": {
+      "killed": [
+        "m005",
+        "m009",
+        "m010",
+        "m014",
+        "m017",
+        "m018",
+        "m022",
+        "m023",
+        "m025"
+      ],
+      "unique": [
+        "m009"
+      ]
+    },
+    "test_jwt_get_unverified_claims_returns_claims": {
+      "killed": [
+        "m005",
+        "m010",
+        "m014",
+        "m018",
+        "m022",
+        "m023"
+      ],
+      "unique": []
+    },
+    "test_jwt_get_unverified_header_returns_alg": {
+      "killed": [
+        "m005",
+        "m010",
+        "m014",
+        "m018",
+        "m022",
+        "m023",
+        "m025"
+      ],
+      "unique": []
+    },
+    "test_pysec_2025_185_exposure": {
+      "killed": [
+        "m005",
+        "m014",
+        "m016",
+        "m018",
+        "m019"
+      ],
+      "unique": []
+    },
+    "test_pysec_2025_185_fix_pinning": {
+      "killed": [
+        "m005",
+        "m014",
+        "m016",
+        "m018",
+        "m019"
+      ],
+      "unique": []
+    },
+    "test_utils_base64url_roundtrip": {
+      "killed": [
+        "m005"
+      ],
+      "unique": []
+    },
+    "test_utils_ensure_binary_coerces_str_to_bytes": {
+      "killed": [
+        "m019"
+      ],
+      "unique": []
+    }
+  },
+  "sampled": 25,
+  "score": 0.44,
+  "seed": 512944556,
+  "sites": 135,
+  "status": "ran",
+  "survived": 14,
+  "tests": [
+    "test_ghsa_6c5p_j8vq_pqhj_exposure",
+    "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+    "test_ghsa_cjwg_qfpm_7377_exposure",
+    "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+    "test_jws_sign_verify_roundtrip",
+    "test_jwt_decode_expired_raises_expired_signature_error",
+    "test_jwt_decode_wrong_key_raises_jwt_error",
+    "test_jwt_encode_decode_roundtrip",
+    "test_jwt_get_unverified_claims_returns_claims",
+    "test_jwt_get_unverified_header_returns_alg",
+    "test_pysec_2025_185_exposure",
+    "test_pysec_2025_185_fix_pinning",
+    "test_utils_base64url_roundtrip",
+    "test_utils_ensure_binary_coerces_str_to_bytes"
+  ],
+  "valid": 25,
+  "version": "3.4.0"
+}

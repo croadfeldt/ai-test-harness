@@ -1,0 +1,64 @@
+{
+  "import_names": [
+    "starlette"
+  ],
+  "package": "starlette",
+  "sites": [
+    {
+      "context": "from starlette.middleware.base import BaseHTTPMiddleware",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 29,
+      "symbol": "starlette.middleware.base.BaseHTTPMiddleware"
+    },
+    {
+      "context": "class SecurityHeadersMiddleware(BaseHTTPMiddleware):",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 164,
+      "symbol": "starlette.middleware.base.BaseHTTPMiddleware"
+    },
+    {
+      "context": "from starlette.responses import Response",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 30,
+      "symbol": "starlette.responses.Response"
+    },
+    {
+      "context": "async def dispatch(self, request: Request, call_next) -> Response:",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 165,
+      "symbol": "starlette.responses.Response"
+    },
+    {
+      "context": "return Response(",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 887,
+      "symbol": "starlette.responses.Response"
+    },
+    {
+      "context": "return Response(",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 4604,
+      "symbol": "starlette.responses.Response"
+    },
+    {
+      "context": "return Response(",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 4617,
+      "symbol": "starlette.responses.Response"
+    },
+    {
+      "context": "return Response(status_code=204)",
+      "file": "app/main.py",
+      "in_test": false,
+      "line": 5134,
+      "symbol": "starlette.responses.Response"
+    }
+  ]
+}

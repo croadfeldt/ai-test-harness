@@ -1,0 +1,1399 @@
+{
+  "changes": [
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.decoders.Base64Decoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, underlying: 'SupportsWrite[bytes]') -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.Base64Decoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.Base64Decoder.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.Base64Decoder.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.Base64Decoder.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.decoders.QuotedPrintableDecoder"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, underlying: 'SupportsWrite[bytes]') -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.QuotedPrintableDecoder.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.QuotedPrintableDecoder.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.QuotedPrintableDecoder.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.decoders.QuotedPrintableDecoder.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ParseError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.DecodeError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(FormParserError, OSError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.FileError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ValueError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.FormParserError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ParseError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.MultipartParseError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(FormParserError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.ParseError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(ParseError)",
+      "reason": "class removed",
+      "symbol": "multipart.exceptions.QuerystringParseError"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'&'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.AMPERSAND"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.BaseParser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.BaseParser.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, name: CallbackName, data: bytes | None=None, start: int | None=None, end: int | None=None) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.BaseParser.callback"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.BaseParser.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.BaseParser.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, name: CallbackName, new_func: Callable[..., Any] | None) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.BaseParser.set_callback"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b':'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.COLON"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'\\r'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.CR"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 2",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.FLAG_LAST_BOUNDARY"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= 1",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.FLAG_PART_BOUNDARY"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.Field"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, name: bytes | None) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bytes | None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.field_name"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(cls, name: bytes, value: bytes | None) -> Field",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.from_value"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.on_data"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.on_end"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.set_none"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bytes | None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.value"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.Field.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.File"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, file_name: bytes | None, field_name: bytes | None=None, config: FileConfig={}) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bytes | None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.actual_file_name"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bytes | None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.field_name"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bytes | None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.file_name"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> BytesIO | BufferedRandom",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.file_object"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.flush_to_disk"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> bool",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.in_memory"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.on_data"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.on_end"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.size"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.File.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "()",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.FormParser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, content_type: str, on_field: OnFieldCallback | None, on_file: OnFileCallback | None, on_end: Callable[[], None] | None=None, boundary: bytes | str | None=None, file_name: bytes | None=None, FileClass: type[FileProtocol]=File, FieldClass: type[FieldProtocol]=Field, config: dict[Any, Any]={}) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.FormParser.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.FormParser.close"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.FormParser.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.FormParser.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'-'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.HYPHEN"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'\\n'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.LF"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'a'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.LOWER_A"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'z'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.LOWER_Z"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(BaseParser)",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.MultipartParser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, boundary: bytes | str, callbacks: MultipartCallbacks={}, max_size: float=float('inf')) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.MultipartParser.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.MultipartParser.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.MultipartParser.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(IntEnum)",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.MultipartState"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b'\\x00'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.NULL"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(BaseParser)",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.OctetStreamParser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, callbacks: OctetStreamCallbacks={}, max_size: float=float('inf'))",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.OctetStreamParser.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.OctetStreamParser.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.OctetStreamParser.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(BaseParser)",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.QuerystringParser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, callbacks: QuerystringCallbacks={}, strict_parsing: bool=False, max_size: float=float('inf')) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.QuerystringParser.__init__"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self) -> None",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.QuerystringParser.finalize"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(self, data: bytes) -> int",
+      "reason": "method removed",
+      "symbol": "multipart.multipart.QuerystringParser.write"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(IntEnum)",
+      "reason": "class removed",
+      "symbol": "multipart.multipart.QuerystringState"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b';'[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.SEMICOLON"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= b' '[0]",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.SPACE"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "= frozenset(b\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'",
+      "reason": "constant removed",
+      "symbol": "multipart.multipart.TOKEN_CHARS_SET"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(headers: dict[str, bytes], on_field: OnFieldCallback | None, on_file: OnFileCallback | None, trust_x_headers: bool=False, config: dict[Any, Any]={}) -> FormParser",
+      "reason": "function removed",
+      "symbol": "multipart.multipart.create_form_parser"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(headers: dict[str, bytes], input_stream: SupportsRead, on_field: OnFieldCallback | None, on_file: OnFileCallback | None, chunk_size: int=1048576) -> None",
+      "reason": "function removed",
+      "symbol": "multipart.multipart.parse_form"
+    },
+    {
+      "breaking": true,
+      "kind": "removed",
+      "new_signature": null,
+      "old_signature": "(value: str | bytes | None) -> tuple[bytes, dict[bytes, bytes]]",
+      "reason": "function removed",
+      "symbol": "multipart.multipart.parse_options_header"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "python_multipart"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "python_multipart.decoders"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.decoders.Base64Decoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, underlying: 'SupportsWrite[bytes]') -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.Base64Decoder.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.Base64Decoder.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.Base64Decoder.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.Base64Decoder.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.decoders.QuotedPrintableDecoder"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, underlying: 'SupportsWrite[bytes]') -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.QuotedPrintableDecoder.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.QuotedPrintableDecoder.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.QuotedPrintableDecoder.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.decoders.QuotedPrintableDecoder.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "python_multipart.exceptions"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ParseError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.DecodeError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(FormParserError, OSError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.FileError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ValueError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.FormParserError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ParseError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.MultipartParseError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(FormParserError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.ParseError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, message: str, *, offset: int=-1) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.exceptions.ParseError.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(ParseError)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.exceptions.QuerystringParseError"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": null,
+      "old_signature": null,
+      "reason": "module added",
+      "symbol": "python_multipart.multipart"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'&'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.AMPERSAND"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.BaseParser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.BaseParser.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, name: CallbackName, data: bytes | None=None, start: int | None=None, end: int | None=None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.BaseParser.callback"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.BaseParser.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.BaseParser.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, name: CallbackName, new_func: Callable[..., Any] | None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.BaseParser.set_callback"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b':'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.COLON"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'\\r'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.CR"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 8",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.DEFAULT_MAX_HEADER_COUNT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 4096 + 128",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.DEFAULT_MAX_HEADER_SIZE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 2",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.FLAG_LAST_BOUNDARY"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 1",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.FLAG_PART_BOUNDARY"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.Field"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, name: bytes | None, *, content_type: str | None=None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> str | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.content_type"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bytes | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.field_name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(cls, name: bytes, value: bytes | None) -> Field",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.from_value"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.on_data"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.on_end"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.set_none"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bytes | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.value"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.Field.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.File"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, file_name: bytes | None, field_name: bytes | None=None, config: FileConfig={}, *, content_type: str | None=None) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bytes | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.actual_file_name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> str | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.content_type"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bytes | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.field_name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bytes | None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.file_name"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> BytesIO | BufferedRandom",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.file_object"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.flush_to_disk"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> bool",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.in_memory"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.on_data"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.on_end"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.size"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.File.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "()",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.FormParser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, content_type: str, on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, on_end: Callable[[], None] | None=None, boundary: bytes | str | None=None, file_name: bytes | None=None, config: dict[Any, Any]={}) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.FormParser.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.FormParser.close"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.FormParser.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.FormParser.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'-'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.HYPHEN"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'\\n'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.LF"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'a'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.LOWER_A"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'z'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.LOWER_Z"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 256",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.MAX_BOUNDARY_LENGTH"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(BaseParser)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.MultipartParser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, boundary: bytes | str, callbacks: MultipartCallbacks={}, max_size: float=float('inf'), *, max_header_count: int=DEFAULT_MAX_HEADER_COUNT, max_header_size: int=DEFAULT_MAX_HEADER_SIZE) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.MultipartParser.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.MultipartParser.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.MultipartParser.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(IntEnum)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.MultipartState"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b'\\x00'[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.NULL"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(BaseParser)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.OctetStreamParser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, callbacks: OctetStreamCallbacks={}, max_size: float=float('inf'))",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.OctetStreamParser.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.OctetStreamParser.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.OctetStreamParser.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(BaseParser)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.QuerystringParser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, callbacks: QuerystringCallbacks={}, strict_parsing: bool=False, max_size: float=float('inf')) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.QuerystringParser.__init__"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self) -> None",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.QuerystringParser.finalize"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(self, data: bytes) -> int",
+      "old_signature": null,
+      "reason": "method added",
+      "symbol": "python_multipart.multipart.QuerystringParser.write"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(IntEnum)",
+      "old_signature": null,
+      "reason": "class added",
+      "symbol": "python_multipart.multipart.QuerystringState"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b' '[0]",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.SPACE"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= b\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'*+-.^_`|~\"",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.TOKEN_CHARS"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= frozenset(TOKEN_CHARS)",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "python_multipart.multipart.TOKEN_CHARS_SET"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(headers: dict[str, bytes], on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, config: dict[Any, Any]={}) -> FormParser",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "python_multipart.multipart.create_form_parser"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(headers: dict[str, bytes], input_stream: SupportsRead, on_field: Callable[[Field], None] | None, on_file: Callable[[File], None] | None, chunk_size: int=1048576) -> None",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "python_multipart.multipart.parse_form"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(value: str | bytes | None) -> tuple[bytes, dict[bytes, bytes]]",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "python_multipart.multipart.parse_options_header"
+    }
+  ],
+  "new": "0.0.31",
+  "old": "0.0.12",
+  "package": "python-multipart"
+}

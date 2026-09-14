@@ -1,0 +1,13 @@
+{
+  "generated": "2026-09-14T01:20:25+00:00",
+  "packages": [
+    {
+      "horizon": "this change",
+      "human_written": 0,
+      "obsolete": 0,
+      "package": "python-jose",
+      "redundant": 7,
+      "rewrite_candidates": 0
+    }
+  ]
+}
