@@ -1,0 +1,13 @@
+{
+  "generated": "2026-09-14T15:01:16+00:00",
+  "packages": [
+    {
+      "horizon": "the upgrade to v0.144.0",
+      "human_written": 0,
+      "obsolete": 0,
+      "package": "github.com/getkin/kin-openapi",
+      "redundant": 0,
+      "rewrite_candidates": 0
+    }
+  ]
+}
