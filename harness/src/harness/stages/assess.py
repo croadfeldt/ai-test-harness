@@ -69,7 +69,7 @@ def assess(*, workdir: Path) -> dict:
          measure, verdict, [f"execute/{p}/mutation/mutation.json" for p in muts])
     met = sum(1 for g in goals if g["verdict"].startswith("met"))
     rec = {"generated": now_iso(), "run_id": wl["run_id"], "packages": pkgs, "goals": goals,
-           "summary": {"met": met, "not_met": sum(1 for g in goals if g["verdict"] == "not met"),
+           "summary": {"met": met, "not_met": sum(1 for g in goals if g["verdict"].startswith("not met")),
                        "not_applicable": sum(1 for g in goals if g["verdict"] == "not applicable"), "other": sum(1 for g in goals if g["verdict"] == "see measurement")}}
     write_json(workdir / "assess" / "assess.json", rec)
     not_met = [g["goal"] for g in goals if g["verdict"].startswith("not met")]

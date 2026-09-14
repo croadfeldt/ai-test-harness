@@ -130,6 +130,7 @@ Nineteen entries, each with the issue, why it matters, the cause, the detector, 
 | GF-015 | eleven identical failures in a row; reported as a blocked path |
 | GF-016 | on a downgrade the new version is the vulnerable one; roles from advisories |
 | GF-019 | reasoning streamed as content and looped; detected, thinking off |
+| GF-020 | a file that never collected on the baseline shipped as kept; now discarded |
 
 ---
 

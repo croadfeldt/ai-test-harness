@@ -26,3 +26,18 @@ comes from the pod spec and the network policy rather than from Podman flags, an
 execute task's pod template; without one the record says "default (no Kata or gVisor)". Konflux
 supplies the snapshot, Hermeto's graph, and Trusted Artifact Signer; this pipeline resolves the graph
 itself and signs with the key the attest task is given.
+
+**Getting the results out.** The run directory lives on the shared claim. Copy it with a pod that
+mounts the claim and has `tar` (the harness image does; a minimal base image may not):
+
+```
+oc run ws-copy -n ai-test-harness --restart=Never --image=<harness image by digest> \
+  --overrides='{"spec":{"volumes":[{"name":"w","persistentVolumeClaim":{"claimName":"harness-shared"}}],
+  "containers":[{"name":"p","image":"<harness image by digest>","command":["sleep","1800"],"volumeMounts":[{"name":"w","mountPath":"/w"}]}]}}'
+oc exec -n ai-test-harness ws-copy -- sh -c 'cd /w/run && tar cf - --exclude=cache --exclude=scratch .' | tar xf - -C ./run
+oc delete pod ws-copy -n ai-test-harness
+```
+
+`cache/` holds downloaded wheels and `scratch/` the generator's working copies; both are recreated
+by a run. Clear the rest of `run/` before a new run on the same claim, or give the run its own claim.
+The committed example PipelineRun has placeholders for the image and the repository.
