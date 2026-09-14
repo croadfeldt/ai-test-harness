@@ -204,6 +204,7 @@ def gf019():
     from .llm import strip_think
     assert strip_think("<think>plan plan</think>\n```python\nx=1\n```") == ("```python\nx=1\n```", 25)
     assert strip_think("<think>never closed")[0] == ""
+    assert strip_think("The user asks for ok. No reasoning needed.\n</think>\n\nok")[0] == "ok", "template-opened reasoning must be stripped"
 
 
 @check("GF-020", "a test file whose last baseline run collected nothing is discarded, never shipped")

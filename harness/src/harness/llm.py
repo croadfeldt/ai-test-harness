@@ -109,7 +109,9 @@ class Model:
                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
-        if self.cfg.reasoning_effort:
+        if self.cfg.reasoning_effort and not self.cfg.thinking:
+            # reasoning_effort is LM Studio's knob; with thinking requested through the chat template
+            # (vLLM), the value "none" is rejected outright, and the template already governs.
             body["reasoning_effort"] = self.cfg.reasoning_effort
         body["stream"] = True
         body["stream_options"] = {"include_usage": True}
@@ -139,7 +141,13 @@ class Model:
                         finish = "loop_detected"
                         break
         except Exception as e:
-            raise HarnessError(f"model call failed ({tag}): {e}") from e
+            body_text = ""
+            if hasattr(e, "read"):
+                try:
+                    body_text = e.read().decode(errors="replace")[:600]
+                except Exception:
+                    body_text = ""
+            raise HarnessError(f"model call failed ({tag}): {e} {body_text}".strip()) from e
         text, stripped = strip_think(text)
         thinking_fallback = False
         if self.cfg.thinking and (reasoning_leak(text) or finish == "loop_detected") and not getattr(self, "_in_fallback", False):
@@ -183,7 +191,9 @@ class Model:
         body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.cap(max_tokens),
                 "messages": messages, "tools": tools, "tool_choice": "auto",
                 "frequency_penalty": self.cfg.frequency_penalty, "stream": True, "stream_options": {"include_usage": True}}
-        if self.cfg.reasoning_effort:
+        if self.cfg.reasoning_effort and not self.cfg.thinking:
+            # reasoning_effort is LM Studio's knob; with thinking requested through the chat template
+            # (vLLM), the value "none" is rejected outright, and the template already governs.
             body["reasoning_effort"] = self.cfg.reasoning_effort
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
@@ -250,6 +260,10 @@ def strip_think(text: str) -> tuple[str, int]:
     before = len(text)
     text = re.sub(r"<think>.*?</think>\s*", "", text, flags=re.S)
     text = re.sub(r"<think>.*$", "", text, flags=re.S)
+    # Qwen's template opens the block in the prompt, so a served response can carry reasoning with
+    # only the closing tag: everything up to the first </think> is reasoning.
+    if "</think>" in text and "<think>" not in text:
+        text = re.sub(r"^.*?</think>\s*", "", text, count=1, flags=re.S)
     return text, before - len(text)
 
 
