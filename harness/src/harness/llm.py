@@ -30,7 +30,10 @@ class ModelConfig:
     no_think: bool = False    # Qwen3 soft switch in the prompt; ignored by LM Studio for qwen3.8
     reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
     frequency_penalty: float = 0.3          # discourages the repetition loops a 27B falls into on long literals
+    presence_penalty: float = 0.0           # Qwen's own advice against repetition inside thinking; sent only when set
     chat_template_kwargs: dict | None = None  # vLLM: {"enable_thinking": false}; LM Studio ignores it
+
+    EFFORTS = ("low", "medium", "high", "xhigh")   # what a vLLM thinking run accepts; "none" is LM Studio's off switch
 
     @property
     def thinking(self) -> bool:
@@ -63,7 +66,8 @@ class ModelConfig:
         thinking = str(_config.get("model", "thinking", "HARNESS_MODEL_THINKING", "off"))
         cfg = cls(base_url=base, model=model, api_key=api_key,
                   max_tokens=int(_config.get("model", "max_tokens", "HARNESS_MODEL_MAX_TOKENS", 6000)),
-                  temperature=float(os.environ.get("HARNESS_MODEL_TEMPERATURE", "0.2")),
+                  temperature=float(_config.get("model", "temperature", "HARNESS_MODEL_TEMPERATURE", 0.2)),
+                  presence_penalty=float(_config.get("model", "presence_penalty", "HARNESS_MODEL_PRESENCE_PENALTY", 0.0)),
                   no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
                   reasoning_effort=None if reasoning == "default" else reasoning,
                   chat_template_kwargs=None if thinking == "default" else {"enable_thinking": thinking == "on"})
@@ -109,10 +113,7 @@ class Model:
                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
-        if self.cfg.reasoning_effort and not self.cfg.thinking:
-            # reasoning_effort is LM Studio's knob; with thinking requested through the chat template
-            # (vLLM), the value "none" is rejected outright, and the template already governs.
-            body["reasoning_effort"] = self.cfg.reasoning_effort
+        self._reasoning_fields(body)
         body["stream"] = True
         body["stream_options"] = {"include_usage": True}
         body["frequency_penalty"] = self.cfg.frequency_penalty
@@ -172,7 +173,7 @@ class Model:
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
                   "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
-                  "frequency_penalty": self.cfg.frequency_penalty, "max_tokens": self.cfg.cap(max_tokens),
+                  "frequency_penalty": self.cfg.frequency_penalty, "presence_penalty": self.cfg.presence_penalty, "max_tokens": self.cfg.cap(max_tokens),
                   "chat_template_kwargs": self.cfg.chat_template_kwargs, "thinking": self.cfg.thinking,
                   "prompt_sha256": sha256_text(system + "\n---\n" + user),
                   "response_sha256": sha256_text(text), "usage": usage, "response_chars": len(text), "think_chars_stripped": stripped,
@@ -183,6 +184,17 @@ class Model:
         return text, record
 
 
+    def _reasoning_fields(self, body: dict) -> None:
+        """reasoning_effort is LM Studio's off switch ("none") and vLLM's depth knob (low, medium, high,
+        xhigh) at once. With thinking requested through the chat template only a depth is sent; "none"
+        would be rejected outright, and the template already governs. A presence penalty goes out only
+        when configured: it is the lever for repetition inside a thinking block."""
+        eff = self.cfg.reasoning_effort
+        if eff and (not self.cfg.thinking or eff in self.cfg.EFFORTS):
+            body["reasoning_effort"] = eff
+        if self.cfg.presence_penalty:
+            body["presence_penalty"] = self.cfg.presence_penalty
+
     def chat_tools(self, messages: list[dict], tools: list[dict], tag: str, max_tokens: int = 1500) -> tuple[dict, dict]:
         """One agent turn: full message history plus tool schemas, non-streaming. Returns the assistant
         message (content and/or tool_calls) and the call record."""
@@ -191,10 +203,7 @@ class Model:
         body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.cap(max_tokens),
                 "messages": messages, "tools": tools, "tool_choice": "auto",
                 "frequency_penalty": self.cfg.frequency_penalty, "stream": True, "stream_options": {"include_usage": True}}
-        if self.cfg.reasoning_effort and not self.cfg.thinking:
-            # reasoning_effort is LM Studio's knob; with thinking requested through the chat template
-            # (vLLM), the value "none" is rejected outright, and the template already governs.
-            body["reasoning_effort"] = self.cfg.reasoning_effort
+        self._reasoning_fields(body)
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),

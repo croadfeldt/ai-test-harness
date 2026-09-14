@@ -8,8 +8,10 @@ base_url = "http://localhost:1234/v1"          # env: HARNESS_MODEL_BASE_URL
 name = ""                                      # env: HARNESS_MODEL; empty = first id the endpoint lists
 label = "local"                                # what the records call this endpoint; the address itself is never recorded
 api_key_env = ""                               # name of an env var holding a bearer token, if the endpoint needs one
-reasoning = "none"                             # LM Studio: reasoning_effort ("none" | "low" | "medium" | "high" | "default")
+reasoning = "none"                             # LM Studio's off switch ("none") or the depth a vLLM thinking run uses ("low" | "medium" | "high" | "xhigh" | "default")
 thinking = "off"                               # vLLM: chat_template_kwargs.enable_thinking ("off" | "on" | "default")
+temperature = 0.2                              # env: HARNESS_MODEL_TEMPERATURE
+presence_penalty = 0.0                         # env: HARNESS_MODEL_PRESENCE_PENALTY; Qwen's lever against repetition inside thinking, sent only when set
 max_tokens = 6000
 
 [target]
