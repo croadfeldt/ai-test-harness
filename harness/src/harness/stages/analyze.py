@@ -90,7 +90,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
                                     "affected_symbols_in_use": affected_in_use})
     high = any(v.get("severity") for v in vulns)
 
-    md = pypi.metadata(it.package, it.new_version or it.old_version, cache)
+    md = adapter.metadata(it.package, it.new_version or it.old_version, cache)
     notes_ref = None
     if md:
         (out / "notes.untrusted.md").write_text(UNTRUSTED_BANNER + f"# {md['name']} {md['version']}\n\n"
@@ -134,16 +134,16 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
 
 
 def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = False,
-            python_version: str | None = None) -> list[FactBundle]:
+            python_version: str | None = None, repo: str | None = None) -> list[FactBundle]:
     wl_path = workdir / "intake" / "worklist.json"
     if not wl_path.exists():
         raise HarnessError(f"no work list at {wl_path}; run intake first")
     raw = read_json(wl_path)
     from ..model import Preflight
     wl = WorkList(**{**raw, "items": [WorkItem(**{**i, "preflight": Preflight(**i["preflight"])}) for i in raw["items"]]})
-    adapter = adapters.get("python")
+    adapter = adapters.get(raw.get("ecosystem", "python"))
     from .. import config
-    repo = config.target_repo(None) if not Path(wl.source_dir).is_absolute() else Path(wl.source_dir)
+    repo = config.resolve_repo(wl.source_dir, repo)
     vuln_index = read_json(workdir / "intake" / "vulns.json")
     graph = read_json(workdir / "intake" / "graph.new.json")["packages"]
     dependents_of = {name: sorted(p for p, d in graph.items() if name in d["requires"])

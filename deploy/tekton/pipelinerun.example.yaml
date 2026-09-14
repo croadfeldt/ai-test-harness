@@ -13,11 +13,16 @@ spec:
     - { name: head, value: deps/fix-known-vulns }
     - { name: select, value: ["python-jose"] }
     - { name: udlm-repo-url, value: "https://github.com/croadfeldt/udlm.git" }
+  # One claim, three workspaces by subPath: Tekton's affinity assistant allows a task pod one
+  # PersistentVolumeClaim, and every stage needs the results and the source together.
   workspaces:
     - name: results
-      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 5Gi } } } }
+      subPath: results
+      volumeClaimTemplate: { metadata: { name: shared }, spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 8Gi } } } }
     - name: source
-      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 1Gi } } } }
+      subPath: source
+      volumeClaimTemplate: { metadata: { name: shared }, spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 8Gi } } } }
     - name: udlm
-      volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 1Gi } } } }
+      subPath: udlm
+      volumeClaimTemplate: { metadata: { name: shared }, spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 8Gi } } } }
   timeouts: { pipeline: 4h }

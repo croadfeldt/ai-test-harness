@@ -13,6 +13,12 @@ harness must do; this package is one way of doing it; `examples/` holds what it 
 
 Opinionated means the capability map's primary choices are fixed here, not configurable:
 
+## More than one target repository
+
+A work directory belongs to the repository intake ran on. Stages that read the repository (`analyze`,
+`relevance`) take it from the local configuration, or from `--repo`, and refuse to run when the two
+disagree, so facts are never gathered from the wrong checkout.
+
 ## Configure a local install
 
 Nothing about a particular machine, network, or account is in this repository. Copy
@@ -123,4 +129,4 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |
 | attest | implemented: provenance record per accepted test (manifest.schema.yaml) and the same facts as UDLM records (TestEvidence at the harness's provider class, VexStatement, Vulnerability, SoftwarePackage, Job) sealed with UDLM's chain code from a local checkout; in-toto Statement with the test-result/v0.1 predicate whose subjects include each evidence record's head; DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
 | assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |
-| Go adapter | after the Python adapter is complete end to end |
+| Go adapter | stages 1 and 2 implemented: `go list`/`go mod graph` for the graph, `go mod download` for source, a go/ast helper (`adapters/gohelper/`) for API surfaces and call sites, OSV's Go ecosystem; generation and execution for Go are next |

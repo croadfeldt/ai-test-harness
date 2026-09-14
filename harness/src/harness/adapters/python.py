@@ -22,6 +22,8 @@ from ..model import ApiChange, ApiSymbol, CallSite, DependencyGraph, Package
 from ..util import HarnessError, log, read_json, run, sha256_file, tool_available
 
 ECOSYSTEM = "python"
+OSV_ECOSYSTEM = "PyPI"
+MANIFEST = "requirements.txt"
 EXCLUDED_DIRS = {".git", ".venv", "venv", "node_modules", "site-packages", "__pycache__", "build", "dist",
                  ".tox", ".mypy_cache", ".pytest_cache", "static"}
 PLATFORMS = ["manylinux_2_17_x86_64", "manylinux2014_x86_64", "manylinux_2_28_x86_64", "any"]
@@ -93,7 +95,7 @@ def _edges(requires_dist: list[str], resolved: set[str], env: dict) -> tuple[lis
     return sorted(hard), sorted(optional - hard)
 
 
-def resolve_graph(source_dir: Path, manifest: Path, python_version: str | None = None) -> DependencyGraph:
+def resolve_graph(source_dir: Path, manifest: Path, python_version: str | None = None, ref: str | None = None) -> DependencyGraph:
     """Full transitive graph from pip's resolver, without installing anything."""
     with tempfile.TemporaryDirectory(prefix="harness-resolve-") as td:
         report, resolver = _pip_report(manifest, python_version, Path(td))
@@ -407,7 +409,7 @@ def imports_root(source_dir: Path, candidates: list[str]) -> list[str]:
 
 # ---------------------------------------------------------------- source diff + upstream tests
 
-def source_patch(old_dir: Path, new_dir: Path, max_lines: int = 1500) -> str:
+def source_patch(old_dir: Path, new_dir: Path, max_lines: int = 1500, suffix: str = ".py") -> str:
     """A unified diff of the package's python files between versions, bounded. Test files skipped.
     This is the 'fix commit' fact for stage 3: what actually changed, not what the advisory says."""
     out = []
@@ -433,10 +435,10 @@ def source_patch(old_dir: Path, new_dir: Path, max_lines: int = 1500) -> str:
     return "\n".join(out) + ("\n" if out else "")
 
 
-def source_diff(old_dir: Path, new_dir: Path) -> dict:
+def source_diff(old_dir: Path, new_dir: Path, suffix: str = ".py") -> dict:
     def pyfiles(d: Path) -> dict[str, Path]:
         out = {}
-        for p in d.rglob("*.py"):
+        for p in d.rglob(f"*{suffix}"):
             rel = p.relative_to(d).parts
             rel = rel[1:] if rel and re.match(r".*-\d", rel[0]) else rel  # strip versioned top dir of an sdist
             out["/".join(rel)] = p
@@ -460,7 +462,7 @@ def source_diff(old_dir: Path, new_dir: Path) -> dict:
         minus += len(o[rel].read_text(errors="replace").splitlines())
     return {"files_added": added[:50], "files_removed": removed[:50], "files_changed": changed[:100],
             "counts": {"added": len(added), "removed": len(removed), "changed": len(changed)},
-            "lines_added": plus, "lines_removed": minus, "tool": "difflib unified, python files only"}
+            "lines_added": plus, "lines_removed": minus, "tool": f"difflib unified, {suffix} files only"}
 
 
 def upstream_tests(unpacked: Path) -> dict:
@@ -481,3 +483,21 @@ def static_analysis(files: list[Path], source_dir: Path) -> dict:
                 "totals": data.get("metrics", {}).get("_totals", {})}
     except ValueError:
         return {"tool": "bandit", "status": "error", "stderr": proc.stderr[-500:]}
+
+
+def import_candidates(dist_name: str) -> list[str]:
+    """Likely import roots for a distribution name, for intake's cheap reachability probe."""
+    n = dist_name.lower()
+    c = {n.replace("-", "_"), n.replace("-", ""), re.sub(r"^python[-_]", "", n).replace("-", "_"), re.sub(r"^py", "", n).replace("-", "_")}
+    if n == "pillow":
+        c.add("PIL")
+    if n == "pyyaml":
+        c.add("yaml")
+    if n == "beautifulsoup4":
+        c.add("bs4")
+    return sorted(x for x in c if x)
+
+
+def metadata(name: str, version: str, cache_dir: Path | None):
+    from ..sources import pypi
+    return pypi.metadata(name, version, cache_dir)

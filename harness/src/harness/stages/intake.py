@@ -76,12 +76,12 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
         tdp = Path(td)
         new_manifest = _manifest_at(repo, head_sha, manifest, tdp)
         log("  resolving graph at head")
-        new_graph = adapter.resolve_graph(repo, new_manifest, python_version)
+        new_graph = adapter.resolve_graph(repo, new_manifest, python_version, ref=head_sha)
         new_graph.manifest = f"{manifest}@{head_sha[:12]}"
         if base:
             old_manifest = _manifest_at(repo, base_sha, manifest, tdp)
             log("  resolving graph at base")
-            old_graph = adapter.resolve_graph(repo, old_manifest, python_version)
+            old_graph = adapter.resolve_graph(repo, old_manifest, python_version, ref=base_sha)
             old_graph.manifest = f"{manifest}@{base_sha[:12]}"
         else:
             old_graph = new_graph
@@ -93,15 +93,18 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
     # Known vulnerabilities + Malicious Packages, one batch for every (name, version) in either graph.
     pairs = sorted({(p.name, p.version) for g in (old_graph, new_graph) for p in g.packages.values()})
     log(f"  OSV lookup for {len(pairs)} package versions")
-    vulns = osv.lookup(pairs, cache_dir=cache)
+    vulns = osv.lookup(pairs, cache_dir=cache, ecosystem=adapter.OSV_ECOSYSTEM)
     write_json(out / "vulns.json", {f"{n}@{v}": vl for (n, v), vl in vulns.items()})
 
     # Cheap reachability probe: does first-party code import this package's likely root?
     first_party_imports = set(adapter.imports_root(repo, list({
-        c for p in new_graph.packages.values() for c in _candidates(p.name)})))
+        c for p in new_graph.packages.values() for c in adapter.import_candidates(p.name)})))
 
     items: list[WorkItem] = []
     fp_name = _project_name(repo)
+    if ecosystem == "go":
+        m = re.search(r"^module\s+(\S+)", (repo / "go.mod").read_text(), re.M) if (repo / "go.mod").exists() else None
+        fp_name = m.group(1) if m else fp_name
     items.append(WorkItem(package=fp_name, purl=f"pkg:generic/{fp_name}@{head_sha[:12]}",
                           old_version=base_sha[:12], new_version=head_sha[:12], depth=0,
                           change="first_party", reachable="true", reachable_evidence=["first-party code"],
@@ -115,7 +118,7 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
             change = "bumped" if o.version != n.version else "unchanged"
         else:
             change = "added" if n else "removed"
-        ev = [f"first-party imports '{c}'" for c in _candidates(name) if c in first_party_imports]
+        ev = [f"first-party imports '{c}'" for c in adapter.import_candidates(name) if c in first_party_imports]
         if ev:
             reachable = "true"
         elif pkg.depth == 1:
@@ -125,7 +128,7 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
         v_old = [v.id for v in vulns.get((name, o.version), [])] if o else []
         v_new = [v.id for v in vulns.get((name, n.version), [])] if n else []
         mal = [v.id for v in vulns.get((name, pkg.version), []) if v.malicious]
-        gd = _guarddog(name, pkg.version) if change in ("added", "bumped") else {"status": "skipped", "reason": "unchanged version"}
+        gd = _guarddog(name, pkg.version) if (change in ("added", "bumped") and ecosystem == "python") else {"status": "skipped", "reason": "unchanged version" if change not in ("added", "bumped") else "guarddog is PyPI-only"}
         findings = [{"tool": "openssf-malicious-packages", "id": m} for m in mal]
         if gd.get("status") == "ran" and gd.get("returncode"):
             findings.append({"tool": "guarddog", "output": gd.get("stdout")})
@@ -137,7 +140,7 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
                                                   tools={"openssf-malicious-packages": "ran (via OSV)", "guarddog": gd.get("status", "not_installed"),
                                                          "capslock": "n/a (Go only)"}),
                               vulns_old=v_old, vulns_new=v_new, parents=pkg.parents))
-    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, source_dir=repo.name,
+    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, ecosystem=ecosystem, source_dir=repo.name,
                   old_manifest=old_graph.manifest if base else None, new_manifest=new_graph.manifest, items=items)
     write_json(out / "worklist.json", wl)
     changed = [i for i in items if i.change in ("added", "removed", "bumped")]

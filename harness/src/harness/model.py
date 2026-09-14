@@ -79,6 +79,7 @@ class WorkList:
     old_manifest: str | None
     new_manifest: str
     items: list[WorkItem]
+    ecosystem: str = "python"
 
 
 @dataclass

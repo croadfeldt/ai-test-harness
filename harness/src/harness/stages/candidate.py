@@ -63,7 +63,7 @@ def fixed_candidate(workdir: Path, pkg: str, python_version: str = "3.12") -> di
     except InvalidVersion:
         pass
     from .. import config
-    repo = config.target_repo(None) if not Path(wl["source_dir"]).is_absolute() else Path(wl["source_dir"])
+    repo = config.resolve_repo(wl["source_dir"], None)
     manifest_name = wl["new_manifest"].split("@")[0]
     manifest_text = (repo / manifest_name).read_text()
     adapter = adapters.get("python")

@@ -194,7 +194,7 @@ def mutate(*, workdir: Path, select: list[str] | None = None, python_version: st
     from ..util import merge_summary
     selfcheck.require(workdir, python_version, probes=False)
     # Packages with stage 4 results on disk, not just summary rows: the results file is the truth.
-    pkgs = sorted(d.name for d in (workdir / "execute").iterdir() if d.is_dir() and (d / "results.json").exists())
+    pkgs = [p["package"] for p in read_json(workdir / "execute" / "summary.json")["packages"]] if (workdir / "execute" / "summary.json").exists() else []
     outs = []
     for pkg in pkgs:
         if select and pkg not in select:

@@ -43,3 +43,14 @@ def target_repo(explicit: str | None = None) -> Path:
         raise SystemExit("no target repository configured: pass --repo, set HARNESS_TARGET_REPO, or set [target].repo in harness/harness.local.toml")
     p = Path(raw)
     return p if p.is_absolute() else (HERE / p).resolve()
+
+
+def resolve_repo(work_list_repo_name: str, explicit: str | None = None) -> Path:
+    """The repository a later stage should read, checked against the work list it is continuing.
+    A stage that silently read a different repository than intake did would produce facts about the
+    wrong code; that happened once (call sites scanned in the wrong checkout), so it refuses now."""
+    p = target_repo(explicit)
+    if p.name != work_list_repo_name:
+        raise SystemExit(f"this work directory is for repository '{work_list_repo_name}' but the configured repository is "
+                         f"'{p.name}'; pass --repo <path to {work_list_repo_name}> or set HARNESS_TARGET_REPO")
+    return p

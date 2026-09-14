@@ -31,7 +31,8 @@ def cmd_intake(a: argparse.Namespace) -> int:
     from .stages.intake import intake
     repo = config.target_repo(str(a.repo) if a.repo else None)
     a.repo = repo
-    a.manifest = a.manifest or config.get("target", "manifest", None, "requirements.txt")
+    a.ecosystem = a.ecosystem or config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
+    a.manifest = a.manifest or config.get("target", "manifest", None, "go.mod" if a.ecosystem == "go" else "requirements.txt")
     a.python_version = a.python_version or config.get("target", "python_version", None, None)
     _record_run(a.workdir, a)
     wl = intake(repo=repo, head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir,
@@ -42,7 +43,7 @@ def cmd_intake(a: argparse.Namespace) -> int:
 
 def cmd_analyze(a: argparse.Namespace) -> int:
     from .stages.analyze import analyze
-    analyze(workdir=a.workdir, select=a.select, all_rows=a.all, python_version=a.python_version)
+    analyze(workdir=a.workdir, select=a.select, all_rows=a.all, python_version=a.python_version, repo=str(a.repo) if a.repo else None)
     print(a.workdir / "analyze" / "summary.json")
     return 0
 
@@ -77,7 +78,7 @@ def cmd_mutate(a: argparse.Namespace) -> int:
 
 def cmd_relevance(a: argparse.Namespace) -> int:
     from .stages.relevance import relevance
-    relevance(workdir=a.workdir, select=a.select, python_version=a.python_version)
+    relevance(workdir=a.workdir, select=a.select, python_version=a.python_version, repo=str(a.repo) if a.repo else None)
     print(a.workdir / "execute" / "relevance-summary.json"); return 0
 
 
@@ -118,13 +119,14 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--head", default="HEAD", help="ref of the incoming change (default HEAD)")
     s.add_argument("--base", default=None, help="ref of the last known-good state; omit for a rescan of --head")
     s.add_argument("--manifest", default=None, help="dependency manifest path inside the repo (default from config: requirements.txt)")
-    s.add_argument("--ecosystem", default="python", choices=["python"])
+    s.add_argument("--ecosystem", default=None, choices=["python", "go"], help="default from config: [target].ecosystem, else python")
     s.add_argument("--python-version", default=None, help="resolve for this interpreter version, e.g. 3.12")
     s.add_argument("--workdir", type=Path, required=True)
     s.set_defaults(func=cmd_intake)
 
     s = sub.add_parser("analyze", help="stage 2: facts, API diff, call sites, vulnerabilities, risk score")
     s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--repo", type=Path, default=None, help="the target repository (must be the one intake ran on; default from config)")
     s.add_argument("--select", nargs="*", default=None, help="only these packages")
     s.add_argument("--all", action="store_true", help="analyze unchanged rows too")
     s.add_argument("--python-version", default=None)
@@ -153,6 +155,7 @@ def main(argv: list[str] | None = None) -> int:
 
     s = sub.add_parser("relevance", help="stage 4 step 7: which existing tests this change makes obsolete or redundant; proposals only")
     s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--repo", type=Path, default=None, help="the target repository (must be the one intake ran on; default from config)")
     s.add_argument("--select", nargs="*", default=None)
     s.add_argument("--python-version", default="3.12")
     s.set_defaults(func=cmd_relevance)

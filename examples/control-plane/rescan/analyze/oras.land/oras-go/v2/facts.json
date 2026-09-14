@@ -1,0 +1,148 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/open-policy-agent/opa"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/open-policy-agent/opa",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-13T20:47:30+00:00",
+  "import_names": [
+    "oras.land/oras-go/v2"
+  ],
+  "new_version": "v2.6.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v2.6.0",
+  "package": "oras.land/oras-go/v2",
+  "purl": "pkg:golang/oras.land/oras-go/v2@v2.6.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 10,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "10 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 73,
+    "files": [
+      "example_copyerror_test.go",
+      "pack_test.go",
+      "copyerror_test.go",
+      "extendedcopy_test.go",
+      "copy_test.go",
+      "content_test.go",
+      "example_pack_test.go",
+      "example_test.go",
+      "example_copy_test.go",
+      "registry/example_reference_test.go",
+      "registry/example_test.go",
+      "registry/repository_test.go",
+      "registry/reference_test.go",
+      "content/reader_test.go",
+      "content/storage_test.go",
+      "content/graph_test.go",
+      "content/example_test.go",
+      "content/limitedstorage_test.go",
+      "content/descriptor_test.go",
+      "internal/cas/proxy_test.go",
+      "internal/cas/memory_test.go",
+      "internal/resolver/memory_test.go",
+      "internal/status/tracker_test.go",
+      "internal/graph/memory_test.go",
+      "internal/ioutil/io_test.go",
+      "internal/registryutil/proxy_test.go",
+      "internal/manifestutil/parser_test.go",
+      "internal/syncutil/limitgroup_test.go",
+      "internal/syncutil/pool_test.go",
+      "internal/syncutil/once_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 10,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-48978",
+      "CVE-2026-50151",
+      "CVE-2026-50162",
+      "CVE-2026-50163"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "2.6.1",
+      "2.6.2"
+    ],
+    "ids": [
+      "GHSA-8xwf-rjm4-xvhv",
+      "GHSA-fxhp-mv3v-67qp",
+      "GHSA-jxpm-75mh-9fp7",
+      "GHSA-vh4v-2xq2-g5cg",
+      "GHSA-xf85-363p-868w",
+      "GO-2026-5879",
+      "GO-2026-5880",
+      "GO-2026-5882",
+      "GO-2026-5884",
+      "GO-2026-5885"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}
