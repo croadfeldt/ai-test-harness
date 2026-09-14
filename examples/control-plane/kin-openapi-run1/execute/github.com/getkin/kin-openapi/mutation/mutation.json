@@ -1,0 +1,6 @@
+{
+  "generated": "2026-09-14T15:01:15+00:00",
+  "package": "github.com/getkin/kin-openapi",
+  "reason": "no mutation engine for go yet; the score is not measured, not zero",
+  "status": "skipped"
+}

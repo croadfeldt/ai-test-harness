@@ -1,0 +1,6 @@
+=== RUN   Test_GHSA_jpcw_4wr7_c3vq_fix_pinning
+    kin_openapi_cve_cve_2026_73502_test.go:47: ValidateParameter panicked on content parameter without schema: runtime error: invalid memory address or nil pointer dereference
+--- FAIL: Test_GHSA_jpcw_4wr7_c3vq_fix_pinning (0.00s)
+FAIL
+coverage: 0.5% of statements in github.com/getkin/kin-openapi/...
+FAIL	harnesstest	0.032s

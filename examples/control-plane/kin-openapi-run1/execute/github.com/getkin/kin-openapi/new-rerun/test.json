@@ -1,0 +1,10 @@
+{"Time":"2026-09-14T15:01:15.051971363Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-14T15:01:15.0615475Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_jpcw_4wr7_c3vq_fix_pinning"}
+{"Time":"2026-09-14T15:01:15.061580561Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_jpcw_4wr7_c3vq_fix_pinning","Output":"=== RUN   Test_GHSA_jpcw_4wr7_c3vq_fix_pinning\n"}
+{"Time":"2026-09-14T15:01:15.061841181Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_jpcw_4wr7_c3vq_fix_pinning","Output":"    kin_openapi_cve_cve_2026_73502_test.go:47: ValidateParameter panicked on content parameter without schema: runtime error: invalid memory address or nil pointer dereference\n"}
+{"Time":"2026-09-14T15:01:15.061864762Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_jpcw_4wr7_c3vq_fix_pinning","Output":"--- FAIL: Test_GHSA_jpcw_4wr7_c3vq_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-14T15:01:15.061880132Z","Action":"fail","Package":"harnesstest","Test":"Test_GHSA_jpcw_4wr7_c3vq_fix_pinning","Elapsed":0}
+{"Time":"2026-09-14T15:01:15.061889043Z","Action":"output","Package":"harnesstest","Output":"FAIL\n"}
+{"Time":"2026-09-14T15:01:15.064877261Z","Action":"output","Package":"harnesstest","Output":"coverage: 0.5% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-14T15:01:15.079307664Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.026s\n"}
+{"Time":"2026-09-14T15:01:15.079334405Z","Action":"fail","Package":"harnesstest","Elapsed":0.027}

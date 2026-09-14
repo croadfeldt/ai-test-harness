@@ -1,0 +1,14 @@
+{
+  "generated": "2026-09-14T15:01:16+00:00",
+  "packages": [
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 1,
+      "findings": 2,
+      "package": "github.com/getkin/kin-openapi",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 1
+    }
+  ]
+}

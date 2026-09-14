@@ -1,0 +1,58 @@
+{
+  "findings": [
+    {
+      "advisories": [
+        "CVE-2026-73501",
+        "CVE-2026-73502",
+        "CVE-2026-76905",
+        "CVE-2026-77354"
+      ],
+      "class": "security",
+      "confidence": 0.9,
+      "escalated": false,
+      "evidence_ref": "analyze/github.com/getkin/kin-openapi/vulns.json",
+      "package": "github.com/getkin/kin-openapi",
+      "routing": "Product Security",
+      "summary": "github.com/getkin/kin-openapi v0.139.0 has 8 open advisories at head; reachable=true"
+    },
+    {
+      "class": "defect",
+      "confidence": 0.4,
+      "corroborating_tests": [],
+      "escalated": true,
+      "evidence_ref": "generate/github.com/getkin/kin-openapi/manifest.agent.json",
+      "package": "github.com/getkin/kin-openapi",
+      "reproducer": "[new v0.139.0 = VULNERABLE] collection failed:",
+      "routing": "escalate: below confidence threshold",
+      "summary": "github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-76905); NOT corroborated by stage 4 verdicts"
+    }
+  ],
+  "generated": "2026-09-14T15:01:16+00:00",
+  "package": "github.com/getkin/kin-openapi",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 1,
+    "findings": 2,
+    "tests_accept": 0,
+    "tests_discard_or_regenerate": 1
+  },
+  "tests": [
+    {
+      "action": "open issue; reproducer is the test; advisory stays under investigation",
+      "category": "cve",
+      "class": "defect",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/github.com/getkin/kin-openapi/results.json",
+      "name": "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "test_id": "harnesstest::Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "verdict": "blocked on both versions: kin_openapi_cve_cve_2026_73502_test.go on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

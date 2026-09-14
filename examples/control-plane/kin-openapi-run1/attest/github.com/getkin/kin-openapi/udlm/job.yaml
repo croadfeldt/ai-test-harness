@@ -1,0 +1,87 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: b12c45f2-a916-460d-a06b-d1a0e264d575
+record_uuid: 01a0a06f-cfd7-73ad-8fd6-0d97c3640629
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-558e6e085fe1
+at: '2026-09-13T20:43:59Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: control-plane
+    head: 147f74f4edc2
+    mode: rescan
+  targets:
+  - estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a0a06f-cfd8-762b-893d-96b692077694
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: b12c45f2-a916-460d-a06b-d1a0e264d575
+record_uuid: 01a0a06f-cfd8-762b-893d-96b837e24419
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-558e6e085fe1
+at: '2026-09-14T15:01:15Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: control-plane
+    head: 147f74f4edc2
+    mode: rescan
+  targets:
+  - estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a0a06f-cfd7-73ad-8fd6-0d97c3640629
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-13T20:43:59Z'
+  completed_at: '2026-09-14T15:01:15Z'
+  results:
+    status: COMPLETED
+    run_id: 558e6e085fe1
+    harness_version: 0.1.0
+    model_id: qwen38-27b
+    model_endpoint: gpu-server-vllm
+    model_endpoint_digest: sha256:8870f0d1a4df5ebc
+    model_reasoning: 'off'
+    tool_versions:
+      git: git version 2.55.0
+      pip: pip 26.0.1
+      python: 3.14.7
+    sandbox_image: docker.io/library/golang:1.25-bookworm
+    sandbox_image_digest: sha256:c268a04d59aea0b180ed9946a658cfab9e7b3391dc90eed6e4969ccff98c851f
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 21
+    tests_produced: 1
+    fix_pinning_confirmed: 0
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: f5197568-b5f8-41e9-9bfe-dde7cfe2b1ff
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:13b6224211e46b273b891ce11836fffee336f1bb261255299a7d124ab7ff7c69
+  previous: null
+  algorithm: sha256-jcs

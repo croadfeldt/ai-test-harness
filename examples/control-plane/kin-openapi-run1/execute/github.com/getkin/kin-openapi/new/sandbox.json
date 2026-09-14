@@ -1,0 +1,29 @@
+{
+  "build_failed": false,
+  "coverage": "coverage.json",
+  "duration_s": 3.8,
+  "finished": "2026-09-14T15:01:12+00:00",
+  "image": "docker.io/library/golang:1.25-bookworm",
+  "image_digest": "sha256:c268a04d59aea0b180ed9946a658cfab9e7b3391dc90eed6e4969ccff98c851f",
+  "install_failed": false,
+  "isolation": {
+    "build_cache": "writable mount, content-addressed, per environment",
+    "capabilities": "all dropped",
+    "disposable": true,
+    "limits": {
+      "cpus": "2",
+      "memory": "4g",
+      "pids": 1024,
+      "timeout_s": 1200
+    },
+    "module_cache": "read-only mount, GOPROXY=off",
+    "network": "none",
+    "no_new_privileges": true,
+    "rootfs": "read-only",
+    "secrets": "none mounted; environment cleared with env -i"
+  },
+  "junit": "junit.xml",
+  "label": "github.com/getkin/kin-openapi-new",
+  "returncode": 1,
+  "timed_out": false
+}

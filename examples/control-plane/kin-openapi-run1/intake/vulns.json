@@ -1,0 +1,2634 @@
+{
+  "cloud.google.com/go/compute/metadata@v0.3.0": [],
+  "github.com/BurntSushi/toml@v1.3.2": [],
+  "github.com/CloudyKit/fastprinter@v0.0.0-20200109182630-33d98a066a53": [],
+  "github.com/CloudyKit/jet/v6@v6.2.0": [],
+  "github.com/Joker/jade@v1.1.3": [],
+  "github.com/Masterminds/semver/v3@v3.4.0": [],
+  "github.com/RaveNoX/go-jsoncommentstrip@v1.0.0": [],
+  "github.com/Shopify/goreferrer@v0.0.0-20220729165902-8cddb4f5de06": [],
+  "github.com/agnivade/levenshtein@v1.2.1": [],
+  "github.com/andreyvit/diff@v0.0.0-20170406064948-c7f18ee00883": [],
+  "github.com/andybalholm/brotli@v1.1.0": [],
+  "github.com/antithesishq/antithesis-sdk-go@v0.6.0-default-no-op": [],
+  "github.com/apapsch/go-jsonmerge/v2@v2.0.0": [],
+  "github.com/arbovm/levenshtein@v0.0.0-20160628152529-48b4e1c0c4d0": [],
+  "github.com/aymerick/douceur@v0.2.0": [],
+  "github.com/beorn7/perks@v1.0.1": [],
+  "github.com/bmatcuk/doublestar@v1.1.1": [],
+  "github.com/brunoga/deep/v4@v4.1.0": [],
+  "github.com/bytecodealliance/wasmtime-go/v44@v44.0.0": [],
+  "github.com/bytedance/sonic/loader@v0.1.1": [],
+  "github.com/bytedance/sonic@v1.11.6": [],
+  "github.com/cenkalti/backoff/v5@v5.0.3": [],
+  "github.com/cespare/xxhash/v2@v2.3.0": [],
+  "github.com/chzyer/readline@v1.5.1": [],
+  "github.com/clipperhouse/displaywidth@v0.10.0": [],
+  "github.com/clipperhouse/uax29/v2@v2.6.0": [],
+  "github.com/cloudevents/sdk-go/v2@v2.16.2": [],
+  "github.com/cloudwego/base64x@v0.1.4": [],
+  "github.com/cloudwego/iasm@v0.2.0": [],
+  "github.com/coreos/go-oidc/v3@v3.20.0": [],
+  "github.com/cpuguy83/go-md2man/v2@v2.0.7": [],
+  "github.com/davecgh/go-spew@v1.1.2-0.20180830191138-d8f796af33cc": [],
+  "github.com/decred/dcrd/crypto/blake256@v1.1.0": [],
+  "github.com/decred/dcrd/dcrec/secp256k1/v4@v4.4.1": [],
+  "github.com/dgraph-io/badger/v4@v4.9.1": [],
+  "github.com/dgraph-io/ristretto/v2@v2.2.0": [],
+  "github.com/dgryski/trifles@v0.0.0-20230903005119-f50d829f2e54": [],
+  "github.com/dlclark/regexp2@v1.11.5": [],
+  "github.com/dustin/go-humanize@v1.0.1": [],
+  "github.com/fatih/color@v1.18.0": [],
+  "github.com/fatih/structs@v1.1.0": [],
+  "github.com/felixge/httpsnoop@v1.0.4": [],
+  "github.com/flosch/pongo2/v4@v4.0.2": [],
+  "github.com/fortytw2/leaktest@v1.3.0": [],
+  "github.com/foxcpp/go-mockdns@v1.2.0": [],
+  "github.com/fsnotify/fsnotify@v1.10.1": [],
+  "github.com/gabriel-vasile/mimetype@v1.4.3": [],
+  "github.com/getkin/kin-openapi@v0.139.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-73502",
+        "GO-2026-6112"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GHSA-jpcw-4wr7-c3vq",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-jpcw-4wr7-c3vq",
+        "https://github.com/getkin/kin-openapi/commit/68ac2affa325514d7d6e731204d6a1edf6bdff64",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "kin-openapi openapi3filter: unauthenticated nil-pointer panic when validating a request against a `content` parameter whose media type has no schema"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-76905",
+        "GO-2026-6274"
+      ],
+      "fixed_versions": [
+        "0.141.0"
+      ],
+      "id": "GHSA-mmfr-pmjx-hw9w",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-mmfr-pmjx-hw9w",
+        "https://github.com/getkin/kin-openapi/commit/1d0a337c9b1570fab283be8a04c8af6e43b9a22c",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.141.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "kin-openapi openai3filter: nil-pointer panic in ConvertErrors on malformed multipart/form-data body enables unauthenticated DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-73501",
+        "GO-2026-6095"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GHSA-r277-6w6q-xmqw",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-r277-6w6q-xmqw",
+        "https://github.com/getkin/kin-openapi/commit/f0407d53b0730280266f454b755010e7eeb985da",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "kin-openapi: ValidationHandler.Load() Fail-Open Authentication Bypass via NoopAuthenticationFunc Default"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-77354",
+        "GO-2026-6275"
+      ],
+      "fixed_versions": [
+        "0.142.0"
+      ],
+      "id": "GHSA-xhj3-7xw9-vr34",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-xhj3-7xw9-vr34",
+        "https://github.com/getkin/kin-openapi/commit/1223a0f215d2cf9beb2d9eb9ea2649d001c21388",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.142.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "kin-openapi has uncontrolled resource consumption in openapi3filter deepObject query parameter decoding"
+    },
+    {
+      "affected_symbols": [
+        "ValidationHandler.Load"
+      ],
+      "aliases": [
+        "CVE-2026-73501",
+        "GHSA-r277-6w6q-xmqw"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GO-2026-6095",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-r277-6w6q-xmqw",
+        "https://github.com/getkin/kin-openapi/commit/f0407d53b0730280266f454b755010e7eeb985da",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": null,
+      "summary": "Authentication bypass via default NoopAuthenticationFunc in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "ValidateParameter",
+        "ValidateRequest",
+        "ValidationHandler.ServeHTTP",
+        "defaultContentParameterDecoder"
+      ],
+      "aliases": [
+        "CVE-2026-73502",
+        "GHSA-jpcw-4wr7-c3vq"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GO-2026-6112",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-jpcw-4wr7-c3vq",
+        "https://github.com/getkin/kin-openapi/commit/68ac2affa325514d7d6e731204d6a1edf6bdff64",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": null,
+      "summary": "Nil-pointer panic on content parameter without schema in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "ConvertErrors",
+        "ValidationErrorEncoder.Encode",
+        "convertParseError"
+      ],
+      "aliases": [
+        "CVE-2026-76905",
+        "GHSA-mmfr-pmjx-hw9w"
+      ],
+      "fixed_versions": [
+        "0.141.0"
+      ],
+      "id": "GO-2026-6274",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-mmfr-pmjx-hw9w",
+        "https://github.com/getkin/kin-openapi/commit/1d0a337c9b1570fab283be8a04c8af6e43b9a22c",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.141.0"
+      ],
+      "severity": null,
+      "summary": "kin-openapi openai3filter: nil-pointer panic in ConvertErrors on malformed multipart/form-data body enables unauthenticated DoS in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "MultipartBodyDecoder",
+        "UrlencodedBodyDecoder",
+        "ValidateParameter",
+        "ValidateRequest",
+        "ValidateRequestBody",
+        "ValidateResponse",
+        "ValidationHandler.ServeHTTP",
+        "cookieParamDecoder.DecodeObject",
+        "headerParamDecoder.DecodeObject",
+        "pathParamDecoder.DecodeObject",
+        "sliceMapToSlice",
+        "urlValuesDecoder.DecodeObject"
+      ],
+      "aliases": [
+        "CVE-2026-77354",
+        "GHSA-xhj3-7xw9-vr34"
+      ],
+      "fixed_versions": [
+        "0.142.0"
+      ],
+      "id": "GO-2026-6275",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-xhj3-7xw9-vr34",
+        "https://github.com/getkin/kin-openapi/commit/1223a0f215d2cf9beb2d9eb9ea2649d001c21388",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.142.0"
+      ],
+      "severity": null,
+      "summary": "kin-openapi has uncontrolled resource consumption in openapi3filter deepObject query parameter decoding in github.com/getkin/kin-openapi"
+    }
+  ],
+  "github.com/gin-contrib/sse@v0.1.0": [],
+  "github.com/gin-gonic/gin@v1.10.1": [],
+  "github.com/gkampitakis/ciinfo@v0.3.2": [],
+  "github.com/gkampitakis/go-diff@v1.3.2": [],
+  "github.com/gkampitakis/go-snaps@v0.5.15": [],
+  "github.com/go-chi/chi/v5@v5.3.0": [],
+  "github.com/go-jose/go-jose/v4@v4.1.4": [],
+  "github.com/go-logr/logr@v1.4.3": [],
+  "github.com/go-logr/stdr@v1.2.2": [],
+  "github.com/go-openapi/jsonpointer@v0.22.4": [],
+  "github.com/go-openapi/swag/jsonname@v0.25.4": [],
+  "github.com/go-openapi/swag@v0.23.0": [],
+  "github.com/go-openapi/testify/v2@v2.0.2": [],
+  "github.com/go-playground/locales@v0.14.1": [],
+  "github.com/go-playground/universal-translator@v0.18.1": [],
+  "github.com/go-playground/validator/v10@v10.20.0": [],
+  "github.com/go-resty/resty/v2@v2.17.2": [],
+  "github.com/go-task/slim-sprig/v3@v3.0.0": [],
+  "github.com/go-test/deep@v1.0.8": [],
+  "github.com/go-viper/mapstructure/v2@v2.4.0": [],
+  "github.com/gobwas/glob@v0.2.3": [],
+  "github.com/goccy/go-json@v0.10.6": [],
+  "github.com/goccy/go-yaml@v1.18.0": [],
+  "github.com/golang/snappy@v0.0.4": [],
+  "github.com/gomarkdown/markdown@v0.0.0-20240328165702-4d01890c35c0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-40890",
+        "GO-2026-5208"
+      ],
+      "fixed_versions": [
+        "0.0.0-20260411013819-759bbc3e3207"
+      ],
+      "id": "GHSA-77fj-vx54-gvh7",
+      "malicious": false,
+      "references": [
+        "https://github.com/gomarkdown/markdown/security/advisories/GHSA-77fj-vx54-gvh7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40890",
+        "https://github.com/gomarkdown/markdown/commit/759bbc3e32073c3bc4e25969c132fc520eda2778",
+        "https://github.com/gomarkdown/markdown"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Go Markdown has an Out-of-bounds Read in SmartypantsRenderer"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-44337",
+        "GO-2024-3205"
+      ],
+      "fixed_versions": [
+        "0.0.0-20240729212818-a2a9c4f76ef5"
+      ],
+      "id": "GHSA-xhr3-wf7j-h255",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-44337",
+        "https://github.com/gomarkdown/markdown/commit/a2a9c4f76ef5a5c32108e36f7c47f8d310322252",
+        "https://github.com/Brinmon/CVE-2024-44337",
+        "https://github.com/gomarkdown/markdown",
+        "https://pkg.go.dev/vuln/GO-2024-3205"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+      "summary": "Infinite loop in github.com/gomarkdown/markdown"
+    },
+    {
+      "affected_symbols": [
+        "Parser.Block",
+        "Parser.Parse",
+        "Parser.paragraph"
+      ],
+      "aliases": [
+        "CVE-2024-44337",
+        "GHSA-xhr3-wf7j-h255"
+      ],
+      "fixed_versions": [
+        "0.0.0-20240729212818-a2a9c4f76ef5"
+      ],
+      "id": "GO-2024-3205",
+      "malicious": false,
+      "references": [
+        "https://github.com/advisories/GHSA-xhr3-wf7j-h255",
+        "https://github.com/gomarkdown/markdown/commit/a2a9c4f76ef5a5c32108e36f7c47f8d310322252",
+        "https://github.com/Brinmon/CVE-2024-44337"
+      ],
+      "severity": null,
+      "summary": "Infinite loop in github.com/gomarkdown/markdown"
+    },
+    {
+      "affected_symbols": [
+        "NewRenderer"
+      ],
+      "aliases": [
+        "CVE-2026-40890",
+        "GHSA-77fj-vx54-gvh7"
+      ],
+      "fixed_versions": [
+        "0.0.0-20260411013819-759bbc3e3207"
+      ],
+      "id": "GO-2026-5208",
+      "malicious": false,
+      "references": [
+        "https://github.com/gomarkdown/markdown/security/advisories/GHSA-77fj-vx54-gvh7",
+        "https://github.com/gomarkdown/markdown/commit/759bbc3e32073c3bc4e25969c132fc520eda2778"
+      ],
+      "severity": null,
+      "summary": "Go Markdown has an out-of-bounds read in SmartypantsRenderer in github.com/gomarkdown/markdown"
+    }
+  ],
+  "github.com/google/flatbuffers@v25.2.10+incompatible": [],
+  "github.com/google/go-cmp@v0.7.0": [],
+  "github.com/google/go-tpm-tools@v0.3.13-0.20230620182252-4639ecce2aba": [],
+  "github.com/google/go-tpm@v0.9.8": [],
+  "github.com/google/gofuzz@v1.0.0": [],
+  "github.com/google/pprof@v0.0.0-20260402051712-545e8a4df936": [],
+  "github.com/google/uuid@v1.6.0": [],
+  "github.com/gorilla/css@v1.0.0": [],
+  "github.com/gorilla/mux@v1.8.1": [],
+  "github.com/grpc-ecosystem/grpc-gateway/v2@v2.28.0": [],
+  "github.com/hashicorp/golang-lru/v2@v2.0.7": [],
+  "github.com/huandu/go-clone@v1.7.3": [],
+  "github.com/huandu/go-sqlbuilder@v1.41.0": [],
+  "github.com/huandu/xstrings@v1.4.0": [],
+  "github.com/ianlancetaylor/demangle@v0.0.0-20250417193237-f615e6bd150b": [],
+  "github.com/inconshreveable/mousetrap@v1.1.0": [],
+  "github.com/iris-contrib/schema@v0.0.6": [],
+  "github.com/jackc/pgpassfile@v1.0.0": [],
+  "github.com/jackc/pgservicefile@v0.0.0-20240606120523-5a60cdf6a761": [],
+  "github.com/jackc/pgx/v5@v5.8.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-33816",
+        "GO-2026-4772"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GHSA-9jj7-4m8r-rfcm",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33816",
+        "https://github.com/jackc/pgx",
+        "https://pkg.go.dev/vuln/GO-2026-4772"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Memory-safety vulnerability in github.com/jackc/pgx/v5."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-41889",
+        "GO-2026-5004"
+      ],
+      "fixed_versions": [
+        "5.9.2"
+      ],
+      "id": "GHSA-j88v-2chj-qfwx",
+      "malicious": false,
+      "references": [
+        "https://github.com/jackc/pgx/security/advisories/GHSA-j88v-2chj-qfwx",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-41889",
+        "https://github.com/jackc/pgx/commit/60644f84918a8af66d14a4b0d865d4edafd955da",
+        "https://github.com/jackc/pgx",
+        "https://github.com/jackc/pgx/releases/tag/v5.9.2"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "pgx: SQL Injection via placeholder confusion with dollar quoted string literals"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-33815",
+        "GO-2026-4771"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GHSA-xgrm-4fwx-7qm8",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33815",
+        "https://github.com/jackc/pgx/issues/2519",
+        "https://github.com/jackc/pgx/issues/2530",
+        "https://github.com/jackc/pgx/commit/6dbad4cafdb8a4daab7ff79c858c95da4b6109e8",
+        "https://pkg.go.dev/vuln/GO-2026-4771",
+        "github.com/jackc/pgx/v5"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "pgx contains memory-safety vulnerability"
+    },
+    {
+      "affected_symbols": [
+        "Backend.Receive",
+        "Bind.Decode"
+      ],
+      "aliases": [
+        "CVE-2026-33815",
+        "GHSA-xgrm-4fwx-7qm8"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GO-2026-4771",
+      "malicious": false,
+      "references": [],
+      "severity": null,
+      "summary": "CVE-2026-33815 in github.com/jackc/pgx"
+    },
+    {
+      "affected_symbols": [
+        "Backend.Receive",
+        "FunctionCall.Decode"
+      ],
+      "aliases": [
+        "CVE-2026-33816",
+        "GHSA-9jj7-4m8r-rfcm"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GO-2026-4772",
+      "malicious": false,
+      "references": [],
+      "severity": null,
+      "summary": "CVE-2026-33816 in github.com/jackc/pgx"
+    },
+    {
+      "affected_symbols": [
+        "Query.Sanitize",
+        "SanitizeSQL"
+      ],
+      "aliases": [
+        "CVE-2026-41889",
+        "GHSA-j88v-2chj-qfwx"
+      ],
+      "fixed_versions": [
+        "5.9.2"
+      ],
+      "id": "GO-2026-5004",
+      "malicious": false,
+      "references": [
+        "https://github.com/jackc/pgx/security/advisories/GHSA-j88v-2chj-qfwx",
+        "https://github.com/jackc/pgx/commit/60644f84918a8af66d14a4b0d865d4edafd955da",
+        "https://github.com/jackc/pgx/releases/tag/v5.9.2"
+      ],
+      "severity": null,
+      "summary": "SQL Injection via placeholder confusion with dollar quoted string literals in github.com/jackc/pgx"
+    }
+  ],
+  "github.com/jackc/puddle/v2@v2.2.2": [],
+  "github.com/jinzhu/inflection@v1.0.0": [],
+  "github.com/jinzhu/now@v1.1.5": [],
+  "github.com/josharian/intern@v1.0.0": [],
+  "github.com/joshdk/go-junit@v1.0.0": [],
+  "github.com/json-iterator/go@v1.1.12": [],
+  "github.com/juju/gnuflag@v0.0.0-20171113085948-2ce1bb71843d": [],
+  "github.com/kataras/blocks@v0.0.8": [],
+  "github.com/kataras/golog@v0.1.11": [],
+  "github.com/kataras/iris/v12@v12.2.11": [],
+  "github.com/kataras/pio@v0.0.13": [],
+  "github.com/kataras/sitemap@v0.0.6": [],
+  "github.com/kataras/tunnel@v0.0.4": [],
+  "github.com/kelseyhightower/envconfig@v1.4.0": [],
+  "github.com/klauspost/compress@v1.18.5": [
+    {
+      "affected_symbols": [
+        "NewDict"
+      ],
+      "aliases": [
+        "GHSA-259r-337f-4rfw"
+      ],
+      "fixed_versions": [
+        "1.18.7"
+      ],
+      "id": "GO-2026-5841",
+      "malicious": false,
+      "references": [
+        "https://github.com/klauspost/compress/security/advisories/GHSA-259r-337f-4rfw",
+        "https://github.com/klauspost/compress/commit/8668e357e776d5152ed62f33c17f21b8690664fa"
+      ],
+      "severity": null,
+      "summary": "OOB read in github.com/klauspost/compress/s2"
+    }
+  ],
+  "github.com/klauspost/cpuid/v2@v2.2.7": [],
+  "github.com/kr/pretty@v0.3.1": [],
+  "github.com/kr/text@v0.2.0": [],
+  "github.com/kylelemons/godebug@v1.1.0": [],
+  "github.com/labstack/echo/v4@v4.15.1": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-55677",
+        "GO-2026-6293"
+      ],
+      "fixed_versions": [
+        "4.15.3"
+      ],
+      "id": "GHSA-vfp3-v2gw-7wfq",
+      "malicious": false,
+      "references": [
+        "https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55677",
+        "https://github.com/labstack/echo/pull/3009",
+        "https://github.com/labstack/echo/pull/3011",
+        "https://github.com/labstack/echo/commit/8d1ae9d3360a71672418856d58753af25f2c3986",
+        "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725",
+        "https://github.com/labstack/echo",
+        "https://github.com/labstack/echo/releases/tag/v4.15.3",
+        "https://github.com/labstack/echo/releases/tag/v5.2.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Echo: Encoded slash (%2F) bypasses route-level protection and exposes static files"
+    },
+    {
+      "affected_symbols": [
+        "Echo.Static",
+        "Echo.StaticFS",
+        "Group.Static",
+        "Group.StaticFS",
+        "Static",
+        "StaticDirectoryHandler",
+        "StaticWithConfig"
+      ],
+      "aliases": [
+        "CVE-2026-55677",
+        "GHSA-vfp3-v2gw-7wfq"
+      ],
+      "fixed_versions": [
+        "4.15.3"
+      ],
+      "id": "GO-2026-6293",
+      "malicious": false,
+      "references": [
+        "https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55677",
+        "https://github.com/labstack/echo/commit/8d1ae9d3360a71672418856d58753af25f2c3986",
+        "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725",
+        "https://github.com/labstack/echo/pull/3009",
+        "https://github.com/labstack/echo/pull/3011",
+        "https://github.com/labstack/echo/releases/tag/v4.15.3",
+        "https://github.com/labstack/echo/releases/tag/v5.2.0"
+      ],
+      "severity": null,
+      "summary": "Encoded slash (%2F) bypasses route-level protection and exposes static files in github.com/labstack/echo/v4 and github.com/labstack/echo/v5"
+    }
+  ],
+  "github.com/labstack/gommon@v0.4.2": [],
+  "github.com/leodido/go-urn@v1.4.0": [],
+  "github.com/lestrrat-go/blackmagic@v1.0.4": [],
+  "github.com/lestrrat-go/dsig-secp256k1@v1.0.0": [],
+  "github.com/lestrrat-go/dsig@v1.2.1": [],
+  "github.com/lestrrat-go/httpcc@v1.0.1": [],
+  "github.com/lestrrat-go/httprc/v3@v3.0.5": [],
+  "github.com/lestrrat-go/jwx/v3@v3.1.1": [],
+  "github.com/lestrrat-go/option/v2@v2.0.0": [],
+  "github.com/mailgun/raymond/v2@v2.0.48": [],
+  "github.com/mailru/easyjson@v0.9.1": [],
+  "github.com/maruel/natural@v1.1.1": [],
+  "github.com/mattn/go-colorable@v0.1.14": [],
+  "github.com/mattn/go-isatty@v0.0.20": [],
+  "github.com/mattn/go-runewidth@v0.0.19": [],
+  "github.com/mattn/go-sqlite3@v1.14.33": [],
+  "github.com/mfridman/tparse@v0.18.0": [],
+  "github.com/microcosm-cc/bluemonday@v1.0.26": [],
+  "github.com/miekg/dns@v1.1.57": [],
+  "github.com/minio/highwayhash@v1.0.4-0.20251030100505-070ab1a87a76": [],
+  "github.com/modern-go/concurrent@v0.0.0-20180306012644-bacd9c7ef1dd": [],
+  "github.com/modern-go/reflect2@v1.0.2": [],
+  "github.com/mohae/deepcopy@v0.0.0-20170929034955-c48cc78d4826": [],
+  "github.com/munnerz/goautoneg@v0.0.0-20191010083416-a7dc8b61c822": [],
+  "github.com/nats-io/jwt/v2@v2.8.0": [],
+  "github.com/nats-io/nats-server/v2@v2.12.5": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33248",
+        "CVE-2026-33248",
+        "GO-2026-4828"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-3f24-pcvm-5jqc",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-3f24-pcvm-5jqc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33248",
+        "https://advisories.nats.io/CVE/secnote-2026-13.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "NATS has mTLS verify_and_map authentication bypass via incorrect Subject DN matching"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33246",
+        "CVE-2026-33246",
+        "GO-2026-4830"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-55h8-8g96-x4hj",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-55h8-8g96-x4hj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33246",
+        "https://advisories.nats.io/CVE/secnote-2026-08.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N",
+      "summary": "NATS: Leafnode connections allow spoofing of Nats-Request-Info identity headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33249",
+        "CVE-2026-33249",
+        "GO-2026-4826"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-8m2x-3m6q-6w8j",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8m2x-3m6q-6w8j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33249",
+        "https://advisories.nats.io/CVE/secnote-2026-15.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "NATS: Message tracing can be redirected to arbitrary subject"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33219",
+        "CVE-2026-33219",
+        "GO-2026-4831"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-8r68-gvr4-jh7j",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8r68-gvr4-jh7j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33219",
+        "https://advisories.nats.io/CVE/secnote-2026-02.txt",
+        "https://advisories.nats.io/CVE/secnote-2026-11.txt",
+        "https://github.com/advisories/GHSA-qrvq-68c2-7grw",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "NATS  is vulnerable to pre-auth DoS through WebSockets client service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33222",
+        "CVE-2026-33222",
+        "GO-2026-4832"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-9983-vrx2-fg9c",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-9983-vrx2-fg9c",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33222",
+        "https://advisories.nats.io/CVE/secnote-2026-12.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:H/A:N",
+      "summary": "NATS JetStream has an authorization bypass through its Management API"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33215",
+        "CVE-2026-33215",
+        "GO-2026-4833"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-fcjp-h8cc-6879",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-fcjp-h8cc-6879",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33215",
+        "https://advisories.nats.io/CVE/secnote-2026-06.tx",
+        "https://github.com/nats-io/nats-server",
+        "https://pkg.go.dev/vuln/GO-2026-4833"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:L",
+      "summary": "NATS is vulnerable to MQTT hijacking via Client ID"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33217",
+        "CVE-2026-33217",
+        "GO-2026-4834"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-jxxm-27vp-c3m5",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-jxxm-27vp-c3m5",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33217",
+        "https://advisories.nats.io/CVE/secnote-2026-07.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N",
+      "summary": "NATS allows MQTT clients to bypass ACL checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33223",
+        "CVE-2026-33223",
+        "GO-2026-4835"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-pwx7-fx9r-hr4h",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-pwx7-fx9r-hr4h",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33223",
+        "https://advisories.nats.io/CVE/secnote-2026-09.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N",
+      "summary": "NATS Server: Incomplete Stripping of Nats-Request-Info Header Allows Identity Spoofing"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33216",
+        "CVE-2026-33216",
+        "GO-2026-4836"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-v722-jcv5-w7mc",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33216",
+        "https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099",
+        "https://advisories.nats.io/CVE/secnote-2026-05.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+      "summary": "NATS has MQTT plaintext password disclosure"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33218",
+        "CVE-2026-33218",
+        "GO-2026-4837"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-vprv-35vv-q339",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-vprv-35vv-q339",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33218",
+        "https://advisories.nats.io/CVE/secnote-2026-10.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "NATS has pre-auth server panic via leafnode handling"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33247",
+        "CVE-2026-33247",
+        "GO-2026-4827"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-x6g4-f6q3-fqvv",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-x6g4-f6q3-fqvv",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33247",
+        "https://advisories.nats.io/CVE/secnote-2026-14.txt",
+        "https://github.com/nats-io/nats-server",
+        "https://pkg.go.dev/vuln/GO-2026-4827"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "NATS credentials are exposed in monitoring port via command-line argv"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33249",
+        "CVE-2026-33249",
+        "GHSA-8m2x-3m6q-6w8j"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4826",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8m2x-3m6q-6w8j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33249",
+        "https://advisories.nats.io/CVE/secnote-2026-15.txt"
+      ],
+      "severity": null,
+      "summary": "NATS: Message tracing can be redirected to arbitrary subject in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33247",
+        "CVE-2026-33247",
+        "GHSA-x6g4-f6q3-fqvv"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4827",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-x6g4-f6q3-fqvv",
+        "https://advisories.nats.io/CVE/secnote-2026-14.txt"
+      ],
+      "severity": null,
+      "summary": "NATS credentials are exposed in monitoring port via command-line argv in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33248",
+        "CVE-2026-33248",
+        "GHSA-3f24-pcvm-5jqc"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4828",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-3f24-pcvm-5jqc",
+        "https://advisories.nats.io/CVE/secnote-2026-13.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has mTLS verify_and_map authentication bypass via incorrect Subject DN matching in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33246",
+        "CVE-2026-33246",
+        "GHSA-55h8-8g96-x4hj"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4830",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-55h8-8g96-x4hj",
+        "https://advisories.nats.io/CVE/secnote-2026-08.txt"
+      ],
+      "severity": null,
+      "summary": "NATS: Leafnode connections allow spoofing of Nats-Request-Info identity headers in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33219",
+        "CVE-2026-33219",
+        "GHSA-8r68-gvr4-jh7j"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4831",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8r68-gvr4-jh7j",
+        "https://advisories.nats.io/CVE/secnote-2026-02.txt",
+        "https://advisories.nats.io/CVE/secnote-2026-11.txt",
+        "https://github.com/advisories/GHSA-qrvq-68c2-7grw"
+      ],
+      "severity": null,
+      "summary": "NATS is vulnerable to pre-auth DoS through WebSockets client service in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33222",
+        "CVE-2026-33222",
+        "GHSA-9983-vrx2-fg9c"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4832",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-9983-vrx2-fg9c",
+        "https://advisories.nats.io/CVE/secnote-2026-12.txt"
+      ],
+      "severity": null,
+      "summary": "NATS JetStream has an authorization bypass through its Management API in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33215",
+        "CVE-2026-33215",
+        "GHSA-fcjp-h8cc-6879"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4833",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-fcjp-h8cc-6879",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33215"
+      ],
+      "severity": null,
+      "summary": "NATS is vulnerable to MQTT hijacking via Client ID in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33217",
+        "CVE-2026-33217",
+        "GHSA-jxxm-27vp-c3m5"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4834",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-jxxm-27vp-c3m5",
+        "https://advisories.nats.io/CVE/secnote-2026-07.txt"
+      ],
+      "severity": null,
+      "summary": "NATS allows MQTT clients to bypass ACL checks in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33223",
+        "CVE-2026-33223",
+        "GHSA-pwx7-fx9r-hr4h"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4835",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-pwx7-fx9r-hr4h",
+        "https://advisories.nats.io/CVE/secnote-2026-09.txt"
+      ],
+      "severity": null,
+      "summary": "NATS Server: Incomplete Stripping of Nats-Request-Info Header Allows Identity Spoofing in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33216",
+        "CVE-2026-33216",
+        "GHSA-v722-jcv5-w7mc"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4836",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc",
+        "https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099",
+        "https://advisories.nats.io/CVE/secnote-2026-05.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has MQTT plaintext password disclosure in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33218",
+        "CVE-2026-33218",
+        "GHSA-vprv-35vv-q339"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4837",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-vprv-35vv-q339",
+        "https://advisories.nats.io/CVE/secnote-2026-10.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has pre-auth server panic via leafnode handling in github.com/nats-io/nats-server"
+    }
+  ],
+  "github.com/nats-io/nats.go@v1.50.0": [],
+  "github.com/nats-io/nkeys@v0.4.15": [],
+  "github.com/nats-io/nuid@v1.0.1": [],
+  "github.com/niemeyer/pretty@v0.0.0-20200227124842-a10e7caefd8e": [],
+  "github.com/oapi-codegen/nethttp-middleware@v1.1.2": [],
+  "github.com/oapi-codegen/nullable@v1.1.0": [],
+  "github.com/oapi-codegen/runtime@v1.4.1": [],
+  "github.com/oasdiff/yaml3@v0.0.13": [],
+  "github.com/oasdiff/yaml@v0.1.0": [],
+  "github.com/olekukonko/cat@v0.0.0-20250911104152-50322a0618f6": [],
+  "github.com/olekukonko/errors@v1.2.0": [],
+  "github.com/olekukonko/ll@v0.1.6": [],
+  "github.com/olekukonko/tablewriter@v1.1.4": [],
+  "github.com/onsi/ginkgo/v2@v2.29.0": [],
+  "github.com/onsi/gomega@v1.41.0": [],
+  "github.com/open-policy-agent/opa@v1.17.0": [],
+  "github.com/opencontainers/go-digest@v1.0.0": [],
+  "github.com/opencontainers/image-spec@v1.1.1": [],
+  "github.com/pelletier/go-toml/v2@v2.2.4": [],
+  "github.com/perimeterx/marshmallow@v1.1.5": [],
+  "github.com/peterh/liner@v1.2.2": [],
+  "github.com/pmezard/go-difflib@v1.0.1-0.20181226105442-5d4384ee4fb2": [],
+  "github.com/prometheus/client_golang@v1.23.2": [],
+  "github.com/prometheus/client_model@v0.6.2": [],
+  "github.com/prometheus/common@v0.67.5": [],
+  "github.com/prometheus/procfs@v0.20.1": [],
+  "github.com/rcrowley/go-metrics@v0.0.0-20250401214520-65e299d6c5c9": [],
+  "github.com/rogpeppe/go-internal@v1.14.1": [],
+  "github.com/russross/blackfriday/v2@v2.1.0": [],
+  "github.com/sagikazarmark/locafero@v0.11.0": [],
+  "github.com/santhosh-tekuri/jsonschema/v6@v6.0.2": [],
+  "github.com/schollz/closestmatch@v2.1.0+incompatible": [],
+  "github.com/segmentio/asm@v1.2.1": [],
+  "github.com/sergi/go-diff@v1.4.0": [],
+  "github.com/sirupsen/logrus@v1.9.4": [],
+  "github.com/sourcegraph/conc@v0.3.1-0.20240121214520-5f936abd7ae8": [],
+  "github.com/spf13/afero@v1.15.0": [],
+  "github.com/spf13/cast@v1.10.0": [],
+  "github.com/spf13/cobra@v1.10.2": [],
+  "github.com/spf13/pflag@v1.0.10": [],
+  "github.com/spf13/viper@v1.21.0": [],
+  "github.com/spkg/bom@v0.0.0-20160624110644-59b7046e48ad": [],
+  "github.com/stretchr/objx@v0.5.2": [],
+  "github.com/stretchr/testify@v1.11.1": [],
+  "github.com/subosito/gotenv@v1.6.0": [],
+  "github.com/tchap/go-patricia/v2@v2.3.3": [],
+  "github.com/tdewolff/minify/v2@v2.20.19": [],
+  "github.com/tdewolff/parse/v2@v2.7.12": [],
+  "github.com/tidwall/gjson@v1.18.0": [],
+  "github.com/tidwall/match@v1.1.1": [],
+  "github.com/tidwall/pretty@v1.2.1": [],
+  "github.com/tidwall/sjson@v1.2.5": [],
+  "github.com/twitchyliquid64/golang-asm@v0.15.1": [],
+  "github.com/ugorji/go/codec@v1.2.12": [],
+  "github.com/valyala/bytebufferpool@v1.0.0": [],
+  "github.com/valyala/fastjson@v1.6.10": [],
+  "github.com/valyala/fasttemplate@v1.2.2": [],
+  "github.com/vektah/gqlparser/v2@v2.5.33": [],
+  "github.com/vmihailenco/msgpack/v5@v5.4.1": [],
+  "github.com/vmihailenco/tagparser/v2@v2.0.0": [],
+  "github.com/woodsbury/decimal128@v1.4.0": [],
+  "github.com/xeipuuv/gojsonpointer@v0.0.0-20190905194746-02993c407bfb": [],
+  "github.com/xeipuuv/gojsonreference@v0.0.0-20180127040603-bd5ef7bd5415": [],
+  "github.com/yashtewari/glob-intersection@v0.2.0": [],
+  "github.com/yosssi/ace@v0.0.5": [],
+  "github.com/yuin/goldmark@v1.4.13": [
+    {
+      "affected_symbols": [
+        "Renderer.renderAutoLink",
+        "Renderer.renderImage",
+        "Renderer.renderLink"
+      ],
+      "aliases": [
+        "CVE-2026-5160",
+        "GHSA-c97m-vxhj-p7j6"
+      ],
+      "fixed_versions": [
+        "1.7.17"
+      ],
+      "id": "GO-2026-5320",
+      "malicious": false,
+      "references": [
+        "https://github.com/advisories/GHSA-c97m-vxhj-p7j6",
+        "https://github.com/yuin/goldmark/commit/cb46bbc4eca29d55aa9721e04ad207c23ccc44f9",
+        "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMYUINGOLDMARKRENDERERHTML-15838406"
+      ],
+      "severity": null,
+      "summary": "Cross-site Scripting (XSS) in github.com/yuin/goldmark"
+    }
+  ],
+  "go.opentelemetry.io/auto/sdk@v1.2.1": [],
+  "go.opentelemetry.io/contrib/bridges/prometheus@v0.68.0": [],
+  "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.68.0": [],
+  "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc@v1.43.0": [],
+  "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0": [],
+  "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc@v1.43.0": [],
+  "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0": [],
+  "go.opentelemetry.io/otel/exporters/otlp/otlptrace@v1.43.0": [],
+  "go.opentelemetry.io/otel/metric@v1.43.0": [],
+  "go.opentelemetry.io/otel/sdk/metric@v1.43.0": [],
+  "go.opentelemetry.io/otel/sdk@v1.43.0": [],
+  "go.opentelemetry.io/otel/trace@v1.43.0": [],
+  "go.opentelemetry.io/otel@v1.43.0": [
+    {
+      "affected_symbols": [
+        "Baggage.Extract",
+        "New",
+        "Parse"
+      ],
+      "aliases": [
+        "CVE-2026-41178",
+        "GHSA-5wrp-cwcj-q835"
+      ],
+      "fixed_versions": [
+        "1.42.0",
+        "1.44.0"
+      ],
+      "id": "GO-2026-5158",
+      "malicious": false,
+      "references": [
+        "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-5wrp-cwcj-q835",
+        "https://github.com/open-telemetry/opentelemetry-go/pull/7880"
+      ],
+      "severity": null,
+      "summary": "Opentelemetry-go's baggage parsing no longer caps raw header length in go.opentelemetry.io/otel"
+    }
+  ],
+  "go.opentelemetry.io/proto/otlp@v1.10.0": [],
+  "go.uber.org/multierr@v1.11.0": [],
+  "go.uber.org/zap@v1.27.0": [],
+  "go.yaml.in/yaml/v2@v2.4.4": [],
+  "go.yaml.in/yaml/v3@v3.0.4": [],
+  "golang.org/x/arch@v0.8.0": [],
+  "golang.org/x/crypto@v0.51.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39828",
+        "GO-2026-5014"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-45gg-vh54-h5m9",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39828",
+        "https://access.redhat.com/errata/RHSA-2026:40119",
+        "https://access.redhat.com/errata/RHSA-2026:40262",
+        "https://access.redhat.com/errata/RHSA-2026:40945",
+        "https://access.redhat.com/errata/RHSA-2026:40969",
+        "https://access.redhat.com/errata/RHSA-2026:40972",
+        "https://access.redhat.com/errata/RHSA-2026:40974",
+        "https://access.redhat.com/errata/RHSA-2026:41019",
+        "https://access.redhat.com/errata/RHSA-2026:41031",
+        "https://access.redhat.com/errata/RHSA-2026:41036"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+      "summary": "golang.org/x/crypto vulnerable to invoking bypass of certificate restrictions"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-42508",
+        "GO-2026-5021"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-5cgq-3rg8-m6cv",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42508",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-42508.json",
+        "https://pkg.go.dev/vuln/GO-2026-5021",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/issue/79568",
+        "https://go.dev/cl/781220",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2480688",
+        "https://access.redhat.com/security/cve/CVE-2026-42508",
+        "https://access.redhat.com/errata/RHSA-2026:41066"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto vulnerable to auth bypass via unenforced @revoked status"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39835",
+        "GO-2026-5015"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-78mq-xcr3-xm33",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39835",
+        "https://access.redhat.com/errata/RHSA-2026:26546",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:46885",
+        "https://access.redhat.com/errata/RHSA-2026:47735",
+        "https://access.redhat.com/errata/RHSA-2026:47949",
+        "https://access.redhat.com/errata/RHSA-2026:48151",
+        "https://access.redhat.com/errata/RHSA-2026:51033"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "golang.org/x/crypto is vulnerable to invoking server panic during CheckHostKey/Authenticate flow"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39831",
+        "GO-2026-5019"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-89gr-r52h-f8rx",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39831",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781662",
+        "https://go.dev/issue/79566",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5019"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto: FIDO/U2F security key physical presence check can be bypassed"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46598",
+        "GO-2026-5033"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-9m57-25v3-79x9",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46598",
+        "https://go.dev/cl/781360",
+        "https://go.dev/issue/79596",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5033"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "golang.org/x/crypto: Invoking pathological inputs can lead to client panic"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39832",
+        "GO-2026-5006"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-f5wc-c3c7-36mc",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39832",
+        "https://access.redhat.com/errata/RHSA-2026:35833",
+        "https://access.redhat.com/errata/RHSA-2026:41036",
+        "https://access.redhat.com/errata/RHSA-2026:41066",
+        "https://access.redhat.com/errata/RHSA-2026:42146",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:49944",
+        "https://access.redhat.com/errata/RHSA-2026:52857"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto doesn't drop invoking agent constraints when forwarding keys"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39833",
+        "GO-2026-5005"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-jppx-rxg9-jmrx",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39833",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/778640",
+        "https://go.dev/cl/778641",
+        "https://go.dev/issue/79436",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5005"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto doesn't enforce invoking key constraints"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46597",
+        "GO-2026-5013"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-q4h4-gmj2-qvw2",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46597",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781620",
+        "https://go.dev/issue/79561",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5013"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking byte arithmetic causes underflow and panic"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39827",
+        "GO-2026-5016"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-qpw4-5x99-6vjp",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39827",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781320",
+        "https://go.dev/issue/35127",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5016"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking memory leak when rejecting channels can lead to DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39834",
+        "GO-2026-5020"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-rm3j-f69w-wqmq",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39834",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781663",
+        "https://go.dev/issue/79567",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5020"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+      "summary": "golang.org/x/crypto vulnerable to infinite loop on large channel writes"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39830",
+        "GO-2026-5017"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-vgwf-h737-ff37",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39830",
+        "https://access.redhat.com/errata/RHSA-2026:29455",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:46885",
+        "https://access.redhat.com/errata/RHSA-2026:47735",
+        "https://access.redhat.com/errata/RHSA-2026:48151",
+        "https://access.redhat.com/errata/RHSA-2026:49944",
+        "https://access.redhat.com/errata/RHSA-2026:51033"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking client can cause server deadlock on unexpected responses"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39829",
+        "GO-2026-5018"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-w879-237q-wc7r",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39829",
+        "https://access.redhat.com/errata/RHSA-2026:37387",
+        "https://access.redhat.com/errata/RHSA-2026:40118",
+        "https://access.redhat.com/errata/RHSA-2026:40119",
+        "https://access.redhat.com/errata/RHSA-2026:40262",
+        "https://access.redhat.com/errata/RHSA-2026:40945",
+        "https://access.redhat.com/errata/RHSA-2026:40969",
+        "https://access.redhat.com/errata/RHSA-2026:40972",
+        "https://access.redhat.com/errata/RHSA-2026:40974",
+        "https://access.redhat.com/errata/RHSA-2026:41019"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking pathological RSA/DSA parameters may cause DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46595",
+        "GO-2026-5023"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-x527-x647-q7gg",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46595",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-45337",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-46595.json",
+        "https://pkg.go.dev/vuln/GO-2026-5023",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/issue/79570",
+        "https://go.dev/cl/781642",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2480689",
+        "https://access.redhat.com/security/cve/CVE-2026-46595"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:L",
+      "summary": "golang.org/x/crypto: Invoking VerifiedPublicKeyCallback permissions skip enforcement"
+    },
+    {
+      "affected_symbols": [
+        "keyring.Add"
+      ],
+      "aliases": [
+        "CVE-2026-39833",
+        "GHSA-jppx-rxg9-jmrx"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5005",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79436",
+        "https://go.dev/cl/778642",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking key constraints not enforced in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [
+        "client.Add",
+        "keyring.Add"
+      ],
+      "aliases": [
+        "CVE-2026-39832",
+        "GHSA-f5wc-c3c7-36mc"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5006",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79435",
+        "https://go.dev/cl/778640",
+        "https://go.dev/cl/778641",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking agent constraints dropped when forwarding keys in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "curve25519sha256.Client",
+        "curve25519sha256.Server",
+        "dhGEXSHA.Client",
+        "dhGEXSHA.Server",
+        "dhGroup.Client",
+        "dhGroup.Server",
+        "ecdh.Client",
+        "ecdh.Server",
+        "gcmCipher.readCipherPacket",
+        "mlkem768WithCurve25519sha256.Client",
+        "mlkem768WithCurve25519sha256.Server"
+      ],
+      "aliases": [
+        "CVE-2026-46597",
+        "GHSA-q4h4-gmj2-qvw2"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5013",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79561",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781620"
+      ],
+      "severity": null,
+      "summary": "Invoking byte arithmetic causes underflow and panic in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-39828",
+        "GHSA-45gg-vh54-h5m9"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5014",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79562",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781621"
+      ],
+      "severity": null,
+      "summary": "Invoking bypass of certificate restrictions in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "CertChecker.Authenticate",
+        "CertChecker.CheckHostKey"
+      ],
+      "aliases": [
+        "CVE-2026-39835",
+        "GHSA-78mq-xcr3-xm33"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5015",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79563",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781660"
+      ],
+      "severity": null,
+      "summary": "Invoking server panic during CheckHostKey/Authenticate in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "channel.Reject"
+      ],
+      "aliases": [
+        "CVE-2026-39827",
+        "GHSA-qpw4-5x99-6vjp"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5016",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/35127",
+        "https://go.dev/cl/781320",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking memory leak when rejecting channels can lead to DoS in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Client.Listen",
+        "Client.ListenTCP",
+        "Client.ListenUnix",
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "Session.CombinedOutput",
+        "Session.Output",
+        "Session.RequestPty",
+        "Session.RequestSubsystem",
+        "Session.Run",
+        "Session.SendRequest",
+        "Session.Setenv",
+        "Session.Shell",
+        "Session.Signal",
+        "Session.Start",
+        "Session.WindowChange",
+        "channel.SendRequest",
+        "channel.handlePacket",
+        "mux.SendRequest",
+        "mux.handleGlobalPacket",
+        "tcpListener.Close",
+        "unixListener.Close"
+      ],
+      "aliases": [
+        "CVE-2026-39830",
+        "GHSA-vgwf-h737-ff37"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5017",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79564",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781640",
+        "https://go.dev/cl/781664"
+      ],
+      "severity": null,
+      "summary": "Invoking client can cause server deadlock on unexpected responses in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "NewSignerFromKey",
+        "ParseAuthorizedKey",
+        "ParseKnownHosts",
+        "ParsePrivateKey",
+        "ParsePrivateKeyWithPassphrase",
+        "ParsePublicKey",
+        "ParseRawPrivateKey",
+        "ParseRawPrivateKeyWithPassphrase",
+        "checkDSAParams",
+        "parseDSA",
+        "parseRSA"
+      ],
+      "aliases": [
+        "CVE-2026-39829",
+        "GHSA-w879-237q-wc7r"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5018",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79565",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781641",
+        "https://go.dev/cl/781661"
+      ],
+      "severity": null,
+      "summary": "Invoking pathological RSA/DSA parameters may cause DoS in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "CertChecker.Authenticate",
+        "CertChecker.CheckCert",
+        "CertChecker.CheckHostKey",
+        "Certificate.Verify",
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "connection.serverAuthenticate",
+        "skECDSAPublicKey.Verify",
+        "skEd25519PublicKey.Verify"
+      ],
+      "aliases": [
+        "CVE-2026-39831",
+        "GHSA-89gr-r52h-f8rx"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5019",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79566",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781662"
+      ],
+      "severity": null,
+      "summary": "Invoking bypass of FIDO/U2F security keys physical interaction in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "Session.CombinedOutput",
+        "Session.Output",
+        "Session.Run",
+        "Session.Shell",
+        "Session.Start",
+        "channel.Write",
+        "channel.WriteExtended",
+        "curve25519sha256.Client",
+        "curve25519sha256.Server",
+        "dhGEXSHA.Client",
+        "dhGEXSHA.Server",
+        "dhGroup.Client",
+        "dhGroup.Server",
+        "ecdh.Client",
+        "ecdh.Server",
+        "extChannel.Write",
+        "mlkem768WithCurve25519sha256.Client",
+        "mlkem768WithCurve25519sha256.Server"
+      ],
+      "aliases": [
+        "CVE-2026-39834",
+        "GHSA-rm3j-f69w-wqmq"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5020",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79567",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781663"
+      ],
+      "severity": null,
+      "summary": "Invoking infinite loop on large channel writes in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "hostKeyDB.IsRevoked"
+      ],
+      "aliases": [
+        "CVE-2026-42508",
+        "GHSA-5cgq-3rg8-m6cv"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5021",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79568",
+        "https://go.dev/cl/781220",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking auth bypass via unenforced @revoked status in golang.org/x/crypto/ssh/knownhosts"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-46595",
+        "GHSA-x527-x647-q7gg"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5023",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79570",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781642"
+      ],
+      "severity": null,
+      "summary": "Invoking VerifiedPublicKeyCallback permissions skip enforcement in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "ForwardToAgent",
+        "ServeAgent",
+        "parseEd25519Cert",
+        "parseEd25519Key"
+      ],
+      "aliases": [
+        "CVE-2026-46598",
+        "GHSA-9m57-25v3-79x9"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5033",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79596",
+        "https://go.dev/cl/781360",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking pathological inputs can lead to client panic in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [],
+      "fixed_versions": [],
+      "id": "GO-2026-5932",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/44226"
+      ],
+      "severity": null,
+      "summary": "The golang.org/x/crypto/openpgp package is unmaintained, unsafe by design, and has known security issues"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-56854"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-6303",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80213",
+        "https://go.dev/cl/797040"
+      ],
+      "severity": null,
+      "summary": "Source-address critical option not enforced for non-public-key auth callbacks in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.Accept",
+        "channel.handlePacket",
+        "channel.responseMessageReceived"
+      ],
+      "aliases": [
+        "CVE-2026-78662"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6354",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81316",
+        "https://go.dev/cl/826504",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked undecided channel in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.handlePacket"
+      ],
+      "aliases": [
+        "CVE-2026-56855"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6355",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81317",
+        "https://go.dev/cl/826524",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked established channel in golang.org/x/crypto/ssh"
+    }
+  ],
+  "golang.org/x/exp@v0.0.0-20240404231335-c0f41cb1a7a0": [],
+  "golang.org/x/mod@v0.35.0": [
+    {
+      "affected_symbols": [
+        "tileHashReader.ReadHashes"
+      ],
+      "aliases": [
+        "BIT-golang-2026-56865",
+        "CVE-2026-56865"
+      ],
+      "fixed_versions": [
+        "0.40.0"
+      ],
+      "id": "GO-2026-6179",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80744",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI",
+        "https://go.dev/cl/814960",
+        "https://go.dev/cl/815020"
+      ],
+      "severity": null,
+      "summary": "Fix transparency log tile verification bypass in golang.org/x/mod/sumdb/tlog"
+    },
+    {
+      "affected_symbols": [
+        "Client.Lookup"
+      ],
+      "aliases": [
+        "BIT-golang-2026-56864",
+        "CVE-2026-56864"
+      ],
+      "fixed_versions": [
+        "0.40.0"
+      ],
+      "id": "GO-2026-6180",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80745",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI",
+        "https://go.dev/cl/815000",
+        "https://go.dev/cl/815020"
+      ],
+      "severity": null,
+      "summary": "Ignore unrelated, unauthenticated hashes in Lookup in golang.org/x/mod/sumdb"
+    }
+  ],
+  "golang.org/x/net@v0.53.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-25680",
+        "GO-2026-5028"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GHSA-5cv4-jp36-h3mw",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-25680",
+        "https://go.dev/cl/781702",
+        "https://go.dev/issue/79573",
+        "https://go.googlesource.com/net/+/08be507abce89191d78cd49da60f4501fc910472",
+        "https://go.googlesource.com/net/+/refs/tags/v0.55.0",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://pkg.go.dev/vuln/GO-2026-5028",
+        "cs.opensource.google/go/x/net"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "summary": "Go Net HTML parser is vulnerable to denial of service"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-42506"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5025",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79571",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781700"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of namespaced elements in foreign content in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Profile.ToASCII",
+        "Profile.ToUnicode",
+        "Profile.process",
+        "ToASCII",
+        "ToUnicode"
+      ],
+      "aliases": [
+        "CVE-2026-39821"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5026",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/767220",
+        "https://go.dev/issue/78760",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+      ],
+      "severity": null,
+      "summary": "Invoking failure to reject ASCII-only Punycode-encoded labels in golang.org/x/net/idna"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-42502"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5027",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79572",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781701"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of HTML elements in foreign content in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-25680",
+        "GHSA-5cv4-jp36-h3mw"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5028",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/781702",
+        "https://go.dev/issue/79573",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8"
+      ],
+      "severity": null,
+      "summary": "Invoking denial of service when parsing arbitrary HTML in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-25681"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5029",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79574",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781703"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of character references in DOCTYPE nodes in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-27136"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5030",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79575",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781685"
+      ],
+      "severity": null,
+      "summary": "Invoking duplicate attributes can cause XSS in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Message.Unpack",
+        "Parser.Additional",
+        "Parser.AllAdditionals",
+        "Parser.AllAnswers",
+        "Parser.AllAuthorities",
+        "Parser.Answer",
+        "Parser.Authority",
+        "Parser.HTTPSResource",
+        "Parser.SVCBResource",
+        "unpackSVCBResource"
+      ],
+      "aliases": [
+        "BIT-golang-2026-46600",
+        "CVE-2026-46600"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-5942",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/786345",
+        "https://go.dev/issue/79795",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+      ],
+      "severity": null,
+      "summary": "Parsing an invalid SVCB or HTTPS RR can panic in golang.org/x/net/dns/dnsmessage"
+    }
+  ],
+  "golang.org/x/oauth2@v0.36.0": [],
+  "golang.org/x/sync@v0.20.0": [],
+  "golang.org/x/sys@v0.44.0": [],
+  "golang.org/x/telemetry@v0.0.0-20260409153401-be6f6cb8b1fa": [],
+  "golang.org/x/term@v0.43.0": [],
+  "golang.org/x/text@v0.37.0": [
+    {
+      "affected_symbols": [
+        "Form.Append",
+        "Form.AppendString",
+        "Form.Bytes",
+        "Form.FirstBoundary",
+        "Form.FirstBoundaryInString",
+        "Form.IsNormal",
+        "Form.IsNormalString",
+        "Form.LastBoundary",
+        "Form.NextBoundary",
+        "Form.NextBoundaryInString",
+        "Form.Properties",
+        "Form.PropertiesString",
+        "Form.QuickSpan",
+        "Form.QuickSpanString",
+        "Form.Span",
+        "Form.SpanString",
+        "Form.String",
+        "Form.Transform",
+        "Iter.Init",
+        "Iter.InitString",
+        "Iter.Next",
+        "Iter.Seek",
+        "nextComposed",
+        "normReader.Read",
+        "normWriter.Write"
+      ],
+      "aliases": [
+        "CVE-2026-56852"
+      ],
+      "fixed_versions": [
+        "0.39.0"
+      ],
+      "id": "GO-2026-5970",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80142",
+        "https://go.dev/cl/794100"
+      ],
+      "severity": null,
+      "summary": "Infinite loop on invalid input in golang.org/x/text"
+    }
+  ],
+  "golang.org/x/time@v0.15.0": [],
+  "golang.org/x/tools@v0.44.0": [],
+  "google.golang.org/genproto/googleapis/api@v0.0.0-20260401024825-9d38bb4040a9": [],
+  "google.golang.org/genproto/googleapis/rpc@v0.0.0-20260401024825-9d38bb4040a9": [],
+  "google.golang.org/grpc@v1.81.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84445"
+      ],
+      "fixed_versions": [
+        "1.82.2",
+        "1.83.2",
+        "1.85.0-dev.0.20260825072537-93e31b48545e"
+      ],
+      "id": "GHSA-2v4p-qf9q-27wj",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-2v4p-qf9q-27wj",
+        "https://github.com/grpc/grpc-go/issues/9354",
+        "https://github.com/grpc/grpc-go/pull/9365",
+        "https://github.com/grpc/grpc-go/pull/9366",
+        "https://github.com/grpc/grpc-go/pull/9367",
+        "https://github.com/grpc/grpc-go/commit/3822494d8ea03b992c089fd2a195f041762fffb7",
+        "https://github.com/grpc/grpc-go/commit/8668b69c167df908b6b3666dcbf40992b9e932a4",
+        "https://github.com/grpc/grpc-go/commit/93e31b48545e2a8aaeb6e06b47fb249f94e6297f",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.2"
+      ],
+      "severity": "HIGH",
+      "summary": "gRPC-Go xDS servers: Denial of Service (DoS) via crash due to missing `:authority` and `Host` headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "GO-2026-6061"
+      ],
+      "fixed_versions": [
+        "1.82.1"
+      ],
+      "id": "GHSA-hrxh-6v49-42gf",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf",
+        "https://github.com/grpc/grpc-go/pull/9236",
+        "https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: xDS RBAC and HTTP/2 Vulnerabilities"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84303"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GHSA-qc2q-p7wx-3px3",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-qc2q-p7wx-3px3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-84303",
+        "https://github.com/grpc/grpc-go/pull/9332",
+        "https://github.com/grpc/grpc-go/pull/9335",
+        "https://github.com/grpc/grpc-go/commit/db9482836c298f234c896cf82ab68cafc78237f8",
+        "https://github.com/grpc/grpc-go/commit/ebba6f3f1b206e2b4dc4d1d5a96d18430302c2fe",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: xDS RBAC HTTP Filter bypass via mixed-case Header Matching and gRFC A41 validation evasion"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84304"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GHSA-vp52-pcj8-j9qc",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-vp52-pcj8-j9qc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-84304",
+        "https://github.com/grpc/grpc-go/pull/9331",
+        "https://github.com/grpc/grpc-go/pull/9333",
+        "https://github.com/grpc/grpc-go/commit/7354d9c8debb4bcf2225bf429857078de310c176",
+        "https://github.com/grpc/grpc-go/commit/8cfeca0e1ee5ea0980dcc320e20240fa1079ec77",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation"
+    },
+    {
+      "affected_symbols": [
+        "ChainEngine.IsAuthorized",
+        "ClientStream.Close",
+        "ClientStream.Header",
+        "ClientStream.Read",
+        "ClientStream.RecvCompress",
+        "ClientStream.TrailersOnly",
+        "ClientStream.Write",
+        "NewChainEngine",
+        "NewHTTP2Client",
+        "NewServerTransport",
+        "ServerStream.Read",
+        "ServerStream.SendHeader",
+        "ServerStream.Write",
+        "ServerStream.WriteStatus",
+        "Stream.ReadMessageHeader",
+        "controlBuffer.executeAndPut",
+        "controlBuffer.getOnceLocked",
+        "http2Client.Close",
+        "http2Client.GracefulClose",
+        "http2Client.NewStream",
+        "http2Server.Drain",
+        "http2Server.HandleStreams",
+        "matchersFromPermissions",
+        "matchersFromPrincipals",
+        "recvBufferReader.Read",
+        "recvBufferReader.ReadMessageHeader",
+        "transportReader.Read",
+        "transportReader.ReadMessageHeader"
+      ],
+      "aliases": [
+        "GHSA-hrxh-6v49-42gf"
+      ],
+      "fixed_versions": [
+        "1.82.1"
+      ],
+      "id": "GO-2026-6061",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf",
+        "https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935",
+        "https://github.com/grpc/grpc-go/pull/9236",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.1"
+      ],
+      "severity": null,
+      "summary": "Vulnerabilities in the xDS RBAC authorization engine and the HTTP/2 transport server implementation in google.golang.org/grpc"
+    }
+  ],
+  "google.golang.org/protobuf@v1.36.11": [],
+  "gopkg.in/check.v1@v1.0.0-20201130134442-10cb98267c6c": [],
+  "gopkg.in/ini.v1@v1.67.2": [],
+  "gopkg.in/natefinch/lumberjack.v2@v2.2.1": [],
+  "gopkg.in/yaml.v3@v3.0.1": [],
+  "gorm.io/driver/postgres@v1.6.0": [],
+  "gorm.io/driver/sqlite@v1.6.0": [],
+  "gorm.io/gorm@v1.31.1": [],
+  "oras.land/oras-go/v2@v2.6.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50162",
+        "GO-2026-5879"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-8xwf-rjm4-xvhv",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-8xwf-rjm4-xvhv",
+        "https://github.com/oras-project/oras-go/commit/cc323e564d90c6b5b4bdd71d3c8d2ee2713b37e5",
+        "https://github.com/oras-project/oras-go"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "oras-go has file store write outside workingDir via symlink traversal"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50163",
+        "GO-2026-5880"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GHSA-fxhp-mv3v-67qp",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-fxhp-mv3v-67qp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-50163",
+        "https://github.com/oras-project/oras-go/pull/1232",
+        "https://github.com/oras-project/oras-go/commit/b11f777f8d405c5023c4b307cfdc5068dfc3d406",
+        "https://github.com/oras-project/oras-go/commit/c463c654ab3ef34422c1764cd619806cebf20451",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.2"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+      "summary": "`oras-go` tar extraction: Hardlink entry with relative Linkname escapes extract dir via process CWD resolution"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50151",
+        "GO-2026-5882"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-jxpm-75mh-9fp7",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-jxpm-75mh-9fp7",
+        "https://github.com/oras-project/oras-go/pull/1152",
+        "https://github.com/oras-project/oras-go/commit/4683c46ef078091544f5f55fd25102f002806991",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "oras-go blob upload vulnerable to credential forwarding via unvalidated Location header"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "GO-2026-5884"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-vh4v-2xq2-g5cg",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg",
+        "https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "ORAS Go forwards registry credentials across registry redirects"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48978",
+        "GO-2026-5885"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-xf85-363p-868w",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w",
+        "https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "summary": "oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens"
+    },
+    {
+      "affected_symbols": [
+        "New",
+        "Store.Add"
+      ],
+      "aliases": [
+        "CVE-2026-50162",
+        "GHSA-8xwf-rjm4-xvhv"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5879",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-8xwf-rjm4-xvhv",
+        "https://github.com/oras-project/oras-go/commit/cc323e564d90c6b5b4bdd71d3c8d2ee2713b37e5"
+      ],
+      "severity": null,
+      "summary": "Oras-go: File store write outside workingDir via symlink traversal in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "New",
+        "Store.Add"
+      ],
+      "aliases": [
+        "CVE-2026-50163",
+        "GHSA-fxhp-mv3v-67qp"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GO-2026-5880",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-fxhp-mv3v-67qp",
+        "https://github.com/oras-project/oras-go/commit/b11f777f8d405c5023c4b307cfdc5068dfc3d406"
+      ],
+      "severity": null,
+      "summary": "Hardlink path traversal during tar extraction in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Repository.Push"
+      ],
+      "aliases": [
+        "CVE-2026-50151",
+        "GHSA-jxpm-75mh-9fp7"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5882",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-jxpm-75mh-9fp7",
+        "https://github.com/oras-project/oras-go/commit/4683c46ef078091544f5f55fd25102f002806991",
+        "https://github.com/oras-project/oras-go/pull/1152",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "Oras-go: Blob upload vulnerable to credential forwarding via unvalidated Location header in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Client.Do"
+      ],
+      "aliases": [
+        "GHSA-vh4v-2xq2-g5cg"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5884",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg",
+        "https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "ORAS Go forwards registry credentials across registry redirects in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Client.Do"
+      ],
+      "aliases": [
+        "CVE-2026-48978",
+        "GHSA-xf85-363p-868w"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5885",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w",
+        "https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "Oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens in oras.land/oras-go"
+    }
+  ],
+  "sigs.k8s.io/randfill@v1.0.0": [],
+  "sigs.k8s.io/yaml@v1.6.0": []
+}
