@@ -94,6 +94,42 @@ same budget. Then pyasn1 and starlette went through the same pipeline once each 
 vulnerability. The register grew to nineteen entries along the way; every one has a check that runs
 before every pipeline run.
 
+## The same pipeline on a cluster (`-cluster/`, `-cluster-run2/`)
+
+Everything above ran on a workstation. These two runs are the same pipeline as a Tekton PipelineRun
+on OpenShift: one task per stage, stage 0 first, and the execute pod is the sandbox. A deny-all
+network policy, no service account token, and a read-only root are set by the pod spec, and the pod's
+first step proves them before any generated test runs. Nothing about the cluster is in the records
+beyond the image digest; the model was the same laptop model, reached from the pod over the network.
+
+| Run | Tests ran | Proven | Accepted | Mutation score | UDLM records | Trigger to packet |
+|---|---|---|---|---|---|---|
+| `-cluster/` | 14 | 1 vulnerability (CVE-2024-33663) | 10 | 0.40 (10 of 25) | 19, sealed | 49 minutes |
+| `-cluster-run2/` | 7 | 0 | 0 | 0.48 (12 of 25) | 9, sealed | 62 minutes |
+
+The first cluster run proved the key-confusion vulnerability and signed the evidence, but two stages
+were re-run by hand on the same workspace: attest and assess had crashed on a package that was
+analyzed and never selected. The re-run gave attest the selection explicitly and gave assess the
+fix, which is that later stages only handle what the run executed. The second run went end to end
+unaided and proved nothing. Same model, same
+rules: the unit file it wrote imported a name the package does not have, and the generator shipped
+it anyway because the keep step cut only tests named in the baseline failures, and a file that fails
+to import names no test. That is register entry GF-020, with a check that now runs before every run.
+
+Getting the pipeline through the cluster took ten runs. Each one stopped one stage further than the
+last, on something the workstation never sees, and each fix is one commit:
+
+| Stopped at | Cause | Fix |
+|---|---|---|
+| scheduling | Tekton lets a task pod bind one claim; three workspaces on three claims never scheduled | one shared workspace, three directories under it |
+| intake | the stage pod referenced a secret by an empty name | every stage receives the model secret |
+| intake | the clone and the harness run as different user ids, and git refused the checkout | stage pods tell git to trust the workspace |
+| intake | a CI clone checks the revision out detached and never creates the branch name | intake resolves a name, then the remote's copy, then fetches it |
+| generate | the isolation probe ran in a pod that is not the sandbox | stage pods skip the probe; the execute pod's first step is the probe |
+| execute | the isolation probe installs one wheel and the sealed pod cannot download it | stage 0 fetches it into the shared workspace first |
+| attest | later stages followed the analyzed package list, not the executed one | triage, packet, attest and assess only handle what the run executed |
+| records | the pod's sandbox records had no image digest and the run record had shortened a branch name | the pod is told its own digest reference; only real paths are shortened |
+
 ## What the harness could not do, said plainly
 
 - **Build every trigger.** Fourteen vulnerabilities were tried across the three packages; three were
@@ -144,6 +180,7 @@ digests, verdicts, and every other recorded fact are unchanged (`tools/redact-lo
 | `rescan/` | A scheduled scan of `main`: 63 packages, 7 with known vulnerabilities, before any change |
 | `pr-fix-known-vulns/` through `-run4/` | python-jose runs 1 to 4, kept as produced, for the ladder above |
 | `pr-fix-known-vulns-run5/` | The full pipeline on all three packages: the packets, VEX drafts, signed attestations, mutation results, and the post-analysis |
+| `pr-fix-known-vulns-cluster/`, `-cluster-run2/` | python-jose through the same pipeline as a Tekton PipelineRun on OpenShift, the execute pod as the sandbox; see "The same pipeline on a cluster" |
 
 Inside a run: `intake/` (dependency graph, SBOM, work list), `analyze/` (facts per package),
 `generate/` (candidate tests, every model prompt and response), `execute/` (results on both versions,

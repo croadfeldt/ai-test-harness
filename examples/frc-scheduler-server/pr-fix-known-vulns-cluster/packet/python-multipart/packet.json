@@ -1,0 +1,20 @@
+{
+  "generated": "2026-09-13T22:57:49+00:00",
+  "package": "python-multipart",
+  "packet_md": "packet/python-multipart/packet.md",
+  "patch": "packet/python-multipart/tests.patch",
+  "patch_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+  "tests_in_patch": [],
+  "vex": "packet/python-multipart/vex.openvex.json",
+  "vex_statements": {
+    "CVE-2024-53981": "under_investigation",
+    "CVE-2026-24486": "under_investigation",
+    "CVE-2026-40347": "under_investigation",
+    "CVE-2026-42561": "under_investigation",
+    "CVE-2026-53537": "under_investigation",
+    "CVE-2026-53538": "under_investigation",
+    "CVE-2026-53539": "under_investigation",
+    "CVE-2026-53540": "under_investigation"
+  }
+}

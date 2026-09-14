@@ -1,0 +1,34 @@
+{
+  "findings": [
+    {
+      "advisories": [
+        "CVE-2025-54121",
+        "CVE-2025-62727",
+        "CVE-2026-48710",
+        "CVE-2026-48817",
+        "CVE-2026-48818",
+        "CVE-2026-54282",
+        "CVE-2026-54283"
+      ],
+      "class": "security",
+      "confidence": 0.9,
+      "escalated": false,
+      "evidence_ref": "analyze/starlette/vulns.json",
+      "package": "starlette",
+      "routing": "Product Security",
+      "summary": "starlette 0.41.3 has 14 open advisories at head; reachable=true"
+    }
+  ],
+  "generated": "2026-09-13T22:57:45+00:00",
+  "package": "starlette",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 0,
+    "findings": 1,
+    "tests_accept": 0,
+    "tests_discard_or_regenerate": 0
+  },
+  "tests": [],
+  "threshold": 0.7
+}

@@ -1,0 +1,28 @@
+{
+  "args": {
+    "base": "main",
+    "cmd": "intake",
+    "ecosystem": "python",
+    "head": "deps/fix-known-vulns",
+    "manifest": "requirements.txt",
+    "python_version": null,
+    "repo": "source",
+    "workdir": "run"
+  },
+  "command": [
+    "intake",
+    "--workdir",
+    "run",
+    "--base",
+    "main",
+    "--head",
+    "fix-known-vulns"
+  ],
+  "harness_version": "0.1.0",
+  "started": "2026-09-13T22:08:39+00:00",
+  "tools": {
+    "git": "git version 2.47.3",
+    "pip": "pip 25.0.1",
+    "python": "3.12.13"
+  }
+}

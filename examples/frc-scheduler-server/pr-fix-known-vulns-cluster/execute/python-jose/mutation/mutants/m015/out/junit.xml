@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="14" time="0.313" timestamp="2026-09-13T22:54:25.275967+00:00" hostname="ai-test-harness-fc4ls-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_fix_pinning" time="0.004" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_exposure" time="0.002" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.013"><failure message="UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key must be rejected as an HMAC secret in 3.4.0 (accepted in 3.3.0)."""
+        ssh_key = _ssh_ecdsa_key()
+        with pytest.raises(JWSError):
+&gt;           jwt.encode({'a': 1}, ssh_key, algorithm=ALGORITHMS.HS256)
+
+tests/test_python_jose_cve_cve_2024_33663.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJhIjoxfQ', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 BDaeNhbfI5GFSXY0RJid464KBVfLh+gB2ictOE/JApQLMg61rML4jMXpeQyeasBzgfQXb9frg8lmIZqs6nFjvSo='
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+            pass
+&gt;       encoded_signature = base64url_encode(signature)
+                                             ^^^^^^^^^
+E       UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value
+
+venv/lib/python3.12/site-packages/jose/jws.py:141: UnboundLocalError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.002"><failure message="UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value">def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) must reject OpenSSH ECDSA keys."""
+        ssh_key = _ssh_ecdsa_key()
+        with pytest.raises(JWSError):
+&gt;           jwt.encode({'sub': 'x'}, ssh_key, algorithm='HS256')
+
+tests/test_python_jose_cve_cve_2024_33663.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:42: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ4In0', algorithm = 'HS256'
+key = b'ecdsa-sha2-nistp256 BCCF3iYJLCDDwBljIKYl1AG+oG4I9fFgyNsNTP8BHQhIOJuU7Cco0adpXl4xFuTZKtJWzyY0WyhUSsyz+IAdt1o='
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b'.'.join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+            pass
+&gt;       encoded_signature = base64url_encode(signature)
+                                             ^^^^^^^^^
+E       UnboundLocalError: cannot access local variable 'signature' where it is not associated with a value
+
+venv/lib/python3.12/site-packages/jose/jws.py:141: UnboundLocalError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.002" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip_hmac" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_audience_mismatch_raises_jwt_claims_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg_and_typ" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims_without_verification" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.000" /></testsuite></testsuites>

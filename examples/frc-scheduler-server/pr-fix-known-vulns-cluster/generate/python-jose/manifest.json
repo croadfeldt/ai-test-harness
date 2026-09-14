@@ -1,0 +1,167 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 5,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "direction": "fix",
+    "fixed": "3.4.0",
+    "vulnerable": "3.3.0"
+  },
+  "discarded": [],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 562,
+        "status": {
+          "test_jwe_encrypt_decrypt_roundtrip": "fail",
+          "test_jwk_construct_rsa_key": "fail",
+          "test_jws_sign_verify_roundtrip": "pass",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error": "pass",
+          "test_jwt_decode_expired_raises_expired_signature_error": "pass",
+          "test_jwt_decode_wrong_key_raises_jwt_error": "pass",
+          "test_jwt_encode_decode_roundtrip_hmac": "pass",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification": "pass",
+          "test_jwt_get_unverified_header_returns_alg_and_typ": "pass",
+          "test_utils_base64url_roundtrip": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "jose.exceptions.JWKError: Key must be 256 bit for alg A256GCM",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwe_encrypt_decrypt_roundtrip"
+        },
+        {
+          "message": "jose.exceptions.JWKError: Unable to parse an RSA_JWK from key: <cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7f2e7f0c0a10>",
+          "reason": "fails on baseline after repair",
+          "test": "test_jwk_construct_rsa_key"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_python_jose_unit.py",
+      "model": "qwen/qwen3.8-27b",
+      "prompt_sha256": "sha256:47cc9508f90ce12c9318627499e2227b5afa9a41f28dd473f090b4e7777db7f9",
+      "response_sha256": "sha256:77874c7335a4886b52f4e0f21eb4a3610c4997706bb9193aaf6be02e30d8051a",
+      "sha256": "sha256:6e650c8b4567d56eca05c94410f1dfeebc7b8a14b2c062d7f5fe3466a26596e4",
+      "targets": [
+        "jose.JWTError",
+        "jose.jwt",
+        "jose.jwt.decode",
+        "jose.jwt.encode",
+        "jose.jwt.get_unverified_header"
+      ],
+      "tests": [
+        "test_jwt_encode_decode_roundtrip_hmac",
+        "test_jwt_decode_wrong_key_raises_jwt_error",
+        "test_jwt_decode_expired_raises_expired_signature_error",
+        "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+        "test_jwt_get_unverified_header_returns_alg_and_typ",
+        "test_jwt_get_unverified_claims_returns_claims_without_verification",
+        "test_jws_sign_verify_roundtrip",
+        "test_utils_base64url_roundtrip"
+      ]
+    },
+    {
+      "attempts": 8,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "GHSA-6c5p-j8vq-pqhj (CVE-2024-33663): OpenSSH ECDSA key passed as HMAC secret is accepted in 3.3.0 (algorithm confusion) but rejected with JWSError in 3.4.0 via is_ssh_key check; both tests use the app's jwt.encode call pattern.",
+      "sha256": "sha256:f7f715b157af79192ee35cb0cb49aff525ef1a5d0a4dc6ae91f5832a741ea7c8",
+      "targets": [
+        "GHSA-6c5p-j8vq-pqhj",
+        "PYSEC-2024-232"
+      ],
+      "tests": [
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "tool_calls": 8
+    },
+    {
+      "attempts": 12,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_33664.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Tests build a DIR/A256GCM JWE with zip=DEF whose decompressed plaintext (300 KiB) exceeds the 250 KiB JWE_SIZE_LIMIT added in 3.4.0; assert JWEError is raised. Caveat: the sandbox run showed both versions passing (old version's GCM auth-tag check rejects the forged token before reaching _decompress), so the fix-pinning test may not fail on 3.3.0 in this environment; the trigger is the correct one per the advisory and the fix diff.",
+      "sha256": "sha256:912c999edb8644b8da12f98adbbe0630e785e86e675f469283f0d59a22ce8182",
+      "targets": [
+        "GHSA-cjwg-qfpm-7377",
+        "PYSEC-2024-233"
+      ],
+      "tests": [
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 14,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "direction": "fix",
+        "fixed": "3.4.0",
+        "vulnerable": "3.3.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/test_python_jose_cve_cve_2024_29370.py",
+      "model": "qwen/qwen3.8-27b",
+      "note": "Crafts a JWE (dir/A128GCM/DEF) whose compressed payload expands to 300KB, exceeding the 250KB JWE_SIZE_LIMIT added in 3.4.0; asserts jwe.decrypt raises JWEError. Caveat: on 3.3.0 the crafted token fails earlier at GCM auth-tag verification (also JWEError), so the test passes on both versions rather than pinning the fix; the harness verifies by running against both.",
+      "sha256": "sha256:5ae3cf608d5f90d33170a271372318d348fb83d483ce16be2cd35536e446b62f",
+      "targets": [
+        "PYSEC-2025-185"
+      ],
+      "tests": [
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_PYSEC_2025_185_exposure"
+      ],
+      "tool_calls": 12
+    }
+  ],
+  "generated": "2026-09-13T22:09:14+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "laptop-lmstudio",
+    "endpoint_digest": "sha256:657141afb9ad95bf",
+    "id": "qwen/qwen3.8-27b",
+    "temperature": 0.2
+  },
+  "new_version": "3.4.0",
+  "old_version": "3.3.0",
+  "package": "python-jose",
+  "purl": "pkg:pypi/python-jose@3.4.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

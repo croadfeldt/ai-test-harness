@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "pdfminer"
+  ],
+  "package": "pdfminer-six",
+  "sites": []
+}

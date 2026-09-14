@@ -1,0 +1,27 @@
+{
+  "coverage": "/workspace/shared/run/execute/python-jose/mutation/mutants/m023/out/coverage.json",
+  "duration_s": 18.5,
+  "finished": "2026-09-13T22:56:56+00:00",
+  "image": "the pod's own image",
+  "image_digest": null,
+  "install_failed": false,
+  "isolation": {
+    "disposable": "the task pod",
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 300
+    },
+    "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+    "rootfs": "read-only (claim)",
+    "runtime_class": "default (no Kata or gVisor)",
+    "secrets": "none mounted; environment cleared for the run",
+    "service_account_token": "not mounted (claim)",
+    "target": "pod"
+  },
+  "junit": "/workspace/shared/run/execute/python-jose/mutation/mutants/m023/out/junit.xml",
+  "label": "python-jose-m023",
+  "returncode": 0,
+  "timed_out": false
+}

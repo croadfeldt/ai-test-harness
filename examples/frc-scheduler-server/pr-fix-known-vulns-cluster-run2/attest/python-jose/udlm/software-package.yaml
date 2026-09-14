@@ -1,0 +1,32 @@
+# UDLM software-package records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: discovered_record
+state: Discovered
+entity_uuid: 2d132030-6c87-4236-9421-0a6e7ed30bc4
+record_uuid: 01a09d3e-f713-7a01-8d1d-8d544940a4e3
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: SoftwarePackage
+type_version: 0.2.1
+type_ref: https://udlm.dev/registry/udlm/0.1/class/SoftwarePackage/0.2.1
+handle: lab/knowledge/software-package/python-jose-3-4-0
+at: '2026-09-14T00:00:33Z'
+time_source: harness-clock
+fields:
+  purl: pkg:pypi/python-jose@3.4.0
+  name: python-jose
+  version: 3.4.0
+  type: pypi
+origin: discovered-derived
+provenance:
+  fields.purl:
+  - source:
+      kind: discovery
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-14T00:00:33Z'
+integrity:
+  head: sha256:fae10e8da2bf20ed08443a8a93922147f90495df2cb658867ddbb3086e167333
+  previous: null
+  algorithm: sha256-jcs

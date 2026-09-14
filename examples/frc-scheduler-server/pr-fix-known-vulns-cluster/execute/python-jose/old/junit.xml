@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="14" time="0.250" timestamp="2026-09-13T22:49:42.042732+00:00" hostname="ai-test-harness-fc4ls-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_fix_pinning" time="0.004" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_PYSEC_2025_185_exposure" time="0.002" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.015"><failure message="Failed: DID NOT RAISE JWSError">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key must be rejected as an HMAC secret in 3.4.0 (accepted in 3.3.0)."""
+        ssh_key = _ssh_ecdsa_key()
+&gt;       with pytest.raises(JWSError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWSError
+
+tests/test_python_jose_cve_cve_2024_33663.py:24: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.002"><failure message="Failed: DID NOT RAISE JWSError">def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) must reject OpenSSH ECDSA keys."""
+        ssh_key = _ssh_ecdsa_key()
+&gt;       with pytest.raises(JWSError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWSError
+
+tests/test_python_jose_cve_cve_2024_33663.py:31: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.002" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.002" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip_hmac" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_audience_mismatch_raises_jwt_claims_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg_and_typ" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims_without_verification" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.000" /></testsuite></testsuites>

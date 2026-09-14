@@ -1,0 +1,133 @@
+{
+  "findings": [
+    {
+      "class": "defect",
+      "confidence": 0.4,
+      "corroborating_tests": [],
+      "escalated": true,
+      "evidence_ref": "generate/python-jose/manifest.agent.json",
+      "package": "python-jose",
+      "reproducer": "[new 3.4.0 = FIXED] test_ghsa_cjwg_qfpm_7377_fix_pinning=fail (jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'); test_ghsa_cjwg_qfpm_7377_exposure=fail (jose.exceptions.JWEError: ",
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33664); NOT corroborated by stage 4 verdicts"
+    }
+  ],
+  "generated": "2026-09-14T00:08:55+00:00",
+  "package": "python-jose",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 1,
+    "findings": 1,
+    "tests_accept": 0,
+    "tests_discard_or_regenerate": 7
+  },
+  "tests": [
+    {
+      "action": "regenerate or discard",
+      "category": "unknown",
+      "class": "test-bug",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "tests.test_python_jose_unit",
+      "test_id": "::tests.test_python_jose_unit",
+      "verdict": "fails on head: test bug or defect (new=error)",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_PYSEC_2025_185_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_PYSEC_2025_185_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_PYSEC_2025_185_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_ghsa_6c5p_j8vq_pqhj_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_fix_pinning",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "discard as CVE evidence; keep as characterization only if reviewer wants it",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_ghsa_cjwg_qfpm_7377_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33664::test_ghsa_cjwg_qfpm_7377_exposure",
+      "verdict": "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

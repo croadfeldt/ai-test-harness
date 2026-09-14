@@ -1,0 +1,32 @@
+..FF..........                                                           [100%]
+=================================== FAILURES ===================================
+_____________________ test_ghsa_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """OpenSSH ECDSA key must be rejected as an HMAC secret in 3.4.0 (accepted in 3.3.0)."""
+        ssh_key = _ssh_ecdsa_key()
+>       with pytest.raises(JWSError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWSError
+
+tests/test_python_jose_cve_cve_2024_33663.py:24: Failed
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """App call pattern jwt.encode(payload, secret, algorithm=...) must reject OpenSSH ECDSA keys."""
+        ssh_key = _ssh_ecdsa_key()
+>       with pytest.raises(JWSError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWSError
+
+tests/test_python_jose_cve_cve_2024_33663.py:31: Failed
+=============================== warnings summary ===============================
+tests/test_python_jose_unit.py::test_jwt_decode_expired_raises_expired_signature_error
+  /workspace/tmp/harness-pod-za79yvw3/venv/lib/python3.12/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+2 failed, 12 passed, 1 warning in 0.25s

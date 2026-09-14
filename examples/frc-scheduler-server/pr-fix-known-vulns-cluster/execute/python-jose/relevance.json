@@ -1,0 +1,221 @@
+{
+  "api_changes_considered": {
+    "added": 3,
+    "breaking_changed": 0,
+    "removed": 0
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 0,
+    "redundant": 7,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 14
+  },
+  "generated": "2026-09-13T22:57:39+00:00",
+  "horizon": "this change",
+  "package": "python-jose",
+  "proposals": [
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "killed": [
+          "m001",
+          "m016",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jws_sign_verify_roundtrip"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_decode_wrong_key_raises_jwt_error",
+      "text": "test_jwt_decode_wrong_key_raises_jwt_error's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m007",
+          "m016",
+          "m018",
+          "m021",
+          "m025"
+        ],
+        "killed": [
+          "m001",
+          "m007",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_encode_decode_roundtrip_hmac"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_decode_expired_raises_expired_signature_error",
+      "text": "test_jwt_decode_expired_raises_expired_signature_error's 5 mutant kill(s) are all among test_jwt_encode_decode_roundtrip_hmac's 6"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m007",
+          "m016",
+          "m018",
+          "m021",
+          "m025"
+        ],
+        "killed": [
+          "m001",
+          "m007",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_encode_decode_roundtrip_hmac"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+      "text": "test_jwt_decode_audience_mismatch_raises_jwt_claims_error's 5 mutant kill(s) are all among test_jwt_encode_decode_roundtrip_hmac's 6"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "killed": [
+          "m001",
+          "m016",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jws_sign_verify_roundtrip"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_get_unverified_header_returns_alg_and_typ",
+      "text": "test_jwt_get_unverified_header_returns_alg_and_typ's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "killed": [
+          "m001",
+          "m016",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jws_sign_verify_roundtrip"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jwt_get_unverified_claims_returns_claims_without_verification",
+      "text": "test_jwt_get_unverified_claims_returns_claims_without_verification's 3 mutant kill(s) are all among test_jws_sign_verify_roundtrip's 4"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "its_kills": [
+          "m001",
+          "m007",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "killed": [
+          "m001",
+          "m016",
+          "m018",
+          "m021"
+        ],
+        "note": "kills only; per-test coverage not collected yet",
+        "subsumed_by": "test_jwt_decode_audience_mismatch_raises_jwt_claims_error"
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "test": "test_jws_sign_verify_roundtrip",
+      "text": "test_jws_sign_verify_roundtrip's 4 mutant kill(s) are all among test_jwt_decode_audience_mismatch_raises_jwt_claims_error's 5"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 25,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_utils_base64url_roundtrip",
+      "text": "test_utils_base64url_roundtrip killed none of 25 sampled mutants in this run"
+    }
+  ],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}

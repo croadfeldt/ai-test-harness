@@ -1,0 +1,398 @@
+{
+  "engine": "harness AST mutator (diff- and coverage-scoped); mutmut integration pending",
+  "generated": "2026-09-14T00:08:46+00:00",
+  "killed": 12,
+  "mutants": [
+    {
+      "duration_s": 19.7,
+      "file": "jose/jwk.py",
+      "id": "m001",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 77,
+      "operator": "not-drop",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/jwk.py",
+      "id": "m002",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 51,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.4,
+      "file": "jose/jwk.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 35,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m004",
+      "killed_by": [
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "line": 142,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m005",
+      "killed_by": [],
+      "line": 465,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.6,
+      "file": "jose/utils.py",
+      "id": "m006",
+      "killed_by": [],
+      "line": 158,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.6,
+      "file": "jose/jwe.py",
+      "id": "m007",
+      "killed_by": [],
+      "line": 311,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.8,
+      "file": "jose/utils.py",
+      "id": "m008",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 78,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.5,
+      "file": "jose/jwe.py",
+      "id": "m009",
+      "killed_by": [],
+      "line": 587,
+      "operator": "return-none",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.6,
+      "file": "jose/jws.py",
+      "id": "m010",
+      "killed_by": [
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "line": 157,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.5,
+      "file": "jose/jwe.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 240,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.8,
+      "file": "jose/jwk.py",
+      "id": "m012",
+      "killed_by": [],
+      "line": 70,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.8,
+      "file": "jose/jws.py",
+      "id": "m013",
+      "killed_by": [
+        "test_ghsa_6c5p_j8vq_pqhj_exposure"
+      ],
+      "line": 144,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.8,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m014",
+      "killed_by": [],
+      "line": 450,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.5,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m015",
+      "killed_by": [],
+      "line": 463,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/jwk.py",
+      "id": "m016",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 79,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.8,
+      "file": "jose/utils.py",
+      "id": "m017",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 105,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/jws.py",
+      "id": "m018",
+      "killed_by": [],
+      "line": 245,
+      "operator": "boolop-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.6,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m019",
+      "killed_by": [],
+      "line": 465,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/jwk.py",
+      "id": "m020",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 32,
+      "operator": "compare-swap",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.5,
+      "file": "jose/backends/cryptography_backend.py",
+      "id": "m021",
+      "killed_by": [],
+      "line": 560,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 19.7,
+      "file": "jose/backends/base.py",
+      "id": "m022",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 85,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.9,
+      "file": "jose/jwk.py",
+      "id": "m023",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_6c5p_j8vq_pqhj_exposure",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 34,
+      "operator": "compare-swap",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.9,
+      "file": "jose/utils.py",
+      "id": "m024",
+      "killed_by": [
+        "test_PYSEC_2025_185_exposure",
+        "test_PYSEC_2025_185_fix_pinning",
+        "test_ghsa_cjwg_qfpm_7377_exposure",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+      ],
+      "line": 107,
+      "operator": "return-none",
+      "status": "killed"
+    },
+    {
+      "duration_s": 19.9,
+      "file": "jose/utils.py",
+      "id": "m025",
+      "killed_by": [],
+      "line": 165,
+      "operator": "const-bool",
+      "status": "survived"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "python-jose",
+  "per_test": {
+    "test_PYSEC_2025_185_exposure": {
+      "killed": [
+        "m001",
+        "m002",
+        "m008",
+        "m016",
+        "m017",
+        "m020",
+        "m022",
+        "m023",
+        "m024"
+      ],
+      "unique": []
+    },
+    "test_PYSEC_2025_185_fix_pinning": {
+      "killed": [
+        "m001",
+        "m002",
+        "m008",
+        "m016",
+        "m017",
+        "m020",
+        "m022",
+        "m023",
+        "m024"
+      ],
+      "unique": []
+    },
+    "test_ghsa_6c5p_j8vq_pqhj_exposure": {
+      "killed": [
+        "m001",
+        "m004",
+        "m008",
+        "m010",
+        "m013",
+        "m016",
+        "m020",
+        "m023"
+      ],
+      "unique": [
+        "m004",
+        "m010",
+        "m013"
+      ]
+    },
+    "test_ghsa_6c5p_j8vq_pqhj_fix_pinning": {
+      "killed": [
+        "m016",
+        "m020"
+      ],
+      "unique": []
+    },
+    "test_ghsa_cjwg_qfpm_7377_exposure": {
+      "killed": [
+        "m001",
+        "m002",
+        "m008",
+        "m016",
+        "m017",
+        "m020",
+        "m022",
+        "m023",
+        "m024"
+      ],
+      "unique": []
+    },
+    "test_ghsa_cjwg_qfpm_7377_fix_pinning": {
+      "killed": [
+        "m001",
+        "m002",
+        "m008",
+        "m016",
+        "m017",
+        "m020",
+        "m022",
+        "m023",
+        "m024"
+      ],
+      "unique": []
+    }
+  },
+  "sampled": 25,
+  "score": 0.48,
+  "seed": 512944556,
+  "sites": 118,
+  "status": "ran",
+  "survived": 13,
+  "tests": [
+    "test_PYSEC_2025_185_exposure",
+    "test_PYSEC_2025_185_fix_pinning",
+    "test_ghsa_6c5p_j8vq_pqhj_exposure",
+    "test_ghsa_6c5p_j8vq_pqhj_fix_pinning",
+    "test_ghsa_cjwg_qfpm_7377_exposure",
+    "test_ghsa_cjwg_qfpm_7377_fix_pinning"
+  ],
+  "valid": 25,
+  "version": "3.4.0"
+}

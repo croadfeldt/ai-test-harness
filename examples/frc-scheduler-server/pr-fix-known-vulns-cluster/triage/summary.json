@@ -1,0 +1,77 @@
+{
+  "generated": "2026-09-13T22:57:45+00:00",
+  "packages": [
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 1,
+      "package": "ecdsa",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 1,
+      "package": "pdfminer-six",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 0,
+      "package": "pillow",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 2,
+      "package": "pyasn1",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 2,
+      "escalated": 7,
+      "findings": 7,
+      "package": "python-jose",
+      "tests_accept": 10,
+      "tests_discard_or_regenerate": 4
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 0,
+      "package": "python-multipart",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 1,
+      "package": "starlette",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    },
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 0,
+      "findings": 0,
+      "package": "weasyprint",
+      "tests_accept": 0,
+      "tests_discard_or_regenerate": 0
+    }
+  ]
+}

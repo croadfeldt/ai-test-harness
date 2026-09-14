@@ -1,0 +1,19 @@
+{
+  "generated": "2026-09-13T22:57:49+00:00",
+  "package": "starlette",
+  "packet_md": "packet/starlette/packet.md",
+  "patch": "packet/starlette/tests.patch",
+  "patch_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+  "tests_in_patch": [],
+  "vex": "packet/starlette/vex.openvex.json",
+  "vex_statements": {
+    "CVE-2025-54121": "affected",
+    "CVE-2025-62727": "affected",
+    "CVE-2026-48710": "affected",
+    "CVE-2026-48817": "affected",
+    "CVE-2026-48818": "affected",
+    "CVE-2026-54282": "affected",
+    "CVE-2026-54283": "affected"
+  }
+}

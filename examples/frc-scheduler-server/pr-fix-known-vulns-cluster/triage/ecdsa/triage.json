@@ -1,0 +1,28 @@
+{
+  "findings": [
+    {
+      "advisories": [
+        "CVE-2024-23342"
+      ],
+      "class": "security",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "analyze/ecdsa/vulns.json",
+      "package": "ecdsa",
+      "routing": "Product Security",
+      "summary": "ecdsa 0.19.2 has 2 open advisories at head; reachable=unknown"
+    }
+  ],
+  "generated": "2026-09-13T22:57:45+00:00",
+  "package": "ecdsa",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 0,
+    "findings": 1,
+    "tests_accept": 0,
+    "tests_discard_or_regenerate": 0
+  },
+  "tests": [],
+  "threshold": 0.7
+}

@@ -1,0 +1,35 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-13T22:59:30+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-3d9fa72b859b@realized": "sha256:fdb02cf6fb66691d240892133b42fccf436b2dcea9de7ce6c23b15d0adf552b5",
+    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:eb06f20b86cfbbc919267bd97ad2f755d6ab3879872d5370d1e1374d19971ba7",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure@intent": "sha256:34260e8133be1553bc962e69f145a2c2b69ede7af895c7826cb0d2671c25f11d",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@intent": "sha256:726883e7da7176f7bd60a3212366cbcde05a7a2ca025176d20422c6decf28b75",
+    "lab/knowledge/test-evidence/python-jose-test-jws-sign-verify-roundtrip@intent": "sha256:44aa3c106db764db72e74d4cb0960b5c94e13b659beb0ca22534fff882671068",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-audience-mismatch-raises-jwt-claims@intent": "sha256:872f7e836177c4d2a29d99861243bf29cecf845d74f5d4e41dac9a5745e7e992",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@intent": "sha256:30be64720a2559bcf4e0daed3b9088fcb1415333b4b6d91c882d14fc30ab29cf",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@intent": "sha256:34f4043cf7763e909e96862d7403885e465f99880d06d05117787d469786e85a",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-decode-roundtrip-hmac@intent": "sha256:4132e58bc9d73613411c21cb21536bf13cad0c2839b7ff2f05ff5bfc61f439b5",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims-returns-claims-witho@intent": "sha256:6837daa219f2008d624097817eeb9793262734413d773979283fa997eadf0817",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header-returns-alg-and-typ@intent": "sha256:6dbf34c9f4c27188c79046c804d22956fa64b10667b140424372b78cea81335d",
+    "lab/knowledge/test-evidence/python-jose-test-utils-base64url-roundtrip@intent": "sha256:2ef15f03729ccca9f7a53785064466bd383869a520faf866bb4f0d669ca15413",
+    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:3c649ab8e8e974b0f98776084c7f54a3a2d09cbcc862cceba46019d9a93f105b",
+    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:2be0456bbe62b394af87b83d0444e03bb926012b08ee3308dad3cf7473c16abf",
+    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:2db5dd6b2f3cdca8b65378be3a25c1ba749ee02570f16ae1ffdc332976525fdc"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

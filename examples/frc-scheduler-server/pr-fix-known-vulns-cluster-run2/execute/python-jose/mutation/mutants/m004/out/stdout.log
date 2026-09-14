@@ -1,0 +1,47 @@
+...F..                                                                   [100%]
+=================================== FAILURES ===================================
+______________________ test_ghsa_6c5p_j8vq_pqhj_exposure _______________________
+
+    def test_ghsa_6c5p_j8vq_pqhj_exposure():
+        """jwt.decode with an OpenSSH ECDSA key as the ES256 key must raise in 3.4.0."""
+        key = _ec_key()
+        ssh = _ssh_pubkey(key).encode()
+>       token = jwt.encode({'sub': 'u'}, key, algorithm='ES256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33663.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:169: in _sign_header_and_claims
+    encoded_signature = base64url_encode(signature)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/utils.py:88: in base64url_encode
+    return base64.urlsafe_b64encode(input).replace(b"=", b"")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:119: in urlsafe_b64encode
+    return b64encode(s).translate(_urlsafe_encode_translation)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, altchars = None
+
+    def b64encode(s, altchars=None):
+        """Encode the bytes-like object s using Base64 and return a bytes object.
+    
+        Optional altchars should be a byte string of length 2 which specifies an
+        alternative alphabet for the '+' and '/' characters.  This allows an
+        application to e.g. generate url or filesystem safe Base64 strings.
+        """
+>       encoded = binascii.b2a_base64(s, newline=False)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: a bytes-like object is required, not 'NoneType'
+
+/usr/local/lib/python3.12/base64.py:58: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_ghsa_6c5p_j8vq_pqhj_exposure
+1 failed, 5 passed in 1.10s
