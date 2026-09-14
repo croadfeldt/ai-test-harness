@@ -1,0 +1,46 @@
+......F.......                                                           [100%]
+=================================== FAILURES ===================================
+_______________________ test_jwt_encode_decode_roundtrip _______________________
+
+    def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode returns the original claims."""
+        claims = {'sub': 'user-1', 'name': 'Alice'}
+        token = jwt.encode(claims, SECRET, algorithm='HS256')
+>       assert jwt.decode(token, SECRET, algorithms=['HS256']) == claims
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:406: in _validate_claims
+    _validate_sub(claims, subject=subject)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': 'user-1', 'name': 'Alice'}, subject = None
+
+    def _validate_sub(claims, subject=None):
+        """Validates that the 'sub' claim is valid.
+    
+        The "sub" (subject) claim identifies the principal that is the
+        subject of the JWT.  The claims in a JWT are normally statements
+        about the subject.  The subject value MUST either be scoped to be
+        locally unique in the context of the issuer or be globally unique.
+        The processing of this claim is generally application specific.  The
+        "sub" value is a case-sensitive string containing a StringOrURI
+        value.  Use of this claim is OPTIONAL.
+    
+        Arg
+            claims (dict): The claims dictionary to validate.
+            subject (str): The subject of the token.
+        """
+        if 'sub' not in claims:
+            return
+        if +bool(isinstance(claims['sub'], str)):
+>           raise JWTClaimsError('Subject must be a string.')
+E           jose.exceptions.JWTClaimsError: Subject must be a string.
+
+venv/lib/python3.12/site-packages/jose/jwt.py:327: JWTClaimsError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_unit.py::test_jwt_encode_decode_roundtrip - jos...
+1 failed, 13 passed in 0.36s

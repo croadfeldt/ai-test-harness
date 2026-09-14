@@ -1,0 +1,100 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "20231228",
+  "package": "pdfminer-six",
+  "version": "20231228",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-70559",
+        "PYSEC-2026-1761"
+      ],
+      "fixed_versions": [
+        "20251230"
+      ],
+      "id": "GHSA-f83h-ghpp-7wcc",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-f83h-ghpp-7wcc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-70559",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Insecure Deserialization (pickle) in pdfminer.six CMap Loader \u2014 Local Privesc"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-64512",
+        "PYSEC-2026-1762"
+      ],
+      "fixed_versions": [
+        "20251107"
+      ],
+      "id": "GHSA-wf5f-4jwr-ppcp",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-wf5f-4jwr-ppcp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-64512",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://github.com/pdfminer/pdfminer.six/releases/tag/20251107",
+        "https://lists.debian.org/debian-lts-announce/2025/11/msg00017.html",
+        "https://lists.debian.org/debian-lts-announce/2026/01/msg00005.html"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "summary": "Arbitrary Code Execution in pdfminer.six via Crafted PDF Input"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-70559",
+        "GHSA-f83h-ghpp-7wcc"
+      ],
+      "fixed_versions": [
+        "20251230"
+      ],
+      "id": "PYSEC-2026-1761",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-f83h-ghpp-7wcc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-70559",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://pypi.org/project/pdfminer-six",
+        "https://github.com/advisories/GHSA-f83h-ghpp-7wcc"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Insecure Deserialization (pickle) in pdfminer.six CMap Loader \u2014 Local Privesc"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-64512",
+        "GHSA-wf5f-4jwr-ppcp"
+      ],
+      "fixed_versions": [
+        "20251107"
+      ],
+      "id": "PYSEC-2026-1762",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-wf5f-4jwr-ppcp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-64512",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://github.com/pdfminer/pdfminer.six/releases/tag/20251107",
+        "https://lists.debian.org/debian-lts-announce/2025/11/msg00017.html",
+        "https://lists.debian.org/debian-lts-announce/2026/01/msg00005.html",
+        "https://pypi.org/project/pdfminer-six",
+        "https://github.com/advisories/GHSA-wf5f-4jwr-ppcp"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "summary": "Arbitrary Code Execution in pdfminer.six via Crafted PDF Input"
+    }
+  ],
+  "vulns_old": []
+}

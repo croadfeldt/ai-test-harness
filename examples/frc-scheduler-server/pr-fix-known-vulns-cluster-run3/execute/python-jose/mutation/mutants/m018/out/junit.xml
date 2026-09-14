@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="14" time="0.566" timestamp="2026-09-14T01:18:08.386993+00:00" hostname="ai-test-harness-x4hxw-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.007"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_pysec_2025_185_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.005"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_pysec_2025_185_exposure():
+        """App-style jwe.decrypt call on an attacker-supplied compressed token must not decompress unbounded data."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001"><failure message="Failed: DID NOT RAISE JWKError">def test_ghsa_6c5p_j8vq_pqhj_fix_pinning():
+        """HMAC key construction must reject OpenSSH ECDSA public key material (old 3.3.0 accepts it)."""
+        _, pub_pem = _ec_keypair()
+        ssh_key = b'ecdsa-sha2-nistp256 ' + pub_pem.replace(b'\n', b' ') + b' user@host'
+&gt;       with pytest.raises(JWKError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:20: Failed</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.044"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose decompressed size exceeds the limit."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, b'0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.043"><failure message="AttributeError: 'NoneType' object has no attribute 'to_dict'">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """App-style jwe.decrypt(token, key) on a bomb token must raise JWEError, not return 10MB."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, '0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = None
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+&gt;       jwk_data = key.to_dict()
+                   ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'to_dict'
+
+venv/lib/python3.12/site-packages/jose/jwe.py:521: AttributeError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1c2VyLTEiLCJuYW1lIjoiQWxpY2UifQ'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode returns the original claims."""
+        claims = {'sub': 'user-1', 'name': 'Alice'}
+&gt;       token = jwt.encode(claims, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1c2VyLTEiLCJuYW1lIjoiQWxpY2UifQ'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1c2VyLTEifQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_wrong_key_raises_jwt_error():
+        """Decoding with the wrong key raises JWTError."""
+&gt;       token = jwt.encode({'sub': 'user-1'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1c2VyLTEifQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1IiwiZXhwIjoxfQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_expired_raises_expired_signature_error():
+        """A token whose exp is in the past raises ExpiredSignatureError."""
+&gt;       token = jwt.encode({'sub': 'u', 'exp': 1}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1IiwiZXhwIjoxfQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1In0', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_header_returns_alg():
+        """get_unverified_header returns the header dict with the alg."""
+&gt;       token = jwt.encode({'sub': 'u'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1In0', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1Iiwicm9sZSI6ImFkbWluIn0', algorithm = 'HS256'
+key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_claims_returns_claims():
+        """get_unverified_claims returns the claims without verification."""
+&gt;       token = jwt.encode({'sub': 'u', 'role': 'admin'}, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiJ1Iiwicm9sZSI6ImFkbWluIn0', algorithm = 'HS256'
+key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'aGVsbG8gd29ybGQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jws_sign_verify_roundtrip():
+        """jws.sign then jws.verify returns the original payload."""
+        payload = b'hello world'
+&gt;       token = jws.sign(payload, SECRET, algorithm='HS256')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'aGVsbG8gd29ybGQ', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_ensure_binary_coerces_str_to_bytes" time="0.000" /></testsuite></testsuites>

@@ -1,0 +1,138 @@
+FF..FF........                                                           [100%]
+=================================== FAILURES ===================================
+_______________________ test_pysec_2025_185_fix_pinning ________________________
+
+    def test_pysec_2025_185_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = <jose.backends.base.DIRKey object at 0x7fd3697194f0>
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+>       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError
+_________________________ test_pysec_2025_185_exposure _________________________
+
+    def test_pysec_2025_185_exposure():
+        """App-style jwe.decrypt call on an attacker-supplied compressed token must not decompress unbounded data."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+>           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = <jose.backends.base.DIRKey object at 0x7fd36971a8a0>
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+>       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError
+_____________________ test_ghsa_cjwg_qfpm_7377_fix_pinning _____________________
+
+    def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose decompressed size exceeds the limit."""
+        token = _make_bomb_jwe()
+        try:
+>           result = jwe.decrypt(token, b'0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = <jose.backends.base.DIRKey object at 0x7fd369719250>
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+>       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError
+______________________ test_ghsa_cjwg_qfpm_7377_exposure _______________________
+
+    def test_ghsa_cjwg_qfpm_7377_exposure():
+        """App-style jwe.decrypt(token, key) on a bomb token must raise JWEError, not return 10MB."""
+        token = _make_bomb_jwe()
+        try:
+>           result = jwe.decrypt(token, '0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = <jose.backends.base.DIRKey object at 0x7fd369718770>
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+>       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_pysec_2025_185_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_pysec_2025_185_exposure
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33664.py::test_ghsa_cjwg_qfpm_7377_exposure
+4 failed, 10 passed in 0.41s

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="14" time="0.360" timestamp="2026-09-14T01:15:17.891311+00:00" hostname="ai-test-harness-x4hxw-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.007" /><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.005" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.044" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.045" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip" time="0.003"><failure message="jose.exceptions.JWTClaimsError: Subject must be a string.">def test_jwt_encode_decode_roundtrip():
+        """jwt.encode then jwt.decode returns the original claims."""
+        claims = {'sub': 'user-1', 'name': 'Alice'}
+        token = jwt.encode(claims, SECRET, algorithm='HS256')
+&gt;       assert jwt.decode(token, SECRET, algorithms=['HS256']) == claims
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:406: in _validate_claims
+    _validate_sub(claims, subject=subject)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': 'user-1', 'name': 'Alice'}, subject = None
+
+    def _validate_sub(claims, subject=None):
+        """Validates that the 'sub' claim is valid.
+    
+        The "sub" (subject) claim identifies the principal that is the
+        subject of the JWT.  The claims in a JWT are normally statements
+        about the subject.  The subject value MUST either be scoped to be
+        locally unique in the context of the issuer or be globally unique.
+        The processing of this claim is generally application specific.  The
+        "sub" value is a case-sensitive string containing a StringOrURI
+        value.  Use of this claim is OPTIONAL.
+    
+        Arg
+            claims (dict): The claims dictionary to validate.
+            subject (str): The subject of the token.
+        """
+        if 'sub' not in claims:
+            return
+        if +bool(isinstance(claims['sub'], str)):
+&gt;           raise JWTClaimsError('Subject must be a string.')
+E           jose.exceptions.JWTClaimsError: Subject must be a string.
+
+venv/lib/python3.12/site-packages/jose/jwt.py:327: JWTClaimsError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.000" /><testcase classname="tests.test_python_jose_unit" name="test_utils_ensure_binary_coerces_str_to_bytes" time="0.000" /></testsuite></testsuites>

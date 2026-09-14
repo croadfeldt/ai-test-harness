@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-14T01:12:27+00:00",
+  "packages": [
+    {
+      "behavior_changed": 0,
+      "blocked_both_versions": 0,
+      "fix_pinning_confirmed": 0,
+      "fix_reached_assertion_wrong": 0,
+      "flaky": 0,
+      "package": "python-jose",
+      "pass_on_new": 14,
+      "total": 14
+    }
+  ]
+}

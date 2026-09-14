@@ -1,0 +1,31 @@
+{
+  "changes": [
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "= 250 * 1024",
+      "old_signature": null,
+      "reason": "constant added",
+      "symbol": "jose.constants.JWE_SIZE_LIMIT"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(key: bytes) -> bool",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "jose.utils.is_pem_format"
+    },
+    {
+      "breaking": false,
+      "kind": "added",
+      "new_signature": "(key: bytes) -> bool",
+      "old_signature": null,
+      "reason": "function added",
+      "symbol": "jose.utils.is_ssh_key"
+    }
+  ],
+  "new": "3.4.0",
+  "old": "3.3.0",
+  "package": "python-jose"
+}

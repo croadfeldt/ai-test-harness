@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="14" time="0.413" timestamp="2026-09-14T01:17:30.554945+00:00" hostname="ai-test-harness-x4hxw-execute-pod"><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_fix_pinning" time="0.007"><failure message="TypeError: 'NoneType' object is not subscriptable">def test_pysec_2025_185_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose plaintext exceeds the size limit."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = &lt;jose.backends.base.DIRKey object at 0x7fd3697194f0&gt;
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+&gt;       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_29370" name="test_pysec_2025_185_exposure" time="0.005"><failure message="TypeError: 'NoneType' object is not subscriptable">def test_pysec_2025_185_exposure():
+        """App-style jwe.decrypt call on an attacker-supplied compressed token must not decompress unbounded data."""
+        token = _make_token()
+        with pytest.raises(JWEError):
+&gt;           jwe.decrypt(token, KEY)
+
+tests/test_python_jose_cve_cve_2024_29370.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = &lt;jose.backends.base.DIRKey object at 0x7fd36971a8a0&gt;
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+&gt;       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_fix_pinning" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_ghsa_6c5p_j8vq_pqhj_exposure" time="0.001" /><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_fix_pinning" time="0.044"><failure message="TypeError: 'NoneType' object is not subscriptable">def test_ghsa_cjwg_qfpm_7377_fix_pinning():
+        """jwe.decrypt must reject a compressed JWE whose decompressed size exceeds the limit."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, b'0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = &lt;jose.backends.base.DIRKey object at 0x7fd369719250&gt;
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+&gt;       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError</failure></testcase><testcase classname="tests.test_python_jose_cve_cve_2024_33664" name="test_ghsa_cjwg_qfpm_7377_exposure" time="0.044"><failure message="TypeError: 'NoneType' object is not subscriptable">def test_ghsa_cjwg_qfpm_7377_exposure():
+        """App-style jwe.decrypt(token, key) on a bomb token must raise JWEError, not return 10MB."""
+        token = _make_bomb_jwe()
+        try:
+&gt;           result = jwe.decrypt(token, '0' * 32)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_33664.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:138: in decrypt
+    cek_bytes = _get_key_bytes_from_key(key)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+key = &lt;jose.backends.base.DIRKey object at 0x7fd369718770&gt;
+
+    def _get_key_bytes_from_key(key):
+        """
+        Get the raw key bytes from a Key object
+    
+        Args:
+            key (Key): Key from which to extract the raw key bytes
+        Returns:
+            (bytes) key data
+        """
+        jwk_data = key.to_dict()
+&gt;       encoded_key = jwk_data["k"]
+                      ^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+venv/lib/python3.12/site-packages/jose/jwe.py:522: TypeError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_decode_roundtrip" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_wrong_key_raises_jwt_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_expired_raises_expired_signature_error" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_alg" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_claims" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jws_sign_verify_roundtrip" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_utils_base64url_roundtrip" time="0.000" /><testcase classname="tests.test_python_jose_unit" name="test_utils_ensure_binary_coerces_str_to_bytes" time="0.000" /></testsuite></testsuites>
