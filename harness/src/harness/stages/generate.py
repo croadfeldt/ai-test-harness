@@ -241,6 +241,12 @@ def _weak_assertions(code: str) -> list[str]:
     return weak
 
 
+def _collected_nothing(results: dict) -> bool:
+    """True when pytest collected no test, or the module itself failed to import (every entry is an error).
+    A file in that state proved nothing and must not ship (GF-020)."""
+    return not results or all(v["status"] == "error" for v in results.values())
+
+
 def _run_baseline(code: str, pkg_dir: Path, wheelhouse: Path, reqs: list[str], roots: list[str], label: str) -> dict:
     tdir = pkg_dir / "scratch" / label
     tdir.mkdir(parents=True, exist_ok=True)
@@ -330,7 +336,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
             if run1["sandbox"]["install_failed"]:
                 raise HarnessError(f"sandbox install failed for {pkg}; see {gen_dir}/scratch/{tag}.out")
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
-            if not run1["results"] or all(v["status"] == "error" for v in run1["results"].values()):
+            if _collected_nothing(run1["results"]):
                 history.append("pytest collected no tests, or collection failed:\n" + run1["stdout_tail"][-2000:]); continue
             if cat == "cve":
                 # Judged by the differential run, with one exception: a test that crashes on the FIXED
@@ -346,7 +352,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                                    f"or fails only at its assertion."); continue
                 if wheelhouse_old and reqs_old and attempts <= max_repairs:
                     run_old = _run_baseline(code, gen_dir, wheelhouse_old, reqs_old, roots, tag + "-old")
-                    if not run_old["results"] or all(v["status"] == "error" for v in run_old["results"].values()):
+                    if _collected_nothing(run_old["results"]):
                         history.append(f"The file does not even collect on the VULNERABLE version {facts['old_version']}, so the "
                                        f"differential run cannot judge it. Import at module level only names present in both "
                                        f"versions:\n{run_old['stdout_tail'][-1500:]}"); continue
@@ -361,7 +367,14 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
             manifest["discarded"].append({"category": cat, "reason": "no parseable test file after repairs", "attempts": attempts})
             continue
         run_final = run1
-        failing = {k.split("::")[-1]: v for k, v in run_final["results"].items() if v["status"] in ("fail", "error")} if run_final else {}
+        if run_final is None or _collected_nothing(run_final["results"]):
+            # GF-020: the last repair still did not collect (a module-level import of a name the package
+            # lacks, for instance). The tests inside were never run, so nothing here is a candidate.
+            manifest["discarded"].append({"category": cat, "reason": "did not collect on the baseline after repairs", "attempts": attempts,
+                                          "message": (run_final["stdout_tail"][-600:] if run_final else "no baseline run")})
+            log(f"    {cat}: discarded, the file never collected on the baseline after {attempts} attempt(s)")
+            continue
+        failing = {k.split("::")[-1]: v for k, v in run_final["results"].items() if v["status"] in ("fail", "error")}
         kept_code = code
         cut = []
         if cat != "cve" and failing:

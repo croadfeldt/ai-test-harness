@@ -206,6 +206,16 @@ def gf019():
     assert strip_think("<think>never closed")[0] == ""
 
 
+@check("GF-020", "a test file whose last baseline run collected nothing is discarded, never shipped")
+def gf020():
+    from .stages.generate import _collected_nothing, generate_package
+    assert _collected_nothing({})
+    assert _collected_nothing({"tests.test_candidate": {"status": "error", "message": "collection failure"}})
+    assert not _collected_nothing({"tests/t.py::test_a": {"status": "pass", "message": ""}, "tests/t.py::test_b": {"status": "error", "message": "x"}})
+    src = inspect.getsource(generate_package)
+    assert "did not collect on the baseline after repairs" in src and src.index("did not collect on the baseline") < src.index("kept_code = code")
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
