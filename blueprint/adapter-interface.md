@@ -63,6 +63,23 @@ mutation_ref: string
 fuzz_ref: string
 ```
 
+## What the opinionated implementation asks of an adapter today
+
+The implementation in `harness/` calls the functions above through a Python module per ecosystem.
+Beyond graph, API, and call sites, each module carries a test toolkit with one name per concern, so a
+stage never branches on the language:
+
+| Concern | Functions |
+|---|---|
+| Prompting | `SYSTEM`, `CATEGORY_TASK`, `prompt_preamble(facts)`, `collection_hint(version)` |
+| Reading a response | `extract_code`, `compile_check`, `test_names`, `imports_ok`, `weak_assertions`, `drop_tests` |
+| Naming | `test_file_name`, `file_header`, `import_roots`, `dep_roots`, `is_test_file` |
+| Environments | `requirements(graph)`, `prefetch(requirements, ...)`, `fixed_candidate(workdir, package)` |
+| Running and reading back | `run_tests(env, tests_dir, out_dir, cover, label)`, `parse_results`, `coverage_for` |
+| Existing tests | `symbol_refs`, `skipped_tests`; `MUTATION` says whether a mutation engine is wired |
+
+Python and Go both implement the table; the Go half is a small program on go/ast (`gohelper`).
+
 ## Adding an adapter
 
 1. Pick tools for each function from the [language flows](../docs/09-language-and-target-flows.md).

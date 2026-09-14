@@ -33,7 +33,7 @@ def gf001():
     import inspect as _i
     src = _i.getsource(__import__("harness.llm", fromlist=["x"]).Model.chat)
     assert "self.cfg.base_url" not in src.split("record = {")[1].split("}")[0], "a call record must not carry the endpoint address"
-    from .stages.generate import extract_python
+    from .adapters.python import extract_code as extract_python
     assert extract_python("") is None, "empty response must not yield a candidate"
 
 
@@ -117,7 +117,7 @@ def gf009():
 def gf010():
     from .stages import execute
     src = inspect.getsource(execute.execute_package)
-    assert '_reqs(workdir, "old")' in src and "_pin(" not in src
+    assert '_reqs(workdir, "old"' in src and "_pin(" not in src
 
 
 @check("GF-011", "graph resolution runs inside the target interpreter's image when it can")
@@ -214,6 +214,19 @@ def gf020():
     assert not _collected_nothing({"tests/t.py::test_a": {"status": "pass", "message": ""}, "tests/t.py::test_b": {"status": "error", "message": "x"}})
     src = inspect.getsource(generate_package)
     assert "did not collect on the baseline after repairs" in src and src.index("did not collect on the baseline") < src.index("kept_code = code")
+
+
+@check("GF-021", "a tool call cut off at the output limit is neither run nor echoed; the model is told and the run goes on")
+def gf021():
+    from .stages.agent import sane_tool_calls, run_agent
+    cut_call = [{"id": "c1", "type": "function", "function": {"name": "run_tests", "arguments": '{"code": "package harnesstest\\n func Te'}}]
+    fixed, cut = sane_tool_calls(cut_call, "tool_calls")
+    assert cut == ["c1"] and fixed[0]["function"]["arguments"] == "{}"
+    ok_call = [{"id": "c2", "type": "function", "function": {"name": "list_api", "arguments": '{"module_prefix": "x"}'}}]
+    assert sane_tool_calls(ok_call, "tool_calls") == (ok_call, [])
+    assert sane_tool_calls(ok_call, "length")[1] == ["c2"]
+    src = inspect.getsource(run_agent)
+    assert "except HarnessError" in src and "cut off at the output limit" in src
 
 
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")

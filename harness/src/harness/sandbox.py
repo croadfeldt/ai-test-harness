@@ -110,7 +110,7 @@ exit $rc
         "coverage": str(out_dir / "coverage.json") if (out_dir / "coverage.json").exists() else None,
         "finished": now_iso(),
     }
-    write_json(out_dir / "sandbox.json", summary)
+    write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml" if summary["junit"] else None, "coverage": "coverage.json" if summary["coverage"] else None})
     return summary
 
 
@@ -155,7 +155,7 @@ exit $rc
                              "runtime_class": os.environ.get("HARNESS_POD_RUNTIME_CLASS", "default (no Kata or gVisor)"), "limits": limits, "disposable": "the task pod"},
                "junit": str(out_dir / "junit.xml") if (out_dir / "junit.xml").exists() else None,
                "coverage": str(out_dir / "coverage.json") if (out_dir / "coverage.json").exists() else None, "finished": now_iso()}
-    write_json(out_dir / "sandbox.json", summary)
+    write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml" if summary["junit"] else None, "coverage": "coverage.json" if summary["coverage"] else None})
     return summary
 
 

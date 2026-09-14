@@ -91,6 +91,11 @@ def discover_model(base_url: str, api_key: str | None) -> str:
     return ids[0]
 
 
+def _safe(tag: str) -> str:
+    """A call tag becomes a file name; a Go module path carries slashes."""
+    return tag.replace("/", "_")
+
+
 class Model:
     def __init__(self, cfg: ModelConfig, record_dir: Path):
         self.cfg, self.record_dir, self.calls = cfg, record_dir, 0
@@ -152,9 +157,9 @@ class Model:
             self.thinking_unsupported = True
             write_json(self.record_dir / f"{rec2['call']:03d}-{tag}-nothink.json", rec2)
             self.calls += 1
-            write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", {"tag": tag, "call": self.calls, "finish_reason": finish,
+            write_json(self.record_dir / f"{self.calls:03d}-{_safe(tag)}.json", {"tag": tag, "call": self.calls, "finish_reason": finish,
                        "reasoning_leak": reasoning_leak(text), "response_chars": len(text), "superseded_by": rec2["call"]})
-            (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
+            (self.record_dir / f"{self.calls:03d}-{_safe(tag)}.response.md").write_text(text)
             return text2, rec2
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
@@ -164,9 +169,9 @@ class Model:
                   "prompt_sha256": sha256_text(system + "\n---\n" + user),
                   "response_sha256": sha256_text(text), "usage": usage, "response_chars": len(text), "think_chars_stripped": stripped,
                   "latency_s": round(time.time() - t0, 1), "finish_reason": finish}
-        (self.record_dir / f"{self.calls:03d}-{tag}.prompt.md").write_text(f"# system\n\n{system}\n\n# user\n\n{user}\n")
-        (self.record_dir / f"{self.calls:03d}-{tag}.response.md").write_text(text)
-        write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
+        (self.record_dir / f"{self.calls:03d}-{_safe(tag)}.prompt.md").write_text(f"# system\n\n{system}\n\n# user\n\n{user}\n")
+        (self.record_dir / f"{self.calls:03d}-{_safe(tag)}.response.md").write_text(text)
+        write_json(self.record_dir / f"{self.calls:03d}-{_safe(tag)}.json", record)
         return text, record
 
 
@@ -214,7 +219,13 @@ class Model:
                             acc["function"]["arguments"] += fn.get("arguments") or ""
                         finish = ch.get("finish_reason") or finish
         except Exception as e:
-            raise HarnessError(f"model call failed ({tag}): {e}") from e
+            body = ""
+            if hasattr(e, "read"):
+                try:
+                    body = e.read().decode(errors="replace")[:600]
+                except Exception:
+                    body = ""
+            raise HarnessError(f"model call failed ({tag}): {e} {body}".strip()) from e
         content, stripped = strip_think(content)
         msg = {"role": "assistant", "content": content}
         if calls_acc:
@@ -226,9 +237,9 @@ class Model:
                   "messages_sha256": sha256_text(json.dumps(messages, sort_keys=True)), "usage": usage,
                   "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"), "think_chars_stripped": stripped,
                   "tool_calls": [{"name": c["function"]["name"], "arguments": c["function"]["arguments"][:500]} for c in (msg.get("tool_calls") or [])]}
-        (self.record_dir / f"{self.calls:03d}-{tag}.messages.json").write_text(json.dumps(messages, indent=1))
-        (self.record_dir / f"{self.calls:03d}-{tag}.response.json").write_text(json.dumps(msg, indent=1))
-        write_json(self.record_dir / f"{self.calls:03d}-{tag}.json", record)
+        (self.record_dir / f"{self.calls:03d}-{_safe(tag)}.messages.json").write_text(json.dumps(messages, indent=1))
+        (self.record_dir / f"{self.calls:03d}-{_safe(tag)}.response.json").write_text(json.dumps(msg, indent=1))
+        write_json(self.record_dir / f"{self.calls:03d}-{_safe(tag)}.json", record)
         return msg, record
 
 

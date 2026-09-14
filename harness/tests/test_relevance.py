@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from harness.stages.relevance import _matches, _skipped, _symbol_refs
+from harness.adapters.python import skipped_tests as _skipped, symbol_refs as _symbol_refs
+from harness.stages.relevance import _matches
 
 
 def test_symbol_refs_and_skip_markers(tmp_path: Path):

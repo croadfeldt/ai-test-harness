@@ -60,9 +60,13 @@ def assess(*, workdir: Path) -> dict:
     goal("G10", "section 17: every claim traceable", "Every number in the packet points at a file in the work directory",
          "packet sections cite artifact paths; attestation subjects are the patch and the manifest digests", "met", [f"attest/{p}/statement.json" for p in pkgs])
     muts = {p: read_json(workdir / "execute" / p / "mutation" / "mutation.json") for p in pkgs if (workdir / "execute" / p / "mutation" / "mutation.json").exists()}
-    if muts:
-        measure = "; ".join(f"{p}: score {m.get('score')} on {m.get('sampled')} sampled mutants" for p, m in muts.items()) + "; coverage delta: no baseline overlay suite yet"
-        verdict = "met" if all((m.get("score") or 0) >= 0.6 for m in muts.values()) else "not met (target 0.6 on sampled mutants)"
+    ran = {p: m for p, m in muts.items() if m.get("status") == "ran"}
+    if muts and not ran:
+        measure = "; ".join(f"{p}: {m.get('reason', 'not run')}" for p, m in muts.items()) + "; coverage delta: no baseline overlay suite yet"
+        verdict = "not applicable"
+    elif ran:
+        measure = "; ".join(f"{p}: score {m.get('score')} on {m.get('sampled')} sampled mutants" for p, m in ran.items()) + "; coverage delta: no baseline overlay suite yet"
+        verdict = "met" if all((m.get("score") or 0) >= 0.6 for m in ran.values()) else "not met (target 0.6 on sampled mutants)"
     else:
         measure, verdict = "mutation testing not run for these packages; coverage delta: no baseline overlay suite yet", "not applicable"
     goal("G11", "section 10: mutation score, coverage delta", "Test strength measured by mutation and coverage delta",

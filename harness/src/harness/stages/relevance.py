@@ -19,7 +19,6 @@ candidate, and a proposal reads "will become obsolete when the upgrade lands".
 """
 from __future__ import annotations
 
-import ast
 from pathlib import Path
 
 from .. import adapters, config
@@ -27,63 +26,6 @@ from ..util import log, now_iso, read_json, write_json
 
 REASONS = ("obsolete-symbol-removed", "obsolete-path-deleted", "obsolete-behavior-changed",
            "redundant-no-kills", "redundant-subsumed", "redundant-skipped")
-
-
-def _symbol_refs(test_file: Path, roots: list[str]) -> dict[str, list[tuple[str, int]]]:
-    """test function -> [(symbol, line)] for symbols under the package's import roots."""
-    src = test_file.read_text(errors="replace")
-    try:
-        tree = ast.parse(src)
-    except SyntaxError:
-        return {}
-    alias: dict[str, str] = {}
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            for a in node.names:
-                if a.name.split(".")[0] in roots:
-                    alias[a.asname or a.name.split(".")[0]] = a.name if a.asname else a.name.split(".")[0]
-        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0 and node.module.split(".")[0] in roots:
-            for a in node.names:
-                alias[a.asname or a.name] = f"{node.module}.{a.name}"
-
-    def dotted(n):
-        parts = []
-        while isinstance(n, ast.Attribute):
-            parts.append(n.attr); n = n.value
-        if isinstance(n, ast.Name):
-            parts.append(n.id); parts.reverse()
-            if parts[0] in alias:
-                return ".".join([alias[parts[0]], *parts[1:]])
-        return None
-
-    out: dict[str, list[tuple[str, int]]] = {}
-    for fn in tree.body:
-        if isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)) and fn.name.startswith("test_"):
-            refs = []
-            for n in ast.walk(fn):
-                if isinstance(n, ast.Attribute):
-                    d = dotted(n)
-                    if d: refs.append((d, n.lineno))
-                elif isinstance(n, ast.Name) and n.id in alias and isinstance(n.ctx, ast.Load):
-                    refs.append((alias[n.id], n.lineno))
-            out[fn.name] = sorted(set(refs))
-    return out
-
-
-def _skipped(test_file: Path) -> set[str]:
-    src = test_file.read_text(errors="replace")
-    try:
-        tree = ast.parse(src)
-    except SyntaxError:
-        return set()
-    out = set()
-    for fn in tree.body:
-        if isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)) and fn.name.startswith("test_"):
-            for d in fn.decorator_list:
-                s = ast.unparse(d)
-                if "mark.skip" in s or "mark.xfail" in s:
-                    out.add(fn.name)
-    return out
 
 
 def _matches(symbol: str, changed: set[str]) -> str | None:
@@ -98,8 +40,8 @@ def _matches(symbol: str, changed: set[str]) -> str | None:
 
 def relevance_package(workdir: Path, pkg: str, python_version: str, repo: str | None = None) -> dict:
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
-    roots = [r.split("/")[0] for r in facts["import_names"]]
     adapter = adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
+    roots = adapter.import_roots(facts)
     out = workdir / "execute" / pkg / "relevance.json"
     # The API diff this change implies: bump (old -> new), or head -> fixed candidate.
     diff_path = workdir / "analyze" / pkg / "api-diff.json"
@@ -127,10 +69,10 @@ def relevance_package(workdir: Path, pkg: str, python_version: str, repo: str | 
     populations = []
     gen_tests = workdir / "generate" / pkg / "tests"
     if gen_tests.exists():
-        populations.append(("generated", sorted(gen_tests.glob("test_*.py")), gen_tests))
+        populations.append(("generated", sorted(gen_tests.glob(adapter.TEST_FILE_GLOB)), gen_tests))
     wl = read_json(workdir / "intake" / "worklist.json")
     repo = config.resolve_repo(wl["source_dir"], repo)
-    app_tests = [p for p in adapter.first_party_files(repo) if any(x in ("tests", "test") for x in p.relative_to(repo).parts) or p.name.startswith("test_")]
+    app_tests = [p for p in adapter.first_party_files(repo) if adapter.is_test_file(p.relative_to(repo))]
     populations.append(("application", app_tests, repo))
 
     mut_path = workdir / "execute" / pkg / "mutation" / "mutation.json"
@@ -144,12 +86,12 @@ def relevance_package(workdir: Path, pkg: str, python_version: str, repo: str | 
     proposals, examined = [], {"generated": 0, "application": 0, "application_files_referencing_package": 0}
     for pop, files, base in populations:
         for f in files:
-            refs = _symbol_refs(f, roots)
+            refs = adapter.symbol_refs(f, roots)
             if not refs:
                 continue
             if pop == "application":
                 examined["application_files_referencing_package"] += 1
-            skipped = _skipped(f)
+            skipped = adapter.skipped_tests(f)
             for test, symbols in refs.items():
                 examined[pop] += 1
                 rel = str(f.relative_to(base))
