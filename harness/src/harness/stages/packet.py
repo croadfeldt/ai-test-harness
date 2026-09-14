@@ -14,9 +14,9 @@ from pathlib import Path
 from ..util import log, now_iso, read_json, sha256_text, write_json
 
 
-def _overlay_path(pkg: str, version: str, fname: str) -> str:
+def _overlay_path(pkg: str, version: str, fname: str, ecosystem: str = "python") -> str:
     major_minor = ".".join(version.split(".")[:2]) + ".x" if version.count(".") >= 1 else version
-    return f"overlays/python/{pkg}/{major_minor}/{fname}"
+    return f"overlays/{ecosystem}/{pkg}/{major_minor}/{fname}"
 
 
 def _patch(files: list[tuple[str, str]]) -> str:
@@ -82,6 +82,7 @@ def _vex(pkg: str, purl_new: str, purl_old: str | None, vulns_doc: dict, triage:
 
 def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
+    ecosystem = read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python")
     triage = read_json(workdir / "triage" / pkg / "triage.json")
     triage["_reachable"] = facts["call_sites_summary"]["reachable"]
     vulns_doc = read_json(workdir / "analyze" / pkg / "vulns.json")
@@ -93,21 +94,21 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     accept = {t["name"] for t in triage["tests"] if t["action"].startswith("accept")}
 
-    # Tests as a patch against the overlay layout, only the tests triage accepts, per file.
-    import ast
+    # Tests as a patch against the overlay layout, only the tests triage accepts, per file. The
+    # adapter cuts the others out of the file the way its language allows.
+    from .. import adapters
+    adapter = adapters.get(ecosystem)
     patch_files = []
     for f in gen["files"]:
         src = (workdir / "generate" / pkg / f["file"]).read_text()
-        tree = ast.parse(src)
-        keep = [n for n in tree.body if not (isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name.startswith("test_") and n.name not in accept)]
-        if not any(isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name.startswith("test_") for n in keep):
+        cut = {n for n in f["tests"] if n not in accept}
+        content = adapter.drop_tests(src, cut) if cut else src
+        if not adapter.test_names(content):
             continue
-        tree.body = keep
-        content = f'"""{ast.get_docstring(tree) or ""}"""\n' + ast.unparse(ast.Module(body=[n for n in tree.body if not (isinstance(n, ast.Expr) and isinstance(getattr(n, "value", None), ast.Constant))], type_ignores=[])) + "\n"
-        patch_files.append((_overlay_path(pkg, facts["new_version"] or facts["old_version"], Path(f["file"]).name), content))
+        patch_files.append((_overlay_path(pkg, facts["new_version"] or facts["old_version"], Path(f["file"]).name, ecosystem), content))
     patch = _patch(patch_files)
     (out / "tests.patch").write_text(patch)
-    vex = _vex(pkg, facts["purl"], f"pkg:pypi/{pkg}@{facts['old_version']}" if facts["old_version"] else None, vulns_doc, triage, run_id)
+    vex = _vex(pkg, facts["purl"], adapter.purl(pkg, facts["old_version"]) if facts["old_version"] else None, vulns_doc, triage, run_id)
     write_json(out / "vex.openvex.json", vex)
 
     mut_path = workdir / "execute" / pkg / "mutation" / "mutation.json"

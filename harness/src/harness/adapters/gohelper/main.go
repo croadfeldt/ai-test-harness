@@ -1,7 +1,11 @@
 // gohelper: the Go half of the Go adapter. It uses go/parser and go/ast to answer two questions the
 // harness asks of every ecosystem with tools, never with a model:
-//   api   <dir>            exported declarations (functions, methods, types, consts, vars) as JSON
-//   sites <dir> <module>   every reference from first-party code to a package of <module>, as JSON
+//
+//	api   <dir>            exported declarations (functions, methods, types, consts, vars) as JSON
+//	sites <dir> <module>   every reference from first-party code to a package of <module>, as JSON
+//	inspect <file>         what the generation gates need to know about one test file (testfile.go)
+//	strip <file> <name>..  the test file without the named functions (testfile.go)
+//
 // Built with `go run` at call time from the harness's own source, so the Go toolchain on the runner is
 // the only requirement. Output is one JSON document on stdout.
 package main
@@ -269,7 +273,7 @@ func sitesCmd(dir, module string) {
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Fprintln(os.Stderr, "usage: gohelper api <dir> | sites <dir> <module>")
+		fmt.Fprintln(os.Stderr, "usage: gohelper api <dir> | sites <dir> <module> | inspect <file> | strip <file> <name>...")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
@@ -280,6 +284,10 @@ func main() {
 			os.Exit(2)
 		}
 		sitesCmd(os.Args[2], os.Args[3])
+	case "inspect":
+		inspectCmd(os.Args[2])
+	case "strip":
+		stripCmd(os.Args[2], os.Args[3:])
 	default:
 		os.Exit(2)
 	}

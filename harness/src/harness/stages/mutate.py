@@ -195,11 +195,17 @@ def mutate(*, workdir: Path, select: list[str] | None = None, python_version: st
     selfcheck.require(workdir, python_version, probes=False)
     # Packages with stage 4 results on disk, not just summary rows: the results file is the truth.
     pkgs = [p["package"] for p in read_json(workdir / "execute" / "summary.json")["packages"]] if (workdir / "execute" / "summary.json").exists() else []
+    adapter = adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
     outs = []
     for pkg in pkgs:
         if select and pkg not in select:
             continue
         log(f"  {pkg}")
+        if not adapter.MUTATION:
+            rec = {"package": pkg, "status": "skipped", "reason": f"no mutation engine for {adapter.ECOSYSTEM} yet; the score is not measured, not zero",
+                   "generated": now_iso()}
+            out = workdir / "execute" / pkg / "mutation"; out.mkdir(parents=True, exist_ok=True); write_json(out / "mutation.json", rec)
+            log(f"    {pkg}: mutation skipped ({rec['reason']})"); outs.append(rec); continue
         outs.append(mutate_package(workdir, pkg, python_version, sample))
     merge_summary(workdir / "execute" / "mutation-summary.json", [{"package": o["package"], "status": o["status"], "score": o.get("score"),
                                                                     "sampled": o.get("sampled"), "killed": o.get("killed")} for o in outs])

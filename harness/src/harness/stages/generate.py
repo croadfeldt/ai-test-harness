@@ -3,8 +3,9 @@ compile, run on the baseline, repair, keep only what earns its place.
 
 Rules this stage enforces, not the model:
 - Facts reach the model as delimited DATA. Advisory text and anything else from outside is data.
-- Tests are pytest in the repository's own layout (tests/test_*.py) and import only the package
-  under test, pytest, and the standard library.
+- Tests are written in the ecosystem's own framework (pytest for Python, the testing package for Go)
+  and import only the package under test, its dependencies, the framework, and the standard library.
+  Everything language-specific comes from the adapter (adapters/<ecosystem>.py, "test toolkit").
 - A test file that does not parse is sent back with the error. A test that fails on the baseline
   (the head version) is sent back once, then cut from the file. A file that covers no line of the
   package under test is discarded.
@@ -14,16 +15,18 @@ Every prompt, response, and decision is written to disk.
 """
 from __future__ import annotations
 
-import ast
 import json
-import re
 from pathlib import Path
 
-from .. import sandbox
-from ..llm import Model, ModelConfig, extract_python
+from .. import adapters
+from ..llm import Model, ModelConfig
 from ..util import HarnessError, log, now_iso, read_json, sha256_text, write_json
 
-DIST_TO_IMPORT = {"pyyaml": "yaml", "pillow": "PIL", "beautifulsoup4": "bs4", "python-dateutil": "dateutil",
+# Kept as names for the Python path; the pipeline itself asks the adapter.
+from ..adapters.python import (DIST_TO_IMPORT, SYSTEM, CATEGORY_TASK, compile_check as _compile, test_names as _test_names,  # noqa: F401
+                               drop_tests as _drop_tests, imports_ok as _imports_ok, weak_assertions as _weak_assertions)
+
+_DIST_TO_IMPORT_UNUSED = {"pyyaml": "yaml", "pillow": "PIL", "beautifulsoup4": "bs4", "python-dateutil": "dateutil",
                   "typing-extensions": "typing_extensions", "six": "six"}
 
 SYSTEM = """You write pytest tests for a Python package that an application depends on. You are given FACTS
@@ -114,16 +117,14 @@ def _api_subset(api: dict, symbols_used: list[str], limit: int = 80) -> list[dic
 
 
 def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns: list[dict], n: int,
-                 fix_patch: str | None = None, new_only: list[str] = (), old_only: list[str] = (), roles: dict | None = None) -> str:
+                 fix_patch: str | None = None, new_only: list[str] = (), old_only: list[str] = (), roles: dict | None = None,
+                 adapter=None) -> str:
+    adapter = adapter or adapters.get("python")
     roles = roles or {}
     used = facts["call_sites_summary"]["symbols_used"]
-    parts = [f"Package under test: {facts['package']} version {facts['new_version'] or facts['old_version']}.",
-             f"Import names: {facts['import_names']}. Previous version in the application: {facts['old_version']}.",
-             f"You may also import the package's own dependencies: {facts.get('dependency_import_names', [])} "
-             "(for example to build real key material). Any raises() must name a specific exception class.",
-             f"Test framework: pytest. Python 3.12.", "",
-             "TASK: " + CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
-                                                        vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
+    parts = adapter.prompt_preamble(facts) + [
+             "TASK: " + adapter.CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
+                                                                vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
     if category == "cve" and roles.get("direction") == "candidate":
         parts.append(f"NOTE: the application is on the VULNERABLE version {roles['vulnerable']} and the change did not move it. "
                      f"The FIXED version {roles['fixed']} is a candidate environment the harness resolved ({roles.get('candidate_note', '')}); "
@@ -157,89 +158,6 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
     return "\n".join(parts)
 
 
-def _compile(code: str) -> str | None:
-    try:
-        ast.parse(code)
-        return None
-    except SyntaxError as e:
-        return f"SyntaxError: {e.msg} at line {e.lineno}: {e.text}"
-
-
-def _test_names(code: str) -> list[str]:
-    tree = ast.parse(code)
-    return [n.name for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name.startswith("test_")]
-
-
-def _drop_tests(code: str, names: set[str]) -> str:
-    tree = ast.parse(code)
-    tree.body = [n for n in tree.body if not (isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name in names)]
-    return ast.unparse(tree) + "\n"
-
-
-def _imports_ok(code: str, allowed_roots: set[str]) -> list[str]:
-    """Names imported outside the package, pytest, and stdlib."""
-    import sys
-    std = set(sys.stdlib_module_names)
-    bad = []
-    for node in ast.walk(ast.parse(code)):
-        mods = []
-        if isinstance(node, ast.Import):
-            mods = [a.name.split(".")[0] for a in node.names]
-        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
-            mods = [node.module.split(".")[0]]
-        for m in mods:
-            if m not in std and m not in allowed_roots and m != "pytest":
-                bad.append(m)
-    return sorted(set(bad))
-
-
-_TRIVIAL_CALLS = {"callable", "isinstance", "issubclass", "hasattr"}
-
-
-def _all_trivial(fn) -> bool:
-    """GF-017. True when every assert in the test is an existence check."""
-    asserts = [n for n in ast.walk(fn) if isinstance(n, ast.Assert)]
-    for a in asserts:
-        test = a.test
-        if isinstance(test, ast.Call) and isinstance(test.func, ast.Name) and test.func.id in _TRIVIAL_CALLS:
-            continue
-        if isinstance(test, ast.Compare) and len(test.ops) == 1 and isinstance(test.ops[0], (ast.IsNot, ast.Is)) \
-                and isinstance(test.comparators[0], ast.Constant) and test.comparators[0].value is None:
-            continue
-        if isinstance(test, ast.UnaryOp) and isinstance(test.op, ast.Not) and isinstance(test.operand, ast.Call) \
-                and isinstance(test.operand.func, ast.Name) and test.operand.func.id in _TRIVIAL_CALLS:
-            continue
-        return False
-    return bool(asserts)
-
-
-def _weak_assertions(code: str) -> list[str]:
-    """Tests whose assertions cannot fail: pytest.raises(Exception) or a tuple containing Exception,
-    or a test body with no assert and no raises at all. A test that accepts any error tells the
-    differential run nothing."""
-    weak = []
-    tree = ast.parse(code)
-    for fn in tree.body:
-        if not (isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)) and fn.name.startswith("test_")):
-            continue
-        has_assert = any(isinstance(n, ast.Assert) for n in ast.walk(fn))
-        raises_any, raises_broad = False, False
-        for n in ast.walk(fn):
-            if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "raises":
-                raises_any = True
-                args = n.args[0] if n.args else None
-                names = [e.id for e in (args.elts if isinstance(args, ast.Tuple) else [args]) if isinstance(e, ast.Name)] if args else []
-                if any(x in ("Exception", "BaseException") for x in names):
-                    raises_broad = True
-        if raises_broad:
-            weak.append(f"{fn.name}: pytest.raises(Exception) accepts any error; name the specific exception the fixed version raises")
-        elif not has_assert and not raises_any:
-            weak.append(f"{fn.name}: no assert and no pytest.raises; the test cannot fail")
-        elif has_assert and not raises_any and _all_trivial(fn):
-            weak.append(f"{fn.name}: every assertion is an existence check (callable, isinstance, issubclass, is not None, hasattr); "
-                        "assert a specific output for a specific input instead")
-    return weak
-
 
 def _collected_nothing(results: dict) -> bool:
     """True when pytest collected no test, or the module itself failed to import (every entry is an error).
@@ -247,21 +165,30 @@ def _collected_nothing(results: dict) -> bool:
     return not results or all(v["status"] == "error" for v in results.values())
 
 
-def _run_baseline(code: str, pkg_dir: Path, wheelhouse: Path, reqs: list[str], roots: list[str], label: str) -> dict:
+def env_dir(workdir: Path, adapter, tag: str) -> Path:
+    """Where an environment's offline artifacts live: cache/wheelhouse/<tag> for Python, cache/gomod/<tag> for Go."""
+    return workdir / "cache" / ("wheelhouse" if adapter.ECOSYSTEM == "python" else "gomod") / tag
+
+
+def _run_baseline(code: str, pkg_dir: Path, env: dict, roots: list[str], label: str, adapter=None) -> dict:
+    """One sandbox run of a candidate file in the given environment (an adapter.prefetch record)."""
+    adapter = adapter or adapters.get("python")
+    label = label.replace("/", "_")   # a Go module path in the label would nest directories
     tdir = pkg_dir / "scratch" / label
     tdir.mkdir(parents=True, exist_ok=True)
-    (tdir / "test_candidate.py").write_text(code)
+    (tdir / adapter.test_file_name("candidate", "x").replace("candidate_x", "candidate")).write_text(code)
     out = pkg_dir / "scratch" / f"{label}.out"
-    summary = sandbox.run_tests(wheelhouse=wheelhouse, requirements=reqs, tests_dir=tdir, out_dir=out, cover=roots, label=label)
-    results = sandbox.parse_junit(Path(summary["junit"])) if summary["junit"] else {}
-    cov = sandbox.coverage_for(Path(summary["coverage"]), roots) if summary["coverage"] else {"available": False}
+    summary = adapter.run_tests(env, tdir, out, cover=roots, label=label)
+    results = adapter.parse_results(summary)
+    cov = adapter.coverage_for(summary, roots)
     return {"sandbox": summary, "results": results, "coverage": cov,
             "stdout_tail": (out / "stdout.log").read_text()[-3000:] if (out / "stdout.log").exists() else ""}
 
 
-def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: Path, reqs_new: list[str],
+def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict,
                      categories: list[str] | None, max_repairs: int = 2, dep_roots: list[str] | None = None,
-                     wheelhouse_old: Path | None = None, reqs_old: list[str] | None = None) -> dict:
+                     env_old: dict | None = None, adapter=None) -> dict:
+    adapter = adapter or adapters.get("python")
     facts = read_json(facts_dir / "facts.json")
     api = read_json(facts_dir / "api.new.json") if (facts_dir / "api.new.json").exists() else {"symbols": []}
     sites = read_json(facts_dir / "call-sites.json")["sites"]
@@ -273,7 +200,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
     cand_path = facts_dir / "fixed-candidate.json"
     candidate = read_json(cand_path) if cand_path.exists() else None
     roles = cve_roles(facts["old_version"], facts["new_version"], vdoc.get("vulns_old", []), vdoc["vulns"], candidate)
-    roots = [r.split("/")[0] for r in facts["import_names"]]
+    roots = adapter.import_roots(facts)
     budget = facts["risk"]["budget"]
     pkg = facts["package"]
     gen_dir.mkdir(parents=True, exist_ok=True)
@@ -305,34 +232,34 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
         fix_patch = fix_patch[:60000] + "\n... truncated"
     for cat, n, call_vulns, suffix in plan:
         prompt = build_prompt(cat, facts, api, sites, call_vulns, n, fix_patch if cat == "cve" else None,
-                              new_only if cat == "cve" else (), old_only if cat == "cve" else (), roles)
-        max_tokens = {"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat]
-        system = SYSTEM
+                              new_only if cat == "cve" else (), old_only if cat == "cve" else (), roles, adapter=adapter)
+        max_tokens = int({"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat] * getattr(adapter, "OUTPUT_SCALE", 1.0))
+        system = adapter.SYSTEM
         attempts, code, history, run1 = 0, None, [], None
         while attempts <= max_repairs:
             tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"
             text, rec = model.chat(system, prompt if attempts == 0 else prompt + "\n\nPREVIOUS ATTEMPT FAILED:\n" + history[-1], tag, max_tokens=max_tokens)
-            code = extract_python(text)
+            code = adapter.extract_code(text)
             attempts += 1
             if rec["finish_reason"] in ("length", "loop_detected"):
                 history.append(f"The response was cut off ({rec['finish_reason']}). Write a SHORTER file: fewer helper lines, "
                                "no long literal strings or byte blobs; build any large or repetitive data with expressions "
                                "such as b'A' * 100000 or with the cryptography library."); continue
             if code is None:
-                history.append("No python code block found in the response. Output one ```python fenced file."); continue
-            err = _compile(code)
+                history.append(f"No {adapter.FENCE} code block found in the response. Output one ```{adapter.FENCE} fenced file."); continue
+            err = adapter.compile_check(code)
             if err:
                 history.append(f"The file does not parse. {err}"); continue
             allowed = set(roots) | set(dep_roots or [])
-            bad = _imports_ok(code, allowed)
+            bad = adapter.imports_ok(code, allowed)
             if bad:
-                history.append(f"Forbidden imports: {bad}. Import only {sorted(allowed)}, pytest, and the standard library."); continue
-            if not _test_names(code):
-                history.append("No test_* functions found."); continue
-            weak = _weak_assertions(code)
+                history.append(f"Forbidden imports: {bad}. Import only {sorted(allowed)}, the test framework, and the standard library."); continue
+            if not adapter.test_names(code):
+                history.append("No test functions found."); continue
+            weak = adapter.weak_assertions(code)
             if weak and attempts <= max_repairs:
                 history.append("These tests are too weak to prove anything:\n" + "\n".join(f"- {w}" for w in weak)); continue
-            run1 = _run_baseline(code, gen_dir, wheelhouse, reqs_new, roots, tag)
+            run1 = _run_baseline(code, gen_dir, env_new, roots, tag, adapter)
             if run1["sandbox"]["install_failed"]:
                 raise HarnessError(f"sandbox install failed for {pkg}; see {gen_dir}/scratch/{tag}.out")
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
@@ -350,12 +277,11 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                                    f"assertion, which means the test itself is wrong (wrong argument, wrong function, "
                                    f"unsupported option):\n{msg}\nFix the test so that on the fixed version it either passes "
                                    f"or fails only at its assertion."); continue
-                if wheelhouse_old and reqs_old and attempts <= max_repairs:
-                    run_old = _run_baseline(code, gen_dir, wheelhouse_old, reqs_old, roots, tag + "-old")
+                if env_old and attempts <= max_repairs:
+                    run_old = _run_baseline(code, gen_dir, env_old, roots, tag + "-old", adapter)
                     if _collected_nothing(run_old["results"]):
-                        history.append(f"The file does not even collect on the VULNERABLE version {facts['old_version']}, so the "
-                                       f"differential run cannot judge it. Import at module level only names present in both "
-                                       f"versions:\n{run_old['stdout_tail'][-1500:]}"); continue
+                        # "does not even collect on the VULNERABLE version": the differential run cannot judge such a file
+                        history.append(adapter.collection_hint(facts['old_version']) + f"\n{run_old['stdout_tail'][-1500:]}"); continue
                 break
             if failing and attempts <= max_repairs:
                 msg = "\n".join(f"- {k}: {v['message'][:600]}" for k, v in failing.items())
@@ -363,7 +289,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
                                f"with tests that pass while still asserting specific behavior:\n{msg}")
                 continue
             break
-        if code is None or _compile(code) or not _test_names(code):
+        if code is None or adapter.compile_check(code) or not adapter.test_names(code):
             manifest["discarded"].append({"category": cat, "reason": "no parseable test file after repairs", "attempts": attempts})
             continue
         run_final = run1
@@ -378,9 +304,9 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
         kept_code = code
         cut = []
         if cat != "cve" and failing:
-            kept_code = _drop_tests(code, set(failing))
+            kept_code = adapter.drop_tests(code, set(failing))
             cut = [{"test": k, "reason": "fails on baseline after repair", "message": v["message"][:300]} for k, v in failing.items()]
-        names = _test_names(kept_code)
+        names = adapter.test_names(kept_code)
         covered = run_final["coverage"].get("covered_lines_in_target", 0) if run_final else 0
         if cat != "cve" and covered == 0:
             manifest["discarded"].append({"category": cat, "reason": "covers no line of the package under test", "tests": names})
@@ -388,9 +314,8 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, wheelhouse: P
         if not names:
             manifest["discarded"].append({"category": cat, "reason": "every test failed on baseline", "cut": cut})
             continue
-        fname = f"test_{pkg.replace('-', '_')}_{cat}{'_' + suffix if suffix else ''}.py"
-        header = (f'"""Generated by ai-test-harness for {pkg} {facts["new_version"]} (category: {cat}).\n'
-                  f'Candidate tests: not yet human-reviewed. Provenance in ../manifest.json.\n"""\n')
+        fname = adapter.test_file_name(pkg, cat, suffix)
+        header = adapter.file_header(pkg, facts["new_version"], cat)
         (tests_dir / fname).write_text(header + kept_code)
         manifest["files"].append({"file": f"tests/{fname}", "category": cat, "tests": names, "cut": cut,
                                   "attempts": attempts, "prompt_sha256": rec["prompt_sha256"],
@@ -411,12 +336,12 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
     from .. import selfcheck
     selfcheck.require(workdir, python_version, probes=True)   # stage 0, fail closed: register checks, sandbox probe, model probe
     summary = read_json(workdir / "analyze" / "summary.json")
+    adapter = adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
-    reqs_new = [f"{p['name']}=={p['version']}" for p in graph_new.values()]
-    wheelhouse = sandbox.prefetch_wheelhouse(reqs_new, python_version, workdir / "cache" / "wheelhouse" / "new")
+    env_new = adapter.prefetch(adapter.requirements(graph_new), python_version, env_dir(workdir, adapter, "new"))
     graph_old = read_json(workdir / "intake" / "graph.old.json")["packages"]
-    reqs_old = [f"{p['name']}=={p['version']}" for p in graph_old.values()]
-    wheelhouse_old = sandbox.prefetch_wheelhouse(reqs_old, python_version, workdir / "cache" / "wheelhouse" / "old") if reqs_old != reqs_new else None
+    reqs_old = adapter.requirements(graph_old)
+    env_old = adapter.prefetch(reqs_old, python_version, env_dir(workdir, adapter, "old")) if reqs_old != env_new["requirements"] else None
     cfg = ModelConfig.from_env()
     log(f"generate: model {cfg.model} at endpoint '{cfg.label}'")
     outs = []
@@ -428,27 +353,24 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
             log(f"  {pkg}: snapshot budget, no generation"); continue
         gen_dir = workdir / "generate" / pkg
         model = Model(cfg, gen_dir / "model-calls")
-        deps = graph_new.get(pkg, {}).get("requires", []) + graph_new.get(pkg, {}).get("optional_requires", [])
-        dep_roots = sorted({d.replace("-", "_") for d in deps} | {DIST_TO_IMPORT.get(d, d.replace("-", "_")) for d in deps})
+        dep_roots = adapter.dep_roots(graph_new, pkg)
         facts_path = workdir / "analyze" / pkg / "facts.json"
         facts = read_json(facts_path); facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
         cats = categories or ["unit", "functional", "negative", "cve"]
         # Package unchanged and vulnerable at head: resolve a fixed-candidate environment as the second
         # environment for CVE tests (blueprint stage 3, CVE-targeted tests against vulnerable and fixed).
-        pkg_wh_old, pkg_reqs_old = wheelhouse_old, reqs_old
-        if "cve" in cats and not wheelhouse_old:
-            from .candidate import fixed_candidate
-            cand = fixed_candidate(workdir, pkg, python_version)
+        pkg_env_old = env_old
+        if "cve" in cats and not env_old:
+            cand = adapter.fixed_candidate(workdir, pkg, python_version)
             if cand["status"] == "resolved":
-                pkg_wh_old, pkg_reqs_old = Path(cand["wheelhouse"]), cand["requirements"]
+                pkg_env_old = {"dir": workdir / cand["wheelhouse"], "requirements": cand["requirements"], "kind": cand.get("env_kind", "wheelhouse")}
         fixed_cats = [c for c in cats if not (mode == "agent" and c == "cve")]
-        m = generate_package(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, fixed_cats, dep_roots=dep_roots,
-                             wheelhouse_old=pkg_wh_old, reqs_old=pkg_reqs_old if pkg_wh_old else None)
-        if mode == "agent" and "cve" in cats and pkg_wh_old:
+        m = generate_package(workdir / "analyze" / pkg, gen_dir, model, env_new, fixed_cats, dep_roots=dep_roots,
+                             env_old=pkg_env_old, adapter=adapter)
+        if mode == "agent" and "cve" in cats and pkg_env_old:
             from . import agent
-            from .. import adapters
-            am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, wheelhouse, reqs_new, pkg_wh_old, pkg_reqs_old,
-                                          dep_roots, adapters.get("python"), python_version)
+            am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, env_new, pkg_env_old,
+                                          dep_roots, adapter, python_version, workdir=workdir)
             m["mode"] = "agent (cve), fixed (other categories)"; m["files"] += am["files"]; m["discarded"] += am["discarded"]
             m["agent_budget"] = am["budget"]; m["agent_traces_ref"] = "manifest.agent.json"
             write_json(gen_dir / "manifest.json", m)

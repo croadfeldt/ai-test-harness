@@ -91,7 +91,7 @@ def fixed_candidate(workdir: Path, pkg: str, python_version: str = "3.12") -> di
                 rec["attempts"].append({"overrides": overrides, "result": "failed", "error": msg})
     if rec["status"] == "resolved":
         wh = sandbox.prefetch_wheelhouse(rec["requirements"], python_version, workdir / "cache" / "wheelhouse" / f"fixed-{pkg}")
-        rec["wheelhouse"] = str(wh)
+        rec["wheelhouse"] = str(wh.relative_to(workdir)) if wh.is_relative_to(workdir) else str(wh)
         log(f"    {pkg}: fixed candidate {fixed} resolved ({rec['note']}); {len(rec['moved'])} package(s) move: "
             + ", ".join(f"{k} {a}->{b}" for k, (a, b) in list(rec["moved"].items())[:6]))
     else:

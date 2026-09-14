@@ -73,6 +73,17 @@ service-account token, read-only root, a probe from inside before any generated 
 image is built from `Containerfile`. Set `HARNESS_SANDBOX_TARGET=pod` to use the in-pod sandbox
 outside Tekton too. See `deploy/tekton/README.md`.
 
+## Two languages, one pipeline
+
+Everything a stage needs from a language sits behind the adapter as a small test toolkit
+(`adapters/python.py` and `adapters/go.py`, same function names): how a test file is named and
+headed, which prompt rules and task text the model gets, how a response is parsed, compiled, checked
+for forbidden imports and assertions that cannot fail, how failing tests are cut from a file, how an
+offline environment is prefetched and a sealed run is started, and how results and coverage are read
+back. The stages call those functions and nothing else that is language-specific, so the Python
+examples and the Go example go through the same generate, execute, triage, packet, attest, and
+assess code.
+
 ## Work directory layout
 
 ```
@@ -129,4 +140,4 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | 7 feedback | register loop implemented (section 17); reviewer-decision capture waits for a real reviewer |
 | attest | implemented: provenance record per accepted test (manifest.schema.yaml) and the same facts as UDLM records (TestEvidence at the harness's provider class, VexStatement, Vulnerability, SoftwarePackage, Job) sealed with UDLM's chain code from a local checkout; in-toto Statement with the test-result/v0.1 predicate whose subjects include each evidence record's head; DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
 | assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |
-| Go adapter | stages 1 and 2 implemented: `go list`/`go mod graph` for the graph, `go mod download` for source, a go/ast helper (`adapters/gohelper/`) for API surfaces and call sites, OSV's Go ecosystem; generation and execution for Go are next |
+| Go adapter | all stages: `go list`/`go mod graph` for the graph, `go mod download` for source, a go/ast helper (`adapters/gohelper/`) for API surfaces, call sites, and the test-file gates; tests are `package harnesstest` files on the standard testing package, run by `sandbox_go.py` in a sealed container with a read-only module cache (`GOPROXY=off`); the fixed-candidate environment comes from `go get` on a scratch copy of the application. Not yet for Go: mutation (the stage records "skipped"), and the Tekton pod target (the harness image has no Go toolchain). |

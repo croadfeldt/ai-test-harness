@@ -9,64 +9,62 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .. import sandbox
+from .. import adapters
 from ..util import log, now_iso, read_json, sha256_file, write_json
 
 
 def base_name(test_id: str) -> str:
-    """GF-018. 'tests.test_x::test_a[asyncio]' -> 'test_a'. Manifests name tests by function."""
+    """GF-018. 'tests.test_x::test_a[asyncio]' -> 'test_a'; Go 'harnesstest::TestA/case' -> 'TestA'.
+    Manifests name tests by function."""
     name = test_id.split("::")[-1]
-    return name.split("[", 1)[0]
+    return name.split("[", 1)[0].split("/", 1)[0]
 
 
-def _reqs(workdir: Path, tag: str) -> list[str]:
+def _reqs(workdir: Path, tag: str, adapter=None) -> list[str]:
     g = read_json(workdir / "intake" / f"graph.{tag}.json")["packages"]
-    return [f"{p['name']}=={p['version']}" for p in g.values()]
+    return (adapter or adapters.get("python")).requirements(g)
 
 
-def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
+def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) -> dict:
+    adapter = adapter or adapters.get("python")
     gen = read_json(workdir / "generate" / pkg / "manifest.json")
     tests_dir = workdir / "generate" / pkg / "tests"
     out = workdir / "execute" / pkg
     out.mkdir(parents=True, exist_ok=True)
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
-    roots = [r.split("/")[0] for r in facts["import_names"]]
+    roots = adapter.import_roots(facts)
     from .agent import fix_reached
-    from .generate import cve_roles
+    from .generate import cve_roles, env_dir
     vdoc = read_json(workdir / "analyze" / pkg / "vulns.json")
     cand_path0 = workdir / "analyze" / pkg / "fixed-candidate.json"
     roles = cve_roles(gen["old_version"], gen["new_version"], vdoc.get("vulns_old", []), vdoc.get("vulns", []),
                       read_json(cand_path0) if cand_path0.exists() else None)
     patch_path = workdir / "analyze" / pkg / "source-diff.patch"
     fix_patch = patch_path.read_text() if patch_path.exists() else None
-    reqs_new = _reqs(workdir, "new")
+    reqs_new = _reqs(workdir, "new", adapter)
     runs = {}
     plans = [("new", reqs_new), ("new-rerun", reqs_new)]
     cand_path = workdir / "analyze" / pkg / "fixed-candidate.json"
     candidate = read_json(cand_path) if cand_path.exists() else None
     if roles["direction"] == "candidate" and candidate and candidate.get("status") == "resolved":
-        wh_c = sandbox.prefetch_wheelhouse(candidate["requirements"], python_version, workdir / "cache" / "wheelhouse" / f"fixed-{pkg}")
+        env_c = adapter.prefetch(candidate["requirements"], python_version, env_dir(workdir, adapter, f"fixed-{pkg.replace('/', '_')}"))
         log(f"    sandbox run fixed-candidate ({pkg} {candidate['fixed_version']})")
-        s = sandbox.run_tests(wheelhouse=wh_c, requirements=candidate["requirements"], tests_dir=tests_dir, out_dir=out / "fixed-candidate",
-                              cover=roots, label=f"{pkg}-fixed-candidate")
-        runs["old"] = {"sandbox": s, "results": sandbox.parse_junit(Path(s["junit"])) if s["junit"] else {},
-                       "coverage": sandbox.coverage_for(Path(s["coverage"]), roots) if s["coverage"] else {"available": False}}
+        s = adapter.run_tests(env_c, tests_dir, out / "fixed-candidate", cover=roots, label=f"{pkg}-fixed-candidate")
+        runs["old"] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
         plans = [p for p in plans if p[0] != "old"]
     if gen["old_version"] and gen["old_version"] != gen["new_version"]:
         # Differential: the base commit's own resolved graph, which is the state the application
         # actually ran with before the change. Swapping one package inside the head graph produces
         # sets that never existed and may not resolve (python-jose 3.3.0 with head's pyasn1 did not).
-        plans.append(("old", _reqs(workdir, "old")))
+        plans.append(("old", _reqs(workdir, "old", adapter)))
     for label, reqs in plans:
         if label == "old" and "old" in runs:
             continue
-        wh_tag = "old" if label == "old" else "new"
-        wheelhouse = sandbox.prefetch_wheelhouse(reqs, python_version, workdir / "cache" / "wheelhouse" / wh_tag)
+        env_tag = "old" if label == "old" else "new"
+        env = adapter.prefetch(reqs, python_version, env_dir(workdir, adapter, env_tag))
         log(f"    sandbox run {label}")
-        s = sandbox.run_tests(wheelhouse=wheelhouse, requirements=reqs, tests_dir=tests_dir, out_dir=out / label,
-                              cover=roots, label=f"{pkg}-{label}")
-        runs[label] = {"sandbox": s, "results": sandbox.parse_junit(Path(s["junit"])) if s["junit"] else {},
-                       "coverage": sandbox.coverage_for(Path(s["coverage"]), roots) if s["coverage"] else {"available": False}}
+        s = adapter.run_tests(env, tests_dir, out / label, cover=roots, label=f"{pkg}-{label}")
+        runs[label] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
     by_file = {}
     for f in gen["files"]:
         for t in f["tests"]:
@@ -123,7 +121,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str) -> dict:
         "run_id": read_json(workdir / "intake" / "worklist.json")["run_id"],
         "selfcheck_ref": "../../selfcheck/selfcheck.json",
         "artifact_digest": None, "generated": now_iso(),
-        "target": {"class": "podman", "provisioner": "local podman", "identity": runs["new"]["sandbox"]["image"],
+        "target": {"class": runs["new"]["sandbox"]["isolation"].get("target", "podman"), "provisioner": "local podman" if runs["new"]["sandbox"]["isolation"].get("target", "podman") == "podman" else "the task pod",
+                   "identity": runs["new"]["sandbox"]["image"],
                    "image_digest": runs["new"]["sandbox"].get("image_digest"), "isolation": runs["new"]["sandbox"]["isolation"]},
         "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
         "tests": tests,
@@ -155,6 +154,7 @@ def execute(*, workdir: Path, select: list[str] | None = None, python_version: s
     from .. import selfcheck
     selfcheck.require(workdir, python_version, probes=False)   # register checks again; the sandbox was probed before generation
     gen_summary = read_json(workdir / "generate" / "summary.json")
+    adapter = adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
     outs = []
     for p in gen_summary["packages"]:
         pkg = p["package"]
@@ -163,8 +163,10 @@ def execute(*, workdir: Path, select: list[str] | None = None, python_version: s
         if p["files"] == 0:
             log(f"  {pkg}: nothing generated"); continue
         log(f"  {pkg}")
-        outs.append(execute_package(workdir, pkg, python_version))
+        outs.append((pkg, execute_package(workdir, pkg, python_version, adapter)))
     from ..util import merge_summary
+    # Rows carry the package name the work list uses (a Go module path has slashes; the purl's last segment is not it).
     merge_summary(workdir / "execute" / "summary.json", [
-        {"package": r["package"]["purl"].split("/")[-1].split("@")[0], **{k: v for k, v in r["counts"].items() if k != "cve_roles"}} for r in outs])
+        {"package": pkg, **{k: v for k, v in r["counts"].items() if k != "cve_roles"}} for pkg, r in outs])
+    outs = [r for _, r in outs]
     return outs
