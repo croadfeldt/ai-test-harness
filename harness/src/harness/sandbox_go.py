@@ -58,11 +58,24 @@ def prefetch_modcache(requirements: list[str], go_version: str, dest: Path, imag
 
 
 def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
-              image: str = IMAGE, limits: dict = LIMITS) -> dict:
-    """Run every *_test.go in tests_dir as package harnesstest against the prefetched module cache."""
+              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None) -> dict:
+    """Run every *_test.go in tests_dir as package harnesstest against the prefetched module cache.
+
+    overlay_dir, for mutation: files at module-relative paths plus overlay.json naming the module. The
+    module is copied out of the read-only cache into the work directory, the files are laid over it,
+    and a replace directive points the scratch module at the copy. Nothing else changes."""
     if not shutil.which("podman"):
         raise HarnessError("podman is required for the Go sandbox target")
     out_dir.mkdir(parents=True, exist_ok=True)
+    overlay = ""
+    if overlay_dir:
+        meta = json.loads((overlay_dir / "overlay.json").read_text())
+        overlay = f"""
+src=$(go list -m -f '{{{{.Dir}}}}' {meta["module"]}) || {{ echo "MODULE_NOT_IN_CACHE"; exit 96; }}
+mkdir -p /work/mutant && cp -r "$src"/. /work/mutant/ && chmod -R u+w /work/mutant
+(cd /mutant && find . -type f ! -name overlay.json | while read f; do cp "$f" "/work/mutant/$f"; done)
+go mod edit -replace {meta["module"]}=/work/mutant
+"""
     # The build cache is content-addressed and holds compiled dependencies; keeping it next to the
     # module cache saves recompiling the whole graph on every run. It is the one writable mount.
     gocache = env_dir / "gocache"; gocache.mkdir(exist_ok=True)
@@ -70,7 +83,7 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
     script = f"""set -u
 mkdir -p /work/m && cp /mod/go.mod /mod/go.sum /work/m/ && cp /tests/*.go /work/m/
 cd /work/m
-export GOMODCACHE=/modcache GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE=/gocache GOPATH=/work/gopath HOME=/work
+export GOMODCACHE=/modcache GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE=/gocache GOPATH=/work/gopath HOME=/work{overlay}
 go vet . > /out/vet.log 2>&1 || true
 go test -json -count=1 -timeout {max(60, limits["timeout_s"] - 60)}s -coverprofile=/out/cover.out -coverpkg={coverpkg} . > /out/test.json 2> /out/build.log ; rc=$?
 exit $rc
@@ -81,6 +94,7 @@ exit $rc
            "--read-only", "--tmpfs", "/work:rw,size=2g,exec", "--tmpfs", "/tmp:rw,size=256m",
            "-v", f"{(env_dir / 'modcache').resolve()}:/modcache:ro,Z", "-v", f"{env_dir.resolve()}:/mod:ro,Z", "-v", f"{gocache.resolve()}:/gocache:rw,Z",
            "-v", f"{tests_dir.resolve()}:/tests:ro,Z", "-v", f"{out_dir.resolve()}:/out:rw,Z",
+           *(["-v", f"{overlay_dir.resolve()}:/mutant:ro,Z"] if overlay_dir else []),
            "--label", f"ai-test-harness={label}", image,
            "env", "-i", "PATH=/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin", "HOME=/work", "LANG=C.UTF-8", "bash", "/out/run.sh"]
     started = time.time()
@@ -106,7 +120,9 @@ exit $rc
     summary = {
         "label": label, "image": image, "image_digest": _py.image_digest(image), "returncode": rc, "timed_out": timed_out,
         "duration_s": round(time.time() - started, 1), "install_failed": "cannot find module" in build_log or "missing go.sum entry" in build_log,
-        "build_failed": rc != 0 and not tests,
+        # A build failure is the compiler's verdict (a build-fail event); a test binary that dies at
+        # package init is a runtime failure, which is the tests' verdict, and is not one.
+        "build_failed": any(e.get("Action") == "build-fail" for e in events) or "[build failed]" in readable,
         "isolation": {"network": "none", "capabilities": "all dropped", "no_new_privileges": True, "rootfs": "read-only",
                       "secrets": "none mounted; environment cleared with env -i", "limits": limits, "disposable": True,
                       "module_cache": "read-only mount, GOPROXY=off", "build_cache": "writable mount, content-addressed, per environment"},

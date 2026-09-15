@@ -777,3 +777,131 @@ def skipped_tests(test_file: Path) -> set[str]:
 
 def is_test_file(rel: Path) -> bool:
     return any(x in ("tests", "test") for x in rel.parts) or rel.name.startswith("test_")
+
+
+# ---------------------------------------------------------------- mutation (stage 4, step 5)
+# The harness's own bounded mutator on Python's ast: classic operators on lines the tests executed.
+import copy as _copy
+import json as _json
+
+MUTATION_OPERATORS = ("compare-swap", "boolop-swap", "const-int", "const-bool", "raise-drop", "return-none", "not-drop")
+
+
+class _MutationSites(ast.NodeVisitor):
+    """Enumerate mutation sites on executed lines."""
+    def __init__(self, lines: set[int]):
+        self.lines, self.sites = lines, []
+
+    def _on(self, node) -> bool:
+        return getattr(node, "lineno", -1) in self.lines
+
+    def visit_Compare(self, node):
+        if self._on(node) and len(node.ops) == 1 and type(node.ops[0]) in _SWAP:
+            self.sites.append(("compare-swap", node))
+        self.generic_visit(node)
+
+    def visit_BoolOp(self, node):
+        if self._on(node):
+            self.sites.append(("boolop-swap", node))
+        self.generic_visit(node)
+
+    def visit_Constant(self, node):
+        if self._on(node):
+            if isinstance(node.value, bool):
+                self.sites.append(("const-bool", node))
+            elif isinstance(node.value, int) and not isinstance(node.value, bool) and abs(node.value) < 10 ** 9:
+                self.sites.append(("const-int", node))
+        self.generic_visit(node)
+
+    def visit_Raise(self, node):
+        if self._on(node):
+            self.sites.append(("raise-drop", node))
+        self.generic_visit(node)
+
+    def visit_Return(self, node):
+        if self._on(node) and node.value is not None and not isinstance(node.value, ast.Constant):
+            self.sites.append(("return-none", node))
+        self.generic_visit(node)
+
+    def visit_UnaryOp(self, node):
+        if self._on(node) and isinstance(node.op, ast.Not):
+            self.sites.append(("not-drop", node))
+        self.generic_visit(node)
+
+
+_SWAP = {ast.Eq: ast.NotEq, ast.NotEq: ast.Eq, ast.Lt: ast.LtE, ast.LtE: ast.Lt, ast.Gt: ast.GtE, ast.GtE: ast.Gt,
+         ast.Is: ast.IsNot, ast.IsNot: ast.Is, ast.In: ast.NotIn, ast.NotIn: ast.In}
+
+
+def _apply(tree: ast.Module, op: str, target) -> ast.Module:
+    """Return a deep copy of the tree with the one site mutated (matched by position and type)."""
+    new = _copy.deepcopy(tree)
+    for node in ast.walk(new):
+        if type(node) is type(target) and getattr(node, "lineno", None) == target.lineno and getattr(node, "col_offset", None) == target.col_offset:
+            if op == "compare-swap":
+                node.ops = [_SWAP[type(node.ops[0])]()]
+            elif op == "boolop-swap":
+                node.op = ast.Or() if isinstance(node.op, ast.And) else ast.And()
+            elif op == "const-int":
+                node.value = node.value + 1
+            elif op == "const-bool":
+                node.value = not node.value
+            elif op == "raise-drop":
+                node.__class__ = ast.Pass
+                for attr in ("exc", "cause"):
+                    if hasattr(node, attr):
+                        delattr(node, attr)
+            elif op == "return-none":
+                node.value = ast.Constant(value=None)
+            elif op == "not-drop":
+                node.op = ast.UAdd(); node.operand = ast.Call(func=ast.Name(id="bool", ctx=ast.Load()), args=[node.operand], keywords=[])
+            return new
+    return new
+
+
+
+def mutation_sites(src_path: Path, lines: set[int]) -> list[dict]:
+    """Candidate sites on executed lines of one source file: op, line, col, text."""
+    try:
+        tree = ast.parse(src_path.read_text(errors="replace"))
+    except SyntaxError:
+        return []
+    v = _MutationSites(lines); v.visit(tree)
+    return [{"op": op, "line": node.lineno, "col": node.col_offset, "text": type(node).__name__} for op, node in v.sites]
+
+
+def apply_mutation(src_path: Path, site: dict) -> str | None:
+    """The file with one site mutated, or None when the mutant cannot be rendered."""
+    tree = ast.parse(src_path.read_text(errors="replace"))
+    target = next((n for n in ast.walk(tree) if getattr(n, "lineno", None) == site["line"] and getattr(n, "col_offset", None) == site["col"]
+                   and type(n).__name__ == site["text"]), None)
+    if target is None:
+        return None
+    try:
+        return ast.unparse(_apply(tree, site["op"], target))
+    except Exception:
+        return None
+
+
+def coverage_files(coverage_json: Path, roots: list[str]) -> dict[str, set[int]]:
+    """Executed lines per package file, keyed by the path relative to the installed package root."""
+    cov = _json.loads(coverage_json.read_text())
+    out = {}
+    for fname, fdata in cov.get("files", {}).items():
+        if "site-packages/" in fname and any(f"/{r}/" in fname or fname.endswith(f"/{r}.py") for r in roots):
+            out[fname.split("site-packages/")[-1]] = set(fdata.get("executed_lines", []))
+    return out
+
+
+def write_overlay(mdir: Path, rel: str, code: str, facts: dict) -> None:
+    """A mutant is a directory laid over site-packages: the mutated file at its package-relative path."""
+    (mdir / Path(rel).parent).mkdir(parents=True, exist_ok=True)
+    (mdir / rel).write_text(code)
+
+
+def mutant_status(summary: dict, results: dict, killed_by: list[str]) -> str:
+    if summary["timed_out"]:
+        return "killed-timeout"
+    if not results:
+        return "killed-import" if summary["returncode"] else "error"
+    return "killed" if killed_by else "survived"

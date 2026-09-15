@@ -106,7 +106,8 @@ stronger-model rung is the next variable, and Go is where it will show first.
 | Sealed run | the same container flags as Python (no network, capabilities dropped, read-only root, limits), `go test -json` with coverage on the module under test; results become junit.xml and coverage.json so every later stage reads them unchanged |
 | Gates | a Go program on go/ast: parse, package name, Test functions, imports, tests that cannot fail, and cutting a test out of a file with the imports it alone used |
 | Fixed candidate | `go get module@fixed` on a copy of the service at the reviewed commit, then the graph the toolchain resolves |
-| Not yet | mutation (the stage records "skipped"), and the cluster pod target (the harness image has no Go toolchain) |
+| Mutation | the same helper mutates the module's source on executed lines (seven operators); the sandbox copies the module out of the read-only cache and points the scratch module at the copy with a replace directive; a mutant that does not compile is invalid, not killed. This run predates it: its one test failed on head, so there was nothing to mutate |
+| Not yet | the cluster pod target (the harness image has no Go toolchain) |
 
 ## What this example fixed in the harness
 

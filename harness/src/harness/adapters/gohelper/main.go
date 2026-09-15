@@ -18,6 +18,7 @@ import (
 	"go/token"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -288,6 +289,19 @@ func main() {
 		inspectCmd(os.Args[2])
 	case "strip":
 		stripCmd(os.Args[2], os.Args[3:])
+	case "mutsites":
+		spec := ""
+		if len(os.Args) > 3 {
+			spec = os.Args[3]
+		}
+		mutsitesCmd(os.Args[2], spec)
+	case "mutate":
+		if len(os.Args) < 6 {
+			os.Exit(2)
+		}
+		line, _ := strconv.Atoi(os.Args[4])
+		col, _ := strconv.Atoi(os.Args[5])
+		mutateCmd(os.Args[2], os.Args[3], line, col)
 	default:
 		os.Exit(2)
 	}
