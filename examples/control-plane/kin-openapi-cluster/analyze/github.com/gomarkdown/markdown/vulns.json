@@ -1,0 +1,94 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.0.0-20240328165702-4d01890c35c0",
+  "package": "github.com/gomarkdown/markdown",
+  "version": "v0.0.0-20240328165702-4d01890c35c0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-40890",
+        "GO-2026-5208"
+      ],
+      "fixed_versions": [
+        "0.0.0-20260411013819-759bbc3e3207"
+      ],
+      "id": "GHSA-77fj-vx54-gvh7",
+      "malicious": false,
+      "references": [
+        "https://github.com/gomarkdown/markdown/security/advisories/GHSA-77fj-vx54-gvh7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40890",
+        "https://github.com/gomarkdown/markdown/commit/759bbc3e32073c3bc4e25969c132fc520eda2778",
+        "https://github.com/gomarkdown/markdown"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Go Markdown has an Out-of-bounds Read in SmartypantsRenderer"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-44337",
+        "GO-2024-3205"
+      ],
+      "fixed_versions": [
+        "0.0.0-20240729212818-a2a9c4f76ef5"
+      ],
+      "id": "GHSA-xhr3-wf7j-h255",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-44337",
+        "https://github.com/gomarkdown/markdown/commit/a2a9c4f76ef5a5c32108e36f7c47f8d310322252",
+        "https://github.com/Brinmon/CVE-2024-44337",
+        "https://github.com/gomarkdown/markdown",
+        "https://pkg.go.dev/vuln/GO-2024-3205"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+      "summary": "Infinite loop in github.com/gomarkdown/markdown"
+    },
+    {
+      "affected_symbols": [
+        "Parser.Block",
+        "Parser.Parse",
+        "Parser.paragraph"
+      ],
+      "aliases": [
+        "CVE-2024-44337",
+        "GHSA-xhr3-wf7j-h255"
+      ],
+      "fixed_versions": [
+        "0.0.0-20240729212818-a2a9c4f76ef5"
+      ],
+      "id": "GO-2024-3205",
+      "malicious": false,
+      "references": [
+        "https://github.com/advisories/GHSA-xhr3-wf7j-h255",
+        "https://github.com/gomarkdown/markdown/commit/a2a9c4f76ef5a5c32108e36f7c47f8d310322252",
+        "https://github.com/Brinmon/CVE-2024-44337"
+      ],
+      "severity": null,
+      "summary": "Infinite loop in github.com/gomarkdown/markdown"
+    },
+    {
+      "affected_symbols": [
+        "NewRenderer"
+      ],
+      "aliases": [
+        "CVE-2026-40890",
+        "GHSA-77fj-vx54-gvh7"
+      ],
+      "fixed_versions": [
+        "0.0.0-20260411013819-759bbc3e3207"
+      ],
+      "id": "GO-2026-5208",
+      "malicious": false,
+      "references": [
+        "https://github.com/gomarkdown/markdown/security/advisories/GHSA-77fj-vx54-gvh7",
+        "https://github.com/gomarkdown/markdown/commit/759bbc3e32073c3bc4e25969c132fc520eda2778"
+      ],
+      "severity": null,
+      "summary": "Go Markdown has an out-of-bounds read in SmartypantsRenderer in github.com/gomarkdown/markdown"
+    }
+  ],
+  "vulns_old": []
+}

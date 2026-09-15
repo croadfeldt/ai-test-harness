@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "github.com/jackc/pgx/v5"
+  ],
+  "package": "github.com/jackc/pgx/v5",
+  "sites": []
+}

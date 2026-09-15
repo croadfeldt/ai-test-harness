@@ -1,0 +1,155 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/go-resty/resty/v2",
+      "github.com/oapi-codegen/runtime",
+      "github.com/onsi/ginkgo/v2",
+      "github.com/onsi/gomega",
+      "github.com/open-policy-agent/opa",
+      "golang.org/x/crypto",
+      "golang.org/x/tools"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/go-resty/resty/v2, github.com/oapi-codegen/runtime, github.com/onsi/ginkgo/v2, github.com/onsi/gomega, github.com/open-policy-agent/opa, golang.org/x/crypto, golang.org/x/tools",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-15T17:52:30+00:00",
+  "import_names": [
+    "golang.org/x/net"
+  ],
+  "new_version": "v0.53.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v0.53.0",
+  "package": "golang.org/x/net",
+  "purl": "pkg:golang/golang.org/x/net@v0.53.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 8,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "8 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 217,
+    "files": [
+      "proxy/per_host_test.go",
+      "proxy/dial_test.go",
+      "proxy/proxy_test.go",
+      "websocket/hybi_test.go",
+      "websocket/exampledial_test.go",
+      "websocket/websocket_test.go",
+      "websocket/dial_test.go",
+      "websocket/examplehandler_test.go",
+      "publicsuffix/table_test.go",
+      "publicsuffix/example_test.go",
+      "publicsuffix/list_test.go",
+      "netutil/listen_test.go",
+      "http2/export_test.go",
+      "http2/config_test.go",
+      "http2/ascii_test.go",
+      "http2/http2_test.go",
+      "http2/clientconn_go125_test.go",
+      "http2/transport_api_test.go",
+      "http2/server_internal_test.go",
+      "http2/transport_internal_test.go",
+      "http2/netconn_test.go",
+      "http2/synctest_test.go",
+      "http2/server_test.go",
+      "http2/ciphers_test.go",
+      "http2/databuffer_test.go",
+      "http2/flow_test.go",
+      "http2/testcert_test.go",
+      "http2/writesched_priority_rfc7540_test.go",
+      "http2/frame_test.go",
+      "http2/connframes_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 8,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-25680",
+      "CVE-2026-25681",
+      "CVE-2026-27136",
+      "CVE-2026-39821",
+      "CVE-2026-42502",
+      "CVE-2026-42506",
+      "CVE-2026-46600"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "0.55.0",
+      "0.56.0"
+    ],
+    "ids": [
+      "GHSA-5cv4-jp36-h3mw",
+      "GO-2026-5025",
+      "GO-2026-5026",
+      "GO-2026-5027",
+      "GO-2026-5028",
+      "GO-2026-5029",
+      "GO-2026-5030",
+      "GO-2026-5942"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

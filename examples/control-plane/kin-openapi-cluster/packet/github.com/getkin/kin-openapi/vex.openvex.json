@@ -1,0 +1,94 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/0a4199adcbaa/github.com/getkin/kin-openapi",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+        }
+      ],
+      "status": "affected",
+      "status_notes": "open at head; reachable=true; fixed in ['0.144.0']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-73502",
+          "GHSA-jpcw-4wr7-c3vq",
+          "GO-2026-6112"
+        ],
+        "name": "CVE-2026-73502"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+        }
+      ],
+      "status": "affected",
+      "status_notes": "open at head; reachable=true; fixed in ['0.141.0']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-76905",
+          "GHSA-mmfr-pmjx-hw9w",
+          "GO-2026-6274"
+        ],
+        "name": "CVE-2026-76905"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+        }
+      ],
+      "status": "affected",
+      "status_notes": "open at head; reachable=true; fixed in ['0.144.0']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-73501",
+          "GHSA-r277-6w6q-xmqw",
+          "GO-2026-6095"
+        ],
+        "name": "CVE-2026-73501"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+        }
+      ],
+      "status": "affected",
+      "status_notes": "open at head; reachable=true; fixed in ['0.142.0']",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2026-77354",
+          "GHSA-xhj3-7xw9-vr34",
+          "GO-2026-6275"
+        ],
+        "name": "CVE-2026-77354"
+      }
+    }
+  ],
+  "timestamp": "2026-09-15T19:02:52+00:00",
+  "version": 1
+}

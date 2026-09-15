@@ -1,0 +1,13 @@
+{"Time":"2026-09-15T18:59:02.313141927Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-15T18:59:02.31980832Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning"}
+{"Time":"2026-09-15T18:59:02.319852961Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning\n"}
+{"Time":"2026-09-15T18:59:02.320498162Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-15T18:59:02.320538623Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Elapsed":0}
+{"Time":"2026-09-15T18:59:02.320545203Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure"}
+{"Time":"2026-09-15T18:59:02.320548974Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure\n"}
+{"Time":"2026-09-15T18:59:02.320893195Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)\n"}
+{"Time":"2026-09-15T18:59:02.320900365Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Elapsed":0}
+{"Time":"2026-09-15T18:59:02.320904075Z","Action":"output","Package":"harnesstest","Output":"PASS\n"}
+{"Time":"2026-09-15T18:59:02.324891317Z","Action":"output","Package":"harnesstest","Output":"coverage: 9.2% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-15T18:59:02.336959899Z","Action":"output","Package":"harnesstest","Output":"ok  \tharnesstest\t0.022s\tcoverage: 9.2% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-15T18:59:02.33698168Z","Action":"pass","Package":"harnesstest","Elapsed":0.024}

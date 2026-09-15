@@ -1,0 +1,256 @@
+{
+  "engine": "harness go mutator (diff- and coverage-scoped)",
+  "generated": "2026-09-15T19:00:12+00:00",
+  "invalid": 0,
+  "killed": 0,
+  "mutants": [
+    {
+      "duration_s": 6.0,
+      "file": "openapi3/schema.go",
+      "id": "m001",
+      "killed_by": [],
+      "line": 2844,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3filter/validate_response.go",
+      "id": "m002",
+      "killed_by": [],
+      "line": 82,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m003",
+      "killed_by": [],
+      "line": 33,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.7,
+      "file": "openapi3/server.go",
+      "id": "m004",
+      "killed_by": [],
+      "line": 183,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/schema.go",
+      "id": "m005",
+      "killed_by": [],
+      "line": 309,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3filter/validation_error_encoder.go",
+      "id": "m006",
+      "killed_by": [],
+      "line": 55,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/refs.go",
+      "id": "m007",
+      "killed_by": [],
+      "line": 953,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 3.0,
+      "file": "openapi3/schema.go",
+      "id": "m008",
+      "killed_by": [],
+      "line": 1324,
+      "operator": "boolop-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/schema.go",
+      "id": "m009",
+      "killed_by": [],
+      "line": 1327,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3filter/validation_error_encoder.go",
+      "id": "m010",
+      "killed_by": [],
+      "line": 30,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/schema.go",
+      "id": "m011",
+      "killed_by": [],
+      "line": 2167,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/schema.go",
+      "id": "m012",
+      "killed_by": [],
+      "line": 2456,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/internalize_refs.go",
+      "id": "m013",
+      "killed_by": [],
+      "line": 473,
+      "operator": "boolop-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.7,
+      "file": "openapi3/schema.go",
+      "id": "m014",
+      "killed_by": [],
+      "line": 1605,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.7,
+      "file": "openapi3/example.go",
+      "id": "m015",
+      "killed_by": [],
+      "line": 76,
+      "operator": "boolop-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.8,
+      "file": "openapi3/server.go",
+      "id": "m016",
+      "killed_by": [],
+      "line": 211,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m017",
+      "killed_by": [],
+      "line": 93,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/maplike.go",
+      "id": "m018",
+      "killed_by": [],
+      "line": 377,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3filter/validate_response_input.go",
+      "id": "m019",
+      "killed_by": [],
+      "line": 30,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.7,
+      "file": "openapi3/parameter.go",
+      "id": "m020",
+      "killed_by": [],
+      "line": 41,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/parameter.go",
+      "id": "m021",
+      "killed_by": [],
+      "line": 337,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/schema.go",
+      "id": "m022",
+      "killed_by": [],
+      "line": 1544,
+      "operator": "compare-swap",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3/encoding.go",
+      "id": "m023",
+      "killed_by": [],
+      "line": 86,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.8,
+      "file": "openapi3/schema.go",
+      "id": "m024",
+      "killed_by": [],
+      "line": 2089,
+      "operator": "cond-negate",
+      "status": "survived"
+    },
+    {
+      "duration_s": 2.6,
+      "file": "openapi3filter/validation_error_encoder.go",
+      "id": "m025",
+      "killed_by": [],
+      "line": 47,
+      "operator": "cond-negate",
+      "status": "survived"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "not-drop",
+    "cond-negate",
+    "incdec-swap"
+  ],
+  "package": "github.com/getkin/kin-openapi",
+  "per_test": {},
+  "sampled": 25,
+  "score": 0.0,
+  "seed": 3724680013,
+  "sites": 2787,
+  "status": "ran",
+  "survived": 25,
+  "tests": [
+    "Test_GHSA_r277_6w6q_xmqw_exposure",
+    "Test_GHSA_r277_6w6q_xmqw_fix_pinning"
+  ],
+  "valid": 25,
+  "version": "v0.139.0"
+}

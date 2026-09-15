@@ -1,0 +1,189 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tokens_per_turn": 4000,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "candidate_moved": {
+      "github.com/getkin/kin-openapi": [
+        "v0.139.0",
+        "v0.144.0"
+      ],
+      "github.com/go-openapi/jsonpointer": [
+        "v0.22.4",
+        "v0.22.5"
+      ],
+      "github.com/go-openapi/swag/jsonname": [
+        "v0.25.4",
+        "v0.25.5"
+      ],
+      "github.com/go-openapi/testify/v2": [
+        "v2.0.2",
+        "v2.4.0"
+      ],
+      "github.com/oasdiff/yaml": [
+        "v0.1.0",
+        "v0.1.1"
+      ],
+      "github.com/oasdiff/yaml3": [
+        "v0.0.13",
+        "v0.0.14"
+      ]
+    },
+    "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+    "direction": "candidate",
+    "fixed": "v0.144.0",
+    "vulnerable": "v0.139.0"
+  },
+  "discarded": [
+    {
+      "attempts": 3,
+      "category": "unit",
+      "reason": "no parseable test file after repairs"
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-73502",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-76905",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 16
+    }
+  ],
+  "files": [
+    {
+      "attempts": 16,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "model": "qwen38-27b",
+      "note": "Tests assert that a ValidationHandler without an explicit AuthenticationFunc does not fail open on a security-protected route; caveat: harness run showed both versions serving 200 in this sandbox, so the differential may depend on the fixed-version Load refusing to install NoopAuthenticationFunc by default.",
+      "sha256": "sha256:01809bf3e1f121bb974294abd0755059c3505c04a62f74a92a7581fc54e13a73",
+      "targets": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "tests": [
+        "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+        "Test_GHSA_r277_6w6q_xmqw_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 18,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "model": "qwen38-27b",
+      "note": "Tests trigger the deepObject sparse-array-index DoS (GHSA-xhj3-7xw9-vr34 / CVE-2026-77354). The vulnerable v0.139.0 allocates a slice proportional to the attacker-supplied index (e.g. 999999999), causing OOM/hang; the fixed v0.144.0 rejects it with an error via maxSliceMapToSliceGap. Both tests use ValidateRequest with a MuxRoute-style Route as in the application's call sites. Note: openapi3filter.Route and doc.Paths.Find are used; if these symbols differ slightly between versions the harness will report build errors on one side only, which would still pin the fix correctly if only the vulnerable side fails to build (unlikely since both versions share these APIs). The tests are best-effort given limited API visibility during development. ",
+      "sha256": "sha256:66ce2cd30929d6d0812df2a5c01fb5336508f5a6fad257ab6b12553f779950b9",
+      "targets": [
+        "GHSA-xhj3-7xw9-vr34",
+        "GO-2026-6275"
+      ],
+      "tests": [
+        "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+        "Test_GHSA_xhj3_7xw9_vr34_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-15T17:53:33+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "gpu-server-vllm",
+    "endpoint_digest": "sha256:8870f0d1a4df5ebc",
+    "id": "qwen38-27b",
+    "temperature": 0.2
+  },
+  "new_version": "v0.139.0",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

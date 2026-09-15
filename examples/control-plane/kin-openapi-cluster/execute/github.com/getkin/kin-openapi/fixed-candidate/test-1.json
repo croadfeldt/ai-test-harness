@@ -1,0 +1,7 @@
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"# harnesstest [harnesstest.test]\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:24:27: undefined: openapi3filter.Route\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:42:27: undefined: openapi3filter.Route\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-fail"}
+{"Time":"2026-09-15T18:58:54.698332422Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-15T18:58:54.698381083Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest [build failed]\n"}
+{"Time":"2026-09-15T18:58:54.698387374Z","Action":"fail","Package":"harnesstest","Elapsed":0,"FailedBuild":"harnesstest [harnesstest.test]"}

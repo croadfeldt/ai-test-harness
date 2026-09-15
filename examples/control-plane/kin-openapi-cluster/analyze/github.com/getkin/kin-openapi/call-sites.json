@@ -1,0 +1,183 @@
+{
+  "import_names": [
+    "github.com/getkin/kin-openapi"
+  ],
+  "package": "github.com/getkin/kin-openapi",
+  "sites": [
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3\"",
+      "file": "api/catalog/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 15,
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3\"",
+      "file": "api/policy/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 15,
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3\"",
+      "file": "api/sp/v1alpha1/provider/spec.gen.go",
+      "in_test": false,
+      "line": 15,
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3\"",
+      "file": "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "in_test": false,
+      "line": 15,
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3\"",
+      "file": "internal/app/openapi.go",
+      "in_test": false,
+      "line": 17,
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "context": "loader.ReadFromURIFunc = func(loader *openapi3.Loader, url *url.URL) ([]byte, error) {",
+      "file": "api/catalog/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 178,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.Loader"
+    },
+    {
+      "context": "loader.ReadFromURIFunc = func(loader *openapi3.Loader, url *url.URL) ([]byte, error) {",
+      "file": "api/policy/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 163,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.Loader"
+    },
+    {
+      "context": "loader.ReadFromURIFunc = func(loader *openapi3.Loader, url *url.URL) ([]byte, error) {",
+      "file": "api/sp/v1alpha1/provider/spec.gen.go",
+      "in_test": false,
+      "line": 119,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.Loader"
+    },
+    {
+      "context": "loader.ReadFromURIFunc = func(loader *openapi3.Loader, url *url.URL) ([]byte, error) {",
+      "file": "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "in_test": false,
+      "line": 118,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.Loader"
+    },
+    {
+      "context": "loader := openapi3.NewLoader()",
+      "file": "api/catalog/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 176,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.NewLoader"
+    },
+    {
+      "context": "loader := openapi3.NewLoader()",
+      "file": "api/policy/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 161,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.NewLoader"
+    },
+    {
+      "context": "loader := openapi3.NewLoader()",
+      "file": "api/sp/v1alpha1/provider/spec.gen.go",
+      "in_test": false,
+      "line": 117,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.NewLoader"
+    },
+    {
+      "context": "loader := openapi3.NewLoader()",
+      "file": "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "in_test": false,
+      "line": 116,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.NewLoader"
+    },
+    {
+      "context": "func GetSpec() (swagger *openapi3.T, err error) {",
+      "file": "api/catalog/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 173,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSwagger() (*openapi3.T, error) {",
+      "file": "api/catalog/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 215,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSpec() (swagger *openapi3.T, err error) {",
+      "file": "api/policy/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 158,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSwagger() (*openapi3.T, error) {",
+      "file": "api/policy/v1alpha1/spec.gen.go",
+      "in_test": false,
+      "line": 200,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSpec() (swagger *openapi3.T, err error) {",
+      "file": "api/sp/v1alpha1/provider/spec.gen.go",
+      "in_test": false,
+      "line": 114,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSwagger() (*openapi3.T, error) {",
+      "file": "api/sp/v1alpha1/provider/spec.gen.go",
+      "in_test": false,
+      "line": 156,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSpec() (swagger *openapi3.T, err error) {",
+      "file": "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "in_test": false,
+      "line": 113,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func GetSwagger() (*openapi3.T, error) {",
+      "file": "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "in_test": false,
+      "line": 155,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "func oapiRequestValidator(spec *openapi3.T) func(http.Handler) http.Handler {",
+      "file": "internal/app/openapi.go",
+      "in_test": false,
+      "line": 60,
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T"
+    },
+    {
+      "context": "\"github.com/getkin/kin-openapi/openapi3filter\"",
+      "file": "internal/app/openapi.go",
+      "in_test": false,
+      "line": 18,
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter"
+    },
+    {
+      "context": "func verifyActorContext(ctx context.Context, _ *openapi3filter.AuthenticationInput) error {",
+      "file": "internal/app/openapi.go",
+      "in_test": false,
+      "line": 98,
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput"
+    },
+    {
+      "context": "Options: openapi3filter.Options{",
+      "file": "internal/app/openapi.go",
+      "in_test": false,
+      "line": 62,
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter.Options"
+    }
+  ]
+}
