@@ -132,10 +132,18 @@ def resolve_graph(source_dir: Path, manifest: Path, python_version: str | None =
 # ---------------------------------------------------------------- fetch + unpack
 
 def fetch(name: str, version: str, cache_dir: Path, python_version: str | None = None) -> Path:
-    """The module's source directory from the Go module cache (`go mod download`)."""
+    """The module's source directory. First from a module cache the run already prefetched for the
+    sandbox (cache/gomod/<env>/modcache), which is what a sealed pod has; only then by downloading
+    into the adapter's own cache."""
+    import os
+    for mc in sorted((cache_dir / "gomod").glob("*/modcache")) if (cache_dir / "gomod").exists() else []:
+        env = {**os.environ, "GOMODCACHE": str(mc.resolve()), "GOPROXY": "off", "GOFLAGS": "-mod=mod", "GOTOOLCHAIN": "local"}
+        proc = subprocess.run(["go", "mod", "download", "-json", f"{name}@{version}"], capture_output=True, text=True, env=env, timeout=120, cwd=tempfile.gettempdir())
+        docs = _json_stream(proc.stdout) if proc.returncode == 0 else []
+        if docs and docs[-1].get("Dir") and Path(docs[-1]["Dir"]).exists():
+            return Path(docs[-1]["Dir"])
     env_dir = cache_dir / "gomodcache"
     env_dir.mkdir(parents=True, exist_ok=True)
-    import os
     env = {**os.environ, "GOMODCACHE": str(env_dir.resolve()), "GOFLAGS": "-mod=mod -modcacherw", "GOTOOLCHAIN": "local"}
     proc = subprocess.run(["go", "mod", "download", "-json", f"{name}@{version}"], capture_output=True, text=True, env=env, timeout=600, cwd=tempfile.gettempdir())
     if proc.returncode != 0:
