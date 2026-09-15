@@ -24,6 +24,18 @@ python_version = "3.12"
 image = "docker.io/library/python:3.12-slim"   # recorded by tag and by digest
 go_image = "docker.io/library/golang:1.25-bookworm"   # the Go sandbox (env: HARNESS_GO_SANDBOX_IMAGE)
 
+[propose]
+# Lifecycle B (blueprint 5.0): `harness propose` puts the accepted tests, the packet and the records on a
+# harness/ branch of the test overlay repository and opens a pull request. It never pushes to the default branch.
+repo = "../../test-overlays"                   # env: HARNESS_OVERLAY_REPO; a local checkout, recorded only by its name
+remote = "origin"                              # env: HARNESS_OVERLAY_REMOTE
+base_branch = ""                               # env: HARNESS_OVERLAY_BASE; empty = the remote's default branch
+author_name = "AI Test Harness"                # the bot identity the commits carry
+author_email = "ai-test-harness@example.invalid"
+sign = false                                   # true: sign commits with signing_key (gpg.format = signing_format)
+signing_key = ""                               # an SSH public key path or a GPG key id, held by this install, never recorded
+signing_format = "ssh"
+
 [udlm]
 # Records in UDLM form (TestEvidence, VexStatement, Vulnerability, SoftwarePackage, Job) are emitted by
 # `harness attest`. Sealing uses UDLM's own chain code from a local checkout of croadfeldt/udlm.

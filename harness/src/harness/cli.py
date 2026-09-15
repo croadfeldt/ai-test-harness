@@ -98,6 +98,13 @@ def cmd_attest(a: argparse.Namespace) -> int:
     attest(workdir=a.workdir, select=a.select); print(a.workdir / "attest" / "summary.json"); return 0
 
 
+def cmd_propose(a: argparse.Namespace) -> int:
+    from .stages.propose import propose
+    propose(workdir=a.workdir, select=a.select, overlay_repo_path=str(a.overlay_repo) if a.overlay_repo else None,
+            push=not a.no_push, open_pr=not (a.no_pr or a.no_push))
+    print(a.workdir / "propose" / "summary.json"); return 0
+
+
 def cmd_assess(a: argparse.Namespace) -> int:
     from .stages.assess import assess
     assess(workdir=a.workdir); print(a.workdir / "assess" / "assess.md"); return 0
@@ -170,6 +177,14 @@ def main(argv: list[str] | None = None) -> int:
         if name != "assess":
             s.add_argument("--select", nargs="*", default=None)
         s.set_defaults(func=fn)
+
+    s = sub.add_parser("propose", help="lifecycle B: the accepted tests, packet and records as a pull request on the overlay repository; never the default branch")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--overlay-repo", type=Path, default=None, help="local checkout of the test overlay repository (default: [propose].repo)")
+    s.add_argument("--no-push", action="store_true", help="build the branch locally only; nothing leaves this machine")
+    s.add_argument("--no-pr", action="store_true", help="push the branch but do not open the pull request")
+    s.set_defaults(func=cmd_propose)
 
     a = p.parse_args(argv)
     try:
