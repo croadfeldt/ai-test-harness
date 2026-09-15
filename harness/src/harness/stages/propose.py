@@ -120,13 +120,14 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
                  f"{c['fix_pinning_confirmed']} fix-pinning confirmed")
         body = pr_body(pkg, (workdir / pk["packet_md"]).read_text(), facts, results, att, run_id, files, sign)
         (out / "pull-request.md").write_text(f"# {title}\n\n{body}")
+        (out / "commit-message.txt").write_text(f"{title}\n\n{body}")   # git's subject line takes no markdown heading
         env = {"GIT_AUTHOR_NAME": author[0], "GIT_AUTHOR_EMAIL": author[1], "GIT_COMMITTER_NAME": author[0], "GIT_COMMITTER_EMAIL": author[1]}
         sign_args = []
         if sign:
             if not signing_key:
                 raise HarnessError("[propose].sign is on but no signing_key is configured")
             sign_args = ["-c", f"gpg.format={signing_format}", "-c", f"user.signingkey={signing_key}", "-c", "commit.gpgsign=true"]
-        _git_checked(wt, (*sign_args, "commit", "--quiet", "-F", str((out / "pull-request.md").resolve())), env)
+        _git_checked(wt, (*sign_args, "commit", "--quiet", "-F", str((out / "commit-message.txt").resolve())), env)
         sha = _git(wt, "rev-parse", "HEAD").stdout.strip()
         signed = sign and _git(wt, "log", "-1", "--format=%G?", check=False).stdout.strip() not in ("N", "")
         rec.update({"status": "branch built", "branch": branch, "commit": sha, "signed": bool(signed), "files": files,
