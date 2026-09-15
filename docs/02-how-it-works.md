@@ -151,8 +151,10 @@ Anything below the confidence threshold is escalated to a person instead of auto
 One packet per work item, posted where integration-service already reports: a one-page summary, the
 tests as a patch against the overlay repository, coverage and mutation deltas, proposed promotions and
 retirements, draft VEX statements, logs, the replay manifest, and a Conforma attestation. In the
-pipeline's loop the harness opens a test pull request from it. The reviewer approves, edits, or
-rejects. Nothing merges without them, and what they accept runs with the suite from then on.
+pipeline's loop the harness opens a test pull request from it (`harness propose`: one branch under
+its own identity, the tests and the records in the overlay directory, the packet's summary as the
+pull request's text). The reviewer approves, edits, or rejects. Nothing merges without them, and what
+they accept runs with the suite from then on.
 
 ### 7. Feedback
 

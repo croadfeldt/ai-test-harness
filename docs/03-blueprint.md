@@ -285,8 +285,11 @@ run before anyone has read them, so they run in the sealed sandbox of section 11
 test runner on a developer's machine. The developer flow uses the same isolation the pipeline does.
 
 Where the implementation stands: the command line and the Tekton pipeline in `harness/` are the
-core as lifecycle A runs it, and they produce the packet lifecycle B needs. The step that opens the
-test pull request from the packet is the one addition lifecycle B still needs.
+core as lifecycle A runs it, and they produce the packet lifecycle B needs. `harness propose` is
+lifecycle B's last step: the accepted tests, the packet, the provenance record, the signed statement
+and the UDLM records go on a `harness/` branch of the overlay repository under the harness's own
+identity, and a pull request is opened. That branch is the only ref the step pushes; nothing in it
+can merge.
 
 ### Stage 0: Self-verification
 
