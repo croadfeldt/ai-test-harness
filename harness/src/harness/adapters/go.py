@@ -264,7 +264,7 @@ def metadata(name: str, version: str, cache_dir: Path | None):
 FENCE = "go"
 OUTPUT_SCALE = 1.6   # Go test files run longer than pytest files for the same tests: braces, error checks, imports
 TEST_FILE_GLOB = "*_test.go"
-MUTATION = False   # no Go mutation engine wired yet; the mutation stage records "skipped" for Go
+MUTATION = True    # gohelper's operators on go/ast; mutants run through a replace directive in the sandbox
 GO_VERSION = "1.25"
 
 SYSTEM = """You write Go tests for a Go module that an application depends on. You are given FACTS gathered by
@@ -416,10 +416,8 @@ def prefetch(reqs: list[str], python_version: str | None, dest: Path) -> dict:
 def run_tests(env: dict, tests_dir: Path, out_dir: Path, cover: list[str], label: str, overlay_dir: Path | None = None,
               limits: dict | None = None) -> dict:
     from .. import sandbox_go
-    if overlay_dir:
-        raise HarnessError("source overlays (mutation) are not supported for Go yet")
     return sandbox_go.run_tests(env_dir=Path(env["dir"]), tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label,
-                                limits=limits or sandbox_go.LIMITS)
+                                limits=limits or sandbox_go.LIMITS, overlay_dir=overlay_dir)
 
 
 def parse_results(summary: dict) -> dict:
@@ -526,3 +524,52 @@ def skipped_tests(test_file: Path) -> set[str]:
 
 def is_test_file(rel: Path) -> bool:
     return rel.name.endswith("_test.go")
+
+
+# ---------------------------------------------------------------- mutation (stage 4, step 5)
+
+MUTATION_OPERATORS = ("compare-swap", "boolop-swap", "const-int", "const-bool", "not-drop", "cond-negate", "incdec-swap")
+
+
+def mutation_sites(src_path: Path, lines: set[int]) -> list[dict]:
+    out = subprocess.run([str(_helper()), "mutsites", str(src_path), ",".join(str(l) for l in sorted(lines))], capture_output=True, text=True, timeout=120)
+    if out.returncode != 0:
+        return []
+    return json.loads(out.stdout).get("sites") or []
+
+
+def apply_mutation(src_path: Path, site: dict) -> str | None:
+    out = subprocess.run([str(_helper()), "mutate", str(src_path), site["op"], str(site["line"]), str(site["col"])], capture_output=True, text=True, timeout=120)
+    return out.stdout if out.returncode == 0 and out.stdout else None
+
+
+def coverage_files(coverage_json: Path, roots: list[str]) -> dict[str, set[int]]:
+    """Executed lines per module file, keyed by the path relative to the module root."""
+    cov = json.loads(coverage_json.read_text())
+    out = {}
+    for fname, fdata in cov.get("files", {}).items():
+        for r in roots:
+            if fname.startswith(r + "/"):
+                out[fname[len(r) + 1:]] = set(fdata.get("executed_lines", []))
+                break
+    return out
+
+
+def write_overlay(mdir: Path, rel: str, code: str, facts: dict) -> None:
+    """A mutant is the mutated file at its module-relative path plus the module the sandbox must copy and replace."""
+    (mdir / Path(rel).parent).mkdir(parents=True, exist_ok=True)
+    (mdir / rel).write_text(code)
+    write_json(mdir / "overlay.json", {"module": facts["package"], "version": facts["new_version"]})
+
+
+def mutant_status(summary: dict, results: dict, killed_by: list[str]) -> str:
+    """A mutant that does not compile is not a mutant the tests could judge; it is invalid, not killed."""
+    if summary["timed_out"]:
+        return "killed-timeout"
+    if not results:
+        if summary.get("build_failed"):
+            return "invalid-compile"
+        # No test ran and the binary failed: the package died at init (a panic in a package-level
+        # initializer reached by the mutation). The tests could not even start; that is a kill.
+        return "killed-init" if summary["returncode"] else "error"
+    return "killed" if killed_by else "survived"

@@ -76,7 +76,8 @@ stage never branches on the language:
 | Naming | `test_file_name`, `file_header`, `import_roots`, `dep_roots`, `is_test_file` |
 | Environments | `requirements(graph)`, `prefetch(requirements, ...)`, `fixed_candidate(workdir, package)` |
 | Running and reading back | `run_tests(env, tests_dir, out_dir, cover, label)`, `parse_results`, `coverage_for` |
-| Existing tests | `symbol_refs`, `skipped_tests`; `MUTATION` says whether a mutation engine is wired |
+| Existing tests | `symbol_refs`, `skipped_tests` |
+| Mutation | `MUTATION`, `MUTATION_OPERATORS`, `coverage_files`, `mutation_sites`, `apply_mutation`, `write_overlay`, `mutant_status` |
 
 Python and Go both implement the table; the Go half is a small program on go/ast (`gohelper`).
 
