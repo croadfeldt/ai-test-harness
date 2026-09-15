@@ -230,6 +230,18 @@ def gf021():
     assert "except HarnessError" in src and "cut off at the output limit" in src
 
 
+@check("GF-022", "one Go test file that does not compile no longer takes the package's other files down with it")
+def gf022():
+    from .sandbox_go import files_blamed, run_tests
+    import tempfile
+    d = Path(tempfile.mkdtemp()); (d / "a_test.go").write_text("package harnesstest\n"); (d / "b_test.go").write_text("package harnesstest\n")
+    out = "# harnesstest [harnesstest.test]\n./b_test.go:24:27: undefined: openapi3filter.Route\n./b_test.go:42:27: undefined: x\nFAIL\tharnesstest [build failed]\n"
+    assert files_blamed(out, d) == ["b_test.go"]
+    assert files_blamed("FAIL\tharnesstest [build failed]\n", d) == []
+    src = inspect.getsource(run_tests)
+    assert "files_not_compiled" in src and "len(blamed) < len(all_files)" in src
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
