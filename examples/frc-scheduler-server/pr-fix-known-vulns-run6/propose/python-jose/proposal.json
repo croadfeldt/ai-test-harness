@@ -1,0 +1,37 @@
+{
+  "author": {
+    "email": "ai-test-harness@example.invalid",
+    "name": "AI Test Harness"
+  },
+  "base_branch": "main",
+  "branch": "harness/python-jose-76a3fa863e76",
+  "commit": "411dae22fd93360581853b83341d66dc56bfee16",
+  "files": [
+    "overlays/python/python-jose/3.4.x/MANIFEST.json",
+    "overlays/python/python-jose/3.4.x/packet.md",
+    "overlays/python/python-jose/3.4.x/signer.pub.pem",
+    "overlays/python/python-jose/3.4.x/statement.dsse.json",
+    "overlays/python/python-jose/3.4.x/statement.json",
+    "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33663.py",
+    "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33664.py",
+    "overlays/python/python-jose/3.4.x/test_python_jose_unit.py",
+    "overlays/python/python-jose/3.4.x/udlm/index.json",
+    "overlays/python/python-jose/3.4.x/udlm/job.yaml",
+    "overlays/python/python-jose/3.4.x/udlm/software-package.yaml",
+    "overlays/python/python-jose/3.4.x/udlm/test-evidence.yaml",
+    "overlays/python/python-jose/3.4.x/udlm/vex-statement.yaml",
+    "overlays/python/python-jose/3.4.x/udlm/vulnerability.yaml",
+    "overlays/python/python-jose/3.4.x/vex.openvex.json"
+  ],
+  "generated": "2026-09-15T16:11:04+00:00",
+  "overlay_dir": "overlays/python/python-jose/3.4.x",
+  "package": "python-jose",
+  "pull_request": "https://github.com/croadfeldt/ai-test-harness-overlays/pull/1",
+  "pushed": true,
+  "remote": "origin",
+  "repository": "ai-test-harness-overlays",
+  "run_id": "76a3fa863e76",
+  "signed": false,
+  "status": "pull request opened",
+  "title": "Tests for python-jose 3.4.0: 7 candidate(s), 3 fix-pinning confirmed"
+}

@@ -135,6 +135,17 @@ than the last, on something the workstation never sees, and each fix is one comm
 | attest | later stages followed the analyzed package list, not the executed one | triage, packet, attest and assess only handle what the run executed |
 | records | the pod's sandbox records had no image digest and the run record had shortened a branch name | the pod is told its own digest reference; only real paths are shortened |
 
+## The test pull request (`-run6/propose/`)
+
+Lifecycle B's last step, run on run 6: the harness put the seven accepted python-jose tests, the
+packet, the draft VEX, the provenance record, the signed statement and the UDLM records on a branch of
+the test overlay repository under its own identity and opened
+[a pull request](https://github.com/croadfeldt/ai-test-harness-overlays/pull/1). The pull request's
+text is the packet's plain-terms summary. The harness pushed that one branch and nothing else; the
+overlay repository's main branch did not move; the commit is unsigned and says so, because no signing
+key is configured on this install. `propose/python-jose/proposal.json` records the branch, the commit,
+the files and the pull request; `pull-request.md` is the text as posted. A person decides from here.
+
 ## What the harness could not do, said plainly
 
 - **Build every trigger.** Fourteen vulnerabilities were tried across the three packages; three were
@@ -166,6 +177,7 @@ D=../examples/frc-scheduler-server/pr-fix-known-vulns-run5
 .venv/bin/harness mutate   --workdir $D --select python-jose
 .venv/bin/harness triage   --workdir $D; .venv/bin/harness packet --workdir $D; .venv/bin/harness attest --workdir $D
 .venv/bin/harness assess   --workdir $D
+.venv/bin/harness propose  --workdir $D --select python-jose   # the test pull request; needs [propose].repo, a checkout of the overlay repository
 ```
 
 The trigger is a branch in the application's repository, `deps/fix-known-vulns`, that bumps the four

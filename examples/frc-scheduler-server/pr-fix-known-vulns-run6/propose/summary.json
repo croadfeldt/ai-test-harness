@@ -1,0 +1,12 @@
+{
+  "generated": "2026-09-15T16:12:15+00:00",
+  "packages": [
+    {
+      "branch": "harness/python-jose-76a3fa863e76",
+      "package": "python-jose",
+      "pull_request": "https://github.com/croadfeldt/ai-test-harness-overlays/pull/1",
+      "signed": false,
+      "status": "pull request opened"
+    }
+  ]
+}
