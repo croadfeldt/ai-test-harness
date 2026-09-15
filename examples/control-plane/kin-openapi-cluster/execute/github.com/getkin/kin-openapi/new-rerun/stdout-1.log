@@ -1,0 +1,4 @@
+# harnesstest [harnesstest.test]
+./kin_openapi_cve_cve_2026_77354_test.go:24:27: undefined: openapi3filter.Route
+./kin_openapi_cve_cve_2026_77354_test.go:42:27: undefined: openapi3filter.Route
+FAIL	harnesstest [build failed]

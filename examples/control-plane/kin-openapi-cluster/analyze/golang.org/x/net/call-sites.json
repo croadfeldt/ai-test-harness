@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "golang.org/x/net"
+  ],
+  "package": "golang.org/x/net",
+  "sites": []
+}

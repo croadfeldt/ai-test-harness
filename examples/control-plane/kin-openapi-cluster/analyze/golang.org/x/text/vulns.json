@@ -1,0 +1,53 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.37.0",
+  "package": "golang.org/x/text",
+  "version": "v0.37.0",
+  "vulns": [
+    {
+      "affected_symbols": [
+        "Form.Append",
+        "Form.AppendString",
+        "Form.Bytes",
+        "Form.FirstBoundary",
+        "Form.FirstBoundaryInString",
+        "Form.IsNormal",
+        "Form.IsNormalString",
+        "Form.LastBoundary",
+        "Form.NextBoundary",
+        "Form.NextBoundaryInString",
+        "Form.Properties",
+        "Form.PropertiesString",
+        "Form.QuickSpan",
+        "Form.QuickSpanString",
+        "Form.Span",
+        "Form.SpanString",
+        "Form.String",
+        "Form.Transform",
+        "Iter.Init",
+        "Iter.InitString",
+        "Iter.Next",
+        "Iter.Seek",
+        "nextComposed",
+        "normReader.Read",
+        "normWriter.Write"
+      ],
+      "aliases": [
+        "CVE-2026-56852"
+      ],
+      "fixed_versions": [
+        "0.39.0"
+      ],
+      "id": "GO-2026-5970",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80142",
+        "https://go.dev/cl/794100"
+      ],
+      "severity": null,
+      "summary": "Infinite loop on invalid input in golang.org/x/text"
+    }
+  ],
+  "vulns_old": []
+}

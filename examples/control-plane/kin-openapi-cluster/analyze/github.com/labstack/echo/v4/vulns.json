@@ -1,0 +1,67 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v4.15.1",
+  "package": "github.com/labstack/echo/v4",
+  "version": "v4.15.1",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-55677",
+        "GO-2026-6293"
+      ],
+      "fixed_versions": [
+        "4.15.3"
+      ],
+      "id": "GHSA-vfp3-v2gw-7wfq",
+      "malicious": false,
+      "references": [
+        "https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55677",
+        "https://github.com/labstack/echo/pull/3009",
+        "https://github.com/labstack/echo/pull/3011",
+        "https://github.com/labstack/echo/commit/8d1ae9d3360a71672418856d58753af25f2c3986",
+        "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725",
+        "https://github.com/labstack/echo",
+        "https://github.com/labstack/echo/releases/tag/v4.15.3",
+        "https://github.com/labstack/echo/releases/tag/v5.2.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Echo: Encoded slash (%2F) bypasses route-level protection and exposes static files"
+    },
+    {
+      "affected_symbols": [
+        "Echo.Static",
+        "Echo.StaticFS",
+        "Group.Static",
+        "Group.StaticFS",
+        "Static",
+        "StaticDirectoryHandler",
+        "StaticWithConfig"
+      ],
+      "aliases": [
+        "CVE-2026-55677",
+        "GHSA-vfp3-v2gw-7wfq"
+      ],
+      "fixed_versions": [
+        "4.15.3"
+      ],
+      "id": "GO-2026-6293",
+      "malicious": false,
+      "references": [
+        "https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55677",
+        "https://github.com/labstack/echo/commit/8d1ae9d3360a71672418856d58753af25f2c3986",
+        "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725",
+        "https://github.com/labstack/echo/pull/3009",
+        "https://github.com/labstack/echo/pull/3011",
+        "https://github.com/labstack/echo/releases/tag/v4.15.3",
+        "https://github.com/labstack/echo/releases/tag/v5.2.0"
+      ],
+      "severity": null,
+      "summary": "Encoded slash (%2F) bypasses route-level protection and exposes static files in github.com/labstack/echo/v4 and github.com/labstack/echo/v5"
+    }
+  ],
+  "vulns_old": []
+}

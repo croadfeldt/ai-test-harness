@@ -1,0 +1,116 @@
+# UDLM vex-statement records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: a13c45b6-59ad-402e-950c-df1556a9d3a3
+record_uuid: 01a0a674-08ea-73ca-89d3-bed5765d9ac3
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-73502-github-com-getkin-kin-openapi
+at: '2026-09-15T18:59:02Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-73502
+  software_package_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.144.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T18:59:02Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 67b17282-730a-44e6-9599-3ae217ca1d4f
+record_uuid: 01a0a674-08ea-7fee-a73f-ae2742bb8e3e
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-76905-github-com-getkin-kin-openapi
+at: '2026-09-15T18:59:02Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-76905
+  software_package_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.141.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T18:59:02Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: e68a0028-b101-4edc-a093-29d8d9c91a3a
+record_uuid: 01a0a674-08ea-7148-99c6-4bec7da0be85
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-73501-github-com-getkin-kin-openapi
+at: '2026-09-15T18:59:02Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-73501
+  software_package_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.144.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T18:59:02Z'
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 153b782e-6098-40ff-b9d4-676d9cc4515b
+record_uuid: 01a0a674-08ea-70e9-90c4-d0af1e075b7a
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: VexStatement
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/VexStatement/0.1.0
+handle: lab/knowledge/vex-statement/cve-2026-77354-github-com-getkin-kin-openapi
+at: '2026-09-15T18:59:02Z'
+time_source: harness-clock
+fields:
+  vulnerability_ref: estate/lab/knowledge/vulnerability/cve-2026-77354
+  software_package_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  status: affected
+  status_notes: open at head; reachable=true; fixed in ['0.142.0']
+  evidence_refs: []
+origin: declared
+provenance:
+  fields.status:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T18:59:02Z'

@@ -1,0 +1,168 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [],
+    "files": [],
+    "production": 0,
+    "reachable": "false",
+    "reachable_note": "no first-party reference and no package in the graph depends on it",
+    "symbols_used": [],
+    "test": 5
+  },
+  "change": "unchanged",
+  "depth": 1,
+  "generated": "2026-09-15T17:52:21+00:00",
+  "import_names": [
+    "github.com/nats-io/nats-server/v2"
+  ],
+  "new_version": "v2.12.5",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v2.12.5",
+  "package": "github.com/nats-io/nats-server/v2",
+  "purl": "pkg:golang/github.com/nats-io/nats-server/v2@v2.12.5",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 2,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "reduced",
+      "mutation_sample": 50,
+      "negative": 2,
+      "unit": 4
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "false",
+      "sensitive": [
+        "network"
+      ],
+      "vuln_count": 22,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "22 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "sensitive domain: network (+10)",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 45
+  },
+  "sensitivity": [
+    "network"
+  ],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 127,
+    "files": [
+      "conf/lex_test.go",
+      "conf/parse_test.go",
+      "test/bench_test.go",
+      "test/client_cluster_test.go",
+      "test/accounts_cycles_test.go",
+      "test/leafnode_test.go",
+      "test/auth_test.go",
+      "test/operator_test.go",
+      "test/ping_test.go",
+      "test/test_test.go",
+      "test/cluster_tls_test.go",
+      "test/opts_test.go",
+      "test/fanout_test.go",
+      "test/routes_test.go",
+      "test/pid_test.go",
+      "test/proto_test.go",
+      "test/verbose_test.go",
+      "test/ocsp_peer_test.go",
+      "test/services_test.go",
+      "test/port_test.go",
+      "test/client_auth_test.go",
+      "test/norace_test.go",
+      "test/log_test.go",
+      "test/gateway_test.go",
+      "test/user_authorization_test.go",
+      "test/maxpayload_test.go",
+      "test/cluster_test.go",
+      "test/route_discovery_test.go",
+      "test/ports_test.go",
+      "test/system_services_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 22,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-33215",
+      "CVE-2026-33216",
+      "CVE-2026-33217",
+      "CVE-2026-33218",
+      "CVE-2026-33219",
+      "CVE-2026-33222",
+      "CVE-2026-33223",
+      "CVE-2026-33246",
+      "CVE-2026-33247",
+      "CVE-2026-33248",
+      "CVE-2026-33249"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "2.11.15",
+      "2.12.6"
+    ],
+    "ids": [
+      "GHSA-3f24-pcvm-5jqc",
+      "GHSA-55h8-8g96-x4hj",
+      "GHSA-8m2x-3m6q-6w8j",
+      "GHSA-8r68-gvr4-jh7j",
+      "GHSA-9983-vrx2-fg9c",
+      "GHSA-fcjp-h8cc-6879",
+      "GHSA-jxxm-27vp-c3m5",
+      "GHSA-pwx7-fx9r-hr4h",
+      "GHSA-v722-jcv5-w7mc",
+      "GHSA-vprv-35vv-q339",
+      "GHSA-x6g4-f6q3-fqvv",
+      "GO-2026-4826",
+      "GO-2026-4827",
+      "GO-2026-4828",
+      "GO-2026-4830",
+      "GO-2026-4831",
+      "GO-2026-4832",
+      "GO-2026-4833",
+      "GO-2026-4834",
+      "GO-2026-4835",
+      "GO-2026-4836",
+      "GO-2026-4837"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

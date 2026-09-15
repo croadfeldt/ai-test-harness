@@ -97,6 +97,27 @@ size, with thinking off, Go syntax is the model's weak point: three of four issu
 ended on code that would not compile. The harness reported that rather than shipping it. The
 stronger-model rung is the next variable, and Go is where it will show first.
 
+## The same run through the cluster (`kin-openapi-cluster/`)
+
+The pipeline that ran the Python examples on OpenShift ran kin-openapi too, once the harness image
+carried the Go toolchain: twelve tasks, one PipelineRun, the execute pod as the sandbox with the
+network off. The networked stages resolved the fixed candidate and prefetched both module caches
+onto the shared workspace; the sealed pod built and ran the tests from them.
+
+| | |
+|---|---|
+| Tests | 4 in two files; one file did not compile, so its two tests read as compile errors, and the other file's two tests pass on both versions and prove nothing |
+| Mutation, in the sealed pod | 2,787 sites on 926 executed lines, 25 sampled, 0 killed: the two passing tests are weak, and the packet says so |
+| Records | 11 UDLM records sealed, statement signed, 9 of 11 goals met |
+| Model | the same 27B, thinking off, over the network from the pod |
+
+Two things this run fixed. Go builds every test file in a directory as one package, so the one file
+that did not compile silenced the other; that is register entry GF-022, and the sandbox now drops the
+blamed files, runs the rest, and reports each dropped test as a compile error. And the mutation step
+had asked the adapter to download the module's source, which a sealed pod cannot do; it now reads
+the cache the run already prefetched. Execute and the stages after it were re-run on the same
+workspace with those fixes; the records are the ones that re-run produced.
+
 ## What the Go path adds under the hood
 
 | Step | How |

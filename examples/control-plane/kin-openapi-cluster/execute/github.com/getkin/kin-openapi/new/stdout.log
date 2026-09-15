@@ -1,0 +1,7 @@
+=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning
+--- PASS: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)
+=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure
+--- PASS: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)
+PASS
+coverage: 9.2% of statements in github.com/getkin/kin-openapi/...
+ok  	harnesstest	0.023s	coverage: 9.2% of statements in github.com/getkin/kin-openapi/...

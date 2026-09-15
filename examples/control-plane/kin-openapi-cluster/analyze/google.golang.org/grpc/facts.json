@@ -1,0 +1,145 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/open-policy-agent/opa"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/open-policy-agent/opa",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-15T17:52:33+00:00",
+  "import_names": [
+    "google.golang.org/grpc"
+  ],
+  "new_version": "v1.81.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v1.81.0",
+  "package": "google.golang.org/grpc",
+  "purl": "pkg:golang/google.golang.org/grpc@v1.81.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 5,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "5 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 357,
+    "files": [
+      "server_ext_test.go",
+      "resolver_test.go",
+      "default_dial_option_server_option_test.go",
+      "grpc_test.go",
+      "server_test.go",
+      "trace_test.go",
+      "picker_wrapper_test.go",
+      "rpc_util_test.go",
+      "codec_test.go",
+      "clientconn_authority_test.go",
+      "dial_test.go",
+      "clientconn_test.go",
+      "stream_test.go",
+      "resolver_balancer_ext_test.go",
+      "service_config_test.go",
+      "balancer_wrapper_test.go",
+      "producer_ext_test.go",
+      "clientconn_parsed_target_test.go",
+      "balancer/conn_state_evaluator_test.go",
+      "attributes/attributes_test.go",
+      "credentials/credentials_test.go",
+      "credentials/credentials_ext_test.go",
+      "credentials/tls_ext_test.go",
+      "xds/server_ext_test.go",
+      "xds/server_serving_mode_ext_test.go",
+      "xds/server_test.go",
+      "xds/server_resource_ext_test.go",
+      "xds/server_security_ext_test.go",
+      "mem/buffers_test.go",
+      "mem/buffer_pool_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 5,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-84303",
+      "CVE-2026-84304",
+      "CVE-2026-84445"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "1.82.1",
+      "1.82.2",
+      "1.83.1",
+      "1.83.2",
+      "1.85.0-dev.0.20260825072537-93e31b48545e"
+    ],
+    "ids": [
+      "GHSA-2v4p-qf9q-27wj",
+      "GHSA-hrxh-6v49-42gf",
+      "GHSA-qc2q-p7wx-3px3",
+      "GHSA-vp52-pcj8-j9qc",
+      "GO-2026-6061"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

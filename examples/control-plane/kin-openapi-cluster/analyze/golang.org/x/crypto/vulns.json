@@ -1,0 +1,766 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.51.0",
+  "package": "golang.org/x/crypto",
+  "version": "v0.51.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39828",
+        "GO-2026-5014"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-45gg-vh54-h5m9",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39828",
+        "https://access.redhat.com/errata/RHSA-2026:40119",
+        "https://access.redhat.com/errata/RHSA-2026:40262",
+        "https://access.redhat.com/errata/RHSA-2026:40945",
+        "https://access.redhat.com/errata/RHSA-2026:40969",
+        "https://access.redhat.com/errata/RHSA-2026:40972",
+        "https://access.redhat.com/errata/RHSA-2026:40974",
+        "https://access.redhat.com/errata/RHSA-2026:41019",
+        "https://access.redhat.com/errata/RHSA-2026:41031",
+        "https://access.redhat.com/errata/RHSA-2026:41036"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+      "summary": "golang.org/x/crypto vulnerable to invoking bypass of certificate restrictions"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-42508",
+        "GO-2026-5021"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-5cgq-3rg8-m6cv",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42508",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-42508.json",
+        "https://pkg.go.dev/vuln/GO-2026-5021",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/issue/79568",
+        "https://go.dev/cl/781220",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2480688",
+        "https://access.redhat.com/security/cve/CVE-2026-42508",
+        "https://access.redhat.com/errata/RHSA-2026:41066"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto vulnerable to auth bypass via unenforced @revoked status"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39835",
+        "GO-2026-5015"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-78mq-xcr3-xm33",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39835",
+        "https://access.redhat.com/errata/RHSA-2026:26546",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:46885",
+        "https://access.redhat.com/errata/RHSA-2026:47735",
+        "https://access.redhat.com/errata/RHSA-2026:47949",
+        "https://access.redhat.com/errata/RHSA-2026:48151",
+        "https://access.redhat.com/errata/RHSA-2026:51033"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "golang.org/x/crypto is vulnerable to invoking server panic during CheckHostKey/Authenticate flow"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39831",
+        "GO-2026-5019"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-89gr-r52h-f8rx",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39831",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781662",
+        "https://go.dev/issue/79566",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5019"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto: FIDO/U2F security key physical presence check can be bypassed"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46598",
+        "GO-2026-5033"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-9m57-25v3-79x9",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46598",
+        "https://go.dev/cl/781360",
+        "https://go.dev/issue/79596",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5033"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "golang.org/x/crypto: Invoking pathological inputs can lead to client panic"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39832",
+        "GO-2026-5006"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-f5wc-c3c7-36mc",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39832",
+        "https://access.redhat.com/errata/RHSA-2026:35833",
+        "https://access.redhat.com/errata/RHSA-2026:41036",
+        "https://access.redhat.com/errata/RHSA-2026:41066",
+        "https://access.redhat.com/errata/RHSA-2026:42146",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:49944",
+        "https://access.redhat.com/errata/RHSA-2026:52857"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto doesn't drop invoking agent constraints when forwarding keys"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39833",
+        "GO-2026-5005"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-jppx-rxg9-jmrx",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39833",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/778640",
+        "https://go.dev/cl/778641",
+        "https://go.dev/issue/79436",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5005"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "golang.org/x/crypto doesn't enforce invoking key constraints"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46597",
+        "GO-2026-5013"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-q4h4-gmj2-qvw2",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46597",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781620",
+        "https://go.dev/issue/79561",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5013"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking byte arithmetic causes underflow and panic"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39827",
+        "GO-2026-5016"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-qpw4-5x99-6vjp",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39827",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781320",
+        "https://go.dev/issue/35127",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5016"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking memory leak when rejecting channels can lead to DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39834",
+        "GO-2026-5020"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-rm3j-f69w-wqmq",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39834",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://go.dev/cl/781663",
+        "https://go.dev/issue/79567",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://pkg.go.dev/vuln/GO-2026-5020"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+      "summary": "golang.org/x/crypto vulnerable to infinite loop on large channel writes"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39830",
+        "GO-2026-5017"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-vgwf-h737-ff37",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39830",
+        "https://access.redhat.com/errata/RHSA-2026:42796",
+        "https://access.redhat.com/errata/RHSA-2026:43052",
+        "https://access.redhat.com/errata/RHSA-2026:43692",
+        "https://access.redhat.com/errata/RHSA-2026:46885",
+        "https://access.redhat.com/errata/RHSA-2026:47735",
+        "https://access.redhat.com/errata/RHSA-2026:48151",
+        "https://access.redhat.com/errata/RHSA-2026:49944",
+        "https://access.redhat.com/errata/RHSA-2026:51033",
+        "https://access.redhat.com/errata/RHSA-2026:52857"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking client can cause server deadlock on unexpected responses"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-39829",
+        "GO-2026-5018"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-w879-237q-wc7r",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-39829",
+        "https://access.redhat.com/errata/RHSA-2026:37387",
+        "https://access.redhat.com/errata/RHSA-2026:40118",
+        "https://access.redhat.com/errata/RHSA-2026:40119",
+        "https://access.redhat.com/errata/RHSA-2026:40262",
+        "https://access.redhat.com/errata/RHSA-2026:40945",
+        "https://access.redhat.com/errata/RHSA-2026:40969",
+        "https://access.redhat.com/errata/RHSA-2026:40972",
+        "https://access.redhat.com/errata/RHSA-2026:40974",
+        "https://access.redhat.com/errata/RHSA-2026:41019"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "golang.org/x/crypto: Invoking pathological RSA/DSA parameters may cause DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-46595",
+        "GO-2026-5023"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GHSA-x527-x647-q7gg",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-46595",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-45337",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-46595.json",
+        "https://pkg.go.dev/vuln/GO-2026-5023",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/issue/79570",
+        "https://go.dev/cl/781642",
+        "https://cs.opensource.google/go/x/crypto",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2480689",
+        "https://access.redhat.com/security/cve/CVE-2026-46595"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:L",
+      "summary": "golang.org/x/crypto: Invoking VerifiedPublicKeyCallback permissions skip enforcement"
+    },
+    {
+      "affected_symbols": [
+        "keyring.Add"
+      ],
+      "aliases": [
+        "CVE-2026-39833",
+        "GHSA-jppx-rxg9-jmrx"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5005",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79436",
+        "https://go.dev/cl/778642",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking key constraints not enforced in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [
+        "client.Add",
+        "keyring.Add"
+      ],
+      "aliases": [
+        "CVE-2026-39832",
+        "GHSA-f5wc-c3c7-36mc"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5006",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79435",
+        "https://go.dev/cl/778640",
+        "https://go.dev/cl/778641",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking agent constraints dropped when forwarding keys in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "curve25519sha256.Client",
+        "curve25519sha256.Server",
+        "dhGEXSHA.Client",
+        "dhGEXSHA.Server",
+        "dhGroup.Client",
+        "dhGroup.Server",
+        "ecdh.Client",
+        "ecdh.Server",
+        "gcmCipher.readCipherPacket",
+        "mlkem768WithCurve25519sha256.Client",
+        "mlkem768WithCurve25519sha256.Server"
+      ],
+      "aliases": [
+        "CVE-2026-46597",
+        "GHSA-q4h4-gmj2-qvw2"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5013",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79561",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781620"
+      ],
+      "severity": null,
+      "summary": "Invoking byte arithmetic causes underflow and panic in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-39828",
+        "GHSA-45gg-vh54-h5m9"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5014",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79562",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781621"
+      ],
+      "severity": null,
+      "summary": "Invoking bypass of certificate restrictions in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "CertChecker.Authenticate",
+        "CertChecker.CheckHostKey"
+      ],
+      "aliases": [
+        "CVE-2026-39835",
+        "GHSA-78mq-xcr3-xm33"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5015",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79563",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781660"
+      ],
+      "severity": null,
+      "summary": "Invoking server panic during CheckHostKey/Authenticate in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "channel.Reject"
+      ],
+      "aliases": [
+        "CVE-2026-39827",
+        "GHSA-qpw4-5x99-6vjp"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5016",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/35127",
+        "https://go.dev/cl/781320",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking memory leak when rejecting channels can lead to DoS in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Client.Listen",
+        "Client.ListenTCP",
+        "Client.ListenUnix",
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "Session.CombinedOutput",
+        "Session.Output",
+        "Session.RequestPty",
+        "Session.RequestSubsystem",
+        "Session.Run",
+        "Session.SendRequest",
+        "Session.Setenv",
+        "Session.Shell",
+        "Session.Signal",
+        "Session.Start",
+        "Session.WindowChange",
+        "channel.SendRequest",
+        "channel.handlePacket",
+        "mux.SendRequest",
+        "mux.handleGlobalPacket",
+        "tcpListener.Close",
+        "unixListener.Close"
+      ],
+      "aliases": [
+        "CVE-2026-39830",
+        "GHSA-vgwf-h737-ff37"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5017",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79564",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781640",
+        "https://go.dev/cl/781664"
+      ],
+      "severity": null,
+      "summary": "Invoking client can cause server deadlock on unexpected responses in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "NewSignerFromKey",
+        "ParseAuthorizedKey",
+        "ParseKnownHosts",
+        "ParsePrivateKey",
+        "ParsePrivateKeyWithPassphrase",
+        "ParsePublicKey",
+        "ParseRawPrivateKey",
+        "ParseRawPrivateKeyWithPassphrase",
+        "checkDSAParams",
+        "parseDSA",
+        "parseRSA"
+      ],
+      "aliases": [
+        "CVE-2026-39829",
+        "GHSA-w879-237q-wc7r"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5018",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79565",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781641",
+        "https://go.dev/cl/781661"
+      ],
+      "severity": null,
+      "summary": "Invoking pathological RSA/DSA parameters may cause DoS in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "CertChecker.Authenticate",
+        "CertChecker.CheckCert",
+        "CertChecker.CheckHostKey",
+        "Certificate.Verify",
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "connection.serverAuthenticate",
+        "skECDSAPublicKey.Verify",
+        "skEd25519PublicKey.Verify"
+      ],
+      "aliases": [
+        "CVE-2026-39831",
+        "GHSA-89gr-r52h-f8rx"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5019",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79566",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781662"
+      ],
+      "severity": null,
+      "summary": "Invoking bypass of FIDO/U2F security keys physical interaction in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewServerConn",
+        "Session.CombinedOutput",
+        "Session.Output",
+        "Session.Run",
+        "Session.Shell",
+        "Session.Start",
+        "channel.Write",
+        "channel.WriteExtended",
+        "curve25519sha256.Client",
+        "curve25519sha256.Server",
+        "dhGEXSHA.Client",
+        "dhGEXSHA.Server",
+        "dhGroup.Client",
+        "dhGroup.Server",
+        "ecdh.Client",
+        "ecdh.Server",
+        "extChannel.Write",
+        "mlkem768WithCurve25519sha256.Client",
+        "mlkem768WithCurve25519sha256.Server"
+      ],
+      "aliases": [
+        "CVE-2026-39834",
+        "GHSA-rm3j-f69w-wqmq"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5020",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79567",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781663"
+      ],
+      "severity": null,
+      "summary": "Invoking infinite loop on large channel writes in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "hostKeyDB.IsRevoked"
+      ],
+      "aliases": [
+        "CVE-2026-42508",
+        "GHSA-5cgq-3rg8-m6cv"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5021",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79568",
+        "https://go.dev/cl/781220",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking auth bypass via unenforced @revoked status in golang.org/x/crypto/ssh/knownhosts"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-46595",
+        "GHSA-x527-x647-q7gg"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5023",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79570",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI",
+        "https://go.dev/cl/781642"
+      ],
+      "severity": null,
+      "summary": "Invoking VerifiedPublicKeyCallback permissions skip enforcement in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "ForwardToAgent",
+        "ServeAgent",
+        "parseEd25519Cert",
+        "parseEd25519Key"
+      ],
+      "aliases": [
+        "CVE-2026-46598",
+        "GHSA-9m57-25v3-79x9"
+      ],
+      "fixed_versions": [
+        "0.52.0"
+      ],
+      "id": "GO-2026-5033",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79596",
+        "https://go.dev/cl/781360",
+        "https://groups.google.com/g/golang-announce/c/a082jnz-LvI"
+      ],
+      "severity": null,
+      "summary": "Invoking pathological inputs can lead to client panic in golang.org/x/crypto/ssh/agent"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [],
+      "fixed_versions": [],
+      "id": "GO-2026-5932",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/44226"
+      ],
+      "severity": null,
+      "summary": "The golang.org/x/crypto/openpgp package is unmaintained, unsafe by design, and has known security issues"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-56854"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-6303",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80213",
+        "https://go.dev/cl/797040"
+      ],
+      "severity": null,
+      "summary": "Source-address critical option not enforced for non-public-key auth callbacks in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.Accept",
+        "channel.handlePacket",
+        "channel.responseMessageReceived"
+      ],
+      "aliases": [
+        "CVE-2026-78662"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6354",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81316",
+        "https://go.dev/cl/826504",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked undecided channel in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.handlePacket"
+      ],
+      "aliases": [
+        "CVE-2026-56855"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6355",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81317",
+        "https://go.dev/cl/826524",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked established channel in golang.org/x/crypto/ssh"
+    }
+  ],
+  "vulns_old": []
+}

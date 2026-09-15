@@ -1,0 +1,13 @@
+{"Time":"2026-09-15T19:00:12.932048826Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-15T19:00:12.941708276Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning"}
+{"Time":"2026-09-15T19:00:12.941729868Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning\n"}
+{"Time":"2026-09-15T19:00:12.942627238Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-15T19:00:12.942641118Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Elapsed":0}
+{"Time":"2026-09-15T19:00:12.942649008Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure"}
+{"Time":"2026-09-15T19:00:12.942672099Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure\n"}
+{"Time":"2026-09-15T19:00:12.943023381Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)\n"}
+{"Time":"2026-09-15T19:00:12.943031861Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Elapsed":0}
+{"Time":"2026-09-15T19:00:12.943035401Z","Action":"output","Package":"harnesstest","Output":"PASS\n"}
+{"Time":"2026-09-15T19:00:12.943128324Z","Action":"output","Package":"harnesstest","Output":"coverage: [no statements]\n"}
+{"Time":"2026-09-15T19:00:12.943685833Z","Action":"output","Package":"harnesstest","Output":"ok  \tharnesstest\t0.011s\tcoverage: [no statements]\n"}
+{"Time":"2026-09-15T19:00:12.943725363Z","Action":"pass","Package":"harnesstest","Elapsed":0.012}
