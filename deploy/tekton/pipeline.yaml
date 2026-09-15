@@ -12,6 +12,7 @@ spec:
     - { name: select, type: array, default: [] , description: "packages to generate for; empty = every changed or vulnerable row" }
     - { name: model-secret, type: string, default: harness-model }
     - { name: udlm-repo-url, type: string, default: "" }
+    - { name: ecosystem, type: string, default: python, description: "python or go; the image carries both toolchains" }
   # One workspace, one claim: Tekton's coscheduling helper allows a task pod one claim, and binding one
   # claim to several workspaces by subPath left the helper for the second binding uncreated.
   workspaces: [{ name: shared }]
@@ -32,7 +33,7 @@ spec:
     - name: intake
       runAfter: [selfcheck, clone]
       taskRef: { name: harness-stage }
-      params: [{ name: image, value: $(params.image) }, { name: stage, value: intake }, { name: model-secret, value: $(params.model-secret) }, { name: args, value: ["--base", "$(params.base)", "--head", "$(params.head)"] }]
+      params: [{ name: image, value: $(params.image) }, { name: stage, value: intake }, { name: model-secret, value: $(params.model-secret) }, { name: args, value: ["--base", "$(params.base)", "--head", "$(params.head)", "--ecosystem", "$(params.ecosystem)"] }]
       workspaces: [{ name: shared, workspace: shared }]
     - name: analyze
       runAfter: [intake]

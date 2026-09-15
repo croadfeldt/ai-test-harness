@@ -36,8 +36,15 @@ def purl(name: str, version: str) -> str:
 
 
 def _helper() -> Path:
+    """The go/ast helper: a prebuilt binary when the image carries one (HARNESS_GOHELPER), else built
+    once from this package's source with the toolchain on the machine."""
     global _HELPER
     if _HELPER and _HELPER.exists():
+        return _HELPER
+    import os
+    pre = os.environ.get("HARNESS_GOHELPER")
+    if pre and Path(pre).exists():
+        _HELPER = Path(pre)
         return _HELPER
     if not shutil.which("go"):
         raise HarnessError("the Go toolchain is required for the go adapter")
