@@ -33,3 +33,8 @@
 | **Trustify** | The open source store for SBOMs, vulnerabilities, and VEX statements that Red Hat Trusted Profile Analyzer is built on. |
 | **Unit test** | A test of one function or one small piece of code in isolation. |
 | **VEX** | Vulnerability Exploitability eXchange. A statement about whether a known vulnerability actually affects a product, with the reason. "Not affected because we never call the vulnerable function" is a VEX statement. |
+| Lifecycle A, the developer's inner loop | A developer runs the harness on their branch while working; the tests they keep go into their own pull request. |
+| Lifecycle B, the pipeline's outer loop | The pipeline runs the harness on every change and opens a test pull request; a reader accepts or rejects against the packet. |
+| Validation execution | The harness's own run of candidate tests: both versions, sealed, once, at acceptance time. Stage 4. |
+| Regression execution | The suite's run of accepted tests: head only, every change, by the CI that already runs the suite. Not a harness stage. |
+| Review gate | The point between validation and acceptance where a person decides: code review in lifecycle A, the test pull request in lifecycle B. Tests always arrive through a pull request. |

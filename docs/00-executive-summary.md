@@ -48,6 +48,11 @@ flowchart LR
 - **Evidence is attached.** Every test carries a signed record of where it came from and who approved it.
   That record travels with the product and can be checked by anyone downstream.
 
+It is used in two ways. A developer runs it while working, to get tests for the change in front of
+them, and the tests go in with their pull request. The pipeline runs it on every change, unattended,
+and proposes a test pull request for a person to read. Either way tests arrive through a pull
+request, and the accepted ones run with the normal test suite from then on.
+
 ## What it is not
 
 - It does not replace engineers or QE. It gives them evidence they do not have today.

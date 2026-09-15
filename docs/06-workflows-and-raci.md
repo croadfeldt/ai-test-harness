@@ -27,9 +27,9 @@ RACI: **R** does the work. **A** owns the outcome, exactly one per row. **C** is
 | 1 Intake and inventory | R/A | I | I | C | | C | | |
 | 2 Analysis and risk scoring | R/A | C | C | C | | | | |
 | 3 Test generation | R/A | C | | | C | | | |
-| 4 Execution and validation | R/A | I | | | | C | | |
+| 4 Validation execution | R/A | I | | | | C | | |
 | 5 Triage | R/A | I | C | C | | | | |
-| 6 Review and merge | C | R/A | C | C | C | | | I |
+| 6 Review and merge (the review gate, both lifecycles) | C | R/A | C | C | C | | | I |
 | 7 Feedback and prompt evaluation | R/A | C | | | C | | | I |
 | 8 Promotion to standard suite | R | A | | | C | | | |
 | 9 Test retirement | R | A | | | C | | | |
@@ -39,6 +39,7 @@ RACI: **R** does the work. **A** owns the outcome, exactly one per row. **C** is
 | 13 New ecosystem adapter | R/A | C | | | C | C | C | |
 | 14 Reusing an open source component | R/A | | C | C | | C | C | |
 | 15 Quarterly report | R | C | C | C | C | | | A |
+| 16 Developer inner loop | C | R/A | | | | C | | |
 | F1 Description fidelity (future) | R/A | C | C | C | | | | |
 | F2 Malicious change detection (future) | R | C | A | C | | | | I |
 
@@ -157,7 +158,7 @@ Within budget; never exceeds the per-item token and time caps.
 
 ---
 
-## 4. Execution and validation
+## 4. Validation execution
 
 **Trigger.** Candidate tests exist.
 
@@ -221,7 +222,15 @@ within 15 minutes; `suspicious` acknowledged by SCS within one business day.
 
 ## 6. Review and merge
 
-**Trigger.** Review packet posted.
+This is the review gate of blueprint section 5.0, and it has two shapes. In the developer's inner
+loop (workflow 16) the packet stays on the developer's branch and the gate is ordinary code review of
+their pull request. In the pipeline's outer loop the harness opens a test pull request under its own
+bot identity, with signed commits and the provenance attached, and the packet is the reviewer's brief.
+In both, tests arrive through a pull request, the harness never merges, and what is accepted runs with
+the suite from then on. Nothing about the harness's validation run is repeated by the suite; the suite
+runs the accepted tests on head, every change, like any other test.
+
+**Trigger.** Review packet posted, on the developer's pull request or as a test pull request.
 
 ```mermaid
 sequenceDiagram
@@ -230,7 +239,7 @@ sequenceDiagram
     participant PT as Product Team reviewer
     participant SCS as Supply Chain Security
     participant PS as Product Security
-    H->>PR: Review packet + attestation
+    H->>PR: Review packet + attestation (on the developer's PR, or as a test PR)
     alt suspicious or security open
         PR-->>PT: Merge blocked
         SCS->>PR: Resolve or confirm suspicious
@@ -244,7 +253,7 @@ sequenceDiagram
 
 | Step | R | A | C | I |
 |---|---|---|---|---|
-| Post the packet | HT (automated) | HT | | PT |
+| Post the packet, or open the test pull request | HT (automated) | HT | | PT |
 | Review tests, retirements, promotions | PT | PT | QE, HT | |
 | Clear a merge block | SCS or PS | SCS or PS | PT | SPO |
 | Merge | PT | PT | | HT |
@@ -481,6 +490,44 @@ achieved; reviewer acceptance rate; open risks.
 |---|---|---|---|---|
 | Compile | HT | SPO | PT, PS, SCS, QE | All |
 | Decide next phase funding | SPO | SPO | HT | All |
+
+---
+
+## 16. Developer inner loop
+
+**Trigger.** A developer runs the harness on their branch, locally or on an ephemeral platform, while
+working on a change.
+
+```mermaid
+sequenceDiagram
+    participant D as Developer
+    participant H as Harness (local or ephemeral)
+    participant SB as Sealed sandbox
+    participant PR as Developer's pull request
+    D->>H: run on the branch
+    H->>SB: validate candidates on both versions
+    SB-->>H: verdicts, coverage, provenance
+    H-->>D: candidate tests and verdicts
+    D->>D: keep, edit, drop; run again
+    D->>PR: tests and provenance in the same pull request
+    PR->>PR: normal code review (workflow 6)
+```
+
+| Step | R | A | C | I |
+|---|---|---|---|---|
+| Run the harness on the branch | PT (developer) | PT | HT | |
+| Keep the sandbox sealed for every local run | PT (developer) | PT | PLAT, HT | |
+| Iterate on the candidates | PT (developer) | PT | | |
+| Submit tests with the change | PT (developer) | PT | | HT |
+| Review, as part of the code review | PT | PT | QE | |
+
+**Rules.** The developer's run uses the same sealed sandbox as the pipeline; generated tests are
+untrusted until read, and a plain test runner on a workstation is not a substitute. Provenance records
+travel with the pull request. Whether the pipeline also runs its own loop on the same pull request is
+the organization's choice; when it does, the two sets of records are reconciled at the review gate.
+
+**Service level.** Whatever the developer's own build takes; the harness adds validation time, not
+review time.
 
 ---
 

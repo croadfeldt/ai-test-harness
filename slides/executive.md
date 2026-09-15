@@ -36,6 +36,8 @@ flowchart LR
 
 Nothing merges, publishes, or deletes without a person. The harness proposes; a reviewer decides.
 
+Two ways to use it: a developer runs it while working and the tests go in with their pull request; the pipeline runs it on every change and proposes a test pull request. Either way, tests arrive through a pull request and then run with the normal suite.
+
 ---
 
 # It already works, on real code

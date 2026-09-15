@@ -1,11 +1,17 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.9
-**Date:** 2026-09-13
+**Status:** Draft v0.10
+**Date:** 2026-09-15
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.10:** the pipeline is one core with two lifecycles around it (section 5.0). A
+developer runs it inside their own work; a CI/CD pipeline runs it on every change and proposes a
+test pull request. Creation and execution can be separated as an organization sees fit, the human
+review gate is explicit, the harness's validation run and the suite's regression run are named
+apart, and tests always arrive through a pull request.
 
 **Changes in v0.9:** the provenance record is a UDLM record (section 8.2). Test evidence, the draft
 VEX statement, the vulnerability, the package, and the run are records in the Unified Data Lifecycle
@@ -84,7 +90,9 @@ machine-produced, human-reviewable, reproducible answer to three questions.
 
 - Binary-only artifacts with no source (handled by a separate binary analysis track).
 - Performance and load testing (may be added in a later phase).
-- Automatically merging AI-generated tests without human review (never in scope).
+- Automatically merging AI-generated tests without human review (never in scope). An organization may
+  let policy accept low-risk characterization tests without a reader, but the merge is still a pull
+  request, and the harness never pushes to a protected branch.
 - Automatically fixing production code. The harness may **propose** fixes, but code changes go through the
   normal review path.
 
@@ -236,6 +244,50 @@ below do most of the individual stages.
        └──────────────────────── 7 Feedback / learning ──────────────────────────────┘
 ```
 
+### 5.0 One core, two lifecycles
+
+The seven stages are one core: gather facts, generate, validate in a sealed sandbox on both versions,
+triage, attest. Who runs that core, and where the accepted tests go afterwards, differ. There are at
+least two lifecycles, and an organization may separate creation from execution as it sees fit.
+
+| | Lifecycle A: the developer's inner loop | Lifecycle B: the CI/CD outer loop |
+|---|---|---|
+| Who starts it | The developer, on their branch, as part of writing the change | The pipeline, on every pull request or merge, unattended |
+| Where the core runs | Locally or on an ephemeral platform, in the same sealed sandbox as the pipeline | In the pipeline's sandbox (Konflux integration test, Tekton) |
+| What comes out | Candidate tests and verdicts the developer iterates on | A review packet and the tests as a patch |
+| Who reviews | The developer first, then the code reviewers, in the normal code review | A reader of the test pull request, against the packet |
+| How tests are added | Inside the developer's own pull request | Through a test pull request the harness opens |
+| Who executes the accepted tests afterwards | The suite, on every future change | The suite, on every future change, alongside everything else |
+| Provenance | The same records, attached to the developer's PR | The same records, attached to the test PR and the build |
+
+Two executions, named apart. The harness's run is **validation execution**: both versions, sealed,
+once, at acceptance time, producing the fix-pinning proof, the coverage, the mutation score, and
+the provenance record. The suite's run is **regression execution**: head only, every change, by the
+CI that already runs the suite. Validation is stage 4; regression is not a harness stage at all. An
+accepted test is simply a test, and it runs where tests run.
+
+The **review gate** is a stage with inputs and outputs, not a principle. Its inputs are the packet,
+the differential verdicts, the provenance records, and the draft VEX statements. Its outputs are
+tests merged by pull request, a VEX decision for Product Security, and the reviewer's decisions
+captured for stage 7. In lifecycle A the gate is code review; in lifecycle B it is the test pull
+request. The organization sets the gate's strictness, up to and including policy that accepts
+low-risk characterization tests without a reader, but the merge is always a pull request, and the
+harness never pushes to a protected branch.
+
+Trust differs by lifecycle. In A the developer is the author and the harness is a tool they used;
+the change is reviewed as their work. In B the harness is a contributor, and its pull requests are
+treated the way any contributor's are: a bot identity, signed commits, provenance attached, and the
+source-level SLSA claims of section 8.5 on the tests it proposes. That is what makes lifecycle B safe
+to leave unattended.
+
+One rule holds in both, and it is the one most likely to be skipped in lifecycle A: generated tests
+run before anyone has read them, so they run in the sealed sandbox of section 11, never in a plain
+test runner on a developer's machine. The developer flow uses the same isolation the pipeline does.
+
+Where the implementation stands: the command line and the Tekton pipeline in `harness/` are the
+core as lifecycle A runs it, and they produce the packet lifecycle B needs. The step that opens the
+test pull request from the packet is the one addition lifecycle B still needs.
+
 ### Stage 0: Self-verification
 
 Before the harness touches the incoming change, it proves it is fit to run:
@@ -345,9 +397,11 @@ vulnerability that is not yet public or not yet fixed are stored with restricted
 overlay until disclosure, following the normal Product Security embargo process. Public reproducers are
 read as untrusted data and rewritten by the agent, never copied in.
 
-### Stage 4: Execution and validation
+### Stage 4: Validation execution
 
-All execution happens in a hermetic sandbox, following the OpenSSF Package Analysis design:
+This is the harness's own run of the candidate tests: both versions, sealed, once. It is not the
+suite's regression run, which happens after acceptance wherever the suite runs (section 5.0).
+All of it happens in a hermetic sandbox, following the OpenSSF Package Analysis design:
 
 - Container built from a pinned base image, one per ecosystem, with the Hermeto-prefetched dependency
   graph mounted. No outbound network. No mounted secrets. Read-only source tree except for the test
@@ -406,11 +460,17 @@ Output per work item is a **review packet**, posted where Konflux integration-se
   promoted, or retired.
 
 Reviewers approve, edit, or reject tests. Approved tests become permanent regression tests for that
-package and version range.
+package and version range, and from then on they run with the suite, not with the harness.
+
+The packet is the artifact both lifecycles share. In the developer's loop it stays on the developer's
+branch and the tests they keep go into their own pull request. In the pipeline's loop the harness opens
+a test pull request from it, under its own bot identity with signed commits, and the packet is the
+reviewer's brief. Either way tests are added through a pull request; the harness never merges.
 
 ### Stage 7: Feedback
 
-- Reviewer edits and rejections are captured as labeled examples for prompt and eval improvement.
+- The review gate's decisions (section 5.0), whether made in code review or on a test pull request,
+  are captured: reviewer edits and rejections become labeled examples for prompt and eval improvement.
 - Tests that later catch a real regression are tagged. This is the ultimate quality signal.
 - Per-ecosystem metrics (section 10) drive which adapters and prompts get attention.
 - **Failure register loop.** When a run shows the generator failing in a way the register does not
@@ -726,6 +786,9 @@ Benchmarks, run before the pilot and on every prompt or model change:
 - **Untrusted code execution.** Third-party source may be malicious. Sandboxes have no network, no
   secrets, and are discarded after each run. Kernel-isolated runtimes (gVisor or Kata) are required for
   depth 1 and deeper.
+- **Generated tests are untrusted until read.** They run before a reviewer sees them, so they run only
+  in the sandbox above, in the developer's loop as much as in the pipeline's (section 5.0). A plain
+  test runner on a workstation is not a substitute.
 - **Prompt injection.** Package source, docs, comments, and metadata are wrapped as data in every prompt.
   The agent has no tool that can act outside the sandbox, so a successful injection can at most produce a
   bad test, which validation then discards. Injection attempts are themselves a `suspicious` finding.

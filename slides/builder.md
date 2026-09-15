@@ -41,6 +41,20 @@ Stage 0 runs the failure-register checks, probes the sandbox, and probes the mod
 
 ---
 
+# One core, two lifecycles
+
+| | Developer's inner loop | Pipeline's outer loop |
+|---|---|---|
+| Starts | on the developer's branch, while working | on every pull request or merge, unattended |
+| Runs | locally or ephemeral, same sealed sandbox | in the pipeline's sandbox |
+| Produces | candidates and verdicts to iterate on | a packet and a test pull request |
+| Gate | the code review | the test pull request |
+| Afterwards | the suite runs the accepted tests | the suite runs the accepted tests |
+
+Stage 4 is validation: both versions, sealed, once. Regression is the suite's job, every change, and not a harness stage. Generated tests are untrusted until read, so the developer's loop uses the same sandbox, never a plain test runner. The CLI is the core as lifecycle A runs it; the step that opens the test pull request is what lifecycle B still needs.
+
+---
+
 # Stage 1, intake: facts before anything runs
 
 - Resolve the full dependency graph for the project's own interpreter, inside its container image. pip on a different interpreter silently drops marker-gated packages; that was found the hard way.
