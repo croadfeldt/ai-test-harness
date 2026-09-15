@@ -136,18 +136,21 @@ def fetch(name: str, version: str, cache_dir: Path, python_version: str | None =
     sandbox (cache/gomod/<env>/modcache), which is what a sealed pod has; only then by downloading
     into the adapter's own cache."""
     import os
+    # A sealed pod has no writable home; the toolchain still wants a build cache and a home to look at.
+    scratch = Path(os.environ.get("HARNESS_WORK_TMP") or tempfile.gettempdir())
+    toolchain_env = {"GOCACHE": str(scratch / "gocache"), "HOME": str(scratch), "GOTOOLCHAIN": "local"}
     for mc in sorted((cache_dir / "gomod").glob("*/modcache")) if (cache_dir / "gomod").exists() else []:
-        env = {**os.environ, "GOMODCACHE": str(mc.resolve()), "GOPROXY": "off", "GOFLAGS": "-mod=mod", "GOTOOLCHAIN": "local"}
+        env = {**os.environ, **toolchain_env, "GOMODCACHE": str(mc.resolve()), "GOPROXY": "off", "GOFLAGS": "-mod=mod"}
         proc = subprocess.run(["go", "mod", "download", "-json", f"{name}@{version}"], capture_output=True, text=True, env=env, timeout=120, cwd=tempfile.gettempdir())
         docs = _json_stream(proc.stdout) if proc.returncode == 0 else []
         if docs and docs[-1].get("Dir") and Path(docs[-1]["Dir"]).exists():
             return Path(docs[-1]["Dir"])
     env_dir = cache_dir / "gomodcache"
     env_dir.mkdir(parents=True, exist_ok=True)
-    env = {**os.environ, "GOMODCACHE": str(env_dir.resolve()), "GOFLAGS": "-mod=mod -modcacherw", "GOTOOLCHAIN": "local"}
+    env = {**os.environ, **toolchain_env, "GOMODCACHE": str(env_dir.resolve()), "GOFLAGS": "-mod=mod -modcacherw"}
     proc = subprocess.run(["go", "mod", "download", "-json", f"{name}@{version}"], capture_output=True, text=True, env=env, timeout=600, cwd=tempfile.gettempdir())
     if proc.returncode != 0:
-        raise HarnessError(f"go mod download {name}@{version}: {proc.stderr.strip()[-400:]}")
+        raise HarnessError(f"go mod download {name}@{version}: {(proc.stderr.strip() or proc.stdout.strip())[-400:]}")
     docs = _json_stream(proc.stdout)
     if not docs or "Dir" not in docs[-1]:
         raise HarnessError(f"go mod download {name}@{version}: no Dir in {proc.stdout[:200]!r}")
