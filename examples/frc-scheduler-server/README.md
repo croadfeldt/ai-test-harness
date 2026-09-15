@@ -146,6 +146,19 @@ overlay repository's main branch did not move; the commit is unsigned and says s
 key is configured on this install. `propose/python-jose/proposal.json` records the branch, the commit,
 the files and the pull request; `pull-request.md` is the text as posted. A person decides from here.
 
+## The decision, read back (`-run6/feedback/`)
+
+Stage 7, run after the overlay pull request was merged: the harness read the decision back. All
+seven proposed tests landed unchanged, merged by the repository owner, and the records say so:
+`feedback/python-jose/acceptance.json` has the decision per file and per test, `decisions.jsonl` the
+same as labeled examples for prompt evaluation (test, category, verdict, prompt and response digests,
+who accepted and when), and `udlm/test-evidence.yaml` fourteen new records, a requested and a
+realized one per accepted candidate, sealed and valid against UDLM's schema. The candidate records
+from attest stay as they were; a person's act added the two states the blueprint says it should. The
+signed acceptance statement names the merge commit and each realized record's head. Had a test been
+edited before merging, the diff would be in the decision; had one been dropped, it would read
+"rejected". The harness only read; nothing in the overlay repository changed.
+
 ## What the harness could not do, said plainly
 
 - **Build every trigger.** Fourteen vulnerabilities were tried across the three packages; three were
@@ -178,6 +191,7 @@ D=../examples/frc-scheduler-server/pr-fix-known-vulns-run5
 .venv/bin/harness triage   --workdir $D; .venv/bin/harness packet --workdir $D; .venv/bin/harness attest --workdir $D
 .venv/bin/harness assess   --workdir $D
 .venv/bin/harness propose  --workdir $D --select python-jose   # the test pull request; needs [propose].repo, a checkout of the overlay repository
+.venv/bin/harness feedback --workdir $D --select python-jose   # stage 7, after a person has decided on that pull request
 ```
 
 The trigger is a branch in the application's repository, `deps/fix-known-vulns`, that bumps the four

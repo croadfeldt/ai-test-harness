@@ -214,6 +214,27 @@ class Emitter:
         self.add("test-evidence", self.seal(rec))
         return rec
 
+    def acceptance(self, intent: dict, decision: dict, pr: dict, overlay_provider: str) -> tuple[dict, dict]:
+        """A person accepted a candidate: the merge is the request (the reviewer, an actor, asks that
+        the candidate become part of the suite) and the test as it landed is the realized record,
+        provided by the overlay repository. Two records, one entity, per RHY-006; the intent stays."""
+        fields = dict(intent["fields"])
+        at = pr["merged_at"]
+        req = self.base("requested_record", "Requested", intent["resource_type"], intent["entity_uuid"], intent["handle"], at, fields,
+                        intent_ref=intent["record_uuid"], origin="declared",
+                        provenance=self.prov("fields.test_id", "actor", pr["merged_by"], at))
+        req = self.seal(req)
+        self.add("test-evidence", req)
+        outputs = {"accepted_at": z(at), "accepted_by": pr["merged_by"], "pull_request": pr["url"], "merge_commit": pr["merge_commit"],
+                   "decision": decision["decision"], "path": decision["path"], "file_digest": decision.get("merged_digest"),
+                   "edited": decision["decision"] == "edited"}
+        real = self.base("realized_record", "Realized", intent["resource_type"], intent["entity_uuid"], intent["handle"], at, fields,
+                         requested_ref=req["record_uuid"], provider=overlay_provider, outputs=outputs,
+                         provenance=self.prov("outputs", "actor", pr["merged_by"], at))
+        real = self.seal(real)
+        self.add("test-evidence", real)
+        return req, real
+
     # ---- output
     def write(self, out_dir: Path) -> dict:
         out_dir.mkdir(parents=True, exist_ok=True)

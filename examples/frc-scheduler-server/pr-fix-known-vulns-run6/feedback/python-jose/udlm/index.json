@@ -1,0 +1,30 @@
+{
+  "estate": "lab",
+  "files": {
+    "test-evidence": "test-evidence.yaml"
+  },
+  "generated": "2026-09-15T16:27:52+00:00",
+  "heads": {
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@realized": "sha256:4e6c395db76cecbfd2491c2b8dbc5644cf89553be7d811f0e70ab402ff7025ca",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@requested": "sha256:1402a317e908aab74069e17b3284cfe95772b5c9e11971be8527c7b8cc985c19",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@realized": "sha256:bb2f1d142ec469e0820b6a7bc08f66c7ea1899071577e6064e520100f3237fe9",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@requested": "sha256:681aca68305bd08758be08c2b04a2a2c592704a6ad4aa0d2cc52073121132a2c",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@realized": "sha256:a92f4ea44500377f654bf51fb0ad604b33f235fe0adb587c192a4cae49abe05f",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@requested": "sha256:8b18c6fbdaf1f29a2d18fb5a5c10e52af9996773e17a932002e0ba5e0993f1d4",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@realized": "sha256:d59636725716ed976e43741e3183c9462c559420ae4a7570bd490e8c1d329535",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@requested": "sha256:790af79faa215bdfcfcd0c7c806d0c9a4fb7278262c67315c46341b5af930204",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-roundtrip-hs256@realized": "sha256:4d546f1dc8846b87f90d41e9fbb3375faed68e39fbe69a26f13316d65f5d8477",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-roundtrip-hs256@requested": "sha256:c499c82178ea2af749d71b9d123bbc28edd347873d00ee310c8bc59b2bccd093",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@realized": "sha256:1ceb8a36dcc4d8c41b1764097674c49507c39e847efb45fffacb8853714b538f",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@requested": "sha256:2d83e920d11b73dc657330a4ad7b37a10a0c632e67cb2069e5d00a8b99189763",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-hs256-structure@realized": "sha256:1d2866ba51b345880c72a40af59fa593f840c2bf9ea2df2c503ca077427702fa",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-hs256-structure@requested": "sha256:34ec4f0beeaac259b8235c6ec9a12fdc8847ef81996a3816f7de25347fab6535"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

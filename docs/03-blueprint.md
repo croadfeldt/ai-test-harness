@@ -289,7 +289,7 @@ core as lifecycle A runs it, and they produce the packet lifecycle B needs. `har
 lifecycle B's last step: the accepted tests, the packet, the provenance record, the signed statement
 and the UDLM records go on a `harness/` branch of the overlay repository under the harness's own
 identity, and a pull request is opened. That branch is the only ref the step pushes; nothing in it
-can merge.
+can merge. `harness feedback` closes the loop after a person has decided (stage 7).
 
 ### Stage 0: Self-verification
 
@@ -474,6 +474,11 @@ reviewer's brief. Either way tests are added through a pull request; the harness
 
 - The review gate's decisions (section 5.0), whether made in code review or on a test pull request,
   are captured: reviewer edits and rejections become labeled examples for prompt and eval improvement.
+  In lifecycle B, `harness feedback` reads the test pull request back once a person has decided:
+  which tests landed unchanged, which were edited first, which were dropped, who decided and when.
+  Each accepted candidate's intent record gains a requested record (the reviewer's act) and a realized
+  record (the test as it landed, provided by the overlay repository), and a signed acceptance
+  statement names the merge commit and those records. The harness reads; it changes nothing.
 - Tests that later catch a real regression are tagged. This is the ultimate quality signal.
 - Per-ecosystem metrics (section 10) drive which adapters and prompts get attention.
 - **Failure register loop.** When a run shows the generator failing in a way the register does not
