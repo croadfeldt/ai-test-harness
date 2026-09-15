@@ -14,6 +14,10 @@ import markdown
 from markdown.extensions.toc import TocExtension
 
 ROOT = Path(__file__).resolve().parent.parent
+# The evidence roll-up is generated from the run records on every build, so the site never shows a stale number.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location("rollup", ROOT / "tools" / "rollup.py"); _rollup = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_rollup)
+_rollup.main(write=str(ROOT / "docs" / "11-evidence-rollup.md"))
 DOCS = sorted((ROOT / "docs").glob("*.md"))
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 
@@ -58,10 +62,10 @@ mermaid.initialize({{ startOnLoad: true, theme: matchMedia("(prefers-color-schem
 """)
 
 AUDIENCES = [
-    ("exec", "Executive", "CEO, managing director, board", ["00"], "5 min"),
-    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "07"], "20 min"),
-    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "bp", "hi", "ex"], "2 h"),
-    ("proof", "See it work", "Anyone who wants the evidence", ["ex", "hi"], "15 min"),
+    ("exec", "Executive", "CEO, managing director, board", ["00", "11"], "5 min"),
+    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "11", "07"], "20 min"),
+    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "10", "bp", "hi", "ex"], "2 h"),
+    ("proof", "See it work", "Anyone who wants the evidence", ["11", "10", "ex", "hi"], "15 min"),
     ("public", "Public", "Journalist, student, customer", ["00", "08"], "10 min"),
 ]
 
