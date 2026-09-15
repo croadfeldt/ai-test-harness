@@ -43,6 +43,7 @@ def test_propose_builds_and_pushes_a_harness_branch_only(tmp_path: Path):
     for f in ("packet.md", "MANIFEST.json", "statement.dsse.json", "vex.openvex.json", "udlm/test-evidence.yaml"):
         assert f"overlays/python/python-jose/3.4.x/{f}" in names, f
     assert _git("log", "-1", "--format=%an <%ae>", rec["branch"], cwd=bare).strip() == "AI Test Harness <bot@example.invalid>"
+    assert _git("log", "-1", "--format=%s", rec["branch"], cwd=bare).strip() == rec["title"] and not rec["title"].startswith("#")
     body = (work / "propose" / "python-jose" / "pull-request.md").read_text()
     assert body.startswith("# Tests for python-jose 3.4.0") and "In plain terms" not in body and "a person decides" in body
     assert json.load(open(work / "propose" / "python-jose" / "proposal.json"))["repository"] == "overlays"
