@@ -1,0 +1,12 @@
+{
+  "generated": "2026-09-15T16:27:52+00:00",
+  "packages": [
+    {
+      "accepted": 7,
+      "edited": 0,
+      "outcome": "merged by croadfeldt at 2026-09-15T16:16:06Z",
+      "package": "python-jose",
+      "rejected": 0
+    }
+  ]
+}

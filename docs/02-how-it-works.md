@@ -158,8 +158,11 @@ they accept runs with the suite from then on.
 
 ### 7. Feedback
 
-Reviewer edits and rejections become labeled examples for prompt evaluation. Tests that later catch a
-real regression are tagged. That tag is the number I report.
+Reviewer edits and rejections become labeled examples for prompt evaluation. In the pipeline's loop
+the harness reads the test pull request back after a person has decided: what landed unchanged, what
+was edited, what was dropped, who and when. Each accepted candidate's record becomes a requested and
+a realized record, and a signed statement names the merge commit. Tests that later catch a real
+regression are tagged. That tag is the number I report.
 
 ## The test lifecycle
 

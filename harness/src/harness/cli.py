@@ -105,6 +105,12 @@ def cmd_propose(a: argparse.Namespace) -> int:
     print(a.workdir / "propose" / "summary.json"); return 0
 
 
+def cmd_feedback(a: argparse.Namespace) -> int:
+    from .stages.feedback import feedback
+    feedback(workdir=a.workdir, select=a.select, overlay_repo_path=str(a.overlay_repo) if a.overlay_repo else None)
+    print(a.workdir / "feedback" / "summary.json"); return 0
+
+
 def cmd_assess(a: argparse.Namespace) -> int:
     from .stages.assess import assess
     assess(workdir=a.workdir); print(a.workdir / "assess" / "assess.md"); return 0
@@ -185,6 +191,12 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--no-push", action="store_true", help="build the branch locally only; nothing leaves this machine")
     s.add_argument("--no-pr", action="store_true", help="push the branch but do not open the pull request")
     s.set_defaults(func=cmd_propose)
+
+    s = sub.add_parser("feedback", help="stage 7: read the test pull request's decision back; accepted candidates become realized records")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--overlay-repo", type=Path, default=None, help="local checkout of the test overlay repository (default: [propose].repo)")
+    s.set_defaults(func=cmd_feedback)
 
     a = p.parse_args(argv)
     try:

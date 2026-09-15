@@ -1,0 +1,94 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "accepted_at": "2026-09-15T16:16:06Z",
+    "accepted_by": "croadfeldt",
+    "counts": {
+      "accepted": 7,
+      "edited": 0,
+      "rejected": 0
+    },
+    "decisions": [
+      {
+        "decision": "accepted",
+        "path": "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33663.py",
+        "tests": {
+          "test_ghsa_6c5p_j8vq_pqhj_fix_pinning": "accepted"
+        }
+      },
+      {
+        "decision": "accepted",
+        "path": "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33664.py",
+        "tests": {
+          "test_ghsa_cjwg_qfpm_7377_exposure": "accepted",
+          "test_ghsa_cjwg_qfpm_7377_fix_pinning": "accepted"
+        }
+      },
+      {
+        "decision": "accepted",
+        "path": "overlays/python/python-jose/3.4.x/test_python_jose_unit.py",
+        "tests": {
+          "test_jwt_decode_expired_raises_expired_signature_error": "accepted",
+          "test_jwt_decode_roundtrip_hs256": "accepted",
+          "test_jwt_decode_wrong_key_raises_jwt_error": "accepted",
+          "test_jwt_encode_hs256_structure": "accepted"
+        }
+      }
+    ],
+    "note": "The merge is the human act; this statement records it and names the realized records it produced.",
+    "proposal_commit": "411dae22fd93360581853b83341d66dc56bfee16",
+    "pull_request": "https://github.com/croadfeldt/ai-test-harness-overlays/pull/1",
+    "run_id": "76a3fa863e76"
+  },
+  "predicateType": "https://github.com/croadfeldt/ai-test-harness/attestation/acceptance/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "gitCommit": "87109359f6c35b4dc238e526e788c208b7dbcb31"
+      },
+      "name": "git:https://github.com/croadfeldt/ai-test-harness-overlays/pull/1"
+    },
+    {
+      "digest": {
+        "sha256": "4e6c395db76cecbfd2491c2b8dbc5644cf89553be7d811f0e70ab402ff7025ca"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-fix-pinning@realized"
+    },
+    {
+      "digest": {
+        "sha256": "a92f4ea44500377f654bf51fb0ad604b33f235fe0adb587c192a4cae49abe05f"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-fix-pinning@realized"
+    },
+    {
+      "digest": {
+        "sha256": "bb2f1d142ec469e0820b6a7bc08f66c7ea1899071577e6064e520100f3237fe9"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-ghsa-cjwg-qfpm-7377-exposure@realized"
+    },
+    {
+      "digest": {
+        "sha256": "1d2866ba51b345880c72a40af59fa593f840c2bf9ea2df2c503ca077427702fa"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-jwt-encode-hs256-structure@realized"
+    },
+    {
+      "digest": {
+        "sha256": "4d546f1dc8846b87f90d41e9fbb3375faed68e39fbe69a26f13316d65f5d8477"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-jwt-decode-roundtrip-hs256@realized"
+    },
+    {
+      "digest": {
+        "sha256": "1ceb8a36dcc4d8c41b1764097674c49507c39e847efb45fffacb8853714b538f"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-jwt-decode-wrong-key-raises-jwt-error@realized"
+    },
+    {
+      "digest": {
+        "sha256": "d59636725716ed976e43741e3183c9462c559420ae4a7570bd490e8c1d329535"
+      },
+      "name": "lab/knowledge/test-evidence/python-jose-test-jwt-decode-expired-raises-expired-signature-er@realized"
+    }
+  ]
+}

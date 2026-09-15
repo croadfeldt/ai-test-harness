@@ -1,0 +1,67 @@
+{
+  "counts": {
+    "accepted": 7,
+    "edited": 0,
+    "rejected": 0
+  },
+  "decisions": [
+    {
+      "decision": "accepted",
+      "merged_digest": "sha256:dba3a716fa201c63f6268a94a79de844b7a792c5535494ed24b322ef4e4034fe",
+      "path": "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33663.py",
+      "tests": {
+        "test_ghsa_6c5p_j8vq_pqhj_fix_pinning": "accepted"
+      }
+    },
+    {
+      "decision": "accepted",
+      "merged_digest": "sha256:c1335579d5734479dc53872c6493fd75c6b4d8d9a81ccdaa9252a80266a4963e",
+      "path": "overlays/python/python-jose/3.4.x/test_python_jose_cve_cve_2024_33664.py",
+      "tests": {
+        "test_ghsa_cjwg_qfpm_7377_exposure": "accepted",
+        "test_ghsa_cjwg_qfpm_7377_fix_pinning": "accepted"
+      }
+    },
+    {
+      "decision": "accepted",
+      "merged_digest": "sha256:682fdffb4bf3b3f80171ea12376504a22c7ec5846b08857658c245428f646725",
+      "path": "overlays/python/python-jose/3.4.x/test_python_jose_unit.py",
+      "tests": {
+        "test_jwt_decode_expired_raises_expired_signature_error": "accepted",
+        "test_jwt_decode_roundtrip_hs256": "accepted",
+        "test_jwt_decode_wrong_key_raises_jwt_error": "accepted",
+        "test_jwt_encode_hs256_structure": "accepted"
+      }
+    }
+  ],
+  "generated": "2026-09-15T16:27:51+00:00",
+  "outcome": "merged by croadfeldt at 2026-09-15T16:16:06Z",
+  "package": "python-jose",
+  "proposal": {
+    "branch": "harness/python-jose-76a3fa863e76",
+    "commit": "411dae22fd93360581853b83341d66dc56bfee16"
+  },
+  "pull_request": {
+    "closed_at": "2026-09-15T16:16:06Z",
+    "merge_commit": "87109359f6c35b4dc238e526e788c208b7dbcb31",
+    "merged_at": "2026-09-15T16:16:06Z",
+    "merged_by": "croadfeldt",
+    "number": 1,
+    "review_decision": "",
+    "reviews": [],
+    "state": "merged",
+    "url": "https://github.com/croadfeldt/ai-test-harness-overlays/pull/1"
+  },
+  "records": {
+    "index": "udlm/index.json",
+    "requested_and_realized": 14,
+    "schema_problems": 0,
+    "sealed": true
+  },
+  "run_id": "76a3fa863e76",
+  "statement": {
+    "envelope": "acceptance-statement.dsse.json",
+    "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+    "signer": "local Ed25519 development key; Trusted Artifact Signer in Konflux"
+  }
+}
