@@ -40,6 +40,7 @@ At the end of six weeks I show you whether the tests are good enough to continue
 | Does it fail safely? | Tests with malformed and hostile input |
 | Are we exposed to what is already known to be wrong with it? | Tests aimed at each known vulnerability, producing draft VEX statements |
 | Can we prove all of this later? | A signed record for every test, attached to the build |
+| Does it fit how we already work? | A developer runs it while coding; the pipeline runs it on every change and proposes a test pull request. Tests arrive through pull requests and run with the normal suite |
 
 ---
 

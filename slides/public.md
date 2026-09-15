@@ -40,7 +40,7 @@ flowchart LR
     A[A piece of code arrives] --> B[AI writes tests] --> C[Tests run in a locked room] --> D[Results scored] --> E[A person approves] --> F[Signed record]
 ```
 
-The AI never decides. It proposes. People decide.
+The AI never decides. It proposes. People decide. It fits in two places: on a programmer's desk while they work, and in the factory line that checks every change. In both, a person accepts the tests the way they accept any other change.
 
 ---
 

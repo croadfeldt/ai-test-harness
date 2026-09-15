@@ -5,7 +5,8 @@ minutes. The [blueprint](03-blueprint.md) has everything this leaves out.
 
 ## The shape of it
 
-Every incoming change, regardless of where it came from, goes through the same seven stages.
+Every incoming change, regardless of where it came from, goes through the same seven stages. Two
+lifecycles wrap those stages, and they are worth naming before the stages themselves.
 
 ```mermaid
 flowchart LR
@@ -24,6 +25,24 @@ I run the same pipeline on three kinds of input, and the only thing that varies 
 | A direct dependency changed version | 1 | Full, with functional tests aimed at our call sites |
 | A transitive dependency changed version | 2 or deeper | Full if we can reach it or it scores high on risk, otherwise a cheap snapshot |
 | Any package with a known vulnerability | Any | CVE-targeted tests always, regardless of depth |
+
+## Two ways to run it
+
+| | The developer's inner loop | The pipeline's outer loop |
+|---|---|---|
+| Starts when | A developer runs it on their branch while working | Every pull request or merge, unattended |
+| Runs where | Locally or on an ephemeral platform, in the same sealed sandbox | In the pipeline's sandbox |
+| Produces | Candidate tests and verdicts to iterate on | A review packet and a test pull request |
+| Reviewed by | The developer, then their code reviewers | A reader of the test pull request |
+| Tests land | In the developer's own pull request | Through the test pull request |
+| Then | The suite runs them on every future change | The suite runs them on every future change |
+
+Creation and execution can be split as far as an organization wants. The harness's run is validation:
+both versions, sealed, once, producing the proof and the record. The suite's run is regression: head
+only, every change, by the CI that already runs the suite. The review gate sits between them, in code
+review or on the test pull request, and tests always arrive through a pull request. One rule holds in
+both loops: generated tests run before anyone has read them, so the developer's loop uses the same
+sealed sandbox, never a plain test runner on a laptop.
 
 ## Where it runs
 
@@ -98,9 +117,9 @@ existing CI/CD pipelines and standard operating procedures the day they are appr
 Six categories come out of this stage: unit tests, functional tests at our call sites, negative tests
 with hostile input, CVE-targeted tests, fuzz targets, and the harness code that makes all of it run.
 
-### 4. Execution and validation
+### 4. Validation execution
 
-Everything runs in a sealed sandbox: pinned base image, Hermeto's dependency set mounted, no network,
+This is the harness's own run, not the suite's. Everything runs in a sealed sandbox: pinned base image, Hermeto's dependency set mounted, no network,
 no secrets, kernel isolation for anything below depth 0, hard resource limits, destroyed afterward.
 
 Then the gauntlet, in order: compile, run, re-run to catch flakes, measure coverage, mutate the code
@@ -131,8 +150,9 @@ Anything below the confidence threshold is escalated to a person instead of auto
 
 One packet per work item, posted where integration-service already reports: a one-page summary, the
 tests as a patch against the overlay repository, coverage and mutation deltas, proposed promotions and
-retirements, draft VEX statements, logs, the replay manifest, and a Conforma attestation. The reviewer
-approves, edits, or rejects. Nothing merges without them.
+retirements, draft VEX statements, logs, the replay manifest, and a Conforma attestation. In the
+pipeline's loop the harness opens a test pull request from it. The reviewer approves, edits, or
+rejects. Nothing merges without them, and what they accept runs with the suite from then on.
 
 ### 7. Feedback
 
