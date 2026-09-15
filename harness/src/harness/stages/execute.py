@@ -100,6 +100,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                                 if roles["direction"] == "candidate" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
             elif o == "pass" and n == "pass":
                 t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
+            elif msg_new.startswith("did not compile"):
+                t["verdict"] = "did not compile: test bug; back to generation"
             elif n in ("fail", "error") and fix_reached(msg_new, fix_patch):
                 t["verdict"] = "fix reached, assertion wrong: the fixed version raised the error the fix introduced; expect it on new and show old accepting the input"
             elif n in ("fail", "error") and o in ("fail", "error") and msg_new and msg_new.split(":")[0] == msg_old.split(":")[0] \
@@ -110,7 +112,9 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
             else:
                 t["verdict"] = f"inconclusive (old={o}, new={n})"
         else:
-            if n == "pass" and o in ("pass", "na"):
+            if msg_new.startswith("did not compile"):
+                t["verdict"] = "did not compile: test bug; back to generation"
+            elif n == "pass" and o in ("pass", "na"):
                 t["verdict"] = "candidate: passes on head" + (", same on old" if o == "pass" else "")
             elif n == "pass" and o in ("fail", "error"):
                 t["verdict"] = "behavior changed between versions: passes on new, fails on old; reviewer note"
