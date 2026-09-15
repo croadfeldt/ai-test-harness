@@ -21,7 +21,7 @@ I run the same pipeline on three kinds of input, and the only thing that varies 
 
 | Input | Depth | Budget |
 |---|---|---|
-| Our own pull request | 0 | Full |
+| Our own pull request, or our own code on a schedule | 0 | Full; unit, functional and negative tests for the code itself, no advisory lookup for it |
 | A direct dependency changed version | 1 | Full, with functional tests aimed at our call sites |
 | A transitive dependency changed version | 2 or deeper | Full if we can reach it or it scores high on risk, otherwise a cheap snapshot |
 | Any package with a known vulnerability | Any | CVE-targeted tests always, regardless of depth |

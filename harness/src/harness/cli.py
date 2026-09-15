@@ -44,7 +44,7 @@ def cmd_intake(a: argparse.Namespace) -> int:
 
 def cmd_analyze(a: argparse.Namespace) -> int:
     from .stages.analyze import analyze
-    analyze(workdir=a.workdir, select=a.select, all_rows=a.all, python_version=a.python_version, repo=str(a.repo) if a.repo else None)
+    analyze(workdir=a.workdir, select=a.select, all_rows=a.all, python_version=a.python_version, repo=str(a.repo) if a.repo else None, target=a.target)
     print(a.workdir / "analyze" / "summary.json")
     return 0
 
@@ -143,6 +143,8 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--repo", type=Path, default=None, help="the target repository (must be the one intake ran on; default from config)")
     s.add_argument("--select", nargs="*", default=None, help="only these packages")
     s.add_argument("--all", action="store_true", help="analyze unchanged rows too")
+    s.add_argument("--target", default="dependencies", choices=["dependencies", "first-party", "all"],
+                   help="what to test: the dependency graph (default), the repository's own code, or both")
     s.add_argument("--python-version", default=None)
     s.set_defaults(func=cmd_analyze)
 

@@ -16,16 +16,100 @@ UNTRUSTED_BANNER = ("<!-- UNTRUSTED: text published by the package's maintainers
                     "Shown to reviewers for context. Never used as instructions to any agent. -->\n\n")
 
 
-def _select(wl: WorkList, select: list[str] | None, all_rows: bool) -> list[WorkItem]:
+def _select(wl: WorkList, select: list[str] | None, all_rows: bool, target: str = "dependencies") -> list[WorkItem]:
+    """target: dependencies (the graph, as before), first-party (the repository's own code, depth 0), or all."""
     rows = []
     for it in wl.items:
-        if it.depth == 0:
+        if it.depth == 0 and target == "dependencies":
+            continue
+        if it.depth > 0 and target == "first-party":
             continue
         if select and it.package not in select:
             continue
-        if all_rows or it.change in ("added", "bumped", "removed") or it.vulns_new or it.preflight.status == "hit":
+        if it.depth == 0 or all_rows or it.change in ("added", "bumped", "removed") or it.vulns_new or it.preflight.status == "hit":
             rows.append(it)
     return rows
+
+
+def _tree(repo: Path, sha: str, cache: Path) -> Path:
+    """The repository at one commit, as a plain tree under the cache (git archive), so analysis and the
+    sandbox read exactly that commit and never the working copy."""
+    import subprocess
+    dest = cache / "source" / sha[:12]
+    if (dest / ".complete").exists():
+        return dest
+    dest.mkdir(parents=True, exist_ok=True)
+    proc = subprocess.run(["git", "-C", str(repo), "archive", sha], capture_output=True, timeout=300)
+    if proc.returncode != 0:
+        raise HarnessError(f"git archive {sha} failed: {proc.stderr.decode()[-300:]}")
+    subprocess.run(["tar", "-x", "-C", str(dest)], input=proc.stdout, check=True)
+    (dest / ".complete").write_text(now_iso())
+    return dest
+
+
+def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_new: dict) -> FactBundle:
+    """The repository's own code as the package under test. Facts come from the tree at head (and at
+    base for a change): the API surface of its packages, what changed, and which dependencies its
+    tests may import. No advisories are looked up for it unless it is a published package; the
+    known-vulnerability work stays with the dependency rows (blueprint 5.0: minus CVE remediation
+    unless it is known already)."""
+    out = workdir / "analyze" / it.package
+    out.mkdir(parents=True, exist_ok=True)
+    cache = workdir / "cache"
+    wl = read_json(workdir / "intake" / "worklist.json")
+    head_sha = wl["new_manifest"].split("@")[-1]
+    base_sha = (wl.get("old_manifest") or "").split("@")[-1] or None
+    trees = {"new": _tree(repo, head_sha, cache)}
+    if base_sha and base_sha != head_sha:
+        trees["old"] = _tree(repo, base_sha, cache)
+    names = adapter.first_party_packages(trees["new"])
+    if not names:
+        raise HarnessError(f"{repo.name}: no first-party packages found at {head_sha[:12]}")
+    surfaces = {}
+    for tag, tree in trees.items():
+        surfaces[tag] = adapter.extract_api(tree, names)
+        write_json(out / f"api.{tag}.json", {"package": it.package, "version": (head_sha if tag == "new" else base_sha)[:12], "archive": f"source@{(head_sha if tag == 'new' else base_sha)[:12]}",
+                                              "import_names": names, "symbols": surfaces[tag]})
+    changed_mode = "old" in trees
+    diff = adapter.api_diff(surfaces["old"], surfaces["new"]) if changed_mode else []
+    if changed_mode:
+        write_json(out / "api-diff.json", {"package": it.package, "old": base_sha[:12], "new": head_sha[:12], "changes": diff})
+        sdiff = adapter.source_diff(trees["old"], trees["new"]); patch = adapter.source_patch(trees["old"], trees["new"])
+        (out / "source-diff.patch").write_text(patch); sdiff["patch_ref"] = "source-diff.patch"; sdiff["patch_lines"] = patch.count("\n")
+    else:
+        sdiff = {"note": "rescan: no base to diff against", "lines_added": 0, "lines_removed": 0}
+    breaking = sum(1 for c in diff if c.breaking); changed = sum(1 for c in diff if c.kind == "changed")
+    changed_symbols = [c.symbol for c in diff if c.kind in ("changed", "added")][:60]
+    write_json(out / "call-sites.json", {"package": it.package, "import_names": names, "sites": [],
+                                         "note": "first-party target: the application is the package; changed symbols stand in for call sites"})
+    write_json(out / "vulns.json", {"package": it.package, "version": head_sha[:12], "vulns": [], "old_version": base_sha[:12] if base_sha else None,
+                                    "vulns_old": [], "fixed_by_this_change": [], "affected_symbols_in_use": [],
+                                    "note": "no advisories are looked up for the application itself; known vulnerabilities belong to the dependency rows"})
+    dep_roots = sorted({r for p in graph_new.values() if p.get("direct") for r in adapter.import_candidates(p["name"])})
+    tests_present = [str(p.relative_to(trees["new"])) for p in adapter.first_party_files(trees["new"]) if adapter.is_test_file(p.relative_to(trees["new"]))]
+    static = adapter.static_analysis([trees["new"] / n for n in names], trees["new"])
+    rs = risk.score(depth=0, change=it.change, reachable="true", vuln_count=0, high_severity=False, breaking_changes=breaking,
+                    changed_symbols=changed, lines_changed=sdiff.get("lines_added", 0) + sdiff.get("lines_removed", 0), sensitive=[],
+                    preflight_hit=False, new_package=False)
+    fb = FactBundle(package=it.package, purl=it.purl, old_version=base_sha[:12] if base_sha else None, new_version=head_sha[:12],
+                    depth=0, change=it.change, import_names=names,
+                    api_old_ref="api.old.json" if changed_mode else None, api_new_ref="api.new.json",
+                    api_diff_ref="api-diff.json" if changed_mode else None,
+                    api_diff_summary={"added": sum(1 for c in diff if c.kind == "added"), "removed": sum(1 for c in diff if c.kind == "removed"),
+                                      "changed": changed, "breaking": breaking, "breaking_symbols": [c.symbol for c in diff if c.breaking][:30]},
+                    source_diff_summary=sdiff, call_sites_ref="call-sites.json",
+                    call_sites_summary={"production": 0, "test": 0, "reachable": "true", "reachable_note": "the application's own code",
+                                        "dependents_in_graph": [], "symbols_used": changed_symbols, "files": []},
+                    upstream_tests={"present": bool(tests_present), "count": len(tests_present), "files": tests_present[:30],
+                                    "note": "the application's own test files"},
+                    vulns_ref="vulns.json",
+                    vulns_summary={"count": 0, "ids": [], "count_old": 0, "fixed_by_this_change": [], "cves": [], "fixed_versions": [],
+                                   "affected_symbols_in_use": [], "symbols_named_by_advisories": False},
+                    notes_ref=None, static_analysis=static, sensitivity=[], risk=rs, generated=now_iso())
+    facts = {**vars(fb), "first_party": True, "source_trees": {k: str(v.relative_to(workdir)) for k, v in trees.items()},
+             "dependency_import_names": dep_roots}
+    write_json(out / "facts.json", facts)
+    return fb
 
 
 def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_version: str | None,
@@ -134,7 +218,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
 
 
 def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = False,
-            python_version: str | None = None, repo: str | None = None) -> list[FactBundle]:
+            python_version: str | None = None, repo: str | None = None, target: str = "dependencies") -> list[FactBundle]:
     wl_path = workdir / "intake" / "worklist.json"
     if not wl_path.exists():
         raise HarnessError(f"no work list at {wl_path}; run intake first")
@@ -149,12 +233,15 @@ def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = 
     dependents_of = {name: sorted(p for p, d in graph.items() if name in d["requires"])
                      + sorted(f"{p} (optional extra)" for p, d in graph.items() if name in d.get("optional_requires", []))
                      for name in graph}
-    rows = _select(wl, select, all_rows)
-    log(f"analyze: {len(rows)} of {len(wl.items)} work-list rows selected")
+    rows = _select(wl, select, all_rows, target)
+    log(f"analyze: {len(rows)} of {len(wl.items)} work-list rows selected (target: {target})")
     bundles = []
     for it in rows:
         log(f"  {it.package} {it.old_version} -> {it.new_version} ({it.change}, depth {it.depth})")
-        bundles.append(analyze_item(it, repo, workdir, adapter, python_version, vuln_index, dependents_of.get(it.package, [])))
+        if it.depth == 0:
+            bundles.append(analyze_first_party(it, repo, workdir, adapter, graph))
+        else:
+            bundles.append(analyze_item(it, repo, workdir, adapter, python_version, vuln_index, dependents_of.get(it.package, [])))
     summary = [{"package": b.package, "change": b.change, "depth": b.depth, "old": b.old_version, "new": b.new_version,
                 "reachable": b.call_sites_summary["reachable"], "call_sites": b.call_sites_summary["production"],
                 "vulns": b.vulns_summary["count"], "breaking": b.api_diff_summary["breaking"],

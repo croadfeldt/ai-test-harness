@@ -679,17 +679,36 @@ def requirements(graph_packages: dict) -> list[str]:
     return [f"{p['name']}=={p['version']}" for p in graph_packages.values()]
 
 
-def prefetch(reqs: list[str], python_version: str, dest: Path) -> dict:
-    """An environment record: where the offline wheelhouse is and what it pins."""
+def prefetch(reqs: list[str], python_version: str, dest: Path, source: Path | None = None) -> dict:
+    """An environment record: where the offline wheelhouse is and what it pins; for a first-party
+    target, also the application's own tree, which the sandbox puts on the import path."""
     from .. import sandbox
-    return {"dir": sandbox.prefetch_wheelhouse(reqs, python_version, dest), "requirements": reqs, "kind": "wheelhouse"}
+    env = {"dir": sandbox.prefetch_wheelhouse(reqs, python_version, dest), "requirements": reqs, "kind": "wheelhouse"}
+    if source:
+        env["source"] = str(source)
+    return env
 
 
 def run_tests(env: dict, tests_dir: Path, out_dir: Path, cover: list[str], label: str, overlay_dir: Path | None = None,
               limits: dict | None = None) -> dict:
     from .. import sandbox
     return sandbox.run_tests(wheelhouse=Path(env["dir"]), requirements=env["requirements"], tests_dir=tests_dir, out_dir=out_dir,
-                             cover=cover, label=label, overlay_dir=overlay_dir, limits=limits or sandbox.LIMITS)
+                             cover=cover, label=label, overlay_dir=overlay_dir, limits=limits or sandbox.LIMITS,
+                             source_dir=Path(env["source"]) if env.get("source") else None)
+
+
+def first_party_packages(tree: Path) -> list[str]:
+    """The application's own importable packages: top-level directories with an __init__.py, at the
+    root or under src/, leaving out tests, scripts, docs and the like."""
+    skip = {"tests", "test", "scripts", "docs", "examples", "build", "dist", "site", "static", "migrations", "node_modules"}
+    out = []
+    for base in (tree, tree / "src"):
+        if not base.is_dir():
+            continue
+        for d in sorted(base.iterdir()):
+            if d.is_dir() and (d / "__init__.py").exists() and d.name not in skip and not d.name.startswith((".", "_")):
+                out.append(d.name)
+    return out
 
 
 def parse_results(summary: dict) -> dict:
@@ -885,11 +904,12 @@ def apply_mutation(src_path: Path, site: dict) -> str | None:
 
 def coverage_files(coverage_json: Path, roots: list[str]) -> dict[str, set[int]]:
     """Executed lines per package file, keyed by the path relative to the installed package root."""
+    from .. import sandbox
     cov = _json.loads(coverage_json.read_text())
     out = {}
     for fname, fdata in cov.get("files", {}).items():
-        if "site-packages/" in fname and any(f"/{r}/" in fname or fname.endswith(f"/{r}.py") for r in roots):
-            out[fname.split("site-packages/")[-1]] = set(fdata.get("executed_lines", []))
+        if any(f"/{r}/" in fname or fname.endswith(f"/{r}.py") for r in roots):
+            out[sandbox.source_relative(fname, roots)] = set(fdata.get("executed_lines", []))
     return out
 
 

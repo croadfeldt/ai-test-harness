@@ -25,6 +25,44 @@ def _reqs(workdir: Path, tag: str, adapter=None) -> list[str]:
     return (adapter or adapters.get("python")).requirements(g)
 
 
+def verdict(t: dict, msg_old: str, roles: dict, fix_patch: str | None) -> str:
+    """Every old/new outcome maps to a fixed, honest verdict (GF-012). CVE tests are judged by the
+    differential with the roles from the advisories (GF-016); a test that did not compile is a test
+    bug in either category; the others are characterization outcomes."""
+    from .agent import fix_reached
+    o, n = t["versions"]["old"], t["versions"]["new"]
+    msg_new = t.get("message", "")
+    if t["status"] == "flaky":
+        return "flaky: discard"
+    if t["category"] == "cve":
+        # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
+        vuln_status, fixed_status = (n, o) if roles["direction"] in ("downgrade", "candidate") else (o, n)
+        if vuln_status == "fail" and fixed_status == "pass":
+            return ("exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it"
+                    if roles["direction"] == "downgrade" else
+                    f"exposure confirmed: fails at head {roles['vulnerable']}, passes with the fixed candidate {roles['fixed']}"
+                    if roles["direction"] == "candidate" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
+        if o == "pass" and n == "pass":
+            return "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
+        if msg_new.startswith("did not compile"):
+            return "did not compile: test bug; back to generation"
+        if n in ("fail", "error") and fix_reached(msg_new, fix_patch):
+            return "fix reached, assertion wrong: the fixed version raised the error the fix introduced; expect it on new and show old accepting the input"
+        if n in ("fail", "error") and o in ("fail", "error") and msg_new and msg_new.split(":")[0] == msg_old.split(":")[0] \
+                and not msg_new.startswith(("AssertionError", "Failed: DID NOT RAISE", "assert ")):
+            return f"blocked on both versions: {msg_new.split(':')[0]} on old and new; possible package or environment defect, reproducer attached"
+        if n in ("fail", "error"):
+            return "fails on the fixed version: test bug or the advisory is misread; back to generation"
+        return f"inconclusive (old={o}, new={n})"
+    if msg_new.startswith("did not compile"):
+        return "did not compile: test bug; back to generation"
+    if n == "pass" and o in ("pass", "na"):
+        return "candidate: passes on head" + (", same on old" if o == "pass" else "")
+    if n == "pass" and o in ("fail", "error"):
+        return "behavior changed between versions: passes on new, fails on old; reviewer note"
+    return f"fails on head: test bug or defect (new={n})"
+
+
 def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) -> dict:
     adapter = adapter or adapters.get("python")
     gen = read_json(workdir / "generate" / pkg / "manifest.json")
@@ -57,11 +95,13 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         # actually ran with before the change. Swapping one package inside the head graph produces
         # sets that never existed and may not resolve (python-jose 3.3.0 with head's pyasn1 did not).
         plans.append(("old", _reqs(workdir, "old", adapter)))
+    trees = facts.get("source_trees") if facts.get("first_party") else None
     for label, reqs in plans:
         if label == "old" and "old" in runs:
             continue
         env_tag = "old" if label == "old" else "new"
-        env = adapter.prefetch(reqs, python_version, env_dir(workdir, adapter, env_tag))
+        env = adapter.prefetch(reqs, python_version, env_dir(workdir, adapter, env_tag),
+                               source=(workdir / trees[env_tag]) if trees and env_tag in trees else None)
         log(f"    sandbox run {label}")
         s = adapter.run_tests(env, tests_dir, out / label, cover=roots, label=f"{pkg}-{label}")
         runs[label] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
@@ -85,41 +125,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                       "symbols_exercised": f.get("targets", [])[:10]})
     # Verdict per test from the differential, per blueprint stage 3 and 4.
     for t in tests:
-        o, n = t["versions"]["old"], t["versions"]["new"]
-        if t["status"] == "flaky":
-            t["verdict"] = "flaky: discard"
-        elif t["category"] == "cve":
-            msg_new = t["message"]
-            msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
-            # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
-            vuln_status, fixed_status = (n, o) if roles["direction"] in ("downgrade", "candidate") else (o, n)
-            if vuln_status == "fail" and fixed_status == "pass":
-                t["verdict"] = ("exposure confirmed: the downgrade to the vulnerable version fails this test and the previous, fixed version passes it"
-                                if roles["direction"] == "downgrade" else
-                                f"exposure confirmed: fails at head {roles['vulnerable']}, passes with the fixed candidate {roles['fixed']}"
-                                if roles["direction"] == "candidate" else "fix-pinning confirmed: fails on vulnerable, passes on fixed")
-            elif o == "pass" and n == "pass":
-                t["verdict"] = "not a fix-pinning test: passes on both versions; keep only as characterization if it covers the symbol"
-            elif msg_new.startswith("did not compile"):
-                t["verdict"] = "did not compile: test bug; back to generation"
-            elif n in ("fail", "error") and fix_reached(msg_new, fix_patch):
-                t["verdict"] = "fix reached, assertion wrong: the fixed version raised the error the fix introduced; expect it on new and show old accepting the input"
-            elif n in ("fail", "error") and o in ("fail", "error") and msg_new and msg_new.split(":")[0] == msg_old.split(":")[0] \
-                    and not msg_new.startswith(("AssertionError", "Failed: DID NOT RAISE", "assert ")):
-                t["verdict"] = f"blocked on both versions: {msg_new.split(':')[0]} on old and new; possible package or environment defect, reproducer attached"
-            elif n in ("fail", "error"):
-                t["verdict"] = "fails on the fixed version: test bug or the advisory is misread; back to generation"
-            else:
-                t["verdict"] = f"inconclusive (old={o}, new={n})"
-        else:
-            if msg_new.startswith("did not compile"):
-                t["verdict"] = "did not compile: test bug; back to generation"
-            elif n == "pass" and o in ("pass", "na"):
-                t["verdict"] = "candidate: passes on head" + (", same on old" if o == "pass" else "")
-            elif n == "pass" and o in ("fail", "error"):
-                t["verdict"] = "behavior changed between versions: passes on new, fails on old; reviewer note"
-            else:
-                t["verdict"] = f"fails on head: test bug or defect (new={n})"
+        msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
+        t["verdict"] = verdict(t, msg_old, roles, fix_patch)
     cov_new = runs["new"]["coverage"]
     results = {
         "run_id": read_json(workdir / "intake" / "worklist.json")["run_id"],

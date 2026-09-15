@@ -44,7 +44,10 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
     # Executed lines per package file from the head coverage run; source from the cache.
     executed = adapter.coverage_files(cov_path, roots)
     cache = workdir / "cache"
-    unpacked = adapter.pkg_root(adapter.unpack(adapter.fetch(pkg, facts["new_version"], cache, python_version), cache))
+    if facts.get("first_party"):
+        unpacked = workdir / facts["source_trees"]["new"]
+    else:
+        unpacked = adapter.pkg_root(adapter.unpack(adapter.fetch(pkg, facts["new_version"], cache, python_version), cache))
     sites = []
     for rel, lines in executed.items():
         src_path = unpacked / rel
@@ -56,7 +59,8 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
     log(f"    {pkg}: {len(sites)} mutation sites on {sum(len(l) for l in executed.values())} executed lines; sampling {len(chosen)} (seed {seed})")
     from .generate import env_dir
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
-    env = adapter.prefetch(adapter.requirements(graph_new), python_version, env_dir(workdir, adapter, "new"))
+    env = adapter.prefetch(adapter.requirements(graph_new), python_version, env_dir(workdir, adapter, "new"),
+                           source=(workdir / facts["source_trees"]["new"]) if facts.get("first_party") else None)
     limits = {"timeout_s": 300}
     mutants = []
     for i, site in enumerate(chosen, 1):

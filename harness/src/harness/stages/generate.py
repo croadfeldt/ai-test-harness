@@ -125,6 +125,9 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
     parts = adapter.prompt_preamble(facts) + [
              "TASK: " + adapter.CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
                                                                 vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
+    if facts.get("first_party"):
+        parts.append("This is the application's own code, not a dependency: the package under test is the application itself, at the commit "
+                     "under review. Test its public functions and classes the way a maintainer would, through their documented behavior.")
     if category == "cve" and roles.get("direction") == "candidate":
         parts.append(f"NOTE: the application is on the VULNERABLE version {roles['vulnerable']} and the change did not move it. "
                      f"The FIXED version {roles['fixed']} is a candidate environment the harness resolved ({roles.get('candidate_note', '')}); "
@@ -135,7 +138,10 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
                      f"OLD version {facts['old_version']} is the fixed one. The test must fail on {facts['new_version']} and pass on {facts['old_version']}.")
     parts.append(_data("API", _api_subset(api, used)))
     prod = [{"file": s["file"], "line": s["line"], "symbol": s["symbol"], "code": s["context"]} for s in sites if not s["in_test"]][:40]
-    parts.append(_data("CALL SITES", prod or "none: the application does not reference this package directly"))
+    if facts.get("first_party"):
+        parts.append(_data("SYMBOLS THIS CHANGE ADDED OR CHANGED", used or "none: this is a scan of the whole application, not a change"))
+    else:
+        parts.append(_data("CALL SITES", prod or "none: the application does not reference this package directly"))
     if category == "cve":
         adv = [{"id": v["id"], "aliases": v["aliases"], "summary": v["summary"], "severity": v["severity"],
                 "fixed_versions": v["fixed_versions"], "affected_symbols": v["affected_symbols"],
@@ -290,7 +296,10 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                 continue
             break
         if code is None or adapter.compile_check(code) or not adapter.test_names(code):
-            manifest["discarded"].append({"category": cat, "reason": "no parseable test file after repairs", "attempts": attempts})
+            # The reason the last attempt was sent back is the reason the file was discarded; keep it.
+            manifest["discarded"].append({"category": cat, "reason": "no parseable test file after repairs", "attempts": attempts,
+                                          "last_problem": (history[-1] if history else "")[:300]})
+            log(f"    {cat}: discarded after {attempts} attempt(s): {(history[-1] if history else '')[:120]}")
             continue
         run_final = run1
         if run_final is None or _collected_nothing(run_final["results"]):
@@ -353,21 +362,29 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
             log(f"  {pkg}: snapshot budget, no generation"); continue
         gen_dir = workdir / "generate" / pkg
         model = Model(cfg, gen_dir / "model-calls")
-        dep_roots = adapter.dep_roots(graph_new, pkg)
         facts_path = workdir / "analyze" / pkg / "facts.json"
-        facts = read_json(facts_path); facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
+        facts = read_json(facts_path)
+        first_party = bool(facts.get("first_party"))
+        dep_roots = facts.get("dependency_import_names", []) if first_party else adapter.dep_roots(graph_new, pkg)
+        facts["dependency_import_names"] = dep_roots; write_json(facts_path, facts)
+        pkg_env_new, pkg_env_old_default = env_new, env_old
+        if first_party:
+            # The application's own tree rides along with the dependency environment, at head and at base.
+            trees = facts["source_trees"]
+            pkg_env_new = {**env_new, "source": str(workdir / trees["new"])}
+            pkg_env_old_default = {**(env_old or env_new), "source": str(workdir / trees["old"])} if "old" in trees else None
         cats = categories or ["unit", "functional", "negative", "cve"]
         # Package unchanged and vulnerable at head: resolve a fixed-candidate environment as the second
         # environment for CVE tests (blueprint stage 3, CVE-targeted tests against vulnerable and fixed).
-        pkg_env_old = env_old
-        if "cve" in cats and not env_old:
+        pkg_env_old = pkg_env_old_default
+        if "cve" in cats and not env_old and not first_party:
             cand = adapter.fixed_candidate(workdir, pkg, python_version)
             if cand["status"] == "resolved":
                 pkg_env_old = {"dir": workdir / cand["wheelhouse"], "requirements": cand["requirements"], "kind": cand.get("env_kind", "wheelhouse")}
         fixed_cats = [c for c in cats if not (mode == "agent" and c == "cve")]
-        m = generate_package(workdir / "analyze" / pkg, gen_dir, model, env_new, fixed_cats, dep_roots=dep_roots,
+        m = generate_package(workdir / "analyze" / pkg, gen_dir, model, pkg_env_new, fixed_cats, dep_roots=dep_roots,
                              env_old=pkg_env_old, adapter=adapter)
-        if mode == "agent" and "cve" in cats and pkg_env_old:
+        if mode == "agent" and "cve" in cats and pkg_env_old and not first_party:
             from . import agent
             am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, env_new, pkg_env_old,
                                           dep_roots, adapter, python_version, workdir=workdir)

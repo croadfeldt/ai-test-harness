@@ -134,7 +134,7 @@ The packet opens in plain terms: what the change did to the package, how many vu
 
 # The failure register: the harness tests itself first
 
-Nineteen entries, each with the issue, why it matters, the cause, the detector, the automatic correction, and a self-check that runs at stage 0. Written check-first: the check fails on the old code and passes after the fix.
+Twenty-two entries, each with the issue, why it matters, the cause, the detector, the automatic correction, and a self-check that runs at stage 0. Written check-first: the check fails on the old code and passes after the fix.
 
 | Id | In one line |
 |---|---|
@@ -206,19 +206,18 @@ Nothing about a machine, endpoint, or path is in the repository. Records carry l
 
 # Known limits, stated
 
-- Eleven of fourteen vulnerabilities tried remain unproven; a stronger model is the next variable.
-- Mutation scores are below target; starlette's accepted tests killed nothing.
-- No relevance engine yet: obsolete and redundant tests are not proposed for retirement.
-- Signing uses a development key; Trusted Artifact Signer replaces it in Konflux.
-- Python only. Go is next, via the same adapter interface.
+- Most vulnerabilities tried remain unproven at this model size; a stronger model is the next variable, and Go is where it shows first: the 27B rarely writes Go that compiles.
+- Mutation scores are below target on every package; the packets say so.
+- Signing uses a development key; Trusted Artifact Signer replaces it in Konflux. The harness's pull requests carry a placeholder identity until a bot account exists.
+- Go first-party targets, and propose and feedback inside the Tekton pipeline, are not wired yet.
 
 ---
 
 # What is next
 
-1. The relevance engine: propose retirements with evidence.
-2. Tekton wrapping: stage 0 through attestation as one PipelineRun on the cluster.
-3. A stronger model as the next ladder rung.
-4. The Go adapter on a second real repository.
+1. A stronger model as the next ladder rung, on Go first.
+2. Go first-party targets: tests placed inside the module.
+3. Propose and feedback inside the Tekton pipeline, once the bot identity has credentials and a signing key.
+4. Reviewer decisions feeding prompt evaluation, now that they are captured.
 
 The blueprint, the code, and every run are at the project site and repository.
