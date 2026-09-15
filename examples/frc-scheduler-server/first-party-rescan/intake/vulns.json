@@ -1,0 +1,1835 @@
+{
+  "absl-py@2.5.0": [],
+  "annotated-types@0.8.0": [],
+  "anyio@4.15.1": [],
+  "asyncpg@0.30.0": [],
+  "brotli@1.2.0": [],
+  "certifi@2026.7.22": [],
+  "cffi@2.1.1": [],
+  "charset-normalizer@3.5.1": [],
+  "click@8.5.0": [],
+  "cryptography@50.0.1": [],
+  "cssselect2@0.10.1": [],
+  "deprecated@1.3.1": [],
+  "ecdsa@0.19.2": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-23342",
+        "PYSEC-2026-1325"
+      ],
+      "fixed_versions": [],
+      "id": "GHSA-wj6h-64fc-37mp",
+      "malicious": false,
+      "references": [
+        "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+        "https://github.com/tlsfuzzer/python-ecdsa",
+        "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+        "https://minerva.crocs.fi.muni.cz",
+        "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "Minerva timing attack on P-256 in python-ecdsa"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-23342",
+        "GHSA-wj6h-64fc-37mp"
+      ],
+      "fixed_versions": [],
+      "id": "PYSEC-2026-1325",
+      "malicious": false,
+      "references": [
+        "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+        "https://github.com/tlsfuzzer/python-ecdsa",
+        "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+        "https://minerva.crocs.fi.muni.cz",
+        "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python",
+        "https://pypi.org/project/ecdsa",
+        "https://github.com/advisories/GHSA-wj6h-64fc-37mp"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "Minerva timing attack on P-256 in python-ecdsa"
+    }
+  ],
+  "et-xmlfile@2.0.0": [],
+  "fastapi@0.115.5": [],
+  "fonttools@4.65.0": [],
+  "greenlet@3.5.6": [],
+  "h11@0.16.0": [],
+  "httpcore@1.0.9": [],
+  "httptools@0.8.0": [],
+  "httpx@0.27.2": [],
+  "idna@3.19": [],
+  "immutabledict@4.3.1": [],
+  "limits@5.8.0": [],
+  "numpy@2.5.3": [],
+  "openpyxl@3.1.5": [],
+  "ortools@9.15.6755": [],
+  "packaging@26.3": [],
+  "pandas@3.0.5": [],
+  "pdfminer-six@20231228": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-70559",
+        "PYSEC-2026-1761"
+      ],
+      "fixed_versions": [
+        "20251230"
+      ],
+      "id": "GHSA-f83h-ghpp-7wcc",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-f83h-ghpp-7wcc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-70559",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Insecure Deserialization (pickle) in pdfminer.six CMap Loader \u2014 Local Privesc"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-64512",
+        "PYSEC-2026-1762"
+      ],
+      "fixed_versions": [
+        "20251107"
+      ],
+      "id": "GHSA-wf5f-4jwr-ppcp",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-wf5f-4jwr-ppcp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-64512",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://github.com/pdfminer/pdfminer.six/releases/tag/20251107",
+        "https://lists.debian.org/debian-lts-announce/2025/11/msg00017.html",
+        "https://lists.debian.org/debian-lts-announce/2026/01/msg00005.html"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "summary": "Arbitrary Code Execution in pdfminer.six via Crafted PDF Input"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-70559",
+        "GHSA-f83h-ghpp-7wcc"
+      ],
+      "fixed_versions": [
+        "20251230"
+      ],
+      "id": "PYSEC-2026-1761",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-f83h-ghpp-7wcc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-70559",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://pypi.org/project/pdfminer-six",
+        "https://github.com/advisories/GHSA-f83h-ghpp-7wcc"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Insecure Deserialization (pickle) in pdfminer.six CMap Loader \u2014 Local Privesc"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-64512",
+        "GHSA-wf5f-4jwr-ppcp"
+      ],
+      "fixed_versions": [
+        "20251107"
+      ],
+      "id": "PYSEC-2026-1762",
+      "malicious": false,
+      "references": [
+        "https://github.com/pdfminer/pdfminer.six/security/advisories/GHSA-wf5f-4jwr-ppcp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-64512",
+        "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+        "https://github.com/pdfminer/pdfminer.six",
+        "https://github.com/pdfminer/pdfminer.six/releases/tag/20251107",
+        "https://lists.debian.org/debian-lts-announce/2025/11/msg00017.html",
+        "https://lists.debian.org/debian-lts-announce/2026/01/msg00005.html",
+        "https://pypi.org/project/pdfminer-six",
+        "https://github.com/advisories/GHSA-wf5f-4jwr-ppcp"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "summary": "Arbitrary Code Execution in pdfminer.six via Crafted PDF Input"
+    }
+  ],
+  "pdfplumber@0.11.4": [],
+  "pillow@11.0.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55379",
+        "CVE-2026-55379",
+        "PYSEC-2026-2255"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-45hq-cxwh-f6vc",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-45hq-cxwh-f6vc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55379",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-2255.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow `BdfFontFile`: `Image.new()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via font loading"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55798",
+        "CVE-2026-55798",
+        "PYSEC-2026-2257"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-4x4j-2g7c-83w6",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-4x4j-2g7c-83w6",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55798",
+        "https://github.com/python-pillow/Pillow/commit/8404ea5fe5df40fc34aa1e51403dd6fce0778b8a",
+        "https://github.com/python-pillow/Pillow/commit/88194166691b7b603529b8b036ab3ab9cedd2de4",
+        "https://github.com/python-pillow/Pillow/commit/b0e06caa64c1405aa3da0bb1d2bd9a77ca22de7f",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-2257.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+      "summary": "Pillow: WindowsViewer.get_command() OS command injection via unescaped shell path"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54060",
+        "CVE-2026-54060",
+        "PYSEC-2026-2254"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-5x94-69rx-g8h2",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-5x94-69rx-g8h2",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54060",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-2254.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow: `FontFile.compile()`: `Image.new()` called without `_decompression_bomb_check()`"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54058",
+        "CVE-2026-54058",
+        "PYSEC-2026-3493"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-62p4-gmf7-7g93",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-62p4-gmf7-7g93",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54058",
+        "https://github.com/python-pillow/Pillow/pull/9719",
+        "https://github.com/python-pillow/Pillow/commit/6a8de891fb00968e5ea79bfa84368ed90b3cfc1d",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow: Out-of-bounds read via attacker-controlled row stride on Pillow's mmap path (McIdas AREA files)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59199",
+        "CVE-2026-59199",
+        "PYSEC-2026-3451"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-6r8x-57c9-28j4",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-6r8x-57c9-28j4",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59199",
+        "https://github.com/python-pillow/Pillow/pull/9703",
+        "https://github.com/python-pillow/Pillow/commit/ceefc348eb3c3844c7f9796ef2cc3a7dd5fbba7b",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-3451.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow: Heap out-of-bounds write `Image.paste()` / `Image.crop()` via signed coordinate overflow"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54059",
+        "CVE-2026-54059",
+        "PYSEC-2026-2253"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-8v84-f9pq-wr9x",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-8v84-f9pq-wr9x",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54059",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-2253.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow `PcfFontFile._load_bitmaps()`: `Image.frombytes()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via PCF font loading"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59205",
+        "CVE-2026-59205",
+        "PYSEC-2026-3453"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-9hw9-ch79-4vh6",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-9hw9-ch79-4vh6",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59205",
+        "https://github.com/python-pillow/Pillow/pull/9715",
+        "https://github.com/python-pillow/Pillow/commit/a9ffc42bedf4fc0a7ef8d6486e7f9e81e3397721",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-3453.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow: Controlled heap out-of-bounds write in Pillow `ImageCmsTransform.apply()` via output mode mismatch"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-25990",
+        "CVE-2026-25990",
+        "PYSEC-2026-2249"
+      ],
+      "fixed_versions": [
+        "12.1.1"
+      ],
+      "id": "GHSA-cfh3-3jmp-rvhc",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-cfh3-3jmp-rvhc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-25990",
+        "https://github.com/python-pillow/Pillow/pull/9427",
+        "https://github.com/python-pillow/Pillow/commit/54ba4db542ad3c7b918812a4e2d69c27735a3199",
+        "https://github.com/python-pillow/Pillow/commit/9000313cc5d4a31bdcdd6d7f0781101abab553aa",
+        "https://github.com/python-pillow/Pillow",
+        "https://pillow.readthedocs.io/en/stable/releasenotes/12.1.1.html"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow affected by out-of-bounds write when loading PSD images"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59198",
+        "CVE-2026-59198",
+        "PYSEC-2026-3494"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-fj7v-r99m-22gq",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-fj7v-r99m-22gq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59198",
+        "https://github.com/python-pillow/Pillow/pull/9709",
+        "https://github.com/python-pillow/Pillow/commit/eada3cbd7fb9963ee90673fb7b5270124a0d5f4b",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:L",
+      "summary": "Pillow TGA RLE encoder can serialize up to ~57 KB of adjacent heap data into generated images"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59200",
+        "CVE-2026-59200",
+        "PYSEC-2026-3495"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-jjj6-mw9f-p565",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-jjj6-mw9f-p565",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59200",
+        "https://github.com/python-pillow/Pillow/pull/9718",
+        "https://github.com/python-pillow/Pillow/commit/f7a31ea75e460e108c37126da1f47812f21f6b09",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55380",
+        "CVE-2026-55380",
+        "PYSEC-2026-2256"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-phj9-mv4w-65pm",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-phj9-mv4w-65pm",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55380",
+        "https://github.com/python-pillow/Pillow/commit/f39b0ae6624eb2d7c5c5d651d9bb5fdbd96a8675",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-2256.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow `GdImageFile._open()`: image dimensions accepted without `_decompression_bomb_check()`"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42311",
+        "CVE-2026-42311",
+        "PYSEC-2026-2252"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "GHSA-pwv6-vv43-88gr",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-cfh3-3jmp-rvhc",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-pwv6-vv43-88gr",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42311",
+        "https://github.com/python-pillow/Pillow/pull/9520",
+        "https://github.com/python-pillow/Pillow/commit/58f9a1d166dcb0c274807d4423522d205b0c35ea",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow has an OOB Write with Invalid PSD Tile Extents (Integer Overflow)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42310",
+        "CVE-2026-42310",
+        "PYSEC-2026-2874"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "GHSA-r73j-pqj5-w3x7",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-r73j-pqj5-w3x7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42310",
+        "https://github.com/python-pillow/Pillow/pull/9519",
+        "https://github.com/python-pillow/Pillow/commit/3bf614e4b8615d0ce1d5039efaf6db447fe7c468",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow has a PDF Parsing Trailer Infinite Loop (DoS)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59204",
+        "CVE-2026-59204",
+        "PYSEC-2026-3496"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-vjc4-5qp5-m44j",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-vjc4-5qp5-m44j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59204",
+        "https://github.com/python-pillow/Pillow/pull/9704",
+        "https://github.com/python-pillow/Pillow/commit/13ada41172142f2fd9f0906f615a00ea623a11ca",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow JPEG2000 tiled decode retains a growing scratch buffer and can be used for denial of service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-40192",
+        "CVE-2026-40192",
+        "PYSEC-2026-2250"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "GHSA-whj4-6x5x-4v2j",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-whj4-6x5x-4v2j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40192",
+        "https://github.com/python-pillow/Pillow/pull/9521",
+        "https://github.com/python-pillow/Pillow/commit/3cb854e8b2bab43f40e342e665f9340d861aa628",
+        "https://github.com/python-pillow/Pillow",
+        "https://pillow.readthedocs.io/en/stable/releasenotes/12.2.0.html#prevent-fits-decompression-bomb"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "FITS GZIP decompression bomb in Pillow"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42308",
+        "CVE-2026-42308",
+        "PYSEC-2026-165"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "GHSA-wjx4-4jcj-g98j",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-wjx4-4jcj-g98j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42308",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2026-165.yaml",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow has an integer overflow when processing fonts"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59197",
+        "CVE-2026-59197",
+        "PYSEC-2026-3454"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "GHSA-xj96-63gp-2gmr",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-xj96-63gp-2gmr",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59197",
+        "https://github.com/python-pillow/Pillow/pull/9695",
+        "https://github.com/python-pillow/Pillow/commit/cce3bdb867c77a3420261ed1bfdb6b0787ec8fc1",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+      "summary": "Pillow: Heap out-of-bounds write in `ImageFilter.RankFilter` via integer overflow in `ImagingExpand`"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42308",
+        "CVE-2026-42308",
+        "GHSA-wjx4-4jcj-g98j"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "PYSEC-2026-165",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-wjx4-4jcj-g98j"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to version 12.2.0, if a font advances for each glyph by an exceeding large amount, when Pillow keeps track of the current position, it may lead to an integer overflow. This issue has been patched in version 12.2.0."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-25990",
+        "CVE-2026-25990",
+        "GHSA-cfh3-3jmp-rvhc"
+      ],
+      "fixed_versions": [
+        "12.1.1"
+      ],
+      "id": "PYSEC-2026-2249",
+      "malicious": false,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-25990",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-25990.json",
+        "https://access.redhat.com/errata/RHSA-2026:10184",
+        "https://access.redhat.com/errata/RHSA-2026:14873",
+        "https://access.redhat.com/errata/RHSA-2026:14874",
+        "https://access.redhat.com/errata/RHSA-2026:16174",
+        "https://access.redhat.com/errata/RHSA-2026:19712",
+        "https://access.redhat.com/errata/RHSA-2026:28385",
+        "https://access.redhat.com/errata/RHSA-2026:3461",
+        "https://access.redhat.com/errata/RHSA-2026:3462"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. From 10.3.0 to before 12.1.1, an out-of-bounds write may be triggered when loading a specially crafted PSD image. This vulnerability is fixed in 12.1.1."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-40192",
+        "CVE-2026-40192",
+        "GHSA-whj4-6x5x-4v2j"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "PYSEC-2026-2250",
+      "malicious": false,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-40192",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-40192.json",
+        "https://access.redhat.com/errata/RHSA-2026:16008",
+        "https://access.redhat.com/errata/RHSA-2026:16009",
+        "https://access.redhat.com/errata/RHSA-2026:16030",
+        "https://access.redhat.com/errata/RHSA-2026:16174",
+        "https://access.redhat.com/errata/RHSA-2026:17609",
+        "https://access.redhat.com/errata/RHSA-2026:17611",
+        "https://access.redhat.com/errata/RHSA-2026:19375",
+        "https://access.redhat.com/errata/RHSA-2026:19712"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Versions 10.3.0 through 12.1.1 did not limit the amount of GZIP-compressed data read when decoding a FITS image, making them vulnerable to decompression bomb attacks. A specially crafted FITS file could cause unbounded memory consumption, leading to denial of serv"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42311",
+        "CVE-2026-42311",
+        "GHSA-pwv6-vv43-88gr"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "PYSEC-2026-2252",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/commit/58f9a1d166dcb0c274807d4423522d205b0c35ea",
+        "https://github.com/python-pillow/Pillow/pull/9520",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-pwv6-vv43-88gr"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "summary": "Pillow is a Python imaging library. From version 10.3.0 to before version 12.2.0, processing a malicious PSD file could lead to memory corruption, potentially resulting in a crash or arbitrary code execution. This issue has been patched in version 12.2.0."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54059",
+        "CVE-2026-54059",
+        "GHSA-8v84-f9pq-wr9x"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-2253",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-8v84-f9pq-wr9x"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, PIL/PcfFontFile.py _load_bitmaps() read glyph dimensions from the PCF METRICS section and passed them directly to Image.frombytes() without calling Image._decompression_bomb_check(), allowing crafted PCF font data to cause excessive memory allocat"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54060",
+        "CVE-2026-54060",
+        "GHSA-5x94-69rx-g8h2"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-2254",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-5x94-69rx-g8h2"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, PIL/FontFile.py FontFile.compile() assembled per-glyph images into a combined bitmap with Image.new(\"1\", (xsize, ysize)) without calling Image._decompression_bomb_check(), allowing a font to trigger excessive allocation during conversion or saving"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55379",
+        "CVE-2026-55379",
+        "GHSA-45hq-cxwh-f6vc"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-2255",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst",
+        "https://github.com/python-pillow/Pillow/commit/0a263e6264aa5399988d9acd3bbfbca2ca3ec77d",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-45hq-cxwh-f6vc"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, PIL/BdfFontFile.py bdf_char() read the BBX width and height field from a BDF font file and passed attacker-controlled dimensions to Image.new() without calling Image._decompression_bomb_check(), bypassing Pillow's documented decompression bomb pro"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55380",
+        "CVE-2026-55380",
+        "GHSA-phj9-mv4w-65pm"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-2256",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst",
+        "https://github.com/python-pillow/Pillow/commit/f39b0ae6624eb2d7c5c5d651d9bb5fdbd96a8675",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-phj9-mv4w-65pm"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, PIL/GdImageFile.py GdImageFile._open() read image dimensions from the GD 2.x header and stored them in self._size without calling Image._decompression_bomb_check(), allowing a crafted .gd file to trigger excessive C-heap allocation when loaded. Th"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-55798",
+        "CVE-2026-55798",
+        "GHSA-4x4j-2g7c-83w6"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-2257",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/blob/main/docs/releasenotes/12.3.0.rst",
+        "https://github.com/python-pillow/Pillow/commit/8404ea5fe5df40fc34aa1e51403dd6fce0778b8a",
+        "https://github.com/python-pillow/Pillow/commit/88194166691b7b603529b8b036ab3ab9cedd2de4",
+        "https://github.com/python-pillow/Pillow/commit/b0e06caa64c1405aa3da0bb1d2bd9a77ca22de7f",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-4x4j-2g7c-83w6"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, WindowsViewer.get_command() constructed a cmd.exe shell command by directly embedding a file path into an f-string without escaping and passed the result to subprocess.Popen(..., shell=True), allowing shell metacharacters in the file path to injec"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-42310",
+        "CVE-2026-42310",
+        "GHSA-r73j-pqj5-w3x7"
+      ],
+      "fixed_versions": [
+        "12.2.0"
+      ],
+      "id": "PYSEC-2026-2874",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-r73j-pqj5-w3x7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42310",
+        "https://github.com/python-pillow/Pillow/pull/9519",
+        "https://github.com/python-pillow/Pillow/commit/3bf614e4b8615d0ce1d5039efaf6db447fe7c468",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://pypi.org/project/pillow",
+        "https://github.com/advisories/GHSA-r73j-pqj5-w3x7"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow has a PDF Parsing Trailer Infinite Loop (DoS)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59199",
+        "CVE-2026-59199",
+        "GHSA-6r8x-57c9-28j4"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3451",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://github.com/python-pillow/Pillow/commit/ceefc348eb3c3844c7f9796ef2cc3a7dd5fbba7b",
+        "https://github.com/python-pillow/Pillow/pull/9703",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-6r8x-57c9-28j4"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, Pillow public image coordinate APIs can trigger a native heap out-of-bounds write when given coordinates near the signed 32-bit integer limits in Image.paste(), Image.crop(), or Image.alpha_composite(). This issue is fixed in version 12.3.0."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59205",
+        "CVE-2026-59205",
+        "GHSA-9hw9-ch79-4vh6"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3453",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://github.com/python-pillow/Pillow/commit/a9ffc42bedf4fc0a7ef8d6486e7f9e81e3397721",
+        "https://github.com/python-pillow/Pillow/pull/9715",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-9hw9-ch79-4vh6"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, Pillow's ImageCms.ImageCmsTransform.apply(im, imOut) API can trigger controlled native heap corruption when the caller supplies an output image whose mode does not match the transform's declared output mode. This issue is fixed in version 12.3.0."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59197",
+        "CVE-2026-59197",
+        "GHSA-xj96-63gp-2gmr"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3454",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://github.com/python-pillow/Pillow/commit/cce3bdb867c77a3420261ed1bfdb6b0787ec8fc1",
+        "https://github.com/python-pillow/Pillow/pull/9695",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-xj96-63gp-2gmr"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+      "summary": "Pillow is a Python imaging library. Prior to 12.3.0, Pillow's public rank-filter API can trigger a native heap out-of-bounds write when given a very large odd filter size because ImageFilter.RankFilter.filter() calls image.expand(size // 2, size // 2) before rank-filter size validation and ImagingEx"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-54058",
+        "CVE-2026-54058",
+        "GHSA-62p4-gmf7-7g93"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3493",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-62p4-gmf7-7g93",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54058",
+        "https://github.com/python-pillow/Pillow/pull/9719",
+        "https://github.com/python-pillow/Pillow/commit/6a8de891fb00968e5ea79bfa84368ed90b3cfc1d",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://pypi.org/project/pillow",
+        "https://github.com/advisories/GHSA-62p4-gmf7-7g93"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow: Out-of-bounds read via attacker-controlled row stride on Pillow's mmap path (McIdas AREA files)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59198",
+        "CVE-2026-59198",
+        "GHSA-fj7v-r99m-22gq"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3494",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-fj7v-r99m-22gq",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59198",
+        "https://github.com/python-pillow/Pillow/pull/9709",
+        "https://github.com/python-pillow/Pillow/commit/eada3cbd7fb9963ee90673fb7b5270124a0d5f4b",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://pypi.org/project/pillow",
+        "https://github.com/advisories/GHSA-fj7v-r99m-22gq"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:L",
+      "summary": "Pillow TGA RLE encoder can serialize up to ~57 KB of adjacent heap data into generated images"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59200",
+        "CVE-2026-59200",
+        "GHSA-jjj6-mw9f-p565"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3495",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-jjj6-mw9f-p565",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59200",
+        "https://github.com/python-pillow/Pillow/pull/9718",
+        "https://github.com/python-pillow/Pillow/commit/f7a31ea75e460e108c37126da1f47812f21f6b09",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://pypi.org/project/pillow",
+        "https://github.com/advisories/GHSA-jjj6-mw9f-p565"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-pillow-2026-59204",
+        "CVE-2026-59204",
+        "GHSA-vjc4-5qp5-m44j"
+      ],
+      "fixed_versions": [
+        "12.3.0"
+      ],
+      "id": "PYSEC-2026-3496",
+      "malicious": false,
+      "references": [
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-vjc4-5qp5-m44j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59204",
+        "https://github.com/python-pillow/Pillow/pull/9704",
+        "https://github.com/python-pillow/Pillow/commit/13ada41172142f2fd9f0906f615a00ea623a11ca",
+        "https://github.com/python-pillow/Pillow",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.3.0",
+        "https://pypi.org/project/pillow",
+        "https://github.com/advisories/GHSA-vjc4-5qp5-m44j"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "Pillow JPEG2000 tiled decode retains a growing scratch buffer and can be used for denial of service"
+    }
+  ],
+  "protobuf@6.33.6": [],
+  "pyasn1@0.6.4": [],
+  "pycparser@3.0": [],
+  "pydantic-core@2.27.1": [],
+  "pydantic@2.10.3": [],
+  "pydyf@0.12.1": [],
+  "pypdfium2@5.13.0": [],
+  "pyphen@0.18.1": [],
+  "pytesseract@0.3.13": [],
+  "python-dateutil@2.9.0.post0": [],
+  "python-dotenv@1.2.3": [],
+  "python-jose@3.3.0": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33663",
+        "CVE-2026-85394",
+        "PYSEC-2024-232"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "GHSA-6c5p-j8vq-pqhj",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-33663",
+        "https://github.com/mpdavis/python-jose/issues/346",
+        "https://github.com/mpdavis/python-jose",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/python-jose/PYSEC-2024-232.yaml",
+        "https://www.vicarius.io/vsociety/posts/algorithm-confusion-in-python-jose-cve-2024-33663"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "python-jose algorithm confusion with OpenSSH ECDSA keys"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33664",
+        "PYSEC-2024-233"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "GHSA-cjwg-qfpm-7377",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-33664",
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/mpdavis/python-jose/pull/345",
+        "https://github.com/mpdavis/python-jose",
+        "https://github.com/mpdavis/python-jose/releases/tag/3.4.0",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/python-jose/PYSEC-2024-233.yaml",
+        "https://www.vicarius.io/vsociety/posts/jwt-bomb-in-python-jose-cve-2024-33664"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-jose denial of service via compressed JWE content"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33663",
+        "CVE-2026-85394",
+        "GHSA-6c5p-j8vq-pqhj"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "PYSEC-2024-232",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/346",
+        "https://www.vicarius.io/vsociety/posts/algorithm-confusion-in-python-jose-cve-2024-33663",
+        "https://github.com/advisories/GHSA-6c5p-j8vq-pqhj"
+      ],
+      "severity": null,
+      "summary": "python-jose through 3.3.0 has algorithm confusion with OpenSSH ECDSA keys and other key formats. This is similar to CVE-2022-29217."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-33664",
+        "GHSA-cjwg-qfpm-7377"
+      ],
+      "fixed_versions": [
+        "3.4.0"
+      ],
+      "id": "PYSEC-2024-233",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/mpdavis/python-jose/pull/345",
+        "https://www.vicarius.io/vsociety/posts/jwt-bomb-in-python-jose-cve-2024-33664",
+        "https://github.com/advisories/GHSA-cjwg-qfpm-7377"
+      ],
+      "severity": null,
+      "summary": "python-jose through 3.3.0 allows attackers to cause a denial of service (resource consumption) during a decode via a crafted JSON Web Encryption (JWE) token with a high compression ratio, aka a \"JWT bomb.\" This is similar to CVE-2024-21319."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-29370",
+        "GHSA-h4pw-wxh7-4vjj"
+      ],
+      "fixed_versions": [],
+      "id": "PYSEC-2025-185",
+      "malicious": false,
+      "references": [
+        "https://github.com/mpdavis/python-jose/issues/344",
+        "https://github.com/advisories/GHSA-h4pw-wxh7-4vjj"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "In python-jose 3.3.0 (specifically jwe.decrypt), a vulnerability allows an attacker to cause a Denial-of-Service (DoS) condition by crafting a malicious JSON Web Encryption (JWE) token with an exceptionally high compression ratio. When this token is processed by the server, it results in significant"
+    }
+  ],
+  "python-multipart@0.0.12": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-53981",
+        "PYSEC-2026-1851"
+      ],
+      "fixed_versions": [
+        "0.0.18"
+      ],
+      "id": "GHSA-59g5-xgcq-4qw3",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-59g5-xgcq-4qw3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-53981",
+        "https://github.com/Kludex/python-multipart/commit/c4fe4d3cebc08c660e57dd709af1ffa7059b3177",
+        "https://github.com/Kludex/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Denial of service (DoS) via deformation `multipart/form-data` boundary"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53539",
+        "PYSEC-2026-3036"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "GHSA-5rvq-cxj2-64vf",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-5rvq-cxj2-64vf",
+        "https://github.com/Kludex/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "python-multipart: Quadratic-time querystring parsing with semicolon separators causes CPU denial of service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53538",
+        "PYSEC-2026-3037"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "GHSA-6jv3-5f52-599m",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-6jv3-5f52-599m",
+        "https://github.com/Kludex/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "python-multipart: Semicolon treated as querystring field separator enables parameter smuggling"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-40347",
+        "PYSEC-2026-3038"
+      ],
+      "fixed_versions": [
+        "0.0.26"
+      ],
+      "id": "GHSA-mj87-hwqh-73pj",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-mj87-hwqh-73pj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40347",
+        "https://github.com/Kludex/python-multipart",
+        "https://github.com/Kludex/python-multipart/releases/tag/0.0.26"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-multipart affected by Denial of Service via large multipart preamble or epilogue data"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-42561",
+        "PYSEC-2026-3039"
+      ],
+      "fixed_versions": [
+        "0.0.27"
+      ],
+      "id": "GHSA-pp6c-gr5w-3c5g",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-pp6c-gr5w-3c5g",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42561",
+        "https://github.com/Kludex/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "python-multipart has Denial of Service via unbounded multipart part headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53540",
+        "PYSEC-2026-3040"
+      ],
+      "fixed_versions": [
+        "0.0.31"
+      ],
+      "id": "GHSA-v9pg-7xvm-68hf",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-v9pg-7xvm-68hf",
+        "https://github.com/Kludex/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-multipart: Negative Content-Length in parse_form buffers the entire body in memory"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53537",
+        "PYSEC-2026-3041"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "GHSA-vffw-93wf-4j4q",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-vffw-93wf-4j4q",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-53537",
+        "https://github.com/Kludex/python-multipart",
+        "https://github.com/advisories/GHSA-vffw-93wf-4j4q",
+        "https://github.com/pypa/advisory-database/blob/main/vulns/python-multipart/PYSEC-2026-3041.yaml",
+        "https://pypi.org/project/python-multipart"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "python-multipart: Content-Disposition parameter smuggling via RFC 2231/5987 extended parameters"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-24486",
+        "PYSEC-2026-1852"
+      ],
+      "fixed_versions": [
+        "0.0.22"
+      ],
+      "id": "GHSA-wp53-j4wj-2cfg",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-wp53-j4wj-2cfg",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24486",
+        "https://github.com/Kludex/python-multipart/commit/9433f4bbc9652bdde82bbe380984e32f8cfc89c4",
+        "https://github.com/Kludex/python-multipart",
+        "https://github.com/Kludex/python-multipart/releases/tag/0.0.22"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L",
+      "summary": "Python-Multipart has Arbitrary File Write via Non-Default Configuration"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2024-53981",
+        "GHSA-59g5-xgcq-4qw3"
+      ],
+      "fixed_versions": [
+        "0.0.18"
+      ],
+      "id": "PYSEC-2026-1851",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-59g5-xgcq-4qw3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-53981",
+        "https://github.com/Kludex/python-multipart/commit/c4fe4d3cebc08c660e57dd709af1ffa7059b3177",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-59g5-xgcq-4qw3"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Denial of service (DoS) via deformation `multipart/form-data` boundary"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-24486",
+        "GHSA-wp53-j4wj-2cfg"
+      ],
+      "fixed_versions": [
+        "0.0.22"
+      ],
+      "id": "PYSEC-2026-1852",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-wp53-j4wj-2cfg",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24486",
+        "https://github.com/Kludex/python-multipart/commit/9433f4bbc9652bdde82bbe380984e32f8cfc89c4",
+        "https://github.com/Kludex/python-multipart",
+        "https://github.com/Kludex/python-multipart/releases/tag/0.0.22",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-wp53-j4wj-2cfg"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L",
+      "summary": "Python-Multipart has Arbitrary File Write via Non-Default Configuration"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53539",
+        "GHSA-5rvq-cxj2-64vf"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "PYSEC-2026-3036",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-5rvq-cxj2-64vf",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-5rvq-cxj2-64vf",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-53539"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "python-multipart: Quadratic-time querystring parsing with semicolon separators causes CPU denial of service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53538",
+        "GHSA-6jv3-5f52-599m"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "PYSEC-2026-3037",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-6jv3-5f52-599m",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-6jv3-5f52-599m",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-53538"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "python-multipart: Semicolon treated as querystring field separator enables parameter smuggling"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-40347",
+        "GHSA-mj87-hwqh-73pj"
+      ],
+      "fixed_versions": [
+        "0.0.26"
+      ],
+      "id": "PYSEC-2026-3038",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-mj87-hwqh-73pj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40347",
+        "https://github.com/Kludex/python-multipart",
+        "https://github.com/Kludex/python-multipart/releases/tag/0.0.26",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-mj87-hwqh-73pj"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-multipart affected by Denial of Service via large multipart preamble or epilogue data"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-42561",
+        "GHSA-pp6c-gr5w-3c5g"
+      ],
+      "fixed_versions": [
+        "0.0.27"
+      ],
+      "id": "PYSEC-2026-3039",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-pp6c-gr5w-3c5g",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-42561",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-pp6c-gr5w-3c5g"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "python-multipart has Denial of Service via unbounded multipart part headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53540",
+        "GHSA-v9pg-7xvm-68hf"
+      ],
+      "fixed_versions": [
+        "0.0.31"
+      ],
+      "id": "PYSEC-2026-3040",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-v9pg-7xvm-68hf",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-v9pg-7xvm-68hf",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-53540"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "python-multipart: Negative Content-Length in parse_form buffers the entire body in memory"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-53537",
+        "GHSA-vffw-93wf-4j4q"
+      ],
+      "fixed_versions": [
+        "0.0.30"
+      ],
+      "id": "PYSEC-2026-3041",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/python-multipart/security/advisories/GHSA-vffw-93wf-4j4q",
+        "https://github.com/Kludex/python-multipart",
+        "https://pypi.org/project/python-multipart",
+        "https://github.com/advisories/GHSA-vffw-93wf-4j4q",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-53537"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "python-multipart: Content-Disposition parameter smuggling via RFC 2231/5987 extended parameters"
+    }
+  ],
+  "pyyaml@6.0.3": [],
+  "rsa@4.9.1": [],
+  "six@1.17.0": [],
+  "slowapi@0.1.9": [],
+  "sniffio@1.3.1": [],
+  "sqlalchemy@2.0.36": [],
+  "starlette@0.41.3": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-54121",
+        "PYSEC-2026-1941"
+      ],
+      "fixed_versions": [
+        "0.47.2"
+      ],
+      "id": "GHSA-2c2j-9gv5-cj73",
+      "malicious": false,
+      "references": [
+        "https://github.com/encode/starlette/security/advisories/GHSA-2c2j-9gv5-cj73",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-54121",
+        "https://github.com/encode/starlette/commit/9f7ec2eb512fcc3fe90b43cb9dd9e1d08696bec1",
+        "https://github.com/encode/starlette",
+        "https://github.com/encode/starlette/blob/fa5355442753f794965ae1af0f87f9fec1b9a3de/starlette/datastructures.py#L436C5-L447C14",
+        "https://github.com/encode/starlette/discussions/2927#discussioncomment-13721403"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "Starlette has possible denial-of-service vector when parsing large files in multipart forms"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-62727",
+        "PYSEC-2026-1942"
+      ],
+      "fixed_versions": [
+        "0.49.1"
+      ],
+      "id": "GHSA-7f5h-v6xp-fcq8",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-7f5h-v6xp-fcq8",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-62727",
+        "https://github.com/Kludex/starlette/commit/4ea6e22b489ec388d6004cfbca52dd5b147127c5",
+        "https://github.com/Kludex/starlette/commit/69ed26a85956ef4bd0161807eb27abf49be7cd3c",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/0.49.1"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette vulnerable to O(n^2) DoS via Range header merging in ``starlette.responses.FileResponse``"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54283",
+        "PYSEC-2026-249"
+      ],
+      "fixed_versions": [
+        "1.3.1"
+      ],
+      "id": "GHSA-82w8-qh3p-5jfq",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-82w8-qh3p-5jfq",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48710",
+        "PYSEC-2026-161",
+        "X41-2026-002"
+      ],
+      "fixed_versions": [
+        "1.0.1"
+      ],
+      "id": "GHSA-86qp-5c8j-p5mr",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-48710",
+        "https://github.com/Kludex/starlette/commit/764dab0dcfb9033d75442d7a359645c9f94648c6",
+        "https://www.x41-dsec.de/lab/advisories/x41-2026-002-starlette",
+        "https://www.secwest.net/starlette",
+        "https://www.cve.org/CVERecord?id=CVE-2026-48710",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48710.json",
+        "https://ostif.org/disclosing-the-badhost-vulnerability-in-starlette",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/starlette/PYSEC-2026-161.yaml",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "Starlette has missing Host header validation that poisons request.url.path, bypassing path-based security checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54282",
+        "PYSEC-2026-248"
+      ],
+      "fixed_versions": [
+        "1.3.0"
+      ],
+      "id": "GHSA-jp82-jpqv-5vv3",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-jp82-jpqv-5vv3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-54282",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/pypa/advisory-database/tree/main/vulns/starlette/PYSEC-2026-248.yaml"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette: Unvalidated request path concatenated into authority poisons request.url.hostname"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48818",
+        "PYSEC-2026-2281"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "GHSA-wqp7-x3pw-xc5r",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-wqp7-x3pw-xc5r",
+        "https://github.com/Kludex/starlette"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48817",
+        "PYSEC-2026-2280"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "GHSA-x746-7m8f-x49c",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-x746-7m8f-x49c",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-48817",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette: Arbitrary HTTP method dispatched to `HTTPEndpoint` attributes via `getattr`"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48710",
+        "GHSA-86qp-5c8j-p5mr",
+        "X41-2026-002"
+      ],
+      "fixed_versions": [
+        "1.0.1"
+      ],
+      "id": "PYSEC-2026-161",
+      "malicious": false,
+      "references": [
+        "https://badhost.org",
+        "https://www.secwest.net/starlette",
+        "https://ostif.org/disclosing-the-badhost-vulnerability-in-starlette/",
+        "https://badhost.org",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr",
+        "https://www.x41-dsec.de/lab/advisories/x41-2026-002-starlette/",
+        "https://github.com/Kludex/starlette/commit/764dab0dcfb9033d75442d7a359645c9f94648c6"
+      ],
+      "severity": null,
+      "summary": "BadHost: Missing Host header validation poisons request.url.path, bypassing path-based security checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-54121",
+        "GHSA-2c2j-9gv5-cj73"
+      ],
+      "fixed_versions": [
+        "0.47.2"
+      ],
+      "id": "PYSEC-2026-1941",
+      "malicious": false,
+      "references": [
+        "https://github.com/encode/starlette/security/advisories/GHSA-2c2j-9gv5-cj73",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-54121",
+        "https://github.com/encode/starlette/commit/9f7ec2eb512fcc3fe90b43cb9dd9e1d08696bec1",
+        "https://github.com/encode/starlette",
+        "https://github.com/encode/starlette/blob/fa5355442753f794965ae1af0f87f9fec1b9a3de/starlette/datastructures.py#L436C5-L447C14",
+        "https://github.com/encode/starlette/discussions/2927#discussioncomment-13721403",
+        "https://pypi.org/project/starlette",
+        "https://github.com/advisories/GHSA-2c2j-9gv5-cj73"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "Starlette has possible denial-of-service vector when parsing large files in multipart forms"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-62727",
+        "GHSA-7f5h-v6xp-fcq8"
+      ],
+      "fixed_versions": [
+        "0.49.1"
+      ],
+      "id": "PYSEC-2026-1942",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-7f5h-v6xp-fcq8",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-62727",
+        "https://github.com/Kludex/starlette/commit/4ea6e22b489ec388d6004cfbca52dd5b147127c5",
+        "https://github.com/Kludex/starlette/commit/69ed26a85956ef4bd0161807eb27abf49be7cd3c",
+        "https://github.com/Kludex/starlette",
+        "https://github.com/Kludex/starlette/releases/tag/0.49.1",
+        "https://pypi.org/project/starlette",
+        "https://github.com/advisories/GHSA-7f5h-v6xp-fcq8"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette vulnerable to O(n^2) DoS via Range header merging in ``starlette.responses.FileResponse``"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48817",
+        "GHSA-x746-7m8f-x49c"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "PYSEC-2026-2280",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-x746-7m8f-x49c"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoin"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48818",
+        "GHSA-wqp7-x3pw-xc5r"
+      ],
+      "fixed_versions": [
+        "1.1.0"
+      ],
+      "id": "PYSEC-2026-2281",
+      "malicious": false,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-48818",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48818.json",
+        "https://access.redhat.com/errata/RHSA-2026:30087",
+        "https://access.redhat.com/errata/RHSA-2026:30088",
+        "https://access.redhat.com/errata/RHSA-2026:30089",
+        "https://github.com/Kludex/starlette/releases/tag/1.1.0",
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-wqp7-x3pw-xc5r",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2490020",
+        "https://github.com/Kludex/starlette/commit/fd53168a7767b6b55ba5af787fd88f49e33cabc5",
+        "https://github.com/Kludex/starlette/pull/3287"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account\u2019s NTLMv"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54282",
+        "GHSA-jp82-jpqv-5vv3"
+      ],
+      "fixed_versions": [
+        "1.3.0"
+      ],
+      "id": "PYSEC-2026-248",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-jp82-jpqv-5vv3"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @g"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-54283",
+        "GHSA-82w8-qh3p-5jfq"
+      ],
+      "fixed_versions": [
+        "1.3.1"
+      ],
+      "id": "PYSEC-2026-249",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kludex/starlette/security/advisories/GHSA-82w8-qh3p-5jfq"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "Starlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unau"
+    }
+  ],
+  "tinycss2@1.5.1": [],
+  "tinyhtml5@2.1.0": [],
+  "typing-extensions@4.16.0": [],
+  "uvicorn@0.32.1": [],
+  "uvloop@0.22.1": [],
+  "watchfiles@1.2.0": [],
+  "weasyprint@63.1": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-68616",
+        "PYSEC-2026-2034"
+      ],
+      "fixed_versions": [
+        "68.0"
+      ],
+      "id": "GHSA-983w-rhvv-gwmv",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-983w-rhvv-gwmv",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-68616",
+        "https://github.com/Kozea/WeasyPrint/commit/b6a14f0f3f4ce9c0c75c1a2d73cb1c5d43f0e565",
+        "https://access.redhat.com/security/cve/CVE-2025-68616",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2430858",
+        "https://github.com/Kozea/WeasyPrint",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-68616.json"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "WeasyPrint has a Server-Side Request Forgery (SSRF) Protection Bypass via HTTP Redirect"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-55073",
+        "PYSEC-2026-3940"
+      ],
+      "fixed_versions": [
+        "70.0"
+      ],
+      "id": "GHSA-jf6q-chmf-3h3v",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-jf6q-chmf-3h3v",
+        "https://github.com/Kozea/WeasyPrint",
+        "https://github.com/Kozea/WeasyPrint/releases/tag/v70.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "weasyprint Has Server-Side Request Forgery (SSRF)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-49452",
+        "PYSEC-2026-3412"
+      ],
+      "fixed_versions": [],
+      "id": "GHSA-jhhc-3hcp-qhm5",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-jhhc-3hcp-qhm5",
+        "https://github.com/Kozea/WeasyPrint"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "WeasyPrint has CSS Injection via Presentational Hints"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2025-68616",
+        "GHSA-983w-rhvv-gwmv"
+      ],
+      "fixed_versions": [
+        "68.0"
+      ],
+      "id": "PYSEC-2026-2034",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-983w-rhvv-gwmv",
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-68616",
+        "https://github.com/Kozea/WeasyPrint/commit/b6a14f0f3f4ce9c0c75c1a2d73cb1c5d43f0e565",
+        "https://access.redhat.com/security/cve/CVE-2025-68616",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2430858",
+        "https://github.com/Kozea/WeasyPrint",
+        "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-68616.json",
+        "https://pypi.org/project/weasyprint",
+        "https://github.com/advisories/GHSA-983w-rhvv-gwmv"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "WeasyPrint has a Server-Side Request Forgery (SSRF) Protection Bypass via HTTP Redirect"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-49452",
+        "GHSA-jhhc-3hcp-qhm5"
+      ],
+      "fixed_versions": [],
+      "id": "PYSEC-2026-3412",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-jhhc-3hcp-qhm5",
+        "https://github.com/Kozea/WeasyPrint",
+        "https://pypi.org/project/weasyprint",
+        "https://github.com/advisories/GHSA-jhhc-3hcp-qhm5",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-49452"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "WeasyPrint has CSS Injection via Presentational Hints"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-55073",
+        "GHSA-jf6q-chmf-3h3v"
+      ],
+      "fixed_versions": [
+        "70.0"
+      ],
+      "id": "PYSEC-2026-3940",
+      "malicious": false,
+      "references": [
+        "https://github.com/Kozea/WeasyPrint/security/advisories/GHSA-jf6q-chmf-3h3v",
+        "https://github.com/Kozea/WeasyPrint",
+        "https://github.com/Kozea/WeasyPrint/releases/tag/v70.0",
+        "https://pypi.org/project/weasyprint",
+        "https://github.com/advisories/GHSA-jf6q-chmf-3h3v",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-55073"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "weasyprint Has Server-Side Request Forgery (SSRF)"
+    }
+  ],
+  "webencodings@0.6.1": [],
+  "websockets@17.1": [],
+  "wrapt@2.4.1": [],
+  "zopfli@0.4.3": []
+}

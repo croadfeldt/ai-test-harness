@@ -1,0 +1,208 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+              "summary": "frc-scheduler-server: test_canonical_filename_encodes_shape killed none of 25 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+              "summary": "frc-scheduler-server: test_canonical_path_uses_base_dir killed none of 25 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+              "summary": "frc-scheduler-server: test_load_canonical_missing_returns_none killed none of 25 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+              "summary": "frc-scheduler-server: test_parse_csv_reads_rows killed none of 25 sampled mutants in this run"
+            }
+          ],
+          "inputs": {
+            "base": null,
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+            "sbom_digest": "sha256:7242f1e75f33b10cb8c6e1fcf65b4d1e6eec83392f19981a5f4a311ca23cf1ae",
+            "snapshot": "requirements.txt@2ad04243861b"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 350,
+            "fix_pinning_confirmed": 0,
+            "flake_rate": 0.0,
+            "mutation_engine": "harness python mutator (diff- and coverage-scoped)",
+            "mutation_sample": 25,
+            "mutation_score": 0.04,
+            "tests_total": 4
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "gpu-server-vllm",
+            "model_endpoint_digest": "sha256:8870f0d1a4df5ebc",
+            "model_id": "qwen38-27b",
+            "pipeline_run": [
+              "intake",
+              "--workdir",
+              "out/fp",
+              "--head",
+              "main"
+            ],
+            "run_id": "50ec3b2446fe",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-016",
+                "GF-017",
+                "GF-018",
+                "GF-019",
+                "GF-020",
+                "GF-021",
+                "GF-022",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [
+            {
+              "category": "unit",
+              "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+              "record_ref": "attest/frc-scheduler-server/MANIFEST.json",
+              "test_id": "frc-scheduler-server::test_canonical_filename_encodes_shape::7f642934bcfb"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+              "record_ref": "attest/frc-scheduler-server/MANIFEST.json",
+              "test_id": "frc-scheduler-server::test_canonical_path_uses_base_dir::7f642934bcfb"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+              "record_ref": "attest/frc-scheduler-server/MANIFEST.json",
+              "test_id": "frc-scheduler-server::test_load_canonical_missing_returns_none::7f642934bcfb"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+              "record_ref": "attest/frc-scheduler-server/MANIFEST.json",
+              "test_id": "frc-scheduler-server::test_parse_csv_reads_rows::7f642934bcfb"
+            }
+          ],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/frc-scheduler-server/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml"
+            },
+            "sealed": true
+          },
+          "unverified": [
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image"
+          ],
+          "vex_drafts": [],
+          "work_items": [
+            {
+              "depth": 0,
+              "old_version": null,
+              "preflight": "clean",
+              "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+              "reachable": "true",
+              "risk_score": 0.35
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "c3c2709c44c8a334820398658a8d3e21e6fe266cc9d04f6562433d46fba026d3"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [],
+    "passedTests": [
+      "test_canonical_filename_encodes_shape",
+      "test_canonical_path_uses_base_dir",
+      "test_load_canonical_missing_returns_none",
+      "test_parse_csv_reads_rows"
+    ],
+    "result": "PASSED",
+    "url": "packet/frc-scheduler-server/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "cee58163cd62a5f97c780795c3f57d40c3eda102c71245e8c68188556184bc38"
+      },
+      "name": "packet/frc-scheduler-server/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "c3c2709c44c8a334820398658a8d3e21e6fe266cc9d04f6562433d46fba026d3"
+      },
+      "name": "attest/frc-scheduler-server/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "f827e39ffc84ae7da581e0ba019876cc0c11dfa9ed3da5b80243909a0aef6a9a"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-filename-encodes-shape@intent"
+    },
+    {
+      "digest": {
+        "sha256": "19cdcf5f57ee89a58e4621f528fca87148323f9ce6d9eebc88764513e85308c9"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-path-uses-base-dir@intent"
+    },
+    {
+      "digest": {
+        "sha256": "40e97e2119c536ffc9183a3b5fdcda1080419b977e766b33ea2274446658670e"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/frc-scheduler-server-test-load-canonical-missing-returns-none@intent"
+    },
+    {
+      "digest": {
+        "sha256": "ffcaab40ed2bce5adab379b66d7ffe0858a11a1bb0731d67f2fad099866a50cc"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/frc-scheduler-server-test-parse-csv-reads-rows@intent"
+    }
+  ]
+}

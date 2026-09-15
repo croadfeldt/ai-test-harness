@@ -1,0 +1,32 @@
+# UDLM software-package records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: discovered_record
+state: Discovered
+entity_uuid: d8ffe244-0e1c-44e0-a213-eaae69294632
+record_uuid: 01a0a6c2-da8b-77ca-aab2-5652b18a51df
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: SoftwarePackage
+type_version: 0.2.1
+type_ref: https://udlm.dev/registry/udlm/0.1/class/SoftwarePackage/0.2.1
+handle: lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  purl: pkg:generic/frc-scheduler-server@2ad04243861b
+  name: frc-scheduler-server
+  version: 2ad04243861b
+  type: generic
+origin: discovered-derived
+provenance:
+  fields.purl:
+  - source:
+      kind: discovery
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T20:08:18Z'
+integrity:
+  head: sha256:0e6d6149fd5ca2d908796e79a2fe626ec942c233b30e0bd24c7e9e74a4f82e16
+  previous: null
+  algorithm: sha256-jcs

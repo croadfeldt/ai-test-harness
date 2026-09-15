@@ -1,0 +1,26 @@
+{
+  "args": {
+    "base": null,
+    "cmd": "intake",
+    "ecosystem": "python",
+    "head": "main",
+    "manifest": "requirements.txt",
+    "python_version": "3.12",
+    "repo": "frc-scheduler-server",
+    "workdir": "fp"
+  },
+  "command": [
+    "intake",
+    "--workdir",
+    "out/fp",
+    "--head",
+    "main"
+  ],
+  "harness_version": "0.1.0",
+  "started": "2026-09-15T20:02:08+00:00",
+  "tools": {
+    "git": "git version 2.55.0",
+    "pip": "pip 26.0.1",
+    "python": "3.14.7"
+  }
+}

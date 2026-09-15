@@ -1,0 +1,269 @@
+{
+  "engine": "harness python mutator (diff- and coverage-scoped)",
+  "generated": "2026-09-15T20:28:25+00:00",
+  "invalid": 0,
+  "killed": 1,
+  "mutants": [
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m001",
+      "killed_by": [],
+      "line": 81,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.1,
+      "file": "app/db.py",
+      "id": "m002",
+      "killed_by": [],
+      "line": 559,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m003",
+      "killed_by": [],
+      "line": 147,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.4,
+      "file": "app/db.py",
+      "id": "m004",
+      "killed_by": [],
+      "line": 608,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m005",
+      "killed_by": [],
+      "line": 496,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m006",
+      "killed_by": [],
+      "line": 209,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m007",
+      "killed_by": [],
+      "line": 544,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.1,
+      "file": "app/db.py",
+      "id": "m008",
+      "killed_by": [],
+      "line": 50,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m009",
+      "killed_by": [],
+      "line": 112,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m010",
+      "killed_by": [],
+      "line": 108,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m011",
+      "killed_by": [],
+      "line": 321,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m012",
+      "killed_by": [],
+      "line": 169,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m013",
+      "killed_by": [],
+      "line": 542,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m014",
+      "killed_by": [],
+      "line": 111,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.3,
+      "file": "app/db.py",
+      "id": "m015",
+      "killed_by": [],
+      "line": 322,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 23.7,
+      "file": "app/db.py",
+      "id": "m016",
+      "killed_by": [],
+      "line": 320,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.1,
+      "file": "app/db.py",
+      "id": "m017",
+      "killed_by": [],
+      "line": 281,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m018",
+      "killed_by": [],
+      "line": 555,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.9,
+      "file": "app/db.py",
+      "id": "m019",
+      "killed_by": [
+        "tests.test_frc_scheduler_server_unit"
+      ],
+      "line": 458,
+      "operator": "const-bool",
+      "status": "killed"
+    },
+    {
+      "duration_s": 22.7,
+      "file": "app/db.py",
+      "id": "m020",
+      "killed_by": [],
+      "line": 560,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.4,
+      "file": "app/db.py",
+      "id": "m021",
+      "killed_by": [],
+      "line": 107,
+      "operator": "const-int",
+      "status": "survived"
+    },
+    {
+      "duration_s": 23.3,
+      "file": "app/db.py",
+      "id": "m022",
+      "killed_by": [],
+      "line": 592,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.0,
+      "file": "app/canonical_library.py",
+      "id": "m023",
+      "killed_by": [],
+      "line": 155,
+      "operator": "not-drop",
+      "status": "survived"
+    },
+    {
+      "duration_s": 22.2,
+      "file": "app/db.py",
+      "id": "m024",
+      "killed_by": [],
+      "line": 603,
+      "operator": "const-bool",
+      "status": "survived"
+    },
+    {
+      "duration_s": 23.5,
+      "file": "app/db.py",
+      "id": "m025",
+      "killed_by": [],
+      "line": 259,
+      "operator": "const-bool",
+      "status": "survived"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "raise-drop",
+    "return-none",
+    "not-drop"
+  ],
+  "package": "frc-scheduler-server",
+  "per_test": {
+    "tests.test_frc_scheduler_server_unit": {
+      "killed": [
+        "m019"
+      ],
+      "unique": [
+        "m019"
+      ]
+    }
+  },
+  "sampled": 25,
+  "score": 0.04,
+  "seed": 724864561,
+  "sites": 211,
+  "status": "ran",
+  "survived": 24,
+  "tests": [
+    "test_canonical_filename_encodes_shape",
+    "test_canonical_path_uses_base_dir",
+    "test_load_canonical_missing_returns_none",
+    "test_parse_csv_reads_rows"
+  ],
+  "valid": 25,
+  "version": "2ad04243861b"
+}

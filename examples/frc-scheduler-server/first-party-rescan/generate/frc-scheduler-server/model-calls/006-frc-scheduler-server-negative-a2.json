@@ -1,0 +1,27 @@
+{
+  "call": 6,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "endpoint": "gpu-server-vllm",
+  "endpoint_digest": "sha256:8870f0d1a4df5ebc",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 43.4,
+  "max_tokens": 3000,
+  "model": "qwen38-27b",
+  "presence_penalty": 0.0,
+  "prompt_sha256": "sha256:f5d4e8c3a4d55bda6d69bb548ed469d3fc05440430876b327f168d247d4b4643",
+  "reasoning_effort": "none",
+  "response_chars": 5577,
+  "response_sha256": "sha256:e79c016ab95ac82fd16e40388f9da2e43783c40833a2a310cf09afc788548850",
+  "tag": "frc-scheduler-server-negative-a2",
+  "temperature": 0.2,
+  "think_chars_stripped": 0,
+  "thinking": false,
+  "usage": {
+    "completion_tokens": 1395,
+    "prompt_tokens": 5092,
+    "total_tokens": 6487
+  }
+}

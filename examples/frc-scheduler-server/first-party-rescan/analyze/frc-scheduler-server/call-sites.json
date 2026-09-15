@@ -1,0 +1,8 @@
+{
+  "import_names": [
+    "app"
+  ],
+  "note": "first-party target: the application is the package; changed symbols stand in for call sites",
+  "package": "frc-scheduler-server",
+  "sites": []
+}

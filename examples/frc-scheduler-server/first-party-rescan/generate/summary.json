@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-15T20:06:25+00:00",
+  "mode": "fixed",
+  "model": "qwen38-27b",
+  "packages": [
+    {
+      "discarded": 1,
+      "files": 1,
+      "mode": "fixed",
+      "model": "qwen38-27b",
+      "package": "frc-scheduler-server",
+      "tests": 4
+    }
+  ]
+}

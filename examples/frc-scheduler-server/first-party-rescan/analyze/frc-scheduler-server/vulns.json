@@ -1,0 +1,10 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "note": "no advisories are looked up for the application itself; known vulnerabilities belong to the dependency rows",
+  "old_version": null,
+  "package": "frc-scheduler-server",
+  "version": "2ad04243861b",
+  "vulns": [],
+  "vulns_old": []
+}

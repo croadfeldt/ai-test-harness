@@ -1,0 +1,141 @@
+{
+  "findings": [
+    {
+      "class": "redundant",
+      "confidence": 0.5,
+      "escalated": true,
+      "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "frc-scheduler-server",
+      "priority": "low",
+      "retirement_reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "frc-scheduler-server: test_canonical_filename_encodes_shape killed none of 25 sampled mutants in this run",
+      "test": "test_canonical_filename_encodes_shape"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.5,
+      "escalated": true,
+      "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "frc-scheduler-server",
+      "priority": "low",
+      "retirement_reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "frc-scheduler-server: test_canonical_path_uses_base_dir killed none of 25 sampled mutants in this run",
+      "test": "test_canonical_path_uses_base_dir"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.5,
+      "escalated": true,
+      "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "frc-scheduler-server",
+      "priority": "low",
+      "retirement_reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "frc-scheduler-server: test_load_canonical_missing_returns_none killed none of 25 sampled mutants in this run",
+      "test": "test_load_canonical_missing_returns_none"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.5,
+      "escalated": true,
+      "evidence_ref": "execute/frc-scheduler-server/relevance.json",
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "frc-scheduler-server",
+      "priority": "low",
+      "retirement_reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "frc-scheduler-server: test_parse_csv_reads_rows killed none of 25 sampled mutants in this run",
+      "test": "test_parse_csv_reads_rows"
+    }
+  ],
+  "generated": "2026-09-15T20:28:26+00:00",
+  "package": "frc-scheduler-server",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 0,
+    "escalated": 4,
+    "findings": 4,
+    "tests_accept": 4,
+    "tests_discard_or_regenerate": 0
+  },
+  "tests": [
+    {
+      "action": "accept as candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/frc-scheduler-server/results.json",
+      "name": "test_canonical_filename_encodes_shape",
+      "test_id": "tests.test_frc_scheduler_server_unit::test_canonical_filename_encodes_shape",
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "action": "accept as candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/frc-scheduler-server/results.json",
+      "name": "test_canonical_path_uses_base_dir",
+      "test_id": "tests.test_frc_scheduler_server_unit::test_canonical_path_uses_base_dir",
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "action": "accept as candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/frc-scheduler-server/results.json",
+      "name": "test_load_canonical_missing_returns_none",
+      "test_id": "tests.test_frc_scheduler_server_unit::test_load_canonical_missing_returns_none",
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "action": "accept as candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/frc-scheduler-server/results.json",
+      "name": "test_parse_csv_reads_rows",
+      "test_id": "tests.test_frc_scheduler_server_unit::test_parse_csv_reads_rows",
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

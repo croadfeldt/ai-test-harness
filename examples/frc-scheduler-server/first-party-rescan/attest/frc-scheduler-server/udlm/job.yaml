@@ -1,0 +1,87 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: 1d722188-b92d-4eb5-baed-537f7b041a23
+record_uuid: 01a0a6c2-da8b-77ca-aab2-5653d7440a58
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-50ec3b2446fe
+at: '2026-09-15T20:02:08Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    head: 2ad04243861b
+    mode: rescan
+  targets:
+  - estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a0a6c2-da8b-77ca-aab2-565471012e84
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: 1d722188-b92d-4eb5-baed-537f7b041a23
+record_uuid: 01a0a6c2-da8b-77ca-aab2-565643039505
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-50ec3b2446fe
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: frc-scheduler-server
+    head: 2ad04243861b
+    mode: rescan
+  targets:
+  - estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a0a6c2-da8b-77ca-aab2-5653d7440a58
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-15T20:02:08Z'
+  completed_at: '2026-09-15T20:08:18Z'
+  results:
+    status: COMPLETED
+    run_id: 50ec3b2446fe
+    harness_version: 0.1.0
+    model_id: qwen38-27b
+    model_endpoint: gpu-server-vllm
+    model_endpoint_digest: sha256:8870f0d1a4df5ebc
+    model_reasoning: 'off'
+    tool_versions:
+      git: git version 2.55.0
+      pip: pip 26.0.1
+      python: 3.14.7
+    sandbox_image: docker.io/library/python:3.12-slim
+    sandbox_image_digest: sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 22
+    tests_produced: 4
+    fix_pinning_confirmed: 0
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: d8ffe244-0e1c-44e0-a213-eaae69294632
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:0fdfba81a019c47106962ab5301f84cec4322c525136dcf540e727f2319d9d87
+  previous: null
+  algorithm: sha256-jcs

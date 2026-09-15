@@ -1,0 +1,26 @@
+{
+  "coverage": "coverage.json",
+  "duration_s": 22.0,
+  "finished": "2026-09-15T20:27:39+00:00",
+  "image": "docker.io/library/python:3.12-slim",
+  "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+  "install_failed": false,
+  "isolation": {
+    "capabilities": "all dropped",
+    "disposable": true,
+    "limits": {
+      "cpus": "2",
+      "memory": "2g",
+      "pids": 512,
+      "timeout_s": 300
+    },
+    "network": "none",
+    "no_new_privileges": true,
+    "rootfs": "read-only",
+    "secrets": "none mounted; environment cleared with env -i"
+  },
+  "junit": "junit.xml",
+  "label": "frc-scheduler-server-m023",
+  "returncode": 0,
+  "timed_out": false
+}

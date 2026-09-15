@@ -1,0 +1,143 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [],
+    "files": [],
+    "production": 0,
+    "reachable": "true",
+    "reachable_note": "the application's own code",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "first_party",
+  "dependency_import_names": [
+    "PIL",
+    "asyncpg",
+    "dantic",
+    "fastapi",
+    "httpx",
+    "jose",
+    "multipart",
+    "openpyxl",
+    "ortools",
+    "pdfplumber",
+    "pillow",
+    "pydantic",
+    "pytesseract",
+    "python_jose",
+    "python_multipart",
+    "pythonjose",
+    "pythonmultipart",
+    "slowapi",
+    "sqlalchemy",
+    "tesseract",
+    "thon_jose",
+    "thon_multipart",
+    "uvicorn",
+    "weasyprint"
+  ],
+  "depth": 0,
+  "first_party": true,
+  "generated": "2026-09-15T20:02:45+00:00",
+  "import_names": [
+    "app"
+  ],
+  "new_version": "2ad04243861b",
+  "notes_ref": null,
+  "old_version": null,
+  "package": "frc-scheduler-server",
+  "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": false,
+      "functional": 5,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "first_party",
+      "changed_symbols": 0,
+      "depth": 0,
+      "high_severity": false,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "true",
+      "sensitive": [],
+      "vuln_count": 0,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachable from first-party code (+35)"
+    ],
+    "score": 35
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "rescan: no base to diff against"
+  },
+  "source_trees": {
+    "new": "cache/source/2ad04243861b"
+  },
+  "static_analysis": {
+    "reason": "bandit not installed",
+    "status": "not_run",
+    "tool": "bandit"
+  },
+  "upstream_tests": {
+    "count": 20,
+    "files": [
+      "tests/test_canonical_library.py",
+      "tests/test_construction_reliability.py",
+      "tests/test_cpsat_post_passes.py",
+      "tests/test_day_config_v2.py",
+      "tests/test_eval_harness_sa_plumbing.py",
+      "tests/test_fixture_total_matches.py",
+      "tests/test_frc_compliance.py",
+      "tests/test_match_sa.py",
+      "tests/test_metrics_scores_split.py",
+      "tests/test_migration_script.py",
+      "tests/test_nexus_match_synthesis.py",
+      "tests/test_nexus_status_map.py",
+      "tests/test_pdf_import_mode.py",
+      "tests/test_personal_access_tokens.py",
+      "tests/test_quality.py",
+      "tests/test_quality_floors.py",
+      "tests/test_quality_scoring.py",
+      "tests/test_rb_balance.py",
+      "tests/test_standards_smoke.py",
+      "tests/test_station_balance.py"
+    ],
+    "note": "the application's own test files",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 0,
+    "count_old": 0,
+    "cves": [],
+    "fixed_by_this_change": [],
+    "fixed_versions": [],
+    "ids": [],
+    "symbols_named_by_advisories": false
+  }
+}

@@ -1,0 +1,156 @@
+# UDLM test-evidence records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: f39250d2-4b15-4c41-95b0-c784b0200fe8
+record_uuid: 01a0a6c2-da8b-77ca-aab2-56573cf9fff4
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-filename-encodes-shape
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  test_id: frc-scheduler-server::test_canonical_filename_encodes_shape::7f642934bcfb
+  subject_ref: estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/frc-scheduler-server/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-50ec3b2446fe
+  file_path: tests/test_frc_scheduler_server_unit.py
+  file_digest: sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T20:08:18Z'
+integrity:
+  head: sha256:f827e39ffc84ae7da581e0ba019876cc0c11dfa9ed3da5b80243909a0aef6a9a
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 3f6378c8-c201-47db-8696-c2a5d2b5f59d
+record_uuid: 01a0a6c2-da8b-77ca-aab2-5658b3d87075
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-path-uses-base-dir
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  test_id: frc-scheduler-server::test_canonical_path_uses_base_dir::7f642934bcfb
+  subject_ref: estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/frc-scheduler-server/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-50ec3b2446fe
+  file_path: tests/test_frc_scheduler_server_unit.py
+  file_digest: sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T20:08:18Z'
+integrity:
+  head: sha256:19cdcf5f57ee89a58e4621f528fca87148323f9ce6d9eebc88764513e85308c9
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: fbe50a0c-aaf6-4b27-a2c3-d0ad9763d983
+record_uuid: 01a0a6c2-da8b-77ca-aab2-56595740d124
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/frc-scheduler-server-test-load-canonical-missing-returns-none
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  test_id: frc-scheduler-server::test_load_canonical_missing_returns_none::7f642934bcfb
+  subject_ref: estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 3
+    format: junit-xml
+    report_ref: execute/frc-scheduler-server/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-50ec3b2446fe
+  file_path: tests/test_frc_scheduler_server_unit.py
+  file_digest: sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T20:08:18Z'
+integrity:
+  head: sha256:40e97e2119c536ffc9183a3b5fdcda1080419b977e766b33ea2274446658670e
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 02e0650f-8391-4804-9a21-9edf92bef681
+record_uuid: 01a0a6c2-da8b-77ca-aab2-565a79763f5b
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/frc-scheduler-server-test-parse-csv-reads-rows
+at: '2026-09-15T20:08:18Z'
+time_source: harness-clock
+fields:
+  test_id: frc-scheduler-server::test_parse_csv_reads_rows::7f642934bcfb
+  subject_ref: estate/lab/knowledge/software-package/frc-scheduler-server-2ad04243861b
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/frc-scheduler-server/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-50ec3b2446fe
+  file_path: tests/test_frc_scheduler_server_unit.py
+  file_digest: sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-15T20:08:18Z'
+integrity:
+  head: sha256:ffcaab40ed2bce5adab379b66d7ffe0858a11a1bb0731d67f2fad099866a50cc
+  previous: null
+  algorithm: sha256-jcs

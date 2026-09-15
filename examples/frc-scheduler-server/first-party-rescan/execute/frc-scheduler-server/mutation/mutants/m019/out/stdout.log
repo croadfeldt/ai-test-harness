@@ -1,0 +1,36 @@
+
+==================================== ERRORS ====================================
+___________ ERROR collecting tests/test_frc_scheduler_server_unit.py ___________
+tests/test_frc_scheduler_server_unit.py:7: in <module>
+    from app.auth import create_jwt, decode_jwt
+src/app/auth.py:27: in <module>
+    from app.db import User, get_session
+src/app/db.py:243: in <module>
+    class PdfImport(Base):
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_api.py:836: in __init_subclass__
+    _as_declarative(cls._sa_registry, cls, cls.__dict__)
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py:244: in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py:325: in setup_mapping
+    return _ClassScanMapperConfig(
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py:580: in __init__
+    self._early_mapping(mapper_kw)
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py:366: in _early_mapping
+    self.map(mapper_kw)
+venv/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py:1992: in map
+    mapper_cls(self.cls, self.local_table, **self.mapper_args),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:2: in __init__
+    ???
+venv/lib/python3.12/site-packages/sqlalchemy/util/deprecations.py:281: in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py:864: in __init__
+    self._configure_pks()
+venv/lib/python3.12/site-packages/sqlalchemy/orm/mapper.py:1650: in _configure_pks
+    raise sa_exc.ArgumentError(
+E   sqlalchemy.exc.ArgumentError: Mapper Mapper[PdfImport(pdf_imports)] could not assemble any primary key columns for mapped table 'pdf_imports'
+=========================== short test summary info ============================
+ERROR tests/test_frc_scheduler_server_unit.py - sqlalchemy.exc.ArgumentError:...
+1 error in 2.15s
