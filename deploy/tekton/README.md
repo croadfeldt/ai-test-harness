@@ -41,3 +41,9 @@ oc delete pod ws-copy -n ai-test-harness
 `cache/` holds downloaded wheels and `scratch/` the generator's working copies; both are recreated
 by a run. Clear the rest of `run/` before a new run on the same claim, or give the run its own claim.
 The committed example PipelineRun has placeholders for the image and the repository.
+
+**Go targets.** The image carries the Go toolchain and the go/ast helper, so a Go repository goes through
+the same pipeline with `ecosystem: go`. The networked stages prefetch the module cache onto the shared
+workspace with `go mod download all`; the execute pod builds and runs the tests from it with
+`GOPROXY=off`, keeping its build cache next to the module cache. Budget about 1.5 GB of the claim per
+environment (head, base or fixed candidate) for a service with a few hundred modules.

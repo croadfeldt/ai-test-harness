@@ -107,7 +107,7 @@ stronger-model rung is the next variable, and Go is where it will show first.
 | Gates | a Go program on go/ast: parse, package name, Test functions, imports, tests that cannot fail, and cutting a test out of a file with the imports it alone used |
 | Fixed candidate | `go get module@fixed` on a copy of the service at the reviewed commit, then the graph the toolchain resolves |
 | Mutation | the same helper mutates the module's source on executed lines (seven operators); the sandbox copies the module out of the read-only cache and points the scratch module at the copy with a replace directive; a mutant that does not compile is invalid, not killed. This run predates it: its one test failed on head, so there was nothing to mutate |
-| Not yet | the cluster pod target (the harness image has no Go toolchain) |
+| On the cluster | the harness image carries the Go toolchain and the helper; the networked stages prefetch the module cache onto the shared workspace and the sealed execute pod builds from it with `GOPROXY=off` |
 
 ## What this example fixed in the harness
 

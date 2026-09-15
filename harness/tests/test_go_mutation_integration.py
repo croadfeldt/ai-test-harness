@@ -61,4 +61,5 @@ def test_go_mutants_run_through_a_replaced_module(tmp_path: Path):
     killed_by = sorted({k.split("::")[-1] for k, v in r.items() if v["status"] in ("fail", "error")})
     status = go.mutant_status(s, r, killed_by)
     assert status in ("killed", "killed-init", "survived"), (status, (mdir / "out" / "stdout.log").read_text()[-600:])
-    assert "/work/mutant" in (mdir / "out" / "run.sh").read_text()
+    run_sh = (mdir / "out" / "run.sh").read_text()
+    assert "go mod edit -replace github.com/google/uuid=" in run_sh and "/mutant" in run_sh   # either target: the copy is what runs

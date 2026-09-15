@@ -14,6 +14,7 @@ import json
 import re
 import shutil
 import subprocess
+import tempfile
 import time
 from pathlib import Path
 from xml.sax.saxutils import escape
@@ -44,66 +45,111 @@ def prefetch_modcache(requirements: list[str], go_version: str, dest: Path, imag
     (dest / "go.mod").write_text(go_mod_text(requirements, go_version))
     (dest / "go.sum").write_text("")
     (dest / "modcache").mkdir(exist_ok=True)
-    script = ("set -e; cd /mod; export GOMODCACHE=/mod/modcache GOFLAGS=-mod=mod GOTOOLCHAIN=local GOCACHE=/tmp/gocache HOME=/tmp; "
-              "go mod download all >/tmp/download.log 2>&1 || { tail -20 /tmp/download.log; exit 97; }; "
-              "chmod -R u+w /mod/modcache")
-    if not shutil.which("podman"):
-        raise HarnessError("podman is required for the Go sandbox target")
-    proc = subprocess.run(["podman", "run", "--rm", "--userns=keep-id", "-v", f"{dest.resolve()}:/mod:rw,Z", "--tmpfs", "/tmp:rw,size=2g",
-                           image, "sh", "-c", script], capture_output=True, text=True, timeout=3600)
+    from . import sandbox as _py
+    if _py.TARGET == "pod":
+        # The stage pod has the network and the toolchain; download in place, onto the shared workspace.
+        import os
+        env = {**os.environ, "GOMODCACHE": str((dest / "modcache").resolve()), "GOFLAGS": "-mod=mod -modcacherw", "GOTOOLCHAIN": "local",
+               "GOCACHE": str((dest / "gocache").resolve()), "HOME": os.environ.get("HARNESS_WORK_TMP") or tempfile.gettempdir()}
+        proc = subprocess.run(["go", "mod", "download", "all"], cwd=dest, capture_output=True, text=True, timeout=3600, env=env)
+    else:
+        script = ("set -e; cd /mod; export GOMODCACHE=/mod/modcache GOFLAGS=-mod=mod GOTOOLCHAIN=local GOCACHE=/tmp/gocache HOME=/tmp; "
+                  "go mod download all >/tmp/download.log 2>&1 || { tail -20 /tmp/download.log; exit 97; }; "
+                  "chmod -R u+w /mod/modcache")
+        if not shutil.which("podman"):
+            raise HarnessError("podman is required for the Go sandbox target")
+        proc = subprocess.run(["podman", "run", "--rm", "--userns=keep-id", "-v", f"{dest.resolve()}:/mod:rw,Z", "--tmpfs", "/tmp:rw,size=2g",
+                               image, "sh", "-c", script], capture_output=True, text=True, timeout=3600)
     if proc.returncode != 0:
         raise HarnessError(f"go module prefetch failed: {(proc.stdout + proc.stderr).strip()[-800:]}")
     marker.write_text(now_iso())
     return dest
 
 
+def _script(*, mod: str, modcache: str, gocache: str, tests: str, out: str, work: str, coverpkg: str, timeout_s: int, overlay: dict | None, mutant_src: str) -> str:
+    """The run, as a shell script, for either target. Paths differ; the steps do not."""
+    replace = ""
+    if overlay:
+        replace = f"""
+src=$(go list -m -f '{{{{.Dir}}}}' {overlay["module"]}) || {{ echo "MODULE_NOT_IN_CACHE"; exit 96; }}
+mkdir -p {work}/mutant && cp -r "$src"/. {work}/mutant/ && chmod -R u+w {work}/mutant
+(cd {mutant_src} && find . -type f ! -name overlay.json | while read f; do cp "$f" "{work}/mutant/$f"; done)
+go mod edit -replace {overlay["module"]}={work}/mutant
+"""
+    return f"""set -u
+mkdir -p {work}/m {work}/gopath && cp {mod}/go.mod {mod}/go.sum {work}/m/ && cp {tests}/*.go {work}/m/
+cd {work}/m
+export GOMODCACHE={modcache} GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE={gocache} GOPATH={work}/gopath HOME={work}{replace}
+go vet . > {out}/vet.log 2>&1 || true
+go test -json -count=1 -timeout {max(60, timeout_s - 60)}s -coverprofile={out}/cover.out -coverpkg={coverpkg} . > {out}/test.json 2> {out}/build.log ; rc=$?
+exit $rc
+"""
+
+
 def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
               image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None) -> dict:
     """Run every *_test.go in tests_dir as package harnesstest against the prefetched module cache.
 
-    overlay_dir, for mutation: files at module-relative paths plus overlay.json naming the module. The
-    module is copied out of the read-only cache into the work directory, the files are laid over it,
-    and a replace directive points the scratch module at the copy. Nothing else changes."""
-    if not shutil.which("podman"):
-        raise HarnessError("podman is required for the Go sandbox target")
+    Two targets, like the Python sandbox: `podman` seals a container on this machine; `pod` runs in
+    the task pod the harness is already in, which IS the sandbox (deny-all network, no token, read-only
+    root), from a work directory under HARNESS_WORK_TMP. overlay_dir, for mutation: files at
+    module-relative paths plus overlay.json naming the module. The module is copied out of the
+    read-only cache, the files are laid over it, and a replace directive points the scratch module at
+    the copy. Nothing else changes."""
+    from . import sandbox as _py
     out_dir.mkdir(parents=True, exist_ok=True)
-    overlay = ""
-    if overlay_dir:
-        meta = json.loads((overlay_dir / "overlay.json").read_text())
-        overlay = f"""
-src=$(go list -m -f '{{{{.Dir}}}}' {meta["module"]}) || {{ echo "MODULE_NOT_IN_CACHE"; exit 96; }}
-mkdir -p /work/mutant && cp -r "$src"/. /work/mutant/ && chmod -R u+w /work/mutant
-(cd /mutant && find . -type f ! -name overlay.json | while read f; do cp "$f" "/work/mutant/$f"; done)
-go mod edit -replace {meta["module"]}=/work/mutant
-"""
+    overlay = json.loads((overlay_dir / "overlay.json").read_text()) if overlay_dir else None
     # The build cache is content-addressed and holds compiled dependencies; keeping it next to the
     # module cache saves recompiling the whole graph on every run. It is the one writable mount.
     gocache = env_dir / "gocache"; gocache.mkdir(exist_ok=True)
     coverpkg = ",".join(f"{c}/..." for c in cover) if cover else "."
-    script = f"""set -u
-mkdir -p /work/m && cp /mod/go.mod /mod/go.sum /work/m/ && cp /tests/*.go /work/m/
-cd /work/m
-export GOMODCACHE=/modcache GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE=/gocache GOPATH=/work/gopath HOME=/work{overlay}
-go vet . > /out/vet.log 2>&1 || true
-go test -json -count=1 -timeout {max(60, limits["timeout_s"] - 60)}s -coverprofile=/out/cover.out -coverpkg={coverpkg} . > /out/test.json 2> /out/build.log ; rc=$?
-exit $rc
-"""
-    (out_dir / "run.sh").write_text(script)
-    cmd = ["podman", "run", "--rm", "--network", "none", "--cap-drop", "all", "--security-opt", "no-new-privileges",
-           "--memory", limits["memory"], "--pids-limit", str(limits["pids"]), "--cpus", limits["cpus"],
-           "--read-only", "--tmpfs", "/work:rw,size=2g,exec", "--tmpfs", "/tmp:rw,size=256m",
-           "-v", f"{(env_dir / 'modcache').resolve()}:/modcache:ro,Z", "-v", f"{env_dir.resolve()}:/mod:ro,Z", "-v", f"{gocache.resolve()}:/gocache:rw,Z",
-           "-v", f"{tests_dir.resolve()}:/tests:ro,Z", "-v", f"{out_dir.resolve()}:/out:rw,Z",
-           *(["-v", f"{overlay_dir.resolve()}:/mutant:ro,Z"] if overlay_dir else []),
-           "--label", f"ai-test-harness={label}", image,
-           "env", "-i", "PATH=/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin", "HOME=/work", "LANG=C.UTF-8", "bash", "/out/run.sh"]
     started = time.time()
-    try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=limits["timeout_s"])
-        rc, timed_out, stdout, stderr = proc.returncode, False, proc.stdout, proc.stderr
-    except subprocess.TimeoutExpired as e:
-        rc, timed_out = 124, True
-        stdout, stderr = (e.stdout.decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")), "timeout"
+    if _py.TARGET == "pod":
+        import os
+        work = Path(tempfile.mkdtemp(prefix="harness-go-pod-", dir=os.environ.get("HARNESS_WORK_TMP") or None))
+        script = _script(mod=str(env_dir.resolve()), modcache=str((env_dir / "modcache").resolve()), gocache=str(gocache.resolve()),
+                         tests=str(tests_dir.resolve()), out=str(out_dir.resolve()), work=str(work), coverpkg=coverpkg,
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src=str(overlay_dir.resolve()) if overlay_dir else "")
+        (out_dir / "run.sh").write_text(script)
+        env = {"PATH": os.environ.get("PATH", "/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin"), "HOME": str(work), "LANG": "C.UTF-8"}
+        try:
+            proc = subprocess.run(["bash", str(out_dir / "run.sh")], capture_output=True, text=True, timeout=limits["timeout_s"], env=env)
+            rc, timed_out, stdout, stderr = proc.returncode, False, proc.stdout, proc.stderr
+        except subprocess.TimeoutExpired as e:
+            rc, timed_out = 124, True
+            stdout, stderr = (e.stdout.decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")), "timeout"
+        finally:
+            shutil.rmtree(work, ignore_errors=True)
+        pod_image = os.environ.get("HARNESS_POD_IMAGE", "the pod's own image")
+        image_rec = {"image": pod_image, "image_digest": os.environ.get("HARNESS_POD_IMAGE_DIGEST") or (pod_image.split("@", 1)[1] if "@sha256:" in pod_image else None)}
+        isolation = {"target": "pod", "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+                     "service_account_token": "not mounted (claim)", "rootfs": "read-only (claim)", "secrets": "none mounted; environment cleared for the run",
+                     "runtime_class": os.environ.get("HARNESS_POD_RUNTIME_CLASS", "default (no Kata or gVisor)"), "limits": limits, "disposable": "the task pod",
+                     "module_cache": "on the shared workspace, GOPROXY=off", "build_cache": "per environment on the shared workspace"}
+    else:
+        if not shutil.which("podman"):
+            raise HarnessError("podman is required for the Go sandbox target")
+        script = _script(mod="/mod", modcache="/modcache", gocache="/gocache", tests="/tests", out="/out", work="/work", coverpkg=coverpkg,
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src="/mutant")
+        (out_dir / "run.sh").write_text(script)
+        cmd = ["podman", "run", "--rm", "--network", "none", "--cap-drop", "all", "--security-opt", "no-new-privileges",
+               "--memory", limits["memory"], "--pids-limit", str(limits["pids"]), "--cpus", limits["cpus"],
+               "--read-only", "--tmpfs", "/work:rw,size=2g,exec", "--tmpfs", "/tmp:rw,size=256m",
+               "-v", f"{(env_dir / 'modcache').resolve()}:/modcache:ro,Z", "-v", f"{env_dir.resolve()}:/mod:ro,Z", "-v", f"{gocache.resolve()}:/gocache:rw,Z",
+               "-v", f"{tests_dir.resolve()}:/tests:ro,Z", "-v", f"{out_dir.resolve()}:/out:rw,Z",
+               *(["-v", f"{overlay_dir.resolve()}:/mutant:ro,Z"] if overlay_dir else []),
+               "--label", f"ai-test-harness={label}", image,
+               "env", "-i", "PATH=/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin", "HOME=/work", "LANG=C.UTF-8", "bash", "/out/run.sh"]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=limits["timeout_s"])
+            rc, timed_out, stdout, stderr = proc.returncode, False, proc.stdout, proc.stderr
+        except subprocess.TimeoutExpired as e:
+            rc, timed_out = 124, True
+            stdout, stderr = (e.stdout.decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")), "timeout"
+        image_rec = {"image": image, "image_digest": _py.image_digest(image)}
+        isolation = {"network": "none", "capabilities": "all dropped", "no_new_privileges": True, "rootfs": "read-only",
+                     "secrets": "none mounted; environment cleared with env -i", "limits": limits, "disposable": True,
+                     "module_cache": "read-only mount, GOPROXY=off", "build_cache": "writable mount, content-addressed, per environment"}
     events = _events(out_dir / "test.json")
     build_log = (out_dir / "build.log").read_text(errors="replace") if (out_dir / "build.log").exists() else ""
     tests = _tests_from_events(events)
@@ -116,16 +162,13 @@ exit $rc
         _write_junit(out_dir / "junit.xml", tests)
     if (out_dir / "cover.out").exists():
         write_json(out_dir / "coverage.json", _coverage_json(out_dir / "cover.out"))
-    from . import sandbox as _py
     summary = {
-        "label": label, "image": image, "image_digest": _py.image_digest(image), "returncode": rc, "timed_out": timed_out,
-        "duration_s": round(time.time() - started, 1), "install_failed": "cannot find module" in build_log or "missing go.sum entry" in build_log,
+        "label": label, **image_rec, "returncode": rc, "timed_out": timed_out,
+        "duration_s": round(time.time() - started, 1), "install_failed": "cannot find module" in build_log or "missing go.sum entry" in build_log or "MODULE_NOT_IN_CACHE" in stdout,
         # A build failure is the compiler's verdict (a build-fail event); a test binary that dies at
         # package init is a runtime failure, which is the tests' verdict, and is not one.
         "build_failed": any(e.get("Action") == "build-fail" for e in events) or "[build failed]" in readable,
-        "isolation": {"network": "none", "capabilities": "all dropped", "no_new_privileges": True, "rootfs": "read-only",
-                      "secrets": "none mounted; environment cleared with env -i", "limits": limits, "disposable": True,
-                      "module_cache": "read-only mount, GOPROXY=off", "build_cache": "writable mount, content-addressed, per environment"},
+        "isolation": isolation,
         "junit": str(out_dir / "junit.xml") if (out_dir / "junit.xml").exists() else None,
         "coverage": str(out_dir / "coverage.json") if (out_dir / "coverage.json").exists() else None,
         "finished": now_iso(),

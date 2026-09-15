@@ -274,7 +274,7 @@ func sitesCmd(dir, module string) {
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Fprintln(os.Stderr, "usage: gohelper api <dir> | sites <dir> <module> | inspect <file> | strip <file> <name>...")
+		fmt.Fprintln(os.Stderr, "usage: gohelper api <dir> | sites <dir> <module> | inspect <file> | strip <file> <name>... | mutsites <file> [lines] | mutate <file> <op> <line> <col>")
 		os.Exit(2)
 	}
 	switch os.Args[1] {
