@@ -1,0 +1,100 @@
+{
+  "api_changes_considered": {
+    "added": 0,
+    "breaking_changed": 0,
+    "removed": 0
+  },
+  "counts": {
+    "human_written": 0,
+    "obsolete": 0,
+    "redundant": 4,
+    "rewrite_candidates": 0
+  },
+  "examined": {
+    "application": 47,
+    "application_files_referencing_package": 5,
+    "generated": 4
+  },
+  "generated": "2026-09-15T20:28:26+00:00",
+  "horizon": "this change",
+  "package": "frc-scheduler-server",
+  "proposals": [
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 25,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_canonical_filename_encodes_shape",
+      "text": "test_canonical_filename_encodes_shape killed none of 25 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 25,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_canonical_path_uses_base_dir",
+      "text": "test_canonical_path_uses_base_dir killed none of 25 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 25,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_load_canonical_missing_returns_none",
+      "text": "test_load_canonical_missing_returns_none killed none of 25 sampled mutants in this run"
+    },
+    {
+      "class": "redundant",
+      "evidence": {
+        "mutants_sampled": 25,
+        "note": "blueprint asks for the last N runs; this is n=1, advisory",
+        "runs_seen": 1
+      },
+      "file": "test_frc_scheduler_server_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "population": "generated",
+      "priority": "low",
+      "reason": "redundant-no-kills",
+      "rewrite_candidate": false,
+      "test": "test_parse_csv_reads_rows",
+      "text": "test_parse_csv_reads_rows killed none of 25 sampled mutants in this run"
+    }
+  ],
+  "reasons": [
+    "obsolete-symbol-removed",
+    "obsolete-path-deleted",
+    "obsolete-behavior-changed",
+    "redundant-no-kills",
+    "redundant-subsumed",
+    "redundant-skipped"
+  ],
+  "rule": "the harness proposes with evidence; a person approves; a retired test is kept, re-run once on the next change, never deleted; proposals never block a merge"
+}

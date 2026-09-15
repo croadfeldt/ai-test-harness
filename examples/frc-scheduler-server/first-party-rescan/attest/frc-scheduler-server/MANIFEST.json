@@ -1,0 +1,177 @@
+{
+  "package": "frc-scheduler-server",
+  "records": [
+    {
+      "category": "unit",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+      "generated_from": {
+        "sbom_component": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "source_ref": "requirements.txt@2ad04243861b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-15T20:29:42+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+        "model_id": "qwen38-27b",
+        "prompt_sha256": "sha256:a6bb4610b521750eaa97a9a4abfcd45c741403651ccfc78d6865e2ebfb46497f",
+        "run_id": "50ec3b2446fe",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [],
+        "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "symbols": [],
+        "version_range": "==2ad04243861b"
+      },
+      "test_id": "frc-scheduler-server::test_canonical_filename_encodes_shape::7f642934bcfb",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+      "generated_from": {
+        "sbom_component": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "source_ref": "requirements.txt@2ad04243861b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-15T20:29:42+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+        "model_id": "qwen38-27b",
+        "prompt_sha256": "sha256:a6bb4610b521750eaa97a9a4abfcd45c741403651ccfc78d6865e2ebfb46497f",
+        "run_id": "50ec3b2446fe",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [],
+        "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "symbols": [],
+        "version_range": "==2ad04243861b"
+      },
+      "test_id": "frc-scheduler-server::test_canonical_path_uses_base_dir::7f642934bcfb",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+      "generated_from": {
+        "sbom_component": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "source_ref": "requirements.txt@2ad04243861b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-15T20:29:42+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+        "model_id": "qwen38-27b",
+        "prompt_sha256": "sha256:a6bb4610b521750eaa97a9a4abfcd45c741403651ccfc78d6865e2ebfb46497f",
+        "run_id": "50ec3b2446fe",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [],
+        "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "symbols": [],
+        "version_range": "==2ad04243861b"
+      },
+      "test_id": "frc-scheduler-server::test_load_canonical_missing_returns_none::7f642934bcfb",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "file_sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+      "generated_from": {
+        "sbom_component": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "source_ref": "requirements.txt@2ad04243861b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-15T20:29:42+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+        "model_id": "qwen38-27b",
+        "prompt_sha256": "sha256:a6bb4610b521750eaa97a9a4abfcd45c741403651ccfc78d6865e2ebfb46497f",
+        "run_id": "50ec3b2446fe",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [],
+        "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+        "symbols": [],
+        "version_range": "==2ad04243861b"
+      },
+      "test_id": "frc-scheduler-server::test_parse_csv_reads_rows::7f642934bcfb",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    }
+  ]
+}

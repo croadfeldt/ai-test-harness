@@ -1,0 +1,24 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml"
+  },
+  "generated": "2026-09-15T20:29:42+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-50ec3b2446fe@realized": "sha256:0fdfba81a019c47106962ab5301f84cec4322c525136dcf540e727f2319d9d87",
+    "lab/knowledge/software-package/frc-scheduler-server-2ad04243861b@discovered": "sha256:0e6d6149fd5ca2d908796e79a2fe626ec942c233b30e0bd24c7e9e74a4f82e16",
+    "lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-filename-encodes-shape@intent": "sha256:f827e39ffc84ae7da581e0ba019876cc0c11dfa9ed3da5b80243909a0aef6a9a",
+    "lab/knowledge/test-evidence/frc-scheduler-server-test-canonical-path-uses-base-dir@intent": "sha256:19cdcf5f57ee89a58e4621f528fca87148323f9ce6d9eebc88764513e85308c9",
+    "lab/knowledge/test-evidence/frc-scheduler-server-test-load-canonical-missing-returns-none@intent": "sha256:40e97e2119c536ffc9183a3b5fdcda1080419b977e766b33ea2274446658670e",
+    "lab/knowledge/test-evidence/frc-scheduler-server-test-parse-csv-reads-rows@intent": "sha256:ffcaab40ed2bce5adab379b66d7ffe0858a11a1bb0731d67f2fad099866a50cc"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

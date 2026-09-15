@@ -1,0 +1,16 @@
+{
+  "generated": "2026-09-15T20:29:42+00:00",
+  "package": "frc-scheduler-server",
+  "packet_md": "packet/frc-scheduler-server/packet.md",
+  "patch": "packet/frc-scheduler-server/tests.patch",
+  "patch_sha256": "sha256:cee58163cd62a5f97c780795c3f57d40c3eda102c71245e8c68188556184bc38",
+  "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+  "tests_in_patch": [
+    "test_canonical_filename_encodes_shape",
+    "test_canonical_path_uses_base_dir",
+    "test_load_canonical_missing_returns_none",
+    "test_parse_csv_reads_rows"
+  ],
+  "vex": "packet/frc-scheduler-server/vex.openvex.json",
+  "vex_statements": {}
+}

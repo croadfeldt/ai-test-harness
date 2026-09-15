@@ -1,0 +1,14 @@
+{
+  "generated": "2026-09-15T20:28:26+00:00",
+  "packages": [
+    {
+      "blocking": [],
+      "cve_confirmed": 0,
+      "escalated": 4,
+      "findings": 4,
+      "package": "frc-scheduler-server",
+      "tests_accept": 4,
+      "tests_discard_or_regenerate": 0
+    }
+  ]
+}

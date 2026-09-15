@@ -1,0 +1,20 @@
+{
+  "generated": "2026-09-15T20:02:45+00:00",
+  "items": [
+    {
+      "breaking": 0,
+      "budget": "full",
+      "call_sites": 0,
+      "change": "first_party",
+      "cve_targeted": false,
+      "depth": 0,
+      "new": "2ad04243861b",
+      "old": null,
+      "package": "frc-scheduler-server",
+      "reachable": "true",
+      "score": 35,
+      "vulns": 0
+    }
+  ],
+  "run_id": "50ec3b2446fe"
+}

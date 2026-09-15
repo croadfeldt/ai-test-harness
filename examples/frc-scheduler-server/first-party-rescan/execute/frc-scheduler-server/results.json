@@ -1,0 +1,261 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "direction": "none",
+      "fixed": null,
+      "vulnerable": "2ad04243861b"
+    },
+    "fix_pinning_confirmed": 0,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 4,
+    "total": 4
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 350,
+    "files": {
+      "app/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "app/auth.py": {
+        "covered": 46,
+        "statements": 147
+      },
+      "app/canonical_library.py": {
+        "covered": 36,
+        "statements": 64
+      },
+      "app/csv_extract.py": {
+        "covered": 11,
+        "statements": 142
+      },
+      "app/day_config_v2.py": {
+        "covered": 0,
+        "statements": 410
+      },
+      "app/db.py": {
+        "covered": 238,
+        "statements": 267
+      },
+      "app/frc_compliance.py": {
+        "covered": 0,
+        "statements": 32
+      },
+      "app/frc_events.py": {
+        "covered": 0,
+        "statements": 51
+      },
+      "app/live.py": {
+        "covered": 0,
+        "statements": 506
+      },
+      "app/llm_client.py": {
+        "covered": 0,
+        "statements": 218
+      },
+      "app/main.py": {
+        "covered": 0,
+        "statements": 1839
+      },
+      "app/pdf_dayplan.py": {
+        "covered": 0,
+        "statements": 164
+      },
+      "app/pdf_extract.py": {
+        "covered": 0,
+        "statements": 194
+      },
+      "app/pdf_render.py": {
+        "covered": 0,
+        "statements": 138
+      },
+      "app/pdf_validate.py": {
+        "covered": 0,
+        "statements": 103
+      },
+      "app/personal_access_tokens.py": {
+        "covered": 19,
+        "statements": 67
+      },
+      "app/post_passes/__init__.py": {
+        "covered": 0,
+        "statements": 0
+      },
+      "app/post_passes/cpsat_post_passes.py": {
+        "covered": 0,
+        "statements": 204
+      },
+      "app/post_passes/rb_balance.py": {
+        "covered": 0,
+        "statements": 104
+      },
+      "app/post_passes/station_balance.py": {
+        "covered": 0,
+        "statements": 128
+      },
+      "app/quality.py": {
+        "covered": 0,
+        "statements": 168
+      },
+      "app/quality_floors.py": {
+        "covered": 0,
+        "statements": 89
+      },
+      "app/quality_presets.py": {
+        "covered": 0,
+        "statements": 13
+      },
+      "app/quality_report.py": {
+        "covered": 0,
+        "statements": 72
+      },
+      "app/quality_scoring.py": {
+        "covered": 0,
+        "statements": 63
+      },
+      "app/schedule_derive.py": {
+        "covered": 0,
+        "statements": 140
+      },
+      "app/scheduler.py": {
+        "covered": 0,
+        "statements": 1010
+      },
+      "app/statbotics.py": {
+        "covered": 0,
+        "statements": 40
+      },
+      "app/tba.py": {
+        "covered": 0,
+        "statements": 49
+      },
+      "app/xlsx_extract.py": {
+        "covered": 0,
+        "statements": 122
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-15T20:08:18+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "2ad04243861b",
+    "old_version": null,
+    "purl": "pkg:generic/frc-scheduler-server@2ad04243861b"
+  },
+  "run_id": "50ec3b2446fe",
+  "runs": {
+    "new": {
+      "duration_s": 23.1,
+      "returncode": 0,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 22.9,
+      "returncode": 0,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "podman",
+    "identity": "docker.io/library/python:3.12-slim",
+    "image_digest": "sha256:d6b046b27fe57002af7655dd6aa4ce3bc8a42a4621d7a5b4056a417e0d9952f5",
+    "isolation": {
+      "capabilities": "all dropped",
+      "disposable": true,
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "none",
+      "no_new_privileges": true,
+      "rootfs": "read-only",
+      "secrets": "none mounted; environment cleared with env -i"
+    },
+    "provisioner": "local podman"
+  },
+  "test_files": [
+    {
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a"
+    }
+  ],
+  "tests": [
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "id": "tests.test_frc_scheduler_server_unit::test_canonical_filename_encodes_shape",
+      "message": "",
+      "name": "test_canonical_filename_encodes_shape",
+      "param_id": "test_canonical_filename_encodes_shape",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "id": "tests.test_frc_scheduler_server_unit::test_canonical_path_uses_base_dir",
+      "message": "",
+      "name": "test_canonical_path_uses_base_dir",
+      "param_id": "test_canonical_path_uses_base_dir",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 3,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "id": "tests.test_frc_scheduler_server_unit::test_load_canonical_missing_returns_none",
+      "message": "",
+      "name": "test_load_canonical_missing_returns_none",
+      "param_id": "test_load_canonical_missing_returns_none",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 1,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "id": "tests.test_frc_scheduler_server_unit::test_parse_csv_reads_rows",
+      "message": "",
+      "name": "test_parse_csv_reads_rows",
+      "param_id": "test_parse_csv_reads_rows",
+      "status": "pass",
+      "symbols_exercised": [],
+      "verdict": "candidate: passes on head",
+      "versions": {
+        "new": "pass",
+        "old": "na"
+      }
+    }
+  ]
+}

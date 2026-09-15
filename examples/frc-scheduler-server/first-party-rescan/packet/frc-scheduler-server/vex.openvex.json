@@ -1,0 +1,9 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/50ec3b2446fe/frc-scheduler-server",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [],
+  "timestamp": "2026-09-15T20:29:42+00:00",
+  "version": 1
+}

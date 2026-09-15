@@ -1,0 +1,126 @@
+{
+  "generated": "2026-09-15T20:29:43+00:00",
+  "goals": [
+    {
+      "evidence_ref": [
+        "packet/frc-scheduler-server/packet.md"
+      ],
+      "goal": "Nothing merges without a person",
+      "id": "G1",
+      "measurement": "harness produced patches and drafts only; no git push, no VEX published",
+      "source": "exec summary: humans own the merge",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/frc-scheduler-server/results.json"
+      ],
+      "goal": "Every kept test was compiled and run in the sandbox before a reviewer sees it",
+      "id": "G2",
+      "measurement": "4 tests ran on head, again for flakes, and on base; 0 flaky",
+      "source": "principle: generated tests are hypotheses until executed",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "triage/frc-scheduler-server/triage.json"
+      ],
+      "goal": "A test that passes on both versions is not presented as CVE evidence",
+      "id": "G3",
+      "measurement": "0 fix-pinning confirmed; pass-on-both CVE tests are classified test-bug and excluded from VEX 'fixed'",
+      "source": "principle: strong, not just green",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "selfcheck/selfcheck.json"
+      ],
+      "goal": "Stage 0 passed before evidence was produced",
+      "id": "G4",
+      "measurement": "22 of 22 register checks; sandbox probe skipped; model probe skipped",
+      "source": "section 8.5, section 17: self-verification",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/frc-scheduler-server/new/sandbox.json"
+      ],
+      "goal": "Generated tests ran with no network, no secrets, read-only root, disposable container",
+      "id": "G5",
+      "measurement": "{'capabilities': 'all dropped', 'disposable': True, 'limits': {'cpus': '2', 'memory': '2g', 'pids': 512, 'timeout_s': 900}, 'network': 'none', 'no_new_privileges': True, 'rootfs': 'read-only', 'secrets': 'none mounted; environment cleared with env -i'}",
+      "source": "section 11: incoming code is untrusted",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "attest/frc-scheduler-server/statement.dsse.json"
+      ],
+      "goal": "Every accepted test carries a provenance record and a signed attestation",
+      "id": "G6",
+      "measurement": "4 records; envelopes verified locally: [True]; signer is a development key",
+      "source": "section 8.2: provenance",
+      "verdict": "met (development signer)"
+    },
+    {
+      "evidence_ref": [
+        "packet/frc-scheduler-server/vex.openvex.json"
+      ],
+      "goal": "Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement",
+      "id": "G7",
+      "measurement": "no advisory on the work item (the application's own code, or packages with no known vulnerability)",
+      "source": "section 10: known vulnerabilities with a CVE-targeted test",
+      "verdict": "not applicable"
+    },
+    {
+      "evidence_ref": [
+        "triage/frc-scheduler-server/triage.json"
+      ],
+      "goal": "The run surfaces a finding the PR diff does not show",
+      "id": "G8",
+      "measurement": "frc-scheduler-server: ['frc-scheduler-server: test_canonical_filename_encodes_shape killed none of 25 sa', 'frc-scheduler-server: test_canonical_path_uses_base_dir killed none of 25 sample', 'frc-scheduler-server: test_load_canonical_missing_returns_none killed none of 25', 'frc-scheduler-server: test_parse_csv_reads_rows killed none of 25 sampled mutant']",
+      "source": "exec summary: catches what a reviewer would miss",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "run.json",
+        "packet/summary.json"
+      ],
+      "goal": "Packet within 2 hours of trigger for depth 0 and 1",
+      "id": "G9",
+      "measurement": "intake 2026-09-15T20:02:45+00:00 -> packet 2026-09-15T20:29:42+00:00",
+      "source": "section 10: time to packet",
+      "verdict": "see measurement"
+    },
+    {
+      "evidence_ref": [
+        "attest/frc-scheduler-server/statement.json"
+      ],
+      "goal": "Every number in the packet points at a file in the work directory",
+      "id": "G10",
+      "measurement": "packet sections cite artifact paths; attestation subjects are the patch and the manifest digests",
+      "source": "section 17: every claim traceable",
+      "verdict": "met"
+    },
+    {
+      "evidence_ref": [
+        "execute/frc-scheduler-server/mutation/mutation.json"
+      ],
+      "goal": "Test strength measured by mutation and coverage delta",
+      "id": "G11",
+      "measurement": "frc-scheduler-server: score 0.04 on 25 sampled mutants; coverage delta: no baseline overlay suite yet",
+      "source": "section 10: mutation score, coverage delta",
+      "verdict": "not met (target 0.6 on sampled mutants)"
+    }
+  ],
+  "packages": [
+    "frc-scheduler-server"
+  ],
+  "run_id": "50ec3b2446fe",
+  "summary": {
+    "met": 8,
+    "not_applicable": 1,
+    "not_met": 1,
+    "other": 1
+  }
+}

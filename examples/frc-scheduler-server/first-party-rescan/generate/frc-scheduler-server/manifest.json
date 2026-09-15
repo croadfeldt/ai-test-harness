@@ -1,0 +1,86 @@
+{
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": false,
+    "functional": 5,
+    "functional_at_call_sites": false,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "direction": "none",
+    "fixed": null,
+    "vulnerable": "2ad04243861b"
+  },
+  "discarded": [
+    {
+      "attempts": 3,
+      "category": "negative",
+      "reason": "no parseable test file after repairs"
+    }
+  ],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 353,
+        "status": {
+          "test_canonical_filename_encodes_shape": "pass",
+          "test_canonical_path_uses_base_dir": "pass",
+          "test_create_jwt_roundtrip_preserves_claims": "fail",
+          "test_decode_jwt_rejects_garbage": "fail",
+          "test_load_canonical_missing_returns_none": "pass",
+          "test_parse_csv_reads_rows": "pass",
+          "test_save_then_load_roundtrip": "fail"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "KeyError: 'user_id'",
+          "reason": "fails on baseline after repair",
+          "test": "test_create_jwt_roundtrip_preserves_claims"
+        },
+        {
+          "message": "jose.exceptions.JWTError: Not enough segments",
+          "reason": "fails on baseline after repair",
+          "test": "test_decode_jwt_rejects_garbage"
+        },
+        {
+          "message": "TypeError: CanonicalEntry.__init__() missing 4 required positional arguments: 'confidence', 'matches', 'achieved_lex_tuple', and 'quality_report'",
+          "reason": "fails on baseline after repair",
+          "test": "test_save_then_load_roundtrip"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/test_frc_scheduler_server_unit.py",
+      "model": "qwen38-27b",
+      "prompt_sha256": "sha256:a6bb4610b521750eaa97a9a4abfcd45c741403651ccfc78d6865e2ebfb46497f",
+      "response_sha256": "sha256:180dff8da4d6acff1db5e44a9ff9b3bb51049e6fb240a792330e2cd0a72df4e8",
+      "sha256": "sha256:7f642934bcfb7e16a2a508914bc24e98cbcdb37c2d7c6a7bf1511c7b00db791a",
+      "targets": [],
+      "tests": [
+        "test_canonical_filename_encodes_shape",
+        "test_canonical_path_uses_base_dir",
+        "test_load_canonical_missing_returns_none",
+        "test_parse_csv_reads_rows"
+      ]
+    }
+  ],
+  "generated": "2026-09-15T20:03:29+00:00",
+  "model": {
+    "endpoint": "gpu-server-vllm",
+    "endpoint_digest": "sha256:8870f0d1a4df5ebc",
+    "id": "qwen38-27b",
+    "temperature": 0.2
+  },
+  "new_version": "2ad04243861b",
+  "old_version": null,
+  "package": "frc-scheduler-server",
+  "purl": "pkg:generic/frc-scheduler-server@2ad04243861b",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}
