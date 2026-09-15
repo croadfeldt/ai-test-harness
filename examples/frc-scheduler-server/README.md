@@ -91,8 +91,8 @@ calls. Run 6 (`-run6/`) held everything from run 5 and moved the same model to a
 five times faster: 2 of 3 vulnerabilities proven in 22 minutes end to end, the
 key-confusion one included. Same model, same rules; the speed bought more attempts inside the
 same budget. Then pyasn1 and starlette went through the same pipeline once each and each proved one
-vulnerability. The register grew to nineteen entries along the way; every one has a check that runs
-before every pipeline run.
+vulnerability. The register had grown to nineteen entries by then, and stands at twenty-two; every one has a check
+that runs before every pipeline run.
 
 ## The same pipeline on a cluster (`-cluster/`, `-cluster-run2/`, `-cluster-run3/`)
 
@@ -134,6 +134,35 @@ than the last, on something the workstation never sees, and each fix is one comm
 | execute | the isolation probe installs one wheel and the sealed pod cannot download it | stage 0 fetches it into the shared workspace first |
 | attest | later stages followed the analyzed package list, not the executed one | triage, packet, attest and assess only handle what the run executed |
 | records | the pod's sandbox records had no image digest and the run record had shortened a branch name | the pod is told its own digest reference; only real paths are shortened |
+
+## The application itself as the target (`first-party-rescan/`)
+
+Everything above tests packages the service depends on. This run points the harness at the
+service's own code: a scan of `main`, one work-list row at depth 0, the `app` package with 364
+public symbols, and the same stages from generation to the post-analysis. No advisory is looked up
+for the application; there is nothing known to be wrong with it, so there is nothing to prove, and
+the harness says so instead of inventing a vulnerability to chase.
+
+| | |
+|---|---|
+| Asked for | 10 unit tests and 5 negative tests |
+| Kept | 4 unit tests, after 3 were cut for failing on head; the negative file never parsed in three attempts and was discarded, with the reason on record |
+| Ran | 4 pass on head, 0 flaky, 350 lines of the application covered across 30 of its files |
+| Mutation, on the application's own source | 211 sites on the executed lines, 25 sampled, 1 killed. The four tests are weak, and the packet says so |
+| Relevance | 47 of the application's own tests examined; the four new ones proposed as redundant for killing nothing |
+| Records | 4 provenance records, 7 UDLM records sealed, statement signed; 8 of 11 goals met, the advisory goal not applicable, mutation below target |
+
+The verdict a reviewer gets is honest and modest: four characterization tests worth keeping if they
+look right, none of them strong. The point of the run is the path, not the score: the tree at the
+reviewed commit on the sandbox's import path, mutants laid over a copy of it, the tests proposed
+under the application's own `tests/` directory, and a packet that speaks about the application
+rather than about a version bump. At this model size the application's own code gets the same
+quality of test its dependencies do.
+
+Two things this run fixed in the harness. A change made the day before had broken execute for every
+non-CVE test; it is fixed with a test on every verdict branch. And a first-party mutant was being
+laid in the wrong directory, so the first mutation score read zero; the sandbox test now demands a
+kill, under both targets.
 
 ## The test pull request (`-run6/propose/`)
 
@@ -192,6 +221,13 @@ D=../examples/frc-scheduler-server/pr-fix-known-vulns-run5
 .venv/bin/harness assess   --workdir $D
 .venv/bin/harness propose  --workdir $D --select python-jose   # the test pull request; needs [propose].repo, a checkout of the overlay repository
 .venv/bin/harness feedback --workdir $D --select python-jose   # stage 7, after a person has decided on that pull request
+
+# The application itself as the target:
+F=../examples/frc-scheduler-server/first-party-rescan
+.venv/bin/harness intake   --repo ../../frc-scheduler-server --head main --workdir $F
+.venv/bin/harness analyze  --workdir $F --target first-party
+.venv/bin/harness generate --workdir $F --select frc-scheduler-server --categories unit negative --mode fixed
+.venv/bin/harness execute  --workdir $F --select frc-scheduler-server   # then mutate, relevance, triage, packet, attest, assess
 ```
 
 The trigger is a branch in the application's repository, `deps/fix-known-vulns`, that bumps the four

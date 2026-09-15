@@ -63,6 +63,12 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/harness packet --workdir out/run1 --select python-jose
 .venv/bin/harness attest --workdir out/run1 --select python-jose
 .venv/bin/harness assess --workdir out/run1
+
+# The application's own code as the target (blueprint depth 0): the same stages, one row for the repository itself.
+.venv/bin/harness intake   --workdir out/fp --head main
+.venv/bin/harness analyze  --workdir out/fp --target first-party
+.venv/bin/harness generate --workdir out/fp --select <repository-name> --categories unit negative --mode fixed
+.venv/bin/harness execute  --workdir out/fp --select <repository-name>   # then mutate, relevance, triage, packet, attest, assess as above
 ```
 
 ## On a cluster
@@ -131,13 +137,14 @@ cache/                          downloaded archives, unpacked trees, OSV and PyP
 | Stage | State |
 |---|---|
 | 0 self-verification | implemented: one check per failure-register entry (blueprint section 17), sandbox probe, model probe; runs before intake, generate, and execute; fails closed; record referenced from every manifest |
-| 1 intake | implemented, Python |
-| 2 analyze | implemented, Python |
-| 3 generate | implemented: ASTER-style loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate). Not yet run against a model; the first run is the next step. |
+| 1 intake | implemented, Python and Go; one row for the repository itself at depth 0 and one per package in the graph |
+| 2 analyze | implemented, Python and Go; `--target` chooses the dependency rows, the first-party row, or both |
+| 3 generate | implemented: the fixed-script loop (facts as DATA, compile, baseline run in the sandbox, repair, cut failing tests, coverage gate) and the tool-using agent for CVE tests, both behind the adapter's test toolkit; every run so far is under `examples/` |
 | 4 execute | implemented: sandbox run on head, flake re-run, coverage, differential against the base graph or a resolved fixed candidate, TestResults in the adapter-interface schema. `harness mutate` adds the mutation score and per-test kills; `harness relevance` proposes retirements: tests that reference symbols the change removes or alters (rewrite candidates when a same-named symbol was added), tests that killed no sampled mutant, tests whose kills are a strict subset of another's, and skipped tests. Proposals only; a person approves. |
 | 5 triage | implemented: deterministic classes with confidence and routing; below threshold escalates; agent-reported defects need stage 4 corroboration |
 | 6 packet | implemented: one-page packet, accepted tests as a patch in the overlay layout, draft OpenVEX per vulnerability (fixed only with a confirmed fix-pinning test) |
 | 7 feedback | register loop implemented (section 17). `harness feedback` reads a merged, edited or closed test pull request back: a decision per test (accepted, edited, rejected) as labeled examples, a requested and a realized UDLM record per accepted candidate, and a signed acceptance statement naming the merge commit. Reads only |
+| first-party target | `harness analyze --target first-party` (or `all`) takes the repository's own code as the package under test: its importable packages at the reviewed commit, the API surface and what a change altered, the dependencies its tests may import, and its existing test files. Generation, the sandbox (the tree on the import path, mutants laid over a copy), mutation, relevance, the packet (tests under `tests/`) and the records run unchanged. No advisories are looked up for the application itself; known vulnerabilities stay with the dependency rows. Python now; Go first-party needs tests placed inside the module and is the next slice |
 | lifecycles (blueprint 5.0) | A, the developer's inner loop: this command line and the Tekton run are it. B, the pipeline's outer loop: `harness propose` puts the accepted tests, the packet, the provenance and the UDLM records on a `harness/` branch of the test overlay repository under a bot identity (optionally signed) and opens the pull request; it pushes that one branch and nothing else, and never merges. Not yet in the Tekton pipeline: the pod would need repository credentials |
 | attest | implemented: provenance record per accepted test (manifest.schema.yaml) and the same facts as UDLM records (TestEvidence at the harness's provider class, VexStatement, Vulnerability, SoftwarePackage, Job) sealed with UDLM's chain code from a local checkout; in-toto Statement with the test-result/v0.1 predicate whose subjects include each evidence record's head; DSSE envelope signed with a local Ed25519 development key and verified; Trusted Artifact Signer replaces the key in Konflux |
 | assess | implemented: eleven goals from the blueprint, each measured from the run's files with a verdict and evidence path |

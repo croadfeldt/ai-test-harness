@@ -49,9 +49,11 @@ def assess(*, workdir: Path) -> dict:
     goal("G6", "section 8.2: provenance", "Every accepted test carries a provenance record and a signed attestation",
          f"{sum(a['records'] for a in att['packages'])} records; envelopes verified locally: {[a['verified_locally'] for a in att['packages']]}; signer is a development key",
          "met (development signer)", [f"attest/{p}/statement.dsse.json" for p in pkgs])
+    with_advisories = [pk_ for pk_ in pk["packages"] if pk_.get("vex_statements")]
     goal("G7", "section 10: known vulnerabilities with a CVE-targeted test", "Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement",
-         "; ".join(f"{p}: {pk_['vex_statements']}" for p, pk_ in zip(pkgs, pk["packages"])),
-         "met" if all(pk_["vex_statements"] for pk_ in pk["packages"]) else "not met", [f"packet/{p}/vex.openvex.json" for p in pkgs])
+         ("; ".join(f"{p}: {pk_['vex_statements']}" for p, pk_ in zip(pkgs, pk["packages"])) if with_advisories
+          else "no advisory on the work item (the application's own code, or packages with no known vulnerability)"),
+         "met" if with_advisories else "not applicable", [f"packet/{p}/vex.openvex.json" for p in pkgs])
     goal("G8", "exec summary: catches what a reviewer would miss", "The run surfaces a finding the PR diff does not show",
          "; ".join(f"{p}: {[f['summary'][:80] for f in t['findings']]}" for p, t in triages.items()) or "no findings",
          "met" if any(t["findings"] for t in triages.values()) else "not met", [f"triage/{p}/triage.json" for p in pkgs])

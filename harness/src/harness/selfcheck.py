@@ -149,7 +149,7 @@ def gf014():
     assert fix_reached("jose.exceptions.JWKError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.", diff)
     assert not fix_reached("AttributeError: module 'lib' has no attribute 'RAND_bytes'", diff)
     from .stages import execute
-    assert "fix reached, assertion wrong" in inspect.getsource(execute.execute_package)
+    assert "fix reached, assertion wrong" in inspect.getsource(execute.verdict)
 
 
 @check("GF-015", "an identical run result twice in a row is reported as a blocked path and a candidate defect")
@@ -163,7 +163,7 @@ def gf015():
     assert "does not reach the vulnerable behavior" in (d2.note("[new] t=pass\n[old] t=pass") or ""), "identical pass/pass is 'no trigger', not a defect"
     assert d2.kind == "no-trigger"
     from .stages import execute
-    assert "blocked on both versions" in inspect.getsource(execute.execute_package)
+    assert "blocked on both versions" in inspect.getsource(execute.verdict)
 
 
 @check("GF-016", "a downgrade derives vulnerable=new, fixed=old from the advisories, and the verdicts follow the roles")
@@ -174,7 +174,7 @@ def gf016():
     down = cve_roles(old_version="0.6.4", new_version="0.4.8", vulns_old=[], vulns_new=[{"id": "B", "fixed_versions": ["0.6.3"]}])
     assert down == {"vulnerable": "0.4.8", "fixed": "0.6.4", "direction": "downgrade"}, down
     from .stages import execute
-    src = inspect.getsource(execute.execute_package)
+    src = inspect.getsource(execute.verdict)
     assert "exposure confirmed" in src and "downgrade" in src
 
 
@@ -245,7 +245,7 @@ def gf022():
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
-    src = inspect.getsource(execute.execute_package)
+    src = inspect.getsource(execute.verdict)
     for phrase in ("fix-pinning confirmed", "not a fix-pinning test", "fails on the fixed version", "inconclusive", "flaky: discard", "behavior changed"):
         assert phrase in src, f"verdict text missing: {phrase}"
 

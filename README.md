@@ -95,8 +95,8 @@ and the site. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Status and how to contribute
 
-The blueprint is complete for review. The implementation covers every stage from self-verification through the signed attestation and the post-analysis, for Python; mutation testing, the relevance engine, and the Go adapter are next. Open decisions are listed in
-[the blueprint, section 15](docs/03-blueprint.md#15-open-questions). Comments, corrections, and pull
+The blueprint is at v0.11. The implementation covers every stage from self-verification through the signed attestation, the post-analysis, the test pull request and the read-back of its review, for Python and Go, on a workstation and as a Tekton pipeline on OpenShift, with the repository's own code as a target as well as its dependencies. The failure register stands at twenty-two entries. The open questions are in
+[the blueprint, section 15](docs/03-blueprint.md#15-open-questions).
 requests against any document are welcome. I would especially like to hear from maintainers of the
 projects named in the [landscape](docs/04-landscape.md) if I have described their work inaccurately.
 

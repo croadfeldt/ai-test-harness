@@ -53,7 +53,7 @@ TARGET = str(_config.get("sandbox", "target", "HARNESS_SANDBOX_TARGET", "podman"
 
 def run_tests(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, out_dir: Path,
               cover: list[str], label: str, image: str = IMAGE, limits: dict = LIMITS,
-              overlay_dir: Path | None = None) -> dict:
+              overlay_dir: Path | None = None, source_dir: Path | None = None) -> dict:
     """Install from the wheelhouse offline, run pytest with coverage, return a summary.
 
     Writes junit.xml, coverage.json, stdout.log, stderr.log into out_dir. Two targets: `podman`
@@ -64,7 +64,7 @@ def run_tests(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, out
     """
     if TARGET == "pod":
         return _run_in_pod(wheelhouse=wheelhouse, requirements=requirements, tests_dir=tests_dir, out_dir=out_dir,
-                           cover=cover, label=label, limits=limits, overlay_dir=overlay_dir)
+                           cover=cover, label=label, limits=limits, overlay_dir=overlay_dir, source_dir=source_dir)
     if not shutil.which("podman"):
         raise HarnessError("podman is required for the sandbox target")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -74,7 +74,9 @@ python -m venv /work/venv >/dev/null
 /work/venv/bin/pip install --quiet --no-index --find-links /wheelhouse -r /out/requirements.txt || {{ echo "INSTALL_FAILED"; exit 97; }}
 cd /work
 cp -r /tests /work/tests
-if [ -d /mutant ]; then cp -r /mutant/. /work/venv/lib/python3.12/site-packages/; fi
+# A first-party target: the application's own tree, mounted read-only, copied so a mutant can be laid over it.
+if [ -d /src ]; then cp -r /src /work/src; export PYTHONPATH=/work/src{":/work/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
+if [ -d /mutant ]; then cp -r /mutant/. {"/work/src" if source_dir else "/work/venv/lib/python3.12/site-packages"}/; fi
 /work/venv/bin/python -m coverage run --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
     --junitxml=/out/junit.xml -o junit_family=xunit2 /work/tests ; rc=$?
 /work/venv/bin/python -m coverage json -o /out/coverage.json >/dev/null 2>&1 || true
@@ -87,6 +89,7 @@ exit $rc
            "-v", f"{wheelhouse.resolve()}:/wheelhouse:ro,Z", "-v", f"{tests_dir.resolve()}:/tests:ro,Z",
            "-v", f"{out_dir.resolve()}:/out:rw,Z",
            *(["-v", f"{overlay_dir.resolve()}:/mutant:ro,Z"] if overlay_dir else []),
+           *(["-v", f"{source_dir.resolve()}:/src:ro,Z"] if source_dir else []),
            "--label", f"ai-test-harness={label}", image,
            # env -i: the sandbox inherits nothing from the image or the host, only what is listed here.
            "env", "-i", "PATH=/usr/local/bin:/usr/bin:/bin", "HOME=/work", "LANG=C.UTF-8",
@@ -115,7 +118,7 @@ exit $rc
 
 
 def _run_in_pod(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, out_dir: Path,
-                cover: list[str], label: str, limits: dict, overlay_dir: Path | None) -> dict:
+                cover: list[str], label: str, limits: dict, overlay_dir: Path | None, source_dir: Path | None = None) -> dict:
     """The pod target: same run script, executed here, in a fresh venv under a temp work directory."""
     import os
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -126,7 +129,8 @@ python -m venv {work}/venv >/dev/null
 {work}/venv/bin/pip install --quiet --no-index --find-links {wheelhouse.resolve()} -r {out_dir.resolve()}/requirements.txt || {{ echo "INSTALL_FAILED"; exit 97; }}
 cd {work}
 cp -r {tests_dir.resolve()} {work}/tests
-if [ -d "{overlay_dir.resolve() if overlay_dir else '/nonexistent'}" ]; then cp -r {overlay_dir.resolve() if overlay_dir else '/nonexistent'}/. {work}/venv/lib/python3.12/site-packages/; fi
+if [ -d "{source_dir.resolve() if source_dir else '/nonexistent'}" ]; then cp -r {source_dir.resolve() if source_dir else '/nonexistent'} {work}/src; export PYTHONPATH={work}/src{":" + str(work) + "/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
+if [ -d "{overlay_dir.resolve() if overlay_dir else '/nonexistent'}" ]; then cp -r {overlay_dir.resolve() if overlay_dir else '/nonexistent'}/. {f"{work}/src" if source_dir else f"{work}/venv/lib/python3.12/site-packages"}/; fi
 {work}/venv/bin/python -m coverage run --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
     --junitxml={out_dir.resolve()}/junit.xml -o junit_family=xunit2 {work}/tests ; rc=$?
 {work}/venv/bin/python -m coverage json -o {out_dir.resolve()}/coverage.json >/dev/null 2>&1 || true
@@ -189,6 +193,20 @@ def parse_junit(path: Path) -> dict[str, dict]:
     return out
 
 
+def source_relative(fname: str, roots: list[str]) -> str:
+    """A coverage file name relative to where the package root lives: after site-packages/ for an
+    installed package, from the root's own directory for a first-party tree."""
+    if "site-packages/" in fname:
+        return fname.split("site-packages/")[-1]
+    for r in roots:
+        i = fname.find(f"/{r}/")
+        if i >= 0:
+            return fname[i + 1:]
+        if fname.endswith(f"/{r}.py"):
+            return f"{r}.py"
+    return fname
+
+
 def coverage_for(path: Path, roots: list[str]) -> dict:
     """Lines and branches covered inside the package roots, from coverage.json."""
     if not path or not Path(path).exists():
@@ -198,7 +216,7 @@ def coverage_for(path: Path, roots: list[str]) -> dict:
     for fname, fdata in data.get("files", {}).items():
         if any(f"/{r}/" in fname or fname.endswith(f"/{r}.py") for r in roots):
             s = fdata.get("summary", {})
-            files[fname.split("site-packages/")[-1]] = {"covered_lines": s.get("covered_lines", 0),
+            files[source_relative(fname, roots)] = {"covered_lines": s.get("covered_lines", 0),
                                                         "num_statements": s.get("num_statements", 0),
                                                         "executed_lines": fdata.get("executed_lines", [])[:400]}
     covered = sum(f["covered_lines"] for f in files.values())

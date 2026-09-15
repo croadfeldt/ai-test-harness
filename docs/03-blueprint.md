@@ -1,11 +1,16 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.10
+**Status:** Draft v0.11
 **Date:** 2026-09-15
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.11:** the repository's own code is a target in its own right (stage 2, section
+5.0): one row at depth 0, facts from the tree at the reviewed commit, tests proposed under the
+application's own tests directory, and no advisory lookup for the application itself, so
+CVE-targeted work stays with the dependency rows unless a vulnerability is already known.
 
 **Changes in v0.10:** the pipeline is one core with two lifecycles around it (section 5.0). A
 developer runs it inside their own work; a CI/CD pipeline runs it on every change and proposes a
@@ -289,7 +294,11 @@ core as lifecycle A runs it, and they produce the packet lifecycle B needs. `har
 lifecycle B's last step: the accepted tests, the packet, the provenance record, the signed statement
 and the UDLM records go on a `harness/` branch of the overlay repository under the harness's own
 identity, and a pull request is opened. That branch is the only ref the step pushes; nothing in it
-can merge. `harness feedback` closes the loop after a person has decided (stage 7).
+can merge. `harness feedback` closes the loop after a person has decided (stage 7). The same stages
+take the repository's own code as the target (`analyze --target first-party`): one work-list row at
+depth 0, facts from the tree at the reviewed commit, the tree on the sandbox's import path, and the
+tests proposed under the application's own `tests/`; no advisories are looked up for the application
+itself, so CVE-targeted work stays with the dependency rows unless a vulnerability is already known.
 
 ### Stage 0: Self-verification
 
@@ -339,6 +348,13 @@ For each item on the work list, the agent collects context the test generator wi
   commit where one is linked, and any public reproducer. Advisory text and reproducers are **untrusted
   data** like everything else from outside.
 - A **risk score** (section 6.3) that decides how much generation budget this item gets.
+
+For the repository's own code, the depth 0 row, the same facts come from the tree at the reviewed
+commit: its packages, their API surface, what the change added or altered, the dependencies its
+tests may import, and the tests it already has. No advisory is looked up for the application itself
+unless it is a published package with a known one. The harness does not go looking for
+vulnerabilities in first-party code; it tests the code as written and leaves CVE-targeted work to
+the dependency rows, where the vulnerabilities are already known.
 
 ### Stage 3: Generation
 

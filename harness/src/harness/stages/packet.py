@@ -105,7 +105,8 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
         content = adapter.drop_tests(src, cut) if cut else src
         if not adapter.test_names(content):
             continue
-        patch_files.append((_overlay_path(pkg, facts["new_version"] or facts["old_version"], Path(f["file"]).name, ecosystem), content))
+        dest = f"tests/{Path(f['file']).name}" if facts.get("first_party") else _overlay_path(pkg, facts["new_version"] or facts["old_version"], Path(f["file"]).name, ecosystem)
+        patch_files.append((dest, content))
     patch = _patch(patch_files)
     (out / "tests.patch").write_text(patch)
     vex = _vex(pkg, facts["purl"], adapter.purl(pkg, facts["old_version"]) if facts["old_version"] else None, vulns_doc, triage, run_id)
@@ -164,23 +165,32 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
         what = f"This change moves {pkg} from {facts['old_version']} to {facts['new_version']}, a version with {n_open} known vulnerabilit{'y' if n_open == 1 else 'ies'}. That is a downgrade."
     elif facts["change"] == "unchanged" and n_open:
         what = f"This change leaves {pkg} at {facts['new_version']}, which has {n_open} known vulnerabilit{'y' if n_open == 1 else 'ies'} the application is exposed to."
+    elif facts.get("first_party"):
+        what = (f"This is the application's own code, {pkg}, at commit {facts['new_version']}"
+                + (f", changed from {facts['old_version']}" if facts['old_version'] and facts['old_version'] != facts['new_version'] else "") + ".")
     else:
         what = f"This change moves {pkg} from {facts['old_version']} to {facts['new_version']}."
     proven = (f"The harness proved {confirmed} of the {n_issues} with a test that fails on the vulnerable version and passes on the fixed one; the other {n_issues - confirmed} {'is' if n_issues - confirmed == 1 else 'are'} unproven and marked so."
               if confirmed else f"The harness could not prove any of the {n_issues} with a test; that is stated, not hidden.")
+    if n_issues == 0:
+        proven = ("No known vulnerability applies to it, so there is nothing to prove; the tests below characterize what the code does today."
+                  if facts.get("first_party") else "No known vulnerability applies to this version; the tests below characterize what it does today.")
     accepted_n = len(accept)
     todo = ("Do not merge until Supply Chain Security clears the suspicious finding." if s.get("blocking") else
-            f"Accept the {accepted_n} candidate test{'s' if accepted_n != 1 else ''} if they look right, act on the findings below, and send the draft VEX statements to Product Security.")
+            f"Accept the {accepted_n} candidate test{'s' if accepted_n != 1 else ''} if they look right, act on the findings below"
+            + (", and send the draft VEX statements to Product Security." if n_issues else "."))
     plain = f"{what} {proven} {todo}"
-    md = f"""# Review packet: {pkg} {facts['old_version']} -> {facts['new_version']}
+    title = (f"{pkg} at {facts['new_version']}" if facts.get("first_party") and (not facts['old_version'] or facts['old_version'] == facts['new_version'])
+             else f"{pkg} {facts['old_version']} -> {facts['new_version']}")
+    md = f"""# Review packet: {title}
 
 **In plain terms.** {plain}
 
 Run `{run_id}`. Generated {now_iso()}. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
-{pkg} at depth {facts['depth']}, change `{facts['change']}`, reachable from first-party code: **{facts['call_sites_summary']['reachable']}**
-({facts['call_sites_summary']['production']} production references). Risk score {facts['risk']['score']}, budget {facts['risk']['budget']['level']}.
+{(f"{pkg} is the application itself (depth 0), scanned at commit {facts['new_version']}." if facts.get("first_party") else
+  f"{pkg} at depth {facts['depth']}, change `{facts['change']}`, reachable from first-party code: **{facts['call_sites_summary']['reachable']}** ({facts['call_sites_summary']['production']} production references).")} Risk score {facts['risk']['score']}, budget {facts['risk']['budget']['level']}.
 API diff: +{facts['api_diff_summary']['added']} / -{facts['api_diff_summary']['removed']} / ~{facts['api_diff_summary']['changed']}, {facts['api_diff_summary']['breaking']} breaking.
 Advisories: {facts['vulns_summary']['count']} open at head, {facts['vulns_summary'].get('count_old', 0)} on the replaced version.
 

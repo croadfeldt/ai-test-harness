@@ -426,14 +426,24 @@ def requirements(graph_packages: dict) -> list[str]:
     return [f"{p['name']}@{p['version']}" for p in graph_packages.values()]
 
 
-def prefetch(reqs: list[str], python_version: str | None, dest: Path) -> dict:
+def prefetch(reqs: list[str], python_version: str | None, dest: Path, source: Path | None = None) -> dict:
     from .. import sandbox_go
-    return {"dir": sandbox_go.prefetch_modcache(reqs, GO_VERSION, dest), "requirements": reqs, "kind": "gomodcache"}
+    env = {"dir": sandbox_go.prefetch_modcache(reqs, GO_VERSION, dest), "requirements": reqs, "kind": "gomodcache"}
+    if source:
+        env["source"] = str(source)
+    return env
+
+
+def first_party_packages(tree: Path) -> list[str]:
+    m = re.search(r"^module\s+(\S+)", (tree / "go.mod").read_text(), re.M) if (tree / "go.mod").exists() else None
+    return [m.group(1)] if m else []
 
 
 def run_tests(env: dict, tests_dir: Path, out_dir: Path, cover: list[str], label: str, overlay_dir: Path | None = None,
               limits: dict | None = None) -> dict:
     from .. import sandbox_go
+    if env.get("source"):
+        raise HarnessError("first-party Go targets: tests must live inside the module; that sandbox path is the next slice")
     return sandbox_go.run_tests(env_dir=Path(env["dir"]), tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label,
                                 limits=limits or sandbox_go.LIMITS, overlay_dir=overlay_dir)
 
