@@ -66,7 +66,8 @@ def prefetch_modcache(requirements: list[str], go_version: str, dest: Path, imag
     return dest
 
 
-def _script(*, mod: str, modcache: str, gocache: str, tests: str, out: str, work: str, coverpkg: str, timeout_s: int, overlay: dict | None, mutant_src: str) -> str:
+def _script(*, mod: str, modcache: str, gocache: str, tests: str, out: str, work: str, coverpkg: str, timeout_s: int, overlay: dict | None, mutant_src: str,
+            include: list[str] | None = None) -> str:
     """The run, as a shell script, for either target. Paths differ; the steps do not."""
     replace = ""
     if overlay:
@@ -76,8 +77,9 @@ mkdir -p {work}/mutant && cp -r "$src"/. {work}/mutant/ && chmod -R u+w {work}/m
 (cd {mutant_src} && find . -type f ! -name overlay.json | while read f; do cp "$f" "{work}/mutant/$f"; done)
 go mod edit -replace {overlay["module"]}={work}/mutant
 """
+    files = " ".join(f"{tests}/{f}" for f in include) if include else f"{tests}/*.go"
     return f"""set -u
-mkdir -p {work}/m {work}/gopath && cp {mod}/go.mod {mod}/go.sum {work}/m/ && cp {tests}/*.go {work}/m/
+mkdir -p {work}/m {work}/gopath && cp {mod}/go.mod {mod}/go.sum {work}/m/ && cp {files} {work}/m/
 cd {work}/m
 export GOMODCACHE={modcache} GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE={gocache} GOPATH={work}/gopath HOME={work}{replace}
 go vet . > {out}/vet.log 2>&1 || true
@@ -88,6 +90,36 @@ exit $rc
 
 def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
               image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None) -> dict:
+    """See _run_once. A build failure blamed on specific test files is retried without them (GF-022)."""
+    summary = _run_once(env_dir=env_dir, tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label, image=image, limits=limits, overlay_dir=overlay_dir)
+    blamed = files_blamed((out_dir / "stdout.log").read_text(errors="replace"), tests_dir) if summary["build_failed"] else []
+    all_files = sorted(p.name for p in tests_dir.glob("*_test.go"))
+    if blamed and len(blamed) < len(all_files):
+        for name in ("stdout.log", "build.log", "test.json", "run.sh"):
+            if (out_dir / name).exists():
+                (out_dir / name).rename(out_dir / f"{Path(name).stem}-1{Path(name).suffix}")
+        summary = _run_once(env_dir=env_dir, tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label, image=image, limits=limits, overlay_dir=overlay_dir,
+                            include=[f for f in all_files if f not in blamed])
+        first = (out_dir / "stdout-1.log").read_text(errors="replace")
+        summary["files_not_compiled"] = {f: [l for l in first.splitlines() if l.startswith(f"./{f}:")][:5] for f in blamed}
+        summary["build_failed"] = False   # the package built once the blamed files were out; their tests are errors, below
+        _append_compile_errors(out_dir, tests_dir, summary["files_not_compiled"])
+        write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml" if summary["junit"] else None, "coverage": "coverage.json" if summary["coverage"] else None})
+    return summary
+
+
+def _append_compile_errors(out_dir: Path, tests_dir: Path, blamed: dict) -> None:
+    """The tests inside a file that did not compile, as error results, so a reviewer sees each one."""
+    from .adapters import go as _go
+    tests = _tests_from_events(_events(out_dir / "test.json"))
+    for fname, errors in blamed.items():
+        for t in _go.test_names((tests_dir / fname).read_text(errors="replace")):
+            tests[f"harnesstest::{t}"] = {"status": "error", "duration_ms": 0, "message": "did not compile: " + "; ".join(errors)[:1500]}
+    _write_junit(out_dir / "junit.xml", tests)
+
+
+def _run_once(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
+              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None, include: list[str] | None = None) -> dict:
     """Run every *_test.go in tests_dir as package harnesstest against the prefetched module cache.
 
     Two targets, like the Python sandbox: `podman` seals a container on this machine; `pod` runs in
@@ -109,7 +141,7 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
         work = Path(tempfile.mkdtemp(prefix="harness-go-pod-", dir=os.environ.get("HARNESS_WORK_TMP") or None))
         script = _script(mod=str(env_dir.resolve()), modcache=str((env_dir / "modcache").resolve()), gocache=str(gocache.resolve()),
                          tests=str(tests_dir.resolve()), out=str(out_dir.resolve()), work=str(work), coverpkg=coverpkg,
-                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src=str(overlay_dir.resolve()) if overlay_dir else "")
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src=str(overlay_dir.resolve()) if overlay_dir else "", include=include)
         (out_dir / "run.sh").write_text(script)
         env = {"PATH": os.environ.get("PATH", "/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin"), "HOME": str(work), "LANG": "C.UTF-8"}
         try:
@@ -130,7 +162,7 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
         if not shutil.which("podman"):
             raise HarnessError("podman is required for the Go sandbox target")
         script = _script(mod="/mod", modcache="/modcache", gocache="/gocache", tests="/tests", out="/out", work="/work", coverpkg=coverpkg,
-                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src="/mutant")
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src="/mutant", include=include)
         (out_dir / "run.sh").write_text(script)
         cmd = ["podman", "run", "--rm", "--network", "none", "--cap-drop", "all", "--security-opt", "no-new-privileges",
                "--memory", limits["memory"], "--pids-limit", str(limits["pids"]), "--cpus", limits["cpus"],
@@ -175,6 +207,18 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
     }
     write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml" if summary["junit"] else None, "coverage": "coverage.json" if summary["coverage"] else None})
     return summary
+
+
+def files_blamed(readable: str, tests_dir: Path) -> list[str]:
+    """GF-022. Test files the compiler names in a failed build. In Go every file in tests_dir is one
+    package, so one file that does not compile fails all of them; the run drops the blamed files and
+    runs the rest, and the blamed files' tests are reported as compile errors, test by test."""
+    names = {p.name for p in tests_dir.glob("*_test.go")}
+    blamed = []
+    for m in re.finditer(r"^\./([A-Za-z0-9_.-]+_test\.go):\d+", readable, re.M):
+        if m.group(1) in names and m.group(1) not in blamed:
+            blamed.append(m.group(1))
+    return blamed
 
 
 def _events(path: Path) -> list[dict]:

@@ -63,3 +63,19 @@ def test_go_mutants_run_through_a_replaced_module(tmp_path: Path):
     assert status in ("killed", "killed-init", "survived"), (status, (mdir / "out" / "stdout.log").read_text()[-600:])
     run_sh = (mdir / "out" / "run.sh").read_text()
     assert "go mod edit -replace github.com/google/uuid=" in run_sh and "/mutant" in run_sh   # either target: the copy is what runs
+
+
+def test_one_broken_file_does_not_silence_the_package(tmp_path: Path):
+    """GF-022: the compiling file's tests run; the broken file's tests read as compile errors."""
+    from harness import sandbox_go
+    env = go.prefetch(["github.com/google/uuid@v1.6.0"], None, tmp_path / "env")
+    tests = tmp_path / "tests"; tests.mkdir()
+    (tests / "good_test.go").write_text(TEST)
+    (tests / "bad_test.go").write_text('package harnesstest\n\nimport (\n\t"testing"\n\n\t"github.com/google/uuid"\n)\n\n'
+                                       '// TestNope asserts a symbol that does not exist.\nfunc TestNope(t *testing.T) {\n\tif uuid.Nope() == nil {\n\t\tt.Fatal("x")\n\t}\n}\n')
+    s = go.run_tests(env, tests, tmp_path / "out", cover=["github.com/google/uuid"], label="gf022")
+    r = {k.split("::")[-1]: v for k, v in go.parse_results(s).items()}
+    assert r["TestParseRejectsGarbage"]["status"] == "pass" and r["TestParseRoundTrip"]["status"] == "pass"
+    assert r["TestNope"]["status"] == "error" and "did not compile" in r["TestNope"]["message"] and "uuid.Nope" in r["TestNope"]["message"]
+    assert s["files_not_compiled"] == {"bad_test.go": s["files_not_compiled"]["bad_test.go"]} and not s["build_failed"]
+    assert (tmp_path / "out" / "stdout-1.log").exists()
