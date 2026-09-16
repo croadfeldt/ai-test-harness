@@ -1,11 +1,16 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.12
+**Status:** Draft v0.13
 **Date:** 2026-09-16
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.13:** every run must explain itself to a general reader (stage 6). The run's story,
+who, what, why, where and when with the outcome, the decisions and the actions, is an output of every
+run, as is the text and file list of the test pull request whether or not one is opened; every other
+file the harness writes carries a named reader and a reason, so evidence stays but never obscures.
 
 **Changes in v0.12:** the harness is one part of a larger pipeline and it only tests (section 2.4). A
 separate fix pipeline generates fixes; this harness hands it failing tests, reproducers, the upgrade
@@ -524,8 +529,19 @@ Output per work item is a **review packet**, posted where Konflux integration-se
 - A Conforma attestation that the run happened, what it concluded, and which tests it produced,
   promoted, or retired.
 
+- The text and the file list of the test pull request, written here whether or not the pipeline's
+  loop goes on to open one, so every run shows what a person would be asked to accept.
+
 Reviewers approve, edit, or reject tests. Approved tests become permanent regression tests for that
 package and version range, and from then on they run with the suite, not with the harness.
+
+**Every run tells its story.** The volume of evidence a run produces is the point, but it is not the
+reader's entry. Each run keeps a story at its top, rewritten after every stage from the run's own
+records: who did the work and who decided; what was tested; why it earned its budget; where it ran;
+when; the outcome in the packet's plain terms; the decisions the harness made and the actions it took
+and did not take by design; the UDLM records as one plain sentence each; and every file in the run
+with the reader it is for. Every file the harness writes carries that label, a reader and a reason, in
+the run's index. The story states nothing the records do not; it is a rendering, never a source.
 
 The packet is the artifact both lifecycles share. In the developer's loop it stays on the developer's
 branch and the tests they keep go into their own pull request. In the pipeline's loop the harness opens

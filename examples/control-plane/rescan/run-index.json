@@ -1,5 +1,472 @@
 {
   "base": null,
+  "catalogue": [
+    {
+      "audience": "everyone",
+      "path": "README.md",
+      "purpose": "The story of this run: who, what, why, where, when, the outcome, the decisions and the actions."
+    },
+    {
+      "audience": "audit",
+      "path": "run.json",
+      "purpose": "What was run, with which tool versions, on which repository by name."
+    },
+    {
+      "audience": "machine",
+      "path": "run-index.json",
+      "purpose": "What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it."
+    },
+    {
+      "audience": "audit",
+      "path": "selfcheck/selfcheck.json",
+      "purpose": "Stage 0: every failure-register check and the sandbox and model probes, before any evidence was produced."
+    },
+    {
+      "audience": "reviewer",
+      "path": "intake/worklist.json",
+      "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.new.json",
+      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.old.json",
+      "purpose": "The dependency graph at base."
+    },
+    {
+      "audience": "audit",
+      "path": "intake/sbom.new.cdx.json",
+      "purpose": "The software bill of materials at head, CycloneDX."
+    },
+    {
+      "audience": "security",
+      "path": "intake/vulns.json",
+      "purpose": "Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/getkin/kin-openapi",
+      "path": "analyze/github.com/getkin/kin-openapi/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/gomarkdown/markdown",
+      "path": "analyze/github.com/gomarkdown/markdown/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/jackc/pgx/v5",
+      "path": "analyze/github.com/jackc/pgx/v5/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/klauspost/compress",
+      "path": "analyze/github.com/klauspost/compress/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/labstack/echo/v4",
+      "path": "analyze/github.com/labstack/echo/v4/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/nats-io/nats-server/v2",
+      "path": "analyze/github.com/nats-io/nats-server/v2/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/yuin/goldmark",
+      "path": "analyze/github.com/yuin/goldmark/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "go.opentelemetry.io/otel",
+      "path": "analyze/go.opentelemetry.io/otel/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "golang.org/x/crypto",
+      "path": "analyze/golang.org/x/crypto/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "golang.org/x/mod",
+      "path": "analyze/golang.org/x/mod/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "golang.org/x/net",
+      "path": "analyze/golang.org/x/net/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "golang.org/x/text",
+      "path": "analyze/golang.org/x/text/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "google.golang.org/grpc",
+      "path": "analyze/google.golang.org/grpc/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "oras.land/oras-go/v2",
+      "path": "analyze/oras.land/oras-go/v2/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/getkin/kin-openapi",
+      "path": "analyze/github.com/getkin/kin-openapi/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/gomarkdown/markdown",
+      "path": "analyze/github.com/gomarkdown/markdown/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/jackc/pgx/v5",
+      "path": "analyze/github.com/jackc/pgx/v5/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/klauspost/compress",
+      "path": "analyze/github.com/klauspost/compress/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/labstack/echo/v4",
+      "path": "analyze/github.com/labstack/echo/v4/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/nats-io/nats-server/v2",
+      "path": "analyze/github.com/nats-io/nats-server/v2/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "github.com/yuin/goldmark",
+      "path": "analyze/github.com/yuin/goldmark/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "go.opentelemetry.io/otel",
+      "path": "analyze/go.opentelemetry.io/otel/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "golang.org/x/crypto",
+      "path": "analyze/golang.org/x/crypto/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "golang.org/x/mod",
+      "path": "analyze/golang.org/x/mod/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "golang.org/x/net",
+      "path": "analyze/golang.org/x/net/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "golang.org/x/text",
+      "path": "analyze/golang.org/x/text/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "google.golang.org/grpc",
+      "path": "analyze/google.golang.org/grpc/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "oras.land/oras-go/v2",
+      "path": "analyze/oras.land/oras-go/v2/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/getkin/kin-openapi",
+      "path": "analyze/github.com/getkin/kin-openapi/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/gomarkdown/markdown",
+      "path": "analyze/github.com/gomarkdown/markdown/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/jackc/pgx/v5",
+      "path": "analyze/github.com/jackc/pgx/v5/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/klauspost/compress",
+      "path": "analyze/github.com/klauspost/compress/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/labstack/echo/v4",
+      "path": "analyze/github.com/labstack/echo/v4/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/nats-io/nats-server/v2",
+      "path": "analyze/github.com/nats-io/nats-server/v2/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/yuin/goldmark",
+      "path": "analyze/github.com/yuin/goldmark/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "go.opentelemetry.io/otel",
+      "path": "analyze/go.opentelemetry.io/otel/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/crypto",
+      "path": "analyze/golang.org/x/crypto/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/mod",
+      "path": "analyze/golang.org/x/mod/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/net",
+      "path": "analyze/golang.org/x/net/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/text",
+      "path": "analyze/golang.org/x/text/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "google.golang.org/grpc",
+      "path": "analyze/google.golang.org/grpc/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "oras.land/oras-go/v2",
+      "path": "analyze/oras.land/oras-go/v2/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/getkin/kin-openapi",
+      "path": "analyze/github.com/getkin/kin-openapi/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/gomarkdown/markdown",
+      "path": "analyze/github.com/gomarkdown/markdown/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/jackc/pgx/v5",
+      "path": "analyze/github.com/jackc/pgx/v5/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/klauspost/compress",
+      "path": "analyze/github.com/klauspost/compress/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/labstack/echo/v4",
+      "path": "analyze/github.com/labstack/echo/v4/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/nats-io/nats-server/v2",
+      "path": "analyze/github.com/nats-io/nats-server/v2/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "github.com/yuin/goldmark",
+      "path": "analyze/github.com/yuin/goldmark/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "go.opentelemetry.io/otel",
+      "path": "analyze/go.opentelemetry.io/otel/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/crypto",
+      "path": "analyze/golang.org/x/crypto/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/mod",
+      "path": "analyze/golang.org/x/mod/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/net",
+      "path": "analyze/golang.org/x/net/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "golang.org/x/text",
+      "path": "analyze/golang.org/x/text/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "google.golang.org/grpc",
+      "path": "analyze/google.golang.org/grpc/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "oras.land/oras-go/v2",
+      "path": "analyze/oras.land/oras-go/v2/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/getkin/kin-openapi",
+      "path": "analyze/github.com/getkin/kin-openapi/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/gomarkdown/markdown",
+      "path": "analyze/github.com/gomarkdown/markdown/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/jackc/pgx/v5",
+      "path": "analyze/github.com/jackc/pgx/v5/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/klauspost/compress",
+      "path": "analyze/github.com/klauspost/compress/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/labstack/echo/v4",
+      "path": "analyze/github.com/labstack/echo/v4/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/nats-io/nats-server/v2",
+      "path": "analyze/github.com/nats-io/nats-server/v2/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "github.com/yuin/goldmark",
+      "path": "analyze/github.com/yuin/goldmark/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "go.opentelemetry.io/otel",
+      "path": "analyze/go.opentelemetry.io/otel/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "golang.org/x/crypto",
+      "path": "analyze/golang.org/x/crypto/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "golang.org/x/mod",
+      "path": "analyze/golang.org/x/mod/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "golang.org/x/net",
+      "path": "analyze/golang.org/x/net/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "golang.org/x/text",
+      "path": "analyze/golang.org/x/text/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "google.golang.org/grpc",
+      "path": "analyze/google.golang.org/grpc/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "oras.land/oras-go/v2",
+      "path": "analyze/oras.land/oras-go/v2/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    }
+  ],
   "ecosystem": "go",
   "files": {
     "run": "run.json",
@@ -465,5 +932,5 @@
     }
   },
   "started": "2026-09-13T20:43:59+00:00",
-  "updated": "2026-09-16T13:03:42+00:00"
+  "updated": "2026-09-16T13:46:34+00:00"
 }

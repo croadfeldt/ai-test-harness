@@ -248,8 +248,13 @@ digests, verdicts, and every other recorded fact are unchanged (`tools/redact-lo
 | `pr-fix-known-vulns/` through `-run4/` | python-jose runs 1 to 4, kept as produced, for the ladder above |
 | `pr-fix-known-vulns-run5/` | The full pipeline on all three packages: the packets, VEX drafts, signed attestations, mutation results, and the post-analysis |
 | `pr-fix-known-vulns-cluster/`, `-cluster-run2/`, `-cluster-run3/` | python-jose through the same pipeline as a Tekton PipelineRun on OpenShift, the execute pod as the sandbox; see "The same pipeline on a cluster" |
+| `pr-fix-known-vulns-run6/` | python-jose end to end through the pipeline's loop: the test pull request the harness opened, a person's merge, and the decision read back as realized records; see the two sections above |
+| `first-party-rescan/` | the application's own code as the target; see "The application itself as the target" |
 
-Inside a run: `intake/` (dependency graph, SBOM, work list), `analyze/` (facts per package),
+Every run directory opens with a `README.md` the harness wrote: who, what, why, where, when, the
+outcome, the decisions and the actions, the records in plain terms, and every file by the reader it is
+for. Read that first; `packet/<package>/pull-request.md` beside it shows what the test pull request
+carries. Inside a run: `intake/` (dependency graph, SBOM, work list), `analyze/` (facts per package),
 `generate/` (candidate tests, every model prompt and response), `execute/` (results on both versions,
 mutation), `triage/`, `packet/`, `attest/`, `assess/`, and `selfcheck/` (stage 0, run first). Large
 raw files and downloaded packages are not committed; the commands above recreate them.

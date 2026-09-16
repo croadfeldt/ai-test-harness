@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 from .. import config
+from .packet import pull_request
 from ..util import HarnessError, log, now_iso, read_json, run, write_json
 
 BRANCH_PREFIX = "harness/"
@@ -52,25 +53,6 @@ def default_branch(repo: Path, remote: str) -> str:
     raise HarnessError(f"cannot tell the default branch of {remote}; set [propose].base_branch")
 
 
-def plain_terms(packet_md: str) -> str:
-    m = re.search(r"\*\*In plain terms\.\*\*\s*(.+?)(?:\n\n|\Z)", packet_md, re.S)
-    return m.group(1).strip() if m else packet_md.strip().splitlines()[0]
-
-
-def pr_body(pkg: str, packet_md: str, facts: dict, results: dict, att: dict, run_id: str, files: list[str], signed: bool) -> str:
-    c = results["counts"]
-    lines = [plain_terms(packet_md), "",
-             "| | |", "|---|---|",
-             f"| Package | {pkg} {facts['old_version'] or ''} {'->' if facts['old_version'] and facts['old_version'] != facts['new_version'] else ''} {facts['new_version'] or ''} |".replace("  ", " "),
-             f"| Tests proposed | {len([f for f in files if not f.endswith(('.json', '.yaml', '.md', '.pem'))])} file(s); {c['total']} ran, {c['pass_on_new']} pass on head, {c['fix_pinning_confirmed']} fix-pinning confirmed |",
-             f"| Provenance | MANIFEST.json, in-toto statement, DSSE envelope (key {att.get('keyid', '')[:19]}), UDLM records, all in the same directory |",
-             f"| Commit | {'signed' if signed else 'unsigned (no signing key configured; see [propose].sign)'} |",
-             f"| Run | {run_id} |", "",
-             "Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, "
-             "and the draft VEX statements for Product Security. Nothing here is merged by the harness; a person decides.", ""]
-    return "\n".join(lines)
-
-
 def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: str, author: tuple[str, str], sign: bool,
                     signing_key: str, signing_format: str, push: bool, open_pr: bool) -> dict:
     wl = read_json(workdir / "intake" / "worklist.json")
@@ -83,8 +65,6 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
     if not pk.get("tests_in_patch"):
         write_json(out / "proposal.json", rec); log(f"    {pkg}: no accepted tests in the packet, nothing to propose"); return rec
     patch = (workdir / pk["patch"]).read_text()
-    facts = read_json(workdir / "analyze" / pkg / "facts.json")
-    results = read_json(workdir / "execute" / pkg / "results.json")
     att = next((a for a in read_json(workdir / "attest" / "summary.json")["packages"] if a["package"] == pkg), {})
     dirs = sorted({m.group(1) for m in re.finditer(r"^\+\+\+ b/(.+)/[^/]+$", patch, re.M)})
     if len(dirs) != 1:
@@ -115,11 +95,8 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
                 shutil.copy(f, dest / "udlm" / f.name); copied.append(f"{overlay_dir}/udlm/{f.name}")
         _git(wt, "add", "-A", overlay_dir)
         files = sorted(l.split("\t", 1)[1] for l in _git(wt, "diff", "--cached", "--name-status").stdout.splitlines() if l.strip())
-        c = results["counts"]
-        title = (f"Tests for {pkg} {facts['new_version'] or facts['old_version']}: {len(pk['tests_in_patch'])} candidate(s), "
-                 f"{c['fix_pinning_confirmed']} fix-pinning confirmed")
-        body = pr_body(pkg, (workdir / pk["packet_md"]).read_text(), facts, results, att, run_id, files, sign)
-        (out / "pull-request.md").write_text(f"# {title}\n\n{body}")
+        title, body = pull_request(workdir, pkg, files=files, att=att, signed=sign)
+        (out / "pull-request.md").write_text(f"# {title}\n\n{body}")   # the text as posted; packet/<pkg>/pull-request.md is what it would carry
         (out / "commit-message.txt").write_text(f"{title}\n\n{body}")   # git's subject line takes no markdown heading
         env = {"GIT_AUTHOR_NAME": author[0], "GIT_AUTHOR_EMAIL": author[1], "GIT_COMMITTER_NAME": author[0], "GIT_COMMITTER_EMAIL": author[1]}
         sign_args = []

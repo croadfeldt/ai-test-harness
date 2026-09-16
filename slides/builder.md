@@ -119,7 +119,7 @@ That is a finding a reviewer needs and a diff never shows.
 
 Triage is deterministic: the blueprint's classes with a confidence and a route; below 0.7 escalates to a person. An agent's claim of a defect counts only if stage 4 corroborates it.
 
-The packet opens in plain terms: what the change did to the package, how many vulnerabilities were proven, how many remain unproven, what to do. Then the accepted tests as a patch in the overlay layout, findings with routes, a draft OpenVEX statement per vulnerability, and the artifact paths.
+The packet opens in plain terms: what the change did to the package, how many vulnerabilities were proven, how many remain unproven, what to do. Then the accepted tests as a patch in the overlay layout, findings with routes, a draft OpenVEX statement per vulnerability, and the artifact paths. Beside it, `pull-request.md` is what the test pull request carries, and the run's own `README.md` tells the whole story for a general reader: who, what, why, where, when, the decisions, the actions, and every file by the reader it is for.
 
 ---
 

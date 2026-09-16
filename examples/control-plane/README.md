@@ -143,6 +143,13 @@ compiler errors arrive as a different kind of event from test output and were no
 so it repaired blind for seven turns. And a Go module path has slashes, which had put the module cache
 under the wrong directory and named the execute summary row by the wrong segment.
 
+## What is in each run directory
+
+Every run directory opens with a `README.md` the harness wrote: who, what, why, where, when, the
+outcome, the decisions and the actions, the records in plain terms, and every file by the reader it is
+for. Read that first; where a packet exists, `packet/<package>/pull-request.md` beside it shows what
+the test pull request would carry. The stage directories are the same as for the Python example.
+
 ## Reproduce it
 
 ```

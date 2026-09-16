@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import difflib
 import json
+import re
 from pathlib import Path
 
 from ..util import log, now_iso, read_json, sha256_text, write_json
@@ -222,7 +223,7 @@ Mutation: {mut_md}
 {retire_md}
 
 ## Artifacts
-- tests as a patch against the overlay layout: `packet/{pkg}/tests.patch`
+- tests as a patch against the overlay layout: `packet/{pkg}/tests.patch`; the pull request they would travel in: `packet/{pkg}/pull-request.md`
 - verdicts and logs: `execute/{pkg}/results.json`, `execute/{pkg}/{{new,new-rerun,old}}/`
 - facts: `analyze/{pkg}/facts.json`, API diff, call sites, advisories, fix diff
 - generation provenance: `generate/{pkg}/manifest.json`, every prompt and response under `generate/{pkg}/model-calls/`
@@ -234,8 +235,54 @@ Mutation: {mut_md}
            "patch_sha256": sha256_text(patch), "vex": f"packet/{pkg}/vex.openvex.json", "tests_in_patch": sorted(accept),
            "vex_statements": {st["vulnerability"]["name"]: st["status"] for st in vex["statements"]}, "recommended": recommended}
     write_json(out / "packet.json", rec)
+    title, body = pull_request(workdir, pkg)
+    (out / "pull-request.md").write_text(f"# {title}\n\n{body}")   # what the test pull request would carry, opened or not
     log(f"    {pkg}: packet with {len(accept)} accepted test(s), {len(vex['statements'])} VEX draft(s): {rec['vex_statements']}")
     return rec
+
+
+def plain_terms(packet_md: str) -> str:
+    m = re.search(r"\*\*In plain terms\.\*\*\s*(.+?)(?:\n\n|\Z)", packet_md, re.S)
+    return m.group(1).strip() if m else packet_md.strip().splitlines()[0]
+
+
+PROVENANCE_FILES = ("packet.md", "vex.openvex.json", "MANIFEST.json", "statement.json", "statement.dsse.json", "signer.pub.pem", "udlm/")
+
+
+def pull_request(workdir: Path, pkg: str, *, files: list[str] | None = None, att: dict | None = None, signed: bool | None = None) -> tuple[str, str]:
+    """Title and body of the test pull request for one package, from the packet.
+
+    Written at packet time so every run shows what its pull request would carry; `harness propose` calls
+    it again with the files as committed and the attestation as signed, and posts that text."""
+    pk = read_json(workdir / "packet" / pkg / "packet.json")
+    facts = read_json(workdir / "analyze" / pkg / "facts.json")
+    res_path = workdir / "execute" / pkg / "results.json"
+    c = (read_json(res_path) if res_path.exists() else {}).get("counts") or {"total": 0, "pass_on_new": 0, "fix_pinning_confirmed": 0}
+    patch = (workdir / pk["patch"]).read_text()
+    test_files = sorted({m.group(1) for m in re.finditer(r"^\+\+\+ b/(.+)$", patch, re.M)})
+    if files is None:
+        dirs = sorted({str(Path(f).parent) for f in test_files}) or ["tests"]
+        files = test_files + [f"{dirs[0]}/{name}" for name in PROVENANCE_FILES]
+    if att is None:
+        att_path = workdir / "attest" / "summary.json"
+        att = next((a for a in read_json(att_path).get("packages", []) if a["package"] == pkg), {}) if att_path.exists() else {}
+    version = facts.get("new_version") or facts.get("old_version") or ""
+    title = f"Tests for {pkg} {version}: {len(pk['tests_in_patch'])} candidate(s), {c['fix_pinning_confirmed']} fix-pinning confirmed".replace("  ", " ")
+    old, new = facts.get("old_version"), facts.get("new_version")
+    change = f"{pkg} {old or ''} {'->' if old and old != new else ''} {new or ''}".replace("  ", " ").strip() if not facts.get("first_party") else f"{pkg} (the application's own code)"
+    key = f" (key {att['keyid'][:19]})" if att.get("keyid") else ""
+    commit = {True: "signed", False: "unsigned (no signing key configured; see [propose].sign)", None: "signed at propose time when [propose].sign is on"}[signed]
+    lines = [plain_terms((workdir / pk["packet_md"]).read_text()), "",
+             "| | |", "|---|---|",
+             f"| Package | {change} |",
+             f"| Tests proposed | {len(test_files)} file(s); {c['total']} ran, {c['pass_on_new']} pass on head, {c['fix_pinning_confirmed']} fix-pinning confirmed |",
+             f"| Provenance | MANIFEST.json, in-toto statement, DSSE envelope{key}, UDLM records, all in the same directory |",
+             f"| Commit | {commit} |",
+             f"| Run | {pk.get('run_id') or read_json(workdir / 'intake' / 'worklist.json')['run_id']} |", "",
+             "Files this pull request carries:", ""] + [f"- `{f}`" for f in files] + ["",
+             "Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, "
+             "and the draft VEX statements for Product Security. Nothing here is merged by the harness; a person decides.", ""]
+    return title, "\n".join(lines)
 
 
 def packet(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
