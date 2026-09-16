@@ -1,0 +1,469 @@
+{
+  "base": null,
+  "ecosystem": "go",
+  "files": {
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": null,
+  "goals": null,
+  "harness_version": "0.1.0",
+  "head": "147f74f4edc2",
+  "mode": "rescan",
+  "model": null,
+  "packages": [
+    {
+      "advisories": 8,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/getkin/kin-openapi/facts.json",
+        "analyze/vulns.json": "analyze/github.com/getkin/kin-openapi/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.139.0",
+      "old_version": "v0.139.0",
+      "package": "github.com/getkin/kin-openapi",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 4,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/gomarkdown/markdown/facts.json",
+        "analyze/vulns.json": "analyze/github.com/gomarkdown/markdown/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.0.0-20240328165702-4d01890c35c0",
+      "old_version": "v0.0.0-20240328165702-4d01890c35c0",
+      "package": "github.com/gomarkdown/markdown",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 6,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/jackc/pgx/v5/facts.json",
+        "analyze/vulns.json": "analyze/github.com/jackc/pgx/v5/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v5.8.0",
+      "old_version": "v5.8.0",
+      "package": "github.com/jackc/pgx/v5",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 1,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/klauspost/compress/facts.json",
+        "analyze/vulns.json": "analyze/github.com/klauspost/compress/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v1.18.5",
+      "old_version": "v1.18.5",
+      "package": "github.com/klauspost/compress",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 2,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/labstack/echo/v4/facts.json",
+        "analyze/vulns.json": "analyze/github.com/labstack/echo/v4/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v4.15.1",
+      "old_version": "v4.15.1",
+      "package": "github.com/labstack/echo/v4",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 22,
+      "attestation": null,
+      "budget": "reduced",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/nats-io/nats-server/v2/facts.json",
+        "analyze/vulns.json": "analyze/github.com/nats-io/nats-server/v2/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v2.12.5",
+      "old_version": "v2.12.5",
+      "package": "github.com/nats-io/nats-server/v2",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 1,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 3,
+      "files": {
+        "analyze/facts.json": "analyze/github.com/yuin/goldmark/facts.json",
+        "analyze/vulns.json": "analyze/github.com/yuin/goldmark/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v1.4.13",
+      "old_version": "v1.4.13",
+      "package": "github.com/yuin/goldmark",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 1,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/go.opentelemetry.io/otel/facts.json",
+        "analyze/vulns.json": "analyze/go.opentelemetry.io/otel/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v1.43.0",
+      "old_version": "v1.43.0",
+      "package": "go.opentelemetry.io/otel",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 30,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/golang.org/x/crypto/facts.json",
+        "analyze/vulns.json": "analyze/golang.org/x/crypto/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.51.0",
+      "old_version": "v0.51.0",
+      "package": "golang.org/x/crypto",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 2,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/golang.org/x/mod/facts.json",
+        "analyze/vulns.json": "analyze/golang.org/x/mod/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.35.0",
+      "old_version": "v0.35.0",
+      "package": "golang.org/x/mod",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 8,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/golang.org/x/net/facts.json",
+        "analyze/vulns.json": "analyze/golang.org/x/net/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.53.0",
+      "old_version": "v0.53.0",
+      "package": "golang.org/x/net",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 1,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/golang.org/x/text/facts.json",
+        "analyze/vulns.json": "analyze/golang.org/x/text/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v0.37.0",
+      "old_version": "v0.37.0",
+      "package": "golang.org/x/text",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 5,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/google.golang.org/grpc/facts.json",
+        "analyze/vulns.json": "analyze/google.golang.org/grpc/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v1.81.0",
+      "old_version": "v1.81.0",
+      "package": "google.golang.org/grpc",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 10,
+      "attestation": null,
+      "budget": "snapshot",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/oras.land/oras-go/v2/facts.json",
+        "analyze/vulns.json": "analyze/oras.land/oras-go/v2/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "v2.6.0",
+      "old_version": "v2.6.0",
+      "package": "oras.land/oras-go/v2",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    }
+  ],
+  "repository": "control-plane",
+  "run_id": "558e6e085fe1",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-13T20:47:30+00:00",
+      "present": true,
+      "rows": 14,
+      "summary": {
+        "run_id": "558e6e085fe1"
+      }
+    },
+    "assess": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "attest": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "execute": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 0,
+        "packages_at_base": 250,
+        "packages_at_head": 250,
+        "resolver": "go list -m -json all + go mod graph (go version go1.26.8-X:nodwarf5 linux/amd64)",
+        "with_advisories_at_head": 14,
+        "work_list_rows": 251
+      }
+    },
+    "packet": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-13T20:43:59+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 19,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-13T20:43:59+00:00",
+  "updated": "2026-09-16T13:03:42+00:00"
+}

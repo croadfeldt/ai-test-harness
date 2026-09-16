@@ -1,0 +1,356 @@
+{
+  "base": "2ad04243861b",
+  "ecosystem": "python",
+  "files": {
+    "assess": "assess/assess.md",
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": "agent",
+  "goals": {
+    "met": 9,
+    "not_applicable": 0,
+    "not_met": 0,
+    "other": 1
+  },
+  "harness_version": "0.1.0",
+  "head": "cfa8f4a3292b",
+  "mode": "diff",
+  "model": "qwen/qwen3.8-27b",
+  "packages": [
+    {
+      "advisories": 2,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/ecdsa/facts.json",
+        "analyze/vulns.json": "analyze/ecdsa/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.19.2",
+      "old_version": "0.19.2",
+      "package": "ecdsa",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 4,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/pdfminer-six/facts.json",
+        "analyze/vulns.json": "analyze/pdfminer-six/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "20231228",
+      "old_version": "20231228",
+      "package": "pdfminer-six",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 0,
+      "attestation": null,
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/pillow/api-diff.json",
+        "analyze/facts.json": "analyze/pillow/facts.json",
+        "analyze/vulns.json": "analyze/pillow/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "12.3.0",
+      "old_version": "11.0.0",
+      "package": "pillow",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 8,
+      "attestation": null,
+      "budget": "full",
+      "change": "bumped",
+      "depth": 2,
+      "files": {
+        "analyze/api-diff.json": "analyze/pyasn1/api-diff.json",
+        "analyze/facts.json": "analyze/pyasn1/facts.json",
+        "analyze/vulns.json": "analyze/pyasn1/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.4.8",
+      "old_version": "0.6.4",
+      "package": "pyasn1",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 0,
+      "attestation": {
+        "keyid": "sha256:2b291bb6fc3c93cd476d35cddb3c5ce7db84a301c1c5ae0516f7d1f2dd2b2385",
+        "result": "PASSED"
+      },
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/python-jose/api-diff.json",
+        "analyze/facts.json": "analyze/python-jose/facts.json",
+        "analyze/vulns.json": "analyze/python-jose/vulns.json",
+        "attest/MANIFEST.json": "attest/python-jose/MANIFEST.json",
+        "attest/attest.json": "attest/python-jose/attest.json",
+        "attest/signer.pub.pem": "attest/python-jose/signer.pub.pem",
+        "attest/statement.dsse.json": "attest/python-jose/statement.dsse.json",
+        "attest/statement.json": "attest/python-jose/statement.json",
+        "attest/udlm/index.json": "attest/python-jose/udlm/index.json",
+        "execute/mutation.json": "execute/python-jose/mutation/mutation.json",
+        "execute/relevance.json": "execute/python-jose/relevance.json",
+        "execute/results.json": "execute/python-jose/results.json",
+        "generate/manifest.agent.json": "generate/python-jose/manifest.agent.json",
+        "generate/manifest.json": "generate/python-jose/manifest.json",
+        "packet/packet.json": "packet/python-jose/packet.json",
+        "packet/packet.md": "packet/python-jose/packet.md",
+        "packet/tests.patch": "packet/python-jose/tests.patch",
+        "packet/vex.openvex.json": "packet/python-jose/vex.openvex.json",
+        "triage/triage.json": "triage/python-jose/triage.json"
+      },
+      "first_party": false,
+      "mutation": {
+        "killed": 11,
+        "sampled": 25,
+        "score": 0.44,
+        "status": "ran"
+      },
+      "new_version": "3.4.0",
+      "old_version": "3.3.0",
+      "package": "python-jose",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": 8,
+        "flaky": 0,
+        "generated": 14,
+        "pass_on_head": 14,
+        "proven": 0,
+        "ran": 14
+      }
+    },
+    {
+      "advisories": 0,
+      "attestation": null,
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/python-multipart/api-diff.json",
+        "analyze/facts.json": "analyze/python-multipart/facts.json",
+        "analyze/vulns.json": "analyze/python-multipart/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.0.31",
+      "old_version": "0.0.12",
+      "package": "python-multipart",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 14,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/starlette/facts.json",
+        "analyze/vulns.json": "analyze/starlette/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.41.3",
+      "old_version": "0.41.3",
+      "package": "starlette",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 0,
+      "attestation": null,
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/weasyprint/api-diff.json",
+        "analyze/facts.json": "analyze/weasyprint/facts.json",
+        "analyze/vulns.json": "analyze/weasyprint/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "70.0",
+      "old_version": "63.1",
+      "package": "weasyprint",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    }
+  ],
+  "repository": "source",
+  "run_id": "333f5fa69d50",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-14T00:14:22+00:00",
+      "present": true,
+      "rows": 8,
+      "summary": {
+        "run_id": "333f5fa69d50"
+      }
+    },
+    "assess": {
+      "generated": "2026-09-14T01:20:41+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "met": 9,
+        "not_applicable": 0,
+        "not_met": 0,
+        "other": 1
+      }
+    },
+    "attest": {
+      "generated": "2026-09-14T01:20:37+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "execute": {
+      "generated": "2026-09-14T01:12:27+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": "2026-09-14T01:11:18+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "mode": "agent",
+        "model": "qwen/qwen3.8-27b"
+      }
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 5,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip 25.0.1 --dry-run --report, host interpreter 3.12.13 (markers evaluated for the host, not the target)",
+        "with_advisories_at_head": 4,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": "2026-09-14T01:20:33+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-14T01:20:41+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 20,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": "2026-09-14T01:20:29+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-14T00:13:46+00:00",
+  "updated": "2026-09-16T13:03:43+00:00"
+}

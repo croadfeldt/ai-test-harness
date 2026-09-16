@@ -1,0 +1,286 @@
+{
+  "base": null,
+  "ecosystem": "python",
+  "files": {
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": null,
+  "goals": null,
+  "harness_version": "0.1.0",
+  "head": "2ad04243861b",
+  "mode": "rescan",
+  "model": null,
+  "packages": [
+    {
+      "advisories": 2,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/ecdsa/facts.json",
+        "analyze/vulns.json": "analyze/ecdsa/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.19.2",
+      "old_version": "0.19.2",
+      "package": "ecdsa",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 4,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/pdfminer-six/facts.json",
+        "analyze/vulns.json": "analyze/pdfminer-six/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "20231228",
+      "old_version": "20231228",
+      "package": "pdfminer-six",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 34,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/pillow/facts.json",
+        "analyze/vulns.json": "analyze/pillow/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "11.0.0",
+      "old_version": "11.0.0",
+      "package": "pillow",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 5,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/python-jose/facts.json",
+        "analyze/vulns.json": "analyze/python-jose/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "3.3.0",
+      "old_version": "3.3.0",
+      "package": "python-jose",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 16,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/python-multipart/facts.json",
+        "analyze/vulns.json": "analyze/python-multipart/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.0.12",
+      "old_version": "0.0.12",
+      "package": "python-multipart",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 14,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 2,
+      "files": {
+        "analyze/facts.json": "analyze/starlette/facts.json",
+        "analyze/vulns.json": "analyze/starlette/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "0.41.3",
+      "old_version": "0.41.3",
+      "package": "starlette",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    },
+    {
+      "advisories": 6,
+      "attestation": null,
+      "budget": "full",
+      "change": "unchanged",
+      "depth": 1,
+      "files": {
+        "analyze/facts.json": "analyze/weasyprint/facts.json",
+        "analyze/vulns.json": "analyze/weasyprint/vulns.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "63.1",
+      "old_version": "63.1",
+      "package": "weasyprint",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": null,
+        "generated": 0,
+        "pass_on_head": null,
+        "proven": null,
+        "ran": null
+      }
+    }
+  ],
+  "repository": "frc-scheduler-server",
+  "run_id": "a16348ae128b",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-12T01:43:23+00:00",
+      "present": true,
+      "rows": 7,
+      "summary": {
+        "run_id": "a16348ae128b"
+      }
+    },
+    "assess": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "attest": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "execute": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 0,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "with_advisories_at_head": 7,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {
+        "checks": 0,
+        "model": null,
+        "passed": null,
+        "sandbox": null
+      }
+    },
+    "triage": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-12T01:42:31+00:00",
+  "updated": "2026-09-16T13:03:43+00:00"
+}

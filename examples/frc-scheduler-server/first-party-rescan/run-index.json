@@ -1,0 +1,168 @@
+{
+  "base": null,
+  "ecosystem": "python",
+  "files": {
+    "assess": "assess/assess.md",
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": "fixed",
+  "goals": {
+    "met": 8,
+    "not_applicable": 1,
+    "not_met": 1,
+    "other": 1
+  },
+  "harness_version": "0.1.0",
+  "head": "2ad04243861b",
+  "mode": "rescan",
+  "model": "qwen38-27b",
+  "packages": [
+    {
+      "advisories": 0,
+      "attestation": {
+        "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+        "result": "PASSED"
+      },
+      "budget": "full",
+      "change": "first_party",
+      "depth": 0,
+      "files": {
+        "analyze/facts.json": "analyze/frc-scheduler-server/facts.json",
+        "analyze/vulns.json": "analyze/frc-scheduler-server/vulns.json",
+        "attest/MANIFEST.json": "attest/frc-scheduler-server/MANIFEST.json",
+        "attest/attest.json": "attest/frc-scheduler-server/attest.json",
+        "attest/signer.pub.pem": "attest/frc-scheduler-server/signer.pub.pem",
+        "attest/statement.dsse.json": "attest/frc-scheduler-server/statement.dsse.json",
+        "attest/statement.json": "attest/frc-scheduler-server/statement.json",
+        "attest/udlm/index.json": "attest/frc-scheduler-server/udlm/index.json",
+        "execute/mutation.json": "execute/frc-scheduler-server/mutation/mutation.json",
+        "execute/relevance.json": "execute/frc-scheduler-server/relevance.json",
+        "execute/results.json": "execute/frc-scheduler-server/results.json",
+        "generate/manifest.json": "generate/frc-scheduler-server/manifest.json",
+        "packet/packet.json": "packet/frc-scheduler-server/packet.json",
+        "packet/packet.md": "packet/frc-scheduler-server/packet.md",
+        "packet/tests.patch": "packet/frc-scheduler-server/tests.patch",
+        "packet/vex.openvex.json": "packet/frc-scheduler-server/vex.openvex.json",
+        "triage/triage.json": "triage/frc-scheduler-server/triage.json"
+      },
+      "first_party": true,
+      "mutation": {
+        "killed": 1,
+        "sampled": 25,
+        "score": 0.04,
+        "status": "ran"
+      },
+      "new_version": "2ad04243861b",
+      "old_version": null,
+      "package": "frc-scheduler-server",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": 4,
+        "flaky": 0,
+        "generated": 4,
+        "pass_on_head": 4,
+        "proven": 0,
+        "ran": 4
+      }
+    }
+  ],
+  "repository": "frc-scheduler-server",
+  "run_id": "50ec3b2446fe",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-15T20:02:45+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "run_id": "50ec3b2446fe"
+      }
+    },
+    "assess": {
+      "generated": "2026-09-15T20:29:43+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "met": 8,
+        "not_applicable": 1,
+        "not_met": 1,
+        "other": 1
+      }
+    },
+    "attest": {
+      "generated": "2026-09-15T20:29:43+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "execute": {
+      "generated": "2026-09-15T20:08:18+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": "2026-09-15T20:06:25+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "mode": "fixed",
+        "model": "qwen38-27b"
+      }
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 0,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "with_advisories_at_head": 7,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": "2026-09-15T20:29:42+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-15T20:29:43+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 22,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": "2026-09-15T20:28:26+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-15T20:02:08+00:00",
+  "updated": "2026-09-16T13:03:42+00:00"
+}
