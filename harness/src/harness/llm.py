@@ -23,7 +23,7 @@ class ModelConfig:
     base_url: str
     model: str
     api_key: str | None
-    temperature: float = 0.2
+    temperature: float | None = 0.2         # None: the server's own sampling defaults apply (set temperature = "default")
     max_tokens: int = 6000                  # per call; reasoning tokens count against it on vLLM, so thinking runs raise it
     timeout_s: int = 1800
     _label: str = "local"
@@ -64,9 +64,11 @@ class ModelConfig:
         model = _config.get("model", "name", "HARNESS_MODEL") or discover_model(base, api_key)
         reasoning = str(_config.get("model", "reasoning", "HARNESS_MODEL_REASONING", "none"))
         thinking = str(_config.get("model", "thinking", "HARNESS_MODEL_THINKING", "off"))
+        temperature = _config.get("model", "temperature", "HARNESS_MODEL_TEMPERATURE", 0.2)
         cfg = cls(base_url=base, model=model, api_key=api_key,
                   max_tokens=int(_config.get("model", "max_tokens", "HARNESS_MODEL_MAX_TOKENS", 6000)),
-                  temperature=float(_config.get("model", "temperature", "HARNESS_MODEL_TEMPERATURE", 0.2)),
+                  temperature=None if str(temperature) == "default" else float(temperature),
+                  timeout_s=int(_config.get("model", "timeout", "HARNESS_MODEL_TIMEOUT", 1800)),
                   presence_penalty=float(_config.get("model", "presence_penalty", "HARNESS_MODEL_PRESENCE_PENALTY", 0.0)),
                   no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
                   reasoning_effort=None if reasoning == "default" else reasoning,
@@ -109,14 +111,14 @@ class Model:
     def chat(self, system: str, user: str, tag: str, max_tokens: int | None = None) -> tuple[str, dict]:
         if self.cfg.no_think:
             system = "/no_think\n" + system
-        body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.max_tokens,
+        body = {"model": self.cfg.model, "max_tokens": self.cfg.max_tokens,
                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
         self._reasoning_fields(body)
+        self._sampling(body)
         body["stream"] = True
         body["stream_options"] = {"include_usage": True}
-        body["frequency_penalty"] = self.cfg.frequency_penalty
         body["max_tokens"] = self.cfg.cap(max_tokens)
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
                                      headers=_headers(self.cfg.api_key))
@@ -192,6 +194,14 @@ class Model:
         eff = self.cfg.reasoning_effort
         if eff and (not self.cfg.thinking or eff in self.cfg.EFFORTS):
             body["reasoning_effort"] = eff
+
+    def _sampling(self, body: dict) -> None:
+        """The sampling fields, or none of them when temperature is "default": then the server's own
+        settings for the model apply (a Thinking-only model ships its recommended sampling with it)."""
+        if self.cfg.temperature is None:
+            return
+        body["temperature"] = self.cfg.temperature
+        body["frequency_penalty"] = self.cfg.frequency_penalty
         if self.cfg.presence_penalty:
             body["presence_penalty"] = self.cfg.presence_penalty
 
@@ -200,9 +210,9 @@ class Model:
         message (content and/or tool_calls) and the call record."""
         # Streamed, like chat(): a proxy in front of the model (an OpenShift route) closes idle
         # connections after ~30 s, and a non-streamed agent turn is silent for longer than that.
-        body = {"model": self.cfg.model, "temperature": self.cfg.temperature, "max_tokens": self.cfg.cap(max_tokens),
-                "messages": messages, "tools": tools, "tool_choice": "auto",
-                "frequency_penalty": self.cfg.frequency_penalty, "stream": True, "stream_options": {"include_usage": True}}
+        body = {"model": self.cfg.model, "max_tokens": self.cfg.cap(max_tokens),
+                "messages": messages, "tools": tools, "tool_choice": "auto", "stream": True, "stream_options": {"include_usage": True}}
+        self._sampling(body)
         self._reasoning_fields(body)
         if self.cfg.chat_template_kwargs:
             body["chat_template_kwargs"] = self.cfg.chat_template_kwargs
