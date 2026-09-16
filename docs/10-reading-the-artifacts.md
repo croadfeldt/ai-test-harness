@@ -9,6 +9,7 @@ subdirectory, and every number in a packet points at a file in that directory.
 ```
 <run>/
   run.json                 what was run, with what tools, on which repository (by name, never a path)
+  run-index.json           what the run holds: stages, packages, headline numbers, and where every file is
   selfcheck/               stage 0: every register check, the sandbox probe, the model probe
   intake/                  the dependency graph at base and head, the SBOM, known vulnerabilities, the work list
   analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff
@@ -21,6 +22,12 @@ subdirectory, and every number in a packet points at a file in that directory.
   propose/<package>/       the test pull request the harness opened, and what it put on the branch
   feedback/<package>/      what a person accepted, edited or rejected; the realized records; a signed statement
 ```
+
+`run-index.json` at the top of every run says which stages wrote, which packages the run holds, the
+headline numbers, and where each file is, so a reader or a renderer never has to know this layout by
+heart. The site renders one page per run from it: what each stage read, did and wrote, the results per
+package, the assessment, and every artifact linked, at
+[croadfeldt.github.io/ai-test-harness/runs](https://croadfeldt.github.io/ai-test-harness/runs/).
 
 Three rules hold everywhere. The harness never merges, publishes or deletes; every file is a proposal.
 A test is "proven" only when it fails on the vulnerable version and passes on the fixed one, both runs

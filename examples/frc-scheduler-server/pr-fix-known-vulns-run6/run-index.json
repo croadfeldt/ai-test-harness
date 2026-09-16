@@ -1,0 +1,181 @@
+{
+  "base": "2ad04243861b",
+  "ecosystem": "python",
+  "files": {
+    "assess": "assess/assess.md",
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": "agent",
+  "goals": {
+    "met": 9,
+    "not_applicable": 0,
+    "not_met": 0,
+    "other": 1
+  },
+  "harness_version": "0.1.0",
+  "head": "cfa8f4a3292b",
+  "mode": "diff",
+  "model": "qwen38-27b",
+  "packages": [
+    {
+      "advisories": 0,
+      "attestation": {
+        "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+        "result": "PASSED"
+      },
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/python-jose/api-diff.json",
+        "analyze/facts.json": "analyze/python-jose/facts.json",
+        "analyze/vulns.json": "analyze/python-jose/vulns.json",
+        "attest/MANIFEST.json": "attest/python-jose/MANIFEST.json",
+        "attest/attest.json": "attest/python-jose/attest.json",
+        "attest/signer.pub.pem": "attest/python-jose/signer.pub.pem",
+        "attest/statement.dsse.json": "attest/python-jose/statement.dsse.json",
+        "attest/statement.json": "attest/python-jose/statement.json",
+        "attest/udlm/index.json": "attest/python-jose/udlm/index.json",
+        "execute/mutation.json": "execute/python-jose/mutation/mutation.json",
+        "execute/results.json": "execute/python-jose/results.json",
+        "feedback/acceptance-statement.dsse.json": "feedback/python-jose/acceptance-statement.dsse.json",
+        "feedback/acceptance.json": "feedback/python-jose/acceptance.json",
+        "feedback/udlm/index.json": "feedback/python-jose/udlm/index.json",
+        "generate/manifest.agent.json": "generate/python-jose/manifest.agent.json",
+        "generate/manifest.json": "generate/python-jose/manifest.json",
+        "packet/packet.json": "packet/python-jose/packet.json",
+        "packet/packet.md": "packet/python-jose/packet.md",
+        "packet/tests.patch": "packet/python-jose/tests.patch",
+        "packet/vex.openvex.json": "packet/python-jose/vex.openvex.json",
+        "propose/proposal.json": "propose/python-jose/proposal.json",
+        "triage/triage.json": "triage/python-jose/triage.json"
+      },
+      "first_party": false,
+      "mutation": {
+        "killed": 3,
+        "sampled": 12,
+        "score": 0.25,
+        "status": "ran"
+      },
+      "new_version": "3.4.0",
+      "old_version": "3.3.0",
+      "package": "python-jose",
+      "proposal": {
+        "pull_request": "https://github.com/croadfeldt/ai-test-harness-overlays/pull/1",
+        "status": "pull request opened"
+      },
+      "review": {
+        "accepted": 7,
+        "edited": 0,
+        "outcome": "merged by croadfeldt at 2026-09-15T16:16:06Z",
+        "rejected": 0
+      },
+      "tests": {
+        "accepted": 7,
+        "flaky": 0,
+        "generated": 10,
+        "pass_on_head": 9,
+        "proven": 3,
+        "ran": 10
+      }
+    }
+  ],
+  "repository": "frc-scheduler-server",
+  "run_id": "76a3fa863e76",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-13T02:49:36+00:00",
+      "present": true,
+      "rows": 3,
+      "summary": {
+        "run_id": "76a3fa863e76"
+      }
+    },
+    "assess": {
+      "generated": "2026-09-13T13:33:56+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "met": 9,
+        "not_applicable": 0,
+        "not_met": 0,
+        "other": 1
+      }
+    },
+    "attest": {
+      "generated": "2026-09-13T15:34:55+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "execute": {
+      "generated": "2026-09-13T13:29:49+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": "2026-09-15T16:27:52+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "generate": {
+      "generated": "2026-09-13T13:28:46+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "mode": "agent",
+        "model": "qwen38-27b"
+      }
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 5,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "with_advisories_at_head": 4,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": "2026-09-13T13:33:56+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "propose": {
+      "generated": "2026-09-15T16:12:15+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-13T15:34:55+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 19,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": "2026-09-13T13:33:56+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-12T01:41:41+00:00",
+  "updated": "2026-09-16T13:03:43+00:00"
+}

@@ -1,0 +1,138 @@
+{
+  "base": "2ad04243861b",
+  "ecosystem": "python",
+  "files": {
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": "agent",
+  "goals": null,
+  "harness_version": "0.1.0",
+  "head": "cfa8f4a3292b",
+  "mode": "diff",
+  "model": "qwen/qwen3.8-27b",
+  "packages": [
+    {
+      "advisories": 0,
+      "attestation": null,
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/python-jose/api-diff.json",
+        "analyze/facts.json": "analyze/python-jose/facts.json",
+        "analyze/vulns.json": "analyze/python-jose/vulns.json",
+        "execute/results.json": "execute/python-jose/results.json",
+        "generate/manifest.agent.json": "generate/python-jose/manifest.agent.json",
+        "generate/manifest.json": "generate/python-jose/manifest.json"
+      },
+      "first_party": false,
+      "mutation": null,
+      "new_version": "3.4.0",
+      "old_version": "3.3.0",
+      "package": "python-jose",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": null,
+        "flaky": 0,
+        "generated": 13,
+        "pass_on_head": 7,
+        "proven": 0,
+        "ran": 13
+      }
+    }
+  ],
+  "repository": "frc-scheduler-server",
+  "run_id": "76a3fa863e76",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-12T03:45:43+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "run_id": "76a3fa863e76"
+      }
+    },
+    "assess": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "attest": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "execute": {
+      "generated": "2026-09-12T05:54:29+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": "2026-09-12T05:53:22+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "mode": "agent",
+        "model": "qwen/qwen3.8-27b"
+      }
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 5,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "with_advisories_at_head": 4,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-12T05:53:23+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 12,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-12T01:41:41+00:00",
+  "updated": "2026-09-16T13:03:43+00:00"
+}

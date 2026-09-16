@@ -202,7 +202,11 @@ def main(argv: list[str] | None = None) -> int:
 
     a = p.parse_args(argv)
     try:
-        return a.func(a)
+        rc = a.func(a)
+        if getattr(a, "workdir", None) and Path(a.workdir).is_dir():
+            from . import runindex
+            runindex.update(Path(a.workdir))   # every stage leaves the run's index current
+        return rc
     except HarnessError as e:
         log(f"error: {e}")
         return 2

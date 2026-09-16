@@ -193,6 +193,8 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
     <div class="aud-list">{aud_cards}</div>
     <div class="rail-label">Documents</div>
     <ol class="docs">{"".join(nav)}</ol>
+    <div class="rail-label">Runs</div>
+    <ul class="docs decks"><li><a href="runs/index.html"><span class="num">14</span>Every run, start to finish</a></li></ul>
     <div class="rail-label">Presentations</div>
     <ul class="docs decks"><li><a href="slides/executive.html"><span class="num">5m</span>Executives</a></li><li><a href="slides/funding.html"><span class="num">15m</span>Funding decision</a></li><li><a href="slides/builder.html"><span class="num">30m</span>Build or run it</a></li><li><a href="slides/public.html"><span class="num">10m</span>Readers</a></li></ul>
     <div class="rail-foot"><a href="https://github.com/croadfeldt/ai-test-harness">Repository on GitHub</a>. Diagram sources under <a href="diagrams/">diagrams/</a>.</div>
@@ -224,3 +226,8 @@ for name, label in DECKS:
         render_deck(src, slides_out / f"{name}.html", [(n, l) for n, l in DECKS if (ROOT / "slides" / f"{n}.md").exists()])
         (slides_out / f"{name}.md").write_text(src.read_text())
 print(f"wrote {OUT} ({OUT.stat().st_size // 1024} KB), {len(DOCS)} docs")
+
+# One page per run, from the run indexes, plus the runs index.
+_spec2 = _ilu.spec_from_file_location("build_runs", ROOT / "tools" / "build-runs.py"); _runs = _ilu.module_from_spec(_spec2)
+_runs.SITE = OUT.parent
+_spec2.loader.exec_module(_runs); _runs.SITE = OUT.parent; _runs.main()

@@ -69,7 +69,9 @@ def main(write: str | None = None) -> str:
     keys = ["run", "package", "ecosystem", "target", "model", "tests", "pass_on_head", "proven", "accepted", "mutation", "records", "signed", "goals", "proposed", "accepted_by_review"]
     lines = ["| " + " | ".join(hdr) + " |", "|" + "---|" * len(hdr)]
     for r in rows:
-        lines.append("| " + " | ".join(str(r[k]) for k in keys) + " |")
+        cells = [str(r[k]) for k in keys]
+        cells[0] = f"[{r['run']}](https://croadfeldt.github.io/ai-test-harness/runs/{r['run']}/)"   # the run's own page, start to finish
+        lines.append("| " + " | ".join(cells) + " |")
     totals = {"runs": len({r["run"] for r in rows}), "packages": len(rows), "tests": sum(r["tests"] for r in rows),
               "proven": sum(r["proven"] for r in rows), "accepted": sum(r["accepted"] for r in rows if isinstance(r["accepted"], int)),
               "signed": sum(1 for r in rows if r["signed"] == "yes")}
