@@ -166,6 +166,14 @@ its own identity, the tests and the records in the overlay directory, the packet
 pull request's text). The reviewer approves, edits, or rejects. Nothing merges without them, and what
 they accept runs with the suite from then on.
 
+Two files make the review readable by anyone, not only the reviewer. The packet writes the pull
+request's text and file list (`pull-request.md`) whether or not a pull request is opened, so every run
+shows what a person would be asked to accept. And every run keeps a `README.md` at its top, rewritten
+after each stage: who, what, why, where and when; the outcome in plain terms; the decisions the
+harness made; the actions it took and did not take; the records as one plain sentence each; and every
+file with the reader it is for. [Reading the artifacts](10-reading-the-artifacts.md) walks through
+both.
+
 ### 7. Feedback
 
 Reviewer edits and rejections become labeled examples for prompt evaluation. In the pipeline's loop

@@ -1,5 +1,143 @@
 {
   "base": "2ad04243861b",
+  "catalogue": [
+    {
+      "audience": "everyone",
+      "path": "README.md",
+      "purpose": "The story of this run: who, what, why, where, when, the outcome, the decisions and the actions."
+    },
+    {
+      "audience": "audit",
+      "path": "run.json",
+      "purpose": "What was run, with which tool versions, on which repository by name."
+    },
+    {
+      "audience": "machine",
+      "path": "run-index.json",
+      "purpose": "What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it."
+    },
+    {
+      "audience": "reviewer",
+      "path": "intake/worklist.json",
+      "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.new.json",
+      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.old.json",
+      "purpose": "The dependency graph at base."
+    },
+    {
+      "audience": "audit",
+      "path": "intake/sbom.new.cdx.json",
+      "purpose": "The software bill of materials at head, CycloneDX."
+    },
+    {
+      "audience": "security",
+      "path": "intake/vulns.json",
+      "purpose": "Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "security",
+      "package": "python-jose",
+      "path": "analyze/python-jose/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api-diff.json",
+      "purpose": "Every added, removed or changed public symbol between the two versions, with a breaking flag."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api.old.json",
+      "purpose": "The public API surface at base."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/source-diff.patch",
+      "purpose": "The package's own source diff between the versions; the model reads it to find the fix."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "generate/python-jose/manifest.json",
+      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "generate/python-jose/tests/",
+      "purpose": "The candidate test files as generated, before any decision."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "generate/python-jose/model-calls/",
+      "purpose": "Every prompt and every response, numbered, with the call's settings; the full transcript of what the model saw and said."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "generate/python-jose/scratch/",
+      "purpose": "Every attempt that ran in the sandbox during generation, with its output; not committed."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "execute/python-jose/results.json",
+      "purpose": "The verdict per test: outcome on head, on the re-run and on the other version, coverage, and how each was judged."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/new/",
+      "purpose": "The sealed run on head: the run script, the junit report, coverage, logs."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/new-rerun/",
+      "purpose": "The second run on head, to catch flakes."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/old/",
+      "purpose": "The run on the base version, for the differential."
+    }
+  ],
   "ecosystem": "python",
   "files": {
     "run": "run.json",
@@ -131,5 +269,5 @@
     }
   },
   "started": "2026-09-12T01:41:41+00:00",
-  "updated": "2026-09-16T13:03:43+00:00"
+  "updated": "2026-09-16T13:46:34+00:00"
 }

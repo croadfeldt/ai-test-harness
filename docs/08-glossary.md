@@ -4,6 +4,7 @@
 
 | Term | What it means here |
 |---|---|
+| **Artifact catalogue** | The table, kept in the harness's code, that names every file a run can write, who it is for, and why it exists. The run index, the story and document 10 all read it. |
 | **Attestation** | A signed statement, in a machine-readable format, that something happened: this artifact was built from this source, or these tests were run against this package and this is what they found. |
 | **Call graph** | A map of which functions call which other functions. It lets us ask "does any of our code ever reach this function in that package?" |
 | **Characterization test** | A test that records what code currently does, without judging whether that is correct. Useful for detecting change. |
@@ -25,6 +26,7 @@
 | **Provenance** | The recorded history of an artifact: what it was made from, by what process, by whom, when. |
 | **RACI** | A chart of who is Responsible, Accountable, Consulted, and Informed for each step of a process. |
 | **Reachability** | Whether our code can actually invoke a particular piece of a dependency. A vulnerability in code we never call is far less urgent than one in code we call on every request. |
+| **Run story** | The `README.md` at the top of every run: who, what, why, where and when, the outcome in plain terms, the decisions and the actions, the records in plain terms, and every file with its reader. Written by the harness from its own records after every stage. |
 | **Sandbox** | An isolated environment for running untrusted code, with no network, no secrets, and strict resource limits. Destroyed after use. |
 | **SBOM** | Software Bill of Materials. A complete list of every package in a product, with versions. |
 | **SLSA** | Supply-chain Levels for Software Artifacts. A framework of levels that describe how trustworthy the provenance of an artifact is. Build Level 3 is the highest current build level. |

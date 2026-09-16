@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "harness" / "src"))
+from harness import story as story_mod  # noqa: E402
 EXAMPLES = ROOT / "examples"
 SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site"
 REPO_URL = os.environ.get("SITE_REPO_URL", "https://github.com/croadfeldt/ai-test-harness/blob/main")
@@ -41,6 +43,15 @@ table.res th { font-weight: 500; color: var(--muted); font-size: .72rem; text-tr
 .artifacts h3 { break-after: avoid; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 1rem 0 .25rem; }
 .artifacts ul { margin: 0; padding-left: 1rem; }
 details summary { cursor: pointer; }
+.story { padding: 0 2.5rem; }
+.story h2 { font-family: var(--display); margin-top: 2rem; }
+.story table.res td:first-child { white-space: nowrap; font-weight: 500; }
+.story ul { padding-left: 1.2rem; }
+.story li { margin: .3rem 0; }
+.five td:first-child { width: 5rem; color: var(--accent-ink); font-family: var(--display); font-weight: 700; }
+.catalogue h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 1.25rem 0 .25rem; }
+.catalogue li { margin: .2rem 0; }
+.catalogue code { font-size: .8rem; }
 pre.rec { background: var(--code-bg); padding: .75rem; overflow-x: auto; font-size: .75rem; }
 @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } .artifacts { columns: 1; } .run-hero, .timeline, .pkg, .artifacts { padding-left: 1rem; padding-right: 1rem; } .verdict { margin: 1rem; } }
 """
@@ -73,7 +84,6 @@ def verify_statement(run: Path, pkg: str) -> str:
     if not (env.exists() and pub.exists()):
         return "no envelope"
     try:
-        sys.path.insert(0, str(ROOT / "harness" / "src"))
         from harness.stages.attest import verify
         return "verified at build" if verify(env, pub) else "signature did not verify"
     except Exception as ex:  # cryptography missing on the build machine, for instance
@@ -93,6 +103,37 @@ STAGE_TEXT = {
     "propose": ("propose", "Test pull request", "the packet and the records"),
     "feedback": ("7", "Feedback", "the pull request as a person decided it"),
 }
+
+
+def inline(text: str) -> str:
+    out = e(str(text))
+    out = re.sub(r"`([^`]+)`", r"<code>\1</code>", out)
+    out = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", out)
+    return re.sub(r"(https?://[^\s)]+)", r'<a href="\1">\1</a>', out)
+
+
+def story_section(sec: dict, rel: str, cls: str = "") -> str:
+    parts = [f'<h2>{e(sec["title"])}</h2>']
+    parts += [f"<p>{inline(x)}</p>" for x in sec.get("paragraphs", [])]
+    if sec.get("bullets"):
+        parts.append("<ul>" + "".join(f"<li>{inline(b)}</li>" for b in sec["bullets"]) + "</ul>")
+    if sec.get("table"):
+        cols = sec["table"]["columns"]
+        head = "".join(f"<th>{e(c)}</th>" for c in cols) if any(cols) else ""
+        body = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in row) + "</tr>" for row in sec["table"]["rows"])
+        parts.append(f'<div class="tbl"><table class="res {cls}">{("<tr>" + head + "</tr>") if head else ""}{body}</table></div>')
+    for g in sec.get("groups", []):
+        parts.append(f"<h3>{e(g['title'])}</h3><ul>" + "".join(f"<li>{link(rel, path)}: {e(why)}</li>" for path, why in g["items"]) + "</ul>")
+    return "".join(parts)
+
+
+def story_blocks(st: dict, rel: str) -> dict[str, str]:
+    """The story's sections rendered to HTML, keyed by title, so the page can place them."""
+    out = {}
+    for sec in st["sections"]:
+        cls = "five" if sec["title"].startswith("Who, what") else ""
+        out[sec["title"]] = story_section(sec, rel, cls)
+    return out
 
 
 def stage_cards(idx: dict, run: Path, rel: str) -> str:
@@ -229,20 +270,16 @@ def goals_table(run: Path, rel: str) -> str:
     return f'<section class="pkg"><h2>The run against the blueprint\'s goals</h2><div class="tbl"><table class="res"><tr><th>Id</th><th>Goal</th><th>Measured</th><th>Verdict</th><th>From</th></tr>{rows}</table></div></section>'
 
 
-def artifacts(idx: dict, rel: str) -> str:
-    groups: dict[str, list[str]] = {}
-    for k, v in (idx.get("files") or {}).items():
-        groups.setdefault("run", []).append(link(rel, v))
-    for p in idx["packages"]:
-        for k, v in p["files"].items():
-            groups.setdefault(v.split("/")[0], []).append(link(rel, v))
-    return '<section class="artifacts"><h2>Every artifact, by stage</h2>' + "".join(f"<h3>{e(g)}</h3><ul>{''.join(f'<li>{l}</li>' for l in ls)}</ul>" for g, ls in groups.items()) + "</section>"
-
 
 def page(idx: dict, run: Path, rel: str, owner: str) -> str:
     facts = [("repository", idx.get("repository")), ("language", idx.get("ecosystem")), ("mode", idx.get("mode")), ("base", (idx.get("base") or "")[:12]), ("head", (idx.get("head") or "")[:12]),
              ("model", idx.get("model")), ("started", idx.get("started")), ("harness", idx.get("harness_version")), ("run", idx.get("run_id"))]
     facts_html = "".join(f"<span>{e(k)} <b>{e(str(v))}</b></span>" for k, v in facts if v)
+    st = story_mod.build(run, idx)
+    blocks = story_blocks(st, rel)
+    def block(title, wrap="story"):
+        return f'<section class="{wrap}">{blocks[title]}</section>' if title in blocks else ""
+    plain = "".join(f"<div class=\"verdict\">{inline(x)}</div>" for x in st["sections"][0].get("paragraphs", []))
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(idx.get('repository') or owner)} run {e(str(idx.get('run_id') or run.name))}</title>
@@ -251,15 +288,20 @@ def page(idx: dict, run: Path, rel: str, owner: str) -> str:
 <main id="main">
 <header class="run-hero"><div class="eyebrow"><a href="../../index.html">All runs</a> · <a href="../../../index.html">AI Test Harness</a></div>
 <h1>{e(idx.get('repository') or owner)}: {e(run.name)}</h1>
-<p class="lede">What went in, what the harness did, what came out, and every artifact behind it. Rendered from the run's own records; the story of this run is on its <a href="{e(REPO_URL)}/examples/{e(owner)}/README.md">example page</a>.</p>
+<p class="lede">{e(st["subtitle"])} The same story opens the run's folder as <a href="{e(REPO_URL)}/examples/{e(rel)}/README.md">README.md</a>; the example's write-up is on its <a href="{e(REPO_URL)}/examples/{e(owner)}/README.md">example page</a>.</p>
 <div class="facts">{facts_html}</div></header>
-{"".join(f'<div class="verdict"><strong>{e(p["package"])}.</strong> {e(plain_terms((run / "packet" / p["package"] / "packet.md").read_text()))}</div>' for p in idx["packages"] if (run / "packet" / p["package"] / "packet.md").exists())}
-<section class="pkg"><h2>How it happened, start to finish</h2></section>
+{plain}
+{block("Who, what, why, where, when")}
+{block("Decisions the harness made")}
+{block("Actions it took")}
+{block("Actions it did not take, by design")}
+<section class="pkg"><h2>How it happened, stage by stage</h2><p>What each stage read, did and wrote, with the file behind every number.</p></section>
 <ol class="timeline">{stage_cards(idx, run, rel)}</ol>
 {package_sections(idx, run, rel)}
+{block("The records, in plain terms")}
 {goals_table(run, rel)}
-{artifacts(idx, rel)}
-<footer class="foot">Rendered by <code>tools/build-runs.py</code> from <code>run-index.json</code> and the files it names. Every value is escaped; nothing here is executed or trusted.</footer>
+<section class="story catalogue"><details><summary><h2 style="display:inline">What is in this folder, and who it is for</h2></summary>{blocks.get("What is in this folder, and who it is for", "")}</details></section>
+<footer class="foot">Rendered by <code>tools/build-runs.py</code> from <code>run-index.json</code> and the files it names, with the story from <code>harness/src/harness/story.py</code>. Every value is escaped; nothing here is executed or trusted.</footer>
 </main></body></html>"""
 
 
@@ -280,7 +322,7 @@ def main() -> None:
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:ital,wght@0,400;0,500;1,400&family=Red+Hat+Mono&display=swap">
 <style>{CSS}</style></head><body><main id="main">
 <header class="run-hero"><div class="eyebrow"><a href="../index.html">AI Test Harness</a></div><h1>Every run, start to finish</h1>
-<p class="lede">One page per run, rendered from its records: what each stage read, did and wrote, the results per package, the assessment, and every artifact. The roll-up of the numbers is document 11 on the main page.</p></header>
+<p class="lede">One page per run. Each opens with the story in plain terms (who, what, why, where, when, the decisions, the actions), then the stage-by-stage account, the results per package, the records in plain terms, and every file by the reader it is for. The roll-up of the numbers is document 11 on the main page.</p></header>
 <section class="pkg"><div class="tbl"><table class="res"><tr><th>Run</th><th>Language</th><th>Mode</th><th>Packages</th><th>Tests ran</th><th>Proven</th><th>Accepted</th><th>Goals met</th><th>Stages</th></tr>{"".join(rows)}</table></div></section>
 </main></body></html>"""
     (SITE / "runs").mkdir(parents=True, exist_ok=True)

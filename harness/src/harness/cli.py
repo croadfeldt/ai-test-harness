@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from . import __version__
-from .util import HarnessError, log, now_iso, tool_version, write_json
+from .util import HarnessError, log, now_iso, read_json, tool_version, write_json
 
 
 def _record_run(workdir: Path, args: argparse.Namespace) -> None:
@@ -204,8 +204,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         rc = a.func(a)
         if getattr(a, "workdir", None) and Path(a.workdir).is_dir():
-            from . import runindex
-            runindex.update(Path(a.workdir))   # every stage leaves the run's index current
+            from . import runindex, story
+            idx = runindex.update(Path(a.workdir))   # every stage leaves the run's index and its story current
+            story.write(Path(a.workdir), read_json(idx))
         return rc
     except HarnessError as e:
         log(f"error: {e}")

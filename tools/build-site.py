@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parent.parent
 import importlib.util as _ilu
 _spec = _ilu.spec_from_file_location("rollup", ROOT / "tools" / "rollup.py"); _rollup = _ilu.module_from_spec(_spec); _spec.loader.exec_module(_rollup)
 _rollup.main(write=str(ROOT / "docs" / "11-evidence-rollup.md"))
+_spec_c = _ilu.spec_from_file_location("catalogue", ROOT / "tools" / "catalogue.py"); _cat = _ilu.module_from_spec(_spec_c); _spec_c.loader.exec_module(_cat)
+_cat.main()
 DOCS = sorted((ROOT / "docs").glob("*.md"))
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 
@@ -205,8 +207,18 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
     <div class="eyebrow">Blueprint and working draft</div>
     <h1>Tests for every piece of code we ship, including the code we did not write</h1>
     <p class="lede">{html.escape(para)}</p>
-    <p class="byline">Chris Roadfeldt. A design, not yet running code. Pick an audience in the rail to see the recommended reading path.</p>
+    <p class="byline">Chris Roadfeldt. A blueprint, a working implementation, and real runs. Pick an audience in the rail to see the recommended reading path.</p>
   </header>
+  <section class="doc" id="doc-read"><div class="eyebrow">Start here</div>
+    <h1>How to read a run</h1>
+    <p>Every run tells one story in three layers. Each layer is written by the harness from its own records, so they never disagree.</p>
+    <ol>
+      <li><strong>The story.</strong> Every run folder opens with a <code>README.md</code>: who, what, why, where, when; the outcome in plain terms; the decisions the harness made; the actions it took and the ones it did not take by design; the UDLM records in plain terms; and every file with the reader it is for. The same story is the top of each page under <a href="runs/index.html">Runs</a>.</li>
+      <li><strong>The pull request.</strong> Tests reach a repository only through a pull request a person merges. <code>packet/&lt;package&gt;/pull-request.md</code> shows the text and the file list that pull request carries, whether or not one was opened; a review packet sits beside it with the verdict per test, the findings and the draft VEX statements.</li>
+      <li><strong>The evidence.</strong> Everything else in the folder is the proof and the replay: sandbox runs, prompts and responses, signed statements, sealed records. Each file is labelled with its audience and its reason in the run's index and in <a href="#doc-10">document 10</a>, so nothing is there without saying why.</li>
+    </ol>
+    <p>The nearest complete example: <a href="runs/frc-scheduler-server/pr-fix-known-vulns-run6/index.html">frc-scheduler-server, run 6</a>, which went from a dependency bump through a test pull request to a person's merge and the realized records.</p>
+  </section>
   {"".join(sections)}
   <footer class="foot">Documentation and blueprint files are licensed under Apache-2.0. Built from the repository markdown by <code>tools/build-site.py</code>.</footer>
 </main>

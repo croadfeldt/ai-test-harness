@@ -1,5 +1,257 @@
 {
   "base": null,
+  "catalogue": [
+    {
+      "audience": "everyone",
+      "path": "README.md",
+      "purpose": "The story of this run: who, what, why, where, when, the outcome, the decisions and the actions."
+    },
+    {
+      "audience": "audit",
+      "path": "run.json",
+      "purpose": "What was run, with which tool versions, on which repository by name."
+    },
+    {
+      "audience": "machine",
+      "path": "run-index.json",
+      "purpose": "What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it."
+    },
+    {
+      "audience": "reviewer",
+      "path": "intake/worklist.json",
+      "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.new.json",
+      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.old.json",
+      "purpose": "The dependency graph at base."
+    },
+    {
+      "audience": "audit",
+      "path": "intake/sbom.new.cdx.json",
+      "purpose": "The software bill of materials at head, CycloneDX."
+    },
+    {
+      "audience": "security",
+      "path": "intake/vulns.json",
+      "purpose": "Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports."
+    },
+    {
+      "audience": "reviewer",
+      "package": "ecdsa",
+      "path": "analyze/ecdsa/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "pdfminer-six",
+      "path": "analyze/pdfminer-six/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "pillow",
+      "path": "analyze/pillow/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-multipart",
+      "path": "analyze/python-multipart/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "starlette",
+      "path": "analyze/starlette/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "reviewer",
+      "package": "weasyprint",
+      "path": "analyze/weasyprint/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "security",
+      "package": "ecdsa",
+      "path": "analyze/ecdsa/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "pdfminer-six",
+      "path": "analyze/pdfminer-six/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "pillow",
+      "path": "analyze/pillow/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "python-jose",
+      "path": "analyze/python-jose/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "python-multipart",
+      "path": "analyze/python-multipart/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "starlette",
+      "path": "analyze/starlette/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "security",
+      "package": "weasyprint",
+      "path": "analyze/weasyprint/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "machine",
+      "package": "ecdsa",
+      "path": "analyze/ecdsa/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "pdfminer-six",
+      "path": "analyze/pdfminer-six/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "pillow",
+      "path": "analyze/pillow/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "python-multipart",
+      "path": "analyze/python-multipart/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "starlette",
+      "path": "analyze/starlette/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "weasyprint",
+      "path": "analyze/weasyprint/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "ecdsa",
+      "path": "analyze/ecdsa/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "pdfminer-six",
+      "path": "analyze/pdfminer-six/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "pillow",
+      "path": "analyze/pillow/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "python-multipart",
+      "path": "analyze/python-multipart/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "starlette",
+      "path": "analyze/starlette/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "machine",
+      "package": "weasyprint",
+      "path": "analyze/weasyprint/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "developer",
+      "package": "ecdsa",
+      "path": "analyze/ecdsa/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "pdfminer-six",
+      "path": "analyze/pdfminer-six/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "pillow",
+      "path": "analyze/pillow/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "python-multipart",
+      "path": "analyze/python-multipart/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "starlette",
+      "path": "analyze/starlette/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "weasyprint",
+      "path": "analyze/weasyprint/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    }
+  ],
   "ecosystem": "python",
   "files": {
     "run": "run.json",
@@ -282,5 +534,5 @@
     }
   },
   "started": "2026-09-12T01:42:31+00:00",
-  "updated": "2026-09-16T13:03:43+00:00"
+  "updated": "2026-09-16T13:46:34+00:00"
 }
