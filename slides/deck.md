@@ -60,7 +60,7 @@ flowchart LR
 
 - It does not replace engineers or QE. It gives them evidence they do not have today.
 - It does not merge code, publish security statements, or delete tests on its own. Each of those is a human decision.
-- It does not fix code. It may propose a fix, clearly labeled, through the normal review process.
+- It does not fix code. A separate fix pipeline does; this one hands it the failing test and tests what comes back.
 - It is not a new pipeline. It is one more integration test in Konflux.
 
 ---

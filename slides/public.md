@@ -52,6 +52,7 @@ On a real project, a change meant to fix four security problems was checked by t
 
 # What it is not
 
+- Not a fixer of the code it tests. Fixing is a different job for a different pipeline; this one proves the problem and checks the fix.
 - Not a replacement for engineers. It gives them evidence they never had.
 - Not a system that changes code on its own. Every decision is a person's.
 - Not finished. It is an open design with working code and honest results, and it improves each time it fails.

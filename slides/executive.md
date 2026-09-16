@@ -54,6 +54,12 @@ No person wrote any of that. The downgrade is the finding a reviewer would have 
 
 ---
 
+# What it does not do, by design
+
+It does not fix code. A separate fix pipeline does; this one hands it the failing test that proves the problem, and tests whatever comes back. The evidence stays independent of the fix, and the identity that proposes tests never needs the credentials that change production code.
+
+---
+
 # What it honestly cannot do yet
 
 - Prove every fix. Fourteen vulnerabilities were tried; three were proven. The rest are marked unproven, not painted green.
