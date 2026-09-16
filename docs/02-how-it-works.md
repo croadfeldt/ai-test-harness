@@ -44,6 +44,16 @@ review or on the test pull request, and tests always arrive through a pull reque
 both loops: generated tests run before anyone has read them, so the developer's loop uses the same
 sealed sandbox, never a plain test runner on a laptop.
 
+## Where it ends
+
+The harness tests; it does not fix. A separate fix pipeline generates changes to production code, and
+this one feeds it: the failing test that proves a problem, a reproducer for a defect found on the way,
+the upgrade path when a fixed version exists, and the draft VEX statements. Whatever the fix pipeline
+sends back comes through here like any other change, and the test that motivated it is the first thing
+reported. The two are kept apart so the evidence stays independent of the fix, so each pipeline's
+failure register stays about its own failures, so reviewers read one kind of change at a time, and so
+the identity that proposes tests never needs the credentials that change production code.
+
 ## Where it runs
 
 The harness is not a new pipeline. It is one more integration test in Konflux, Red Hat's open source

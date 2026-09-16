@@ -1,11 +1,16 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.11
-**Date:** 2026-09-15
+**Status:** Draft v0.12
+**Date:** 2026-09-16
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.12:** the harness is one part of a larger pipeline and it only tests (section 2.4). A
+separate fix pipeline generates fixes; this harness hands it failing tests, reproducers, the upgrade
+path and draft VEX statements, and tests whatever comes back. Section 9 no longer lists proposed
+production fixes among what the harness generates.
 
 **Changes in v0.11:** the repository's own code is a target in its own right (stage 2, section
 5.0): one row at depth 0, facts from the tree at the reviewed commit, tests proposed under the
@@ -71,6 +76,10 @@ and validate unit tests, functional tests, and supporting harness code for every
 code, whether it is our own commit, a direct dependency, or a transitive dependency several levels
 removed. It is the most detailed document in this repository. Everything else summarizes it.
 
+The harness is one part of a larger pipeline. It tests; it does not fix. Generating fixes belongs to a
+separate pipeline that consumes what this one produces (section 2.4). Keeping that line is a design
+choice, not a gap.
+
 The goal is not "AI writes our tests." The goal is **evidence**: for each incoming change we want a
 machine-produced, human-reviewable, reproducible answer to three questions.
 
@@ -98,8 +107,8 @@ machine-produced, human-reviewable, reproducible answer to three questions.
 - Automatically merging AI-generated tests without human review (never in scope). An organization may
   let policy accept low-risk characterization tests without a reader, but the merge is still a pull
   request, and the harness never pushes to a protected branch.
-- Automatically fixing production code. The harness may **propose** fixes, but code changes go through the
-  normal review path.
+- Fixing production code, automatically or as a proposal. A separate fix pipeline does that, fed by this
+  harness's outputs; section 2.4 says why the line is drawn here.
 
 ### 2.3 Target ecosystems, in priority order
 
@@ -111,6 +120,43 @@ machine-produced, human-reviewable, reproducible answer to three questions.
 6. C and C++ (CMake, Autotools, RPM spec driven builds)
 
 Each ecosystem needs a small adapter (see section 7). The core pipeline is ecosystem-agnostic.
+
+### 2.4 Where the harness ends: the fix pipeline
+
+This harness is the testing half of a larger pipeline. A second pipeline, the fix pipeline, generates
+changes to production code. The two are separate on purpose, and the boundary is a contract.
+
+**What this harness hands over.** A failing test with both runs kept, which is the proof that a
+problem exists and the acceptance test for any fix. A reproducer for a defect the run found on the
+way. The upgrade path, when a vulnerability is fixed by a version the change did not bring: which
+versions have to move for the fixed one to resolve. A draft VEX statement per advisory. All of it in
+the packet, signed, with the provenance of every test.
+
+**What the fix pipeline hands back.** A change to production code or to dependency versions, as a pull
+request. That change enters this harness like any other: the same stages, the same sandbox, the same
+differential run, and the failing test that motivated the fix is the first thing the run reports on.
+A fix is proven the way a vulnerability is, by a test that fails before and passes after.
+
+**Why the harness only tests.** Four reasons, in order of weight.
+
+1. Evidence must be independent of the thing it judges. If the pipeline that writes the fix also
+   writes the test that proves it, the test tends to prove the fix rather than the requirement. Keeping
+   generation of tests and generation of fixes in different pipelines, with different prompts, different
+   budgets and different reviewers, is the cheapest independence there is.
+2. The register works because the harness's failure modes are testing failure modes. Twenty-two
+   entries, each with a check that runs before every run, describe ways a generated test can mislead.
+   A fix pipeline fails in different ways, needs its own register, and mixing the two would dilute both.
+3. Review stays tractable. A reviewer of a test pull request reads tests; a reviewer of a fix reads
+   production code against a failing test. Separate pull requests, separate reviewers when the
+   organization wants them, separate blast radius when one is wrong.
+4. The trust model is narrower. This harness proposes tests, never merges, and never pushes to a
+   protected branch; its bot identity needs no more than that. A pipeline that changes production code
+   needs a different identity, different credentials and different policy, and should not inherit this
+   one's.
+
+The upgrade path is the one place this harness comes close to a fix, and it stays a description: which
+versions would have to move, recorded in the packet for the fix pipeline and the reviewer, never
+applied.
 
 ## 3. Guiding principles
 
@@ -767,10 +813,12 @@ The harness generates code in these categories only:
 1. Tests (all types in section 5), including rewrites of obsolete tests.
 2. Test support code: fixtures, fakes, mocks, builders, golden files.
 3. Harness glue: build scripts, container definitions, tmt plans, adapter shims for a new ecosystem.
-4. **Proposed** production fixes, delivered as separate patches with the failing test that motivates them.
 
-It does not generate production features, refactors, or dependency version changes. Keeping the boundary
-narrow keeps review tractable and keeps the harness out of the product's design decisions.
+It does not generate production code of any kind: no fixes, features, refactors, or dependency version
+changes. Fixes belong to the fix pipeline (section 2.4), which receives the failing test and the
+upgrade path from here and sends its change back through this harness. Keeping the boundary narrow
+keeps review tractable, keeps the evidence independent of what it judges, and keeps the harness out of
+the product's design decisions.
 
 ## 10. Metrics, quality gates, and benchmarks
 

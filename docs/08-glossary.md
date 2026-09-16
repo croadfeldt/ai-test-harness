@@ -38,3 +38,4 @@
 | Validation execution | The harness's own run of candidate tests: both versions, sealed, once, at acceptance time. Stage 4. |
 | Regression execution | The suite's run of accepted tests: head only, every change, by the CI that already runs the suite. Not a harness stage. |
 | Review gate | The point between validation and acceptance where a person decides: code review in lifecycle A, the test pull request in lifecycle B. Tests always arrive through a pull request. |
+| Fix pipeline | The separate pipeline that generates changes to production code. This harness hands it failing tests, reproducers, the upgrade path and draft VEX statements, and tests whatever it sends back. This harness never writes a fix. |

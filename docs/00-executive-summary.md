@@ -58,7 +58,8 @@ request, and the accepted ones run with the normal test suite from then on.
 - It does not replace engineers or QE. It gives them evidence they do not have today.
 - It does not merge code, publish security statements, or delete tests on its own. Every one of those is
   a human decision.
-- It does not fix code. It may propose a fix, clearly labeled, through the normal review process.
+- It does not fix code. Fixes are a separate pipeline's job; this one hands it the failing test that proves the
+  problem and tests whatever comes back. Keeping the two apart keeps the evidence independent of the fix.
 
 ## What it costs and what it returns
 
