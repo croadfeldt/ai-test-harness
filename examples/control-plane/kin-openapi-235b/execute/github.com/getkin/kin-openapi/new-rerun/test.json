@@ -1,0 +1,11 @@
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"# harnesstest [harnesstest.test]\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:18:15: cannot use make(map[string]*openapi3.PathItem) (value of type map[string]*openapi3.PathItem) as *openapi3.Paths value in assignment\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:30:25: cannot use \u0026openapi3.Parameters{…} (value of type *openapi3.Parameters) as openapi3.Parameters value in assignment\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:33:12: cannot index spec.Paths (variable of type *openapi3.Paths)\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:66:15: cannot use make(map[string]*openapi3.PathItem) (value of type map[string]*openapi3.PathItem) as *openapi3.Paths value in assignment\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:78:25: cannot use \u0026openapi3.Parameters{…} (value of type *openapi3.Parameters) as openapi3.Parameters value in assignment\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:81:12: cannot index spec.Paths (variable of type *openapi3.Paths)\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-fail"}
+{"Time":"2026-09-18T06:16:52.160408679Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-18T06:16:52.16045743Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest [build failed]\n"}
+{"Time":"2026-09-18T06:16:52.16046754Z","Action":"fail","Package":"harnesstest","Elapsed":0,"FailedBuild":"harnesstest [harnesstest.test]"}

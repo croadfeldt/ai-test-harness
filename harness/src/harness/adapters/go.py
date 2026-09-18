@@ -386,6 +386,39 @@ def drop_tests(code: str, names: set[str]) -> str:
     return out.stdout
 
 
+ERROR_LINE = re.compile(r"^\./[\w.-]+_test\.go:(\d+):\d+: (.+)$", re.M)
+
+
+def cut_at_errors(code: str, build_output: str) -> tuple[str, list[dict], list[str]]:
+    """One bad line fails a whole Go file, so the compiler's own line numbers decide what to cut: every
+    top-level Test function that contains a reported error goes, the rest stays. Returns the code without
+    those tests, one cut record per test, and the errors that fell outside any test function (an import,
+    a helper), which only a repair can fix."""
+    lines = code.splitlines()
+    spans: list[tuple[str, int, int]] = []
+    start, name = None, None
+    for i, line in enumerate(lines, 1):
+        m = re.match(r"^func (Test\w+)\(", line)
+        if m:
+            start, name = i, m.group(1)
+        elif line == "}" and start is not None:
+            spans.append((name, start, i)); start, name = None, None
+    cut: dict[str, list[str]] = {}
+    outside: list[str] = []
+    for m in ERROR_LINE.finditer(build_output):
+        ln, msg = int(m.group(1)), m.group(2)
+        hit = next((n for n, a, b in spans if a <= ln <= b), None)
+        if hit:
+            cut.setdefault(hit, []).append(msg)
+        else:
+            outside.append(f"line {ln}: {msg}")
+    if not cut:
+        return code, [], outside
+    return (drop_tests(code, set(cut)),
+            [{"test": t, "reason": "does not compile", "message": "; ".join(msgs)[:300]} for t, msgs in cut.items()],
+            outside)
+
+
 def _stdlib(path: str) -> bool:
     return "." not in path.split("/")[0]
 

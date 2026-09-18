@@ -31,13 +31,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 ## Actions it took
 
-- ecdsa: no pull request was opened in this run; the packet holds what one would carry.
-- pdfminer-six: no pull request was opened in this run; the packet holds what one would carry.
-- pillow: no pull request was opened in this run; the packet holds what one would carry.
-- python-jose: no pull request was opened in this run; the packet holds what one would carry.
-- python-multipart: no pull request was opened in this run; the packet holds what one would carry.
-- starlette: no pull request was opened in this run; the packet holds what one would carry.
-- weasyprint: no pull request was opened in this run; the packet holds what one would carry.
+- None yet.
 
 ## Actions it did not take, by design
 

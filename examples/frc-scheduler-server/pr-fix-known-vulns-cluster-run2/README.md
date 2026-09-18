@@ -11,8 +11,8 @@ What happened, why, and what came out of it. Written by the harness from its own
 |  |  |
 |---|---|
 | Who | The AI Test Harness 0.1.0 did the work without a person in the loop. A person decides the result; nothing in this run has been merged. |
-| What | Tests for ecdsa 0.19.2, pdfminer-six 20231228, pillow 11.0.0 to 12.3.0, pyasn1 0.6.4 to 0.4.8, python-jose 3.3.0 to 3.4.0, python-multipart 0.0.12 to 0.0.31, starlette 0.41.3, weasyprint 63.1 to 70.0, chosen from a work list of 64 packages, 5 of which this change touched. Repository source, change 2ad04243861b..cfa8f4a3292b, mode diff. |
-| Why | The risk score decides the budget; the two strongest reasons per package: ecdsa (score 65, budget full): reachability unknown, treated as reachable; 2 known vulnerabilities for this version. pdfminer-six (score 65, budget full): reachability unknown, treated as reachable; 4 known vulnerabilities for this version. pillow (score 55, budget full): reachability unknown, treated as reachable; 12 breaking API change(s); 34 advisories before the change, 0 after. pyasn1 (score 90, budget full): reachability unknown, treated as reachable; 8 known vulnerabilities for this version; 0 advisories before the change, 8 after. python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. python-multipart (score 55, budget full): reachability unknown, treated as reachable; 82 breaking API change(s); 16 advisories before the change, 0 after. starlette (score 80, budget full): reachable from first-party code; 14 known vulnerabilities for this version. weasyprint (score 70, budget full): reachable from first-party code; 152 breaking API change(s); 6 advisories before the change, 0 after. |
+| What | Tests for python-jose 3.3.0 to 3.4.0, chosen from a work list of 64 packages, 5 of which this change touched; 7 other package(s) were analyzed and scored but not selected for generation. Repository source, change 2ad04243861b..cfa8f4a3292b, mode diff. |
+| Why | python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. |
 | Where | Every test ran in a sealed sandbox (podman, network deny-all networkpolicy on the task pod (claim; verified by the stage 0 probe in this pod), image image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:96bf2da89d8bc47f46bc9f8f720c2d98d681ccdeaa2d9a0e9498c0ca2d8b16c1); the model was qwen/qwen3.8-27b in agent mode; the run's own files are in this folder. |
 | When | Started 2026-09-13 23:06:20 UTC. The last stage to write was self-verification at 2026-09-14 00:09:08 UTC. |
 
@@ -42,17 +42,10 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 ## Actions it took
 
-- ecdsa: no pull request was opened in this run; the packet holds what one would carry.
-- pdfminer-six: no pull request was opened in this run; the packet holds what one would carry.
-- pillow: no pull request was opened in this run; the packet holds what one would carry.
-- pyasn1: no pull request was opened in this run; the packet holds what one would carry.
 - python-jose: wrote a review packet with 0 accepted test(s) as a patch, ready for a pull request.
 - python-jose: drafted VEX statements for Product Security.
 - python-jose: signed the test-result statement (PASSED).
 - python-jose: no pull request was opened in this run; the packet holds what one would carry.
-- python-multipart: no pull request was opened in this run; the packet holds what one would carry.
-- starlette: no pull request was opened in this run; the packet holds what one would carry.
-- weasyprint: no pull request was opened in this run; the packet holds what one would carry.
 
 ## Actions it did not take, by design
 

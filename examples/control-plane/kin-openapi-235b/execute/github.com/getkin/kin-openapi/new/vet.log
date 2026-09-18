@@ -1,0 +1,3 @@
+# harnesstest
+# [harnesstest]
+vet: ./kin_openapi_cve_cve_2026_77354_test.go:18:15: cannot use make(map[string]*openapi3.PathItem) (value of type map[string]*openapi3.PathItem) as *openapi3.Paths value in assignment

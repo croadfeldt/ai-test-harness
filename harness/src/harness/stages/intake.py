@@ -71,6 +71,17 @@ def _cyclonedx(graph: DependencyGraph, run_id: str) -> dict:
             "components": comps, "dependencies": deps}
 
 
+def repository_name(repo: Path) -> str:
+    """The repository as people call it: the last segment of its origin URL; the directory name when there is none."""
+    import subprocess
+    try:
+        url = subprocess.run(["git", "-C", str(repo), "remote", "get-url", "origin"], capture_output=True, text=True, timeout=10).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        url = ""
+    tail = url.rstrip("/").rsplit("/", 1)[-1].rsplit(":", 1)[-1]
+    return (tail[:-4] if tail.endswith(".git") else tail) or repo.name
+
+
 def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: Path,
            ecosystem: str = "python", python_version: str | None = None) -> WorkList:
     from .. import selfcheck
@@ -153,7 +164,7 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
                                                   tools={"openssf-malicious-packages": "ran (via OSV)", "guarddog": gd.get("status", "not_installed"),
                                                          "capslock": "n/a (Go only)"}),
                               vulns_old=v_old, vulns_new=v_new, parents=pkg.parents))
-    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, ecosystem=ecosystem, source_dir=repo.name,
+    wl = WorkList(run_id=run_id, created=now_iso(), mode=mode, ecosystem=ecosystem, source_dir=repo.name, repository=repository_name(repo),
                   old_manifest=old_graph.manifest if base else None, new_manifest=new_graph.manifest, items=items)
     write_json(out / "worklist.json", wl)
     changed = [i for i in items if i.change in ("added", "removed", "bumped")]

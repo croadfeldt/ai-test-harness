@@ -122,3 +122,15 @@ def test_base_name_handles_go_subtests():
 def test_semver_max_prefers_the_highest_fixed_version():
     assert go._max_semver(["0.144.0", "0.141.0", "v0.142.0"]) == "v0.144.0"
     assert go._semver_key("v0.144.0") > go._semver_key("v0.139.0")
+
+
+def test_cut_at_errors_keeps_the_tests_the_compiler_did_not_name():
+    from harness.adapters.go import cut_at_errors, test_names
+    code = ("package harnesstest\n\nimport (\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n)\n\n"
+            "func TestGood(t *testing.T) {\n\tif 1 != 1 {\n\t\tt.Fatal(\"x\")\n\t}\n}\n\n"
+            "func TestBad(t *testing.T) {\n\tcb := openapi3.NewCallback()\n\tif len(cb) == 0 {\n\t\tt.Fatal(\"y\")\n\t}\n}\n")
+    out = "# harnesstest [harnesstest.test]\n./candidate_test.go:17:9: invalid argument: cb (variable of type *openapi3.Callback) for built-in len\nFAIL\tharnesstest [build failed]\n"
+    kept, cut, outside = cut_at_errors(code, out)
+    assert [c["test"] for c in cut] == ["TestBad"] and outside == []
+    assert test_names(kept) == ["TestGood"]
+    assert "kin-openapi/openapi3" not in kept, "an import only the cut test used goes with it"

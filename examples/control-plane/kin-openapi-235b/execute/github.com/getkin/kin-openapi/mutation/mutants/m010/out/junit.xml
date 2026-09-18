@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites><testsuite name="go test" tests="2" failures="0" errors="0" skipped="0"><testcase classname="harnesstest" name="Test_GHSA_r277_6w6q_xmqw_fix_pinning" time="0.000"></testcase><testcase classname="harnesstest" name="Test_GHSA_r277_6w6q_xmqw_exposure" time="0.000"></testcase></testsuite></testsuites>

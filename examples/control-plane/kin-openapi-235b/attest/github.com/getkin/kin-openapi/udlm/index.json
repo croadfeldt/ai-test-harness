@@ -1,0 +1,25 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-18T06:17:58+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-dc0d1712bc6d@realized": "sha256:e82943a3e4c8a62ba2e47a82d2df730e2a40d5d741e6fb815f92cc5490b10209",
+    "lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0@discovered": "sha256:d7876c15b9285a3fe61bb39adced6e8c758f493994062f45ce7d57f00bb4e1f6",
+    "lab/knowledge/vulnerability/cve-2026-73501@discovered": "sha256:94942313c0cddbad9d723cb150caf7aa1c40f7d18faaef656b692dbbeb53cea1",
+    "lab/knowledge/vulnerability/cve-2026-73502@discovered": "sha256:d1b101fd6a43e4c236de77816b6741598433a4e1b574df088cc6b77299119a9d",
+    "lab/knowledge/vulnerability/cve-2026-76905@discovered": "sha256:ee140bd40120ebeeaa2f4cbc323e65ddbcfec68bea31bbfe1e6f1b53a22c8d55",
+    "lab/knowledge/vulnerability/cve-2026-77354@discovered": "sha256:a66eb69fb7b98482dcf4a53f287f560ff1d57a44a4187e503f58792ed4126955"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

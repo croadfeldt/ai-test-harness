@@ -1,0 +1,89 @@
+# UDLM job records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: requested_record
+state: Requested
+entity_uuid: 65cbd0ca-df68-45cd-b202-3953ed52d821
+record_uuid: 01a0b32a-220d-7724-a46c-90d4185024fb
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-dc0d1712bc6d
+at: '2026-09-18T04:51:48Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: source
+    base: 1acc678bd670
+    head: 1acc678bd670
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+intent_ref: 01a0b32a-220d-76a2-bf37-736f6d239b47
+
+---
+record_type: realized_record
+state: Realized
+entity_uuid: 65cbd0ca-df68-45cd-b202-3953ed52d821
+record_uuid: 01a0b32a-220d-7fdc-9c70-7e2e85c107da
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: Job
+type_version: 1.0.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/Job/1.0.0
+handle: lab/jobs/ai-test-harness-run-dc0d1712bc6d
+at: '2026-09-18T06:16:52Z'
+time_source: harness-clock
+fields:
+  definition_ref: estate/lab/automation/ai-test-harness-pipeline
+  parameters:
+    repository: source
+    base: 1acc678bd670
+    head: 1acc678bd670
+    mode: diff
+  targets:
+  - estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  max_execution_time: PT3H
+  on_max_exceeded: terminate
+  trigger: manual
+requested_ref: 01a0b32a-220d-7724-a46c-90d4185024fb
+provider: lab/providers/ai-test-harness
+outputs:
+  started_at: '2026-09-18T04:51:48Z'
+  completed_at: '2026-09-18T06:16:52Z'
+  results:
+    status: COMPLETED
+    run_id: dc0d1712bc6d
+    harness_version: 0.1.0
+    model_id: qwen3-235b
+    model_endpoint: gpu-server-llamacpp-235b
+    model_endpoint_digest: sha256:249a4a5ecfcb17d8
+    model_reasoning: unknown
+    tool_versions:
+      git: git version 2.47.3
+      pip: pip 25.0.1
+      python: 3.12.14
+    sandbox_image: image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:4e3fdd16e0e77227335b2fcdb674cf8669041c3aba76475bb1f863bf3223b19b
+    sandbox_image_digest: sha256:4e3fdd16e0e77227335b2fcdb674cf8669041c3aba76475bb1f863bf3223b19b
+    execution_target: Container
+    selfcheck:
+      passed: true
+      checks: 22
+    tests_produced: 4
+    fix_pinning_confirmed: 0
+    flaky: 0
+process:
+  execution_state: COMPLETED
+  affected_entities:
+  - entity_uuid: f5197568-b5f8-41e9-9bfe-dde7cfe2b1ff
+    effect_type: read
+    effect_description: downloaded and ran the package in a sealed sandbox on two versions
+integrity:
+  head: sha256:e82943a3e4c8a62ba2e47a82d2df730e2a40d5d741e6fb815f92cc5490b10209
+  previous: null
+  algorithm: sha256-jcs
