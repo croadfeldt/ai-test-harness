@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "golang.org/x/text"
+  ],
+  "package": "golang.org/x/text",
+  "sites": []
+}

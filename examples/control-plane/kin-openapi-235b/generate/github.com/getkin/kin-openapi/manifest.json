@@ -1,0 +1,280 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tokens_per_turn": 4000,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "candidate_moved": {
+      "github.com/getkin/kin-openapi": [
+        "v0.139.0",
+        "v0.144.0"
+      ],
+      "github.com/go-openapi/jsonpointer": [
+        "v0.22.4",
+        "v0.22.5"
+      ],
+      "github.com/go-openapi/swag/jsonname": [
+        "v0.25.4",
+        "v0.25.5"
+      ],
+      "github.com/go-openapi/testify/v2": [
+        "v2.0.2",
+        "v2.4.0"
+      ],
+      "github.com/oasdiff/yaml": [
+        "v0.1.0",
+        "v0.1.1"
+      ],
+      "github.com/oasdiff/yaml3": [
+        "v0.0.13",
+        "v0.0.14"
+      ]
+    },
+    "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+    "direction": "candidate",
+    "fixed": "v0.144.0",
+    "vulnerable": "v0.139.0"
+  },
+  "discarded": [
+    {
+      "attempts": 3,
+      "category": "unit",
+      "message": "est.go:17:58: invalid argument: cb (variable of type *openapi3.Callback) for built-in len\n./candidate_test.go:19:20: cannot index cb (variable of type *openapi3.Callback)\n./candidate_test.go:74:35: cannot use \"string\" (untyped string constant) as *openapi3.Types value in struct literal\n./candidate_test.go:83:36: invalid operation: mediaType.Schema.Value.Type != \"string\" (mismatched types *openapi3.Types and untyped string)\n./candidate_test.go:100:36: invalid operation: mediaType.Schema.Value.Type != \"string\" (mismatched types *openapi3.Types and untyped string)\nFAIL\tharnesstest [build failed]\n",
+      "reason": "did not collect on the baseline after repairs"
+    }
+  ],
+  "files": [
+    {
+      "attempts": 17,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "model": "qwen3-235b",
+      "note": "The tests aim to verify the fix for GHSA-jpcw-4wr7-c3vq by ensuring ValidateRequest and ValidationHandler handle content parameters without schema correctly. However, due to missing symbols (NewRouter, unexported router field), the tests cannot be fully validated.",
+      "sha256": "sha256:1244261ff93a6f8a0496a271aef1acc572fcb1ff3317e0e063d4881e82d2cca7",
+      "targets": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "tests": [
+        "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+        "Test_GHSA_jpcw_4wr7_c3vq_exposure"
+      ],
+      "tool_calls": 14
+    },
+    {
+      "attempts": 11,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_76905_test.go",
+      "model": "qwen3-235b",
+      "note": "answered in text",
+      "sha256": "sha256:986ebdf370164469a64f9dd6204dfb5d142b918e33ec166b390975685f0e12b7",
+      "targets": [
+        "GHSA-mmfr-pmjx-hw9w",
+        "GO-2026-6274"
+      ],
+      "tests": [
+        "Test_GHSA_mmfr_pmjx_hw9w_fix_pinning",
+        "Test_GHSA_mmfr_pmjx_hw9w_exposure"
+      ],
+      "tool_calls": 9
+    },
+    {
+      "attempts": 15,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "model": "qwen3-235b",
+      "note": "Tests that ValidationHandler.Load sets AuthenticationFunc to NoopAuthenticationFunc by default in fixed version to prevent authentication bypass",
+      "sha256": "sha256:a1b6f3b3d1b3e7e831fc7239de82dca9f3e1ec04d80e08551306be66c0b77e0a",
+      "targets": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "tests": [
+        "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+        "Test_GHSA_r277_6w6q_xmqw_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 15,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "model": "qwen3-235b",
+      "note": "Tests for GHSA-xhj3-7xw9-vr34: deepObject query parameter decoding resource consumption. Uses public API only. May need adjustment based on actual fix.",
+      "sha256": "sha256:e7ec65519a56f5c88b76a860b92ffe60bbea4eae6a27f601e80bbbd85242b1fd",
+      "targets": [
+        "GHSA-xhj3-7xw9-vr34",
+        "GO-2026-6275"
+      ],
+      "tests": [
+        "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+        "Test_GHSA_xhj3_7xw9_vr34_exposure"
+      ],
+      "tool_calls": 13
+    }
+  ],
+  "generated": "2026-09-18T04:52:47+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "gpu-server-llamacpp-235b",
+    "endpoint_digest": "sha256:249a4a5ecfcb17d8",
+    "id": "qwen3-235b",
+    "temperature": null
+  },
+  "new_version": "v0.139.0",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

@@ -1,0 +1,111 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/open-policy-agent/opa"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/open-policy-agent/opa",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-18T04:52:22+00:00",
+  "import_names": [
+    "go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+  ],
+  "new_version": "v1.43.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v1.43.0",
+  "package": "go.opentelemetry.io/otel/exporters/otlp/otlptrace",
+  "purl": "pkg:golang/go.opentelemetry.io/otel/exporters/otlp/otlptrace@v1.43.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 1,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "1 known vulnerability for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 6,
+    "files": [
+      "version_test.go",
+      "exporter_test.go",
+      "internal/tracetransform/span_test.go",
+      "internal/tracetransform/attribute_test.go",
+      "internal/tracetransform/resource_test.go",
+      "internal/tracetransform/instrumentation_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 1,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-81870"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "1.45.0"
+    ],
+    "ids": [
+      "GHSA-8wmf-6v46-5gfg"
+    ],
+    "symbols_named_by_advisories": false
+  }
+}

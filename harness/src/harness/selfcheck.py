@@ -239,7 +239,34 @@ def gf022():
     assert files_blamed(out, d) == ["b_test.go"]
     assert files_blamed("FAIL\tharnesstest [build failed]\n", d) == []
     src = inspect.getsource(run_tests)
-    assert "files_not_compiled" in src and "len(blamed) < len(all_files)" in src
+    assert "while True" in src and "files_not_compiled" in src and "build_rounds" in src, "the retry must loop until the package builds or nothing is left"
+
+
+@check("GF-023", "a test file is submitted only after the sandbox ran that exact text and it collected on every version")
+def gf023():
+    from .stages.agent import Tools, run_agent
+    results = {"ok": "[new 1.0 = FIXED] test_a=pass\n[old 0.9 = VULNERABLE] test_a=fail (boom)", "bad": "[new 1.0 = FIXED] collection failed:\n./x_test.go:3:1: undefined: y"}
+    t = Tools({}, {"symbols": []}, {"symbols": []}, lambda code: results[code.strip()])
+    assert t.unverified("ok"), "never run: not submittable"
+    t.run_tests("ok\n"); assert t.unverified("ok") == []
+    t.run_tests("bad"); assert t.unverified("bad") and "did not compile or collect" in t.unverified("bad")[0]
+    assert t.unverified("ok\nchanged"), "a different text than the one that ran is a different file"
+    src = inspect.getsource(run_agent)
+    assert "tools.unverified(code)" in src
+
+
+@check("GF-024", "one Go test that does not compile is cut by the compiler's line, and the file's other tests still run")
+def gf024():
+    from .adapters.go import cut_at_errors
+    from .stages.generate import generate_package
+    code = "package harnesstest\n\nimport \"testing\"\n\nfunc TestA(t *testing.T) {\n\tx := 1\n\t_ = x\n}\n\nfunc TestB(t *testing.T) {\n\tvar cb *Callback\n\t_ = len(cb)\n}\n"
+    out = "# harnesstest [harnesstest.test]\n./candidate_test.go:12:10: invalid argument: cb for built-in len\nFAIL\tharnesstest [build failed]\n"
+    kept, cut, outside = cut_at_errors(code, out)
+    assert [c["test"] for c in cut] == ["TestB"] and outside == [] and "TestA" in kept and "TestB" not in kept
+    _, cut2, outside2 = cut_at_errors(code, "./candidate_test.go:3:8: imported and not used\n")
+    assert cut2 == [] and outside2, "an error outside any test function is not cuttable"
+    src = inspect.getsource(generate_package)
+    assert "cut_at_errors" in src and src.index("cut_at_errors") < src.index("kept_code = code")
 
 
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")

@@ -1,0 +1,199 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "candidate_moved": {
+        "github.com/getkin/kin-openapi": [
+          "v0.139.0",
+          "v0.144.0"
+        ],
+        "github.com/go-openapi/jsonpointer": [
+          "v0.22.4",
+          "v0.22.5"
+        ],
+        "github.com/go-openapi/swag/jsonname": [
+          "v0.25.4",
+          "v0.25.5"
+        ],
+        "github.com/go-openapi/testify/v2": [
+          "v2.0.2",
+          "v2.4.0"
+        ],
+        "github.com/oasdiff/yaml": [
+          "v0.1.0",
+          "v0.1.1"
+        ],
+        "github.com/oasdiff/yaml3": [
+          "v0.0.13",
+          "v0.0.14"
+        ]
+      },
+      "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+      "direction": "candidate",
+      "fixed": "v0.144.0",
+      "vulnerable": "v0.139.0"
+    },
+    "fix_pinning_confirmed": 0,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 0,
+    "total": 4
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 0,
+    "files": {}
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-18T06:16:52+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "v0.139.0",
+    "old_version": "v0.139.0",
+    "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+  },
+  "run_id": "dc0d1712bc6d",
+  "runs": {
+    "new": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "pod",
+    "identity": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:4e3fdd16e0e77227335b2fcdb674cf8669041c3aba76475bb1f863bf3223b19b",
+    "image_digest": "sha256:4e3fdd16e0e77227335b2fcdb674cf8669041c3aba76475bb1f863bf3223b19b",
+    "isolation": {
+      "build_cache": "per environment on the shared workspace",
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "4g",
+        "pids": 1024,
+        "timeout_s": 1200
+      },
+      "module_cache": "on the shared workspace, GOPROXY=off",
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "provisioner": "the task pod"
+  },
+  "test_files": [
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "sha256": "sha256:1244261ff93a6f8a0496a271aef1acc572fcb1ff3317e0e063d4881e82d2cca7"
+    },
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_76905_test.go",
+      "sha256": "sha256:986ebdf370164469a64f9dd6204dfb5d142b918e33ec166b390975685f0e12b7"
+    },
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "sha256": "sha256:a1b6f3b3d1b3e7e831fc7239de82dca9f3e1ec04d80e08551306be66c0b77e0a"
+    },
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "sha256": "sha256:e7ec65519a56f5c88b76a860b92ffe60bbea4eae6a27f601e80bbbd85242b1fd"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "id": "harnesstest::Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_73502_test.go:42:30: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:93:30: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:94:10: handler.router undefined (cannot refer to unexported field router",
+      "name": "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "param_id": "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "id": "harnesstest::Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_73502_test.go:42:30: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:93:30: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:94:10: handler.router undefined (cannot refer to unexported field router",
+      "name": "Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "param_id": "Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_76905_test.go",
+      "id": "harnesstest::Test_GHSA_mmfr_pmjx_hw9w_fix_pinning",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_76905_test.go:20:10: cannot use openapi3.Paths{\u2026} (value of struct type openapi3.Paths) as *openapi3.Paths value in struct literal; ./kin_openapi_cve_cve_2026_76905_test.go:21:4: invalid field name \"/test\" in struct literal; ./kin_openapi_cve_cve_2026_7690",
+      "name": "Test_GHSA_mmfr_pmjx_hw9w_fix_pinning",
+      "param_id": "Test_GHSA_mmfr_pmjx_hw9w_fix_pinning",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-mmfr-pmjx-hw9w",
+        "GO-2026-6274"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_76905_test.go",
+      "id": "harnesstest::Test_GHSA_mmfr_pmjx_hw9w_exposure",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_76905_test.go:20:10: cannot use openapi3.Paths{\u2026} (value of struct type openapi3.Paths) as *openapi3.Paths value in struct literal; ./kin_openapi_cve_cve_2026_76905_test.go:21:4: invalid field name \"/test\" in struct literal; ./kin_openapi_cve_cve_2026_7690",
+      "name": "Test_GHSA_mmfr_pmjx_hw9w_exposure",
+      "param_id": "Test_GHSA_mmfr_pmjx_hw9w_exposure",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-mmfr-pmjx-hw9w",
+        "GO-2026-6274"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    }
+  ]
+}

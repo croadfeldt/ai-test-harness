@@ -1,0 +1,8 @@
+# harnesstest [harnesstest.test]
+./kin_openapi_cve_cve_2026_77354_test.go:18:15: cannot use make(map[string]*openapi3.PathItem) (value of type map[string]*openapi3.PathItem) as *openapi3.Paths value in assignment
+./kin_openapi_cve_cve_2026_77354_test.go:30:25: cannot use &openapi3.Parameters{…} (value of type *openapi3.Parameters) as openapi3.Parameters value in assignment
+./kin_openapi_cve_cve_2026_77354_test.go:33:12: cannot index spec.Paths (variable of type *openapi3.Paths)
+./kin_openapi_cve_cve_2026_77354_test.go:66:15: cannot use make(map[string]*openapi3.PathItem) (value of type map[string]*openapi3.PathItem) as *openapi3.Paths value in assignment
+./kin_openapi_cve_cve_2026_77354_test.go:78:25: cannot use &openapi3.Parameters{…} (value of type *openapi3.Parameters) as openapi3.Parameters value in assignment
+./kin_openapi_cve_cve_2026_77354_test.go:81:12: cannot index spec.Paths (variable of type *openapi3.Paths)
+FAIL	harnesstest [build failed]

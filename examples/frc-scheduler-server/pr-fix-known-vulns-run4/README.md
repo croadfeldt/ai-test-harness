@@ -34,7 +34,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 ## Actions it took
 
-- python-jose: no pull request was opened in this run; the packet holds what one would carry.
+- None yet.
 
 ## Actions it did not take, by design
 

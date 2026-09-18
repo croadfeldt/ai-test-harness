@@ -32,20 +32,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 ## Actions it took
 
-- github.com/getkin/kin-openapi: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/gomarkdown/markdown: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/jackc/pgx/v5: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/klauspost/compress: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/labstack/echo/v4: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/nats-io/nats-server/v2: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/yuin/goldmark: no pull request was opened in this run; the packet holds what one would carry.
-- go.opentelemetry.io/otel: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/crypto: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/mod: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/net: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/text: no pull request was opened in this run; the packet holds what one would carry.
-- google.golang.org/grpc: no pull request was opened in this run; the packet holds what one would carry.
-- oras.land/oras-go/v2: no pull request was opened in this run; the packet holds what one would carry.
+- None yet.
 
 ## Actions it did not take, by design
 

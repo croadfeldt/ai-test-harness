@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-18T06:16:22+00:00",
+  "mode": "agent",
+  "model": "qwen3-235b",
+  "packages": [
+    {
+      "discarded": 1,
+      "files": 4,
+      "mode": "agent",
+      "model": "qwen3-235b",
+      "package": "github.com/getkin/kin-openapi",
+      "tests": 8
+    }
+  ]
+}

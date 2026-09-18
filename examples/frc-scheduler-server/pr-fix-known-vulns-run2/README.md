@@ -11,8 +11,8 @@ This run has not reached the review packet yet; the last stage that wrote was in
 |  |  |
 |---|---|
 | Who | The AI Test Harness 0.1.0 did the work without a person in the loop. A person decides the result; nothing in this run has been merged. |
-| What | Tests for pyasn1 0.6.4 to 0.4.8, python-jose 3.3.0 to 3.4.0, starlette 0.41.3, chosen from a work list of 64 packages, 5 of which this change touched. Repository frc-scheduler-server, change 2ad04243861b..cfa8f4a3292b, mode diff. |
-| Why | The risk score decides the budget; the two strongest reasons per package: pyasn1 (score 90, budget full): reachability unknown, treated as reachable; 8 known vulnerabilities for this version; 0 advisories before the change, 8 after. python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. starlette (score 80, budget full): reachable from first-party code; 14 known vulnerabilities for this version. |
+| What | Tests for python-jose 3.3.0 to 3.4.0, chosen from a work list of 64 packages, 5 of which this change touched; 2 other package(s) were analyzed and scored but not selected for generation. Repository frc-scheduler-server, change 2ad04243861b..cfa8f4a3292b, mode diff. |
+| Why | python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. |
 | Where | Every test ran in a sealed sandbox (podman, network none, image docker.io/library/python:3.12-slim); the model was qwen/qwen3.8-27b in fixed mode; the run's own files are in this folder. |
 | When | Started 2026-09-12 01:41:41 UTC. The last stage to write was validation execution at 2026-09-12 03:28:16 UTC. |
 
@@ -33,9 +33,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 ## Actions it took
 
-- pyasn1: no pull request was opened in this run; the packet holds what one would carry.
-- python-jose: no pull request was opened in this run; the packet holds what one would carry.
-- starlette: no pull request was opened in this run; the packet holds what one would carry.
+- None yet.
 
 ## Actions it did not take, by design
 

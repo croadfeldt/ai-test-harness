@@ -1,0 +1,210 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.53.0",
+  "package": "golang.org/x/net",
+  "version": "v0.53.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-25680",
+        "GO-2026-5028"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GHSA-5cv4-jp36-h3mw",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-25680",
+        "https://go.dev/cl/781702",
+        "https://go.dev/issue/79573",
+        "https://go.googlesource.com/net/+/08be507abce89191d78cd49da60f4501fc910472",
+        "https://go.googlesource.com/net/+/refs/tags/v0.55.0",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://pkg.go.dev/vuln/GO-2026-5028",
+        "cs.opensource.google/go/x/net"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "summary": "Go Net HTML parser is vulnerable to denial of service"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-42506"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5025",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79571",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781700"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of namespaced elements in foreign content in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Profile.ToASCII",
+        "Profile.ToUnicode",
+        "Profile.process",
+        "ToASCII",
+        "ToUnicode"
+      ],
+      "aliases": [
+        "CVE-2026-39821"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5026",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/767220",
+        "https://go.dev/issue/78760",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+      ],
+      "severity": null,
+      "summary": "Invoking failure to reject ASCII-only Punycode-encoded labels in golang.org/x/net/idna"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-42502"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5027",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79572",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781701"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of HTML elements in foreign content in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-25680",
+        "GHSA-5cv4-jp36-h3mw"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5028",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/781702",
+        "https://go.dev/issue/79573",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8"
+      ],
+      "severity": null,
+      "summary": "Invoking denial of service when parsing arbitrary HTML in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-25681"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5029",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79574",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781703"
+      ],
+      "severity": null,
+      "summary": "Invoking incorrect handling of character references in DOCTYPE nodes in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Parse",
+        "ParseFragment",
+        "ParseFragmentWithOptions",
+        "ParseWithOptions",
+        "parser.parse"
+      ],
+      "aliases": [
+        "CVE-2026-27136"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-5030",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/79575",
+        "https://groups.google.com/g/golang-announce/c/iI-mYSI0lu8",
+        "https://go.dev/cl/781685"
+      ],
+      "severity": null,
+      "summary": "Invoking duplicate attributes can cause XSS in golang.org/x/net/html"
+    },
+    {
+      "affected_symbols": [
+        "Message.Unpack",
+        "Parser.Additional",
+        "Parser.AllAdditionals",
+        "Parser.AllAnswers",
+        "Parser.AllAuthorities",
+        "Parser.Answer",
+        "Parser.Authority",
+        "Parser.HTTPSResource",
+        "Parser.SVCBResource",
+        "unpackSVCBResource"
+      ],
+      "aliases": [
+        "BIT-golang-2026-46600",
+        "CVE-2026-46600"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-5942",
+      "malicious": false,
+      "references": [
+        "https://go.dev/cl/786345",
+        "https://go.dev/issue/79795",
+        "https://groups.google.com/g/golang-announce/c/94pEornpRlI"
+      ],
+      "severity": null,
+      "summary": "Parsing an invalid SVCB or HTTPS RR can panic in golang.org/x/net/dns/dnsmessage"
+    }
+  ],
+  "vulns_old": []
+}

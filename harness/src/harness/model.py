@@ -80,6 +80,7 @@ class WorkList:
     new_manifest: str
     items: list[WorkItem]
     ecosystem: str = "python"
+    repository: str | None = None       # the repository's own name (origin URL's last segment), not the clone directory
 
 
 @dataclass
