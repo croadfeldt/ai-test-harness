@@ -1,0 +1,43 @@
+{
+  "build_failed": true,
+  "build_rounds": 2,
+  "coverage": "coverage.json",
+  "duration_s": 0.5,
+  "files_not_compiled": {
+    "kin_openapi_cve_cve_2026_73502_test.go": [
+      "./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter",
+      "./kin_openapi_cve_cve_2026_73502_test.go:66:34: undefined: openapi3filter.Route"
+    ],
+    "kin_openapi_cve_cve_2026_77354_test.go": [
+      "./kin_openapi_cve_cve_2026_77354_test.go:35:17: cannot use true (untyped bool constant) as *bool value in struct literal",
+      "./kin_openapi_cve_cve_2026_77354_test.go:65:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput",
+      "./kin_openapi_cve_cve_2026_77354_test.go:95:17: cannot use true (untyped bool constant) as *bool value in struct literal",
+      "./kin_openapi_cve_cve_2026_77354_test.go:125:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput"
+    ]
+  },
+  "finished": "2026-09-18T16:55:33+00:00",
+  "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:5b882bca9a1029974d5dc49c0e646c0a0305e031bafec85c13628d1b8e816439",
+  "image_digest": "sha256:5b882bca9a1029974d5dc49c0e646c0a0305e031bafec85c13628d1b8e816439",
+  "install_failed": false,
+  "isolation": {
+    "build_cache": "per environment on the shared workspace",
+    "disposable": "the task pod",
+    "limits": {
+      "cpus": "2",
+      "memory": "4g",
+      "pids": 1024,
+      "timeout_s": 1200
+    },
+    "module_cache": "on the shared workspace, GOPROXY=off",
+    "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+    "rootfs": "read-only (claim)",
+    "runtime_class": "default (no Kata or gVisor)",
+    "secrets": "none mounted; environment cleared for the run",
+    "service_account_token": "not mounted (claim)",
+    "target": "pod"
+  },
+  "junit": "junit.xml",
+  "label": "github.com/getkin/kin-openapi-new",
+  "returncode": 1,
+  "timed_out": false
+}

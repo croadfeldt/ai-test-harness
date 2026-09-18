@@ -281,7 +281,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                     precut = []
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
             if _collected_nothing(run1["results"]):
-                history.append("pytest collected no tests, or collection failed:\n" + run1["stdout_tail"][-2000:]); continue
+                history.append("No test ran on the baseline: the file did not build or collect. The output:\n" + run1["stdout_tail"][-2000:]); continue
             if cat == "cve":
                 # Judged by the differential run, with one exception: a test that crashes on the FIXED
                 # version with an unexpected exception (anything but an assertion or a missing raise)

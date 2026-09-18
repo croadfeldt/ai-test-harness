@@ -48,6 +48,9 @@ You have a limited budget of tool calls; the remaining count is given with every
 """
 
 
+NOT_BUILT = ("collection failed", "did not compile")   # how a run result says the file never got as far as a test
+
+
 class Tools:
     def __init__(self, dirs: dict[str, Path], api_new: dict, api_old: dict, run_fn, adapter=None):
         self.dirs, self.api_new, self.api_old, self.run_fn = dirs, api_new, api_old, run_fn
@@ -92,7 +95,7 @@ class Tools:
     def run_tests(self, code: str) -> str:
         result = self.run_fn(code)
         # GF-023: remember whether this exact file collected on every version it ran on; submit checks it.
-        self.verified[sha256_text(code.strip())] = "collection failed" not in result
+        self.verified[sha256_text(code.strip())] = not any(m in result for m in NOT_BUILT)
         return result
 
     verified: dict[str, bool] = {}

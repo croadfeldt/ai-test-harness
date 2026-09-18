@@ -1,0 +1,21 @@
+{
+  "generated": "2026-09-18T16:56:17+00:00",
+  "packages": [
+    {
+      "generated": "2026-09-18T16:56:17+00:00",
+      "package": "github.com/getkin/kin-openapi",
+      "packet_md": "packet/github.com/getkin/kin-openapi/packet.md",
+      "patch": "packet/github.com/getkin/kin-openapi/tests.patch",
+      "patch_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommended": "**Advisory.** Accept the listed candidate tests into the overlay; act on the findings by routing; confirm the VEX drafts with Product Security.",
+      "tests_in_patch": [],
+      "vex": "packet/github.com/getkin/kin-openapi/vex.openvex.json",
+      "vex_statements": {
+        "CVE-2026-73501": "affected",
+        "CVE-2026-73502": "affected",
+        "CVE-2026-76905": "affected",
+        "CVE-2026-77354": "affected"
+      }
+    }
+  ]
+}

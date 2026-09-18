@@ -46,3 +46,4 @@ def test_build_retry_reports_everything_when_nothing_builds(tmp_path, monkeypatc
     summary = sandbox_go.run_tests(env_dir=tmp_path, tests_dir=tests, out_dir=out, cover=[], label="t")
     assert summary["build_failed"] is True and list(summary["files_not_compiled"]) == ["a_test.go"]
     assert 'name="TestA"' in (out / "junit.xml").read_text()
+    assert "build failed" in (out / "stdout.log").read_text(), "the last round's output stays where generation reads it"

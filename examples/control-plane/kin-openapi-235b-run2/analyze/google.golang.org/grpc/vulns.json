@@ -1,0 +1,251 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v1.81.0",
+  "package": "google.golang.org/grpc",
+  "version": "v1.81.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84445"
+      ],
+      "fixed_versions": [
+        "1.82.2",
+        "1.83.2",
+        "1.85.0-dev.0.20260825072537-93e31b48545e"
+      ],
+      "id": "GHSA-2v4p-qf9q-27wj",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-2v4p-qf9q-27wj",
+        "https://github.com/grpc/grpc-go/issues/9354",
+        "https://github.com/grpc/grpc-go/pull/9365",
+        "https://github.com/grpc/grpc-go/pull/9366",
+        "https://github.com/grpc/grpc-go/pull/9367",
+        "https://github.com/grpc/grpc-go/commit/3822494d8ea03b992c089fd2a195f041762fffb7",
+        "https://github.com/grpc/grpc-go/commit/8668b69c167df908b6b3666dcbf40992b9e932a4",
+        "https://github.com/grpc/grpc-go/commit/93e31b48545e2a8aaeb6e06b47fb249f94e6297f",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.2"
+      ],
+      "severity": "HIGH",
+      "summary": "gRPC-Go xDS servers: Denial of Service (DoS) via crash due to missing `:authority` and `Host` headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "GO-2026-6061"
+      ],
+      "fixed_versions": [
+        "1.82.1"
+      ],
+      "id": "GHSA-hrxh-6v49-42gf",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf",
+        "https://github.com/grpc/grpc-go/pull/9236",
+        "https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: xDS RBAC and HTTP/2 Vulnerabilities"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84303"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GHSA-qc2q-p7wx-3px3",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-qc2q-p7wx-3px3",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-84303",
+        "https://github.com/grpc/grpc-go/pull/9332",
+        "https://github.com/grpc/grpc-go/pull/9335",
+        "https://github.com/grpc/grpc-go/commit/db9482836c298f234c896cf82ab68cafc78237f8",
+        "https://github.com/grpc/grpc-go/commit/ebba6f3f1b206e2b4dc4d1d5a96d18430302c2fe",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: xDS RBAC HTTP Filter bypass via mixed-case Header Matching and gRFC A41 validation evasion"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-84304"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GHSA-vp52-pcj8-j9qc",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-vp52-pcj8-j9qc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-84304",
+        "https://github.com/grpc/grpc-go/pull/9331",
+        "https://github.com/grpc/grpc-go/pull/9333",
+        "https://github.com/grpc/grpc-go/commit/7354d9c8debb4bcf2225bf429857078de310c176",
+        "https://github.com/grpc/grpc-go/commit/8cfeca0e1ee5ea0980dcc320e20240fa1079ec77",
+        "https://github.com/grpc/grpc-go",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "gRPC-Go: Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation"
+    },
+    {
+      "affected_symbols": [
+        "ChainEngine.IsAuthorized",
+        "ClientStream.Close",
+        "ClientStream.Header",
+        "ClientStream.Read",
+        "ClientStream.RecvCompress",
+        "ClientStream.TrailersOnly",
+        "ClientStream.Write",
+        "NewChainEngine",
+        "NewHTTP2Client",
+        "NewServerTransport",
+        "ServerStream.Read",
+        "ServerStream.SendHeader",
+        "ServerStream.Write",
+        "ServerStream.WriteStatus",
+        "Stream.ReadMessageHeader",
+        "controlBuffer.executeAndPut",
+        "controlBuffer.getOnceLocked",
+        "http2Client.Close",
+        "http2Client.GracefulClose",
+        "http2Client.NewStream",
+        "http2Server.Drain",
+        "http2Server.HandleStreams",
+        "matchersFromPermissions",
+        "matchersFromPrincipals",
+        "recvBufferReader.Read",
+        "recvBufferReader.ReadMessageHeader",
+        "transportReader.Read",
+        "transportReader.ReadMessageHeader"
+      ],
+      "aliases": [
+        "GHSA-hrxh-6v49-42gf"
+      ],
+      "fixed_versions": [
+        "1.82.1"
+      ],
+      "id": "GO-2026-6061",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-hrxh-6v49-42gf",
+        "https://github.com/grpc/grpc-go/commit/4ea465d4ab98013f72a142fe0fc89c19770b2935",
+        "https://github.com/grpc/grpc-go/pull/9236",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.82.1"
+      ],
+      "severity": null,
+      "summary": "Vulnerabilities in the xDS RBAC authorization engine and the HTTP/2 transport server implementation in google.golang.org/grpc"
+    },
+    {
+      "affected_symbols": [
+        "BufferSlice.MaterializeToBuffer",
+        "ClientStream.Close",
+        "ClientStream.Header",
+        "ClientStream.Read",
+        "ClientStream.RecvCompress",
+        "ClientStream.TrailersOnly",
+        "Copy",
+        "IsBelowBufferPoolingThreshold",
+        "NewBuffer",
+        "NewHTTP2Client",
+        "NewServerTransport",
+        "ReadAll",
+        "ServerStream.Read",
+        "Stream.ReadMessageHeader",
+        "http2Client.Close",
+        "http2Client.GracefulClose",
+        "http2Client.NewStream",
+        "http2Client.newStream",
+        "http2Server.Close",
+        "http2Server.HandleStreams",
+        "http2Server.operateHeaders",
+        "recvBuffer.init",
+        "recvBuffer.load",
+        "recvBuffer.put",
+        "recvBufferReader.Read",
+        "recvBufferReader.ReadMessageHeader",
+        "serverHandlerTransport.HandleStreams",
+        "transportReader.Read",
+        "transportReader.ReadMessageHeader",
+        "writer.Write"
+      ],
+      "aliases": [
+        "CVE-2026-84304",
+        "GHSA-vp52-pcj8-j9qc"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GO-2026-6348",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-vp52-pcj8-j9qc",
+        "https://github.com/grpc/grpc-go/commit/7354d9c8debb4bcf2225bf429857078de310c176",
+        "https://github.com/grpc/grpc-go/commit/8cfeca0e1ee5ea0980dcc320e20240fa1079ec77",
+        "https://github.com/grpc/grpc-go/pull/9331",
+        "https://github.com/grpc/grpc-go/pull/9333",
+        "https://github.com/grpc/grpc-go/releases/tag/v1.83.1"
+      ],
+      "severity": null,
+      "summary": "Heap Memory Exhaustion (OOM) via HTTP/2 DATA Frame Fragmentation in google.golang.org/grpc"
+    },
+    {
+      "affected_symbols": [
+        "builder.ParseFilterConfig",
+        "builder.ParseFilterConfigOverride",
+        "parseConfig"
+      ],
+      "aliases": [
+        "CVE-2026-84303",
+        "GHSA-qc2q-p7wx-3px3"
+      ],
+      "fixed_versions": [
+        "1.83.1"
+      ],
+      "id": "GO-2026-6441",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-qc2q-p7wx-3px3",
+        "https://github.com/grpc/grpc-go/pull/9332"
+      ],
+      "severity": null,
+      "summary": "Bypass of xDS RBAC HTTP filter header matching in google.golang.org/grpc"
+    },
+    {
+      "affected_symbols": [
+        "RouteAndProcess",
+        "http2Server.HandleStreams",
+        "http2Server.operateHeaders"
+      ],
+      "aliases": [
+        "CVE-2026-84445",
+        "GHSA-2v4p-qf9q-27wj"
+      ],
+      "fixed_versions": [
+        "1.82.2",
+        "1.83.2",
+        "1.85.0-dev.0.20260825072537-93e31b48545e"
+      ],
+      "id": "GO-2026-6443",
+      "malicious": false,
+      "references": [
+        "https://github.com/grpc/grpc-go/security/advisories/GHSA-2v4p-qf9q-27wj",
+        "https://github.com/grpc/grpc-go/issues/9354",
+        "https://github.com/grpc/grpc-go/pull/9365"
+      ],
+      "severity": null,
+      "summary": "Server panic via missing authority or Host headers in google.golang.org/grpc"
+    }
+  ],
+  "vulns_old": []
+}

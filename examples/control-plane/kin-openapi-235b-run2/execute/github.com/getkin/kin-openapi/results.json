@@ -1,0 +1,191 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 0,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "candidate_moved": {
+        "github.com/getkin/kin-openapi": [
+          "v0.139.0",
+          "v0.144.0"
+        ],
+        "github.com/go-openapi/jsonpointer": [
+          "v0.22.4",
+          "v0.22.5"
+        ],
+        "github.com/go-openapi/swag/jsonname": [
+          "v0.25.4",
+          "v0.25.5"
+        ],
+        "github.com/go-openapi/testify/v2": [
+          "v2.0.2",
+          "v2.4.0"
+        ],
+        "github.com/oasdiff/yaml": [
+          "v0.1.0",
+          "v0.1.1"
+        ],
+        "github.com/oasdiff/yaml3": [
+          "v0.0.13",
+          "v0.0.14"
+        ]
+      },
+      "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+      "direction": "candidate",
+      "fixed": "v0.144.0",
+      "vulnerable": "v0.139.0"
+    },
+    "fix_pinning_confirmed": 0,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 0,
+    "total": 4
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 0,
+    "files": {}
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-18T16:55:34+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "v0.139.0",
+    "old_version": "v0.139.0",
+    "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+  },
+  "run_id": "8e6fa6151887",
+  "runs": {
+    "new": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 0.5,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "pod",
+    "identity": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:5b882bca9a1029974d5dc49c0e646c0a0305e031bafec85c13628d1b8e816439",
+    "image_digest": "sha256:5b882bca9a1029974d5dc49c0e646c0a0305e031bafec85c13628d1b8e816439",
+    "isolation": {
+      "build_cache": "per environment on the shared workspace",
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "4g",
+        "pids": 1024,
+        "timeout_s": 1200
+      },
+      "module_cache": "on the shared workspace, GOPROXY=off",
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "provisioner": "the task pod"
+  },
+  "test_files": [
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "sha256": "sha256:0c019e37ea810f4c5fa6f197a033fbd80742150ad19c2a05fe529d975bc4c3e8"
+    },
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "sha256": "sha256:1b5e15e479e1e43f4f6814b4a7288b037b55fbc0c404892697d4a19e03d2a280"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "id": "harnesstest::Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:66:34: undefined: openapi3filter.Route",
+      "name": "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "param_id": "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "id": "harnesstest::Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter; ./kin_openapi_cve_cve_2026_73502_test.go:66:34: undefined: openapi3filter.Route",
+      "name": "Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "param_id": "Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "id": "harnesstest::Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_77354_test.go:35:17: cannot use true (untyped bool constant) as *bool value in struct literal; ./kin_openapi_cve_cve_2026_77354_test.go:65:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput; ./kin_openapi_cve_cve_20",
+      "name": "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+      "param_id": "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-xhj3-7xw9-vr34",
+        "GO-2026-6275"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "id": "harnesstest::Test_GHSA_xhj3_7xw9_vr34_exposure",
+      "message": "did not compile: ./kin_openapi_cve_cve_2026_77354_test.go:35:17: cannot use true (untyped bool constant) as *bool value in struct literal; ./kin_openapi_cve_cve_2026_77354_test.go:65:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput; ./kin_openapi_cve_cve_20",
+      "name": "Test_GHSA_xhj3_7xw9_vr34_exposure",
+      "param_id": "Test_GHSA_xhj3_7xw9_vr34_exposure",
+      "status": "error",
+      "symbols_exercised": [
+        "GHSA-xhj3-7xw9-vr34",
+        "GO-2026-6275"
+      ],
+      "verdict": "did not compile: test bug; back to generation",
+      "versions": {
+        "new": "error",
+        "old": "error"
+      }
+    }
+  ]
+}
