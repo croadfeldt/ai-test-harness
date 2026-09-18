@@ -104,16 +104,15 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
         blamed = [f for f in files_blamed(readable, tests_dir) if f in include]
         if not blamed:
             break   # the failure is not attributable to a test file (a module or toolchain problem); reported as is
-        rnd += 1
-        for name in ("stdout.log", "build.log", "test.json", "run.sh", "vet.log"):
-            if (out_dir / name).exists():
-                (out_dir / name).rename(out_dir / f"{Path(name).stem}-{rnd}{Path(name).suffix}")
         for f in blamed:
             dropped[f] = [l for l in readable.splitlines() if l.startswith(f"./{f}:")][:5]
         include = [f for f in include if f not in blamed]
         if not include:
-            summary["build_failed"] = True   # nothing compiled; every test below is an error
-            break
+            break   # nothing compiled: build_failed stays true and this round's logs stay in place for the caller to read
+        rnd += 1
+        for name in ("stdout.log", "build.log", "test.json", "run.sh", "vet.log"):
+            if (out_dir / name).exists():
+                (out_dir / name).rename(out_dir / f"{Path(name).stem}-{rnd}{Path(name).suffix}")
     if dropped:
         summary["files_not_compiled"] = dropped
         summary["build_rounds"] = rnd + 1

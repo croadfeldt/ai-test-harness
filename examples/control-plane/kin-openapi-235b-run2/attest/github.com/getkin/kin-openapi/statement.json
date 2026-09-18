@@ -1,0 +1,179 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "security",
+              "confidence": 0.9,
+              "evidence_ref": "analyze/github.com/getkin/kin-openapi/vulns.json",
+              "summary": "github.com/getkin/kin-openapi v0.139.0 has 8 open advisories at head; reachable=true"
+            },
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/github.com/getkin/kin-openapi/manifest.agent.json",
+              "summary": "github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-76905); NOT corroborated by stage 4 verdicts"
+            }
+          ],
+          "inputs": {
+            "base": "go.mod@1acc678bd670",
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "go list -m -json all + go mod graph (go version go1.25.14 linux/amd64)",
+            "sbom_digest": "sha256:78305858d4b9602a8e8e3d538175e490672a1c7f4b28505b6c474c44619fc696",
+            "snapshot": "go.mod@1acc678bd670"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 0,
+            "fix_pinning_confirmed": 0,
+            "flake_rate": 0.0,
+            "mutation_engine": null,
+            "mutation_sample": null,
+            "mutation_score": null,
+            "tests_total": 4
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "gpu-server-llamacpp-235b",
+            "model_endpoint_digest": "sha256:249a4a5ecfcb17d8",
+            "model_id": "qwen3-235b",
+            "pipeline_run": [
+              "intake",
+              "--workdir",
+              "run",
+              "--base",
+              "main",
+              "--head",
+              "main",
+              "--ecosystem",
+              "go"
+            ],
+            "run_id": "8e6fa6151887",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-016",
+                "GF-017",
+                "GF-018",
+                "GF-019",
+                "GF-020",
+                "GF-021",
+                "GF-022",
+                "GF-023",
+                "GF-024",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/github.com/getkin/kin-openapi/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
+          "unverified": [
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image"
+          ],
+          "vex_drafts": [
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-73502"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-76905"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-73501"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-77354"
+            }
+          ],
+          "work_items": [
+            {
+              "depth": 1,
+              "old_version": "v0.139.0",
+              "preflight": "clean",
+              "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+              "reachable": "true",
+              "risk_score": 0.7
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "1741c3b367a2f4756996409720c4958e5b98d6638697905f6fe8f8070905a206"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [
+      "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+      "Test_GHSA_jpcw_4wr7_c3vq_exposure",
+      "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+      "Test_GHSA_xhj3_7xw9_vr34_exposure"
+    ],
+    "passedTests": [],
+    "result": "PASSED",
+    "url": "packet/github.com/getkin/kin-openapi/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "name": "packet/github.com/getkin/kin-openapi/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "1741c3b367a2f4756996409720c4958e5b98d6638697905f6fe8f8070905a206"
+      },
+      "name": "attest/github.com/getkin/kin-openapi/MANIFEST.json"
+    }
+  ]
+}

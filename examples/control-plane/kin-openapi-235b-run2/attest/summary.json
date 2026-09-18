@@ -1,0 +1,24 @@
+{
+  "generated": "2026-09-18T16:56:35+00:00",
+  "packages": [
+    {
+      "envelope": "attest/github.com/getkin/kin-openapi/statement.dsse.json",
+      "generated": "2026-09-18T16:56:35+00:00",
+      "keyid": "sha256:acfb1ae5a1b7ee2318afae2a4798df5447f0d5270a8b44ad1f3958beea4b9802",
+      "manifest": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+      "manifest_sha256": "sha256:1741c3b367a2f4756996409720c4958e5b98d6638697905f6fe8f8070905a206",
+      "package": "github.com/getkin/kin-openapi",
+      "records": 0,
+      "result": "PASSED",
+      "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
+      "statement": "attest/github.com/getkin/kin-openapi/statement.json",
+      "udlm": {
+        "index": "attest/github.com/getkin/kin-openapi/udlm/index.json",
+        "schema_problems": 0,
+        "sealed": true,
+        "subjects": 0
+      },
+      "verified_locally": true
+    }
+  ]
+}

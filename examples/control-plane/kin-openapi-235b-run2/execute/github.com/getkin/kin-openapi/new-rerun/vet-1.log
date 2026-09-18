@@ -1,0 +1,3 @@
+# harnesstest
+# [harnesstest]
+vet: ./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter

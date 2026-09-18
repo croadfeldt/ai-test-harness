@@ -1,0 +1,32 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v1.43.0",
+  "package": "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp",
+  "version": "v1.43.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-81870"
+      ],
+      "fixed_versions": [
+        "1.45.0"
+      ],
+      "id": "GHSA-8wmf-6v46-5gfg",
+      "malicious": false,
+      "references": [
+        "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-8wmf-6v46-5gfg",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-81870",
+        "https://github.com/open-telemetry/opentelemetry-go/pull/8438",
+        "https://github.com/open-telemetry/opentelemetry-go/commit/3a1412d2b3bc4e4231fbeac2ed42117ae541bb38",
+        "https://github.com/open-telemetry/opentelemetry-go",
+        "https://github.com/open-telemetry/opentelemetry-go/releases/tag/exporters/zipkin/v1.45.0",
+        "https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/v1.45.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "summary": "OpenTelemetry-Go: Exporter config logging may leak endpoint URLs in info logs"
+    }
+  ],
+  "vulns_old": []
+}

@@ -1,0 +1,130 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v5.8.0",
+  "package": "github.com/jackc/pgx/v5",
+  "version": "v5.8.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-33816",
+        "GO-2026-4772"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GHSA-9jj7-4m8r-rfcm",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33816",
+        "https://github.com/jackc/pgx",
+        "https://pkg.go.dev/vuln/GO-2026-4772"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "Memory-safety vulnerability in github.com/jackc/pgx/v5."
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-41889",
+        "GO-2026-5004"
+      ],
+      "fixed_versions": [
+        "5.9.2"
+      ],
+      "id": "GHSA-j88v-2chj-qfwx",
+      "malicious": false,
+      "references": [
+        "https://github.com/jackc/pgx/security/advisories/GHSA-j88v-2chj-qfwx",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-41889",
+        "https://github.com/jackc/pgx/commit/60644f84918a8af66d14a4b0d865d4edafd955da",
+        "https://github.com/jackc/pgx",
+        "https://github.com/jackc/pgx/releases/tag/v5.9.2"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "pgx: SQL Injection via placeholder confusion with dollar quoted string literals"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-33815",
+        "GO-2026-4771"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GHSA-xgrm-4fwx-7qm8",
+      "malicious": false,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33815",
+        "https://github.com/jackc/pgx/issues/2519",
+        "https://github.com/jackc/pgx/issues/2530",
+        "https://github.com/jackc/pgx/commit/6dbad4cafdb8a4daab7ff79c858c95da4b6109e8",
+        "https://pkg.go.dev/vuln/GO-2026-4771",
+        "github.com/jackc/pgx/v5"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "summary": "pgx contains memory-safety vulnerability"
+    },
+    {
+      "affected_symbols": [
+        "Backend.Receive",
+        "Bind.Decode"
+      ],
+      "aliases": [
+        "CVE-2026-33815",
+        "GHSA-xgrm-4fwx-7qm8"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GO-2026-4771",
+      "malicious": false,
+      "references": [],
+      "severity": null,
+      "summary": "CVE-2026-33815 in github.com/jackc/pgx"
+    },
+    {
+      "affected_symbols": [
+        "Backend.Receive",
+        "FunctionCall.Decode"
+      ],
+      "aliases": [
+        "CVE-2026-33816",
+        "GHSA-9jj7-4m8r-rfcm"
+      ],
+      "fixed_versions": [
+        "5.9.0"
+      ],
+      "id": "GO-2026-4772",
+      "malicious": false,
+      "references": [],
+      "severity": null,
+      "summary": "CVE-2026-33816 in github.com/jackc/pgx"
+    },
+    {
+      "affected_symbols": [
+        "Query.Sanitize",
+        "SanitizeSQL"
+      ],
+      "aliases": [
+        "CVE-2026-41889",
+        "GHSA-j88v-2chj-qfwx"
+      ],
+      "fixed_versions": [
+        "5.9.2"
+      ],
+      "id": "GO-2026-5004",
+      "malicious": false,
+      "references": [
+        "https://github.com/jackc/pgx/security/advisories/GHSA-j88v-2chj-qfwx",
+        "https://github.com/jackc/pgx/commit/60644f84918a8af66d14a4b0d865d4edafd955da",
+        "https://github.com/jackc/pgx/releases/tag/v5.9.2"
+      ],
+      "severity": null,
+      "summary": "SQL Injection via placeholder confusion with dollar quoted string literals in github.com/jackc/pgx"
+    }
+  ],
+  "vulns_old": []
+}

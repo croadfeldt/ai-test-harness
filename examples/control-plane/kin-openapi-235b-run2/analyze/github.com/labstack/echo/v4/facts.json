@@ -1,0 +1,136 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/oapi-codegen/runtime"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/oapi-codegen/runtime",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-18T13:15:10+00:00",
+  "import_names": [
+    "github.com/labstack/echo/v4"
+  ],
+  "new_version": "v4.15.1",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v4.15.1",
+  "package": "github.com/labstack/echo/v4",
+  "purl": "pkg:golang/github.com/labstack/echo/v4@v4.15.1",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [],
+      "vuln_count": 2,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "2 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 42,
+    "files": [
+      "binder_generic_test.go",
+      "group_test.go",
+      "echo_test.go",
+      "router_test.go",
+      "context_test.go",
+      "binder_external_test.go",
+      "echo_fs_test.go",
+      "json_test.go",
+      "binder_test.go",
+      "context_fs_test.go",
+      "group_fs_test.go",
+      "ip_test.go",
+      "bind_test.go",
+      "response_test.go",
+      "renderer_test.go",
+      "context_generic_test.go",
+      "middleware/context_timeout_test.go",
+      "middleware/secure_test.go",
+      "middleware/key_auth_test.go",
+      "middleware/cors_test.go",
+      "middleware/method_override_test.go",
+      "middleware/slash_test.go",
+      "middleware/redirect_test.go",
+      "middleware/body_limit_test.go",
+      "middleware/request_logger_test.go",
+      "middleware/timeout_test.go",
+      "middleware/rate_limiter_test.go",
+      "middleware/logger_test.go",
+      "middleware/extractor_test.go",
+      "middleware/decompress_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 2,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-55677"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "4.15.3"
+    ],
+    "ids": [
+      "GHSA-vfp3-v2gw-7wfq",
+      "GO-2026-6293"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

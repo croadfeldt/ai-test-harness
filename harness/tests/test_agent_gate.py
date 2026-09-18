@@ -34,7 +34,7 @@ class Adapter:
 
 
 def test_submit_needs_a_run_that_collected_on_every_version():
-    results = {"BAD": "[new 2 = FIXED] collection failed:\n./x_test.go:3:1: undefined: y", "GOOD": "[new 2 = FIXED] test_a=pass\n[old 1 = VULNERABLE] test_a=fail (boom)"}
+    results = {"BAD": "[new 2 = FIXED] TestA=error (did not compile: ./candidate_test.go:3:1: undefined: y)", "GOOD": "[new 2 = FIXED] test_a=pass\n[old 1 = VULNERABLE] test_a=fail (boom)"}
     tools = Tools({}, {"symbols": []}, {"symbols": []}, lambda code: results[code], adapter=Adapter())
     res = run_agent(FakeModel(), "prompt", tools, gate_fn=lambda code: [], max_tool_calls=14, max_turns=8, tag="t")
     subs = [t for t in res["trace"] if t.get("tool") == "submit"]

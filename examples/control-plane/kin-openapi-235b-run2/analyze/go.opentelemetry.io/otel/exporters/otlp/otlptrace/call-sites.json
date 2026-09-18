@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+  ],
+  "package": "go.opentelemetry.io/otel/exporters/otlp/otlptrace",
+  "sites": []
+}
