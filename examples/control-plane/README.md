@@ -159,8 +159,17 @@ Three defects of the harness, not the model, came out of that run and are fixed 
 gate never asked whether the sandbox had built the file (GF-023); the build retry stopped after one
 round and lost four tests without a verdict (GF-022, corrected); and one wrong line cost a file its
 nine good tests, because the repair loop never used the compiler's line numbers (GF-024). The run is
-kept as produced, so the packet reads "0 candidate tests" and the story says why; the run after the
-fixes is the comparison.
+kept as produced, so the packet reads "0 candidate tests" and the story says why.
+
+The rerun on the fixed image (`kin-openapi-235b-run2/`) still produced no accepted test, and the
+reasons changed, which is the point of keeping both. The new submit gate refused five attempts to
+submit a file the sandbox had not run; on two advisories the agent ran out of budget rather than
+submit a guess, which is the honest outcome. It also showed two more defects of mine: the gate's
+"did the sandbox build this" check looked for the Python wording while the Go sandbox reports a build
+failure as one "did not compile" error per test, and the build-retry loop moved the last round's
+logs out from under generation, so the compiler's lines never reached the cut. Both are fixed on the
+same branch. The model's own limits stayed the same: one API detail wrong per file, and on one
+advisory four submissions in a row with the same syntax error.
 
 ## What is in each run directory
 
