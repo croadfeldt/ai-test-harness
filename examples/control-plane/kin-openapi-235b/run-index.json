@@ -647,12 +647,6 @@
       "purpose": "How strong the accepted tests are: which mutants of the package's source they killed, and the score."
     },
     {
-      "audience": "machine",
-      "package": "github.com/getkin/kin-openapi",
-      "path": "execute/github.com/getkin/kin-openapi/mutation/mutants/",
-      "purpose": "Each sampled mutant: the mutated file and its sealed run."
-    },
-    {
       "audience": "reviewer",
       "package": "github.com/getkin/kin-openapi",
       "path": "execute/github.com/getkin/kin-openapi/relevance.json",
@@ -1349,5 +1343,5 @@
     }
   },
   "started": "2026-09-18T04:51:48+00:00",
-  "updated": "2026-09-18T13:02:21+00:00"
+  "updated": "2026-09-18T17:41:49+00:00"
 }

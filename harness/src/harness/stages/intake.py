@@ -82,9 +82,30 @@ def repository_name(repo: Path) -> str:
     return (tail[:-4] if tail.endswith(".git") else tail) or repo.name
 
 
+PREVIOUS_RUN = ("selfcheck", "intake", "analyze", "generate", "execute", "triage", "packet", "attest", "assess", "propose", "feedback",
+                "README.md", "run-index.json")
+
+
+def start_fresh(workdir: Path) -> list[str]:
+    """A work directory holds one run. Intake removes what a previous run left there, so a reused
+    directory or a reused cluster volume can never lend stale artifacts to the new run; the cache stays."""
+    import shutil
+    removed = []
+    for name in PREVIOUS_RUN:
+        p = workdir / name
+        if p.is_dir():
+            shutil.rmtree(p); removed.append(name)
+        elif p.is_file():
+            p.unlink(); removed.append(name)
+    return removed
+
+
 def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: Path,
            ecosystem: str = "python", python_version: str | None = None) -> WorkList:
     from .. import selfcheck
+    stale = start_fresh(workdir)
+    if stale:
+        log(f"  intake: removed a previous run's outputs from {workdir}: {', '.join(stale)}")
     selfcheck.require(workdir, python_version or "3.12", probes=False)   # register checks; probes run before generation
     adapter = adapters.get(ecosystem)
     out = workdir / "intake"

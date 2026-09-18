@@ -215,6 +215,5 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/github.com/getkin/kin-openapi/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
 - `execute/github.com/getkin/kin-openapi/new-rerun/`: The second run on head, to catch flakes.
 - `execute/github.com/getkin/kin-openapi/fixed-candidate/`: The run on the resolved fixed version, for the differential when the change did not move the package.
-- `execute/github.com/getkin/kin-openapi/mutation/mutants/`: Each sampled mutant: the mutated file and its sealed run.
 - `packet/github.com/getkin/kin-openapi/packet.json`: The packet's facts in structured form.
 - `assess/assess.json`: The assessment in structured form.

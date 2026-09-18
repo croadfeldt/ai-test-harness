@@ -39,7 +39,7 @@ oc delete pod ws-copy -n ai-test-harness
 ```
 
 `cache/` holds downloaded wheels and `scratch/` the generator's working copies; both are recreated
-by a run. Clear the rest of `run/` before a new run on the same claim, or give the run its own claim.
+by a run. Intake removes a previous run's outputs from `run/` before it starts, so a reused claim is safe; `cache/` stays.
 The committed example PipelineRun has placeholders for the image and the repository.
 
 **Go targets.** The image carries the Go toolchain and the go/ast helper, so a Go repository goes through
