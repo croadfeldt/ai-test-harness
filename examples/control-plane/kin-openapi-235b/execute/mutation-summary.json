@@ -1,0 +1,12 @@
+{
+  "generated": "2026-09-18T06:16:53+00:00",
+  "packages": [
+    {
+      "killed": null,
+      "package": "github.com/getkin/kin-openapi",
+      "sampled": null,
+      "score": null,
+      "status": "skipped"
+    }
+  ]
+}

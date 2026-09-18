@@ -1,0 +1,30 @@
+{
+  "args": {
+    "base": "main",
+    "cmd": "intake",
+    "ecosystem": "go",
+    "head": "main",
+    "manifest": "go.mod",
+    "python_version": null,
+    "repo": "source",
+    "workdir": "run"
+  },
+  "command": [
+    "intake",
+    "--workdir",
+    "run",
+    "--base",
+    "main",
+    "--head",
+    "main",
+    "--ecosystem",
+    "go"
+  ],
+  "harness_version": "0.1.0",
+  "started": "2026-09-18T13:14:43+00:00",
+  "tools": {
+    "git": "git version 2.47.3",
+    "pip": "pip 25.0.1",
+    "python": "3.12.14"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/oapi-codegen/nethttp-middleware"
+    ],
+    "files": [
+      "api/agent/v1alpha1/spec.gen.go",
+      "api/catalog/v1alpha1/spec.gen.go",
+      "api/gitops/v1alpha1/spec.gen.go",
+      "api/policy/v1alpha1/spec.gen.go",
+      "api/sp/v1alpha1/resource_manager/spec.gen.go",
+      "internal/app/openapi.go"
+    ],
+    "production": 30,
+    "reachable": "true",
+    "reachable_note": "30 first-party references",
+    "symbols_used": [
+      "github.com/getkin/kin-openapi/openapi3",
+      "github.com/getkin/kin-openapi/openapi3.Loader",
+      "github.com/getkin/kin-openapi/openapi3.NewLoader",
+      "github.com/getkin/kin-openapi/openapi3.T",
+      "github.com/getkin/kin-openapi/openapi3filter",
+      "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+      "github.com/getkin/kin-openapi/openapi3filter.Options"
+    ],
+    "test": 0
+  },
+  "change": "unchanged",
+  "dependency_import_names": [
+    "github.com/davecgh/go-spew",
+    "github.com/go-openapi/jsonpointer",
+    "github.com/go-openapi/swag",
+    "github.com/gorilla/mux",
+    "github.com/josharian/intern",
+    "github.com/mailru/easyjson",
+    "github.com/mohae/deepcopy",
+    "github.com/oasdiff/yaml",
+    "github.com/oasdiff/yaml3",
+    "github.com/perimeterx/marshmallow",
+    "github.com/pmezard/go-difflib",
+    "github.com/rogpeppe/go-internal",
+    "github.com/santhosh-tekuri/jsonschema/v6",
+    "github.com/stretchr/testify",
+    "github.com/woodsbury/decimal128",
+    "golang.org/x/text",
+    "gopkg.in/yaml.v3"
+  ],
+  "depth": 1,
+  "generated": "2026-09-18T13:15:03+00:00",
+  "import_names": [
+    "github.com/getkin/kin-openapi"
+  ],
+  "new_version": "v0.139.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 5,
+      "functional_at_call_sites": true,
+      "fuzz_minutes": 10,
+      "level": "full",
+      "mutation_sample": 200,
+      "negative": 5,
+      "unit": 10
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 1,
+      "high_severity": true,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "true",
+      "sensitive": [],
+      "vuln_count": 8,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachable from first-party code (+35)",
+      "8 known vulnerabilities for this version (+25)",
+      "at least one advisory carries a severity rating (+10)",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 70
+  },
+  "sensitivity": [],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "gosec not installed",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 172,
+    "files": [
+      "openapi3gen/openapi3gen_newschemarefforvalue_test.go",
+      "openapi3gen/openapi3gen_test.go",
+      "openapi3gen/simple_test.go",
+      "openapi3conv/openapi3_conv_test.go",
+      "openapi3/refs_issue222_test.go",
+      "openapi3/issue615_test.go",
+      "openapi3/issue376_test.go",
+      "openapi3/issue499_test.go",
+      "openapi3/marsh_test.go",
+      "openapi3/security_requirements_test.go",
+      "openapi3/schema_if_then_else_test.go",
+      "openapi3/load_with_go_embed_test.go",
+      "openapi3/discriminator_test.go",
+      "openapi3/loader_31_schema_refs_test.go",
+      "openapi3/issue652_test.go",
+      "openapi3/media_type_test.go",
+      "openapi3/issue972_test.go",
+      "openapi3/encoding_test.go",
+      "openapi3/loader_empty_response_description_test.go",
+      "openapi3/refs_test.go",
+      "openapi3/schema_validation_settings_test.go",
+      "openapi3/race_test.go",
+      "openapi3/loader_read_from_uri_func_test.go",
+      "openapi3/schema_allof_test.go",
+      "openapi3/validate_multi_error_test.go",
+      "openapi3/origin_load_test.go",
+      "openapi3/schema_oneOf_test.go",
+      "openapi3/issue741_test.go",
+      "openapi3/loader_recursive_ref_test.go",
+      "openapi3/issue230_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 8,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-73501",
+      "CVE-2026-73502",
+      "CVE-2026-76905",
+      "CVE-2026-77354"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "0.141.0",
+      "0.142.0",
+      "0.144.0"
+    ],
+    "ids": [
+      "GHSA-jpcw-4wr7-c3vq",
+      "GHSA-mmfr-pmjx-hw9w",
+      "GHSA-r277-6w6q-xmqw",
+      "GHSA-xhj3-7xw9-vr34",
+      "GO-2026-6095",
+      "GO-2026-6112",
+      "GO-2026-6274",
+      "GO-2026-6275"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

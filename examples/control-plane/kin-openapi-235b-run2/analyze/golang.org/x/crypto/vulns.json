@@ -1,0 +1,92 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.53.0",
+  "package": "golang.org/x/crypto",
+  "version": "v0.53.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [],
+      "fixed_versions": [],
+      "id": "GO-2026-5932",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/44226"
+      ],
+      "severity": null,
+      "summary": "The golang.org/x/crypto/openpgp package is unmaintained, unsafe by design, and has known security issues"
+    },
+    {
+      "affected_symbols": [
+        "NewServerConn",
+        "connection.serverAuthenticate"
+      ],
+      "aliases": [
+        "CVE-2026-56854"
+      ],
+      "fixed_versions": [
+        "0.55.0"
+      ],
+      "id": "GO-2026-6303",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/80213",
+        "https://go.dev/cl/797040"
+      ],
+      "severity": null,
+      "summary": "Source-address critical option not enforced for non-public-key auth callbacks in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.Accept",
+        "channel.handlePacket",
+        "channel.responseMessageReceived"
+      ],
+      "aliases": [
+        "CVE-2026-78662"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6354",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81316",
+        "https://go.dev/cl/826504",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked undecided channel in golang.org/x/crypto/ssh"
+    },
+    {
+      "affected_symbols": [
+        "Dial",
+        "NewClientConn",
+        "NewControlClientConn",
+        "NewServerConn",
+        "channel.handlePacket"
+      ],
+      "aliases": [
+        "CVE-2026-56855"
+      ],
+      "fixed_versions": [
+        "0.56.0"
+      ],
+      "id": "GO-2026-6355",
+      "malicious": false,
+      "references": [
+        "https://go.dev/issue/81317",
+        "https://go.dev/cl/826524",
+        "https://groups.google.com/g/golang-announce/c/1y3fb2np35U"
+      ],
+      "severity": null,
+      "summary": "Prevent DoS on deadlocked established channel in golang.org/x/crypto/ssh"
+    }
+  ],
+  "vulns_old": []
+}

@@ -1,0 +1,16 @@
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"# harnesstest [harnesstest.test]\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_73502_test.go:42:30: undefined: openapi3filter.NewRouter\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_73502_test.go:93:30: undefined: openapi3filter.NewRouter\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_73502_test.go:94:10: handler.router undefined (cannot refer to unexported field router)\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:20:10: cannot use openapi3.Paths{…} (value of struct type openapi3.Paths) as *openapi3.Paths value in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:21:4: invalid field name \"/test\" in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:28:18: cannot use openapi3.NewSchemaRef(\"\", \u0026openapi3.Schema{…}) (value of type *openapi3.SchemaRef) as *openapi3.Schema value in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:28:67: cannot use \"object\" (untyped string constant) as *openapi3.Types value in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:44:3: unknown field Path in struct literal of type openapi3filter.RequestValidationInput\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:45:3: unknown field Method in struct literal of type openapi3filter.RequestValidationInput\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:46:3: unknown field Spec in struct literal of type openapi3filter.RequestValidationInput\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_76905_test.go:46:3: too many errors\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-fail"}
+{"Time":"2026-09-18T06:16:50.512106234Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-18T06:16:50.512165585Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest [build failed]\n"}
+{"Time":"2026-09-18T06:16:50.512184836Z","Action":"fail","Package":"harnesstest","Elapsed":0,"FailedBuild":"harnesstest [harnesstest.test]"}

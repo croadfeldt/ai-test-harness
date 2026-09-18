@@ -143,6 +143,34 @@ compiler errors arrive as a different kind of event from test output and were no
 so it repaired blind for seven turns. And a Go module path has slashes, which had put the module cache
 under the wrong directory and named the execute summary row by the wrong segment.
 
+## The same job on a larger model (`kin-openapi-235b/`)
+
+The dense 27B could not write Go that parsed, so the question was whether the wall was the model. The
+same job ran on Qwen3-235B-A22B-Instruct, served by llama.cpp on the two R9700s at about 5.7 tokens per
+second, through the Tekton pipeline against the in-cluster service. It took 1 hour 27 minutes end to end.
+
+What the larger model did: every unit attempt was clean, well-formed Go, about a thousand tokens in four
+to seven minutes; the wall was the model. What it still got wrong: one API detail per file, a type that
+does not exist, a variable it never declared, a call on the wrong kind of value. The tool-using agent
+worked all four advisories in 114 calls, reading source, listing the API and running the sandbox, and
+reasoned correctly about each vulnerability; then it submitted files that did not compile.
+
+Three defects of the harness, not the model, came out of that run and are fixed on main: the submit
+gate never asked whether the sandbox had built the file (GF-023); the build retry stopped after one
+round and lost four tests without a verdict (GF-022, corrected); and one wrong line cost a file its
+nine good tests, because the repair loop never used the compiler's line numbers (GF-024). The run is
+kept as produced, so the packet reads "0 candidate tests" and the story says why.
+
+The rerun on the fixed image (`kin-openapi-235b-run2/`) still produced no accepted test, and the
+reasons changed, which is the point of keeping both. The new submit gate refused five attempts to
+submit a file the sandbox had not run; on two advisories the agent ran out of budget rather than
+submit a guess, which is the honest outcome. It also showed two more defects of mine: the gate's
+"did the sandbox build this" check looked for the Python wording while the Go sandbox reports a build
+failure as one "did not compile" error per test, and the build-retry loop moved the last round's
+logs out from under generation, so the compiler's lines never reached the cut. Both are fixed on the
+same branch. The model's own limits stayed the same: one API detail wrong per file, and on one
+advisory four submissions in a row with the same syntax error.
+
 ## What is in each run directory
 
 Every run directory opens with a `README.md` the harness wrote: who, what, why, where, when, the

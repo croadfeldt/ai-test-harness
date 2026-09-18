@@ -48,9 +48,13 @@ You have a limited budget of tool calls; the remaining count is given with every
 """
 
 
+NOT_BUILT = ("collection failed", "did not compile")   # how a run result says the file never got as far as a test
+
+
 class Tools:
     def __init__(self, dirs: dict[str, Path], api_new: dict, api_old: dict, run_fn, adapter=None):
         self.dirs, self.api_new, self.api_old, self.run_fn = dirs, api_new, api_old, run_fn
+        self.verified = {}
         self.adapter = adapter or __import__("harness.adapters", fromlist=["x"]).get("python")
         self.old_q = {s["qualname"] for s in api_old.get("symbols", [])}
 
@@ -89,7 +93,22 @@ class Tools:
         return "\n".join(out[:80]) or f"no public symbols under {module_prefix}"
 
     def run_tests(self, code: str) -> str:
-        return self.run_fn(code)
+        result = self.run_fn(code)
+        # GF-023: remember whether this exact file collected on every version it ran on; submit checks it.
+        self.verified[sha256_text(code.strip())] = not any(m in result for m in NOT_BUILT)
+        return result
+
+    verified: dict[str, bool] = {}
+
+    def unverified(self, code: str) -> list[str]:
+        """GF-023. Why this file may not be submitted yet: it was never run, or its last run did not
+        compile or collect on every version. A submission is a claim the sandbox has backed."""
+        state = self.verified.get(sha256_text(code.strip()))
+        if state is True:
+            return []
+        if state is False:
+            return ["this exact file did not compile or collect on every version in its last run_tests; fix it, run it again, then submit the same text"]
+        return ["this exact file has not been run: call run_tests with it first, then submit the same text unchanged"]
 
 
 class Budget:
@@ -222,12 +241,12 @@ def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: 
                 args = {}
             if name == "submit":
                 code = args.get("code", "")
-                problems = gate_fn(code)
+                problems = gate_fn(code) or tools.unverified(code)   # GF-023: shape first, then proof that it ran
                 trace.append({"turn": turns, "tool": "submit", "ok": not problems, "problems": problems})
                 if not problems:
                     submitted = {"code": code, "note": args.get("note", ""), "turns": turns, "tool_calls": budget.used}
                     return {"submitted": submitted, "trace": trace, "exhausted": False, "blocked_paths": blocked}
-                result = "Not accepted:\n" + "\n".join(f"- {p}" for p in problems) + ("\nBudget spent; submit your best file now." if budget.remaining <= 0 else "")
+                result = "Not accepted:\n" + "\n".join(f"- {p}" for p in problems) + ("\nBudget spent: submit the last file that run_tests collected on every version, or stop." if budget.remaining <= 0 else "")
             else:
                 refusal = budget.allow(name)
                 if refusal:

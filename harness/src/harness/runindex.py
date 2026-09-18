@@ -165,7 +165,7 @@ def build(workdir: Path) -> dict:
         })
     ass = _load(workdir / "assess" / "assess.json") or {}
     return {"format": "ai-test-harness/run-index/v1", "catalogue": catalogue_for(workdir, [p["package"] for p in packages]), "harness_version": __version__, "updated": now_iso(),
-            "run_id": wl.get("run_id"), "repository": wl.get("source_dir"), "ecosystem": wl.get("ecosystem", "python"), "mode": wl.get("mode"),
+            "run_id": wl.get("run_id"), "repository": wl.get("repository") or wl.get("source_dir"), "ecosystem": wl.get("ecosystem", "python"), "mode": wl.get("mode"),
             "base": (wl.get("old_manifest") or "").split("@")[-1] or None, "head": (wl.get("new_manifest") or "").split("@")[-1] or None,
             "started": run.get("started"), "model": gen.get("model"), "generation_mode": gen.get("mode"),
             "stages": stages, "packages": packages,

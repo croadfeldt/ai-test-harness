@@ -1,0 +1,33 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v1.4.13",
+  "package": "github.com/yuin/goldmark",
+  "version": "v1.4.13",
+  "vulns": [
+    {
+      "affected_symbols": [
+        "Renderer.renderAutoLink",
+        "Renderer.renderImage",
+        "Renderer.renderLink"
+      ],
+      "aliases": [
+        "CVE-2026-5160",
+        "GHSA-c97m-vxhj-p7j6"
+      ],
+      "fixed_versions": [
+        "1.7.17"
+      ],
+      "id": "GO-2026-5320",
+      "malicious": false,
+      "references": [
+        "https://github.com/advisories/GHSA-c97m-vxhj-p7j6",
+        "https://github.com/yuin/goldmark/commit/cb46bbc4eca29d55aa9721e04ad207c23ccc44f9",
+        "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMYUINGOLDMARKRENDERERHTML-15838406"
+      ],
+      "severity": null,
+      "summary": "Cross-site Scripting (XSS) in github.com/yuin/goldmark"
+    }
+  ],
+  "vulns_old": []
+}

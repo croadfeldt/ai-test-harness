@@ -1,0 +1,8 @@
+# harnesstest [harnesstest.test]
+./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter
+./kin_openapi_cve_cve_2026_73502_test.go:66:34: undefined: openapi3filter.Route
+./kin_openapi_cve_cve_2026_77354_test.go:35:17: cannot use true (untyped bool constant) as *bool value in struct literal
+./kin_openapi_cve_cve_2026_77354_test.go:65:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput
+./kin_openapi_cve_cve_2026_77354_test.go:95:17: cannot use true (untyped bool constant) as *bool value in struct literal
+./kin_openapi_cve_cve_2026_77354_test.go:125:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput
+FAIL	harnesstest [build failed]

@@ -10,8 +10,13 @@ label = "local"                                # what the records call this endp
 api_key_env = ""                               # name of an env var holding a bearer token, if the endpoint needs one
 reasoning = "none"                             # LM Studio's off switch ("none") or the depth a vLLM thinking run uses ("low" | "medium" | "high" | "xhigh" | "default")
 thinking = "off"                               # vLLM: chat_template_kwargs.enable_thinking ("off" | "on" | "default")
-temperature = 0.2                              # env: HARNESS_MODEL_TEMPERATURE
+temperature = 0.2                              # env: HARNESS_MODEL_TEMPERATURE; "default" sends no sampling fields at all, so the server's settings for the model apply
+timeout = 1800                                 # env: HARNESS_MODEL_TIMEOUT; seconds per call; a slow thinking model at 16k tokens needs 5400 or more
 presence_penalty = 0.0                         # env: HARNESS_MODEL_PRESENCE_PENALTY; Qwen's lever against repetition inside thinking, sent only when set
+# frequency_penalty = 0.3                      # env: HARNESS_MODEL_FREQUENCY_PENALTY; 0 sends none
+# top_p = 0.8                                  # env: HARNESS_MODEL_TOP_P; sent only when set
+# top_k = 20                                   # env: HARNESS_MODEL_TOP_K; sent only when set
+# repetition_penalty = 1.05                    # env: HARNESS_MODEL_REPETITION_PENALTY; sent only when set (vLLM); a served model's generation_config is the usual source
 max_tokens = 6000
 
 [target]

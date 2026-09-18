@@ -90,21 +90,35 @@ exit $rc
 
 def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
               image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None) -> dict:
-    """See _run_once. A build failure blamed on specific test files is retried without them (GF-022)."""
-    summary = _run_once(env_dir=env_dir, tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label, image=image, limits=limits, overlay_dir=overlay_dir)
-    blamed = files_blamed((out_dir / "stdout.log").read_text(errors="replace"), tests_dir) if summary["build_failed"] else []
+    """See _run_once. A build failure blamed on specific test files is retried without them, round after
+    round, until the package builds or no file is left (GF-022). Every test in a dropped file is reported
+    as a compile error with the compiler's lines; the summary's build_failed is the last round's truth."""
     all_files = sorted(p.name for p in tests_dir.glob("*_test.go"))
-    if blamed and len(blamed) < len(all_files):
-        for name in ("stdout.log", "build.log", "test.json", "run.sh"):
-            if (out_dir / name).exists():
-                (out_dir / name).rename(out_dir / f"{Path(name).stem}-1{Path(name).suffix}")
+    include, dropped, rnd = list(all_files), {}, 0
+    while True:
         summary = _run_once(env_dir=env_dir, tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label, image=image, limits=limits, overlay_dir=overlay_dir,
-                            include=[f for f in all_files if f not in blamed])
-        first = (out_dir / "stdout-1.log").read_text(errors="replace")
-        summary["files_not_compiled"] = {f: [l for l in first.splitlines() if l.startswith(f"./{f}:")][:5] for f in blamed}
-        summary["build_failed"] = False   # the package built once the blamed files were out; their tests are errors, below
-        _append_compile_errors(out_dir, tests_dir, summary["files_not_compiled"])
-        write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml" if summary["junit"] else None, "coverage": "coverage.json" if summary["coverage"] else None})
+                            include=include if len(include) < len(all_files) else None)
+        if not summary["build_failed"]:
+            break
+        readable = (out_dir / "stdout.log").read_text(errors="replace")
+        blamed = [f for f in files_blamed(readable, tests_dir) if f in include]
+        if not blamed:
+            break   # the failure is not attributable to a test file (a module or toolchain problem); reported as is
+        for f in blamed:
+            dropped[f] = [l for l in readable.splitlines() if l.startswith(f"./{f}:")][:5]
+        include = [f for f in include if f not in blamed]
+        if not include:
+            break   # nothing compiled: build_failed stays true and this round's logs stay in place for the caller to read
+        rnd += 1
+        for name in ("stdout.log", "build.log", "test.json", "run.sh", "vet.log"):
+            if (out_dir / name).exists():
+                (out_dir / name).rename(out_dir / f"{Path(name).stem}-{rnd}{Path(name).suffix}")
+    if dropped:
+        summary["files_not_compiled"] = dropped
+        summary["build_rounds"] = rnd + 1
+        _append_compile_errors(out_dir, tests_dir, dropped)
+        summary["junit"] = str(out_dir / "junit.xml")
+        write_json(out_dir / "sandbox.json", {**summary, "junit": "junit.xml", "coverage": "coverage.json" if summary.get("coverage") else None})
     return summary
 
 

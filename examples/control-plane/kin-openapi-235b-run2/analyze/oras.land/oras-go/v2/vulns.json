@@ -1,0 +1,257 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v2.6.0",
+  "package": "oras.land/oras-go/v2",
+  "version": "v2.6.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50162",
+        "GO-2026-5879"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-8xwf-rjm4-xvhv",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-8xwf-rjm4-xvhv",
+        "https://github.com/oras-project/oras-go/commit/cc323e564d90c6b5b4bdd71d3c8d2ee2713b37e5",
+        "https://github.com/oras-project/oras-go"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "oras-go has file store write outside workingDir via symlink traversal"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50163",
+        "GO-2026-5880"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GHSA-fxhp-mv3v-67qp",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-fxhp-mv3v-67qp",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-50163",
+        "https://github.com/oras-project/oras-go/pull/1232",
+        "https://github.com/oras-project/oras-go/commit/b11f777f8d405c5023c4b307cfdc5068dfc3d406",
+        "https://github.com/oras-project/oras-go/commit/c463c654ab3ef34422c1764cd619806cebf20451",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.2"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+      "summary": "`oras-go` tar extraction: Hardlink entry with relative Linkname escapes extract dir via process CWD resolution"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-85732"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GHSA-h7vf-4x9w-h99v",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-h7vf-4x9w-h99v",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-85732",
+        "https://github.com/oras-project/oras-go/commit/31da1963f8c327dd089cd29faeae95cf0fc50842",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.2"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:N/A:N",
+      "summary": "oras-go: Blind SSRF via unvalidated Link header URL in pagination allows internal network probing"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-50151",
+        "GO-2026-5882"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-jxpm-75mh-9fp7",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-jxpm-75mh-9fp7",
+        "https://github.com/oras-project/oras-go/pull/1152",
+        "https://github.com/oras-project/oras-go/commit/4683c46ef078091544f5f55fd25102f002806991",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "summary": "oras-go blob upload vulnerable to credential forwarding via unvalidated Location header"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-85731"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GHSA-m37j-52j7-pjw7",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-m37j-52j7-pjw7",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-85731",
+        "https://github.com/oras-project/oras-go/commit/adab2f25ea95ef4e6e41f50db9266a6701399422",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.2"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "summary": "oras-go: Arbitrary file write outside file.Store root via symlink-chain bypass in tar extraction (pushDir)"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "GO-2026-5884"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-vh4v-2xq2-g5cg",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg",
+        "https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "summary": "ORAS Go forwards registry credentials across registry redirects"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-48978",
+        "GO-2026-5885"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GHSA-xf85-363p-868w",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w",
+        "https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764",
+        "https://github.com/oras-project/oras-go",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "summary": "oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens"
+    },
+    {
+      "affected_symbols": [
+        "New",
+        "Store.Add"
+      ],
+      "aliases": [
+        "CVE-2026-50162",
+        "GHSA-8xwf-rjm4-xvhv"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5879",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-8xwf-rjm4-xvhv",
+        "https://github.com/oras-project/oras-go/commit/cc323e564d90c6b5b4bdd71d3c8d2ee2713b37e5"
+      ],
+      "severity": null,
+      "summary": "Oras-go: File store write outside workingDir via symlink traversal in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "New",
+        "Store.Add"
+      ],
+      "aliases": [
+        "CVE-2026-50163",
+        "GHSA-fxhp-mv3v-67qp"
+      ],
+      "fixed_versions": [
+        "2.6.2"
+      ],
+      "id": "GO-2026-5880",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-fxhp-mv3v-67qp",
+        "https://github.com/oras-project/oras-go/commit/b11f777f8d405c5023c4b307cfdc5068dfc3d406"
+      ],
+      "severity": null,
+      "summary": "Hardlink path traversal during tar extraction in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Repository.Push"
+      ],
+      "aliases": [
+        "CVE-2026-50151",
+        "GHSA-jxpm-75mh-9fp7"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5882",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-jxpm-75mh-9fp7",
+        "https://github.com/oras-project/oras-go/commit/4683c46ef078091544f5f55fd25102f002806991",
+        "https://github.com/oras-project/oras-go/pull/1152",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "Oras-go: Blob upload vulnerable to credential forwarding via unvalidated Location header in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Client.Do"
+      ],
+      "aliases": [
+        "GHSA-vh4v-2xq2-g5cg"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5884",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-vh4v-2xq2-g5cg",
+        "https://github.com/oras-project/oras-go/commit/3c2e884e12ea52b6bff60c97f1edb7df7d0e0909",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "ORAS Go forwards registry credentials across registry redirects in oras.land/oras-go"
+    },
+    {
+      "affected_symbols": [
+        "Client.Do"
+      ],
+      "aliases": [
+        "CVE-2026-48978",
+        "GHSA-xf85-363p-868w"
+      ],
+      "fixed_versions": [
+        "2.6.1"
+      ],
+      "id": "GO-2026-5885",
+      "malicious": false,
+      "references": [
+        "https://github.com/oras-project/oras-go/security/advisories/GHSA-xf85-363p-868w",
+        "https://github.com/oras-project/oras-go/commit/7a9f4b0b9558821b0422152ebe21ae56930fe764",
+        "https://github.com/oras-project/oras-go/releases/tag/v2.6.1"
+      ],
+      "severity": null,
+      "summary": "Oras-go: Malicious registry can hijack Bearer token realm to exfiltrate credentials and refresh tokens in oras.land/oras-go"
+    }
+  ],
+  "vulns_old": []
+}

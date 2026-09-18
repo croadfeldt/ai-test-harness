@@ -1,0 +1,158 @@
+{
+  "api_diff_ref": null,
+  "api_diff_summary": {
+    "added": 0,
+    "breaking": 0,
+    "breaking_symbols": [],
+    "changed": 0,
+    "removed": 0
+  },
+  "api_new_ref": "api.new.json",
+  "api_old_ref": null,
+  "call_sites_ref": "call-sites.json",
+  "call_sites_summary": {
+    "dependents_in_graph": [
+      "github.com/ProtonMail/go-crypto",
+      "github.com/cloudflare/circl",
+      "github.com/go-git/go-git/v5",
+      "github.com/lestrrat-go/jwx/v3",
+      "github.com/nats-io/jwt/v2",
+      "github.com/nats-io/nats-server/v2",
+      "github.com/nats-io/nats.go",
+      "github.com/nats-io/nkeys",
+      "github.com/oapi-codegen/runtime",
+      "github.com/open-policy-agent/opa",
+      "github.com/skeema/knownhosts",
+      "github.com/xanzy/ssh-agent",
+      "golang.org/x/net",
+      "gorm.io/driver/postgres"
+    ],
+    "files": [],
+    "production": 0,
+    "reachable": "unknown",
+    "reachable_note": "no first-party reference; may be reached through github.com/ProtonMail/go-crypto, github.com/cloudflare/circl, github.com/go-git/go-git/v5, github.com/lestrrat-go/jwx/v3, github.com/nats-io/jwt/v2, github.com/nats-io/nats-server/v2, github.com/nats-io/nats.go, github.com/nats-io/nkeys, github.com/oapi-codegen/runtime, github.com/open-policy-agent/opa, github.com/skeema/knownhosts, github.com/xanzy/ssh-agent, golang.org/x/net, gorm.io/driver/postgres",
+    "symbols_used": [],
+    "test": 0
+  },
+  "change": "unchanged",
+  "depth": 2,
+  "generated": "2026-09-18T13:15:20+00:00",
+  "import_names": [
+    "golang.org/x/crypto"
+  ],
+  "new_version": "v0.53.0",
+  "notes_ref": "notes.untrusted.md",
+  "old_version": "v0.53.0",
+  "package": "golang.org/x/crypto",
+  "purl": "pkg:golang/golang.org/x/crypto@v0.53.0",
+  "risk": {
+    "budget": {
+      "cve_fix_pinning": 0,
+      "cve_targeted": true,
+      "functional": 0,
+      "functional_at_call_sites": false,
+      "fuzz_minutes": 0,
+      "level": "snapshot",
+      "mutation_sample": 0,
+      "negative": 0,
+      "unit": 0
+    },
+    "inputs": {
+      "breaking_changes": 0,
+      "change": "unchanged",
+      "changed_symbols": 0,
+      "depth": 2,
+      "high_severity": false,
+      "lines_changed": 0,
+      "new_package": false,
+      "preflight_hit": false,
+      "reachable": "unknown",
+      "sensitive": [
+        "cryptography"
+      ],
+      "vuln_count": 4,
+      "vulns_fixed": 0
+    },
+    "reasons": [
+      "reachability unknown, treated as reachable (+20)",
+      "4 known vulnerabilities for this version (+25)",
+      "sensitive domain: cryptography (+10)",
+      "transitive, not reachable, below threshold: characterization snapshot",
+      "known vulnerability: CVE-targeted tests and a draft VEX regardless of depth"
+    ],
+    "score": 55
+  },
+  "sensitivity": [
+    "cryptography"
+  ],
+  "source_diff_summary": {
+    "lines_added": 0,
+    "lines_removed": 0,
+    "note": "no source diff for change=unchanged"
+  },
+  "static_analysis": {
+    "reason": "no files",
+    "status": "not_run",
+    "tool": "gosec"
+  },
+  "upstream_tests": {
+    "count": 144,
+    "files": [
+      "ed25519/ed25519_test.go",
+      "bn256/example_test.go",
+      "bn256/bn256_test.go",
+      "cast5/cast5_test.go",
+      "curve25519/curve25519_test.go",
+      "curve25519/vectors_test.go",
+      "blowfish/blowfish_test.go",
+      "ssh/handshake_test.go",
+      "ssh/mempipe_test.go",
+      "ssh/server_multi_auth_test.go",
+      "ssh/ssh_gss_test.go",
+      "ssh/tcpip_test.go",
+      "ssh/session_test.go",
+      "ssh/cipher_test.go",
+      "ssh/common_test.go",
+      "ssh/server_test.go",
+      "ssh/client_auth_test.go",
+      "ssh/testdata_test.go",
+      "ssh/keys_test.go",
+      "ssh/example_test.go",
+      "ssh/client_test.go",
+      "ssh/mux_test.go",
+      "ssh/buffer_test.go",
+      "ssh/kex_test.go",
+      "ssh/transport_test.go",
+      "ssh/control_test.go",
+      "ssh/benchmark_test.go",
+      "ssh/messages_test.go",
+      "ssh/channel_test.go",
+      "ssh/certs_test.go"
+    ],
+    "note": "Go modules ship their tests in the module",
+    "present": true
+  },
+  "vulns_ref": "vulns.json",
+  "vulns_summary": {
+    "affected_symbols_in_use": [],
+    "count": 4,
+    "count_old": 0,
+    "cves": [
+      "CVE-2026-56854",
+      "CVE-2026-56855",
+      "CVE-2026-78662"
+    ],
+    "fixed_by_this_change": [],
+    "fixed_versions": [
+      "0.55.0",
+      "0.56.0"
+    ],
+    "ids": [
+      "GO-2026-5932",
+      "GO-2026-6303",
+      "GO-2026-6354",
+      "GO-2026-6355"
+    ],
+    "symbols_named_by_advisories": true
+  }
+}

@@ -87,10 +87,18 @@ def _who(idx: dict, workdir: Path) -> str:
     return who
 
 
+def _targets(idx: dict) -> list[dict]:
+    """The packages the run produced tests or a packet for; every package when it got no further than analysis."""
+    gen = [p for p in idx["packages"] if "generate/manifest.json" in p["files"] or "packet/packet.md" in p["files"]]
+    return gen or idx["packages"]
+
+
 def _what(idx: dict) -> str:
     wl = (idx["stages"].get("intake") or {}).get("summary") or {}
     parts = []
-    for p in idx["packages"]:
+    targets = _targets(idx)
+    others = len(idx["packages"]) - len(targets)
+    for p in targets:
         if p.get("first_party"):
             parts.append(f"the application's own code at {idx.get('head') or 'head'}")
         elif p.get("old_version") and p.get("old_version") != p.get("new_version"):
@@ -102,17 +110,19 @@ def _what(idx: dict) -> str:
         what = f"A scheduled scan of {idx.get('repository')} at {idx.get('head') or idx.get('base')}, no change under review."
         if wl.get("work_list_rows") is not None:
             what += f" {wl.get('with_advisories_at_head', 0)} of {wl['work_list_rows']} packages carry known vulnerabilities."
-        return what + (f" Tests for {', '.join(parts)}." if parts else "")
+        return what + (f" Tests for {', '.join(parts)}." if parts else "") + (f" {others} other package(s) were analyzed and scored but not selected for generation." if others else "")
     head = f"{idx.get('base')}..{idx.get('head')}" if idx.get("base") else (idx.get("head") or "")
     what = f"Tests for {', '.join(parts) if parts else 'no package yet'}"
     if wl.get("work_list_rows") is not None:
         what += f", chosen from a work list of {wl['work_list_rows']} packages, {wl.get('changed', 0)} of which this change touched"
+    if others:
+        what += f"; {others} other package(s) were analyzed and scored but not selected for generation"
     return what + f". Repository {idx.get('repository')}{', change ' + head if head else ''}{', mode ' + mode if mode else ''}."
 
 
 def _why(idx: dict, workdir: Path) -> str:
     reasons = []
-    for p in idx["packages"]:
+    for p in _targets(idx):
         facts = _load(workdir / "analyze" / p["package"] / "facts.json") or {}
         rs = list((facts.get("risk") or {}).get("reasons") or [])
         vs = facts.get("vulns_summary") or {}
@@ -286,7 +296,7 @@ def actions(idx: dict, workdir: Path) -> tuple[list[str], list[str]]:
         pr = p.get("proposal") or {}
         if pr:
             taken.append(f"{pkg}: {pr.get('status')}" + (f" ({pr['pull_request']})" if pr.get("pull_request") else "") + ".")
-        else:
+        elif "packet/tests.patch" in p["files"]:
             taken.append(f"{pkg}: no pull request was opened in this run; the packet holds what one would carry.")
         rv = p.get("review") or {}
         if rv.get("outcome"):

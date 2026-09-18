@@ -1,0 +1,190 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tokens_per_turn": 4000,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "candidate_moved": {
+      "github.com/getkin/kin-openapi": [
+        "v0.139.0",
+        "v0.144.0"
+      ],
+      "github.com/go-openapi/jsonpointer": [
+        "v0.22.4",
+        "v0.22.5"
+      ],
+      "github.com/go-openapi/swag/jsonname": [
+        "v0.25.4",
+        "v0.25.5"
+      ],
+      "github.com/go-openapi/testify/v2": [
+        "v2.0.2",
+        "v2.4.0"
+      ],
+      "github.com/oasdiff/yaml": [
+        "v0.1.0",
+        "v0.1.1"
+      ],
+      "github.com/oasdiff/yaml3": [
+        "v0.0.13",
+        "v0.0.14"
+      ]
+    },
+    "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+    "direction": "candidate",
+    "fixed": "v0.144.0",
+    "vulnerable": "v0.139.0"
+  },
+  "discarded": [
+    {
+      "attempts": 3,
+      "category": "unit",
+      "message": "",
+      "reason": "did not collect on the baseline after repairs"
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-76905",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-73501",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    }
+  ],
+  "files": [
+    {
+      "attempts": 18,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73502_test.go",
+      "model": "qwen3-235b",
+      "note": "Attempted to create tests for GHSA-jpcw-4wr7-c3vq but could not resolve router dependencies. The tests are based on the best available understanding of the issue.",
+      "sha256": "sha256:0c019e37ea810f4c5fa6f197a033fbd80742150ad19c2a05fe529d975bc4c3e8",
+      "targets": [
+        "GHSA-jpcw-4wr7-c3vq",
+        "GO-2026-6112"
+      ],
+      "tests": [
+        "Test_GHSA_jpcw_4wr7_c3vq_fix_pinning",
+        "Test_GHSA_jpcw_4wr7_c3vq_exposure"
+      ],
+      "tool_calls": 13
+    },
+    {
+      "attempts": 17,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_77354_test.go",
+      "model": "qwen3-235b",
+      "note": "Test for uncontrolled resource consumption in deepObject query parameter decoding; unable to complete due to compilation errors in both versions",
+      "sha256": "sha256:1b5e15e479e1e43f4f6814b4a7288b037b55fbc0c404892697d4a19e03d2a280",
+      "targets": [
+        "GHSA-xhj3-7xw9-vr34",
+        "GO-2026-6275"
+      ],
+      "tests": [
+        "Test_GHSA_xhj3_7xw9_vr34_fix_pinning",
+        "Test_GHSA_xhj3_7xw9_vr34_exposure"
+      ],
+      "tool_calls": 14
+    }
+  ],
+  "generated": "2026-09-18T13:19:40+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "gpu-server-llamacpp-235b",
+    "endpoint_digest": "sha256:249a4a5ecfcb17d8",
+    "id": "qwen3-235b",
+    "temperature": null
+  },
+  "new_version": "v0.139.0",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

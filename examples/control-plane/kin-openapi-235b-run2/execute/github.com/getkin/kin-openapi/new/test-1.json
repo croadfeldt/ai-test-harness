@@ -1,0 +1,11 @@
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"# harnesstest [harnesstest.test]\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_73502_test.go:65:27: undefined: openapi3filter.NewRouter\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_73502_test.go:66:34: undefined: openapi3filter.Route\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:35:17: cannot use true (untyped bool constant) as *bool value in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:65:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:95:17: cannot use true (untyped bool constant) as *bool value in struct literal\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_cve_cve_2026_77354_test.go:125:3: unknown field Parameters in struct literal of type openapi3filter.RequestValidationInput\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-fail"}
+{"Time":"2026-09-18T16:55:33.716200752Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-18T16:55:33.716247144Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest [build failed]\n"}
+{"Time":"2026-09-18T16:55:33.716255924Z","Action":"fail","Package":"harnesstest","Elapsed":0,"FailedBuild":"harnesstest [harnesstest.test]"}

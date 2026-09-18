@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "github.com/gomarkdown/markdown"
+  ],
+  "package": "github.com/gomarkdown/markdown",
+  "sites": []
+}

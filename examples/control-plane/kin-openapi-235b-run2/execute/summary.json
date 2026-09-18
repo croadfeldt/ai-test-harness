@@ -1,0 +1,15 @@
+{
+  "generated": "2026-09-18T16:55:34+00:00",
+  "packages": [
+    {
+      "behavior_changed": 0,
+      "blocked_both_versions": 0,
+      "fix_pinning_confirmed": 0,
+      "fix_reached_assertion_wrong": 0,
+      "flaky": 0,
+      "package": "github.com/getkin/kin-openapi",
+      "pass_on_new": 0,
+      "total": 4
+    }
+  ]
+}

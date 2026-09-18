@@ -1,0 +1,15 @@
+{
+  "import_names": [
+    "github.com/jackc/pgx/v5"
+  ],
+  "package": "github.com/jackc/pgx/v5",
+  "sites": [
+    {
+      "context": "_ \"github.com/jackc/pgx/v5/stdlib\"",
+      "file": "test/subsystem/auth/suite_test.go",
+      "in_test": true,
+      "line": 17,
+      "symbol": "github.com/jackc/pgx/v5/stdlib"
+    }
+  ]
+}

@@ -241,7 +241,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                               new_only if cat == "cve" else (), old_only if cat == "cve" else (), roles, adapter=adapter)
         max_tokens = int({"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat] * getattr(adapter, "OUTPUT_SCALE", 1.0))
         system = adapter.SYSTEM
-        attempts, code, history, run1 = 0, None, [], None
+        attempts, code, history, run1, precut = 0, None, [], None, []
         while attempts <= max_repairs:
             tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"
             text, rec = model.chat(system, prompt if attempts == 0 else prompt + "\n\nPREVIOUS ATTEMPT FAILED:\n" + history[-1], tag, max_tokens=max_tokens)
@@ -268,9 +268,20 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             run1 = _run_baseline(code, gen_dir, env_new, roots, tag, adapter)
             if run1["sandbox"]["install_failed"]:
                 raise HarnessError(f"sandbox install failed for {pkg}; see {gen_dir}/scratch/{tag}.out")
+            precut = []
+            if run1["sandbox"].get("build_failed") and hasattr(adapter, "cut_at_errors"):
+                # GF-024: a language that compiles the file as one unit loses every test to one bad line.
+                # Cut the test functions the compiler names and run the rest; only errors outside a test go back.
+                code2, precut, outside = adapter.cut_at_errors(code, run1["stdout_tail"])
+                if precut and adapter.test_names(code2) and not outside:
+                    code = code2
+                    log(f"    {cat}: cut {len(precut)} test(s) the compiler named, running the rest")
+                    run1 = _run_baseline(code, gen_dir, env_new, roots, tag + "-cut", adapter)
+                else:
+                    precut = []
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
             if _collected_nothing(run1["results"]):
-                history.append("pytest collected no tests, or collection failed:\n" + run1["stdout_tail"][-2000:]); continue
+                history.append("No test ran on the baseline: the file did not build or collect. The output:\n" + run1["stdout_tail"][-2000:]); continue
             if cat == "cve":
                 # Judged by the differential run, with one exception: a test that crashes on the FIXED
                 # version with an unexpected exception (anything but an assertion or a missing raise)
@@ -311,10 +322,10 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             continue
         failing = {k.split("::")[-1]: v for k, v in run_final["results"].items() if v["status"] in ("fail", "error")}
         kept_code = code
-        cut = []
+        cut = list(precut)
         if cat != "cve" and failing:
             kept_code = adapter.drop_tests(code, set(failing))
-            cut = [{"test": k, "reason": "fails on baseline after repair", "message": v["message"][:300]} for k, v in failing.items()]
+            cut += [{"test": k, "reason": "fails on baseline after repair", "message": v["message"][:300]} for k, v in failing.items()]
         names = adapter.test_names(kept_code)
         covered = run_final["coverage"].get("covered_lines_in_target", 0) if run_final else 0
         if cat != "cve" and covered == 0:

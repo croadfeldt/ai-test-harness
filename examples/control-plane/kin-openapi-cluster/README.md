@@ -11,8 +11,8 @@ What happened, why, and what came out of it. Written by the harness from its own
 |  |  |
 |---|---|
 | Who | The AI Test Harness 0.1.0 did the work without a person in the loop. A person decides the result; nothing in this run has been merged. |
-| What | Tests for github.com/getkin/kin-openapi v0.139.0, github.com/gomarkdown/markdown v0.0.0-20240328165702-4d01890c35c0, github.com/jackc/pgx/v5 v5.8.0, github.com/klauspost/compress v1.18.5, github.com/labstack/echo/v4 v4.15.1, github.com/nats-io/nats-server/v2 v2.12.5, github.com/yuin/goldmark v1.4.13, go.opentelemetry.io/otel v1.43.0, golang.org/x/crypto v0.51.0, golang.org/x/mod v0.35.0, golang.org/x/net v0.53.0, golang.org/x/text v0.37.0, google.golang.org/grpc v1.81.0, oras.land/oras-go/v2 v2.6.0, chosen from a work list of 251 packages, 0 of which this change touched. Repository source, change dc577c280791..dc577c280791, mode diff. |
-| Why | The risk score decides the budget; the two strongest reasons per package: github.com/getkin/kin-openapi (score 70, budget full): reachable from first-party code; 8 known vulnerabilities for this version. github.com/gomarkdown/markdown (score 55, budget snapshot): reachability unknown, treated as reachable; 4 known vulnerabilities for this version. github.com/jackc/pgx/v5 (score 55, budget snapshot): reachability unknown, treated as reachable; 6 known vulnerabilities for this version. github.com/klauspost/compress (score 45, budget snapshot): reachability unknown, treated as reachable; 1 known vulnerability for this version. github.com/labstack/echo/v4 (score 55, budget snapshot): reachability unknown, treated as reachable; 2 known vulnerabilities for this version. github.com/nats-io/nats-server/v2 (score 45, budget reduced): 22 known vulnerabilities for this version; at least one advisory carries a severity rating. github.com/yuin/goldmark (score 45, budget snapshot): reachability unknown, treated as reachable; 1 known vulnerability for this version. go.opentelemetry.io/otel (score 45, budget snapshot): reachability unknown, treated as reachable; 1 known vulnerability for this version. golang.org/x/crypto (score 65, budget full): reachability unknown, treated as reachable; 30 known vulnerabilities for this version. golang.org/x/mod (score 45, budget snapshot): reachability unknown, treated as reachable; 2 known vulnerabilities for this version. golang.org/x/net (score 55, budget snapshot): reachability unknown, treated as reachable; 8 known vulnerabilities for this version. golang.org/x/text (score 45, budget snapshot): reachability unknown, treated as reachable; 1 known vulnerability for this version. google.golang.org/grpc (score 55, budget snapshot): reachability unknown, treated as reachable; 5 known vulnerabilities for this version. oras.land/oras-go/v2 (score 55, budget snapshot): reachability unknown, treated as reachable; 10 known vulnerabilities for this version. |
+| What | Tests for github.com/getkin/kin-openapi v0.139.0, chosen from a work list of 251 packages, 0 of which this change touched; 13 other package(s) were analyzed and scored but not selected for generation. Repository source, change dc577c280791..dc577c280791, mode diff. |
+| Why | github.com/getkin/kin-openapi (score 70, budget full): reachable from first-party code; 8 known vulnerabilities for this version. |
 | Where | Every test ran in a sealed sandbox (pod, network deny-all networkpolicy on the task pod (claim; verified by the stage 0 probe in this pod), image image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:1dd8324cb983813bb5a7945892c2dcc4278d85979a81b446d2e9113c37e72414); the model was qwen38-27b in agent mode; the run's own files are in this folder. |
 | When | Started 2026-09-15 17:51:47 UTC. The last stage to write was self-verification at 2026-09-15 19:04:18 UTC. |
 
@@ -47,19 +47,6 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 - github.com/getkin/kin-openapi: drafted VEX statements for Product Security.
 - github.com/getkin/kin-openapi: signed the test-result statement (PASSED).
 - github.com/getkin/kin-openapi: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/gomarkdown/markdown: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/jackc/pgx/v5: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/klauspost/compress: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/labstack/echo/v4: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/nats-io/nats-server/v2: no pull request was opened in this run; the packet holds what one would carry.
-- github.com/yuin/goldmark: no pull request was opened in this run; the packet holds what one would carry.
-- go.opentelemetry.io/otel: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/crypto: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/mod: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/net: no pull request was opened in this run; the packet holds what one would carry.
-- golang.org/x/text: no pull request was opened in this run; the packet holds what one would carry.
-- google.golang.org/grpc: no pull request was opened in this run; the packet holds what one would carry.
-- oras.land/oras-go/v2: no pull request was opened in this run; the packet holds what one would carry.
 
 ## Actions it did not take, by design
 

@@ -147,6 +147,8 @@ Twenty-two entries, each with the issue, why it matters, the cause, the detector
 | GF-020 | a file that never collected on the baseline shipped as kept; now discarded |
 | GF-021 | a tool call cut off at the output limit poisoned the history; neutralised and reported |
 | GF-022 | one Go file that did not compile silenced the package; the rest run, its tests read as compile errors |
+| GF-023 | the agent submitted a file the sandbox had never built; submit now needs a clean run of that exact text |
+| GF-024 | one wrong line cost a Go file its nine good tests; the compiler's line cuts that test, the rest run |
 
 ---
 
