@@ -31,6 +31,9 @@ class ModelConfig:
     reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
     frequency_penalty: float = 0.3          # discourages the repetition loops a 27B falls into on long literals
     presence_penalty: float = 0.0           # Qwen's own advice against repetition inside thinking; sent only when set
+    top_p: float | None = None              # sent only when set; a served model's own generation_config is the usual source
+    top_k: int | None = None
+    repetition_penalty: float | None = None
     chat_template_kwargs: dict | None = None  # vLLM: {"enable_thinking": false}; LM Studio ignores it
 
     EFFORTS = ("low", "medium", "high", "xhigh")   # what a vLLM thinking run accepts; "none" is LM Studio's off switch
@@ -70,11 +73,20 @@ class ModelConfig:
                   temperature=None if str(temperature) == "default" else float(temperature),
                   timeout_s=int(_config.get("model", "timeout", "HARNESS_MODEL_TIMEOUT", 1800)),
                   presence_penalty=float(_config.get("model", "presence_penalty", "HARNESS_MODEL_PRESENCE_PENALTY", 0.0)),
+                  frequency_penalty=float(_config.get("model", "frequency_penalty", "HARNESS_MODEL_FREQUENCY_PENALTY", 0.3)),
+                  top_p=_opt(_config.get("model", "top_p", "HARNESS_MODEL_TOP_P", None), float),
+                  top_k=_opt(_config.get("model", "top_k", "HARNESS_MODEL_TOP_K", None), int),
+                  repetition_penalty=_opt(_config.get("model", "repetition_penalty", "HARNESS_MODEL_REPETITION_PENALTY", None), float),
                   no_think=os.environ.get("HARNESS_MODEL_NO_THINK", "0") == "1",
                   reasoning_effort=None if reasoning == "default" else reasoning,
                   chat_template_kwargs=None if thinking == "default" else {"enable_thinking": thinking == "on"})
         cfg._label = str(_config.get("model", "label", "HARNESS_MODEL_LABEL", "local"))
         return cfg
+
+
+def _opt(value, cast):
+    """A knob that is sent only when set: absent, empty or "default" means the server decides."""
+    return None if value in (None, "", "default") else cast(value)
 
 
 def _headers(api_key: str | None) -> dict:
@@ -201,9 +213,13 @@ class Model:
         if self.cfg.temperature is None:
             return
         body["temperature"] = self.cfg.temperature
-        body["frequency_penalty"] = self.cfg.frequency_penalty
+        if self.cfg.frequency_penalty:
+            body["frequency_penalty"] = self.cfg.frequency_penalty
         if self.cfg.presence_penalty:
             body["presence_penalty"] = self.cfg.presence_penalty
+        for key in ("top_p", "top_k", "repetition_penalty"):
+            if getattr(self.cfg, key) is not None:
+                body[key] = getattr(self.cfg, key)
 
     def chat_tools(self, messages: list[dict], tools: list[dict], tag: str, max_tokens: int = 1500) -> tuple[dict, dict]:
         """One agent turn: full message history plus tool schemas, non-streaming. Returns the assistant
