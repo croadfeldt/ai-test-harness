@@ -269,6 +269,17 @@ def gf024():
     assert "cut_at_errors" in src and src.index("cut_at_errors") < src.index("kept_code = code")
 
 
+@check("GF-025", "a failure of the path to the model is retried before it ends a stage; a refusal from the model is not")
+def gf025():
+    import urllib.error
+    from .llm import retryable, Model
+    assert retryable(ConnectionResetError(104, "reset")) and retryable(TimeoutError("read timed out"))
+    assert retryable(urllib.error.HTTPError("u", 504, "gateway", {}, None)) and retryable(urllib.error.URLError("unreachable"))
+    assert not retryable(urllib.error.HTTPError("u", 400, "bad request", {}, None)) and not retryable(ValueError("x"))
+    src = inspect.getsource(Model.chat) + inspect.getsource(Model.chat_tools)
+    assert src.count("retryable(e)") == 2 and src.count("transport_retries") >= 4
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute

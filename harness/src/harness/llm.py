@@ -9,11 +9,12 @@ from __future__ import annotations
 import json
 import os
 import time
+import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
-from .util import HarnessError, sha256_text, write_json
+from .util import HarnessError, log, sha256_text, write_json
 
 from . import config as _config
 
@@ -26,6 +27,7 @@ class ModelConfig:
     temperature: float | None = 0.2         # None: the server's own sampling defaults apply (set temperature = "default")
     max_tokens: int = 6000                  # per call; reasoning tokens count against it on vLLM, so thinking runs raise it
     timeout_s: int = 1800
+    retries: int = 2                        # GF-025: transport failures (reset, timeout, gateway error) are retried this many times
     _label: str = "local"
     no_think: bool = False    # Qwen3 soft switch in the prompt; ignored by LM Studio for qwen3.8
     reasoning_effort: str | None = "none"   # the parameter LM Studio honors; unset with HARNESS_MODEL_REASONING=default
@@ -72,6 +74,7 @@ class ModelConfig:
                   max_tokens=int(_config.get("model", "max_tokens", "HARNESS_MODEL_MAX_TOKENS", 6000)),
                   temperature=None if str(temperature) == "default" else float(temperature),
                   timeout_s=int(_config.get("model", "timeout", "HARNESS_MODEL_TIMEOUT", 1800)),
+                  retries=int(_config.get("model", "retries", "HARNESS_MODEL_RETRIES", 2)),
                   presence_penalty=float(_config.get("model", "presence_penalty", "HARNESS_MODEL_PRESENCE_PENALTY", 0.0)),
                   frequency_penalty=float(_config.get("model", "frequency_penalty", "HARNESS_MODEL_FREQUENCY_PENALTY", 0.3)),
                   top_p=_opt(_config.get("model", "top_p", "HARNESS_MODEL_TOP_P", None), float),
@@ -87,6 +90,22 @@ class ModelConfig:
 def _opt(value, cast):
     """A knob that is sent only when set: absent, empty or "default" means the server decides."""
     return None if value in (None, "", "default") else cast(value)
+
+
+RETRY_PAUSE_S = 15
+
+
+def retryable(e: BaseException) -> bool:
+    """GF-025. A failure of the path to the model, not of the model: a reset or timed-out connection,
+    a truncated stream, or a gateway answering for a server it could not reach. The prompt is cached
+    server-side, so a second attempt is cheap; a 4xx from the model itself is not retried."""
+    import http.client
+    import socket
+    if isinstance(e, urllib.error.HTTPError):
+        return e.code in (502, 503, 504)
+    if isinstance(e, urllib.error.URLError):
+        return True
+    return isinstance(e, (TimeoutError, socket.timeout, ConnectionError, http.client.IncompleteRead, http.client.RemoteDisconnected, OSError))
 
 
 def _headers(api_key: str | None) -> dict:
@@ -135,34 +154,42 @@ class Model:
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
                                      headers=_headers(self.cfg.api_key))
         t0 = time.time()
-        text, usage, finish, model_id = "", {}, None, self.cfg.model
-        try:
-            with urllib.request.urlopen(req, timeout=self.cfg.timeout_s) as r:
-                for line in r:
-                    line = line.decode().strip()
-                    if not line.startswith("data:"):
-                        continue
-                    payload = line[5:].strip()
-                    if payload == "[DONE]":
-                        break
-                    chunk = json.loads(payload)
-                    model_id = chunk.get("model", model_id)
-                    if chunk.get("usage"):
-                        usage = chunk["usage"]
-                    for ch in chunk.get("choices", []):
-                        text += (ch.get("delta") or {}).get("content") or ""
-                        finish = ch.get("finish_reason") or finish
-                    if len(text) > 1500 and _looping(text):
-                        finish = "loop_detected"
-                        break
-        except Exception as e:
-            body_text = ""
-            if hasattr(e, "read"):
-                try:
-                    body_text = e.read().decode(errors="replace")[:600]
-                except Exception:
-                    body_text = ""
-            raise HarnessError(f"model call failed ({tag}): {e} {body_text}".strip()) from e
+        text, usage, finish, model_id, transport_retries = "", {}, None, self.cfg.model, 0
+        for attempt in range(1, self.cfg.retries + 2):
+            text, usage, finish = "", {}, None
+            try:
+                with urllib.request.urlopen(req, timeout=self.cfg.timeout_s) as r:
+                    for line in r:
+                        line = line.decode().strip()
+                        if not line.startswith("data:"):
+                            continue
+                        payload = line[5:].strip()
+                        if payload == "[DONE]":
+                            break
+                        chunk = json.loads(payload)
+                        model_id = chunk.get("model", model_id)
+                        if chunk.get("usage"):
+                            usage = chunk["usage"]
+                        for ch in chunk.get("choices", []):
+                            text += (ch.get("delta") or {}).get("content") or ""
+                            finish = ch.get("finish_reason") or finish
+                        if len(text) > 1500 and _looping(text):
+                            finish = "loop_detected"
+                            break
+                break
+            except Exception as e:
+                if attempt <= self.cfg.retries and retryable(e):
+                    transport_retries += 1   # GF-025: the path failed, not the model; try again
+                    log(f"    model call {tag}: {type(e).__name__}: {str(e)[:80]}; retrying ({attempt}/{self.cfg.retries})")
+                    time.sleep(RETRY_PAUSE_S)
+                    continue
+                body_text = ""
+                if hasattr(e, "read"):
+                    try:
+                        body_text = e.read().decode(errors="replace")[:600]
+                    except Exception:
+                        body_text = ""
+                raise HarnessError(f"model call failed ({tag}): {e} {body_text}".strip()) from e
         text, stripped = strip_think(text)
         thinking_fallback = False
         if self.cfg.thinking and (reasoning_leak(text) or finish == "loop_detected") and not getattr(self, "_in_fallback", False):
@@ -186,7 +213,7 @@ class Model:
             return text2, rec2
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
-                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
+                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort, "transport_retries": transport_retries,
                   "frequency_penalty": self.cfg.frequency_penalty, "presence_penalty": self.cfg.presence_penalty, "max_tokens": self.cfg.cap(max_tokens),
                   "chat_template_kwargs": self.cfg.chat_template_kwargs, "thinking": self.cfg.thinking,
                   "prompt_sha256": sha256_text(system + "\n---\n" + user),
@@ -235,8 +262,10 @@ class Model:
         req = urllib.request.Request(f"{self.cfg.base_url}/chat/completions", data=json.dumps(body).encode(),
                                      headers=_headers(self.cfg.api_key))
         t0 = time.time()
-        content, calls_acc, usage, finish, model_id = "", {}, {}, None, self.cfg.model
-        try:
+        content, calls_acc, usage, finish, model_id, transport_retries = "", {}, {}, None, self.cfg.model, 0
+        for attempt in range(1, self.cfg.retries + 2):
+          content, calls_acc, usage, finish = "", {}, {}, None
+          try:
             with urllib.request.urlopen(req, timeout=self.cfg.timeout_s) as r:
                 for line in r:
                     line = line.decode().strip()
@@ -263,7 +292,13 @@ class Model:
                                 acc["function"]["name"] += fn["name"]
                             acc["function"]["arguments"] += fn.get("arguments") or ""
                         finish = ch.get("finish_reason") or finish
-        except Exception as e:
+            break
+          except Exception as e:
+            if attempt <= self.cfg.retries and retryable(e):
+                transport_retries += 1   # GF-025
+                log(f"    model call {tag}: {type(e).__name__}: {str(e)[:80]}; retrying ({attempt}/{self.cfg.retries})")
+                time.sleep(RETRY_PAUSE_S)
+                continue
             body = ""
             if hasattr(e, "read"):
                 try:
@@ -278,7 +313,7 @@ class Model:
         choice = {"finish_reason": finish}
         self.calls += 1
         record = {"tag": tag, "call": self.calls, "endpoint": self.cfg.label, "endpoint_digest": self.cfg.endpoint_digest, "model": model_id,
-                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort,
+                  "temperature": self.cfg.temperature, "reasoning_effort": self.cfg.reasoning_effort, "transport_retries": transport_retries,
                   "messages_sha256": sha256_text(json.dumps(messages, sort_keys=True)), "usage": usage,
                   "latency_s": round(time.time() - t0, 1), "finish_reason": choice.get("finish_reason"), "think_chars_stripped": stripped,
                   "tool_calls": [{"name": c["function"]["name"], "arguments": c["function"]["arguments"][:500]} for c in (msg.get("tool_calls") or [])]}
