@@ -12,6 +12,7 @@ reasoning = "none"                             # LM Studio's off switch ("none")
 thinking = "off"                               # vLLM: chat_template_kwargs.enable_thinking ("off" | "on" | "default")
 temperature = 0.2                              # env: HARNESS_MODEL_TEMPERATURE; "default" sends no sampling fields at all, so the server's settings for the model apply
 timeout = 1800                                 # env: HARNESS_MODEL_TIMEOUT; seconds per call; a slow thinking model at 16k tokens needs 5400 or more
+retries = 2                                    # env: HARNESS_MODEL_RETRIES; transport failures (reset, timeout, gateway error) retried this many times
 presence_penalty = 0.0                         # env: HARNESS_MODEL_PRESENCE_PENALTY; Qwen's lever against repetition inside thinking, sent only when set
 # frequency_penalty = 0.3                      # env: HARNESS_MODEL_FREQUENCY_PENALTY; 0 sends none
 # top_p = 0.8                                  # env: HARNESS_MODEL_TOP_P; sent only when set
