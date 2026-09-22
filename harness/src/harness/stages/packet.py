@@ -29,6 +29,13 @@ def _patch(files: list[tuple[str, str]]) -> str:
     return "".join(out)
 
 
+def _names_advisory(test_name: str, ids: list[str]) -> bool:
+    """GF-026. A test names its advisory with dashes as underscores, in whatever case the model chose
+    (test_ghsa_6c5p..., test_GHSA_6c5p..., test_CVE_2024_...); the match is case-insensitive on both sides."""
+    n = test_name.lower()
+    return any(x.lower().replace("-", "_") in n for x in ids)
+
+
 def _vex(pkg: str, purl_new: str, purl_old: str | None, vulns_doc: dict, triage: dict, run_id: str) -> dict:
     """OpenVEX document with one statement per advisory: fixed when a confirmed fix-pinning test
     exists, affected when the advisory is open at head and the package is reachable, otherwise
@@ -42,7 +49,7 @@ def _vex(pkg: str, purl_new: str, purl_old: str | None, vulns_doc: dict, triage:
     # advisories fixed by this change
     for v in vulns_doc.get("vulns_old", []):
         cves = [a for a in v["aliases"] if a.startswith("CVE-")] or [v["id"]]
-        proven = [n for n in confirmed_ids if any(x.lower().replace("-", "_") in n for x in [v["id"], *v["aliases"]])]
+        proven = [n for n in confirmed_ids if _names_advisory(n, [v["id"], *v["aliases"]])]
         statements.append({"vulnerability": {"name": cves[0], "aliases": [v["id"], *v["aliases"]]},
                            "products": [{"@id": purl_new}],
                            "status": "fixed" if proven else "under_investigation",
@@ -52,7 +59,7 @@ def _vex(pkg: str, purl_new: str, purl_old: str | None, vulns_doc: dict, triage:
     # advisories still open at head (including those a downgrade introduced)
     for v in vulns_doc.get("vulns", []):
         cves = [a for a in v["aliases"] if a.startswith("CVE-")] or [v["id"]]
-        proven = [n for n in confirmed_ids if any(x.lower().replace("-", "_") in n for x in [v["id"], *v["aliases"]])]
+        proven = [n for n in confirmed_ids if _names_advisory(n, [v["id"], *v["aliases"]])]
         if proven:
             status, notes = "affected", f"exposure test(s) {proven} fail on {purl_new} and pass on {purl_old}: the change introduces this exposure"
         elif triage.get("_reachable") == "true":

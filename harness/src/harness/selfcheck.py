@@ -280,6 +280,14 @@ def gf025():
     assert src.count("retryable(e)") == 2 and src.count("transport_retries") >= 4
 
 
+@check("GF-026", "a proven fix-pinning test counts for its advisory whatever case the model wrote the id in")
+def gf026():
+    from .stages.packet import _names_advisory
+    ids = ["PYSEC-2024-232", "CVE-2024-33663", "GHSA-6c5p-j8vq-pqhj"]
+    assert _names_advisory("test_GHSA_6c5p_j8vq_pqhj_exposure", ids) and _names_advisory("test_ghsa_6c5p_j8vq_pqhj_fix_pinning", ids)
+    assert _names_advisory("test_cve_2024_33663_fix_pinning", ids) and not _names_advisory("test_cve_2024_29370_fix_pinning", ids)
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute
