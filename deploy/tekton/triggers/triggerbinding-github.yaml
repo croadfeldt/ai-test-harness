@@ -1,0 +1,17 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata: { name: github-pull-request }
+spec:
+  params:
+    - { name: repo-url, value: $(body.repository.clone_url) }
+    - { name: base, value: $(body.pull_request.base.ref) }
+    - { name: head, value: "refs/pull/$(body.number)/head" }
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata: { name: github-push }
+spec:
+  params:
+    - { name: repo-url, value: $(body.repository.clone_url) }
+    - { name: base, value: $(body.before) }
+    - { name: head, value: $(body.after) }

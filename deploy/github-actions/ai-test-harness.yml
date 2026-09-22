@@ -1,0 +1,60 @@
+# AI Test Harness on GitHub Actions: a pull request, a push to the default branch, a schedule, or by hand.
+# Copy into .github/workflows/ of the repository under test. The harness only proposes; nothing merges here.
+name: ai-test-harness
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 1"          # weekly rescan of main: advisories published since the last change still get tests
+  workflow_dispatch:
+    inputs:
+      base: { description: "base ref (empty for a rescan)", required: false, default: "" }
+      head: { description: "head ref", required: true, default: "main" }
+
+permissions:
+  contents: read
+  pull-requests: write            # the verdict as a comment on the pull request
+
+jobs:
+  harness:
+    runs-on: ubuntu-latest        # podman is preinstalled on the hosted Ubuntu runners
+    timeout-minutes: 240
+    env:
+      HARNESS_MODEL_BASE_URL: ${{ secrets.HARNESS_MODEL_BASE_URL }}
+      HARNESS_MODEL: ${{ secrets.HARNESS_MODEL }}
+      HARNESS_MODEL_API_KEY: ${{ secrets.HARNESS_MODEL_API_KEY }}
+      HARNESS_MODEL_LABEL: ci-model
+    steps:
+      - name: Install the harness
+        run: |
+          python3 -m pip install --quiet "git+https://github.com/croadfeldt/ai-test-harness.git#subdirectory=harness"
+          podman --version
+      - name: Choose the refs
+        id: refs
+        run: |
+          case "${{ github.event_name }}" in
+            pull_request) echo "base=${{ github.event.pull_request.base.ref }}" >> "$GITHUB_OUTPUT"; echo "head=refs/pull/${{ github.event.pull_request.number }}/head" >> "$GITHUB_OUTPUT" ;;
+            push)         echo "base=${{ github.event.before }}" >> "$GITHUB_OUTPUT"; echo "head=${{ github.sha }}" >> "$GITHUB_OUTPUT" ;;
+            schedule)     echo "base=" >> "$GITHUB_OUTPUT"; echo "head=${{ github.event.repository.default_branch }}" >> "$GITHUB_OUTPUT" ;;
+            *)            echo "base=${{ inputs.base }}" >> "$GITHUB_OUTPUT"; echo "head=${{ inputs.head }}" >> "$GITHUB_OUTPUT" ;;
+          esac
+      - name: Run every stage
+        run: |
+          harness run --repo "https://github.com/${{ github.repository }}.git" \
+            ${{ steps.refs.outputs.base && format('--base {0}', steps.refs.outputs.base) }} \
+            --head "${{ steps.refs.outputs.head }}" --workdir run
+      - name: Keep the run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: ai-test-harness-run, path: run, retention-days: 30 }
+      - name: The verdict on the pull request
+        if: github.event_name == 'pull_request'
+        env: { GH_TOKEN: ${{ github.token }} }
+        run: |
+          { echo "**AI Test Harness**, run $(python3 -c 'import json;print(json.load(open("run/run-index.json"))["run_id"])')"; echo;
+            for p in run/packet/*/pull-request.md; do sed -n '3p' "$p"; echo; done;
+            echo "The full story, packet and records are in the workflow's artifact. Nothing here is merged by the harness."; } > comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md

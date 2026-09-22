@@ -44,6 +44,10 @@ review or on the test pull request, and tests always arrive through a pull reque
 both loops: generated tests run before anyone has read them, so the developer's loop uses the same
 sealed sandbox, never a plain test runner on a laptop.
 
+Either loop starts with one command on a repository by address and two refs, a pull request's base
+and head, a push's before and after, or a branch alone for a rescan; [document 13](13-running-on-real-repositories.md)
+shows the command and the triggers for GitHub Actions, GitLab CI, Tekton and a schedule.
+
 ## Where it ends
 
 The harness tests; it does not fix. A separate fix pipeline generates changes to production code, and

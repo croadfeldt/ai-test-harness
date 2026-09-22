@@ -71,7 +71,7 @@ def relevance_package(workdir: Path, pkg: str, python_version: str, repo: str | 
     if gen_tests.exists():
         populations.append(("generated", sorted(gen_tests.glob(adapter.TEST_FILE_GLOB)), gen_tests))
     wl = read_json(workdir / "intake" / "worklist.json")
-    repo = config.resolve_repo(wl["source_dir"], repo)
+    repo = config.resolve_repo(wl["source_dir"], repo, workdir)
     app_tests = [p for p in adapter.first_party_files(repo) if adapter.is_test_file(p.relative_to(repo))]
     populations.append(("application", app_tests, repo))
 

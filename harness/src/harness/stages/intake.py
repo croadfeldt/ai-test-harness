@@ -12,7 +12,7 @@ import re
 import tempfile
 from pathlib import Path
 
-from .. import adapters
+from .. import adapters, config
 from ..model import DependencyGraph, Preflight, WorkItem, WorkList
 from ..sources import osv
 from ..util import HarnessError, log, now_iso, run, tool_available, write_json
@@ -25,6 +25,13 @@ def _git(repo: Path, *args: str) -> str:
 def _resolve_ref(repo: Path, ref: str) -> str:
     """A branch name may only exist on the remote (a CI clone checks the revision out detached and
     never creates local branches). Try the name, then the remote's copy, then fetch it."""
+    if ref.startswith("refs/"):
+        # a full ref name the remote serves but does not advertise as a branch: refs/pull/N/head (GitHub),
+        # refs/merge-requests/N/head (GitLab), refs/tags/v1.2; fetched by name, used by commit
+        proc = run(["git", "-C", str(repo), "fetch", "--quiet", "origin", ref], check=False)
+        if proc.returncode == 0:
+            return _git(repo, "rev-parse", "FETCH_HEAD^{commit}")
+        raise HarnessError(f"{ref} could not be fetched from origin: {proc.stderr.strip()}")
     for candidate in (ref, f"origin/{ref}"):
         proc = run(["git", "-C", str(repo), "rev-parse", "--verify", "--quiet", f"{candidate}^{{commit}}"], check=False)
         if proc.returncode == 0:
@@ -32,7 +39,7 @@ def _resolve_ref(repo: Path, ref: str) -> str:
     proc = run(["git", "-C", str(repo), "fetch", "--quiet", "origin", f"+refs/heads/{ref}:refs/remotes/origin/{ref}"], check=False)
     if proc.returncode == 0:
         return _git(repo, "rev-parse", f"origin/{ref}")
-    raise HarnessError(f"{ref} is not a commit, a remote branch, or fetchable from origin: {proc.stderr.strip()}")
+    raise HarnessError(f"{ref} is not a commit, a remote branch, a full ref name (refs/pull/N/head), or fetchable from origin: {proc.stderr.strip()}")
 
 
 def _manifest_at(repo: Path, ref: str, manifest: str, dest: Path) -> Path:
@@ -113,6 +120,8 @@ def intake(*, repo: Path, head: str, base: str | None, manifest: str, workdir: P
     cache = workdir / "cache"
     head_sha = _resolve_ref(repo, head)
     base_sha = _resolve_ref(repo, base) if base else head_sha
+    if config.owned_clone(repo, workdir):
+        _git(repo, "checkout", "--quiet", "--detach", head_sha)   # later stages read the working tree at head; never a user's own checkout
     mode = "diff" if base else "rescan"
     run_id = hashlib.sha256(f"{repo}{base_sha}{head_sha}{now_iso()}".encode()).hexdigest()[:12]
     log(f"intake: {mode} {repo.name} {base_sha[:8]}..{head_sha[:8]} manifest={manifest} run={run_id}")

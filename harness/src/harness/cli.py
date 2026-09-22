@@ -30,7 +30,7 @@ def _record_run(workdir: Path, args: argparse.Namespace) -> None:
 def cmd_intake(a: argparse.Namespace) -> int:
     from . import config
     from .stages.intake import intake
-    repo = config.target_repo(str(a.repo) if a.repo else None)
+    repo = config.target_repo(str(a.repo) if a.repo else None, a.workdir)
     a.repo = repo
     a.ecosystem = a.ecosystem or config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
     a.manifest = a.manifest or config.get("target", "manifest", None, "go.mod" if a.ecosystem == "go" else "requirements.txt")
@@ -116,6 +116,48 @@ def cmd_assess(a: argparse.Namespace) -> int:
     assess(workdir=a.workdir); print(a.workdir / "assess" / "assess.md"); return 0
 
 
+def cmd_run(a: argparse.Namespace) -> int:
+    """Every stage in order on one change: what a trigger calls. Stops at the first failure with the
+    stage named; the work directory keeps what ran. Never merges; --propose opens the test pull request."""
+    from . import config
+    from .stages.analyze import analyze
+    from .stages.assess import assess
+    from .stages.attest import attest
+    from .stages.execute import execute
+    from .stages.generate import generate
+    from .stages.intake import intake
+    from .stages.mutate import mutate
+    from .stages.packet import packet
+    from .stages.relevance import relevance
+    from .stages.triage import triage
+    a.ecosystem = a.ecosystem or config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
+    a.manifest = a.manifest or config.get("target", "manifest", None, "go.mod" if a.ecosystem == "go" else "requirements.txt")
+    a.python_version = a.python_version or config.get("target", "python_version", None, None)
+    repo = config.target_repo(str(a.repo) if a.repo else None, a.workdir)
+    a.repo = repo
+    _record_run(a.workdir, a)
+    steps = [("intake", lambda: intake(repo=repo, head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir, ecosystem=a.ecosystem, python_version=a.python_version)),
+             ("analyze", lambda: analyze(workdir=a.workdir, select=a.select, all_rows=False, python_version=a.python_version, repo=None, target=a.target)),
+             ("generate", lambda: generate(workdir=a.workdir, select=a.select, categories=a.categories, python_version=a.python_version or "3.12", mode=a.mode)),
+             ("execute", lambda: execute(workdir=a.workdir, select=a.select, python_version=a.python_version or "3.12")),
+             ("mutate", lambda: mutate(workdir=a.workdir, select=a.select, python_version=a.python_version or "3.12")),
+             ("relevance", lambda: relevance(workdir=a.workdir, select=a.select, repo=None, python_version=a.python_version or "3.12")),
+             ("triage", lambda: triage(workdir=a.workdir, select=a.select)),
+             ("packet", lambda: packet(workdir=a.workdir, select=a.select)),
+             ("attest", lambda: attest(workdir=a.workdir, select=a.select)),
+             ("assess", lambda: assess(workdir=a.workdir))]
+    for name, step in steps:
+        log(f"== {name}")
+        step()
+        from . import runindex, story
+        story.write(a.workdir, read_json(runindex.update(a.workdir)))
+    if a.propose:
+        from .stages.propose import propose
+        propose(workdir=a.workdir, select=a.select, overlay_repo_path=a.overlay_repo, push=True, open_pr=True)
+    print(a.workdir / "README.md")
+    return 0
+
+
 def cmd_evaluate(a: argparse.Namespace) -> int:
     from .stages.evaluate import evaluate
     rec = evaluate([Path(r) for r in a.runs], a.out)
@@ -141,7 +183,7 @@ def main(argv: list[str] | None = None) -> int:
     s.set_defaults(func=cmd_selfcheck)
 
     s = sub.add_parser("intake", help="stage 1: resolve graphs at base and head, diff, pre-flight, work list")
-    s.add_argument("--repo", type=Path, default=None, help="target repository on this machine (default: [target].repo in harness.local.toml)")
+    s.add_argument("--repo", default=None, help="target repository: a path on this machine or a git URL (https, ssh, file); default [target].repo in harness.local.toml")
     s.add_argument("--head", default="HEAD", help="ref of the incoming change (default HEAD)")
     s.add_argument("--base", default=None, help="ref of the last known-good state; omit for a rescan of --head")
     s.add_argument("--manifest", default=None, help="dependency manifest path inside the repo (default from config: requirements.txt)")
@@ -152,7 +194,7 @@ def main(argv: list[str] | None = None) -> int:
 
     s = sub.add_parser("analyze", help="stage 2: facts, API diff, call sites, vulnerabilities, risk score")
     s.add_argument("--workdir", type=Path, required=True)
-    s.add_argument("--repo", type=Path, default=None, help="the target repository (must be the one intake ran on; default from config)")
+    s.add_argument("--repo", default=None, help="the target repository, path or URL (must be the one intake ran on; default: the clone intake made, else config)")
     s.add_argument("--select", nargs="*", default=None, help="only these packages")
     s.add_argument("--all", action="store_true", help="analyze unchanged rows too")
     s.add_argument("--target", default="dependencies", choices=["dependencies", "first-party", "all"],
@@ -183,7 +225,7 @@ def main(argv: list[str] | None = None) -> int:
 
     s = sub.add_parser("relevance", help="stage 4 step 7: which existing tests this change makes obsolete or redundant; proposals only")
     s.add_argument("--workdir", type=Path, required=True)
-    s.add_argument("--repo", type=Path, default=None, help="the target repository (must be the one intake ran on; default from config)")
+    s.add_argument("--repo", default=None, help="the target repository, path or URL (must be the one intake ran on; default: the clone intake made, else config)")
     s.add_argument("--select", nargs="*", default=None)
     s.add_argument("--python-version", default="3.12")
     s.set_defaults(func=cmd_relevance)
@@ -197,6 +239,22 @@ def main(argv: list[str] | None = None) -> int:
         if name != "assess":
             s.add_argument("--select", nargs="*", default=None)
         s.set_defaults(func=fn)
+
+    s = sub.add_parser("run", help="every stage on one change, in order: what a pull request trigger, a schedule or a person calls")
+    s.add_argument("--repo", default=None, help="the target repository: a path or a git URL; default [target].repo")
+    s.add_argument("--head", default="HEAD", help="the change: a branch, a tag, a commit, or a full ref such as refs/pull/123/head")
+    s.add_argument("--base", default=None, help="the last known-good ref (the pull request's base branch); omit for a rescan of --head")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--ecosystem", default=None, choices=["python", "go"])
+    s.add_argument("--manifest", default=None)
+    s.add_argument("--python-version", default=None)
+    s.add_argument("--target", default="dependencies", choices=["dependencies", "first-party", "all"])
+    s.add_argument("--select", nargs="*", default=None, help="only these packages; default every changed or vulnerable row")
+    s.add_argument("--categories", nargs="*", default=None, choices=["unit", "functional", "negative", "cve"])
+    s.add_argument("--mode", default="agent", choices=["fixed", "agent"])
+    s.add_argument("--propose", action="store_true", help="afterwards, open the test pull request on the overlay repository ([propose].repo)")
+    s.add_argument("--overlay-repo", default=None)
+    s.set_defaults(func=cmd_run)
 
     s = sub.add_parser("evaluate", help="stage 7: fitness for purpose, measured: prompt sets and models scored on finished runs by sandbox verdicts and reviewer decisions")
     s.add_argument("--runs", nargs="+", required=True, help="finished run directories")

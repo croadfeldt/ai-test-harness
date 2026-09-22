@@ -1,0 +1,38 @@
+# A weekly rescan of the default branch: advisories published since the last change still get tests.
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: ai-test-harness-rescan }
+spec:
+  schedule: "17 3 * * 1"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: pipeline
+          restartPolicy: Never
+          containers:
+            - name: create-run
+              image: registry.redhat.io/openshift4/ose-cli:latest
+              env:
+                - { name: REPO_URL, value: "https://github.com/example/my-application.git" }
+                - { name: HEAD, value: main }
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  cat <<EOF2 | oc create -f -
+                  apiVersion: tekton.dev/v1
+                  kind: PipelineRun
+                  metadata: { generateName: ai-test-harness-rescan-, namespace: ai-test-harness }
+                  spec:
+                    pipelineRef: { name: ai-test-harness }
+                    params:
+                      - { name: image, value: "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness:0.1.0" }
+                      - { name: repo-url, value: "$REPO_URL" }
+                      - { name: base, value: "" }
+                      - { name: head, value: "$HEAD" }
+                    workspaces:
+                      - name: shared
+                        volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 8Gi } } } }
+                    timeouts: { pipeline: 4h }
+                  EOF2

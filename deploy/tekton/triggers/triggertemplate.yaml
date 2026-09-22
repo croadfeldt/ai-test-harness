@@ -1,0 +1,26 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata: { name: ai-test-harness }
+spec:
+  params:
+    - { name: repo-url }
+    - { name: base, default: "" }
+    - { name: head }
+    - { name: image, default: "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness:0.1.0" }
+    - { name: ecosystem, default: python }
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata: { generateName: ai-test-harness-hook- }
+      spec:
+        pipelineRef: { name: ai-test-harness }
+        params:
+          - { name: image, value: $(tt.params.image) }
+          - { name: repo-url, value: $(tt.params.repo-url) }
+          - { name: base, value: $(tt.params.base) }
+          - { name: head, value: $(tt.params.head) }
+          - { name: ecosystem, value: $(tt.params.ecosystem) }
+        workspaces:
+          - name: shared
+            volumeClaimTemplate: { spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 8Gi } } } }
+        timeouts: { pipeline: 4h }
