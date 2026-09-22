@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="0.393" timestamp="2026-09-22T22:53:39.782521+00:00" hostname="3fc7890e44fc"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'asymmetric key or x509 certificate'&#10;  Actual message: &quot;Unable to find an algorithm for key: b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='&quot;">def test_GHSA_6c5p_j8vq_pqhj_exposure():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="0.401" timestamp="2026-09-22T23:05:34.766804+00:00" hostname="2448e5eb6104"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'asymmetric key or x509 certificate'&#10;  Actual message: &quot;Unable to find an algorithm for key: b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='&quot;">def test_GHSA_6c5p_j8vq_pqhj_exposure():
         """Application call pattern rejects OpenSSH ECDSA key."""
         ssh_key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
         token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.uQo2WdSn8yLr0vR3UkKKRfE49cPw1yUx0O7uNQ3q9iA'
@@ -176,7 +176,7 @@ key_data = 'wrong_secret', algorithm = 'HS256'
 E           jose.exceptions.JWKError: Unable to find an algorithm for key: wrong_secret
 
 venv/lib/python3.12/site-packages/jose/jwk.py:62: JWKError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWSError: Unable to find an algorithm for key: secret">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTIwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjM1fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -227,7 +227,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTIwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjM1fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):

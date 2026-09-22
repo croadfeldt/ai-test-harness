@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.263" timestamp="2026-09-22T22:50:55.493952+00:00" hostname="000a9dc59995"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.004" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="KeyError: 'iat'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.260" timestamp="2026-09-22T23:02:50.257535+00:00" hostname="76aca96687d2"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="KeyError: 'iat'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
         """Asserts that jwt.decode returns the claims set when token and key are valid."""
         payload = {'sub': '1234567890', 'name': 'John Doe'}
         secret = 'secret'
@@ -50,7 +50,7 @@ venv/lib/python3.12/site-packages/jose/jwt.py:396: in _validate_claims
     _validate_iat(claims)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-claims = {'sub': '1234567890', 'exp': 1790117355}
+claims = {'sub': '1234567890', 'exp': 1790118070}
 
     def _validate_iat(claims):
         """Validates that the 'iat' claim is valid.

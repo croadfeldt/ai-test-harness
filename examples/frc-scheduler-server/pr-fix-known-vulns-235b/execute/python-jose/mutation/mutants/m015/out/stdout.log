@@ -192,7 +192,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:62: JWKError
 _______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTIwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjM1fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -243,7 +243,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTIwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjM1fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -470,4 +470,4 @@ FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_expired_token_raises
 FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_header_returns_headers_dict
 FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_claims_returns_payload_dict
 FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_audience_checks_aud_claim
-8 failed in 0.39s
+8 failed in 0.40s

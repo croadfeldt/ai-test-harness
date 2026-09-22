@@ -14,6 +14,6 @@ Packages: python-jose.
 | G6 | Every accepted test carries a provenance record and a signed attestation | 8 records; envelopes verified locally: [True]; signer is a development key | **met (development signer)** |
 | G7 | Every advisory on the work item has a CVE-targeted test attempt and a draft VEX statement | python-jose: {'CVE-2024-29370': 'under_investigation', 'CVE-2024-33663': 'fixed', 'CVE-2024-33664': 'under_investigation'} | **met** |
 | G8 | The run surfaces a finding the PR diff does not show | python-jose: ['python-jose: a code path raised the same internal error on both versions during ', 'python-jose: a code path raised the same internal error on bo | **met** |
-| G9 | Packet within 2 hours of trigger for depth 0 and 1 | intake 2026-09-22T20:12:38+00:00 -> packet 2026-09-22T22:59:03+00:00 | **see measurement** |
+| G9 | Packet within 2 hours of trigger for depth 0 and 1 | intake 2026-09-22T20:12:38+00:00 -> packet 2026-09-22T23:09:03+00:00 | **see measurement** |
 | G10 | Every number in the packet points at a file in the work directory | packet sections cite artifact paths; attestation subjects are the patch and the manifest digests | **met** |
 | G11 | Test strength measured by mutation and coverage delta | python-jose: score 0.4 on 25 sampled mutants; coverage delta: no baseline overlay suite yet | **not met (target 0.6 on sampled mutants)** |

@@ -129,7 +129,7 @@ _______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
 tests/test_python_jose_unit.py:39: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjYzfQ.HVDJlAiu3MZ25XniQ-mRN_w2HdwQpcnCegh4UDA4FVQ'
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4Mzc5fQ.w-tK_PkSiCbauENLXhv-3ehCPfoSzJE7K1iUNNehr9Q'
 key = 'secret', algorithms = ['HS256'], options = None, audience = None
 issuer = None, subject = None, access_token = None
 

@@ -2,7 +2,7 @@
 =================================== FAILURES ===================================
 _______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
 
-jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDQ5fQ.2GdVAz8KtuKkWMh_sINeloFyvvtp33fgnQt-H_ek6fo'
 
     def _load(jwt):
         if isinstance(jwt, str):
@@ -38,7 +38,7 @@ venv/lib/python3.12/site-packages/jose/utils.py:65: in base64url_decode
            ^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-s = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ', altchars = None
+s = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDQ5fQ', altchars = None
 validate = False
 
     def b64decode(s, altchars=None, validate=False):
@@ -72,7 +72,7 @@ E       binascii.Error: Incorrect padding
 
 During handling of the above exception, another exception occurred:
 
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDQ5fQ.2GdVAz8KtuKkWMh_sINeloFyvvtp33fgnQt-H_ek6fo'
 key = 'secret', algorithms = ['HS256'], options = None, audience = None
 issuer = None, subject = None, access_token = None
 
@@ -172,7 +172,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:74: in verify
                                                 ^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDQ5fQ.2GdVAz8KtuKkWMh_sINeloFyvvtp33fgnQt-H_ek6fo'
 
     def _load(jwt):
         if isinstance(jwt, str):
@@ -215,7 +215,7 @@ During handling of the above exception, another exception occurred:
 tests/test_python_jose_unit.py:39: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDQ5fQ.2GdVAz8KtuKkWMh_sINeloFyvvtp33fgnQt-H_ek6fo'
 key = 'secret', algorithms = ['HS256'], options = None, audience = None
 issuer = None, subject = None, access_token = None
 

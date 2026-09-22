@@ -47,7 +47,7 @@ CATALOGUE = {
     "execute/old/": ("machine", "The run on the base version, for the differential."),
     "execute/fixed-candidate/": ("machine", "The run on the resolved fixed version, for the differential when the change did not move the package."),
     "execute/mutation/mutation.json": ("reviewer", "How strong the accepted tests are: which mutants of the package's source they killed, and the score."),
-    "execute/mutation/mutants/": ("machine", "Each sampled mutant: the mutated file and its sealed run."),
+    "execute/mutation/mutants/": ("machine", "Each sampled mutant: its change as a patch, and its sealed run's output."),
     "execute/relevance.json": ("reviewer", "Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted."),
     "triage/triage.json": ("reviewer", "Every verdict and finding classified, with a confidence and a route; below the threshold a person decides."),
     "packet/packet.md": ("reviewer", "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."),

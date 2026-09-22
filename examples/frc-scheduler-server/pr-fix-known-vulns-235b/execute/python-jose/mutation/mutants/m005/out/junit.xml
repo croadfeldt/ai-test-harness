@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="0.529" timestamp="2026-09-22T22:50:13.840836+00:00" hostname="51629fb8bf20"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.001"><failure message="jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="0.526" timestamp="2026-09-22T23:02:08.973138+00:00" hostname="3e1769d811f2"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.001"><failure message="jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 algorithm = 'HS256', key = 'secret'
 
@@ -16,7 +16,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad414f0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5d5e0&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -95,7 +95,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad421b0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5dc40&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -180,7 +180,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0b43e240&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5f4a0&gt;
 key = b'wrong_secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -207,7 +207,7 @@ key = b'wrong_secret', algorithm = 'HS256'
 E           jose.exceptions.JWKError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.
 
 venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:567: JWKError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzE0fQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDI5fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -224,7 +224,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf3ce0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0fda0&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -272,7 +272,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzE0fQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDI5fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -303,7 +303,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad42360&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5d910&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -382,7 +382,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf2c60&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0cf80&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -461,7 +461,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf14c0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0c0b0&gt;
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):

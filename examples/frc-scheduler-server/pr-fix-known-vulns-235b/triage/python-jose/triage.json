@@ -117,7 +117,7 @@
       "test": "test_jwt_get_unverified_claims_returns_payload_dict"
     }
   ],
-  "generated": "2026-09-22T22:57:07+00:00",
+  "generated": "2026-09-22T23:09:03+00:00",
   "package": "python-jose",
   "summary": {
     "blocking": [],

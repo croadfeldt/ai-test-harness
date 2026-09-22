@@ -260,4 +260,4 @@ FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_expired_token_raises
 FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_header_returns_headers_dict
 FAILED tests/test_python_jose_unit.py::test_jwt_get_unverified_claims_returns_payload_dict
 FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_audience_checks_aud_claim
-6 failed, 2 passed in 0.33s
+6 failed, 2 passed in 0.36s

@@ -20,7 +20,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad414f0>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5d5e0>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -102,7 +102,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad421b0>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5dc40>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -190,7 +190,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0b43e240>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5f4a0>
 key = b'wrong_secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -220,7 +220,7 @@ venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:567: JWK
 _______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzE0fQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDI5fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -237,7 +237,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf3ce0>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0fda0>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -285,7 +285,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzE0fQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MDI5fQ'
 algorithm = 'HS256', key = 'secret'
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -319,7 +319,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0ad42360>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04a5d910>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -401,7 +401,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf2c60>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0cf80>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):
@@ -483,7 +483,7 @@ venv/lib/python3.12/site-packages/jose/jwk.py:79: in construct
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7f8a0acf14c0>
+self = <jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fed04b0c0b0>
 key = b'secret', algorithm = 'HS256'
 
     def __init__(self, key, algorithm):

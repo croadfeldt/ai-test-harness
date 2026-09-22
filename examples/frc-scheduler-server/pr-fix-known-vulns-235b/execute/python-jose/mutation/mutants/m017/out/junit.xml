@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.266" timestamp="2026-09-22T22:54:21.162206+00:00" hostname="4b6bc92c55fd"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="KeyError: 'nbf'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.261" timestamp="2026-09-22T23:06:16.129189+00:00" hostname="28bd0b2672f6"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.004" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="KeyError: 'nbf'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
         """Asserts that jwt.decode returns the claims set when token and key are valid."""
         payload = {'sub': '1234567890', 'name': 'John Doe'}
         secret = 'secret'
@@ -54,7 +54,7 @@ venv/lib/python3.12/site-packages/jose/jwt.py:398: in _validate_claims
     _validate_nbf(claims, leeway=leeway)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-claims = {'sub': '1234567890', 'exp': 1790117561}, leeway = 0
+claims = {'sub': '1234567890', 'exp': 1790118276}, leeway = 0
 
     def _validate_nbf(claims, leeway=0):
         """Validates that the 'nbf' claim is valid.

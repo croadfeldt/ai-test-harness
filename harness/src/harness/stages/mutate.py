@@ -20,6 +20,23 @@ from ..util import log, now_iso, read_json, write_json
 SAMPLE = 25
 
 
+def keep_as_patch(mdir: Path, rel: str, original: str, mutated: str) -> Path:
+    """What a reader keeps of a mutant: the change as a unified diff and the sealed run's output. The
+    full mutated file was only ever needed by the sandbox; a copy of a 3,000-line source file per
+    mutant is bulk, not evidence."""
+    import difflib
+    patch = "".join(difflib.unified_diff(original.splitlines(keepends=True), mutated.splitlines(keepends=True), f"a/{rel}", f"b/{rel}"))
+    out = mdir / "mutant.patch"
+    out.write_text(patch)
+    full = mdir / rel
+    if full.exists():
+        full.unlink()
+        parent = full.parent
+        while parent != mdir and parent.is_dir() and not any(parent.iterdir()):
+            parent.rmdir(); parent = parent.parent
+    return out
+
+
 def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = SAMPLE, adapter=None) -> dict:
     adapter = adapter or adapters.get("python")
     results = read_json(workdir / "execute" / pkg / "results.json")
@@ -75,8 +92,9 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
         from .execute import base_name
         killed_by = sorted({base_name(k) for k, v in r.items() if v["status"] in ("fail", "error")})
         status = adapter.mutant_status(s, r, killed_by)
+        patch = keep_as_patch(mdir, site["file"], (unpacked / site["file"]).read_text(errors="replace"), code)
         mutants.append({"id": mid, "file": site["file"], "line": site["line"], "operator": site["op"], "status": status, "killed_by": killed_by,
-                        "duration_s": s["duration_s"]})
+                        "duration_s": s["duration_s"], "patch": str(patch.relative_to(out))})
         log(f"      {mid} {site['op']:<13} {site['file']}:{site['line']} {status}" + (f" by {killed_by[:3]}" if killed_by else ""))
     valid = [m for m in mutants if not m["status"].startswith(("invalid", "error"))]
     killed = [m for m in valid if m["status"].startswith("killed")]

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T22:59:04+00:00",
+  "generated": "2026-09-22T23:09:04+00:00",
   "goals": [
     {
       "evidence_ref": [
@@ -88,7 +88,7 @@
       ],
       "goal": "Packet within 2 hours of trigger for depth 0 and 1",
       "id": "G9",
-      "measurement": "intake 2026-09-22T20:12:38+00:00 -> packet 2026-09-22T22:59:03+00:00",
+      "measurement": "intake 2026-09-22T20:12:38+00:00 -> packet 2026-09-22T23:09:03+00:00",
       "source": "section 10: time to packet",
       "verdict": "see measurement"
     },
