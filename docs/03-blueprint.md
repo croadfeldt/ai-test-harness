@@ -1,11 +1,17 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.13
-**Date:** 2026-09-16
+**Status:** Draft v0.14
+**Date:** 2026-09-22
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 12; stage 7).
+Every text the harness says to a model is a named, digested prompt set under source control; every
+manifest records which set and which model produced a result; the same jobs run per set and per model
+and are scored by what the sandbox and the reviewers said; a set or a model becomes the default only by
+winning that table. The evaluator and the bench are the implementation.
 
 **Changes in v0.13:** every run must explain itself to a general reader (stage 6). The run's story,
 who, what, why, where and when with the outcome, the decisions and the actions, is an output of every
@@ -214,6 +220,17 @@ applied.
   they exercised is gone, the behavior they asserted was intentionally changed, or another test now
   covers the same paths. The harness identifies those tests, explains why, and proposes their retirement.
   It never deletes a test on its own.
+
+**12. Fitness for purpose is validated, never assumed.** A model and a prompt are inputs like any
+other, and their quality is a claim until it is measured. The harness therefore keeps every prompt as a
+named, digested set under source control, records the set and the model in every manifest, runs the
+same jobs under each candidate and scores them by ground truth in order of strength: what a reviewer
+accepted on the test pull request, what the sandbox proved (a fix-pinning test that fails on the
+vulnerable version and passes on the fixed one), what triage accepted. A model or a set that does not
+reach the outcome a job needs is not fit for that job, whatever it scores elsewhere, and does not become
+the default. The failure register (section 17) keeps the harness honest about its own defects; the
+evaluation table keeps it honest about the model's and the prompt's. Stage 0 proves the harness is fit
+to run; stage 7's evaluator proves the model and the prompt are fit to produce.
 
 ## 4. Build on existing work
 
@@ -563,6 +580,26 @@ reviewer's brief. Either way tests are added through a pull request; the harness
   already name, the failure becomes a new register entry before any other fix: issue, reason, cause,
   detector, correction, self-check. The self-check is written first, fails against the current code,
   and passes once the correction lands. Section 17.
+
+**Prompt and model evaluation, the process.** The loop that principle 12 requires runs here, and it is
+not assumed to have happened: it leaves a table.
+
+1. *Prompt sets.* Every text said to a model (system prompt per language, task per category, the
+   agent's rules) is a part of a named set; `v1` is the code's own texts, any other set overrides parts
+   by key from a file under source control. The active set's name and digest go into every manifest.
+2. *Ground truth.* In order of strength: the reviewer's decision per test from the test pull request
+   (stage 7's labeled examples), the sandbox's verdicts (fix proven, pass on head, flake, mutation
+   kills), triage's acceptance. Cost is recorded beside it: model calls and minutes.
+3. *The bench.* One job that has finished analysis, run again under each candidate set with everything
+   else held: same package, same advisories, same sandbox, same model. A model comparison is the same
+   bench with a different endpoint. One variable per run.
+4. *The table.* One line per set, model, language and package, summed over runs, with a one-phrase
+   reading: accepted by a reviewer, proves fixes, characterizes only, not fit. The document generated
+   from the example runs is the public version of that table.
+5. *The rule.* A set or a model becomes a default only by winning the table on the jobs it is meant
+   for. A set that wins on Python and loses on Go is the Go default for nobody. Nothing in the harness
+   ships a prompt change on the strength of one good run read by eye.
+
 
 ## 6. Dependency and transitive strategy
 

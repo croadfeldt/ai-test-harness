@@ -36,7 +36,7 @@ CATALOGUE = {
     "analyze/call-sites.json": ("machine", "Every place the application references this package."),
     "analyze/source-diff.patch": ("developer", "The package's own source diff between the versions; the model reads it to find the fix."),
     "analyze/notes.untrusted.md": ("developer", "Package metadata and description as published upstream; untrusted text, kept for context."),
-    "generate/manifest.json": ("developer", "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests."),
+    "generate/manifest.json": ("developer", "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests."),
     "generate/manifest.agent.json": ("developer", "The tool-using agent's traces: every tool call per advisory, and the budget it had."),
     "generate/tests/": ("reviewer", "The candidate test files as generated, before any decision."),
     "generate/model-calls/": ("audit", "Every prompt and every response, numbered, with the call's settings; the full transcript of what the model saw and said."),

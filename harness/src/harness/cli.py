@@ -116,6 +116,18 @@ def cmd_assess(a: argparse.Namespace) -> int:
     assess(workdir=a.workdir); print(a.workdir / "assess" / "assess.md"); return 0
 
 
+def cmd_evaluate(a: argparse.Namespace) -> int:
+    from .stages.evaluate import evaluate
+    rec = evaluate([Path(r) for r in a.runs], a.out)
+    print(a.out / "evaluation.md"); print(f"{len(rec['aggregate'])} line(s) from {len(rec['rows'])} package run(s)"); return 0
+
+
+def cmd_bench(a: argparse.Namespace) -> int:
+    from .stages.bench import bench
+    out = bench(base=a.workdir, prompt_sets=a.prompt_sets, select=a.select, categories=a.categories, mode=a.mode, python_version=a.python_version)
+    print(out / "evaluation.md"); return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="harness", description="AI Test Harness: opinionated implementation of the blueprint")
     p.add_argument("--version", action="version", version=f"harness {__version__}")
@@ -186,6 +198,20 @@ def main(argv: list[str] | None = None) -> int:
             s.add_argument("--select", nargs="*", default=None)
         s.set_defaults(func=fn)
 
+    s = sub.add_parser("evaluate", help="stage 7: fitness for purpose, measured: prompt sets and models scored on finished runs by sandbox verdicts and reviewer decisions")
+    s.add_argument("--runs", nargs="+", required=True, help="finished run directories")
+    s.add_argument("--out", type=Path, required=True, help="where evaluation.json and evaluation.md go")
+    s.set_defaults(func=cmd_evaluate)
+
+    s = sub.add_parser("bench", help="stage 7: the same job under several prompt sets, one variable at a time, then evaluate")
+    s.add_argument("--workdir", type=Path, required=True, help="a run that has finished intake and analyze; each prompt set gets a sibling directory")
+    s.add_argument("--prompt-sets", nargs="+", required=True, help="names in harness/prompts/ or paths; v1 is the code's own texts")
+    s.add_argument("--select", nargs="*", default=None)
+    s.add_argument("--categories", nargs="*", default=None)
+    s.add_argument("--mode", default="agent", choices=["fixed", "agent"])
+    s.add_argument("--python-version", default=None)
+    s.set_defaults(func=cmd_bench)
+
     s = sub.add_parser("propose", help="lifecycle B: the accepted tests, packet and records as a pull request on the overlay repository; never the default branch")
     s.add_argument("--workdir", type=Path, required=True)
     s.add_argument("--select", nargs="*", default=None)
@@ -205,8 +231,9 @@ def main(argv: list[str] | None = None) -> int:
         rc = a.func(a)
         if getattr(a, "workdir", None) and Path(a.workdir).is_dir():
             from . import runindex, story
-            idx = runindex.update(Path(a.workdir))   # every stage leaves the run's index and its story current
-            story.write(Path(a.workdir), read_json(idx))
+            if getattr(a, "workdir", None) and (Path(a.workdir) / "intake").exists() and a.func is not cmd_bench:
+                idx = runindex.update(Path(a.workdir))   # every stage leaves the run's index and its story current
+                story.write(Path(a.workdir), read_json(idx))
         return rc
     except HarnessError as e:
         log(f"error: {e}")

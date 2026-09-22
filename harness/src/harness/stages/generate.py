@@ -18,7 +18,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .. import adapters
+from .. import adapters, prompts
 from ..llm import Model, ModelConfig
 from ..util import HarnessError, log, now_iso, read_json, sha256_text, write_json
 
@@ -123,7 +123,7 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
     roles = roles or {}
     used = facts["call_sites_summary"]["symbols_used"]
     parts = adapter.prompt_preamble(facts) + [
-             "TASK: " + adapter.CATEGORY_TASK[category].format(n=n, old=facts["old_version"], new=facts["new_version"],
+             "TASK: " + prompts.text(f"task.{category}.{adapter.ECOSYSTEM}", adapter.CATEGORY_TASK[category]).format(n=n, old=facts["old_version"], new=facts["new_version"],
                                                                 vuln=roles.get("vulnerable"), fixed=roles.get("fixed") or "(none: no fixed version in this change)")]
     if facts.get("first_party"):
         parts.append("This is the application's own code, not a dependency: the package under test is the application itself, at the commit "
@@ -214,7 +214,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
     tests_dir.mkdir(exist_ok=True)
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
                 "generated": now_iso(), "model": {"endpoint": model.cfg.label, "endpoint_digest": model.cfg.endpoint_digest, "id": model.cfg.model,
-                                                  "temperature": model.cfg.temperature},
+                                                  "temperature": model.cfg.temperature}, "prompt_set": prompts.active().record(),
                 "budget": budget, "selfcheck_ref": "../../selfcheck/selfcheck.json", "cve_roles": roles, "files": [], "discarded": []}
     plan = []   # (category, count, advisories-for-this-call, file suffix)
     for cat in (categories or ["unit", "functional", "negative", "cve"]):
@@ -240,7 +240,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         prompt = build_prompt(cat, facts, api, sites, call_vulns, n, fix_patch if cat == "cve" else None,
                               new_only if cat == "cve" else (), old_only if cat == "cve" else (), roles, adapter=adapter)
         max_tokens = int({"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat] * getattr(adapter, "OUTPUT_SCALE", 1.0))
-        system = adapter.SYSTEM
+        system = prompts.text(f"system.{adapter.ECOSYSTEM}", adapter.SYSTEM)
         attempts, code, history, run1, precut = 0, None, [], None, []
         while attempts <= max_repairs:
             tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"

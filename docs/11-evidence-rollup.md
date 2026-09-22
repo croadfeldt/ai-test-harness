@@ -3,9 +3,9 @@
 **For:** anyone deciding whether this is worth their time. Every number below is read from a run's records
 under `examples/` by `tools/rollup.py`; nothing here is typed by hand, and a run that lacks a stage shows a dash.
 
-**In plain terms.** 12 runs with executed tests, 14 package rows, 159 generated tests run in a
+**In plain terms.** 14 runs with executed tests, 16 package rows, 167 generated tests run in a
 sealed sandbox, 11 tests proving a vulnerability closed or open by failing on the vulnerable version and
-passing on the fixed one, 52 tests accepted by triage as candidates, 10 signed attestations. "Proven"
+passing on the fixed one, 52 tests accepted by triage as candidates, 12 signed attestations. "Proven"
 counts tests, so one vulnerability may carry two. Mutation is the share of sampled mutants the accepted tests killed,
 target 0.6. "Accepted by review" is what a person kept after the harness proposed, from stage 7. Time from
 trigger to packet is on each run's own assessment (goal G9), because several of these runs were re-attested
@@ -13,6 +13,8 @@ days later and the records would say so.
 
 | Run | Package | Lang | Target | Model | Tests | Pass on head | Proven | Accepted | Mutation | UDLM records | Signed | Goals | Proposed | Accepted by review |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [control-plane/kin-openapi-235b](https://croadfeldt.github.io/ai-test-harness/runs/control-plane/kin-openapi-235b/) | github.com/getkin/kin-openapi | go | pod | qwen3-235b | 4 | 0 | 0 | 0 | n/a | 11 | yes | 9 met | - | - |
+| [control-plane/kin-openapi-235b-run2](https://croadfeldt.github.io/ai-test-harness/runs/control-plane/kin-openapi-235b-run2/) | github.com/getkin/kin-openapi | go | pod | qwen3-235b | 4 | 0 | 0 | 0 | n/a | 11 | yes | 9 met | - | - |
 | [control-plane/kin-openapi-cluster](https://croadfeldt.github.io/ai-test-harness/runs/control-plane/kin-openapi-cluster/) | github.com/getkin/kin-openapi | go | pod | qwen38-27b | 4 | 2 | 0 | 0 | 0.00 (0/25) | 11 | yes | 9 met | - | - |
 | [control-plane/kin-openapi-run1](https://croadfeldt.github.io/ai-test-harness/runs/control-plane/kin-openapi-run1/) | github.com/getkin/kin-openapi | go | podman | qwen38-27b | 1 | 0 | 0 | 0 | n/a | 11 | yes | 9 met | - | - |
 | [frc-scheduler-server/first-party-rescan](https://croadfeldt.github.io/ai-test-harness/runs/frc-scheduler-server/first-party-rescan/) | frc-scheduler-server | python | podman | qwen38-27b | 4 | 4 | 0 | 4 | 0.04 (1/25) | 7 | yes | 8 met | - | - |

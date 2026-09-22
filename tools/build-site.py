@@ -20,6 +20,8 @@ _spec = _ilu.spec_from_file_location("rollup", ROOT / "tools" / "rollup.py"); _r
 _rollup.main(write=str(ROOT / "docs" / "11-evidence-rollup.md"))
 _spec_c = _ilu.spec_from_file_location("catalogue", ROOT / "tools" / "catalogue.py"); _cat = _ilu.module_from_spec(_spec_c); _spec_c.loader.exec_module(_cat)
 _cat.main()
+_spec_e = _ilu.spec_from_file_location("prompt_eval", ROOT / "tools" / "prompt-eval.py"); _pe = _ilu.module_from_spec(_spec_e); _spec_e.loader.exec_module(_pe)
+_pe.main(write=str(ROOT / "docs" / "12-prompt-and-model-evaluation.md"))
 DOCS = sorted((ROOT / "docs").glob("*.md"))
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "site" / "index.html"
 
@@ -65,8 +67,8 @@ mermaid.initialize({{ startOnLoad: true, theme: matchMedia("(prefers-color-schem
 
 AUDIENCES = [
     ("exec", "Executive", "CEO, managing director, board", ["00", "11"], "5 min"),
-    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "11", "07"], "20 min"),
-    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "10", "bp", "hi", "ex"], "2 h"),
+    ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "11", "12", "07"], "20 min"),
+    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "10", "12", "bp", "hi", "ex"], "2 h"),
     ("proof", "See it work", "Anyone who wants the evidence", ["11", "10", "ex", "hi"], "15 min"),
     ("public", "Public", "Journalist, student, customer", ["00", "08"], "10 min"),
 ]

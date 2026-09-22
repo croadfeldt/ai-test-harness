@@ -27,6 +27,7 @@ class FakeModel:
 
 class Adapter:
     SYSTEM = "sys"
+    ECOSYSTEM = "python"
 
     @staticmethod
     def extract_code(text):
