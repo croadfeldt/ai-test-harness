@@ -150,6 +150,7 @@ Twenty-two entries, each with the issue, why it matters, the cause, the detector
 | GF-023 | the agent submitted a file the sandbox had never built; submit now needs a clean run of that exact text |
 | GF-024 | one wrong line cost a Go file its nine good tests; the compiler's line cuts that test, the rest run |
 | GF-025 | a network hiccup on one model call ended a stage; the path is retried, the model's refusals are not |
+| GF-026 | a proven fix went unreported because the test's id was in capitals; the match ignores case |
 
 ---
 
