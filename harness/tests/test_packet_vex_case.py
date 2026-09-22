@@ -8,3 +8,10 @@ def test_advisory_ids_match_test_names_in_any_case():
     assert _names_advisory("test_ghsa_6c5p_j8vq_pqhj_fix_pinning", ids)
     assert _names_advisory("test_CVE_2024_33663_fix_pinning", ids)
     assert not _names_advisory("test_cve_2024_29370_fix_pinning", ids)
+
+
+def test_the_plain_terms_count_uses_the_same_rule():
+    import inspect
+    from harness.stages import packet
+    src = inspect.getsource(packet.packet_package)
+    assert "_names_advisory(n, [v[\"id\"], *v.get(\"aliases\", [])])" in src, "the packet's sentence and its VEX must count proofs the same way"
