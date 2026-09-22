@@ -164,7 +164,7 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
     n_open, n_fixed = len(groups_open), len(groups_fixed)
     proven_ids = {t["name"] for t in triage["tests"] if t["action"].startswith("accept as CVE evidence")}
     def _proven(groups):
-        return sum(1 for key, grp in groups.items() if any(x.lower().replace("-", "_") in n for n in proven_ids for v in grp for x in [v["id"], *v.get("aliases", [])]))
+        return sum(1 for key, grp in groups.items() if any(_names_advisory(n, [v["id"], *v.get("aliases", [])]) for n in proven_ids for v in grp))
     confirmed = _proven(groups_open) + _proven(groups_fixed)
     n_issues = n_open + n_fixed
     if facts["change"] == "bumped" and n_fixed and not n_open:
