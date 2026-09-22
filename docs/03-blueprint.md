@@ -1,11 +1,16 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.14
+**Status:** Draft v0.15
 **Date:** 2026-09-22
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.15:** the harness takes a repository by address and any ref git can name on it, a
+pull request's head ref included, and runs every stage with one command (stage 1; document 13), so a
+pull request trigger, a push, a schedule or a person can start a run on any real repository. The
+triggers for GitHub Actions, GitLab CI and Tekton are documented and shipped as examples.
 
 **Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 12; stage 7).
 Every text the harness says to a model is a named, digested prompt set under source control; every
@@ -388,6 +393,13 @@ record is missing or failing produces no evidence anyone should trust, and Confo
 that way.
 
 ### Stage 1: Intake and inventory
+
+The input is a repository by path or by address and two refs: the change's head and the last
+known-good base; a base omitted means a rescan of one ref. Any ref git can name on the repository is
+accepted, a pull request's own ref included, so the trigger decides what is compared: a pull request
+against its base branch, a push against what it replaced, a release against the last one, a branch
+alone on a schedule. A repository given by address is cloned once under the run and never touched
+where a person is working.
 
 - Detect the incoming change: Konflux snapshot, PR webhook, lockfile diff, SBOM diff, or scheduled scan.
 - Resolve the **full dependency graph** with Hermeto, which also yields the SBOM. Fall back to the native

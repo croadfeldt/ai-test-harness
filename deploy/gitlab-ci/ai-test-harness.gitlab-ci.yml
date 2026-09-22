@@ -1,0 +1,30 @@
+# AI Test Harness on GitLab CI: merge requests, pushes to the default branch, and pipeline schedules.
+# Include from the repository under test's .gitlab-ci.yml. The harness only proposes; nothing merges here.
+ai-test-harness:
+  image: registry.access.redhat.com/ubi9/python-312   # any image with python3 and podman
+  timeout: 4h
+  variables:
+    HARNESS_MODEL_BASE_URL: $HARNESS_MODEL_BASE_URL      # masked CI variables
+    HARNESS_MODEL: $HARNESS_MODEL
+    HARNESS_MODEL_API_KEY: $HARNESS_MODEL_API_KEY
+    HARNESS_MODEL_LABEL: ci-model
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      variables: { HARNESS_BASE: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME, HARNESS_HEAD: "refs/merge-requests/$CI_MERGE_REQUEST_IID/head" }
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      variables: { HARNESS_BASE: $CI_COMMIT_BEFORE_SHA, HARNESS_HEAD: $CI_COMMIT_SHA }
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      variables: { HARNESS_BASE: "", HARNESS_HEAD: $CI_DEFAULT_BRANCH }
+  script:
+    - python3 -m pip install --quiet "git+https://github.com/croadfeldt/ai-test-harness.git#subdirectory=harness"
+    - harness run --repo "$CI_REPOSITORY_URL" ${HARNESS_BASE:+--base "$HARNESS_BASE"} --head "$HARNESS_HEAD" --workdir run
+    - |
+      if [ -n "$CI_MERGE_REQUEST_IID" ]; then
+        body="**AI Test Harness.** $(sed -n '3p' run/packet/*/pull-request.md | head -c 3000) The full story, packet and records are in the job's artifacts. Nothing here is merged by the harness."
+        curl -s --request POST --header "PRIVATE-TOKEN: $HARNESS_GITLAB_TOKEN" --data-urlencode "body=$body" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes" > /dev/null
+      fi
+  artifacts:
+    when: always
+    paths: [run/]
+    expire_in: 30 days

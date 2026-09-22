@@ -68,7 +68,7 @@ mermaid.initialize({{ startOnLoad: true, theme: matchMedia("(prefers-color-schem
 AUDIENCES = [
     ("exec", "Executive", "CEO, managing director, board", ["00", "11"], "5 min"),
     ("fund", "Funding decision", "CTO, VP Engineering, CISO", ["00", "01", "11", "12", "07"], "20 min"),
-    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "10", "12", "bp", "hi", "ex"], "2 h"),
+    ("build", "Build or run it", "Engineer, architect, security analyst", ["02", "03", "05", "06", "09", "10", "12", "13", "bp", "hi", "ex"], "2 h"),
     ("proof", "See it work", "Anyone who wants the evidence", ["11", "10", "ex", "hi"], "15 min"),
     ("public", "Public", "Journalist, student, customer", ["00", "08"], "10 min"),
 ]

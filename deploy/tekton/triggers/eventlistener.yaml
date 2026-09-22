@@ -1,0 +1,28 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata: { name: ai-test-harness }
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: pull-request
+      interceptors:
+        - ref: { name: github }
+          params:
+            - { name: secretRef, value: { secretName: github-webhook, secretKey: token } }
+            - { name: eventTypes, value: [pull_request] }
+        - ref: { name: cel }
+          params:
+            - { name: filter, value: "body.action in ['opened', 'synchronize', 'reopened']" }
+      bindings: [{ ref: github-pull-request }]
+      template: { ref: ai-test-harness }
+    - name: push-to-default
+      interceptors:
+        - ref: { name: github }
+          params:
+            - { name: secretRef, value: { secretName: github-webhook, secretKey: token } }
+            - { name: eventTypes, value: [push] }
+        - ref: { name: cel }
+          params:
+            - { name: filter, value: "body.ref == 'refs/heads/' + body.repository.default_branch" }
+      bindings: [{ ref: github-push }]
+      template: { ref: ai-test-harness }

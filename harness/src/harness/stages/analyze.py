@@ -227,7 +227,7 @@ def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = 
     wl = WorkList(**{**raw, "items": [WorkItem(**{**i, "preflight": Preflight(**i["preflight"])}) for i in raw["items"]]})
     adapter = adapters.get(raw.get("ecosystem", "python"))
     from .. import config
-    repo = config.resolve_repo(wl.source_dir, repo)
+    repo = config.resolve_repo(wl.source_dir, repo, workdir)
     vuln_index = read_json(workdir / "intake" / "vulns.json")
     graph = read_json(workdir / "intake" / "graph.new.json")["packages"]
     dependents_of = {name: sorted(p for p, d in graph.items() if name in d["requires"])
