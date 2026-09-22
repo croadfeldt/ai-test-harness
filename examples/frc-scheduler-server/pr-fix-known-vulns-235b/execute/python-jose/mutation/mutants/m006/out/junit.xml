@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="0.257" timestamp="2026-09-22T22:50:34.792689+00:00" hostname="1e5d2420b9d6"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_invalid_signature_raises_JWTError" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWTError: Invalid payload padding">jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+
+    def _load(jwt):
+        if isinstance(jwt, str):
+            jwt = jwt.encode("utf-8")
+        try:
+            signing_input, crypto_segment = jwt.rsplit(b".", 1)
+            header_segment, claims_segment = signing_input.split(b".", 1)
+            header_data = base64url_decode(header_segment)
+        except ValueError:
+            raise JWSError("Not enough segments")
+        except (TypeError, binascii.Error):
+            raise JWSError("Invalid header padding")
+    
+        try:
+            header = json.loads(header_data.decode("utf-8"))
+        except ValueError as e:
+            raise JWSError("Invalid header string: %s" % e)
+    
+        if not isinstance(header, Mapping):
+            raise JWSError("Invalid header string: must be a json object")
+    
+        try:
+&gt;           payload = base64url_decode(claims_segment)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jws.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/utils.py:65: in base64url_decode
+    return base64.urlsafe_b64decode(input)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.12/base64.py:134: in urlsafe_b64decode
+    return b64decode(s)
+           ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ', altchars = None
+validate = False
+
+    def b64decode(s, altchars=None, validate=False):
+        """Decode the Base64 encoded bytes-like object or ASCII string s.
+    
+        Optional altchars must be a bytes-like object or ASCII string of length 2
+        which specifies the alternative alphabet used instead of the '+' and '/'
+        characters.
+    
+        The result is returned as a bytes object.  A binascii.Error is raised if
+        s is incorrectly padded.
+    
+        If validate is False (the default), characters that are neither in the
+        normal base-64 alphabet nor the alternative alphabet are discarded prior
+        to the padding check.  If validate is True, these non-alphabet characters
+        in the input result in a binascii.Error.
+        For more information about the strict base64 check, see:
+    
+        https://docs.python.org/3.11/library/binascii.html#binascii.a2b_base64
+        """
+        s = _bytes_from_decode_data(s)
+        if altchars is not None:
+            altchars = _bytes_from_decode_data(altchars)
+            assert len(altchars) == 2, repr(altchars)
+            s = s.translate(bytes.maketrans(altchars, b'+/'))
+&gt;       return binascii.a2b_base64(s, strict_mode=validate)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       binascii.Error: Incorrect padding
+
+/usr/local/lib/python3.12/base64.py:88: Error
+
+During handling of the above exception, another exception occurred:
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+key = 'secret', algorithms = ['HS256'], options = None, audience = None
+issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+&gt;           payload = jws.verify(token, key, algorithms, verify=verify_signature)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/jwt.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:74: in verify
+    header, payload, signing_input, signature = _load(token)
+                                                ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+jwt = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+
+    def _load(jwt):
+        if isinstance(jwt, str):
+            jwt = jwt.encode("utf-8")
+        try:
+            signing_input, crypto_segment = jwt.rsplit(b".", 1)
+            header_segment, claims_segment = signing_input.split(b".", 1)
+            header_data = base64url_decode(header_segment)
+        except ValueError:
+            raise JWSError("Not enough segments")
+        except (TypeError, binascii.Error):
+            raise JWSError("Invalid header padding")
+    
+        try:
+            header = json.loads(header_data.decode("utf-8"))
+        except ValueError as e:
+            raise JWSError("Invalid header string: %s" % e)
+    
+        if not isinstance(header, Mapping):
+            raise JWSError("Invalid header string: must be a json object")
+    
+        try:
+            payload = base64url_decode(claims_segment)
+        except (TypeError, binascii.Error):
+&gt;           raise JWSError("Invalid payload padding")
+E           jose.exceptions.JWSError: Invalid payload padding
+
+venv/lib/python3.12/site-packages/jose/jws.py:199: JWSError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_with_expired_token_raises_ExpiredSignatureError():
+        """Asserts that jwt.decode raises ExpiredSignatureError when exp claim is in the past."""
+        payload = {'sub': '1234567890', 'exp': int(time.time()) - 100}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+        with pytest.raises(jwt.ExpiredSignatureError):
+&gt;           jwt.decode(token, secret, algorithms=[Algorithms.HS256])
+
+tests/test_python_jose_unit.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3MzM0fQ.41yU_BXyMXPgY8BykSm6qri52BRT0-QKopYj3P57CRw'
+key = 'secret', algorithms = ['HS256'], options = None, audience = None
+issuer = None, subject = None, access_token = None
+
+    def decode(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None):
+        """Verifies a JWT string's signature and validates reserved claims.
+    
+        Args:
+            token (str): A signed JWS to be verified.
+            key (str or dict): A key to attempt to verify the payload with. Can be
+                individual JWK or JWK set.
+            algorithms (str or list): Valid algorithms that should be used to verify the JWS.
+            audience (str): The intended audience of the token.  If the "aud" claim is
+                included in the claim set, then the audience must be included and must equal
+                the provided claim.
+            issuer (str or iterable): Acceptable value(s) for the issuer of the token.
+                If the "iss" claim is included in the claim set, then the issuer must be
+                given and the claim in the token must be among the acceptable values.
+            subject (str): The subject of the token.  If the "sub" claim is
+                included in the claim set, then the subject must be included and must equal
+                the provided claim.
+            access_token (str): An access token string. If the "at_hash" claim is included in the
+                claim set, then the access_token must be included, and it must match
+                the "at_hash" claim.
+            options (dict): A dictionary of options for skipping validation steps.
+    
+                defaults = {
+                    'verify_signature': True,
+                    'verify_aud': True,
+                    'verify_iat': True,
+                    'verify_exp': True,
+                    'verify_nbf': True,
+                    'verify_iss': True,
+                    'verify_sub': True,
+                    'verify_jti': True,
+                    'verify_at_hash': True,
+                    'require_aud': False,
+                    'require_iat': False,
+                    'require_exp': False,
+                    'require_nbf': False,
+                    'require_iss': False,
+                    'require_sub': False,
+                    'require_jti': False,
+                    'require_at_hash': False,
+                    'leeway': 0,
+                }
+    
+        Returns:
+            dict: The dict representation of the claims set, assuming the signature is valid
+                and all requested data validation passes.
+    
+        Raises:
+            JWTError: If the signature is invalid in any way.
+            ExpiredSignatureError: If the signature has expired.
+            JWTClaimsError: If any claim is invalid in any way.
+    
+        Examples:
+    
+            &gt;&gt;&gt; payload = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8'
+            &gt;&gt;&gt; jwt.decode(payload, 'secret', algorithms='HS256')
+    
+        """
+    
+        defaults = {
+            "verify_signature": True,
+            "verify_aud": True,
+            "verify_iat": True,
+            "verify_exp": True,
+            "verify_nbf": True,
+            "verify_iss": True,
+            "verify_sub": True,
+            "verify_jti": True,
+            "verify_at_hash": True,
+            "require_aud": False,
+            "require_iat": False,
+            "require_exp": False,
+            "require_nbf": False,
+            "require_iss": False,
+            "require_sub": False,
+            "require_jti": False,
+            "require_at_hash": False,
+            "leeway": 0,
+        }
+    
+        if options:
+            defaults.update(options)
+    
+        verify_signature = defaults.get("verify_signature", True)
+    
+        try:
+            payload = jws.verify(token, key, algorithms, verify=verify_signature)
+        except JWSError as e:
+&gt;           raise JWTError(e)
+E           jose.exceptions.JWTError: Invalid payload padding
+
+venv/lib/python3.12/site-packages/jose/jwt.py:156: JWTError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_headers_dict" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_payload_dict" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_audience_checks_aud_claim" time="0.001" /></testsuite></testsuites>

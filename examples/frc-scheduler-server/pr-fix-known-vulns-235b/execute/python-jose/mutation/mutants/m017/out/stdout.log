@@ -1,0 +1,135 @@
+..F.F..F                                                                 [100%]
+=================================== FAILURES ===================================
+___________ test_jwt_decode_with_valid_token_and_key_returns_claims ____________
+
+    def test_jwt_decode_with_valid_token_and_key_returns_claims():
+        """Asserts that jwt.decode returns the claims set when token and key are valid."""
+        payload = {'sub': '1234567890', 'name': 'John Doe'}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+>       decoded = jwt.decode(token, secret, algorithms=[Algorithms.HS256])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:398: in _validate_claims
+    _validate_nbf(claims, leeway=leeway)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '1234567890', 'name': 'John Doe'}, leeway = 0
+
+    def _validate_nbf(claims, leeway=0):
+        """Validates that the 'nbf' claim is valid.
+    
+        The "nbf" (not before) claim identifies the time before which the JWT
+        MUST NOT be accepted for processing.  The processing of the "nbf"
+        claim requires that the current date/time MUST be after or equal to
+        the not-before date/time listed in the "nbf" claim.  Implementers MAY
+        provide for some small leeway, usually no more than a few minutes, to
+        account for clock skew.  Its value MUST be a number containing a
+        NumericDate value.  Use of this claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+            leeway (int): The number of seconds of skew that is allowed.
+        """
+        if 'nbf' in claims:
+            return
+        try:
+>           nbf = int(claims['nbf'])
+                      ^^^^^^^^^^^^^
+E           KeyError: 'nbf'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:227: KeyError
+_______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
+
+    def test_jwt_decode_with_expired_token_raises_ExpiredSignatureError():
+        """Asserts that jwt.decode raises ExpiredSignatureError when exp claim is in the past."""
+        payload = {'sub': '1234567890', 'exp': int(time.time()) - 100}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+        with pytest.raises(jwt.ExpiredSignatureError):
+>           jwt.decode(token, secret, algorithms=[Algorithms.HS256])
+
+tests/test_python_jose_unit.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:398: in _validate_claims
+    _validate_nbf(claims, leeway=leeway)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '1234567890', 'exp': 1790117561}, leeway = 0
+
+    def _validate_nbf(claims, leeway=0):
+        """Validates that the 'nbf' claim is valid.
+    
+        The "nbf" (not before) claim identifies the time before which the JWT
+        MUST NOT be accepted for processing.  The processing of the "nbf"
+        claim requires that the current date/time MUST be after or equal to
+        the not-before date/time listed in the "nbf" claim.  Implementers MAY
+        provide for some small leeway, usually no more than a few minutes, to
+        account for clock skew.  Its value MUST be a number containing a
+        NumericDate value.  Use of this claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+            leeway (int): The number of seconds of skew that is allowed.
+        """
+        if 'nbf' in claims:
+            return
+        try:
+>           nbf = int(claims['nbf'])
+                      ^^^^^^^^^^^^^
+E           KeyError: 'nbf'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:227: KeyError
+________________ test_jwt_decode_with_audience_checks_aud_claim ________________
+
+    def test_jwt_decode_with_audience_checks_aud_claim():
+        """Asserts that jwt.decode validates the aud claim when audience is provided."""
+        payload = {'sub': '123', 'aud': 'test-audience'}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+>       jwt.decode(token, secret, algorithms=[Algorithms.HS256], audience='test-audience')
+
+tests/test_python_jose_unit.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:398: in _validate_claims
+    _validate_nbf(claims, leeway=leeway)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '123', 'aud': 'test-audience'}, leeway = 0
+
+    def _validate_nbf(claims, leeway=0):
+        """Validates that the 'nbf' claim is valid.
+    
+        The "nbf" (not before) claim identifies the time before which the JWT
+        MUST NOT be accepted for processing.  The processing of the "nbf"
+        claim requires that the current date/time MUST be after or equal to
+        the not-before date/time listed in the "nbf" claim.  Implementers MAY
+        provide for some small leeway, usually no more than a few minutes, to
+        account for clock skew.  Its value MUST be a number containing a
+        NumericDate value.  Use of this claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+            leeway (int): The number of seconds of skew that is allowed.
+        """
+        if 'nbf' in claims:
+            return
+        try:
+>           nbf = int(claims['nbf'])
+                      ^^^^^^^^^^^^^
+E           KeyError: 'nbf'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:227: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_valid_token_and_key_returns_claims
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_expired_token_raises_ExpiredSignatureError
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_audience_checks_aud_claim
+3 failed, 5 passed in 0.26s

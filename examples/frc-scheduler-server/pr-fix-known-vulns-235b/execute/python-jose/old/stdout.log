@@ -1,0 +1,273 @@
+FFFF.......                                                              [100%]
+=================================== FAILURES ===================================
+_______________________ test_pysec_2025_185_fix_pinning ________________________
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7faa5b576120>
+plain_text = b'x\x9c\xf3H\xcd\xc9\xc9\xd7Q\x08\xcf/\xcaIQ\x04\x00\x1f\x9e\x04j'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+>           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+>       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_pysec_2025_185_fix_pinning():
+        """Assert that oversized JWE tokens are rejected to prevent DoS."""
+        # Create a small payload
+        plaintext = b"Hello, World!"
+        # Use 32-byte key for A256GCM
+        key = b"01234567890123456789012345678901"
+    
+        # Encrypt with compression
+>       jwe_token = jwe.encrypt(plaintext, key, zip=constants.Zips.DEF)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7faa5b576120>
+plain_text = b'x\x9c\xf3H\xcd\xc9\xc9\xd7Q\x08\xcf/\xcaIQ\x04\x00\x1f\x9e\x04j'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+>           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError
+_________________________ test_pysec_2025_185_exposure _________________________
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7faa5b576b40>
+plain_text = b'x\x9c\xf3H\xcd\xc9\xc9\xd7Q\x08\xcf/\xcaIQ\x04\x00\x1f\x9e\x04j'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+>           iv = get_random_bytes(algorithms.AES.block_size // 8)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:471: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num_bytes = 16
+
+    def get_random_bytes(num_bytes):
+        """
+        Get random bytes
+    
+        Currently, Cryptography returns OS random bytes. If you want OpenSSL
+        generated random bytes, you'll have to switch the RAND engine after
+        initializing the OpenSSL backend
+        Args:
+            num_bytes (int): Number of random bytes to generate and return
+        Returns:
+            bytes: Random bytes
+        """
+        global _binding
+    
+        if _binding is None:
+            _binding = Binding()
+    
+        buf = _binding.ffi.new("char[]", num_bytes)
+>       _binding.lib.RAND_bytes(buf, num_bytes)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'lib' has no attribute 'RAND_bytes'. Did you mean: 'RAND_status'?
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:43: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_pysec_2025_185_exposure():
+        """Same trigger through application call pattern."""
+        # Same as above but ensure we use only symbols from both versions
+        plaintext = b"Hello, World!"
+        key = b"01234567890123456789012345678901"
+    
+>       jwe_token = jwe.encrypt(plaintext, key, zip="DEF")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_cve_cve_2024_29370.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwe.py:54: in encrypt
+    enc_cek, iv, cipher_text, auth_tag = _encrypt_and_auth(key, algorithm, encryption, zip, plaintext, encoded_header)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jwe.py:392: in _encrypt_and_auth
+    iv, ciphertext, auth_tag = encryption_key.encrypt(plaintext, aad)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <jose.backends.cryptography_backend.CryptographyAESKey object at 0x7faa5b576b40>
+plain_text = b'x\x9c\xf3H\xcd\xc9\xc9\xd7Q\x08\xcf/\xcaIQ\x04\x00\x1f\x9e\x04j'
+aad = b'eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiemlwIjoiREVGIn0'
+
+    def encrypt(self, plain_text, aad=None):
+        plain_text = ensure_binary(plain_text)
+        try:
+            iv = get_random_bytes(algorithms.AES.block_size // 8)
+            mode = self._mode(iv)
+            if mode.name == "GCM":
+                cipher = aead.AESGCM(self._key)
+                cipher_text_and_tag = cipher.encrypt(iv, plain_text, aad)
+                cipher_text = cipher_text_and_tag[: len(cipher_text_and_tag) - 16]
+                auth_tag = cipher_text_and_tag[-16:]
+            else:
+                cipher = Cipher(algorithms.AES(self._key), mode, backend=default_backend())
+                encryptor = cipher.encryptor()
+                padder = PKCS7(algorithms.AES.block_size).padder()
+                padded_data = padder.update(plain_text)
+                padded_data += padder.finalize()
+                cipher_text = encryptor.update(padded_data) + encryptor.finalize()
+                auth_tag = None
+            return iv, cipher_text, auth_tag
+        except Exception as e:
+>           raise JWEError(e)
+E           jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'
+
+venv/lib/python3.12/site-packages/jose/backends/cryptography_backend.py:488: JWEError
+_____________________ test_GHSA_6c5p_j8vq_pqhj_fix_pinning _____________________
+
+    def test_GHSA_6c5p_j8vq_pqhj_fix_pinning():
+        """Rejects OpenSSH ECDSA key as HMAC secret."""
+        ssh_key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='  # Valid OpenSSH ECDSA key
+        payload = {"sub": "1234567890", "name": "John Doe"}
+    
+>       with pytest.raises(JWKError, match="asymmetric key or x509 certificate"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE JWKError
+
+tests/test_python_jose_cve_cve_2024_33663.py:13: Failed
+______________________ test_GHSA_6c5p_j8vq_pqhj_exposure _______________________
+
+signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xb9\n6Y\xd4\xa7\xf3"\xeb\xd2\xf4wRB\x8aE\xf18\xf5\xc3\xf0\xd7%1\xd0\xee\xee5\r\xea\xf6 '
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
+algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+    
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+>               raise JWSSignatureError()
+E               jose.exceptions.JWSSignatureError
+
+venv/lib/python3.12/site-packages/jose/jws.py:262: JWSSignatureError
+
+During handling of the above exception, another exception occurred:
+
+    def test_GHSA_6c5p_j8vq_pqhj_exposure():
+        """Application call pattern rejects OpenSSH ECDSA key."""
+        ssh_key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='  # Valid OpenSSH ECDSA key
+        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.uQo2WdSn8yLr0vR3UkKKRfE49cPw1yUx0O7uNQ3q9iA"
+    
+        with pytest.raises(JWKError, match="asymmetric key or x509 certificate"):
+>           jws.verify(token, ssh_key, ["HS256"])
+
+tests/test_python_jose_cve_cve_2024_33663.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:73: in verify
+    _verify_signature(signing_input, header, signature, key, algorithms)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xb9\n6Y\xd4\xa7\xf3"\xeb\xd2\xf4wRB\x8aE\xf18\xf5\xc3\xf0\xd7%1\xd0\xee\xee5\r\xea\xf6 '
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
+algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+    
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+                raise JWSSignatureError()
+        except JWSSignatureError:
+>           raise JWSError("Signature verification failed.")
+E           jose.exceptions.JWSError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jws.py:264: JWSError
+=============================== warnings summary ===============================
+tests/test_python_jose_unit.py::test_jwt_decode_with_expired_token_raises_ExpiredSignatureError
+  /work/venv/lib/python3.12/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_pysec_2025_185_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_29370.py::test_pysec_2025_185_exposure
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_GHSA_6c5p_j8vq_pqhj_fix_pinning
+FAILED tests/test_python_jose_cve_cve_2024_33663.py::test_GHSA_6c5p_j8vq_pqhj_exposure
+4 failed, 7 passed, 1 warning in 0.40s

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.263" timestamp="2026-09-22T22:50:55.493952+00:00" hostname="000a9dc59995"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.004" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="KeyError: 'iat'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
+        """Asserts that jwt.decode returns the claims set when token and key are valid."""
+        payload = {'sub': '1234567890', 'name': 'John Doe'}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+&gt;       decoded = jwt.decode(token, secret, algorithms=[Algorithms.HS256])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:396: in _validate_claims
+    _validate_iat(claims)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '1234567890', 'name': 'John Doe'}
+
+    def _validate_iat(claims):
+        """Validates that the 'iat' claim is valid.
+    
+        The "iat" (issued at) claim identifies the time at which the JWT was
+        issued.  This claim can be used to determine the age of the JWT.  Its
+        value MUST be a number containing a NumericDate value.  Use of this
+        claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+        """
+        if 'iat' in claims:
+            return
+        try:
+&gt;           int(claims['iat'])
+                ^^^^^^^^^^^^^
+E           KeyError: 'iat'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:205: KeyError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_invalid_signature_raises_JWTError" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="KeyError: 'iat'">def test_jwt_decode_with_expired_token_raises_ExpiredSignatureError():
+        """Asserts that jwt.decode raises ExpiredSignatureError when exp claim is in the past."""
+        payload = {'sub': '1234567890', 'exp': int(time.time()) - 100}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+        with pytest.raises(jwt.ExpiredSignatureError):
+&gt;           jwt.decode(token, secret, algorithms=[Algorithms.HS256])
+
+tests/test_python_jose_unit.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:396: in _validate_claims
+    _validate_iat(claims)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '1234567890', 'exp': 1790117355}
+
+    def _validate_iat(claims):
+        """Validates that the 'iat' claim is valid.
+    
+        The "iat" (issued at) claim identifies the time at which the JWT was
+        issued.  This claim can be used to determine the age of the JWT.  Its
+        value MUST be a number containing a NumericDate value.  Use of this
+        claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+        """
+        if 'iat' in claims:
+            return
+        try:
+&gt;           int(claims['iat'])
+                ^^^^^^^^^^^^^
+E           KeyError: 'iat'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:205: KeyError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_headers_dict" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_payload_dict" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_audience_checks_aud_claim" time="0.001"><failure message="KeyError: 'iat'">def test_jwt_decode_with_audience_checks_aud_claim():
+        """Asserts that jwt.decode validates the aud claim when audience is provided."""
+        payload = {'sub': '123', 'aud': 'test-audience'}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+&gt;       jwt.decode(token, secret, algorithms=[Algorithms.HS256], audience='test-audience')
+
+tests/test_python_jose_unit.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:396: in _validate_claims
+    _validate_iat(claims)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '123', 'aud': 'test-audience'}
+
+    def _validate_iat(claims):
+        """Validates that the 'iat' claim is valid.
+    
+        The "iat" (issued at) claim identifies the time at which the JWT was
+        issued.  This claim can be used to determine the age of the JWT.  Its
+        value MUST be a number containing a NumericDate value.  Use of this
+        claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+        """
+        if 'iat' in claims:
+            return
+        try:
+&gt;           int(claims['iat'])
+                ^^^^^^^^^^^^^
+E           KeyError: 'iat'
+
+venv/lib/python3.12/site-packages/jose/jwt.py:205: KeyError</failure></testcase></testsuite></testsuites>

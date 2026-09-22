@@ -1,0 +1,417 @@
+{
+  "package": "python-jose",
+  "records": [
+    {
+      "category": "cve",
+      "file": "tests/test_python_jose_cve_cve_2024_33663.py",
+      "file_sha256": "sha256:cd42b7f58f2fc0a51a4e2fd7d5bffd98fbab5c854cf0a360e8c202fa8c90b82d",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "agent: see manifest.agent.json",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "GHSA-6c5p-j8vq-pqhj",
+          "PYSEC-2024-232"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_GHSA_6c5p_j8vq_pqhj_exposure::cd42b7f58f2f",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "changed",
+        "flake_runs": 2,
+        "mutants_killed": 2,
+        "unique_mutants_killed": 0
+      },
+      "vulnerability": {
+        "id": "",
+        "role": "exposure",
+        "vex_justification": "accept as CVE evidence; VEX status fixed",
+        "vex_statement_ref": "packet/python-jose/vex.openvex.json",
+        "vex_status": "under_investigation"
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_with_audience_checks_aud_claim::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 9,
+        "unique_mutants_killed": 1
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_with_expired_token_raises_ExpiredSignatureError::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 9,
+        "unique_mutants_killed": 1
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_with_invalid_signature_raises_JWTError::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 2,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_decode_with_valid_token_and_key_returns_claims::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 8,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_encode_returns_string_with_hs256::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 5,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_claims_returns_payload_dict::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 5,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/test_python_jose_unit.py",
+      "file_sha256": "sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44",
+      "generated_from": {
+        "sbom_component": "pkg:pypi/python-jose@3.4.0",
+        "source_ref": "requirements.txt@cfa8f4a3292b"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-22T22:59:04+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "docker.io/library/python:3.12-slim",
+        "image_digest": "sha256:2fe5997d249a808b8eeea52c58a1dbffbba28754dc11699ef5c029f2d818ce79",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:a4cb3bcec35da7105a5186f7174177f28efaaba500d97fca8519c10e97c7d20a",
+        "run_id": "6a9a03828b7f",
+        "tool_versions": {
+          "git": "git version 2.55.0",
+          "pip": "pip 26.0.1",
+          "python": "3.14.7"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "app/auth.py"
+        ],
+        "purl": "pkg:pypi/python-jose@3.4.0",
+        "symbols": [
+          "jose.JWTError",
+          "jose.jwt",
+          "jose.jwt.decode",
+          "jose.jwt.encode",
+          "jose.jwt.get_unverified_header"
+        ],
+        "version_range": "==3.4.0"
+      },
+      "test_id": "python-jose::test_jwt_get_unverified_header_returns_headers_dict::bcc9e29e0c96",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 5,
+        "unique_mutants_killed": 0
+      }
+    }
+  ]
+}

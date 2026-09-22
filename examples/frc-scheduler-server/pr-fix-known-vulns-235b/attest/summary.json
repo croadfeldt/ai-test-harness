@@ -1,0 +1,24 @@
+{
+  "generated": "2026-09-22T22:59:04+00:00",
+  "packages": [
+    {
+      "envelope": "attest/python-jose/statement.dsse.json",
+      "generated": "2026-09-22T22:59:04+00:00",
+      "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+      "manifest": "attest/python-jose/MANIFEST.json",
+      "manifest_sha256": "sha256:d14d448a78d6afdf9da5f196ba8803eb65994f250394c29bb4d22d074e0125ec",
+      "package": "python-jose",
+      "records": 8,
+      "result": "PASSED",
+      "signer": "local Ed25519 development key (~/.config/ai-test-harness/signing.key); Trusted Artifact Signer in Konflux",
+      "statement": "attest/python-jose/statement.json",
+      "udlm": {
+        "index": "attest/python-jose/udlm/index.json",
+        "schema_problems": 0,
+        "sealed": true,
+        "subjects": 8
+      },
+      "verified_locally": true
+    }
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "base": "2ad04243861b",
+  "catalogue": [
+    {
+      "audience": "everyone",
+      "path": "README.md",
+      "purpose": "The story of this run: who, what, why, where, when, the outcome, the decisions and the actions."
+    },
+    {
+      "audience": "audit",
+      "path": "run.json",
+      "purpose": "What was run, with which tool versions, on which repository by name."
+    },
+    {
+      "audience": "machine",
+      "path": "run-index.json",
+      "purpose": "What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it."
+    },
+    {
+      "audience": "audit",
+      "path": "selfcheck/selfcheck.json",
+      "purpose": "Stage 0: every failure-register check and the sandbox and model probes, before any evidence was produced."
+    },
+    {
+      "audience": "reviewer",
+      "path": "intake/worklist.json",
+      "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.new.json",
+      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
+    },
+    {
+      "audience": "machine",
+      "path": "intake/graph.old.json",
+      "purpose": "The dependency graph at base."
+    },
+    {
+      "audience": "audit",
+      "path": "intake/sbom.new.cdx.json",
+      "purpose": "The software bill of materials at head, CycloneDX."
+    },
+    {
+      "audience": "security",
+      "path": "intake/vulns.json",
+      "purpose": "Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/facts.json",
+      "purpose": "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."
+    },
+    {
+      "audience": "security",
+      "package": "python-jose",
+      "path": "analyze/python-jose/vulns.json",
+      "purpose": "The advisories on this package's versions, with the symbols they name and the fixed versions."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api-diff.json",
+      "purpose": "Every added, removed or changed public symbol between the two versions, with a breaking flag."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api.new.json",
+      "purpose": "The public API surface at head, extracted by tools."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/api.old.json",
+      "purpose": "The public API surface at base."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "analyze/python-jose/call-sites.json",
+      "purpose": "Every place the application references this package."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/source-diff.patch",
+      "purpose": "The package's own source diff between the versions; the model reads it to find the fix."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "analyze/python-jose/notes.untrusted.md",
+      "purpose": "Package metadata and description as published upstream; untrusted text, kept for context."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "generate/python-jose/manifest.json",
+      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests."
+    },
+    {
+      "audience": "developer",
+      "package": "python-jose",
+      "path": "generate/python-jose/manifest.agent.json",
+      "purpose": "The tool-using agent's traces: every tool call per advisory, and the budget it had."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "generate/python-jose/tests/",
+      "purpose": "The candidate test files as generated, before any decision."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "generate/python-jose/model-calls/",
+      "purpose": "Every prompt and every response, numbered, with the call's settings; the full transcript of what the model saw and said."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "execute/python-jose/results.json",
+      "purpose": "The verdict per test: outcome on head, on the re-run and on the other version, coverage, and how each was judged."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/new/",
+      "purpose": "The sealed run on head: the run script, the junit report, coverage, logs."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/new-rerun/",
+      "purpose": "The second run on head, to catch flakes."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/old/",
+      "purpose": "The run on the base version, for the differential."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "execute/python-jose/mutation/mutation.json",
+      "purpose": "How strong the accepted tests are: which mutants of the package's source they killed, and the score."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "execute/python-jose/mutation/mutants/",
+      "purpose": "Each sampled mutant: the mutated file and its sealed run."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "execute/python-jose/relevance.json",
+      "purpose": "Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "triage/python-jose/triage.json",
+      "purpose": "Every verdict and finding classified, with a confidence and a route; below the threshold a person decides."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "packet/python-jose/packet.md",
+      "purpose": "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."
+    },
+    {
+      "audience": "machine",
+      "package": "python-jose",
+      "path": "packet/python-jose/packet.json",
+      "purpose": "The packet's facts in structured form."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "packet/python-jose/tests.patch",
+      "purpose": "The accepted tests as a patch in the layout they will live in."
+    },
+    {
+      "audience": "security",
+      "package": "python-jose",
+      "path": "packet/python-jose/vex.openvex.json",
+      "purpose": "One draft VEX statement per advisory, with its basis; a proposal for Product Security, never published by the harness."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "packet/python-jose/pull-request.md",
+      "purpose": "The text and the file list the test pull request carries, whether or not one was opened."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/MANIFEST.json",
+      "purpose": "The provenance record per accepted test: model, prompt and response digests, sandbox image digest, verdicts."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/statement.json",
+      "purpose": "The in-toto test-result statement; its subjects are the patch, the record and each evidence record's head."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/statement.dsse.json",
+      "purpose": "The statement signed as a DSSE envelope."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/signer.pub.pem",
+      "purpose": "The public key that verifies the envelope."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/attest.json",
+      "purpose": "Which key signed, whether it verified locally, and what the run could not back."
+    },
+    {
+      "audience": "audit",
+      "package": "python-jose",
+      "path": "attest/python-jose/udlm/",
+      "purpose": "The same facts as sealed UDLM records: the vulnerability, the package, the run, each accepted test, the draft VEX."
+    },
+    {
+      "audience": "everyone",
+      "path": "assess/assess.md",
+      "purpose": "The run against the blueprint's eleven goals, each with the measurement and the file it came from."
+    },
+    {
+      "audience": "machine",
+      "path": "assess/assess.json",
+      "purpose": "The assessment in structured form."
+    }
+  ],
+  "ecosystem": "python",
+  "files": {
+    "assess": "assess/assess.md",
+    "run": "run.json",
+    "sbom": "intake/sbom.new.cdx.json",
+    "selfcheck": "selfcheck/selfcheck.json",
+    "worklist": "intake/worklist.json"
+  },
+  "format": "ai-test-harness/run-index/v1",
+  "generation_mode": "agent",
+  "goals": {
+    "met": 9,
+    "not_applicable": 0,
+    "not_met": 1,
+    "other": 1
+  },
+  "harness_version": "0.1.0",
+  "head": "cfa8f4a3292b",
+  "mode": "diff",
+  "model": "qwen3-235b",
+  "packages": [
+    {
+      "advisories": 0,
+      "attestation": {
+        "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
+        "result": "PASSED"
+      },
+      "budget": "full",
+      "change": "bumped",
+      "depth": 1,
+      "files": {
+        "analyze/api-diff.json": "analyze/python-jose/api-diff.json",
+        "analyze/facts.json": "analyze/python-jose/facts.json",
+        "analyze/vulns.json": "analyze/python-jose/vulns.json",
+        "attest/MANIFEST.json": "attest/python-jose/MANIFEST.json",
+        "attest/attest.json": "attest/python-jose/attest.json",
+        "attest/signer.pub.pem": "attest/python-jose/signer.pub.pem",
+        "attest/statement.dsse.json": "attest/python-jose/statement.dsse.json",
+        "attest/statement.json": "attest/python-jose/statement.json",
+        "attest/udlm/index.json": "attest/python-jose/udlm/index.json",
+        "execute/mutation.json": "execute/python-jose/mutation/mutation.json",
+        "execute/relevance.json": "execute/python-jose/relevance.json",
+        "execute/results.json": "execute/python-jose/results.json",
+        "generate/manifest.agent.json": "generate/python-jose/manifest.agent.json",
+        "generate/manifest.json": "generate/python-jose/manifest.json",
+        "packet/packet.json": "packet/python-jose/packet.json",
+        "packet/packet.md": "packet/python-jose/packet.md",
+        "packet/tests.patch": "packet/python-jose/tests.patch",
+        "packet/vex.openvex.json": "packet/python-jose/vex.openvex.json",
+        "triage/triage.json": "triage/python-jose/triage.json"
+      },
+      "first_party": false,
+      "mutation": {
+        "killed": 10,
+        "sampled": 25,
+        "score": 0.4,
+        "status": "ran"
+      },
+      "new_version": "3.4.0",
+      "old_version": "3.3.0",
+      "package": "python-jose",
+      "proposal": null,
+      "review": null,
+      "tests": {
+        "accepted": 8,
+        "flaky": 0,
+        "generated": 11,
+        "pass_on_head": 8,
+        "proven": 1,
+        "ran": 11
+      }
+    }
+  ],
+  "repository": "frc-scheduler-server",
+  "run_id": "6a9a03828b7f",
+  "stages": {
+    "analyze": {
+      "generated": "2026-09-22T20:12:42+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "run_id": "6a9a03828b7f"
+      }
+    },
+    "assess": {
+      "generated": "2026-09-22T22:59:04+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "met": 9,
+        "not_applicable": 0,
+        "not_met": 1,
+        "other": 1
+      }
+    },
+    "attest": {
+      "generated": "2026-09-22T22:59:04+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "execute": {
+      "generated": "2026-09-22T22:48:32+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "feedback": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "generate": {
+      "generated": "2026-09-22T22:47:29+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {
+        "mode": "agent",
+        "model": "qwen3-235b"
+      }
+    },
+    "intake": {
+      "generated": null,
+      "present": true,
+      "rows": null,
+      "summary": {
+        "changed": 5,
+        "packages_at_base": 63,
+        "packages_at_head": 63,
+        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.14 25.0.1), wheels only",
+        "with_advisories_at_head": 4,
+        "work_list_rows": 64
+      }
+    },
+    "packet": {
+      "generated": "2026-09-22T22:59:03+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    },
+    "propose": {
+      "generated": null,
+      "present": false,
+      "rows": null,
+      "summary": {}
+    },
+    "selfcheck": {
+      "generated": "2026-09-22T22:59:04+00:00",
+      "present": true,
+      "rows": null,
+      "summary": {
+        "checks": 26,
+        "model": "skipped",
+        "passed": true,
+        "sandbox": "skipped"
+      }
+    },
+    "triage": {
+      "generated": "2026-09-22T22:57:07+00:00",
+      "present": true,
+      "rows": 1,
+      "summary": {}
+    }
+  },
+  "started": "2026-09-22T20:11:29+00:00",
+  "updated": "2026-09-22T22:59:22+00:00"
+}

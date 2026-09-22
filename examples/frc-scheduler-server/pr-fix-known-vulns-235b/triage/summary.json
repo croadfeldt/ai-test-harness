@@ -1,0 +1,14 @@
+{
+  "generated": "2026-09-22T22:57:07+00:00",
+  "packages": [
+    {
+      "blocking": [],
+      "cve_confirmed": 1,
+      "escalated": 7,
+      "findings": 8,
+      "package": "python-jose",
+      "tests_accept": 8,
+      "tests_discard_or_regenerate": 3
+    }
+  ]
+}
