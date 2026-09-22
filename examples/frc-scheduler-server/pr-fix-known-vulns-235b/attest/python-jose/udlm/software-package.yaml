@@ -3,7 +3,7 @@
 record_type: discovered_record
 state: Discovered
 entity_uuid: 2d132030-6c87-4236-9421-0a6e7ed30bc4
-record_uuid: 01a0cb58-1b2e-7783-bd0e-14d7ac986384
+record_uuid: 01a0cb61-429c-7315-84d1-53acd2373f98
 tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
 conforms_to: udlm/0.1
 resource_type: SoftwarePackage
@@ -27,6 +27,6 @@ provenance:
     sequence: 1
     timestamp: '2026-09-22T22:48:32Z'
 integrity:
-  head: sha256:efc574718a5a0cf9df45461a8ba478e09decacdb010be87eaa1e1e841ec27a74
+  head: sha256:de2cc7c7e15aee0d8c280119f927929b924e4d6bc44bb748713f5f103810b88a
   previous: null
   algorithm: sha256-jcs

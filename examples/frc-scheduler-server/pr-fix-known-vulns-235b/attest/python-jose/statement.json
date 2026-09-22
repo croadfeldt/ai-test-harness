@@ -231,7 +231,7 @@
           ]
         },
         "digest": {
-          "sha256": "d14d448a78d6afdf9da5f196ba8803eb65994f250394c29bb4d22d074e0125ec"
+          "sha256": "e19d27489dfac64e40386badf38c9115fe1dc8b1bf24fd23f0a7695eeadb28bc"
         },
         "name": "ai-test-harness-record"
       }
@@ -265,55 +265,55 @@
     },
     {
       "digest": {
-        "sha256": "d14d448a78d6afdf9da5f196ba8803eb65994f250394c29bb4d22d074e0125ec"
+        "sha256": "e19d27489dfac64e40386badf38c9115fe1dc8b1bf24fd23f0a7695eeadb28bc"
       },
       "name": "attest/python-jose/MANIFEST.json"
     },
     {
       "digest": {
-        "sha256": "00831547c84d0c8a6912638711869fe0a11df19e6d17aecc573fbd4644b0c8f2"
+        "sha256": "32c09014da0dab01d5bf2d112faed8f0d534f8ccb4d7d069439ea4e98b09365e"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure@intent"
     },
     {
       "digest": {
-        "sha256": "fc38283d2b5ed9b38c44e4dadf0f6f268b5320be1bf9ef7cce64838dda01d0b5"
+        "sha256": "4bfd4a4e9dd1a0219c1925a3e2bff61dba33857dd8192583054c053138aacd92"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-audience-checks-aud-claim@intent"
     },
     {
       "digest": {
-        "sha256": "4ee3538fe04a310ba193d0e7de7f3e7cd77f7fc6a7b1984f768cda6f95559d73"
+        "sha256": "89339181f9c7f3e3e2a5269b14e5e894596c4e3e3002918b8fe3a01260226cec"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-expired-token-raises-expiredsi@intent"
     },
     {
       "digest": {
-        "sha256": "f5e0a15ce1be280699c9c6ff78c9443a0430c2071775fafd75177cda24f3b0b0"
+        "sha256": "c06a90de875969077333bad984402add112d8d0c3eb28fd0f1f3beb7f11b57f0"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-invalid-signature-raises-jwter@intent"
     },
     {
       "digest": {
-        "sha256": "5fa8fea036720f7ff6eba772d1ade29ca671d988f249cf363fcb1af91f795347"
+        "sha256": "183cac55cf05a6634161b7f232404d8acfbd14eedae872751887ff9a55bca60b"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-valid-token-and-key-returns-cl@intent"
     },
     {
       "digest": {
-        "sha256": "179fdc34f5f33a86c441ff66e4fc50b8b63a2fadb8db795ee57684e0a273b8b6"
+        "sha256": "f4a3746fb117f034df2a24a618674353701afa43a7cc39acae60c5d812622781"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-encode-returns-string-with-hs256@intent"
     },
     {
       "digest": {
-        "sha256": "6b547a9dec1c009e97b607c62ce8307fc964b438ef4b361ba54486d38a719feb"
+        "sha256": "8a10f9e6c30015daa8f507fe6bb7bf5fa541dd8fbc9cf98044e5966dc8803887"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims-returns-payload-dict@intent"
     },
     {
       "digest": {
-        "sha256": "445045622416f6773d042070b2c349c731a112e4b854be73fb43c00c95f5308d"
+        "sha256": "77166499a44d23207aed95994b2685cf63f0a50e6305451c09b4750174c25688"
       },
       "name": "udlm:lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header-returns-headers-dict@intent"
     }

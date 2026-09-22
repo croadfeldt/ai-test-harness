@@ -1,0 +1,26 @@
+--- a/jose/backends/base.py
++++ b/jose/backends/base.py
+@@ -1,5 +1,4 @@
+ from ..utils import base64url_encode, ensure_binary
+-
+ 
+ class Key:
+     """
+@@ -75,15 +74,11 @@
+         """
+         raise NotImplementedError()
+ 
++class DIRKey(Key):
+ 
+-class DIRKey(Key):
+     def __init__(self, key_data, algorithm):
+         self._key = ensure_binary(key_data)
+         self._alg = algorithm
+ 
+     def to_dict(self):
+-        return {
+-            "alg": self._alg,
+-            "kty": "oct",
+-            "k": base64url_encode(self._key),
+-        }
++        return None

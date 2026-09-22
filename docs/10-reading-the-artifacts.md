@@ -215,7 +215,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `execute/new-rerun/` | The second run on head, to catch flakes. |
 | `execute/old/` | The run on the base version, for the differential. |
 | `execute/fixed-candidate/` | The run on the resolved fixed version, for the differential when the change did not move the package. |
-| `execute/mutation/mutants/` | Each sampled mutant: the mutated file and its sealed run. |
+| `execute/mutation/mutants/` | Each sampled mutant: its change as a patch, and its sealed run's output. |
 | `packet/packet.json` | The packet's facts in structured form. |
 | `assess/assess.json` | The assessment in structured form. |
 | `feedback/decisions.jsonl` | One labeled example per test for prompt evaluation: the decision with the prompt and response digests behind it. |

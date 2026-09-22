@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="0.367" timestamp="2026-09-22T22:55:22.601570+00:00" hostname="21e318333689"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003"><failure message="jose.exceptions.JWSError: Signature verification failed.">signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="0.367" timestamp="2026-09-22T23:07:17.904620+00:00" hostname="50bb12107ba6"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003"><failure message="jose.exceptions.JWSError: Signature verification failed.">signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 header = {'alg': 'HS256', 'typ': 'JWT'}
 signature = b'\xb9\n6Y\xd4\xa7\xf3"\xeb\xd2\xf4wRB\x8aE\xf18\xf5\xc3\xf0\xd7%1\xd0\xee\xee5\r\xea\xf6 '
 key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
@@ -154,7 +154,7 @@ algorithm = 'HS256', key = None
 E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_invalid_signature_raises_JWTError" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MzM4fQ'
 algorithm = 'HS256', key = None
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -188,7 +188,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MzM4fQ'
 algorithm = 'HS256', key = None
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):

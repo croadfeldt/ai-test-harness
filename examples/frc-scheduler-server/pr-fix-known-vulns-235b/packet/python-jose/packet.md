@@ -2,7 +2,7 @@
 
 **In plain terms.** This change updates python-jose from 3.3.0 to 3.4.0, which closes 3 known vulnerabilities. The harness proved 1 of the 3 with a test that fails on the vulnerable version and passes on the fixed one; the other 2 are unproven and marked so. Accept the 8 candidate tests if they look right, act on the findings below, and send the draft VEX statements to Product Security.
 
-Run `6a9a03828b7f`. Generated 2026-09-22T22:59:03+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
+Run `6a9a03828b7f`. Generated 2026-09-22T23:09:03+00:00. This packet proposes; a reviewer decides. Nothing here has been merged.
 
 ## What changed
 python-jose at depth 1, change `bumped`, reachable from first-party code: **true** (8 production references). Risk score 51, budget full.

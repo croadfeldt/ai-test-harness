@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="8" time="0.467" timestamp="2026-09-22T22:54:00.328778+00:00" hostname="0cdeede546aa"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="8" time="0.463" timestamp="2026-09-22T23:05:55.303911+00:00" hostname="11669d2d6d36"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd9967ab0b0&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -14,7 +14,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd9967ab0b0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 msg = None
 
     def sign(self, msg):
@@ -48,7 +48,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd9967ab0b0&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -63,7 +63,7 @@ E           jose.exceptions.JWSError: Cannot convert "&lt;class 'NoneType'&gt;" 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648c7d0&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b344a0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -76,7 +76,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648c7d0&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b344a0&gt;
 msg = None
 
     def sign(self, msg):
@@ -110,7 +110,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648c7d0&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b344a0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -123,9 +123,9 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 E           jose.exceptions.JWSError: Cannot convert "&lt;class 'NoneType'&gt;" instance to a buffer.
 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_invalid_signature_raises_JWTError" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTQwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjU1fQ'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661f620&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af06b0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -138,7 +138,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661f620&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af06b0&gt;
 msg = None
 
     def sign(self, msg):
@@ -170,9 +170,9 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NTQwfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MjU1fQ'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661f620&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af06b0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -186,7 +186,7 @@ E           jose.exceptions.JWSError: Cannot convert "&lt;class 'NoneType'&gt;" 
 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_headers_dict" time="0.001"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsImtpZCI6ImFiYzEyMyIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIn0', algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661d040&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af0ef0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -199,7 +199,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661d040&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af0ef0&gt;
 msg = None
 
     def sign(self, msg):
@@ -232,7 +232,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsImtpZCI6ImFiYzEyMyIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIn0', algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661d040&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af0ef0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -247,7 +247,7 @@ E           jose.exceptions.JWSError: Cannot convert "&lt;class 'NoneType'&gt;" 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_payload_dict" time="0.001"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiYWRtaW4iOnRydWV9'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648e900&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -260,7 +260,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648e900&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 msg = None
 
     def sign(self, msg):
@@ -294,7 +294,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiYWRtaW4iOnRydWV9'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99648e900&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776b354c0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -309,7 +309,7 @@ E           jose.exceptions.JWSError: Cannot convert "&lt;class 'NoneType'&gt;" 
 venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_audience_checks_aud_claim" time="0.001"><failure message="jose.exceptions.JWSError: Cannot convert &quot;&lt;class 'NoneType'&gt;&quot; instance to a buffer.">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjMiLCJhdWQiOiJ0ZXN0LWF1ZGllbmNlIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661c530&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af04a0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])
@@ -322,7 +322,7 @@ key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd
 venv/lib/python3.12/site-packages/jose/jws.py:165: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661c530&gt;
+self = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af04a0&gt;
 msg = None
 
     def sign(self, msg):
@@ -356,7 +356,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 encoded_claims = b'eyJzdWIiOiIxMjMiLCJhdWQiOiJ0ZXN0LWF1ZGllbmNlIn0'
 algorithm = 'HS256'
-key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd99661c530&gt;
+key = &lt;jose.backends.cryptography_backend.CryptographyHMACKey object at 0x7fd776af04a0&gt;
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
         signing_input = b".".join([encoded_header, encoded_claims])

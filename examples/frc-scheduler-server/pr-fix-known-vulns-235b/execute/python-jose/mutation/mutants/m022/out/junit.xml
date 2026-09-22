@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.235" timestamp="2026-09-22T22:56:03.590064+00:00" hostname="fe7e4c9a670f"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="AttributeError: 'NoneType' object has no attribute 'decode'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="0.232" timestamp="2026-09-22T23:07:59.116631+00:00" hostname="f3cee32ec0ea"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.003" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="AttributeError: 'NoneType' object has no attribute 'decode'">def test_jwt_decode_with_valid_token_and_key_returns_claims():
         """Asserts that jwt.decode returns the claims set when token and key are valid."""
         payload = {'sub': '1234567890', 'name': 'John Doe'}
         secret = 'secret'
@@ -122,7 +122,7 @@ venv/lib/python3.12/site-packages/jose/jwt.py:162: AttributeError</failure></tes
 tests/test_python_jose_unit.py:39: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjYzfQ.HVDJlAiu3MZ25XniQ-mRN_w2HdwQpcnCegh4UDA4FVQ'
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4Mzc5fQ.w-tK_PkSiCbauENLXhv-3ehCPfoSzJE7K1iUNNehr9Q'
 key = 'secret', algorithms = ['HS256'], options = None, audience = None
 issuer = None, subject = None, access_token = None
 

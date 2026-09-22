@@ -1,25 +1,27 @@
 {
   "engine": "harness python mutator (diff- and coverage-scoped)",
-  "generated": "2026-09-22T22:57:06+00:00",
+  "generated": "2026-09-22T23:09:02+00:00",
   "invalid": 0,
   "killed": 10,
   "mutants": [
     {
-      "duration_s": 20.6,
+      "duration_s": 20.5,
       "file": "jose/utils.py",
       "id": "m001",
       "killed_by": [],
       "line": 139,
       "operator": "return-none",
+      "patch": "mutants/m001/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.8,
       "file": "jose/backends/cryptography_backend.py",
       "id": "m002",
       "killed_by": [],
       "line": 463,
       "operator": "boolop-swap",
+      "patch": "mutants/m002/mutant.patch",
       "status": "survived"
     },
     {
@@ -29,10 +31,11 @@
       "killed_by": [],
       "line": 441,
       "operator": "return-none",
+      "patch": "mutants/m003/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.5,
+      "duration_s": 20.6,
       "file": "jose/jwt.py",
       "id": "m004",
       "killed_by": [
@@ -40,10 +43,11 @@
       ],
       "line": 357,
       "operator": "not-drop",
+      "patch": "mutants/m004/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.8,
+      "duration_s": 21.0,
       "file": "jose/utils.py",
       "id": "m005",
       "killed_by": [
@@ -57,10 +61,11 @@
       ],
       "line": 165,
       "operator": "const-bool",
+      "patch": "mutants/m005/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.6,
+      "duration_s": 20.5,
       "file": "jose/utils.py",
       "id": "m006",
       "killed_by": [
@@ -68,10 +73,11 @@
       ],
       "line": 73,
       "operator": "const-int",
+      "patch": "mutants/m006/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.9,
+      "duration_s": 20.4,
       "file": "jose/jwt.py",
       "id": "m007",
       "killed_by": [
@@ -81,6 +87,7 @@
       ],
       "line": 260,
       "operator": "compare-swap",
+      "patch": "mutants/m007/mutant.patch",
       "status": "killed"
     },
     {
@@ -90,15 +97,17 @@
       "killed_by": [],
       "line": 467,
       "operator": "boolop-swap",
+      "patch": "mutants/m008/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.6,
       "file": "jose/jwe.py",
       "id": "m009",
       "killed_by": [],
       "line": 362,
       "operator": "return-none",
+      "patch": "mutants/m009/mutant.patch",
       "status": "survived"
     },
     {
@@ -108,33 +117,37 @@
       "killed_by": [],
       "line": 483,
       "operator": "compare-swap",
+      "patch": "mutants/m010/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.5,
       "file": "jose/jwe.py",
       "id": "m011",
       "killed_by": [],
       "line": 435,
       "operator": "compare-swap",
+      "patch": "mutants/m011/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.6,
+      "duration_s": 20.4,
       "file": "jose/jws.py",
       "id": "m012",
       "killed_by": [],
       "line": 181,
       "operator": "const-int",
+      "patch": "mutants/m012/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.5,
       "file": "jose/backends/base.py",
       "id": "m013",
       "killed_by": [],
       "line": 85,
       "operator": "return-none",
+      "patch": "mutants/m013/mutant.patch",
       "status": "survived"
     },
     {
@@ -144,10 +157,11 @@
       "killed_by": [],
       "line": 269,
       "operator": "const-int",
+      "patch": "mutants/m014/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.5,
+      "duration_s": 20.7,
       "file": "jose/jwk.py",
       "id": "m015",
       "killed_by": [
@@ -162,10 +176,11 @@
       ],
       "line": 77,
       "operator": "not-drop",
+      "patch": "mutants/m015/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.6,
+      "duration_s": 20.7,
       "file": "jose/utils.py",
       "id": "m016",
       "killed_by": [
@@ -178,6 +193,7 @@
       ],
       "line": 105,
       "operator": "return-none",
+      "patch": "mutants/m016/mutant.patch",
       "status": "killed"
     },
     {
@@ -191,15 +207,17 @@
       ],
       "line": 285,
       "operator": "compare-swap",
+      "patch": "mutants/m017/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.5,
       "file": "jose/backends/cryptography_backend.py",
       "id": "m018",
       "killed_by": [],
       "line": 453,
       "operator": "compare-swap",
+      "patch": "mutants/m018/mutant.patch",
       "status": "survived"
     },
     {
@@ -209,10 +227,11 @@
       "killed_by": [],
       "line": 167,
       "operator": "raise-drop",
+      "patch": "mutants/m019/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.6,
+      "duration_s": 20.8,
       "file": "jose/jwk.py",
       "id": "m020",
       "killed_by": [
@@ -226,19 +245,21 @@
       ],
       "line": 79,
       "operator": "return-none",
+      "patch": "mutants/m020/mutant.patch",
       "status": "killed"
     },
     {
-      "duration_s": 20.4,
+      "duration_s": 20.5,
       "file": "jose/backends/cryptography_backend.py",
       "id": "m021",
       "killed_by": [],
       "line": 467,
       "operator": "compare-swap",
+      "patch": "mutants/m021/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.3,
+      "duration_s": 20.5,
       "file": "jose/jws.py",
       "id": "m022",
       "killed_by": [
@@ -248,6 +269,7 @@
       ],
       "line": 79,
       "operator": "return-none",
+      "patch": "mutants/m022/mutant.patch",
       "status": "killed"
     },
     {
@@ -257,6 +279,7 @@
       "killed_by": [],
       "line": 467,
       "operator": "const-int",
+      "patch": "mutants/m023/mutant.patch",
       "status": "survived"
     },
     {
@@ -266,10 +289,11 @@
       "killed_by": [],
       "line": 44,
       "operator": "compare-swap",
+      "patch": "mutants/m024/mutant.patch",
       "status": "survived"
     },
     {
-      "duration_s": 20.7,
+      "duration_s": 20.6,
       "file": "jose/jws.py",
       "id": "m025",
       "killed_by": [
@@ -282,6 +306,7 @@
       ],
       "line": 173,
       "operator": "return-none",
+      "patch": "mutants/m025/mutant.patch",
       "status": "killed"
     }
   ],

@@ -167,7 +167,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError
 _______ test_jwt_decode_with_expired_token_raises_ExpiredSignatureError ________
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MzM4fQ'
 algorithm = 'HS256', key = None
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
@@ -201,7 +201,7 @@ venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE4MzM4fQ'
 algorithm = 'HS256', key = None
 
     def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):

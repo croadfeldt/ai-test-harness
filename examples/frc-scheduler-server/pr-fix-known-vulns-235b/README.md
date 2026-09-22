@@ -14,7 +14,7 @@ What happened, why, and what came out of it. Written by the harness from its own
 | What | Tests for python-jose 3.3.0 to 3.4.0, chosen from a work list of 64 packages, 5 of which this change touched. Repository frc-scheduler-server, change 2ad04243861b..cfa8f4a3292b, mode diff. |
 | Why | python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. |
 | Where | Every test ran in a sealed sandbox (podman, network none, image docker.io/library/python:3.12-slim); the model was qwen3-235b in agent mode; the run's own files are in this folder. |
-| When | Started 2026-09-22 20:11:29 UTC. The last stage to write was self-verification at 2026-09-22 22:59:04 UTC. |
+| When | Started 2026-09-22 20:11:29 UTC. The last stage to write was self-verification at 2026-09-22 23:09:04 UTC. |
 
 ## What the harness did, step by step
 
@@ -22,15 +22,15 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 | Stage | When | What it did |
 |---|---|---|
-| 0 Self-verification | 2026-09-22 22:59:04 UTC | Ran 26 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
+| 0 Self-verification | 2026-09-22 23:09:04 UTC | Ran 26 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
 | 1 Intake | 2026-09-22 20:12:38 UTC | Resolved the dependency graph at head (63 packages) and at base (63), looked every version up in OSV (4 with advisories at head), and wrote a work list of 64 packages, 5 of them changed by this change. |
 | 2 Analysis | 2026-09-22 20:12:42 UTC | For each package, diffed the two versions' public API and source, found the application's call sites and read the advisories; risk score and budget: python-jose 51 (full). |
 | 3 Generation | 2026-09-22 22:47:29 UTC | python-jose: asked the model (qwen3-235b) for tests in 48 calls; kept 11 tests in 3 file(s), cut 3 that did not hold up on the baseline run, discarded 1 whole attempt(s). |
 | 4 Validation execution | 2026-09-22 22:48:32 UTC | python-jose: ran 11 tests on head, again for flakes, and on the other version (new, new-rerun, old); 8 pass on head, 0 flaky, 1 proved a fix; 571 lines of the package covered. Mutation: 10 of 25 sampled mutants killed, score 0.4. |
-| 5 Triage | 2026-09-22 22:57:07 UTC | python-jose: classified every verdict; 8 tests to accept, 3 to discard or regenerate, 8 finding(s), 7 escalated to a person. |
-| 6 Review packet | 2026-09-22 22:59:03 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
-| Attestation | 2026-09-22 22:59:04 UTC | python-jose: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
-| Assessment | 2026-09-22 22:59:04 UTC | Measured the run against the blueprint's goals: 9 met, 1 not met, 0 not applicable, 1 other. |
+| 5 Triage | 2026-09-22 23:09:03 UTC | python-jose: classified every verdict; 8 tests to accept, 3 to discard or regenerate, 8 finding(s), 7 escalated to a person. |
+| 6 Review packet | 2026-09-22 23:09:03 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
+| Attestation | 2026-09-22 23:09:04 UTC | python-jose: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
+| Assessment | 2026-09-22 23:09:04 UTC | Measured the run against the blueprint's goals: 9 met, 1 not met, 0 not applicable, 1 other. |
 
 ## Decisions the harness made
 
@@ -146,6 +146,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/python-jose/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
 - `execute/python-jose/new-rerun/`: The second run on head, to catch flakes.
 - `execute/python-jose/old/`: The run on the base version, for the differential.
-- `execute/python-jose/mutation/mutants/`: Each sampled mutant: the mutated file and its sealed run.
+- `execute/python-jose/mutation/mutants/`: Each sampled mutant: its change as a patch, and its sealed run's output.
 - `packet/python-jose/packet.json`: The packet's facts in structured form.
 - `assess/assess.json`: The assessment in structured form.

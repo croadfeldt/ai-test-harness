@@ -61,7 +61,7 @@ venv/lib/python3.12/site-packages/jose/jwt.py:398: in _validate_claims
     _validate_nbf(claims, leeway=leeway)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-claims = {'sub': '1234567890', 'exp': 1790117561}, leeway = 0
+claims = {'sub': '1234567890', 'exp': 1790118276}, leeway = 0
 
     def _validate_nbf(claims, leeway=0):
         """Validates that the 'nbf' claim is valid.
