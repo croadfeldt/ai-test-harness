@@ -197,7 +197,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 |---|---|
 | `analyze/source-diff.patch` | The package's own source diff between the versions; the model reads it to find the fix. |
 | `analyze/notes.untrusted.md` | Package metadata and description as published upstream; untrusted text, kept for context. |
-| `generate/manifest.json` | What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests. |
+| `generate/manifest.json` | What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests. |
 | `generate/manifest.agent.json` | The tool-using agent's traces: every tool call per advisory, and the budget it had. |
 
 **Tools (kept for replay and proof; not meant to be read)**

@@ -182,6 +182,13 @@ was edited, what was dropped, who and when. Each accepted candidate's record bec
 a realized record, and a signed statement names the merge commit. Tests that later catch a real
 regression are tagged. That tag is the number I report.
 
+The same stage measures whether the model and the prompt are fit for purpose, because that is never
+assumed. Every prompt is a named, digested set under source control and every manifest says which set
+and which model produced a result. `harness bench` runs one job under several sets with everything
+else held, `harness evaluate` scores finished runs by what the reviewers and the sandbox said, and
+[document 12](12-prompt-and-model-evaluation.md) is that table for the example runs. A set or a model
+becomes a default only by winning it.
+
 ## The test lifecycle
 
 A generated test is not done when it passes. It has a life.

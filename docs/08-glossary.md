@@ -24,6 +24,7 @@
 | **Negative test** | A test that gives code bad input and checks that it refuses cleanly, rather than crashing or accepting it. |
 | **Overlay** | Tests we wrote for a package we do not own, stored in our own repository alongside the package's name and version, because we cannot commit into the upstream project. |
 | **Provenance** | The recorded history of an artifact: what it was made from, by what process, by whom, when. |
+| **Prompt set** | Every text the harness says to a model, as one named and digested unit under source control. `v1` is the code's own texts; another set overrides parts. Every result records which set produced it, and sets are compared on the evaluation table before one becomes the default. |
 | **RACI** | A chart of who is Responsible, Accountable, Consulted, and Informed for each step of a process. |
 | **Reachability** | Whether our code can actually invoke a particular piece of a dependency. A vulnerability in code we never call is far less urgent than one in code we call on every request. |
 | **Run story** | The `README.md` at the top of every run: who, what, why, where and when, the outcome in plain terms, the decisions and the actions, the records in plain terms, and every file with its reader. Written by the harness from its own records after every stage. |

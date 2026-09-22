@@ -206,7 +206,9 @@ def _wrap(name: str, text: str, remaining: int) -> str:
 
 def run_agent(model: Model, prompt: str, tools: Tools, gate_fn, max_tool_calls: int = 14, max_turns: int = 18, tag: str = "agent",
               fix_patch: str | None = None, max_tokens: int = 4000) -> dict:
-    messages = [{"role": "system", "content": tools.adapter.SYSTEM + AGENT_RULES}, {"role": "user", "content": prompt}]
+    from .. import prompts
+    messages = [{"role": "system", "content": prompts.text(f"system.{tools.adapter.ECOSYSTEM}", tools.adapter.SYSTEM) + prompts.text("agent.rules", AGENT_RULES)},
+                {"role": "user", "content": prompt}]
     budget, turns, submitted, trace = Budget(max_tool_calls), 0, None, []
     repeats, blocked = RepeatDetector(), []
     while turns < max_turns:
@@ -300,6 +302,7 @@ def generate_cve_agent(facts_dir: Path, gen_dir: Path, model: Model, env_new: di
     gen_dir.mkdir(parents=True, exist_ok=True); (gen_dir / "tests").mkdir(exist_ok=True)
     manifest = {"package": pkg, "purl": facts["purl"], "old_version": facts["old_version"], "new_version": facts["new_version"],
                 "generated": now_iso(), "mode": "agent", "model": {"endpoint": model.cfg.label, "endpoint_digest": model.cfg.endpoint_digest, "id": model.cfg.model, "temperature": model.cfg.temperature},
+                "prompt_set": __import__("harness.prompts", fromlist=["x"]).active().record(),
                 "budget": {"max_tool_calls": 14, "max_turns": 18, "max_reads_before_run": Budget.MAX_READS_BEFORE_RUN, "reserved_for_run_and_submit": Budget.RESERVE,
                            "max_tokens_per_turn": 4000},
                 "cve_roles": roles,
