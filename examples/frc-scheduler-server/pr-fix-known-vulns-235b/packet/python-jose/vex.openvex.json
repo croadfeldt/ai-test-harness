@@ -1,0 +1,76 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://ai-test-harness.local/vex/6a9a03828b7f/python-jose",
+  "author": "ai-test-harness (DRAFT, requires Product Security review)",
+  "role": "draft",
+  "statements": [
+    {
+      "harness_evidence": {
+        "confirmed": true,
+        "tests": [
+          "test_GHSA_6c5p_j8vq_pqhj_exposure"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/python-jose@3.4.0"
+        }
+      ],
+      "status": "fixed",
+      "status_notes": "fix-pinning test(s) ['test_GHSA_6c5p_j8vq_pqhj_exposure'] fail on pkg:pypi/python-jose@3.3.0 and pass on pkg:pypi/python-jose@3.4.0",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2024-33663",
+          "CVE-2026-85394",
+          "GHSA-6c5p-j8vq-pqhj",
+          "PYSEC-2024-232"
+        ],
+        "name": "CVE-2024-33663"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/python-jose@3.4.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet",
+      "vulnerability": {
+        "aliases": [
+          "CVE-2024-33664",
+          "GHSA-cjwg-qfpm-7377",
+          "PYSEC-2024-233"
+        ],
+        "name": "CVE-2024-33664"
+      }
+    },
+    {
+      "harness_evidence": {
+        "confirmed": false,
+        "tests": []
+      },
+      "products": [
+        {
+          "@id": "pkg:pypi/python-jose@3.4.0"
+        }
+      ],
+      "status": "under_investigation",
+      "status_notes": "bump to a fixed version per advisory metadata; no confirmed fix-pinning test yet",
+      "vulnerability": {
+        "aliases": [
+          "PYSEC-2025-185",
+          "CVE-2024-29370",
+          "GHSA-h4pw-wxh7-4vjj"
+        ],
+        "name": "CVE-2024-29370"
+      }
+    }
+  ],
+  "timestamp": "2026-09-22T22:59:03+00:00",
+  "version": 1
+}

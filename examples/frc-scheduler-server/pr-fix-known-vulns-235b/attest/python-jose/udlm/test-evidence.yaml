@@ -1,0 +1,325 @@
+# UDLM test-evidence records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: e6b5ad49-7d80-4c85-995e-b050a2d7e93e
+record_uuid: 01a0cb58-1b2f-7310-8d5d-248c67c2c729
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence.VulnerabilityCheck.AiTestHarness
+type_version: 0.1.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence.VulnerabilityCheck.AiTestHarness/0.1.0
+handle: lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_GHSA_6c5p_j8vq_pqhj_exposure::cd42b7f58f2f
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: security
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_cve_cve_2024_33663.py
+  file_digest: sha256:cd42b7f58f2fc0a51a4e2fd7d5bffd98fbab5c854cf0a360e8c202fa8c90b82d
+  vulnerability_ref: null
+  vulnerability_role: exposure
+  version_range: ==3.4.0
+  source_version: requirements.txt@cfa8f4a3292b
+  call_sites:
+  - app/auth.py
+  validation:
+    baseline_pass: true
+    coverage_delta: 0.0
+    differential: changed
+    flake_runs: 2
+    mutants_killed: 2
+    unique_mutants_killed: 0
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:00831547c84d0c8a6912638711869fe0a11df19e6d17aecc573fbd4644b0c8f2
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: ccb30300-5c46-4c09-a0ac-8441efce395f
+record_uuid: 01a0cb58-1b2f-7310-8d5d-248d3f9eba60
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-audience-checks-aud-claim
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_decode_with_audience_checks_aud_claim::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:fc38283d2b5ed9b38c44e4dadf0f6f268b5320be1bf9ef7cce64838dda01d0b5
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: ac744e02-9656-42ab-8d43-f03ec06023a7
+record_uuid: 01a0cb58-1b2f-7310-8d5d-248e68740eec
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-expired-token-raises-expiredsi
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_decode_with_expired_token_raises_ExpiredSignatureError::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:4ee3538fe04a310ba193d0e7de7f3e7cd77f7fc6a7b1984f768cda6f95559d73
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: cb6d7cd2-7fba-4e5c-a4b3-7b1fe9b1b857
+record_uuid: 01a0cb58-1b2f-7310-8d5d-248f8a483d23
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-invalid-signature-raises-jwter
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_decode_with_invalid_signature_raises_JWTError::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:f5e0a15ce1be280699c9c6ff78c9443a0430c2071775fafd75177cda24f3b0b0
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: eb4ee026-ac9f-452b-95ba-cc6355b7622c
+record_uuid: 01a0cb58-1b2f-7310-8d5d-249040febb82
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-valid-token-and-key-returns-cl
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_decode_with_valid_token_and_key_returns_claims::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:5fa8fea036720f7ff6eba772d1ade29ca671d988f249cf363fcb1af91f795347
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 97dde955-cf72-4f69-a81e-f7cbfa03c777
+record_uuid: 01a0cb58-1b2f-7310-8d5d-2491a3abffdf
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-encode-returns-string-with-hs256
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_encode_returns_string_with_hs256::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 2
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:179fdc34f5f33a86c441ff66e4fc50b8b63a2fadb8db795ee57684e0a273b8b6
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 4b6cb308-5ca9-4c0b-a279-cdf7471754de
+record_uuid: 01a0cb58-1b30-7273-8311-3d12d9d76cad
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims-returns-payload-dict
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_get_unverified_claims_returns_payload_dict::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:6b547a9dec1c009e97b607c62ce8307fc964b438ef4b361ba54486d38a719feb
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: b4b4268e-9870-44fc-ae8a-9e0de468f881
+record_uuid: 01a0cb58-1b30-7273-8311-3d1358e20197
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header-returns-headers-dict
+at: '2026-09-22T22:48:32Z'
+time_source: harness-clock
+fields:
+  test_id: python-jose::test_jwt_get_unverified_header_returns_headers_dict::bcc9e29e0c96
+  subject_ref: estate/lab/knowledge/software-package/python-jose-3-4-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 1
+    format: junit-xml
+    report_ref: execute/python-jose/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-6a9a03828b7f
+  file_path: tests/test_python_jose_unit.py
+  file_digest: sha256:bcc9e29e0c96977002267ef9a8b92bc3925f335ceaa5a552b902050808ca2d44
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-22T22:48:32Z'
+integrity:
+  head: sha256:445045622416f6773d042070b2c349c731a112e4b854be73fb43c00c95f5308d
+  previous: null
+  algorithm: sha256-jcs

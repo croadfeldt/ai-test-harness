@@ -1,0 +1,33 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-22T22:59:04+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-6a9a03828b7f@realized": "sha256:27c5f6ecaa4ca4a5a8479caeeaca2f4b787e56ee0b5dbed692ccb78d76335487",
+    "lab/knowledge/software-package/python-jose-3-4-0@discovered": "sha256:efc574718a5a0cf9df45461a8ba478e09decacdb010be87eaa1e1e841ec27a74",
+    "lab/knowledge/test-evidence/python-jose-test-ghsa-6c5p-j8vq-pqhj-exposure@intent": "sha256:00831547c84d0c8a6912638711869fe0a11df19e6d17aecc573fbd4644b0c8f2",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-audience-checks-aud-claim@intent": "sha256:fc38283d2b5ed9b38c44e4dadf0f6f268b5320be1bf9ef7cce64838dda01d0b5",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-expired-token-raises-expiredsi@intent": "sha256:4ee3538fe04a310ba193d0e7de7f3e7cd77f7fc6a7b1984f768cda6f95559d73",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-invalid-signature-raises-jwter@intent": "sha256:f5e0a15ce1be280699c9c6ff78c9443a0430c2071775fafd75177cda24f3b0b0",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-decode-with-valid-token-and-key-returns-cl@intent": "sha256:5fa8fea036720f7ff6eba772d1ade29ca671d988f249cf363fcb1af91f795347",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-encode-returns-string-with-hs256@intent": "sha256:179fdc34f5f33a86c441ff66e4fc50b8b63a2fadb8db795ee57684e0a273b8b6",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-claims-returns-payload-dict@intent": "sha256:6b547a9dec1c009e97b607c62ce8307fc964b438ef4b361ba54486d38a719feb",
+    "lab/knowledge/test-evidence/python-jose-test-jwt-get-unverified-header-returns-headers-dict@intent": "sha256:445045622416f6773d042070b2c349c731a112e4b854be73fb43c00c95f5308d",
+    "lab/knowledge/vulnerability/cve-2024-29370@discovered": "sha256:06e70448db3c02cba447b47027eeabfb2ddf7f905a6dbc2384bf20570aff9700",
+    "lab/knowledge/vulnerability/cve-2024-33663@discovered": "sha256:737be4ccc252d4999ca98ece5e5924f097d1d171ffdc433b5925ed16a05364a3",
+    "lab/knowledge/vulnerability/cve-2024-33664@discovered": "sha256:a975da010682d16d2ee7e96d7d0db2f3cd4ded9dcb2af495e3dc8ed10a2cbc59"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

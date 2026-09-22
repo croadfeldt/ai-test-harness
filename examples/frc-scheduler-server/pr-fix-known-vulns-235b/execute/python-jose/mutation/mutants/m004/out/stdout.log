@@ -1,0 +1,53 @@
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+________________ test_jwt_decode_with_audience_checks_aud_claim ________________
+
+    def test_jwt_decode_with_audience_checks_aud_claim():
+        """Asserts that jwt.decode validates the aud claim when audience is provided."""
+        payload = {'sub': '123', 'aud': 'test-audience'}
+        secret = 'secret'
+        token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+>       jwt.decode(token, secret, algorithms=[Algorithms.HS256], audience='test-audience')
+
+tests/test_python_jose_unit.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:129: in decode
+    _validate_claims(claims, audience=audience, issuer=issuer, subject=subject, algorithm=algorithm, access_token=access_token, options=defaults)
+venv/lib/python3.12/site-packages/jose/jwt.py:402: in _validate_claims
+    _validate_aud(claims, audience=audience)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+claims = {'sub': '123', 'aud': 'test-audience'}, audience = 'test-audience'
+
+    def _validate_aud(claims, audience=None):
+        """Validates that the 'aud' claim is valid.
+    
+        The "aud" (audience) claim identifies the recipients that the JWT is
+        intended for.  Each principal intended to process the JWT MUST
+        identify itself with a value in the audience claim.  If the principal
+        processing the claim does not identify itself with a value in the
+        "aud" claim when this claim is present, then the JWT MUST be
+        rejected.  In the general case, the "aud" value is an array of case-
+        sensitive strings, each containing a StringOrURI value.  In the
+        special case when the JWT has one audience, the "aud" value MAY be a
+        single case-sensitive string containing a StringOrURI value.  The
+        interpretation of audience values is generally application specific.
+        Use of this claim is OPTIONAL.
+    
+        Args:
+            claims (dict): The claims dictionary to validate.
+            audience (str): The audience that is verifying the token.
+        """
+        if 'aud' not in claims:
+            return
+        audience_claims = claims['aud']
+        if isinstance(audience_claims, str):
+            audience_claims = [audience_claims]
+        if +bool(isinstance(audience_claims, list)):
+>           raise JWTClaimsError('Invalid claim format in token')
+E           jose.exceptions.JWTClaimsError: Invalid claim format in token
+
+venv/lib/python3.12/site-packages/jose/jwt.py:284: JWTClaimsError
+=========================== short test summary info ============================
+FAILED tests/test_python_jose_unit.py::test_jwt_decode_with_audience_checks_aud_claim
+1 failed, 7 passed in 0.22s

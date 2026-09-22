@@ -1,0 +1,298 @@
+{
+  "findings": [
+    {
+      "class": "defect",
+      "confidence": 0.4,
+      "corroborating_tests": [],
+      "escalated": true,
+      "evidence_ref": "generate/python-jose/manifest.agent.json",
+      "package": "python-jose",
+      "reproducer": "[new 3.4.0 = FIXED] test_GHSA_6c5p_j8vq_pqhj_fix_pinning=fail (jose.exceptions.JWSError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.); test_GHS",
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33663); NOT corroborated by stage 4 verdicts"
+    },
+    {
+      "class": "defect",
+      "confidence": 0.4,
+      "corroborating_tests": [],
+      "escalated": true,
+      "evidence_ref": "generate/python-jose/manifest.agent.json",
+      "package": "python-jose",
+      "reproducer": "[new 3.4.0 = FIXED] test_GHSA_cjwg_qfpm_7377_fix_pinning=fail (AttributeError: module 'jose.jwe' has no attribute 'utils'); test_GHSA_cjwg_qfpm_7377_exposure=fail (jose.exceptions.JWKError: Key must b",
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-33664); NOT corroborated by stage 4 verdicts"
+    },
+    {
+      "class": "defect",
+      "confidence": 0.8,
+      "corroborating_tests": [
+        "test_pysec_2025_185_fix_pinning",
+        "test_pysec_2025_185_exposure"
+      ],
+      "escalated": false,
+      "evidence_ref": "generate/python-jose/manifest.agent.json",
+      "package": "python-jose",
+      "reproducer": "[new 3.4.0 = FIXED] test_pysec_2025_185_fix_pinning=fail (jose.exceptions.JWEError: module 'lib' has no attribute 'RAND_bytes'); test_pysec_2025_185_exposure=fail (jose.exceptions.JWEError: module 'li",
+      "routing": "open issue with reproducer",
+      "summary": "python-jose: a code path raised the same internal error on both versions during CVE test generation (CVE-2024-29370)"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.6,
+      "escalated": true,
+      "evidence_ref": "execute/python-jose/relevance.json",
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "python-jose",
+      "priority": "low",
+      "retirement_reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: test_jwt_encode_returns_string_with_hs256's 5 mutant kill(s) are all among test_jwt_decode_with_audience_checks_aud_claim's 9",
+      "test": "test_jwt_encode_returns_string_with_hs256"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.6,
+      "escalated": true,
+      "evidence_ref": "execute/python-jose/relevance.json",
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "python-jose",
+      "priority": "low",
+      "retirement_reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: test_jwt_decode_with_valid_token_and_key_returns_claims's 8 mutant kill(s) are all among test_jwt_decode_with_audience_checks_aud_claim's 9",
+      "test": "test_jwt_decode_with_valid_token_and_key_returns_claims"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.6,
+      "escalated": true,
+      "evidence_ref": "execute/python-jose/relevance.json",
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "python-jose",
+      "priority": "low",
+      "retirement_reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: test_jwt_decode_with_invalid_signature_raises_JWTError's 2 mutant kill(s) are all among test_jwt_decode_with_audience_checks_aud_claim's 9",
+      "test": "test_jwt_decode_with_invalid_signature_raises_JWTError"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.6,
+      "escalated": true,
+      "evidence_ref": "execute/python-jose/relevance.json",
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "python-jose",
+      "priority": "low",
+      "retirement_reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: test_jwt_get_unverified_header_returns_headers_dict's 5 mutant kill(s) are all among test_jwt_decode_with_audience_checks_aud_claim's 9",
+      "test": "test_jwt_get_unverified_header_returns_headers_dict"
+    },
+    {
+      "class": "redundant",
+      "confidence": 0.6,
+      "escalated": true,
+      "evidence_ref": "execute/python-jose/relevance.json",
+      "file": "test_python_jose_unit.py",
+      "horizon": "this change",
+      "human_written": false,
+      "package": "python-jose",
+      "priority": "low",
+      "retirement_reason": "redundant-subsumed",
+      "rewrite_candidate": false,
+      "routing": "escalate: below confidence threshold",
+      "summary": "python-jose: test_jwt_get_unverified_claims_returns_payload_dict's 5 mutant kill(s) are all among test_jwt_decode_with_audience_checks_aud_claim's 9",
+      "test": "test_jwt_get_unverified_claims_returns_payload_dict"
+    }
+  ],
+  "generated": "2026-09-22T22:57:07+00:00",
+  "package": "python-jose",
+  "summary": {
+    "blocking": [],
+    "cve_confirmed": 1,
+    "escalated": 7,
+    "findings": 8,
+    "tests_accept": 8,
+    "tests_discard_or_regenerate": 3
+  },
+  "tests": [
+    {
+      "action": "open issue; reproducer is the test; advisory stays under investigation",
+      "category": "cve",
+      "class": "defect",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_pysec_2025_185_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_fix_pinning",
+      "verdict": "blocked on both versions: jose.exceptions.JWEError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "open issue; reproducer is the test; advisory stays under investigation",
+      "category": "cve",
+      "class": "defect",
+      "confidence": 0.8,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_pysec_2025_185_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_29370::test_pysec_2025_185_exposure",
+      "verdict": "blocked on both versions: jose.exceptions.JWEError on old and new; possible package or environment defect, reproducer attached",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "regenerate or discard",
+      "category": "cve",
+      "class": "test-bug",
+      "confidence": 0.75,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_GHSA_6c5p_j8vq_pqhj_fix_pinning",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_GHSA_6c5p_j8vq_pqhj_fix_pinning",
+      "verdict": "fails on the fixed version: test bug or the advisory is misread; back to generation",
+      "versions": {
+        "new": "fail",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "accept as CVE evidence; VEX status fixed",
+      "category": "cve",
+      "class": "behavior-change",
+      "confidence": 0.95,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_GHSA_6c5p_j8vq_pqhj_exposure",
+      "test_id": "tests.test_python_jose_cve_cve_2024_33663::test_GHSA_6c5p_j8vq_pqhj_exposure",
+      "verdict": "fix-pinning confirmed: fails on vulnerable, passes on fixed",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_encode_returns_string_with_hs256",
+      "test_id": "tests.test_python_jose_unit::test_jwt_encode_returns_string_with_hs256",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_with_valid_token_and_key_returns_claims",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_with_valid_token_and_key_returns_claims",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_with_invalid_signature_raises_JWTError",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_with_invalid_signature_raises_JWTError",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_with_expired_token_raises_ExpiredSignatureError",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_with_expired_token_raises_ExpiredSignatureError",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_get_unverified_header_returns_headers_dict",
+      "test_id": "tests.test_python_jose_unit::test_jwt_get_unverified_header_returns_headers_dict",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_get_unverified_claims_returns_payload_dict",
+      "test_id": "tests.test_python_jose_unit::test_jwt_get_unverified_claims_returns_payload_dict",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    },
+    {
+      "action": "accept as characterization candidate",
+      "category": "unit",
+      "class": "behavior-change",
+      "confidence": 0.85,
+      "escalated": false,
+      "evidence_ref": "execute/python-jose/results.json",
+      "name": "test_jwt_decode_with_audience_checks_aud_claim",
+      "test_id": "tests.test_python_jose_unit::test_jwt_decode_with_audience_checks_aud_claim",
+      "verdict": "candidate: passes on head, same on old",
+      "versions": {
+        "new": "pass",
+        "old": "pass"
+      }
+    }
+  ],
+  "threshold": 0.7
+}

@@ -1,0 +1,29 @@
+{
+  "call": 2,
+  "chat_template_kwargs": null,
+  "endpoint": "gpu-server-llamacpp-235b",
+  "endpoint_digest": "sha256:2a03e79e1ae3067d",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 1133.2,
+  "max_tokens": 4000,
+  "model": "qwen3-235b",
+  "presence_penalty": 0.0,
+  "prompt_sha256": "sha256:93f3654fae6ccf52bf19df24a08ded29055551a67a266605537e361a9c6f6550",
+  "reasoning_effort": null,
+  "response_chars": 4300,
+  "response_sha256": "sha256:2e54c1dbd2d4c424f6441ec9faafc0ff2347ec491810a7e66538929bf3d039cc",
+  "tag": "python-jose-unit-a1",
+  "temperature": null,
+  "think_chars_stripped": 0,
+  "thinking": false,
+  "transport_retries": 1,
+  "usage": {
+    "completion_tokens": 1187,
+    "prompt_tokens": 2780,
+    "prompt_tokens_details": {
+      "cached_tokens": 2779
+    },
+    "total_tokens": 3967
+  }
+}

@@ -250,6 +250,7 @@ digests, verdicts, and every other recorded fact are unchanged (`tools/redact-lo
 | `pr-fix-known-vulns-cluster/`, `-cluster-run2/`, `-cluster-run3/` | python-jose through the same pipeline as a Tekton PipelineRun on OpenShift, the execute pod as the sandbox; see "The same pipeline on a cluster" |
 | `pr-fix-known-vulns-run6/` | python-jose end to end through the pipeline's loop: the test pull request the harness opened, a person's merge, and the decision read back as realized records; see the two sections above |
 | `first-party-rescan/` | the application's own code as the target; see "The application itself as the target" |
+| `pr-fix-known-vulns-235b/` | the same python-jose bump on Qwen3-235B-Instruct from a workstation through the public route: 11 tests kept, 8 accepted, 1 of 3 advisories proven, mutation 0.4; two path stalls retried (GF-025) and a proven fix that the packet first missed for a capital letter (GF-026) |
 
 Every run directory opens with a `README.md` the harness wrote: who, what, why, where, when, the
 outcome, the decisions and the actions, the records in plain terms, and every file by the reader it is

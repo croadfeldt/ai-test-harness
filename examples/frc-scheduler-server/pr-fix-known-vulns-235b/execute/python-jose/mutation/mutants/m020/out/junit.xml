@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="0.367" timestamp="2026-09-22T22:55:22.601570+00:00" hostname="21e318333689"><testcase classname="tests.test_python_jose_cve_cve_2024_33663" name="test_GHSA_6c5p_j8vq_pqhj_exposure" time="0.003"><failure message="jose.exceptions.JWSError: Signature verification failed.">signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xb9\n6Y\xd4\xa7\xf3"\xeb\xd2\xf4wRB\x8aE\xf18\xf5\xc3\xf0\xd7%1\xd0\xee\xee5\r\xea\xf6 '
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
+algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+&gt;               raise JWSSignatureError()
+E               jose.exceptions.JWSSignatureError
+
+venv/lib/python3.12/site-packages/jose/jws.py:264: JWSSignatureError
+
+During handling of the above exception, another exception occurred:
+
+    def test_GHSA_6c5p_j8vq_pqhj_exposure():
+        """Application call pattern rejects OpenSSH ECDSA key."""
+        ssh_key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.uQo2WdSn8yLr0vR3UkKKRfE49cPw1yUx0O7uNQ3q9iA'
+        with pytest.raises(JWKError, match='asymmetric key or x509 certificate'):
+&gt;           jws.verify(token, ssh_key, ['HS256'])
+
+tests/test_python_jose_cve_cve_2024_33663.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jws.py:77: in verify
+    _verify_signature(signing_input, header, signature, key, algorithms)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+signing_input = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+header = {'alg': 'HS256', 'typ': 'JWT'}
+signature = b'\xb9\n6Y\xd4\xa7\xf3"\xeb\xd2\xf4wRB\x8aE\xf18\xf5\xc3\xf0\xd7%1\xd0\xee\xee5\r\xea\xf6 '
+key = b'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTZJQ0UxWklVQUFBQUJqb1pTNGVzRk9vS0tZdHl3RmN5aW9wSjB4bGh1c2hOc1J6M2JLc0V3VXJrYUZqWUx2WQAAAAZzb21la2V5AQIDBAUGBwg='
+algorithms = ['HS256']
+
+    def _verify_signature(signing_input, header, signature, key="", algorithms=None):
+        alg = header.get("alg")
+        if not alg:
+            raise JWSError("No algorithm was specified in the JWS header.")
+    
+        if algorithms is not None and alg not in algorithms:
+            raise JWSError("The specified alg value is not allowed")
+    
+        keys = _get_keys(key)
+        try:
+            if not _sig_matches_keys(keys, signing_input, signature, alg):
+                raise JWSSignatureError()
+        except JWSSignatureError:
+&gt;           raise JWSError("Signature verification failed.")
+E           jose.exceptions.JWSError: Signature verification failed.
+
+venv/lib/python3.12/site-packages/jose/jws.py:266: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_encode_returns_string_with_hs256" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_encode_returns_string_with_hs256():
+        """Asserts that jwt.encode returns a JWT string when using HS256."""
+        payload = {'sub': '1234567890', 'name': 'John Doe'}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_valid_token_and_key_returns_claims" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_with_valid_token_and_key_returns_claims():
+        """Asserts that jwt.decode returns the claims set when token and key are valid."""
+        payload = {'sub': '1234567890', 'name': 'John Doe'}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_invalid_signature_raises_JWTError" time="0.001" /><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_expired_token_raises_ExpiredSignatureError" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_with_expired_token_raises_ExpiredSignatureError():
+        """Asserts that jwt.decode raises ExpiredSignatureError when exp claim is in the past."""
+        payload = {'sub': '1234567890', 'exp': int(time.time()) - 100}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiZXhwIjoxNzkwMTE3NjIyfQ'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_header_returns_headers_dict" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsImtpZCI6ImFiYzEyMyIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIn0', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_header_returns_headers_dict():
+        """Asserts that get_unverified_header returns the header part of the token."""
+        payload = {'sub': '1234567890'}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256, headers={'kid': 'abc123'})
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsImtpZCI6ImFiYzEyMyIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIn0', algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_get_unverified_claims_returns_payload_dict" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiYWRtaW4iOnRydWV9'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_get_unverified_claims_returns_payload_dict():
+        """Asserts that get_unverified_claims returns the claims without verification."""
+        payload = {'sub': '1234567890', 'admin': True}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjM0NTY3ODkwIiwiYWRtaW4iOnRydWV9'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase><testcase classname="tests.test_python_jose_unit" name="test_jwt_decode_with_audience_checks_aud_claim" time="0.001"><failure message="jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'">encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjMiLCJhdWQiOiJ0ZXN0LWF1ZGllbmNlIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+&gt;           signature = key.sign(signing_input)
+                        ^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:165: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_jwt_decode_with_audience_checks_aud_claim():
+        """Asserts that jwt.decode validates the aud claim when audience is provided."""
+        payload = {'sub': '123', 'aud': 'test-audience'}
+        secret = 'secret'
+&gt;       token = jwt.encode(payload, secret, algorithm=Algorithms.HS256)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_python_jose_unit.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+venv/lib/python3.12/site-packages/jose/jwt.py:65: in encode
+    return jws.sign(claims, key, headers=headers, algorithm=algorithm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+venv/lib/python3.12/site-packages/jose/jws.py:47: in sign
+    signed_output = _sign_header_and_claims(encoded_header, encoded_payload, algorithm, key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+encoded_header = b'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+encoded_claims = b'eyJzdWIiOiIxMjMiLCJhdWQiOiJ0ZXN0LWF1ZGllbmNlIn0'
+algorithm = 'HS256', key = None
+
+    def _sign_header_and_claims(encoded_header, encoded_claims, algorithm, key):
+        signing_input = b".".join([encoded_header, encoded_claims])
+        try:
+            if not isinstance(key, Key):
+                key = jwk.construct(key, algorithm)
+            signature = key.sign(signing_input)
+        except Exception as e:
+&gt;           raise JWSError(e)
+E           jose.exceptions.JWSError: 'NoneType' object has no attribute 'sign'
+
+venv/lib/python3.12/site-packages/jose/jws.py:167: JWSError</failure></testcase></testsuite></testsuites>
