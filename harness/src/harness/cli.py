@@ -27,13 +27,24 @@ def _record_run(workdir: Path, args: argparse.Namespace) -> None:
     })
 
 
+def _ecosystem_and_manifest(ecosystem: str | None, manifest: str | None) -> tuple[str, str]:
+    """The configured manifest belongs to the configured ecosystem. An ecosystem named on the command
+    line takes its own default manifest unless one is named too; otherwise a Go run on a machine
+    configured for a Python repository would look for requirements.txt."""
+    from . import config
+    default_manifest = {"go": "go.mod", "python": "requirements.txt"}
+    if ecosystem:
+        return ecosystem, manifest or default_manifest[ecosystem]
+    ecosystem = config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
+    return ecosystem, manifest or config.get("target", "manifest", None, default_manifest[ecosystem])
+
+
 def cmd_intake(a: argparse.Namespace) -> int:
     from . import config
     from .stages.intake import intake
     repo = config.target_repo(str(a.repo) if a.repo else None, a.workdir)
     a.repo = repo
-    a.ecosystem = a.ecosystem or config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
-    a.manifest = a.manifest or config.get("target", "manifest", None, "go.mod" if a.ecosystem == "go" else "requirements.txt")
+    a.ecosystem, a.manifest = _ecosystem_and_manifest(a.ecosystem, a.manifest)
     a.python_version = a.python_version or config.get("target", "python_version", None, None)
     _record_run(a.workdir, a)
     wl = intake(repo=repo, head=a.head, base=a.base, manifest=a.manifest, workdir=a.workdir,
@@ -130,8 +141,7 @@ def cmd_run(a: argparse.Namespace) -> int:
     from .stages.packet import packet
     from .stages.relevance import relevance
     from .stages.triage import triage
-    a.ecosystem = a.ecosystem or config.get("target", "ecosystem", "HARNESS_TARGET_ECOSYSTEM", "python")
-    a.manifest = a.manifest or config.get("target", "manifest", None, "go.mod" if a.ecosystem == "go" else "requirements.txt")
+    a.ecosystem, a.manifest = _ecosystem_and_manifest(a.ecosystem, a.manifest)
     a.python_version = a.python_version or config.get("target", "python_version", None, None)
     repo = config.target_repo(str(a.repo) if a.repo else None, a.workdir)
     a.repo = repo
