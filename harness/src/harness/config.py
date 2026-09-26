@@ -90,7 +90,10 @@ def owned_clone(repo: Path, workdir: Path | None) -> bool:
 def resolve_repo(work_list_repo_name: str, explicit: str | None = None, workdir: Path | None = None) -> Path:
     """The repository a later stage should read, checked against the work list it is continuing.
     A stage that silently read a different repository than intake did would produce facts about the
-    wrong code; that happened once (call sites scanned in the wrong checkout), so it refuses now."""
+    wrong code; that happened once (call sites scanned in the wrong checkout), so it refuses now.
+    Callers pass the work list's repository name (from its origin), so a run copied off a cluster
+    claim, where the clone directory is just "source", still finds a clone or checkout of that
+    repository on this machine."""
     if explicit is None and workdir is not None and (workdir / "cache" / "repo" / work_list_repo_name / ".git").is_dir():
         return workdir / "cache" / "repo" / work_list_repo_name   # the clone intake made for this run
     p = target_repo(explicit, workdir)
