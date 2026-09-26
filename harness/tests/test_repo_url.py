@@ -32,3 +32,10 @@ def test_url_target_is_cloned_once_and_pull_request_refs_resolve(tmp_path):
     assert _resolve_ref(repo, "refs/pull/7/head") == head and _resolve_ref(repo, "main") == base and _resolve_ref(repo, head[:10]) == head
     assert config.target_repo(url, work) == repo, "a second call fetches; it does not clone again"
     assert config.resolve_repo("my-app", None, work) == repo, "later stages find the clone intake made"
+
+
+def test_later_stages_find_the_clone_through_a_shared_cache(tmp_path):
+    """The bench shares one cache between sibling work directories by symlink; the clone lives in it."""
+    base = tmp_path / "base"; (base / "cache" / "repo" / "my-app" / ".git").mkdir(parents=True)
+    sibling = tmp_path / "sibling"; sibling.mkdir(); (sibling / "cache").symlink_to(base / "cache")
+    assert config.resolve_repo("my-app", None, sibling) == sibling / "cache" / "repo" / "my-app"
