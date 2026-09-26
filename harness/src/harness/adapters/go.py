@@ -607,6 +607,8 @@ MUTATION_OPERATORS = ("compare-swap", "boolop-swap", "const-int", "const-bool", 
 
 
 def mutation_sites(src_path: Path, lines: set[int]) -> list[dict]:
+    if not lines:
+        return []   # GF-028: the helper reads an empty restriction as "all lines"; the harness never asks for that
     out = subprocess.run([str(_helper()), "mutsites", str(src_path), ",".join(str(l) for l in sorted(lines))], capture_output=True, text=True, timeout=120)
     if out.returncode != 0:
         return []

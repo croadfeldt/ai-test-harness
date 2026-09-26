@@ -300,6 +300,18 @@ def gf027():
     assert cut == [] and outside == [] and "context" not in kept, "an unused import is pruned, not a reason to send the file back"
 
 
+@check("GF-028", "mutants are sampled only from lines the tests executed; a file with none contributes no site")
+def gf028():
+    import tempfile
+    from .adapters import go, python
+    from .stages.mutate import mutate_package
+    d = Path(tempfile.mkdtemp())
+    gofile = d / "x.go"; gofile.write_text("package x\n\nfunc F(a int) bool { return a > 1 && a < 5 }\n")
+    assert go.mutation_sites(gofile, set()) == [] and python.mutation_sites(gofile, set()) == []
+    src = inspect.getsource(mutate_package)
+    assert "if not lines:" in src and src.index("if not lines:") < src.index("mutation_sites(")
+
+
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")
 def gf012():
     from .stages import execute

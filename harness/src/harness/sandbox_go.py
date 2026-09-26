@@ -74,7 +74,7 @@ def _script(*, mod: str, modcache: str, gocache: str, tests: str, out: str, work
         replace = f"""
 src=$(go list -m -f '{{{{.Dir}}}}' {overlay["module"]}) || {{ echo "MODULE_NOT_IN_CACHE"; exit 96; }}
 mkdir -p {work}/mutant && cp -r "$src"/. {work}/mutant/ && chmod -R u+w {work}/mutant
-(cd {mutant_src} && find . -type f ! -name overlay.json | while read f; do cp "$f" "{work}/mutant/$f"; done)
+(cd {mutant_src} && find . -path ./out -prune -o -type f ! -name overlay.json ! -name mutant.patch -print | while read f; do cp "$f" "{work}/mutant/$f"; done)
 go mod edit -replace {overlay["module"]}={work}/mutant
 """
     files = " ".join(f"{tests}/{f}" for f in include) if include else f"{tests}/*.go"
