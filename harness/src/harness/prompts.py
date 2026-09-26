@@ -19,7 +19,9 @@ from pathlib import Path
 from . import config
 from .util import sha256_text
 
-HERE = Path(__file__).resolve().parent.parent.parent / "prompts"
+import os
+
+HERE = Path(os.environ.get("HARNESS_PROMPTS_DIR") or Path(__file__).resolve().parent.parent.parent / "prompts")   # the image sets the variable
 CATEGORIES = ("unit", "functional", "negative", "cve")
 ECOSYSTEMS = ("python", "go")
 

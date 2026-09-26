@@ -12,9 +12,10 @@ ENV PATH=/usr/local/go/bin:$PATH GOTOOLCHAIN=local GOFLAGS=-modcacherw
 WORKDIR /opt/harness
 COPY pyproject.toml README.md ./
 COPY src ./src
+COPY prompts ./prompts
 # The go/ast helper is built here, once, so no pod builds it and the read-only root never needs to.
 RUN cd src/harness/adapters/gohelper && GOCACHE=/tmp/gocache go build -o /usr/local/bin/gohelper . && rm -rf /tmp/gocache
 RUN pip install --no-cache-dir . && harness --version && go version && gohelper 2>&1 | head -1 || true
 # The UDLM checkout for sealing records is mounted or cloned at run time ([udlm].repo); not baked in.
-ENV HARNESS_SANDBOX_TARGET=pod HARNESS_GOHELPER=/usr/local/bin/gohelper
+ENV HARNESS_SANDBOX_TARGET=pod HARNESS_GOHELPER=/usr/local/bin/gohelper HARNESS_PROMPTS_DIR=/opt/harness/prompts
 ENTRYPOINT ["harness"]
