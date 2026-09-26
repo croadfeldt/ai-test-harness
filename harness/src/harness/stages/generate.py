@@ -242,6 +242,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         max_tokens = int({"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat] * getattr(adapter, "OUTPUT_SCALE", 1.0))
         system = prompts.text(f"system.{adapter.ECOSYSTEM}", adapter.SYSTEM)
         attempts, code, history, run1, precut = 0, None, [], None, []
+        best = None   # GF-027: the last attempt whose file collected, kept in case a later repair collects nothing
         while attempts <= max_repairs:
             tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"
             text, rec = model.chat(system, prompt if attempts == 0 else prompt + "\n\nPREVIOUS ATTEMPT FAILED:\n" + history[-1], tag, max_tokens=max_tokens)
@@ -282,6 +283,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
             if _collected_nothing(run1["results"]):
                 history.append("No test ran on the baseline: the file did not build or collect. The output:\n" + run1["stdout_tail"][-2000:]); continue
+            best = (code, run1, list(precut), attempts)
             if cat == "cve":
                 # Judged by the differential run, with one exception: a test that crashes on the FIXED
                 # version with an unexpected exception (anything but an assertion or a missing raise)
@@ -313,6 +315,12 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             log(f"    {cat}: discarded after {attempts} attempt(s): {(history[-1] if history else '')[:120]}")
             continue
         run_final = run1
+        if (run_final is None or _collected_nothing(run_final["results"])) and best is not None:
+            # GF-027: the last repair collected nothing, but an earlier attempt ran. Its failing tests are cut
+            # like any other; a worse repair must not erase a working file.
+            code, run_final, precut, kept_attempt = best
+            log(f"    {cat}: the last repair did not build; keeping attempt {kept_attempt}, which ran")
+            manifest.setdefault("fell_back", []).append({"category": cat, "issue": suffix or None, "kept_attempt": kept_attempt, "attempts": attempts})
         if run_final is None or _collected_nothing(run_final["results"]):
             # GF-020: the last repair still did not collect (a module-level import of a name the package
             # lacks, for instance). The tests inside were never run, so nothing here is a candidate.

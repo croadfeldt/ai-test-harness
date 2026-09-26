@@ -263,7 +263,7 @@ def gf024():
     out = "# harnesstest [harnesstest.test]\n./candidate_test.go:12:10: invalid argument: cb for built-in len\nFAIL\tharnesstest [build failed]\n"
     kept, cut, outside = cut_at_errors(code, out)
     assert [c["test"] for c in cut] == ["TestB"] and outside == [] and "TestA" in kept and "TestB" not in kept
-    _, cut2, outside2 = cut_at_errors(code, "./candidate_test.go:3:8: imported and not used\n")
+    _, cut2, outside2 = cut_at_errors(code, "./candidate_test.go:2:1: undefined: helper\n")
     assert cut2 == [] and outside2, "an error outside any test function is not cuttable"
     src = inspect.getsource(generate_package)
     assert "cut_at_errors" in src and src.index("cut_at_errors") < src.index("kept_code = code")
@@ -286,6 +286,18 @@ def gf026():
     ids = ["PYSEC-2024-232", "CVE-2024-33663", "GHSA-6c5p-j8vq-pqhj"]
     assert _names_advisory("test_GHSA_6c5p_j8vq_pqhj_exposure", ids) and _names_advisory("test_ghsa_6c5p_j8vq_pqhj_fix_pinning", ids)
     assert _names_advisory("test_cve_2024_33663_fix_pinning", ids) and not _names_advisory("test_cve_2024_29370_fix_pinning", ids)
+
+
+@check("GF-027", "a repair that collects nothing does not erase the attempt that ran; unused imports are pruned, not sent back")
+def gf027():
+    from .stages.generate import generate_package
+    from .adapters.go import cut_at_errors
+    src = inspect.getsource(generate_package)
+    assert "best = (code, run1" in src and "code, run_final, precut, kept_attempt = best" in src
+    assert src.index("code, run_final, precut, kept_attempt = best") < src.index("did not collect on the baseline after repairs")
+    code = "package harnesstest\n\nimport (\n\t\"context\"\n\t\"testing\"\n)\n\nfunc TestA(t *testing.T) {\n\tif 1 != 1 {\n\t\tt.Fatal(\"x\")\n\t}\n}\n"
+    kept, cut, outside = cut_at_errors(code, "./candidate_test.go:4:2: \"context\" imported and not used\n")
+    assert cut == [] and outside == [] and "context" not in kept, "an unused import is pruned, not a reason to send the file back"
 
 
 @check("GF-012", "every old/new outcome maps to a fixed, honest verdict")

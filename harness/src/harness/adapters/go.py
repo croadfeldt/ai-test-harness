@@ -412,11 +412,25 @@ def cut_at_errors(code: str, build_output: str) -> tuple[str, list[dict], list[s
             cut.setdefault(hit, []).append(msg)
         else:
             outside.append(f"line {ln}: {msg}")
+    # An import nothing uses is not a reason to send the file back: pruning it is mechanical, and
+    # dropping a test often leaves one behind.
+    real_outside = [e for e in outside if "imported and not used" not in e]
     if not cut:
-        return code, [], outside
+        return (prune_imports(code) if outside and not real_outside else code), [], real_outside
     return (drop_tests(code, set(cut)),
             [{"test": t, "reason": "does not compile", "message": "; ".join(msgs)[:300]} for t, msgs in cut.items()],
-            outside)
+            real_outside)
+
+
+def prune_imports(code: str) -> str:
+    """The file with the imports no declaration uses removed (the helper's strip with nothing to strip)."""
+    with tempfile.NamedTemporaryFile("w", suffix="_test.go", delete=False) as f:
+        f.write(code); path = f.name
+    try:
+        out = subprocess.run([str(_helper()), "strip", path], capture_output=True, text=True, timeout=60)
+    finally:
+        Path(path).unlink(missing_ok=True)
+    return out.stdout if out.returncode == 0 else code
 
 
 def _stdlib(path: str) -> bool:
