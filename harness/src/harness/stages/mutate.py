@@ -67,6 +67,8 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
         unpacked = adapter.pkg_root(adapter.unpack(adapter.fetch(pkg, facts["new_version"], cache, python_version), cache))
     sites = []
     for rel, lines in executed.items():
+        if not lines:
+            continue   # GF-028: a file the tests never reached has no site worth mutating; an empty list must not mean 'every line'
         src_path = unpacked / rel
         if src_path.exists():
             sites += [{"file": rel, **s} for s in adapter.mutation_sites(src_path, lines)]

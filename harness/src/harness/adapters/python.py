@@ -880,6 +880,8 @@ def _apply(tree: ast.Module, op: str, target) -> ast.Module:
 
 
 def mutation_sites(src_path: Path, lines: set[int]) -> list[dict]:
+    if not lines:
+        return []   # GF-028: no executed line, no site
     """Candidate sites on executed lines of one source file: op, line, col, text."""
     try:
         tree = ast.parse(src_path.read_text(errors="replace"))
