@@ -1,0 +1,8 @@
+panic: contentType is empty
+
+goroutine 1 [running]:
+github.com/getkin/kin-openapi/openapi3filter.RegisterBodyDecoder(...)
+	/work/mutant/openapi3filter/req_resp_decoder.go:1199
+github.com/getkin/kin-openapi/openapi3filter.init.0()
+	/work/mutant/openapi3filter/req_resp_decoder.go:1295 +0x25
+FAIL	harnesstest	0.015s

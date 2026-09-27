@@ -1,0 +1,99 @@
+{
+  "import_names": [
+    "github.com/nats-io/nats-server/v2"
+  ],
+  "package": "github.com/nats-io/nats-server/v2",
+  "sites": [
+    {
+      "context": "natsserver \"github.com/nats-io/nats-server/v2/server\"",
+      "file": "internal/sp/consumer/response_consumer_test.go",
+      "in_test": true,
+      "line": 16,
+      "symbol": "github.com/nats-io/nats-server/v2/server"
+    },
+    {
+      "context": "natsserver \"github.com/nats-io/nats-server/v2/server\"",
+      "file": "internal/sp/consumer/suite_test.go",
+      "in_test": true,
+      "line": 7,
+      "symbol": "github.com/nats-io/nats-server/v2/server"
+    },
+    {
+      "context": "natsserver \"github.com/nats-io/nats-server/v2/server\"",
+      "file": "internal/sp/messaging/publisher_test.go",
+      "in_test": true,
+      "line": 12,
+      "symbol": "github.com/nats-io/nats-server/v2/server"
+    },
+    {
+      "context": "ns, err = natsserver.NewServer(opts)",
+      "file": "internal/sp/consumer/response_consumer_test.go",
+      "in_test": true,
+      "line": 45,
+      "symbol": "github.com/nats-io/nats-server/v2/server.NewServer"
+    },
+    {
+      "context": "ns, err = natsserver.NewServer(opts)",
+      "file": "internal/sp/messaging/publisher_test.go",
+      "in_test": true,
+      "line": 53,
+      "symbol": "github.com/nats-io/nats-server/v2/server.NewServer"
+    },
+    {
+      "context": "opts := &natsserver.Options{",
+      "file": "internal/sp/consumer/response_consumer_test.go",
+      "in_test": true,
+      "line": 38,
+      "symbol": "github.com/nats-io/nats-server/v2/server.Options"
+    },
+    {
+      "context": "opts := &natsserver.Options{",
+      "file": "internal/sp/messaging/publisher_test.go",
+      "in_test": true,
+      "line": 46,
+      "symbol": "github.com/nats-io/nats-server/v2/server.Options"
+    },
+    {
+      "context": "ns        *natsserver.Server",
+      "file": "internal/sp/consumer/response_consumer_test.go",
+      "in_test": true,
+      "line": 28,
+      "symbol": "github.com/nats-io/nats-server/v2/server.Server"
+    },
+    {
+      "context": "var testNATSServer *natsserver.Server",
+      "file": "internal/sp/consumer/suite_test.go",
+      "in_test": true,
+      "line": 13,
+      "symbol": "github.com/nats-io/nats-server/v2/server.Server"
+    },
+    {
+      "context": "ns        *natsserver.Server",
+      "file": "internal/sp/messaging/publisher_test.go",
+      "in_test": true,
+      "line": 38,
+      "symbol": "github.com/nats-io/nats-server/v2/server.Server"
+    },
+    {
+      "context": "\"github.com/nats-io/nats-server/v2/test\"",
+      "file": "internal/sp/consumer/suite_test.go",
+      "in_test": true,
+      "line": 8,
+      "symbol": "github.com/nats-io/nats-server/v2/test"
+    },
+    {
+      "context": "opts := test.DefaultTestOptions",
+      "file": "internal/sp/consumer/suite_test.go",
+      "in_test": true,
+      "line": 24,
+      "symbol": "github.com/nats-io/nats-server/v2/test.DefaultTestOptions"
+    },
+    {
+      "context": "testNATSServer = test.RunServer(&opts)",
+      "file": "internal/sp/consumer/suite_test.go",
+      "in_test": true,
+      "line": 28,
+      "symbol": "github.com/nats-io/nats-server/v2/test.RunServer"
+    }
+  ]
+}

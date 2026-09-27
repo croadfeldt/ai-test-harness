@@ -1,0 +1,19 @@
+=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning
+    kin_openapi_cve_cve_2026_73501_test.go:23: Load failed: unsupported URI
+--- FAIL: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)
+=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure
+    kin_openapi_cve_cve_2026_73501_test.go:61: Load failed: unsupported URI
+--- FAIL: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)
+=== RUN   TestComponentsValidate
+--- PASS: TestComponentsValidate (0.00s)
+=== RUN   TestNewContent
+--- PASS: TestNewContent (0.00s)
+=== RUN   TestNewExample
+--- PASS: TestNewExample (0.00s)
+=== RUN   TestExampleValidate
+--- PASS: TestExampleValidate (0.00s)
+=== RUN   TestOptions_Struct
+--- PASS: TestOptions_Struct (0.00s)
+FAIL
+coverage: 1.4% of statements in github.com/getkin/kin-openapi/...
+FAIL	harnesstest	0.044s

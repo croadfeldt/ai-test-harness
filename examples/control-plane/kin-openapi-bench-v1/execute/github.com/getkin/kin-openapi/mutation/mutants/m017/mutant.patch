@@ -1,0 +1,11 @@
+--- a/openapi3/contact.go
++++ b/openapi3/contact.go
+@@ -20,7 +20,7 @@
+ // MarshalJSON returns the JSON encoding of Contact.
+ func (contact Contact) MarshalJSON() ([]byte, error) {
+ 	x, err := contact.MarshalYAML()
+-	if err != nil {
++	if !(err != nil) {
+ 		return nil, err
+ 	}
+ 	return json.Marshal(x)

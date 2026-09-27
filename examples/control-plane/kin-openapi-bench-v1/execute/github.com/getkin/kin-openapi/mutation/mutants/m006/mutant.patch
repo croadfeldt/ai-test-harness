@@ -1,0 +1,11 @@
+--- a/openapi3/stringmap.go
++++ b/openapi3/stringmap.go
+@@ -21,7 +21,7 @@
+ 	result := make(map[string]*V, len(m))
+ 	for _, k := range componentNames(m) {
+ 		value, err := deepCast[V](m[k])
+-		if err != nil {
++		if err == nil {
+ 			return nil, err
+ 		}
+ 		result[k] = value

@@ -1,0 +1,11 @@
+--- a/openapi3/error_collector.go
++++ b/openapi3/error_collector.go
+@@ -28,7 +28,7 @@
+ }
+ 
+ func (c *errCollector) emit(err error) error {
+-	if err == nil {
++	if !(err == nil) {
+ 		return nil
+ 	}
+ 	if !c.multi {

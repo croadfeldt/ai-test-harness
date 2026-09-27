@@ -1,0 +1,11 @@
+--- a/openapi3filter/req_resp_decoder.go
++++ b/openapi3filter/req_resp_decoder.go
+@@ -1198,7 +1198,7 @@
+ 	if contentType == "" {
+ 		panic("contentType is empty")
+ 	}
+-	if decoder == nil {
++	if decoder != nil {
+ 		panic("decoder is not defined")
+ 	}
+ 	bodyDecoders[contentType] = decoder

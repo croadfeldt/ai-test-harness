@@ -1,0 +1,11 @@
+--- a/openapi3/info.go
++++ b/openapi3/info.go
+@@ -97,7 +97,7 @@
+ 		}
+ 	}
+ 
+-	if license := info.License; license != nil {
++	if license := info.License; license == nil {
+ 		if err := me.emit(license.Validate(ctx)); err != nil {
+ 			return err
+ 		}

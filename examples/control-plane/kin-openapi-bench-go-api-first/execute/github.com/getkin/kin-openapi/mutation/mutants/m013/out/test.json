@@ -1,0 +1,27 @@
+{"Time":"2026-09-27T00:18:17.971477701Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-27T00:18:17.98232877Z","Action":"run","Package":"harnesstest","Test":"TestComponentsValidate"}
+{"Time":"2026-09-27T00:18:17.982397852Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"=== RUN   TestComponentsValidate\n"}
+{"Time":"2026-09-27T00:18:17.982567528Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"--- FAIL: TestComponentsValidate (0.00s)\n"}
+{"Time":"2026-09-27T00:18:17.984478997Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]\n"}
+{"Time":"2026-09-27T00:18:17.984519408Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"[signal SIGSEGV: segmentation violation code=0x1 addr=0x9 pc=0x7556ca]\n"}
+{"Time":"2026-09-27T00:18:17.984544109Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\n"}
+{"Time":"2026-09-27T00:18:17.98456323Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"goroutine 21 [running]:\n"}
+{"Time":"2026-09-27T00:18:17.984583371Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"testing.tRunner.func1.2({0x83cc60, 0xc38f10})\n"}
+{"Time":"2026-09-27T00:18:17.984601901Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/usr/local/go/src/testing/testing.go:1872 +0x232\n"}
+{"Time":"2026-09-27T00:18:17.984620142Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"testing.tRunner.func1()\n"}
+{"Time":"2026-09-27T00:18:17.984637843Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/usr/local/go/src/testing/testing.go:1875 +0x35b\n"}
+{"Time":"2026-09-27T00:18:17.984679904Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"panic({0x83cc60?, 0xc38f10?})\n"}
+{"Time":"2026-09-27T00:18:17.984706065Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/usr/local/go/src/runtime/panic.go:783 +0x132\n"}
+{"Time":"2026-09-27T00:18:17.984725186Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"github.com/getkin/kin-openapi/openapi3.newErrCollector({0x972588?, 0xc6ed40?})\n"}
+{"Time":"2026-09-27T00:18:17.984743176Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/work/mutant/openapi3/error_collector.go:27 +0x6a\n"}
+{"Time":"2026-09-27T00:18:17.984761527Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"github.com/getkin/kin-openapi/openapi3.(*Components).Validate(0xc0000fdef8, {0x972588?, 0xc6ed40?}, {0x0?, 0xf?, 0xa03ebf?})\n"}
+{"Time":"2026-09-27T00:18:17.984780008Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/work/mutant/openapi3/components.go:113 +0x65\n"}
+{"Time":"2026-09-27T00:18:17.984798058Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"harnesstest.TestComponentsValidate(0xc00008afc0)\n"}
+{"Time":"2026-09-27T00:18:17.984815739Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/work/m/kin_openapi_unit_test.go:16 +0x72\n"}
+{"Time":"2026-09-27T00:18:17.98483367Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"testing.tRunner(0xc00008afc0, 0x8f3928)\n"}
+{"Time":"2026-09-27T00:18:17.984871981Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/usr/local/go/src/testing/testing.go:1934 +0xea\n"}
+{"Time":"2026-09-27T00:18:17.984889972Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"created by testing.(*T).Run in goroutine 1\n"}
+{"Time":"2026-09-27T00:18:17.984907862Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"\t/usr/local/go/src/testing/testing.go:1997 +0x465\n"}
+{"Time":"2026-09-27T00:18:17.986867222Z","Action":"fail","Package":"harnesstest","Test":"TestComponentsValidate","Elapsed":0}
+{"Time":"2026-09-27T00:18:17.986916754Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.014s\n"}
+{"Time":"2026-09-27T00:18:17.986942925Z","Action":"fail","Package":"harnesstest","Elapsed":0.015}

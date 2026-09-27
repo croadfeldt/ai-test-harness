@@ -1,0 +1,279 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "configuration": [
+      {
+        "annotations": {
+          "findings": [
+            {
+              "class": "security",
+              "confidence": 0.9,
+              "evidence_ref": "analyze/github.com/getkin/kin-openapi/vulns.json",
+              "summary": "github.com/getkin/kin-openapi v0.139.0 has 8 open advisories at head; reachable=true"
+            },
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/github.com/getkin/kin-openapi/manifest.agent.json",
+              "summary": "github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-73502); NOT corroborated by stage 4 verdicts"
+            },
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/github.com/getkin/kin-openapi/manifest.agent.json",
+              "summary": "github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-76905); NOT corroborated by stage 4 verdicts"
+            },
+            {
+              "class": "defect",
+              "confidence": 0.4,
+              "evidence_ref": "generate/github.com/getkin/kin-openapi/manifest.agent.json",
+              "summary": "github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-73501); NOT corroborated by stage 4 verdicts"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/github.com/getkin/kin-openapi/relevance.json",
+              "summary": "github.com/getkin/kin-openapi: TestNewContent killed none of 25 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/github.com/getkin/kin-openapi/relevance.json",
+              "summary": "github.com/getkin/kin-openapi: TestNewExample killed none of 25 sampled mutants in this run"
+            },
+            {
+              "class": "redundant",
+              "confidence": 0.5,
+              "evidence_ref": "execute/github.com/getkin/kin-openapi/relevance.json",
+              "summary": "github.com/getkin/kin-openapi: TestOptions_Struct killed none of 25 sampled mutants in this run"
+            }
+          ],
+          "inputs": {
+            "base": "go.mod@1acc678bd670",
+            "build_provenance_ref": "none: not run inside Konflux",
+            "graph_resolver": "go list -m -json all + go mod graph (go version go1.25.14 linux/amd64)",
+            "sbom_digest": "sha256:3b568d50346d6e91ebe8a3479f810529f722ba418f54c0a1735ee58df18b1d02",
+            "snapshot": "go.mod@1acc678bd670"
+          },
+          "metrics": {
+            "build_success_rate": null,
+            "coverage_lines_in_target": 169,
+            "fix_pinning_confirmed": 0,
+            "flake_rate": 0.0,
+            "mutation_engine": "harness go mutator (diff- and coverage-scoped)",
+            "mutation_sample": 25,
+            "mutation_score": 0.24,
+            "tests_total": 7
+          },
+          "run": {
+            "execution_targets": [
+              "podman"
+            ],
+            "harness_image_digest": "local-dev (not a container build)",
+            "harness_version": "0.1.0",
+            "model_endpoint": "gpu-server-llamacpp-235b",
+            "model_endpoint_digest": "sha256:249a4a5ecfcb17d8",
+            "model_id": "qwen3-235b",
+            "pipeline_run": [
+              "intake",
+              "--workdir",
+              "run",
+              "--base",
+              "main",
+              "--head",
+              "main",
+              "--ecosystem",
+              "go"
+            ],
+            "run_id": "d21cb45036bc",
+            "selfcheck": {
+              "checks": [
+                "GF-001",
+                "GF-002",
+                "GF-003",
+                "GF-004",
+                "GF-005",
+                "GF-006",
+                "GF-007",
+                "GF-008",
+                "GF-009",
+                "GF-010",
+                "GF-011",
+                "GF-013",
+                "GF-014",
+                "GF-015",
+                "GF-016",
+                "GF-017",
+                "GF-018",
+                "GF-019",
+                "GF-020",
+                "GF-021",
+                "GF-022",
+                "GF-023",
+                "GF-024",
+                "GF-025",
+                "GF-026",
+                "GF-027",
+                "GF-028",
+                "GF-012"
+              ],
+              "passed": true,
+              "ref": "selfcheck/selfcheck.json"
+            }
+          },
+          "tests_produced": [
+            {
+              "category": "unit",
+              "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+              "record_ref": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+              "test_id": "github.com/getkin/kin-openapi::TestComponentsValidate::009e51b789ff"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+              "record_ref": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+              "test_id": "github.com/getkin/kin-openapi::TestExampleValidate::009e51b789ff"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+              "record_ref": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+              "test_id": "github.com/getkin/kin-openapi::TestNewContent::009e51b789ff"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+              "record_ref": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+              "test_id": "github.com/getkin/kin-openapi::TestNewExample::009e51b789ff"
+            },
+            {
+              "category": "unit",
+              "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+              "record_ref": "attest/github.com/getkin/kin-openapi/MANIFEST.json",
+              "test_id": "github.com/getkin/kin-openapi::TestOptions_Struct::009e51b789ff"
+            }
+          ],
+          "tests_promoted": [],
+          "tests_retired": [],
+          "udlm": {
+            "estate": "lab",
+            "index_ref": "attest/github.com/getkin/kin-openapi/udlm/index.json",
+            "records": {
+              "job": "job.yaml",
+              "software-package": "software-package.yaml",
+              "test-evidence": "test-evidence.yaml",
+              "vex-statement": "vex-statement.yaml",
+              "vulnerability": "vulnerability.yaml"
+            },
+            "sealed": true
+          },
+          "unverified": [
+            "mutation engine: harness AST mutator on a bounded sample, not mutmut",
+            "coverage delta: no baseline overlay suite yet",
+            "signer: local Ed25519 development key, not Trusted Artifact Signer",
+            "harness image digest: harness ran from a checkout, not a built image"
+          ],
+          "vex_drafts": [
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-73502"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-76905"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-73501"
+            },
+            {
+              "evidence_test_ids": [],
+              "reviewed_by": null,
+              "status": "affected",
+              "vulnerability": "CVE-2026-77354"
+            }
+          ],
+          "work_items": [
+            {
+              "depth": 1,
+              "old_version": "v0.139.0",
+              "preflight": "clean",
+              "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+              "reachable": "true",
+              "risk_score": 0.7
+            }
+          ]
+        },
+        "digest": {
+          "sha256": "69e5a4b08e13df65ec0870d229b44cd602d3f40962644a964bf7e90304cdeae5"
+        },
+        "name": "ai-test-harness-record"
+      }
+    ],
+    "failedTests": [
+      "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+      "Test_GHSA_r277_6w6q_xmqw_exposure"
+    ],
+    "passedTests": [
+      "TestComponentsValidate",
+      "TestNewContent",
+      "TestNewExample",
+      "TestExampleValidate",
+      "TestOptions_Struct"
+    ],
+    "result": "PASSED",
+    "url": "packet/github.com/getkin/kin-openapi/packet.md",
+    "warnedTests": []
+  },
+  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "ea7186925e60fcc65f71a4d33d2444fb1bb4831df38da415d5a80a57bacb5fef"
+      },
+      "name": "packet/github.com/getkin/kin-openapi/tests.patch"
+    },
+    {
+      "digest": {
+        "sha256": "69e5a4b08e13df65ec0870d229b44cd602d3f40962644a964bf7e90304cdeae5"
+      },
+      "name": "attest/github.com/getkin/kin-openapi/MANIFEST.json"
+    },
+    {
+      "digest": {
+        "sha256": "154d329d648c5a001a6d722b6a781c9429d39098174fb4ef2643a812fd564df1"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testcomponentsvalidate@intent"
+    },
+    {
+      "digest": {
+        "sha256": "b529d75e8e78f7169e21320f86463a1ef5c0648382254c0144d0ef8471536abf"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testexamplevalidate@intent"
+    },
+    {
+      "digest": {
+        "sha256": "64fa2162a54b169c35646baa8930fa12042a880e43c96ca208904e2462328461"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewcontent@intent"
+    },
+    {
+      "digest": {
+        "sha256": "e40308a2c6e5c89ac67a09914a74f5a85ae838c395293f80575c473b0d0cbf8d"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewexample@intent"
+    },
+    {
+      "digest": {
+        "sha256": "cc56e6c0dc302e4aec80404eae3b530c32fe172d434cfe16dd7223b6d76cd9c8"
+      },
+      "name": "udlm:lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testoptions-struct@intent"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+--- a/openapi3/openapi3.go
++++ b/openapi3/openapi3.go
+@@ -341,7 +341,7 @@
+ 	}
+ 
+ 	wrap = wrapSection("external docs")
+-	if v := doc.ExternalDocs; v != nil {
++	if v := doc.ExternalDocs; !(v != nil) {
+ 		if err := me.emitWrapped(wrap, v.Validate(ctx)); err != nil {
+ 			return err
+ 		}

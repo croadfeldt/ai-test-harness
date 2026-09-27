@@ -1,0 +1,11 @@
+--- a/openapi3/loader.go
++++ b/openapi3/loader.go
+@@ -87,7 +87,7 @@
+ 
+ func (loader *Loader) loadFromURIInternal(location *url.URL) (*T, error) {
+ 	data, err := loader.readURL(location)
+-	if err != nil {
++	if !(err != nil) {
+ 		return nil, err
+ 	}
+ 	return loader.loadFromDataWithPathInternal(data, location)

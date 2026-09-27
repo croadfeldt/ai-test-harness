@@ -1,0 +1,26 @@
+{"Time":"2026-09-27T00:19:27.76357409Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-27T00:19:27.774711719Z","Action":"run","Package":"harnesstest","Test":"TestComponentsValidate"}
+{"Time":"2026-09-27T00:19:27.774785432Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"=== RUN   TestComponentsValidate\n"}
+{"Time":"2026-09-27T00:19:27.775053411Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"    kin_openapi_unit_test.go:18: Expected no validation error on empty components, got: \n"}
+{"Time":"2026-09-27T00:19:27.775086852Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"--- FAIL: TestComponentsValidate (0.00s)\n"}
+{"Time":"2026-09-27T00:19:27.775107163Z","Action":"fail","Package":"harnesstest","Test":"TestComponentsValidate","Elapsed":0}
+{"Time":"2026-09-27T00:19:27.775128154Z","Action":"run","Package":"harnesstest","Test":"TestNewContent"}
+{"Time":"2026-09-27T00:19:27.775145854Z","Action":"output","Package":"harnesstest","Test":"TestNewContent","Output":"=== RUN   TestNewContent\n"}
+{"Time":"2026-09-27T00:19:27.775180176Z","Action":"output","Package":"harnesstest","Test":"TestNewContent","Output":"--- PASS: TestNewContent (0.00s)\n"}
+{"Time":"2026-09-27T00:19:27.775199126Z","Action":"pass","Package":"harnesstest","Test":"TestNewContent","Elapsed":0}
+{"Time":"2026-09-27T00:19:27.775217557Z","Action":"run","Package":"harnesstest","Test":"TestNewExample"}
+{"Time":"2026-09-27T00:19:27.775234948Z","Action":"output","Package":"harnesstest","Test":"TestNewExample","Output":"=== RUN   TestNewExample\n"}
+{"Time":"2026-09-27T00:19:27.775253978Z","Action":"output","Package":"harnesstest","Test":"TestNewExample","Output":"--- PASS: TestNewExample (0.00s)\n"}
+{"Time":"2026-09-27T00:19:27.775272109Z","Action":"pass","Package":"harnesstest","Test":"TestNewExample","Elapsed":0}
+{"Time":"2026-09-27T00:19:27.77529011Z","Action":"run","Package":"harnesstest","Test":"TestExampleValidate"}
+{"Time":"2026-09-27T00:19:27.77530741Z","Action":"output","Package":"harnesstest","Test":"TestExampleValidate","Output":"=== RUN   TestExampleValidate\n"}
+{"Time":"2026-09-27T00:19:27.775326571Z","Action":"output","Package":"harnesstest","Test":"TestExampleValidate","Output":"--- PASS: TestExampleValidate (0.00s)\n"}
+{"Time":"2026-09-27T00:19:27.775344732Z","Action":"pass","Package":"harnesstest","Test":"TestExampleValidate","Elapsed":0}
+{"Time":"2026-09-27T00:19:27.775362692Z","Action":"run","Package":"harnesstest","Test":"TestOptions_Struct"}
+{"Time":"2026-09-27T00:19:27.775379833Z","Action":"output","Package":"harnesstest","Test":"TestOptions_Struct","Output":"=== RUN   TestOptions_Struct\n"}
+{"Time":"2026-09-27T00:19:27.775398724Z","Action":"output","Package":"harnesstest","Test":"TestOptions_Struct","Output":"--- PASS: TestOptions_Struct (0.00s)\n"}
+{"Time":"2026-09-27T00:19:27.775416694Z","Action":"pass","Package":"harnesstest","Test":"TestOptions_Struct","Elapsed":0}
+{"Time":"2026-09-27T00:19:27.775441235Z","Action":"output","Package":"harnesstest","Output":"FAIL\n"}
+{"Time":"2026-09-27T00:19:27.775458886Z","Action":"output","Package":"harnesstest","Output":"coverage: [no statements]\n"}
+{"Time":"2026-09-27T00:19:27.77725234Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.013s\n"}
+{"Time":"2026-09-27T00:19:27.777322252Z","Action":"fail","Package":"harnesstest","Elapsed":0.014}

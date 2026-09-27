@@ -1,0 +1,829 @@
+{
+  "budget": {
+    "max_reads_before_run": 6,
+    "max_tokens_per_turn": 4000,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "candidate_defects": [
+    {
+      "blocked_paths": [
+        "[new v0.139.0 = VULNERABLE] Test_GHSA_jpcw_4wr7_c3vq_fix_pinning=error (did not compile: ./candidate_test.go:14:10: cannot use openapi3.Paths{\u2026} (value of struct type openapi3.Paths) as *openapi3.Paths value in struct literal; ./can); Test_GHSA_jpcw_4wr7_c3vq_exposure=error (did not compile: ./candi"
+      ],
+      "issue": "CVE-2026-73502",
+      "note": "same error on both versions across attempts; for triage as a possible package or environment defect"
+    },
+    {
+      "blocked_paths": [
+        "[new v0.139.0 = VULNERABLE] Test_GHSA_mmfr_pmjx_hw9w_fix_pinning=error (did not compile: ./candidate_test.go:23:10: cannot use openapi3.Paths{\u2026} (value of struct type openapi3.Paths) as *openapi3.Paths value in struct literal; ./can); Test_GHSA_mmfr_pmjx_hw9w_exposure=error (did not compile: ./candi"
+      ],
+      "issue": "CVE-2026-76905",
+      "note": "same error on both versions across attempts; for triage as a possible package or environment defect"
+    },
+    {
+      "blocked_paths": [
+        "[new v0.139.0 = VULNERABLE] collection failed:"
+      ],
+      "issue": "CVE-2026-73501",
+      "note": "same error on both versions across attempts; for triage as a possible package or environment defect"
+    }
+  ],
+  "cve_roles": {
+    "candidate_moved": {
+      "github.com/getkin/kin-openapi": [
+        "v0.139.0",
+        "v0.144.0"
+      ],
+      "github.com/go-openapi/jsonpointer": [
+        "v0.22.4",
+        "v0.22.5"
+      ],
+      "github.com/go-openapi/swag/jsonname": [
+        "v0.25.4",
+        "v0.25.5"
+      ],
+      "github.com/go-openapi/testify/v2": [
+        "v2.0.2",
+        "v2.4.0"
+      ],
+      "github.com/oasdiff/yaml": [
+        "v0.1.0",
+        "v0.1.1"
+      ],
+      "github.com/oasdiff/yaml3": [
+        "v0.0.13",
+        "v0.0.14"
+      ]
+    },
+    "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+    "direction": "candidate",
+    "fixed": "v0.144.0",
+    "vulnerable": "v0.139.0"
+  },
+  "discarded": [
+    {
+      "category": "cve",
+      "issue": "CVE-2026-73502",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-76905",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-77354",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    }
+  ],
+  "files": [
+    {
+      "attempts": 17,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "model": "qwen3-235b",
+      "note": "Tests demonstrate the authentication bypass vulnerability via default NoopAuthenticationFunc in ValidationHandler.Load(). The test fails on vulnerable version and passes on fixed version, but requires a valid OpenAPI spec to be provided.",
+      "sha256": "sha256:186fa823c4373e9972268b1c912d042a6c87199107afdef1ede257e5211c553f",
+      "targets": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "tests": [
+        "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+        "Test_GHSA_r277_6w6q_xmqw_exposure"
+      ],
+      "tool_calls": 14
+    }
+  ],
+  "generated": "2026-09-26T21:25:32+00:00",
+  "mode": "agent",
+  "model": {
+    "endpoint": "gpu-server-llamacpp-235b",
+    "endpoint_digest": "sha256:249a4a5ecfcb17d8",
+    "id": "qwen3-235b",
+    "temperature": null
+  },
+  "new_version": "v0.139.0",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "prompt_set": {
+    "digest": "sha256:7a6465e51f3957105ff7727113e80368fa79a34c7184907de646b3bc4417d7e1",
+    "name": "go-api-first",
+    "overrides": [
+      "system.go"
+    ]
+  },
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "traces": {
+    "CVE-2026-73501": [
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3filter"
+        },
+        "result_chars": 12098,
+        "result_sha256": "sha256:641b63d77fce99104634ab2481f24f15efe24d6cc2c11b128286b807f55ede51",
+        "tool": "list_api",
+        "turn": 1
+      },
+      {
+        "args": {
+          "pattern": "ValidationHandler.Load",
+          "version": "new"
+        },
+        "result_chars": 10,
+        "result_sha256": "sha256:0ed6af34915f9a8dbe3795dbbfe13a095c9b3e74e5afa24944ec657942066425",
+        "tool": "search_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "pattern": "NoopAuthenticationFunc",
+          "version": "new"
+        },
+        "result_chars": 458,
+        "result_sha256": "sha256:90b642aec6eb5e7fbd9e55ef192daeeff9dd07ec00f72d716f15b3dcd042e1db",
+        "tool": "search_source",
+        "turn": 3
+      },
+      {
+        "args": {
+          "end_line": 25,
+          "path": "openapi3filter/validation_handler.go",
+          "start_line": 15,
+          "version": "new"
+        },
+        "result_chars": 440,
+        "result_sha256": "sha256:c6156e7a7113bff7a3da53ba0ecf238a2933898a0a807bf5fd9579aa9606b3d8",
+        "tool": "read_source",
+        "turn": 4
+      },
+      {
+        "args": {
+          "end_line": 60,
+          "path": "openapi3filter/validation_handler.go",
+          "start_line": 40,
+          "version": "new"
+        },
+        "result_chars": 482,
+        "result_sha256": "sha256:f6e0917679d4340ba74e1ce6163a6f4f7bfd422b8a3796b623cf0fef7137a2ca",
+        "tool": "read_source",
+        "turn": 5
+      },
+      {
+        "args": {
+          "pattern": "ValidationHandler",
+          "version": "new"
+        },
+        "result_chars": 634,
+        "result_sha256": "sha256:5f2b088990d72111de9cef82e15be35ae770d19b6ded6087d514e8cb92a15d6d",
+        "tool": "search_source",
+        "turn": 6
+      },
+      {
+        "refused": "Refused: 6 reads without running a test. Write the file and call run_tests now; ",
+        "tool": "read_source",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 882,
+        "result_sha256": "sha256:982aa105d4443fa023e596fe25659e87042ff0bc6ce6a67dd8a247d3a1df506e",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3filter\"\n)\n\nfunc"
+        },
+        "result_chars": 578,
+        "result_sha256": "sha256:35bb150bb7da8af7f35520d1fb6d11e8cf8230f71731abe84f53f2545e93b481",
+        "tool": "run_tests",
+        "turn": 9
+      },
+      {
+        "args": {
+          "pattern": "testdata",
+          "version": "new"
+        },
+        "result_chars": 10,
+        "result_sha256": "sha256:0ed6af34915f9a8dbe3795dbbfe13a095c9b3e74e5afa24944ec657942066425",
+        "tool": "search_source",
+        "turn": 10
+      },
+      {
+        "args": {
+          "end_line": 55,
+          "path": "openapi3filter/validation_handler.go",
+          "start_line": 30,
+          "version": "new"
+        },
+        "result_chars": 649,
+        "result_sha256": "sha256:0d80fdc58fd7c82767f2e31572c83d0c688c1ea65985a3dd130dfe8794ce64fe",
+        "tool": "read_source",
+        "turn": 11
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 338,
+        "result_sha256": "sha256:b7d5976bba91eaa13d66c31b2706c5a850a8c6de0234ae261574596ef195b605",
+        "tool": "run_tests",
+        "turn": 12
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 646,
+        "result_sha256": "sha256:e4a8532e215a9fd6e230a06f1a06cfaa0feb8862884d89387378f13fae3056ce",
+        "tool": "run_tests",
+        "turn": 13
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 647,
+        "result_sha256": "sha256:510389fd26c669d42b8c91dab059820658b2e79682186907ab4577b8c4687094",
+        "tool": "run_tests",
+        "turn": 14
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file has not been run: call run_tests with it first, then submit the same text unchanged"
+        ],
+        "tool": "submit",
+        "turn": 15
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3filter\"\n)\n\nfunc"
+        },
+        "result_chars": 438,
+        "result_sha256": "sha256:494071ccf6be523e2eecea1325dcf9a2cd90fbcfb4d8e128208c68348431c6ad",
+        "tool": "run_tests",
+        "turn": 16
+      },
+      {
+        "ok": true,
+        "problems": [],
+        "tool": "submit",
+        "turn": 17
+      }
+    ],
+    "CVE-2026-73502": [
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3filter"
+        },
+        "result_chars": 12098,
+        "result_sha256": "sha256:641b63d77fce99104634ab2481f24f15efe24d6cc2c11b128286b807f55ede51",
+        "tool": "list_api",
+        "turn": 1
+      },
+      {
+        "args": {
+          "pattern": "defaultContentParameterDecoder",
+          "version": "new"
+        },
+        "result_chars": 202,
+        "result_sha256": "sha256:e79d49b0b27d0aaf4bb55a91e33941ded9bd284dcbd4f4449b621e6cdeeaf11b",
+        "tool": "search_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "end_line": 175,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 165,
+          "version": "new"
+        },
+        "result_chars": 410,
+        "result_sha256": "sha256:2fdd46bf839b2676f366e20c5e720ea43854352330e881ee37a2e9589383d1d1",
+        "tool": "read_source",
+        "turn": 3
+      },
+      {
+        "args": {
+          "end_line": 200,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 190,
+          "version": "new"
+        },
+        "result_chars": 481,
+        "result_sha256": "sha256:04e542cb5850eb06aa5a6f2a0feed043b94aa1d1be404b227160ccb43b03db4e",
+        "tool": "read_source",
+        "turn": 4
+      },
+      {
+        "args": {
+          "end_line": 220,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 210,
+          "version": "new"
+        },
+        "result_chars": 342,
+        "result_sha256": "sha256:21f7560d923e4487316aeaa97c2ae5d8c234ae17d1aaa8a1bef478d045ef9f2f",
+        "tool": "read_source",
+        "turn": 5
+      },
+      {
+        "args": {
+          "end_line": 230,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 220,
+          "version": "new"
+        },
+        "result_chars": 468,
+        "result_sha256": "sha256:721473b5842aa56580ce03e0095e805f093faf1a04aefc065eeb66e70ac8658b",
+        "tool": "read_source",
+        "turn": 6
+      },
+      {
+        "refused": "Refused: 6 reads without running a test. Write the file and call run_tests now; ",
+        "tool": "search_source",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 882,
+        "result_sha256": "sha256:e0b336cbeda408f735195584ddae6ce80c272355333fe97287a51850cfbc0973",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "end_line": 15,
+          "path": "openapi3/path_item.go",
+          "start_line": 1,
+          "version": "new"
+        },
+        "result_chars": 413,
+        "result_sha256": "sha256:5c560d5384fd9f388386e3619b5e199610b06c7e87242d67443cd8e9d782f498",
+        "tool": "read_source",
+        "turn": 9
+      },
+      {
+        "args": {
+          "end_line": 30,
+          "path": "openapi3/path_item.go",
+          "start_line": 15,
+          "version": "new"
+        },
+        "result_chars": 1145,
+        "result_sha256": "sha256:2d59906a2a74d9bcab42e9ceb56ef35c1a5e3d75ced49a72ee86b3027522dd74",
+        "tool": "read_source",
+        "turn": 10
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 1190,
+        "result_sha256": "sha256:b5144149e27e46727c242d70b940b2ec7b47db9ae3cb0df0fa9ec6ac5394837c",
+        "tool": "run_tests",
+        "turn": 11
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 12
+      },
+      {
+        "args": {
+          "end_line": 20,
+          "path": "openapi3/t.go",
+          "start_line": 1,
+          "version": "new"
+        },
+        "result_chars": 46,
+        "result_sha256": "sha256:25e3082ca94db98e226b39b94e93c836a99ca1c58963a96bcad3853f6c3d5105",
+        "tool": "read_source",
+        "turn": 13
+      },
+      {
+        "refused": "Refused: the remaining calls are reserved for run_tests and submit.",
+        "tool": "list_api",
+        "turn": 14
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 1191,
+        "result_sha256": "sha256:f7675b0c064547a43558e7826c524542b4d3668782af148192de8bba6f0e1ef2",
+        "tool": "run_tests",
+        "turn": 15
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file has not been run: call run_tests with it first, then submit the same text unchanged"
+        ],
+        "tool": "submit",
+        "turn": 16
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\"github.com/"
+        },
+        "result_chars": 1191,
+        "result_sha256": "sha256:eaab0daab393a611791e0280061164ebef43e5c0d36da9376194daf78caf701e",
+        "tool": "run_tests",
+        "turn": 17
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file did not compile or collect on every version in its last run_tests; fix it, run it again, then submit the same text"
+        ],
+        "tool": "submit",
+        "turn": 18
+      }
+    ],
+    "CVE-2026-76905": [
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3filter"
+        },
+        "result_chars": 12098,
+        "result_sha256": "sha256:641b63d77fce99104634ab2481f24f15efe24d6cc2c11b128286b807f55ede51",
+        "tool": "list_api",
+        "turn": 1
+      },
+      {
+        "args": {
+          "pattern": "ConvertErrors",
+          "version": "new"
+        },
+        "result_chars": 288,
+        "result_sha256": "sha256:f17abd5d04aa42c50d5c4ae7c33b45838a4baabec1adcd784e0602f6fc71b495",
+        "tool": "search_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "end_line": 40,
+          "path": "openapi3filter/validation_error_encoder.go",
+          "start_line": 20,
+          "version": "new"
+        },
+        "result_chars": 616,
+        "result_sha256": "sha256:c2d55c6492caf8430d026ccaa156430cf4fcf0f53738e0e9587401bd4c5a502c",
+        "tool": "read_source",
+        "turn": 3
+      },
+      {
+        "args": {
+          "end_line": 60,
+          "path": "openapi3filter/validation_error_encoder.go",
+          "start_line": 40,
+          "version": "new"
+        },
+        "result_chars": 629,
+        "result_sha256": "sha256:e557c424028e75111cdee5b00f89438f1d082b52c9469e7129d462f7c50d9857",
+        "tool": "read_source",
+        "turn": 4
+      },
+      {
+        "args": {
+          "end_line": 120,
+          "path": "openapi3filter/validation_error_encoder.go",
+          "start_line": 100,
+          "version": "new"
+        },
+        "result_chars": 931,
+        "result_sha256": "sha256:98efe956ec7ef85a91fa08e3ef0f7a3e3ac6270da0840f4ec4ba22022285ebc9",
+        "tool": "read_source",
+        "turn": 5
+      },
+      {
+        "args": {
+          "end_line": 140,
+          "path": "openapi3filter/validation_error_encoder.go",
+          "start_line": 120,
+          "version": "new"
+        },
+        "result_chars": 770,
+        "result_sha256": "sha256:4815a3f3ebce0045eda344485301189f362e4de9f7a7b396ad9bbbd88a46ab1b",
+        "tool": "read_source",
+        "turn": 6
+      },
+      {
+        "refused": "Refused: 6 reads without running a test. Write the file and call run_tests now; ",
+        "tool": "read_source",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"io\"\n\t\"net/http\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openap"
+        },
+        "result_chars": 882,
+        "result_sha256": "sha256:8ad0dd711431bf7835e1b263573a5075a61637adf76ee124c620165f0dcfb676",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 9
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/routers/gorillamux"
+        },
+        "result_chars": 427,
+        "result_sha256": "sha256:3b7379867f1116aa925a12647d0f497cb56c86ed72afd2a32b159dd9334d75c7",
+        "tool": "list_api",
+        "turn": 10
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"io\"\n\t\"net/http\"\n\t\"net/http/httptest\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/getk"
+        },
+        "result_chars": 1190,
+        "result_sha256": "sha256:c922ed1579d529756aa8f23741a02f1cf9bd3677920e588a90dd57146e833ac0",
+        "tool": "run_tests",
+        "turn": 11
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 12
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file did not compile or collect on every version in its last run_tests; fix it, run it again, then submit the same text"
+        ],
+        "tool": "submit",
+        "turn": 13
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"io\"\n\t\"net/http\"\n\t\"net/http/httptest\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/getk"
+        },
+        "result_chars": 1191,
+        "result_sha256": "sha256:0ae333c9b3065f391d9ca5ea0b99ee636f31a1f2011f5dad42e2fe9ef913bbbe",
+        "tool": "run_tests",
+        "turn": 14
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file did not compile or collect on every version in its last run_tests; fix it, run it again, then submit the same text"
+        ],
+        "tool": "submit",
+        "turn": 15
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"io\"\n\t\"net/http\"\n\t\"net/http/httptest\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/getk"
+        },
+        "result_chars": 1191,
+        "result_sha256": "sha256:041c9309fb67ff11642ba4ccbbcb2735cfbefd154d3dcb3322c7699d2f6b5e59",
+        "tool": "run_tests",
+        "turn": 16
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file did not compile or collect on every version in its last run_tests; fix it, run it again, then submit the same text"
+        ],
+        "tool": "submit",
+        "turn": 17
+      },
+      {
+        "ok": false,
+        "problems": [
+          "Test_GHSA_mmfr_pmjx_hw9w_fix_pinning: no t.Error, t.Fatal, or helper call that receives t; the test cannot fail",
+          "Test_GHSA_mmfr_pmjx_hw9w_exposure: no t.Error, t.Fatal, or helper call that receives t; the test cannot fail"
+        ],
+        "tool": "submit",
+        "turn": 18
+      }
+    ],
+    "CVE-2026-77354": [
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3filter"
+        },
+        "result_chars": 12098,
+        "result_sha256": "sha256:641b63d77fce99104634ab2481f24f15efe24d6cc2c11b128286b807f55ede51",
+        "tool": "list_api",
+        "turn": 1
+      },
+      {
+        "args": {
+          "pattern": "deepObject.*DecodeObject",
+          "version": "new"
+        },
+        "result_chars": 10,
+        "result_sha256": "sha256:0ed6af34915f9a8dbe3795dbbfe13a095c9b3e74e5afa24944ec657942066425",
+        "tool": "search_source",
+        "turn": 2
+      },
+      {
+        "args": {
+          "pattern": "urlValuesDecoder.*DecodeObject",
+          "version": "new"
+        },
+        "result_chars": 187,
+        "result_sha256": "sha256:4f4acdc781c71df7df8279a651a52e312ab24bfa3d18b6cb8c66065cef3e62d7",
+        "tool": "search_source",
+        "turn": 3
+      },
+      {
+        "args": {
+          "end_line": 680,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 638,
+          "version": "new"
+        },
+        "result_chars": 1682,
+        "result_sha256": "sha256:abe6bec5f15ef215da967a9a94fa28c42791499e0924baf35d3fdb61cf46ba9d",
+        "tool": "read_source",
+        "turn": 4
+      },
+      {
+        "args": {
+          "end_line": 720,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 680,
+          "version": "new"
+        },
+        "result_chars": 1041,
+        "result_sha256": "sha256:8518e4968aec6ef2d53328ca80ccdbdf0bcfcdff244eaa2d74724832299d3fdc",
+        "tool": "read_source",
+        "turn": 5
+      },
+      {
+        "args": {
+          "end_line": 760,
+          "path": "openapi3filter/req_resp_decoder.go",
+          "start_line": 720,
+          "version": "new"
+        },
+        "result_chars": 1483,
+        "result_sha256": "sha256:d1fa98bd13d8cbbfee52e34a5f79e4c9fe64afb72af23c8a042abd0590b15366",
+        "tool": "read_source",
+        "turn": 6
+      },
+      {
+        "refused": "Refused: 6 reads without running a test. Write the file and call run_tests now; ",
+        "tool": "search_source",
+        "turn": 7
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\""
+        },
+        "result_chars": 882,
+        "result_sha256": "sha256:a2f89bcd2c54d1fa0be57d02e95b3e7c8c9b9af4d21c1c2538c913d52153ff27",
+        "tool": "run_tests",
+        "turn": 8
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 9
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 10
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 11
+      },
+      {
+        "args": {
+          "module_prefix": "github.com/getkin/kin-openapi/openapi3"
+        },
+        "result_chars": 10050,
+        "result_sha256": "sha256:c97d1b5d39281eb1a8dedb4d3dc4d48b0d7b739955e119a38ba328622ae2c242",
+        "tool": "list_api",
+        "turn": 12
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\""
+        },
+        "result_chars": 882,
+        "result_sha256": "sha256:44c30ff11d5983fa3417bd8371519a9bef04b6129932615896a8a60571ba6245",
+        "tool": "run_tests",
+        "turn": 13
+      },
+      {
+        "refused": "Refused: the remaining calls are reserved for run_tests and submit.",
+        "tool": "list_api",
+        "turn": 14
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\""
+        },
+        "result_chars": 298,
+        "result_sha256": "sha256:8277a0496baed4418e1233584d7fae97f9ef045f1e128d0ff14a29dd9d0457e9",
+        "tool": "run_tests",
+        "turn": 15
+      },
+      {
+        "args": {
+          "code": "package harnesstest\n\nimport (\n\t\"context\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"testing\"\n\n\t\"github.com/getkin/kin-openapi/openapi3\"\n\t\""
+        },
+        "result_chars": 308,
+        "result_sha256": "sha256:23d5820ff18de6bd901a4da2c30ee63490124ed2bc6e0320c39e3e54774e40b9",
+        "tool": "run_tests",
+        "turn": 16
+      },
+      {
+        "ok": false,
+        "problems": [
+          "parse error: /tmp/tmpu3ooz6b1_test.go:31:4: missing ',' in composite literal (and 10 more errors)"
+        ],
+        "tool": "submit",
+        "turn": 17
+      },
+      {
+        "ok": false,
+        "problems": [
+          "this exact file has not been run: call run_tests with it first, then submit the same text unchanged"
+        ],
+        "tool": "submit",
+        "turn": 18
+      }
+    ]
+  }
+}

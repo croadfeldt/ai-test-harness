@@ -1,0 +1,717 @@
+{
+  "files": {
+    "github.com/getkin/kin-openapi/openapi3/callback.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 15
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/components.go": {
+      "executed_lines": [
+        39,
+        40,
+        41,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        133,
+        136,
+        142,
+        148,
+        154,
+        160,
+        166,
+        172,
+        178,
+        184,
+        190
+      ],
+      "summary": {
+        "covered_lines": 20,
+        "covered_statements": 16,
+        "num_statements": 130
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/contact.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 27
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/content.go": {
+      "executed_lines": [
+        11,
+        12,
+        13
+      ],
+      "summary": {
+        "covered_lines": 3,
+        "covered_statements": 1,
+        "num_statements": 41
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/discriminator.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 26
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/encoding.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 61
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/error_collector.go": {
+      "executed_lines": [
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        67,
+        68,
+        71,
+        77,
+        78,
+        81
+      ],
+      "summary": {
+        "covered_lines": 13,
+        "covered_statements": 7,
+        "num_statements": 28
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/errors.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 21
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/example.go": {
+      "executed_lines": [
+        21,
+        22,
+        23,
+        73,
+        74,
+        75,
+        76,
+        79,
+        83
+      ],
+      "summary": {
+        "covered_lines": 9,
+        "covered_statements": 5,
+        "num_statements": 37
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/example_validation.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 9
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/extension.go": {
+      "executed_lines": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        31,
+        35
+      ],
+      "summary": {
+        "covered_lines": 7,
+        "covered_statements": 5,
+        "num_statements": 12
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/external_docs.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 31
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/header.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 35
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/helpers.go": {
+      "executed_lines": [
+        68,
+        69,
+        70,
+        73,
+        74
+      ],
+      "summary": {
+        "covered_lines": 5,
+        "covered_statements": 4,
+        "num_statements": 68
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/info.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 55
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/internalize_refs.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 282
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/license.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 36
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/link.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 42
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/loader.go": {
+      "executed_lines": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        77,
+        78,
+        79,
+        80,
+        83,
+        84,
+        85,
+        86,
+        88,
+        89,
+        90,
+        91,
+        92,
+        132,
+        133,
+        136
+      ],
+      "summary": {
+        "covered_lines": 28,
+        "covered_statements": 14,
+        "num_statements": 802
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/loader_uri_reader.go": {
+      "executed_lines": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        40,
+        51,
+        52,
+        53,
+        54,
+        55,
+        72,
+        73,
+        74,
+        75,
+        76,
+        79,
+        80,
+        81,
+        82,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "summary": {
+        "covered_lines": 31,
+        "covered_statements": 17,
+        "num_statements": 44
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/maplike.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 165
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/marsh.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 15
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/media_type.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 78
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/openapi3.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 172
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/operation.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 96
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/origin.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 116
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/parameter.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 172
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/path_item.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 114
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/paths.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 126
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/ref.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 11
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/refs.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 505
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/request_body.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 58
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/response.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 86
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/schema.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 1433
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/schema_formats.go": {
+      "executed_lines": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        100,
+        101,
+        102,
+        105,
+        106,
+        107,
+        111,
+        120,
+        121,
+        122,
+        130,
+        131,
+        132
+      ],
+      "summary": {
+        "covered_lines": 20,
+        "covered_statements": 11,
+        "num_statements": 35
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/schema_jsonschema_validator.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 82
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/schema_pattern.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 11
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/schema_validation_settings.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 46
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/security_requirements.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 16
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/security_scheme.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 186
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/server.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 155
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/stringmap.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 29
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/tag.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 43
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/validation_error.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 263
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/validation_error_context.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 26
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/validation_options.go": {
+      "executed_lines": [
+        156,
+        157,
+        158,
+        159,
+        167,
+        168,
+        171
+      ],
+      "summary": {
+        "covered_lines": 7,
+        "covered_statements": 4,
+        "num_statements": 41
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/visited.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 10
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3/xml.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 33
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/authentication_input.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 5
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/errors.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 25
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/internal.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 9
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/middleware.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 71
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/options.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 1
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/req_resp_decoder.go": {
+      "executed_lines": [
+        1197,
+        1198,
+        1201,
+        1204,
+        1294,
+        1295,
+        1296,
+        1297,
+        1298,
+        1299,
+        1300,
+        1301,
+        1302,
+        1303,
+        1304,
+        1305,
+        1306,
+        1307,
+        1308,
+        1309
+      ],
+      "summary": {
+        "covered_lines": 20,
+        "covered_statements": 17,
+        "num_statements": 819
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/req_resp_encoder.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 19
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validate_request.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 237
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validate_request_input.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 5
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validate_response.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 93
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validate_response_input.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 10
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validation_error.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 33
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validation_error_encoder.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 66
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validation_handler.go": {
+      "executed_lines": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "summary": {
+        "covered_lines": 6,
+        "covered_statements": 4,
+        "num_statements": 35
+      }
+    },
+    "github.com/getkin/kin-openapi/openapi3filter/validation_kit.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 14
+      }
+    },
+    "github.com/getkin/kin-openapi/routers/legacy/pathpattern/node.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 142
+      }
+    },
+    "github.com/getkin/kin-openapi/routers/legacy/router.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 73
+      }
+    },
+    "github.com/getkin/kin-openapi/routers/types.go": {
+      "executed_lines": [],
+      "summary": {
+        "covered_lines": 0,
+        "covered_statements": 0,
+        "num_statements": 1
+      }
+    }
+  },
+  "totals": {
+    "covered_lines": 169,
+    "num_statements": 7583
+  }
+}

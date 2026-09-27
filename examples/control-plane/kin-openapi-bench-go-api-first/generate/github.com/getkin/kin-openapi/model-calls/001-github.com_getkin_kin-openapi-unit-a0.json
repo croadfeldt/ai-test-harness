@@ -1,0 +1,29 @@
+{
+  "call": 1,
+  "chat_template_kwargs": null,
+  "endpoint": "gpu-server-llamacpp-235b",
+  "endpoint_digest": "sha256:249a4a5ecfcb17d8",
+  "finish_reason": "stop",
+  "frequency_penalty": 0.3,
+  "latency_s": 284.8,
+  "max_tokens": 6400,
+  "model": "qwen3-235b",
+  "presence_penalty": 0.0,
+  "prompt_sha256": "sha256:2d74f93b63506627215671642eba501acf79a01671c239bb7588c62791c852c5",
+  "reasoning_effort": null,
+  "response_chars": 5838,
+  "response_sha256": "sha256:a566e048144c1b01e105b8582f65b728a129452422b229d99b698663a4d39c94",
+  "tag": "github.com/getkin/kin-openapi-unit-a0",
+  "temperature": null,
+  "think_chars_stripped": 0,
+  "thinking": false,
+  "transport_retries": 0,
+  "usage": {
+    "completion_tokens": 1452,
+    "prompt_tokens": 6841,
+    "prompt_tokens_details": {
+      "cached_tokens": 26
+    },
+    "total_tokens": 8293
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "build_failed": false,
+  "coverage": "coverage.json",
+  "duration_s": 1.1,
+  "finished": "2026-09-26T23:31:47+00:00",
+  "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+  "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+  "install_failed": false,
+  "isolation": {
+    "build_cache": "per environment on the shared workspace",
+    "disposable": "the task pod",
+    "limits": {
+      "cpus": "2",
+      "memory": "4g",
+      "pids": 1024,
+      "timeout_s": 1200
+    },
+    "module_cache": "on the shared workspace, GOPROXY=off",
+    "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+    "rootfs": "read-only (claim)",
+    "runtime_class": "default (no Kata or gVisor)",
+    "secrets": "none mounted; environment cleared for the run",
+    "service_account_token": "not mounted (claim)",
+    "target": "pod"
+  },
+  "junit": "junit.xml",
+  "label": "github.com/getkin/kin-openapi-fixed-candidate",
+  "returncode": 1,
+  "timed_out": false
+}

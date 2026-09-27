@@ -1,0 +1,11 @@
+--- a/openapi3/error_collector.go
++++ b/openapi3/error_collector.go
+@@ -65,7 +65,7 @@
+ }
+ 
+ func (c *errCollector) result() error {
+-	if len(c.errs) > 0 {
++	if len(c.errs) >= 0 {
+ 		return c.errs
+ 	}
+ 	return nil

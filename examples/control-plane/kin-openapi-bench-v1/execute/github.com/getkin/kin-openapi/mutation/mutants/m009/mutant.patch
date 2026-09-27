@@ -1,0 +1,11 @@
+--- a/openapi3filter/validation_handler.go
++++ b/openapi3filter/validation_handler.go
+@@ -30,7 +30,7 @@
+ func (h *ValidationHandler) Load() error {
+ 	loader := openapi3.NewLoader()
+ 	doc, err := loader.LoadFromFile(h.File)
+-	if err != nil {
++	if !(err != nil) {
+ 		return err
+ 	}
+ 	if err := doc.Validate(loader.Context); err != nil {

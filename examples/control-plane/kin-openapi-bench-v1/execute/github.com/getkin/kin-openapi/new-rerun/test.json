@@ -1,0 +1,37 @@
+{"Time":"2026-09-26T21:06:45.710398629Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T21:06:45.724204044Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning"}
+{"Time":"2026-09-26T21:06:45.724251856Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning\n"}
+{"Time":"2026-09-26T21:06:45.725148296Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725170566Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725181406Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure"}
+{"Time":"2026-09-26T21:06:45.725188057Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure\n"}
+{"Time":"2026-09-26T21:06:45.725661828Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"--- PASS: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725675088Z","Action":"pass","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725682959Z","Action":"run","Package":"harnesstest","Test":"TestComponentsValidatePassesOnEmpty"}
+{"Time":"2026-09-26T21:06:45.725689369Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidatePassesOnEmpty","Output":"=== RUN   TestComponentsValidatePassesOnEmpty\n"}
+{"Time":"2026-09-26T21:06:45.725702699Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidatePassesOnEmpty","Output":"--- PASS: TestComponentsValidatePassesOnEmpty (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725710269Z","Action":"pass","Package":"harnesstest","Test":"TestComponentsValidatePassesOnEmpty","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725717459Z","Action":"run","Package":"harnesstest","Test":"TestContactUnmarshalJSONSetsName"}
+{"Time":"2026-09-26T21:06:45.7257237Z","Action":"output","Package":"harnesstest","Test":"TestContactUnmarshalJSONSetsName","Output":"=== RUN   TestContactUnmarshalJSONSetsName\n"}
+{"Time":"2026-09-26T21:06:45.725797611Z","Action":"output","Package":"harnesstest","Test":"TestContactUnmarshalJSONSetsName","Output":"--- PASS: TestContactUnmarshalJSONSetsName (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725807441Z","Action":"pass","Package":"harnesstest","Test":"TestContactUnmarshalJSONSetsName","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725814592Z","Action":"run","Package":"harnesstest","Test":"TestContactMarshalJSONProducesName"}
+{"Time":"2026-09-26T21:06:45.725821012Z","Action":"output","Package":"harnesstest","Test":"TestContactMarshalJSONProducesName","Output":"=== RUN   TestContactMarshalJSONProducesName\n"}
+{"Time":"2026-09-26T21:06:45.725833002Z","Action":"output","Package":"harnesstest","Test":"TestContactMarshalJSONProducesName","Output":"--- PASS: TestContactMarshalJSONProducesName (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725843252Z","Action":"pass","Package":"harnesstest","Test":"TestContactMarshalJSONProducesName","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725850222Z","Action":"run","Package":"harnesstest","Test":"TestCallbackUnmarshalJSONCopiesData"}
+{"Time":"2026-09-26T21:06:45.725856513Z","Action":"output","Package":"harnesstest","Test":"TestCallbackUnmarshalJSONCopiesData","Output":"=== RUN   TestCallbackUnmarshalJSONCopiesData\n"}
+{"Time":"2026-09-26T21:06:45.725952155Z","Action":"output","Package":"harnesstest","Test":"TestCallbackUnmarshalJSONCopiesData","Output":"--- PASS: TestCallbackUnmarshalJSONCopiesData (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.725965245Z","Action":"pass","Package":"harnesstest","Test":"TestCallbackUnmarshalJSONCopiesData","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.725972935Z","Action":"run","Package":"harnesstest","Test":"TestNewExampleSetsValue"}
+{"Time":"2026-09-26T21:06:45.725982965Z","Action":"output","Package":"harnesstest","Test":"TestNewExampleSetsValue","Output":"=== RUN   TestNewExampleSetsValue\n"}
+{"Time":"2026-09-26T21:06:45.726009346Z","Action":"output","Package":"harnesstest","Test":"TestNewExampleSetsValue","Output":"--- PASS: TestNewExampleSetsValue (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.726023896Z","Action":"pass","Package":"harnesstest","Test":"TestNewExampleSetsValue","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.726031577Z","Action":"run","Package":"harnesstest","Test":"TestExampleUnmarshalJSONSetsSummary"}
+{"Time":"2026-09-26T21:06:45.726037847Z","Action":"output","Package":"harnesstest","Test":"TestExampleUnmarshalJSONSetsSummary","Output":"=== RUN   TestExampleUnmarshalJSONSetsSummary\n"}
+{"Time":"2026-09-26T21:06:45.726046017Z","Action":"output","Package":"harnesstest","Test":"TestExampleUnmarshalJSONSetsSummary","Output":"--- PASS: TestExampleUnmarshalJSONSetsSummary (0.00s)\n"}
+{"Time":"2026-09-26T21:06:45.726055577Z","Action":"pass","Package":"harnesstest","Test":"TestExampleUnmarshalJSONSetsSummary","Elapsed":0}
+{"Time":"2026-09-26T21:06:45.726062447Z","Action":"output","Package":"harnesstest","Output":"PASS\n"}
+{"Time":"2026-09-26T21:06:45.732996585Z","Action":"output","Package":"harnesstest","Output":"coverage: 4.1% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-26T21:06:45.759581183Z","Action":"output","Package":"harnesstest","Output":"ok  \tharnesstest\t0.047s\tcoverage: 4.1% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-26T21:06:45.759632464Z","Action":"pass","Package":"harnesstest","Elapsed":0.049}

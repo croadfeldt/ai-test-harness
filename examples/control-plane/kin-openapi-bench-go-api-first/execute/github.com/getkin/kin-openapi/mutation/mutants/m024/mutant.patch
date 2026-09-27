@@ -1,0 +1,11 @@
+--- a/openapi3/schema_formats.go
++++ b/openapi3/schema_formats.go
+@@ -104,7 +104,7 @@
+ // NewRegexpFormatValidator creates a new FormatValidator that uses a regular expression to validate the value.
+ func NewRegexpFormatValidator(pattern string) StringFormatValidator {
+ 	re, err := regexp.Compile(pattern)
+-	if err != nil {
++	if err == nil {
+ 		err := fmt.Errorf("string regexp format has invalid pattern %q: %w", pattern, err)
+ 		panic(err)
+ 	}

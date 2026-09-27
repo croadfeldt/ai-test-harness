@@ -43,11 +43,16 @@ def rows_for(run: Path) -> list[dict]:
         ps = m.get("prompt_set") or {"name": "v1 (unrecorded)", "digest": None}
         t = p.get("tests") or {}; mut = p.get("mutation") or {}; rv = p.get("review") or {}
         calls = len(list((run / "generate" / p["package"] / "model-calls").glob("*.json")))
+        tri_path = run / "triage" / p["package"] / "triage.json"
+        tri = read_json(tri_path) if tri_path.exists() else {}
+        for_review = sum(1 for x in tri.get("tests", []) if str(x.get("action", "")).startswith("reviewer decides"))
+        res_path = run / "execute" / p["package"] / "results.json"
+        covered = ((read_json(res_path).get("coverage_summary") or {}).get("covered_lines_in_target") if res_path.exists() else None)
         out.append({"prompt_set": ps.get("name"), "prompt_digest": ps.get("digest"), "model": (m.get("model") or {}).get("id") or idx.get("model"),
                     "endpoint": (m.get("model") or {}).get("endpoint"), "language": idx.get("ecosystem"), "package": p["package"], "run": run.name,
                     "run_id": idx.get("run_id"), "mode": m.get("mode"),
                     "generated": t.get("generated") or 0, "kept": t.get("ran") or 0, "accepted": t.get("accepted") or 0, "proven": t.get("proven") or 0,
-                    "pass_on_head": t.get("pass_on_head") or 0, "mutation_score": mut.get("score"),
+                    "pass_on_head": t.get("pass_on_head") or 0, "mutation_score": mut.get("score"), "for_review": for_review, "covered_lines": covered,
                     "reviewer_accepted": rv.get("accepted"), "reviewer_rejected": rv.get("rejected"), "reviewer_edited": rv.get("edited"),
                     "model_calls": calls, "minutes": _minutes(run / "generate" / p["package"])})
     return out
@@ -60,10 +65,12 @@ def aggregate(rows: list[dict]) -> list[dict]:
         k = (r["prompt_set"], r["model"], r["language"], r["package"])
         g = groups.setdefault(k, {"prompt_set": k[0], "model": k[1], "language": k[2], "package": k[3], "runs": 0, "generated": 0, "kept": 0, "accepted": 0,
                                   "proven": 0, "pass_on_head": 0, "mutation": [], "reviewer_accepted": 0, "reviewer_rejected": 0, "model_calls": 0, "minutes": 0.0,
-                                  "run_names": []})
+                                  "for_review": 0, "covered": [], "run_names": []})
         g["runs"] += 1; g["run_names"].append(r["run"])
-        for f in ("generated", "kept", "accepted", "proven", "pass_on_head", "model_calls"):
-            g[f] += r[f] or 0
+        for f in ("generated", "kept", "accepted", "proven", "pass_on_head", "model_calls", "for_review"):
+            g[f] += r.get(f) or 0
+        if r.get("covered_lines") is not None:
+            g["covered"].append(r["covered_lines"])
         g["minutes"] = round(g["minutes"] + (r["minutes"] or 0), 1)
         if r["mutation_score"] is not None:
             g["mutation"].append(r["mutation_score"])
@@ -72,7 +79,8 @@ def aggregate(rows: list[dict]) -> list[dict]:
     out = []
     for g in groups.values():
         g["mutation_score"] = round(sum(g["mutation"]) / len(g["mutation"]), 2) if g["mutation"] else None
-        del g["mutation"]
+        g["covered_lines"] = round(sum(g["covered"]) / len(g["covered"])) if g["covered"] else None
+        del g["mutation"]; del g["covered"]
         out.append(g)
     return sorted(out, key=lambda g: (g["language"], g["package"], g["model"], g["prompt_set"]))
 
@@ -85,6 +93,8 @@ def verdict(g: dict) -> str:
         return f"proves fixes: {g['proven']} fix-pinning confirmed"
     if g["accepted"]:
         return f"characterizes: {g['accepted']} tests accepted by triage, nothing proven"
+    if g.get("for_review"):
+        return f"finds behaviour changes: {g['for_review']} tests for a reviewer, nothing proven"
     if g["kept"]:
         return "not fit: tests ran, none accepted"
     if g["generated"]:
@@ -96,14 +106,16 @@ def to_markdown(agg: list[dict], rows: list[dict]) -> str:
     lines = ["# Prompt and model evaluation", "",
              "Fitness for purpose is measured, never assumed. Each line is one prompt set with one model on one package, summed over the runs that",
              "used them. Ground truth in order of strength: a reviewer's decision on the test pull request, the sandbox's verdicts (a fix proven means",
-             "the test fails on the vulnerable version and passes on the fixed one), triage's acceptance. Cost is model calls and minutes of model time.", "",
+             "the test fails on the vulnerable version and passes on the fixed one), triage's acceptance. \"For review\" counts tests whose behaviour differed",
+             "between the two versions, which a person must judge. Covered lines and the mutation score say how much of the package the tests exercise and",
+             "how firmly. Cost is model calls and minutes of model time.", "",
              f"Generated {now_iso()} from {len(rows)} package run(s).", "",
-             "| Prompt set | Model | Language | Package | Runs | Generated | Kept | Accepted | Proven | Mutation | Reviewer accepted / rejected | Calls | Minutes | Reads as |",
-             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+             "| Prompt set | Model | Language | Package | Runs | Generated | Kept | Accepted | For review | Proven | Covered lines | Mutation | Reviewer accepted / rejected | Calls | Minutes | Reads as |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for g in agg:
         rv = f"{g['reviewer_accepted']} / {g['reviewer_rejected']}" if (g["reviewer_accepted"] or g["reviewer_rejected"]) else "no review yet"
-        lines.append(f"| {g['prompt_set']} | {g['model']} | {g['language']} | {g['package']} | {g['runs']} | {g['generated']} | {g['kept']} | {g['accepted']} | {g['proven']} | "
-                     f"{g['mutation_score'] if g['mutation_score'] is not None else '-'} | {rv} | {g['model_calls']} | {g['minutes']} | {verdict(g)} |")
+        lines.append(f"| {g['prompt_set']} | {g['model']} | {g['language']} | {g['package']} | {g['runs']} | {g['generated']} | {g['kept']} | {g['accepted']} | {g.get('for_review', 0)} | {g['proven']} | "
+                     f"{g['covered_lines'] if g.get('covered_lines') is not None else '-'} | {g['mutation_score'] if g['mutation_score'] is not None else '-'} | {rv} | {g['model_calls']} | {g['minutes']} | {verdict(g)} |")
     lines += ["", "## The runs behind each line", "", "| Run | Prompt set (digest) | Model | Package | Generated | Kept | Accepted | Proven |", "|---|---|---|---|---|---|---|---|"]
     for r in sorted(rows, key=lambda r: (r["language"], r["package"], r["model"], r["run"])):
         lines.append(f"| {r['run']} | {r['prompt_set']} ({(r['prompt_digest'] or 'none')[:19]}) | {r['model']} | {r['package']} | {r['generated']} | {r['kept']} | {r['accepted']} | {r['proven']} |")

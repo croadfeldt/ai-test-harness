@@ -1,0 +1,566 @@
+{
+  "artifact_digest": null,
+  "counts": {
+    "behavior_changed": 6,
+    "blocked_both_versions": 0,
+    "cve_roles": {
+      "candidate_moved": {
+        "github.com/getkin/kin-openapi": [
+          "v0.139.0",
+          "v0.144.0"
+        ],
+        "github.com/go-openapi/jsonpointer": [
+          "v0.22.4",
+          "v0.22.5"
+        ],
+        "github.com/go-openapi/swag/jsonname": [
+          "v0.25.4",
+          "v0.25.5"
+        ],
+        "github.com/go-openapi/testify/v2": [
+          "v2.0.2",
+          "v2.4.0"
+        ],
+        "github.com/oasdiff/yaml": [
+          "v0.1.0",
+          "v0.1.1"
+        ],
+        "github.com/oasdiff/yaml3": [
+          "v0.0.13",
+          "v0.0.14"
+        ]
+      },
+      "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+      "direction": "candidate",
+      "fixed": "v0.144.0",
+      "vulnerable": "v0.139.0"
+    },
+    "fix_pinning_confirmed": 0,
+    "fix_reached_assertion_wrong": 0,
+    "flaky": 0,
+    "pass_on_new": 8,
+    "total": 8
+  },
+  "coverage_ref": "new/coverage.json",
+  "coverage_summary": {
+    "covered_lines_in_target": 432,
+    "files": {
+      "openapi3/callback.go": {
+        "covered": 4,
+        "statements": 15
+      },
+      "openapi3/components.go": {
+        "covered": 20,
+        "statements": 130
+      },
+      "openapi3/contact.go": {
+        "covered": 27,
+        "statements": 27
+      },
+      "openapi3/content.go": {
+        "covered": 0,
+        "statements": 41
+      },
+      "openapi3/discriminator.go": {
+        "covered": 0,
+        "statements": 26
+      },
+      "openapi3/encoding.go": {
+        "covered": 0,
+        "statements": 61
+      },
+      "openapi3/error_collector.go": {
+        "covered": 17,
+        "statements": 28
+      },
+      "openapi3/errors.go": {
+        "covered": 0,
+        "statements": 21
+      },
+      "openapi3/example.go": {
+        "covered": 17,
+        "statements": 37
+      },
+      "openapi3/example_validation.go": {
+        "covered": 0,
+        "statements": 9
+      },
+      "openapi3/extension.go": {
+        "covered": 7,
+        "statements": 12
+      },
+      "openapi3/external_docs.go": {
+        "covered": 0,
+        "statements": 31
+      },
+      "openapi3/header.go": {
+        "covered": 0,
+        "statements": 35
+      },
+      "openapi3/helpers.go": {
+        "covered": 11,
+        "statements": 68
+      },
+      "openapi3/info.go": {
+        "covered": 27,
+        "statements": 55
+      },
+      "openapi3/internalize_refs.go": {
+        "covered": 0,
+        "statements": 282
+      },
+      "openapi3/license.go": {
+        "covered": 0,
+        "statements": 36
+      },
+      "openapi3/link.go": {
+        "covered": 0,
+        "statements": 42
+      },
+      "openapi3/loader.go": {
+        "covered": 50,
+        "statements": 802
+      },
+      "openapi3/loader_uri_reader.go": {
+        "covered": 36,
+        "statements": 44
+      },
+      "openapi3/maplike.go": {
+        "covered": 21,
+        "statements": 165
+      },
+      "openapi3/marsh.go": {
+        "covered": 16,
+        "statements": 15
+      },
+      "openapi3/media_type.go": {
+        "covered": 0,
+        "statements": 78
+      },
+      "openapi3/openapi3.go": {
+        "covered": 62,
+        "statements": 172
+      },
+      "openapi3/operation.go": {
+        "covered": 0,
+        "statements": 96
+      },
+      "openapi3/origin.go": {
+        "covered": 4,
+        "statements": 116
+      },
+      "openapi3/parameter.go": {
+        "covered": 0,
+        "statements": 172
+      },
+      "openapi3/path_item.go": {
+        "covered": 0,
+        "statements": 114
+      },
+      "openapi3/paths.go": {
+        "covered": 14,
+        "statements": 126
+      },
+      "openapi3/ref.go": {
+        "covered": 0,
+        "statements": 11
+      },
+      "openapi3/refs.go": {
+        "covered": 7,
+        "statements": 505
+      },
+      "openapi3/request_body.go": {
+        "covered": 0,
+        "statements": 58
+      },
+      "openapi3/response.go": {
+        "covered": 0,
+        "statements": 86
+      },
+      "openapi3/schema.go": {
+        "covered": 0,
+        "statements": 1433
+      },
+      "openapi3/schema_formats.go": {
+        "covered": 20,
+        "statements": 35
+      },
+      "openapi3/schema_jsonschema_validator.go": {
+        "covered": 0,
+        "statements": 82
+      },
+      "openapi3/schema_pattern.go": {
+        "covered": 0,
+        "statements": 11
+      },
+      "openapi3/schema_validation_settings.go": {
+        "covered": 0,
+        "statements": 46
+      },
+      "openapi3/security_requirements.go": {
+        "covered": 0,
+        "statements": 16
+      },
+      "openapi3/security_scheme.go": {
+        "covered": 0,
+        "statements": 186
+      },
+      "openapi3/server.go": {
+        "covered": 0,
+        "statements": 155
+      },
+      "openapi3/stringmap.go": {
+        "covered": 15,
+        "statements": 29
+      },
+      "openapi3/tag.go": {
+        "covered": 0,
+        "statements": 43
+      },
+      "openapi3/validation_error.go": {
+        "covered": 0,
+        "statements": 263
+      },
+      "openapi3/validation_error_context.go": {
+        "covered": 0,
+        "statements": 26
+      },
+      "openapi3/validation_options.go": {
+        "covered": 7,
+        "statements": 41
+      },
+      "openapi3/visited.go": {
+        "covered": 0,
+        "statements": 10
+      },
+      "openapi3/xml.go": {
+        "covered": 0,
+        "statements": 33
+      },
+      "openapi3filter/authentication_input.go": {
+        "covered": 0,
+        "statements": 5
+      },
+      "openapi3filter/errors.go": {
+        "covered": 0,
+        "statements": 25
+      },
+      "openapi3filter/internal.go": {
+        "covered": 0,
+        "statements": 9
+      },
+      "openapi3filter/middleware.go": {
+        "covered": 0,
+        "statements": 71
+      },
+      "openapi3filter/options.go": {
+        "covered": 0,
+        "statements": 1
+      },
+      "openapi3filter/req_resp_decoder.go": {
+        "covered": 20,
+        "statements": 819
+      },
+      "openapi3filter/req_resp_encoder.go": {
+        "covered": 0,
+        "statements": 19
+      },
+      "openapi3filter/validate_request.go": {
+        "covered": 0,
+        "statements": 237
+      },
+      "openapi3filter/validate_request_input.go": {
+        "covered": 0,
+        "statements": 5
+      },
+      "openapi3filter/validate_response.go": {
+        "covered": 0,
+        "statements": 93
+      },
+      "openapi3filter/validate_response_input.go": {
+        "covered": 0,
+        "statements": 10
+      },
+      "openapi3filter/validation_error.go": {
+        "covered": 0,
+        "statements": 33
+      },
+      "openapi3filter/validation_error_encoder.go": {
+        "covered": 0,
+        "statements": 66
+      },
+      "openapi3filter/validation_handler.go": {
+        "covered": 17,
+        "statements": 35
+      },
+      "openapi3filter/validation_kit.go": {
+        "covered": 0,
+        "statements": 14
+      },
+      "routers/legacy/pathpattern/node.go": {
+        "covered": 0,
+        "statements": 142
+      },
+      "routers/legacy/router.go": {
+        "covered": 13,
+        "statements": 73
+      },
+      "routers/types.go": {
+        "covered": 0,
+        "statements": 1
+      }
+    }
+  },
+  "fuzz_ref": null,
+  "generated": "2026-09-26T21:06:45+00:00",
+  "mutation_ref": null,
+  "package": {
+    "new_version": "v0.139.0",
+    "old_version": "v0.139.0",
+    "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0"
+  },
+  "run_id": "8f4d403ae2ea",
+  "runs": {
+    "new": {
+      "duration_s": 1.0,
+      "returncode": 0,
+      "timed_out": false
+    },
+    "new-rerun": {
+      "duration_s": 1.3,
+      "returncode": 0,
+      "timed_out": false
+    },
+    "old": {
+      "duration_s": 1.4,
+      "returncode": 1,
+      "timed_out": false
+    }
+  },
+  "selfcheck_ref": "../../selfcheck/selfcheck.json",
+  "target": {
+    "class": "pod",
+    "identity": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+    "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+    "isolation": {
+      "build_cache": "per environment on the shared workspace",
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "4g",
+        "pids": 1024,
+        "timeout_s": 1200
+      },
+      "module_cache": "on the shared workspace, GOPROXY=off",
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "provisioner": "the task pod"
+  },
+  "test_files": [
+    {
+      "file": "tests/kin_openapi_unit_test.go",
+      "sha256": "sha256:a68ebbd58aafa383f21bee355301b16f1c28543eae079ee4ef4496e4917022e2"
+    },
+    {
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "sha256": "sha256:a25b7610c5d14064cc30ab00069b99d0abfb019c495f43256840a1c96ed121b3"
+    }
+  ],
+  "tests": [
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "id": "harnesstest::Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+      "message": "",
+      "name": "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+      "param_id": "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "verdict": "inconclusive (old=fail, new=pass)",
+      "versions": {
+        "new": "pass",
+        "old": "fail"
+      }
+    },
+    {
+      "category": "cve",
+      "duration_ms": 0,
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "id": "harnesstest::Test_GHSA_r277_6w6q_xmqw_exposure",
+      "message": "",
+      "name": "Test_GHSA_r277_6w6q_xmqw_exposure",
+      "param_id": "Test_GHSA_r277_6w6q_xmqw_exposure",
+      "status": "pass",
+      "symbols_exercised": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "verdict": "inconclusive (old=error, new=pass)",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestComponentsValidatePassesOnEmpty",
+      "message": "",
+      "name": "TestComponentsValidatePassesOnEmpty",
+      "param_id": "TestComponentsValidatePassesOnEmpty",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestContactUnmarshalJSONSetsName",
+      "message": "",
+      "name": "TestContactUnmarshalJSONSetsName",
+      "param_id": "TestContactUnmarshalJSONSetsName",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestContactMarshalJSONProducesName",
+      "message": "",
+      "name": "TestContactMarshalJSONProducesName",
+      "param_id": "TestContactMarshalJSONProducesName",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestCallbackUnmarshalJSONCopiesData",
+      "message": "",
+      "name": "TestCallbackUnmarshalJSONCopiesData",
+      "param_id": "TestCallbackUnmarshalJSONCopiesData",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestNewExampleSetsValue",
+      "message": "",
+      "name": "TestNewExampleSetsValue",
+      "param_id": "TestNewExampleSetsValue",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    },
+    {
+      "category": "unit",
+      "duration_ms": 0,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "id": "harnesstest::TestExampleUnmarshalJSONSetsSummary",
+      "message": "",
+      "name": "TestExampleUnmarshalJSONSetsSummary",
+      "param_id": "TestExampleUnmarshalJSONSetsSummary",
+      "status": "pass",
+      "symbols_exercised": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "verdict": "behavior changed between versions: passes on new, fails on old; reviewer note",
+      "versions": {
+        "new": "pass",
+        "old": "error"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"# harnesstest [harnesstest.test]\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-output","Output":"./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)\n"}
+{"ImportPath":"harnesstest [harnesstest.test]","Action":"build-fail"}
+{"Time":"2026-09-26T21:06:41.755779314Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T21:06:41.755842065Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest [build failed]\n"}
+{"Time":"2026-09-26T21:06:41.755853765Z","Action":"fail","Package":"harnesstest","Elapsed":0,"FailedBuild":"harnesstest [harnesstest.test]"}

@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "golang.org/x/mod"
+  ],
+  "package": "golang.org/x/mod",
+  "sites": []
+}

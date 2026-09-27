@@ -1,0 +1,32 @@
+# UDLM software-package records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: discovered_record
+state: Discovered
+entity_uuid: f5197568-b5f8-41e9-9bfe-dde7cfe2b1ff
+record_uuid: 01a0df99-b6b2-7577-a94a-87bbd5f56a2f
+tenant_uuid: 00000000-0000-4000-8000-000000000000
+conforms_to: udlm/0.1
+resource_type: SoftwarePackage
+type_version: 0.2.1
+type_ref: https://udlm.dev/registry/udlm/0.1/class/SoftwarePackage/0.2.1
+handle: example/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+at: '2026-09-26T21:06:45Z'
+time_source: harness-clock
+fields:
+  purl: pkg:golang/github.com/getkin/kin-openapi@v0.139.0
+  name: github.com/getkin/kin-openapi
+  version: v0.139.0
+  type: golang
+origin: discovered-derived
+provenance:
+  fields.purl:
+  - source:
+      kind: discovery
+      id: example/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T21:06:45Z'
+integrity:
+  head: sha256:bad39b4b82164f57622a0d771e63ed62f8507c0a228dba3274e7cc8a87baf3a3
+  previous: null
+  algorithm: sha256-jcs

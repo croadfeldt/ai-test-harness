@@ -1,0 +1,295 @@
+{
+  "package": "github.com/getkin/kin-openapi",
+  "records": [
+    {
+      "category": "unit",
+      "file": "tests/kin_openapi_unit_test.go",
+      "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+      "generated_from": {
+        "sbom_component": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "source_ref": "go.mod@1acc678bd670"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-27T00:19:46+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:556cebdf5b15a8649aac2a40dd2f6e8abdceb6725fba0a3b8c757cf446437948",
+        "run_id": "d21cb45036bc",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.14"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "api/agent/v1alpha1/spec.gen.go",
+          "api/catalog/v1alpha1/spec.gen.go",
+          "api/gitops/v1alpha1/spec.gen.go",
+          "api/policy/v1alpha1/spec.gen.go",
+          "api/sp/v1alpha1/resource_manager/spec.gen.go",
+          "internal/app/openapi.go"
+        ],
+        "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "symbols": [
+          "github.com/getkin/kin-openapi/openapi3",
+          "github.com/getkin/kin-openapi/openapi3.Loader",
+          "github.com/getkin/kin-openapi/openapi3.NewLoader",
+          "github.com/getkin/kin-openapi/openapi3.T",
+          "github.com/getkin/kin-openapi/openapi3filter",
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+          "github.com/getkin/kin-openapi/openapi3filter.Options"
+        ],
+        "version_range": "==v0.139.0"
+      },
+      "test_id": "github.com/getkin/kin-openapi::TestComponentsValidate::009e51b789ff",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 3,
+        "unique_mutants_killed": 3
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/kin_openapi_unit_test.go",
+      "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+      "generated_from": {
+        "sbom_component": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "source_ref": "go.mod@1acc678bd670"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-27T00:19:46+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:556cebdf5b15a8649aac2a40dd2f6e8abdceb6725fba0a3b8c757cf446437948",
+        "run_id": "d21cb45036bc",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.14"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "api/agent/v1alpha1/spec.gen.go",
+          "api/catalog/v1alpha1/spec.gen.go",
+          "api/gitops/v1alpha1/spec.gen.go",
+          "api/policy/v1alpha1/spec.gen.go",
+          "api/sp/v1alpha1/resource_manager/spec.gen.go",
+          "internal/app/openapi.go"
+        ],
+        "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "symbols": [
+          "github.com/getkin/kin-openapi/openapi3",
+          "github.com/getkin/kin-openapi/openapi3.Loader",
+          "github.com/getkin/kin-openapi/openapi3.NewLoader",
+          "github.com/getkin/kin-openapi/openapi3.T",
+          "github.com/getkin/kin-openapi/openapi3filter",
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+          "github.com/getkin/kin-openapi/openapi3filter.Options"
+        ],
+        "version_range": "==v0.139.0"
+      },
+      "test_id": "github.com/getkin/kin-openapi::TestExampleValidate::009e51b789ff",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 3,
+        "unique_mutants_killed": 3
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/kin_openapi_unit_test.go",
+      "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+      "generated_from": {
+        "sbom_component": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "source_ref": "go.mod@1acc678bd670"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-27T00:19:46+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:556cebdf5b15a8649aac2a40dd2f6e8abdceb6725fba0a3b8c757cf446437948",
+        "run_id": "d21cb45036bc",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.14"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "api/agent/v1alpha1/spec.gen.go",
+          "api/catalog/v1alpha1/spec.gen.go",
+          "api/gitops/v1alpha1/spec.gen.go",
+          "api/policy/v1alpha1/spec.gen.go",
+          "api/sp/v1alpha1/resource_manager/spec.gen.go",
+          "internal/app/openapi.go"
+        ],
+        "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "symbols": [
+          "github.com/getkin/kin-openapi/openapi3",
+          "github.com/getkin/kin-openapi/openapi3.Loader",
+          "github.com/getkin/kin-openapi/openapi3.NewLoader",
+          "github.com/getkin/kin-openapi/openapi3.T",
+          "github.com/getkin/kin-openapi/openapi3filter",
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+          "github.com/getkin/kin-openapi/openapi3filter.Options"
+        ],
+        "version_range": "==v0.139.0"
+      },
+      "test_id": "github.com/getkin/kin-openapi::TestNewContent::009e51b789ff",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/kin_openapi_unit_test.go",
+      "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+      "generated_from": {
+        "sbom_component": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "source_ref": "go.mod@1acc678bd670"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-27T00:19:46+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:556cebdf5b15a8649aac2a40dd2f6e8abdceb6725fba0a3b8c757cf446437948",
+        "run_id": "d21cb45036bc",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.14"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "api/agent/v1alpha1/spec.gen.go",
+          "api/catalog/v1alpha1/spec.gen.go",
+          "api/gitops/v1alpha1/spec.gen.go",
+          "api/policy/v1alpha1/spec.gen.go",
+          "api/sp/v1alpha1/resource_manager/spec.gen.go",
+          "internal/app/openapi.go"
+        ],
+        "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "symbols": [
+          "github.com/getkin/kin-openapi/openapi3",
+          "github.com/getkin/kin-openapi/openapi3.Loader",
+          "github.com/getkin/kin-openapi/openapi3.NewLoader",
+          "github.com/getkin/kin-openapi/openapi3.T",
+          "github.com/getkin/kin-openapi/openapi3filter",
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+          "github.com/getkin/kin-openapi/openapi3filter.Options"
+        ],
+        "version_range": "==v0.139.0"
+      },
+      "test_id": "github.com/getkin/kin-openapi::TestNewExample::009e51b789ff",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    },
+    {
+      "category": "unit",
+      "file": "tests/kin_openapi_unit_test.go",
+      "file_sha256": "sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9",
+      "generated_from": {
+        "sbom_component": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "source_ref": "go.mod@1acc678bd670"
+      },
+      "lifecycle": {
+        "bumps_survived": 0,
+        "regressions_caught": 0,
+        "state": "candidate",
+        "state_changed_at": "2026-09-27T00:19:46+00:00"
+      },
+      "run": {
+        "execution_target": "podman",
+        "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "image_digest": "sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+        "model_id": "qwen3-235b",
+        "prompt_sha256": "sha256:556cebdf5b15a8649aac2a40dd2f6e8abdceb6725fba0a3b8c757cf446437948",
+        "run_id": "d21cb45036bc",
+        "tool_versions": {
+          "git": "git version 2.47.3",
+          "pip": "pip 25.0.1",
+          "python": "3.12.14"
+        }
+      },
+      "target": {
+        "call_sites": [
+          "api/agent/v1alpha1/spec.gen.go",
+          "api/catalog/v1alpha1/spec.gen.go",
+          "api/gitops/v1alpha1/spec.gen.go",
+          "api/policy/v1alpha1/spec.gen.go",
+          "api/sp/v1alpha1/resource_manager/spec.gen.go",
+          "internal/app/openapi.go"
+        ],
+        "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+        "symbols": [
+          "github.com/getkin/kin-openapi/openapi3",
+          "github.com/getkin/kin-openapi/openapi3.Loader",
+          "github.com/getkin/kin-openapi/openapi3.NewLoader",
+          "github.com/getkin/kin-openapi/openapi3.T",
+          "github.com/getkin/kin-openapi/openapi3filter",
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+          "github.com/getkin/kin-openapi/openapi3filter.Options"
+        ],
+        "version_range": "==v0.139.0"
+      },
+      "test_id": "github.com/getkin/kin-openapi::TestOptions_Struct::009e51b789ff",
+      "validation": {
+        "baseline_pass": true,
+        "coverage_delta": 0.0,
+        "differential": "same",
+        "flake_runs": 2,
+        "mutants_killed": 0,
+        "unique_mutants_killed": 0
+      }
+    }
+  ]
+}

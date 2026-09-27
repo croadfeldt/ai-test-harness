@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "github.com/klauspost/compress"
+  ],
+  "package": "github.com/klauspost/compress",
+  "sites": []
+}

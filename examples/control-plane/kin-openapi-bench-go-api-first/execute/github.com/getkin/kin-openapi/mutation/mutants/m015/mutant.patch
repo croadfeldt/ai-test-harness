@@ -1,0 +1,11 @@
+--- a/openapi3/loader_uri_reader.go
++++ b/openapi3/loader_uri_reader.go
+@@ -30,7 +30,7 @@
+ 	return func(loader *Loader, url *url.URL) ([]byte, error) {
+ 		for i := range readers {
+ 			buf, err := readers[i](loader, url)
+-			if err == ErrURINotSupported {
++			if err != ErrURINotSupported {
+ 				continue
+ 			} else if err != nil {
+ 				return nil, err

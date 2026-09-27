@@ -1,0 +1,190 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "version": "v0.139.0",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-73502",
+        "GO-2026-6112"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GHSA-jpcw-4wr7-c3vq",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-jpcw-4wr7-c3vq",
+        "https://github.com/getkin/kin-openapi/commit/68ac2affa325514d7d6e731204d6a1edf6bdff64",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "kin-openapi openapi3filter: unauthenticated nil-pointer panic when validating a request against a `content` parameter whose media type has no schema"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-76905",
+        "GO-2026-6274"
+      ],
+      "fixed_versions": [
+        "0.141.0"
+      ],
+      "id": "GHSA-mmfr-pmjx-hw9w",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-mmfr-pmjx-hw9w",
+        "https://github.com/getkin/kin-openapi/commit/1d0a337c9b1570fab283be8a04c8af6e43b9a22c",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.141.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "kin-openapi openai3filter: nil-pointer panic in ConvertErrors on malformed multipart/form-data body enables unauthenticated DoS"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-73501",
+        "GO-2026-6095"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GHSA-r277-6w6q-xmqw",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-r277-6w6q-xmqw",
+        "https://github.com/getkin/kin-openapi/commit/f0407d53b0730280266f454b755010e7eeb985da",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "kin-openapi: ValidationHandler.Load() Fail-Open Authentication Bypass via NoopAuthenticationFunc Default"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "CVE-2026-77354",
+        "GO-2026-6275"
+      ],
+      "fixed_versions": [
+        "0.142.0"
+      ],
+      "id": "GHSA-xhj3-7xw9-vr34",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-xhj3-7xw9-vr34",
+        "https://github.com/getkin/kin-openapi/commit/1223a0f215d2cf9beb2d9eb9ea2649d001c21388",
+        "https://github.com/getkin/kin-openapi",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.142.0"
+      ],
+      "severity": "CVSS_V4: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "summary": "kin-openapi has uncontrolled resource consumption in openapi3filter deepObject query parameter decoding"
+    },
+    {
+      "affected_symbols": [
+        "ValidationHandler.Load"
+      ],
+      "aliases": [
+        "CVE-2026-73501",
+        "GHSA-r277-6w6q-xmqw"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GO-2026-6095",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-r277-6w6q-xmqw",
+        "https://github.com/getkin/kin-openapi/commit/f0407d53b0730280266f454b755010e7eeb985da",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": null,
+      "summary": "Authentication bypass via default NoopAuthenticationFunc in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "ValidateParameter",
+        "ValidateRequest",
+        "ValidationHandler.ServeHTTP",
+        "defaultContentParameterDecoder"
+      ],
+      "aliases": [
+        "CVE-2026-73502",
+        "GHSA-jpcw-4wr7-c3vq"
+      ],
+      "fixed_versions": [
+        "0.144.0"
+      ],
+      "id": "GO-2026-6112",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-jpcw-4wr7-c3vq",
+        "https://github.com/getkin/kin-openapi/commit/68ac2affa325514d7d6e731204d6a1edf6bdff64",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.144.0"
+      ],
+      "severity": null,
+      "summary": "Nil-pointer panic on content parameter without schema in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "ConvertErrors",
+        "ValidationErrorEncoder.Encode",
+        "convertParseError"
+      ],
+      "aliases": [
+        "CVE-2026-76905",
+        "GHSA-mmfr-pmjx-hw9w"
+      ],
+      "fixed_versions": [
+        "0.141.0"
+      ],
+      "id": "GO-2026-6274",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-mmfr-pmjx-hw9w",
+        "https://github.com/getkin/kin-openapi/commit/1d0a337c9b1570fab283be8a04c8af6e43b9a22c",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.141.0"
+      ],
+      "severity": null,
+      "summary": "kin-openapi openai3filter: nil-pointer panic in ConvertErrors on malformed multipart/form-data body enables unauthenticated DoS in github.com/getkin/kin-openapi"
+    },
+    {
+      "affected_symbols": [
+        "MultipartBodyDecoder",
+        "UrlencodedBodyDecoder",
+        "ValidateParameter",
+        "ValidateRequest",
+        "ValidateRequestBody",
+        "ValidateResponse",
+        "ValidationHandler.ServeHTTP",
+        "cookieParamDecoder.DecodeObject",
+        "headerParamDecoder.DecodeObject",
+        "pathParamDecoder.DecodeObject",
+        "sliceMapToSlice",
+        "urlValuesDecoder.DecodeObject"
+      ],
+      "aliases": [
+        "CVE-2026-77354",
+        "GHSA-xhj3-7xw9-vr34"
+      ],
+      "fixed_versions": [
+        "0.142.0"
+      ],
+      "id": "GO-2026-6275",
+      "malicious": false,
+      "references": [
+        "https://github.com/getkin/kin-openapi/security/advisories/GHSA-xhj3-7xw9-vr34",
+        "https://github.com/getkin/kin-openapi/commit/1223a0f215d2cf9beb2d9eb9ea2649d001c21388",
+        "https://github.com/getkin/kin-openapi/releases/tag/v0.142.0"
+      ],
+      "severity": null,
+      "summary": "kin-openapi has uncontrolled resource consumption in openapi3filter deepObject query parameter decoding in github.com/getkin/kin-openapi"
+    }
+  ],
+  "vulns_old": []
+}

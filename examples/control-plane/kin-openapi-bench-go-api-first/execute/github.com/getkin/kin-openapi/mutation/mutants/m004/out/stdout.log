@@ -1,0 +1,13 @@
+=== RUN   TestComponentsValidate
+--- PASS: TestComponentsValidate (0.00s)
+=== RUN   TestNewContent
+--- PASS: TestNewContent (0.00s)
+=== RUN   TestNewExample
+--- PASS: TestNewExample (0.00s)
+=== RUN   TestExampleValidate
+--- PASS: TestExampleValidate (0.00s)
+=== RUN   TestOptions_Struct
+--- PASS: TestOptions_Struct (0.00s)
+PASS
+coverage: [no statements]
+ok  	harnesstest	0.013s	coverage: [no statements]

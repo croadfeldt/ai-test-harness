@@ -1,0 +1,10 @@
+{"Time":"2026-09-26T21:19:21.344294251Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T21:19:21.357004376Z","Action":"output","Package":"harnesstest","Output":"panic: string regexp format has invalid pattern \"(^$|^[a-zA-Z0-9+/\\\\-_]*=*$)\": %!w(\u003cnil\u003e)\n"}
+{"Time":"2026-09-26T21:19:21.357283146Z","Action":"output","Package":"harnesstest","Output":"\n"}
+{"Time":"2026-09-26T21:19:21.357311237Z","Action":"output","Package":"harnesstest","Output":"goroutine 1 [running]:\n"}
+{"Time":"2026-09-26T21:19:21.357331268Z","Action":"output","Package":"harnesstest","Output":"github.com/getkin/kin-openapi/openapi3.NewRegexpFormatValidator({0x90ac3d, 0x1a})\n"}
+{"Time":"2026-09-26T21:19:21.357350209Z","Action":"output","Package":"harnesstest","Output":"\t/work/mutant/openapi3/schema_formats.go:109 +0xc5\n"}
+{"Time":"2026-09-26T21:19:21.357369639Z","Action":"output","Package":"harnesstest","Output":"github.com/getkin/kin-openapi/openapi3.init.0()\n"}
+{"Time":"2026-09-26T21:19:21.35738976Z","Action":"output","Package":"harnesstest","Output":"\t/work/mutant/openapi3/schema_formats.go:52 +0x25\n"}
+{"Time":"2026-09-26T21:19:21.358738088Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.014s\n"}
+{"Time":"2026-09-26T21:19:21.358806671Z","Action":"fail","Package":"harnesstest","Elapsed":0.015}

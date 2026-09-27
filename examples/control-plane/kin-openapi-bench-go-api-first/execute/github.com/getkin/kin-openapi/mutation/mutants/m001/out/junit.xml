@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites><testsuite name="go test" tests="5" failures="0" errors="0" skipped="0"><testcase classname="harnesstest" name="TestComponentsValidate" time="0.000"></testcase><testcase classname="harnesstest" name="TestNewContent" time="0.000"></testcase><testcase classname="harnesstest" name="TestNewExample" time="0.000"></testcase><testcase classname="harnesstest" name="TestExampleValidate" time="0.000"></testcase><testcase classname="harnesstest" name="TestOptions_Struct" time="0.000"></testcase></testsuite></testsuites>

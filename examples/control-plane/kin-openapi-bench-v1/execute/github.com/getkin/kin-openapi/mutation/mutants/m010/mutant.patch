@@ -1,0 +1,11 @@
+--- a/openapi3/loader_uri_reader.go
++++ b/openapi3/loader_uri_reader.go
+@@ -77,7 +77,7 @@
+ 
+ // ReadFromFile is a ReadFromURIFunc which reads local file URIs.
+ func ReadFromFile(loader *Loader, location *url.URL) ([]byte, error) {
+-	if !is_file(location) {
++	if is_file(location) {
+ 		return nil, ErrURINotSupported
+ 	}
+ 	return os.ReadFile(path.Clean(filepath.FromSlash(location.Path)))

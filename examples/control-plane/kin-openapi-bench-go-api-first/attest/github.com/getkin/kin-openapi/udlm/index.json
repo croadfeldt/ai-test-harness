@@ -1,0 +1,31 @@
+{
+  "estate": "lab",
+  "files": {
+    "job": "job.yaml",
+    "software-package": "software-package.yaml",
+    "test-evidence": "test-evidence.yaml",
+    "vex-statement": "vex-statement.yaml",
+    "vulnerability": "vulnerability.yaml"
+  },
+  "generated": "2026-09-27T00:19:46+00:00",
+  "heads": {
+    "lab/jobs/ai-test-harness-run-d21cb45036bc@realized": "sha256:c590c1a2a4c2047c61f5fee7879566048054f6b81fcd0f7c6991f1c1a31b0e0b",
+    "lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0@discovered": "sha256:dc32fb24c13e8964f141200f94587455dbeb701f4c5278a4714b3e56cc7b0050",
+    "lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testcomponentsvalidate@intent": "sha256:154d329d648c5a001a6d722b6a781c9429d39098174fb4ef2643a812fd564df1",
+    "lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testexamplevalidate@intent": "sha256:b529d75e8e78f7169e21320f86463a1ef5c0648382254c0144d0ef8471536abf",
+    "lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewcontent@intent": "sha256:64fa2162a54b169c35646baa8930fa12042a880e43c96ca208904e2462328461",
+    "lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewexample@intent": "sha256:e40308a2c6e5c89ac67a09914a74f5a85ae838c395293f80575c473b0d0cbf8d",
+    "lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testoptions-struct@intent": "sha256:cc56e6c0dc302e4aec80404eae3b530c32fe172d434cfe16dd7223b6d76cd9c8",
+    "lab/knowledge/vulnerability/cve-2026-73501@discovered": "sha256:84cb7bdbff9ea1aacfdac5f2f18e67c1bfbf1dc64ab791c044abe6d9209eb6e9",
+    "lab/knowledge/vulnerability/cve-2026-73502@discovered": "sha256:08ac0ec54b222bf55125f1606e689b8d6ed8f55327d6089ff0ac718e0eede757",
+    "lab/knowledge/vulnerability/cve-2026-76905@discovered": "sha256:7286edda20c5563e4614bbe9e42b415b7676de79daec5071ea182e6b7fff5c5b",
+    "lab/knowledge/vulnerability/cve-2026-77354@discovered": "sha256:3faff7faf960c71433478e86faac7e3021fe3b71af606b4a0aa9b39de6e4f54f"
+  },
+  "schema_validation": {
+    "count": 0,
+    "problems": [],
+    "schema": "registry/state-record.schema.json"
+  },
+  "seal_note": null,
+  "sealed": true
+}

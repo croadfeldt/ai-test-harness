@@ -1,0 +1,11 @@
+--- a/openapi3/loader.go
++++ b/openapi3/loader.go
+@@ -180,7 +180,7 @@
+ 		loader.rootLocation = location.Path
+ 	}
+ 	uri := location.String()
+-	if doc, ok := loader.visitedDocuments[uri]; ok {
++	if doc, ok := loader.visitedDocuments[uri]; !(ok) {
+ 		return doc, nil
+ 	}
+ 
