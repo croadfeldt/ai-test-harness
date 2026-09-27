@@ -145,7 +145,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `analyze/python-multipart/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
 - `analyze/starlette/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
 - `analyze/weasyprint/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
-- `generate/python-jose/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests.
+- `generate/python-jose/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests.
 - `generate/python-jose/manifest.agent.json`: The tool-using agent's traces: every tool call per advisory, and the budget it had.
 
 **Tools (kept for replay and proof; not meant to be read)**
@@ -177,6 +177,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/python-jose/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
 - `execute/python-jose/new-rerun/`: The second run on head, to catch flakes.
 - `execute/python-jose/old/`: The run on the base version, for the differential.
-- `execute/python-jose/mutation/mutants/`: Each sampled mutant: the mutated file and its sealed run.
+- `execute/python-jose/mutation/mutants/`: Each sampled mutant: its change as a patch, and its sealed run's output.
 - `packet/python-jose/packet.json`: The packet's facts in structured form.
 - `assess/assess.json`: The assessment in structured form.

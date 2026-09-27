@@ -2,6 +2,9 @@
 *.egg-info/
 examples/**/api.new.json
 examples/**/api.old.json
+examples/**/intake/graph.new.json
+examples/**/intake/graph.old.json
+examples/**/cover.out
 examples/**/cache/
 examples/**/scratch/
 harness/harness.local.toml

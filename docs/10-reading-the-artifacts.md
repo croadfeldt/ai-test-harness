@@ -129,6 +129,11 @@ it is recorded: endpoints appear as a label and a digest, repositories by name.
 
 ## Appendix: every file, its reader, its reason
 
+Four machine files a run writes are not committed with the example runs, because a run recreates them
+and they carry no fact the committed files lack: the API surfaces at head and base, the resolver's two
+dependency graphs, and the raw coverage profile (its parsed form, `coverage.json`, is kept). The catalogue
+below still names them, and a run on your machine has them.
+
 Six audiences: everyone; reviewers (the developer or team that owns the change); Product Security;
 Supply Chain Security and auditors; the person who ran the harness; and tools, for files kept as proof
 and replay that nobody is expected to read. Paths are shown without the package directory; in a run
