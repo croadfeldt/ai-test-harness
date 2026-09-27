@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "golang.org/x/crypto"
+  ],
+  "package": "golang.org/x/crypto",
+  "sites": []
+}

@@ -1,0 +1,481 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v2.12.5",
+  "package": "github.com/nats-io/nats-server/v2",
+  "version": "v2.12.5",
+  "vulns": [
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33248",
+        "CVE-2026-33248",
+        "GO-2026-4828"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-3f24-pcvm-5jqc",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-3f24-pcvm-5jqc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33248",
+        "https://advisories.nats.io/CVE/secnote-2026-13.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
+      "summary": "NATS has mTLS verify_and_map authentication bypass via incorrect Subject DN matching"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33246",
+        "CVE-2026-33246",
+        "GO-2026-4830"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-55h8-8g96-x4hj",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-55h8-8g96-x4hj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33246",
+        "https://advisories.nats.io/CVE/secnote-2026-08.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N",
+      "summary": "NATS: Leafnode connections allow spoofing of Nats-Request-Info identity headers"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33249",
+        "CVE-2026-33249",
+        "GO-2026-4826"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-8m2x-3m6q-6w8j",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8m2x-3m6q-6w8j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33249",
+        "https://advisories.nats.io/CVE/secnote-2026-15.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+      "summary": "NATS: Message tracing can be redirected to arbitrary subject"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33219",
+        "CVE-2026-33219",
+        "GO-2026-4831"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-8r68-gvr4-jh7j",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8r68-gvr4-jh7j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33219",
+        "https://advisories.nats.io/CVE/secnote-2026-02.txt",
+        "https://advisories.nats.io/CVE/secnote-2026-11.txt",
+        "https://github.com/advisories/GHSA-qrvq-68c2-7grw",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "summary": "NATS  is vulnerable to pre-auth DoS through WebSockets client service"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33222",
+        "CVE-2026-33222",
+        "GO-2026-4832"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-9983-vrx2-fg9c",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-9983-vrx2-fg9c",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33222",
+        "https://advisories.nats.io/CVE/secnote-2026-12.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:H/A:N",
+      "summary": "NATS JetStream has an authorization bypass through its Management API"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33215",
+        "CVE-2026-33215",
+        "GO-2026-4833"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-fcjp-h8cc-6879",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-fcjp-h8cc-6879",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33215",
+        "https://advisories.nats.io/CVE/secnote-2026-06.tx",
+        "https://github.com/nats-io/nats-server",
+        "https://pkg.go.dev/vuln/GO-2026-4833"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:L",
+      "summary": "NATS is vulnerable to MQTT hijacking via Client ID"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33217",
+        "CVE-2026-33217",
+        "GO-2026-4834"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-jxxm-27vp-c3m5",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-jxxm-27vp-c3m5",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33217",
+        "https://advisories.nats.io/CVE/secnote-2026-07.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N",
+      "summary": "NATS allows MQTT clients to bypass ACL checks"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33223",
+        "CVE-2026-33223",
+        "GO-2026-4835"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-pwx7-fx9r-hr4h",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-pwx7-fx9r-hr4h",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33223",
+        "https://advisories.nats.io/CVE/secnote-2026-09.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N",
+      "summary": "NATS Server: Incomplete Stripping of Nats-Request-Info Header Allows Identity Spoofing"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33216",
+        "CVE-2026-33216",
+        "GO-2026-4836"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-v722-jcv5-w7mc",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33216",
+        "https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099",
+        "https://advisories.nats.io/CVE/secnote-2026-05.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+      "summary": "NATS has MQTT plaintext password disclosure"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33218",
+        "CVE-2026-33218",
+        "GO-2026-4837"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-vprv-35vv-q339",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-vprv-35vv-q339",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33218",
+        "https://advisories.nats.io/CVE/secnote-2026-10.txt",
+        "https://github.com/nats-io/nats-server"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "summary": "NATS has pre-auth server panic via leafnode handling"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33247",
+        "CVE-2026-33247",
+        "GO-2026-4827"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GHSA-x6g4-f6q3-fqvv",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-x6g4-f6q3-fqvv",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33247",
+        "https://advisories.nats.io/CVE/secnote-2026-14.txt",
+        "https://github.com/nats-io/nats-server",
+        "https://pkg.go.dev/vuln/GO-2026-4827"
+      ],
+      "severity": "CVSS_V3: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "summary": "NATS credentials are exposed in monitoring port via command-line argv"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33249",
+        "CVE-2026-33249",
+        "GHSA-8m2x-3m6q-6w8j"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4826",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8m2x-3m6q-6w8j",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33249",
+        "https://advisories.nats.io/CVE/secnote-2026-15.txt"
+      ],
+      "severity": null,
+      "summary": "NATS: Message tracing can be redirected to arbitrary subject in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33247",
+        "CVE-2026-33247",
+        "GHSA-x6g4-f6q3-fqvv"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4827",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-x6g4-f6q3-fqvv",
+        "https://advisories.nats.io/CVE/secnote-2026-14.txt"
+      ],
+      "severity": null,
+      "summary": "NATS credentials are exposed in monitoring port via command-line argv in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33248",
+        "CVE-2026-33248",
+        "GHSA-3f24-pcvm-5jqc"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4828",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-3f24-pcvm-5jqc",
+        "https://advisories.nats.io/CVE/secnote-2026-13.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has mTLS verify_and_map authentication bypass via incorrect Subject DN matching in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33246",
+        "CVE-2026-33246",
+        "GHSA-55h8-8g96-x4hj"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4830",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-55h8-8g96-x4hj",
+        "https://advisories.nats.io/CVE/secnote-2026-08.txt"
+      ],
+      "severity": null,
+      "summary": "NATS: Leafnode connections allow spoofing of Nats-Request-Info identity headers in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33219",
+        "CVE-2026-33219",
+        "GHSA-8r68-gvr4-jh7j"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4831",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-8r68-gvr4-jh7j",
+        "https://advisories.nats.io/CVE/secnote-2026-02.txt",
+        "https://advisories.nats.io/CVE/secnote-2026-11.txt",
+        "https://github.com/advisories/GHSA-qrvq-68c2-7grw"
+      ],
+      "severity": null,
+      "summary": "NATS is vulnerable to pre-auth DoS through WebSockets client service in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33222",
+        "CVE-2026-33222",
+        "GHSA-9983-vrx2-fg9c"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4832",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-9983-vrx2-fg9c",
+        "https://advisories.nats.io/CVE/secnote-2026-12.txt"
+      ],
+      "severity": null,
+      "summary": "NATS JetStream has an authorization bypass through its Management API in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33215",
+        "CVE-2026-33215",
+        "GHSA-fcjp-h8cc-6879"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4833",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-fcjp-h8cc-6879",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-33215"
+      ],
+      "severity": null,
+      "summary": "NATS is vulnerable to MQTT hijacking via Client ID in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33217",
+        "CVE-2026-33217",
+        "GHSA-jxxm-27vp-c3m5"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4834",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-jxxm-27vp-c3m5",
+        "https://advisories.nats.io/CVE/secnote-2026-07.txt"
+      ],
+      "severity": null,
+      "summary": "NATS allows MQTT clients to bypass ACL checks in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33223",
+        "CVE-2026-33223",
+        "GHSA-pwx7-fx9r-hr4h"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4835",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-pwx7-fx9r-hr4h",
+        "https://advisories.nats.io/CVE/secnote-2026-09.txt"
+      ],
+      "severity": null,
+      "summary": "NATS Server: Incomplete Stripping of Nats-Request-Info Header Allows Identity Spoofing in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33216",
+        "CVE-2026-33216",
+        "GHSA-v722-jcv5-w7mc"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4836",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-v722-jcv5-w7mc",
+        "https://github.com/nats-io/nats-server/commit/b5b63cfc35a57075e09c1f57503d31721bed8099",
+        "https://advisories.nats.io/CVE/secnote-2026-05.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has MQTT plaintext password disclosure in github.com/nats-io/nats-server"
+    },
+    {
+      "affected_symbols": [],
+      "aliases": [
+        "BIT-nats-2026-33218",
+        "CVE-2026-33218",
+        "GHSA-vprv-35vv-q339"
+      ],
+      "fixed_versions": [
+        "2.11.15",
+        "2.12.6"
+      ],
+      "id": "GO-2026-4837",
+      "malicious": false,
+      "references": [
+        "https://github.com/nats-io/nats-server/security/advisories/GHSA-vprv-35vv-q339",
+        "https://advisories.nats.io/CVE/secnote-2026-10.txt"
+      ],
+      "severity": null,
+      "summary": "NATS has pre-auth server panic via leafnode handling in github.com/nats-io/nats-server"
+    }
+  ],
+  "vulns_old": []
+}

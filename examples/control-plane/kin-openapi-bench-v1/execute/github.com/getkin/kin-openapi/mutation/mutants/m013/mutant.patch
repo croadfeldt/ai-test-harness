@@ -1,0 +1,11 @@
+--- a/openapi3/openapi3.go
++++ b/openapi3/openapi3.go
+@@ -64,7 +64,7 @@
+ // OpenAPIMajorMinor returns 3.y of the OpenAPI "3.y" or "3.y.z" version of the document.
+ // Returns the empty string for invalid OpenAPI version strings.
+ func (doc *T) OpenAPIMajorMinor() string {
+-	if doc == nil {
++	if doc != nil {
+ 		return ""
+ 	}
+ 	switch doc.OpenAPI {

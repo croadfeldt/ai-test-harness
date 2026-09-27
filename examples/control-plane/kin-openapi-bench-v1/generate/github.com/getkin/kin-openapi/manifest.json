@@ -1,0 +1,206 @@
+{
+  "agent_budget": {
+    "max_reads_before_run": 6,
+    "max_tokens_per_turn": 4000,
+    "max_tool_calls": 14,
+    "max_turns": 18,
+    "reserved_for_run_and_submit": 2
+  },
+  "agent_traces_ref": "manifest.agent.json",
+  "budget": {
+    "cve_fix_pinning": 0,
+    "cve_targeted": true,
+    "functional": 5,
+    "functional_at_call_sites": true,
+    "fuzz_minutes": 10,
+    "level": "full",
+    "mutation_sample": 200,
+    "negative": 5,
+    "unit": 10
+  },
+  "cve_roles": {
+    "candidate_moved": {
+      "github.com/getkin/kin-openapi": [
+        "v0.139.0",
+        "v0.144.0"
+      ],
+      "github.com/go-openapi/jsonpointer": [
+        "v0.22.4",
+        "v0.22.5"
+      ],
+      "github.com/go-openapi/swag/jsonname": [
+        "v0.25.4",
+        "v0.25.5"
+      ],
+      "github.com/go-openapi/testify/v2": [
+        "v2.0.2",
+        "v2.4.0"
+      ],
+      "github.com/oasdiff/yaml": [
+        "v0.1.0",
+        "v0.1.1"
+      ],
+      "github.com/oasdiff/yaml3": [
+        "v0.0.13",
+        "v0.0.14"
+      ]
+    },
+    "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+    "direction": "candidate",
+    "fixed": "v0.144.0",
+    "vulnerable": "v0.139.0"
+  },
+  "discarded": [
+    {
+      "category": "cve",
+      "issue": "CVE-2026-73502",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 17
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-76905",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    },
+    {
+      "category": "cve",
+      "issue": "CVE-2026-77354",
+      "reason": "agent exhausted its budget without an accepted submission",
+      "trace_len": 18
+    }
+  ],
+  "files": [
+    {
+      "attempts": 3,
+      "baseline_run": {
+        "covered_lines_in_target": 151,
+        "status": {
+          "TestCallbackUnmarshalJSONCopiesData": "pass",
+          "TestComponentsValidatePassesOnEmpty": "pass",
+          "TestContactMarshalJSONProducesName": "pass",
+          "TestContactUnmarshalJSONSetsName": "pass",
+          "TestExampleUnmarshalJSONSetsSummary": "pass",
+          "TestNewComponentsReturnsEmptyMaps": "fail",
+          "TestNewExampleSetsValue": "pass"
+        }
+      },
+      "category": "unit",
+      "cut": [
+        {
+          "message": "cannot use \"string\" (untyped string constant) as *openapi3.Types value in struct literal; invalid operation: mediaType.Schema.Value.Type != \"string\" (mismatched types *openapi3.Types and untyped string)",
+          "reason": "does not compile",
+          "test": "TestNewContentWithJSONSchemaCreatesApplicationJSONEntry"
+        },
+        {
+          "message": "invalid operation: mediaType.Schema.Value.Type != \"integer\" (mismatched types *openapi3.Types and untyped string)",
+          "reason": "does not compile",
+          "test": "TestContentUnmarshalJSONParsesApplicationJSON"
+        },
+        {
+          "message": "cb.Paths undefined (type *openapi3.Callback has no field or method Paths); cb.Paths undefined (type *openapi3.Callback has no field or method Paths); cb.Paths undefined (type *openapi3.Callback has no field or method Paths)",
+          "reason": "does not compile",
+          "test": "TestNewCallbackWithOptionCreatesEntry"
+        },
+        {
+          "message": "candidate_test.go:15: expected Schemas to be initialized, got nil",
+          "reason": "fails on baseline after repair",
+          "test": "TestNewComponentsReturnsEmptyMaps"
+        }
+      ],
+      "cve_roles": null,
+      "expected_differential": "old=any new=pass",
+      "file": "tests/kin_openapi_unit_test.go",
+      "model": "qwen3-235b",
+      "prompt_sha256": "sha256:f41aef0d3eb44aebe87b52b27146ebcdf16801fe4eed817f2ee98fc81191cc64",
+      "response_sha256": "sha256:7ec52d8052341d9e9f2963e571fd81acde9ec876de1372876e97af5f286b857b",
+      "sha256": "sha256:a68ebbd58aafa383f21bee355301b16f1c28543eae079ee4ef4496e4917022e2",
+      "targets": [
+        "github.com/getkin/kin-openapi/openapi3",
+        "github.com/getkin/kin-openapi/openapi3.Loader",
+        "github.com/getkin/kin-openapi/openapi3.NewLoader",
+        "github.com/getkin/kin-openapi/openapi3.T",
+        "github.com/getkin/kin-openapi/openapi3filter",
+        "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+        "github.com/getkin/kin-openapi/openapi3filter.Options"
+      ],
+      "tests": [
+        "TestComponentsValidatePassesOnEmpty",
+        "TestContactUnmarshalJSONSetsName",
+        "TestContactMarshalJSONProducesName",
+        "TestCallbackUnmarshalJSONCopiesData",
+        "TestNewExampleSetsValue",
+        "TestExampleUnmarshalJSONSetsSummary"
+      ]
+    },
+    {
+      "attempts": 13,
+      "category": "cve",
+      "cut": [],
+      "cve_roles": {
+        "candidate_moved": {
+          "github.com/getkin/kin-openapi": [
+            "v0.139.0",
+            "v0.144.0"
+          ],
+          "github.com/go-openapi/jsonpointer": [
+            "v0.22.4",
+            "v0.22.5"
+          ],
+          "github.com/go-openapi/swag/jsonname": [
+            "v0.25.4",
+            "v0.25.5"
+          ],
+          "github.com/go-openapi/testify/v2": [
+            "v2.0.2",
+            "v2.4.0"
+          ],
+          "github.com/oasdiff/yaml": [
+            "v0.1.0",
+            "v0.1.1"
+          ],
+          "github.com/oasdiff/yaml3": [
+            "v0.0.13",
+            "v0.0.14"
+          ]
+        },
+        "candidate_note": "go get raised the module to the fixed version; minimal version selection moved what it had to",
+        "direction": "candidate",
+        "fixed": "v0.144.0",
+        "vulnerable": "v0.139.0"
+      },
+      "expected_differential": "old=fail new=pass",
+      "file": "tests/kin_openapi_cve_cve_2026_73501_test.go",
+      "model": "qwen3-235b",
+      "note": "Tests show the authentication bypass vulnerability where NoopAuthenticationFunc allows all requests in vulnerable version but is properly handled in fixed version",
+      "sha256": "sha256:a25b7610c5d14064cc30ab00069b99d0abfb019c495f43256840a1c96ed121b3",
+      "targets": [
+        "GHSA-r277-6w6q-xmqw",
+        "GO-2026-6095"
+      ],
+      "tests": [
+        "Test_GHSA_r277_6w6q_xmqw_fix_pinning",
+        "Test_GHSA_r277_6w6q_xmqw_exposure"
+      ],
+      "tool_calls": 11
+    }
+  ],
+  "generated": "2026-09-26T19:14:16+00:00",
+  "mode": "agent (cve), fixed (other categories)",
+  "model": {
+    "endpoint": "gpu-server-llamacpp-235b",
+    "endpoint_digest": "sha256:249a4a5ecfcb17d8",
+    "id": "qwen3-235b",
+    "temperature": null
+  },
+  "new_version": "v0.139.0",
+  "old_version": "v0.139.0",
+  "package": "github.com/getkin/kin-openapi",
+  "prompt_set": {
+    "digest": "sha256:157c3dc4a310e2579b433e3ba270c0819eba11947d1901ad05cfe0c95f621179",
+    "name": "v1",
+    "overrides": []
+  },
+  "purl": "pkg:golang/github.com/getkin/kin-openapi@v0.139.0",
+  "selfcheck_ref": "../../selfcheck/selfcheck.json"
+}

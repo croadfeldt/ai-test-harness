@@ -1,0 +1,11 @@
+--- a/openapi3/components.go
++++ b/openapi3/components.go
+@@ -159,7 +159,7 @@
+ 
+ 	if err := validateMap("header", componentNames(components.Headers), func(k string) error {
+ 		return components.Headers[k].Validate(ctx)
+-	}); err != nil {
++	}); !(err != nil) {
+ 		return err
+ 	}
+ 

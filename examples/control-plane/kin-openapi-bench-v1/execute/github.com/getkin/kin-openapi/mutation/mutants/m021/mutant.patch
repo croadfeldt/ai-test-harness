@@ -1,0 +1,11 @@
+--- a/openapi3/stringmap.go
++++ b/openapi3/stringmap.go
+@@ -14,7 +14,7 @@
+ // unmarshalStringMapP unmarshals given json into a map[string]*V
+ func unmarshalStringMapP[V any](data []byte) (map[string]*V, error) {
+ 	var m map[string]any
+-	if err := json.Unmarshal(data, &m); err != nil {
++	if err := json.Unmarshal(data, &m); !(err != nil) {
+ 		return nil, err
+ 	}
+ 

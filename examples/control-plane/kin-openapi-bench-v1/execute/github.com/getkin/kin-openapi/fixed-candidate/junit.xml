@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites><testsuite name="go test" tests="8" failures="1" errors="7" skipped="0"><testcase classname="harnesstest" name="Test_GHSA_r277_6w6q_xmqw_fix_pinning" time="0.000"><failure message="kin_openapi_cve_cve_2026_73501_test.go:34: Expected default AuthenticationFunc to be set">kin_openapi_cve_cve_2026_73501_test.go:34: Expected default AuthenticationFunc to be set</failure></testcase><testcase classname="harnesstest" name="Test_GHSA_r277_6w6q_xmqw_exposure" time="0.000"><error message="panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x7cd6ce]
+
+goroutine 21 [running]:
+testing.tRunner.func1.2({0x879160, 0xca4bc0})
+	/usr/local/go/src/testing/testing.go:1872 +0x232
+testing.tRun">panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x7cd6ce]
+
+goroutine 21 [running]:
+testing.tRunner.func1.2({0x879160, 0xca4bc0})
+	/usr/local/go/src/testing/testing.go:1872 +0x232
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:1875 +0x35b
+panic({0x879160?, 0xca4bc0?})
+	/usr/local/go/src/runtime/panic.go:783 +0x132
+harnesstest.Test_GHSA_r277_6w6q_xmqw_exposure(0xc000080fc0)
+	/workspace/tmp/harness-go-pod-u9ids24l/m/kin_openapi_cve_cve_2026_73501_test.go:67 +0x1ee
+testing.tRunner(0xc000080fc0, 0x935f00)
+	/usr/local/go/src/testing/testing.go:1934 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:1997 +0x465</error></testcase><testcase classname="harnesstest" name="TestComponentsValidatePassesOnEmpty" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase><testcase classname="harnesstest" name="TestContactUnmarshalJSONSetsName" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase><testcase classname="harnesstest" name="TestContactMarshalJSONProducesName" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase><testcase classname="harnesstest" name="TestCallbackUnmarshalJSONCopiesData" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase><testcase classname="harnesstest" name="TestNewExampleSetsValue" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase><testcase classname="harnesstest" name="TestExampleUnmarshalJSONSetsSummary" time="0.000"><error message="did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)">did not compile: ./kin_openapi_unit_test.go:50:22: callbacks.UnmarshalJSON undefined (type openapi3.Callbacks has no field or method UnmarshalJSON)</error></testcase></testsuite></testsuites>

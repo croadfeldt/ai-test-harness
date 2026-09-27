@@ -1,0 +1,8 @@
+panic: string regexp format has invalid pattern "(^$|^[a-zA-Z0-9+/\\-_]*=*$)": %!w(<nil>)
+
+goroutine 1 [running]:
+github.com/getkin/kin-openapi/openapi3.NewRegexpFormatValidator({0x8cfdc4, 0x1a})
+	/work/mutant/openapi3/schema_formats.go:109 +0xc5
+github.com/getkin/kin-openapi/openapi3.init.0()
+	/work/mutant/openapi3/schema_formats.go:52 +0x25
+FAIL	harnesstest	0.014s

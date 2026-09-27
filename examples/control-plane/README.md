@@ -171,6 +171,29 @@ logs out from under generation, so the compiler's lines never reached the cut. B
 same branch. The model's own limits stayed the same: one API detail wrong per file, and on one
 advisory four submissions in a row with the same syntax error.
 
+## The first measured prompt comparison (`kin-openapi-bench-v1/`, `kin-openapi-bench-go-api-first/`)
+
+Principle 12 of the blueprint says a prompt is validated, never assumed. This is the first time the
+harness did that: the same job, kin-openapi on the 235B through the Tekton pipeline, once under the
+code's own prompt set `v1` and once under `go-api-first`, a candidate that tells the model to confirm
+every symbol against the API data before using it. One variable changed. Both runs then had their
+mutation stage re-run after GF-028, so the mutants sit on lines the tests executed.
+
+| Set | Model calls | Tests kept | Pass on head | Covered lines | Mutation | Advisories with a verified submission | Reads as |
+|---|---|---|---|---|---|---|---|
+| `v1` | 204 | 8 | 8 | 432 | 0.6 | 0 of 4 | finds behaviour changes: 6 tests for a reviewer |
+| `go-api-first` | 216 | 7 | 5 | 169 | 0.24 | 1 of 4 | characterizes: 5 tests accepted, nothing proven |
+
+Neither set proved an advisory, so neither is fit for that purpose on this job yet. On everything else
+`v1` is stronger: more of the package exercised, and its tests catch more than twice the mutants. The
+candidate's one verified CVE submission was blocked on both versions. By the rule, `v1` stays the
+default and `go-api-first` stays a candidate. The two runs are the first lines of
+[document 12](../../docs/12-prompt-and-model-evaluation.md) that carry a recorded prompt set.
+
+Two harness defects fell out of these runs before the comparison could be read: a worse repair
+erasing an attempt that ran (GF-027) and mutants sampled from unexecuted lines (GF-028); both are
+fixed on main and the runs here reflect the corrected mutation.
+
 ## What is in each run directory
 
 Every run directory opens with a `README.md` the harness wrote: who, what, why, where, when, the

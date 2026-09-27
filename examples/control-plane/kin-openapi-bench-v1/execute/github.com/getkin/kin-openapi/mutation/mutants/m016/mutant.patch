@@ -1,0 +1,11 @@
+--- a/openapi3/maplike.go
++++ b/openapi3/maplike.go
+@@ -306,7 +306,7 @@
+ // Map returns paths as a 'map'.
+ // Note: iteration on Go maps is not ordered.
+ func (paths *Paths) Map() (m map[string]*PathItem) {
+-	if paths == nil || len(paths.m) == 0 {
++	if !(paths == nil || len(paths.m) == 0) {
+ 		return make(map[string]*PathItem)
+ 	}
+ 	m = make(map[string]*PathItem, len(paths.m))

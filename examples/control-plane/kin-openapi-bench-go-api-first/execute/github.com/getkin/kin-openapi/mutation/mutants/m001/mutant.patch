@@ -1,0 +1,11 @@
+--- a/openapi3/loader_uri_reader.go
++++ b/openapi3/loader_uri_reader.go
+@@ -50,7 +50,7 @@
+ // implement timeouts, RFC 7234 caching, etc.
+ func ReadFromHTTP(cl *http.Client) ReadFromURIFunc {
+ 	return func(loader *Loader, location *url.URL) ([]byte, error) {
+-		if location.Scheme == "" || location.Host == "" {
++		if location.Scheme != "" || location.Host == "" {
+ 			return nil, ErrURINotSupported
+ 		}
+ 		req, err := http.NewRequest("GET", location.String(), nil)

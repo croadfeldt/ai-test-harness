@@ -1,0 +1,11 @@
+--- a/openapi3/loader.go
++++ b/openapi3/loader.go
+@@ -130,7 +130,7 @@
+ }
+ 
+ func (loader *Loader) readURL(location *url.URL) ([]byte, error) {
+-	if f := loader.ReadFromURIFunc; f != nil {
++	if f := loader.ReadFromURIFunc; f == nil {
+ 		return f(loader, location)
+ 	}
+ 	return DefaultReadFromURI(loader, location)

@@ -1,0 +1,11 @@
+--- a/openapi3/validation_options.go
++++ b/openapi3/validation_options.go
+@@ -165,7 +165,7 @@
+ }
+ 
+ func getValidationOptions(ctx context.Context) *ValidationOptions {
+-	if options, ok := ctx.Value(validationOptionsKey{}).(*ValidationOptions); ok {
++	if options, ok := ctx.Value(validationOptionsKey{}).(*ValidationOptions); !(ok) {
+ 		return options
+ 	}
+ 	return &ValidationOptions{}

@@ -1,0 +1,11 @@
+--- a/openapi3filter/req_resp_decoder.go
++++ b/openapi3filter/req_resp_decoder.go
+@@ -1195,7 +1195,7 @@
+ // it with the specified decoder.
+ // This call is not thread-safe: body decoders should not be created/destroyed by multiple goroutines.
+ func RegisterBodyDecoder(contentType string, decoder BodyDecoder) {
+-	if contentType == "" {
++	if contentType != "" {
+ 		panic("contentType is empty")
+ 	}
+ 	if decoder == nil {

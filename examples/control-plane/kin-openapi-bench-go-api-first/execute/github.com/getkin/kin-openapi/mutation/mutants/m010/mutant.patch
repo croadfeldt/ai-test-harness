@@ -1,0 +1,11 @@
+--- a/openapi3/validation_options.go
++++ b/openapi3/validation_options.go
+@@ -154,7 +154,7 @@
+ 
+ // WithValidationOptions allows adding validation options to a context object that can be used when validating any OpenAPI type.
+ func WithValidationOptions(ctx context.Context, opts ...ValidationOption) context.Context {
+-	if len(opts) == 0 {
++	if !(len(opts) == 0) {
+ 		return ctx
+ 	}
+ 	options := &ValidationOptions{}

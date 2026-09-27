@@ -1,0 +1,195 @@
+# UDLM test-evidence records emitted by ai-test-harness 0.1.0 from run artifacts; every value is a fact from the run.
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 67bbef2c-9568-48ca-b718-6bb23050e760
+record_uuid: 01a0e03b-6def-76e1-8126-c2885eb2e355
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testcomponentsvalidate
+at: '2026-09-26T23:31:49Z'
+time_source: harness-clock
+fields:
+  test_id: github.com/getkin/kin-openapi::TestComponentsValidate::009e51b789ff
+  subject_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/github.com/getkin/kin-openapi/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-d21cb45036bc
+  file_path: tests/kin_openapi_unit_test.go
+  file_digest: sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T23:31:49Z'
+integrity:
+  head: sha256:154d329d648c5a001a6d722b6a781c9429d39098174fb4ef2643a812fd564df1
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 6822d30a-19d8-4207-8ee3-d2be4d1a4ef3
+record_uuid: 01a0e03b-6def-76e1-8126-c289014a5e80
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testexamplevalidate
+at: '2026-09-26T23:31:49Z'
+time_source: harness-clock
+fields:
+  test_id: github.com/getkin/kin-openapi::TestExampleValidate::009e51b789ff
+  subject_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/github.com/getkin/kin-openapi/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-d21cb45036bc
+  file_path: tests/kin_openapi_unit_test.go
+  file_digest: sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T23:31:49Z'
+integrity:
+  head: sha256:b529d75e8e78f7169e21320f86463a1ef5c0648382254c0144d0ef8471536abf
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: eb963fd6-7225-45e9-b5bc-aa0aed2d903c
+record_uuid: 01a0e03b-6def-76e1-8126-c28a35961049
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewcontent
+at: '2026-09-26T23:31:49Z'
+time_source: harness-clock
+fields:
+  test_id: github.com/getkin/kin-openapi::TestNewContent::009e51b789ff
+  subject_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/github.com/getkin/kin-openapi/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-d21cb45036bc
+  file_path: tests/kin_openapi_unit_test.go
+  file_digest: sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T23:31:49Z'
+integrity:
+  head: sha256:64fa2162a54b169c35646baa8930fa12042a880e43c96ca208904e2462328461
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 6546c246-8195-4a34-bc66-9fce300cebc8
+record_uuid: 01a0e03b-6df0-7204-962a-ffe8b5f1ded8
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testnewexample
+at: '2026-09-26T23:31:49Z'
+time_source: harness-clock
+fields:
+  test_id: github.com/getkin/kin-openapi::TestNewExample::009e51b789ff
+  subject_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/github.com/getkin/kin-openapi/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-d21cb45036bc
+  file_path: tests/kin_openapi_unit_test.go
+  file_digest: sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T23:31:49Z'
+integrity:
+  head: sha256:e40308a2c6e5c89ac67a09914a74f5a85ae838c395293f80575c473b0d0cbf8d
+  previous: null
+  algorithm: sha256-jcs
+
+---
+record_type: intent_record
+state: Intent
+entity_uuid: 24db0d63-f065-4986-837d-cdfc6cd02488
+record_uuid: 01a0e03b-6df0-7204-962a-ffe9785c733d
+tenant_uuid: 75ccf4ff-3e8d-4963-bc51-459ae1014cb7
+conforms_to: udlm/0.1
+resource_type: TestEvidence
+type_version: 0.2.0
+type_ref: https://udlm.dev/registry/udlm/0.1/class/TestEvidence/0.2.0
+handle: lab/knowledge/test-evidence/github-com-getkin-kin-openapi-testoptions-struct
+at: '2026-09-26T23:31:49Z'
+time_source: harness-clock
+fields:
+  test_id: github.com/getkin/kin-openapi::TestOptions_Struct::009e51b789ff
+  subject_ref: estate/lab/knowledge/software-package/github-com-getkin-kin-openapi-v0-139-0
+  category: unit
+  result:
+    outcome: passed
+    duration_ms: 0
+    format: junit-xml
+    report_ref: execute/github.com/getkin/kin-openapi/new/junit.xml
+  job_ref: estate/lab/jobs/ai-test-harness-run-d21cb45036bc
+  file_path: tests/kin_openapi_unit_test.go
+  file_digest: sha256:009e51b789ff87e6e18007d70ca7fc6d85643e07a71fb43e2eab6e4fc5db1fc9
+origin: declared
+provenance:
+  fields.result:
+  - source:
+      kind: provider
+      id: lab/providers/ai-test-harness
+    operation_type: set
+    sequence: 1
+    timestamp: '2026-09-26T23:31:49Z'
+integrity:
+  head: sha256:cc56e6c0dc302e4aec80404eae3b530c32fe172d434cfe16dd7223b6d76cd9c8
+  previous: null
+  algorithm: sha256-jcs

@@ -1,0 +1,11 @@
+--- a/openapi3/loader_uri_reader.go
++++ b/openapi3/loader_uri_reader.go
+@@ -70,7 +70,7 @@
+ }
+ 
+ func is_file(location *url.URL) bool {
+-	return location.Path != "" &&
++	return location.Path == "" &&
+ 		location.Host == "" &&
+ 		(location.Scheme == "" || location.Scheme == "file")
+ }

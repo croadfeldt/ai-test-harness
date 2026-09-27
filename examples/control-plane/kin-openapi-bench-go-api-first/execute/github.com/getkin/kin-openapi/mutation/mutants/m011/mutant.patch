@@ -1,0 +1,11 @@
+--- a/openapi3/example.go
++++ b/openapi3/example.go
+@@ -76,7 +76,7 @@
+ 	if example.Value != nil && example.ExternalValue != "" {
+ 		return newExampleValueExternalValueExclusive(example.Origin)
+ 	}
+-	if example.Value == nil && example.ExternalValue == "" {
++	if example.Value != nil && example.ExternalValue == "" {
+ 		return newExampleValueOrExternalValueRequired(example.Origin)
+ 	}
+ 

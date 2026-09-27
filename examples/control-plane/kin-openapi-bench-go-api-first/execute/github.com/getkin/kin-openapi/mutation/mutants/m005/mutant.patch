@@ -1,0 +1,11 @@
+--- a/openapi3/loader_uri_reader.go
++++ b/openapi3/loader_uri_reader.go
+@@ -91,7 +91,7 @@
+ 	cache := map[string][]byte{}
+ 	return func(loader *Loader, location *url.URL) (buf []byte, err error) {
+ 		if location.Scheme == "" || location.Scheme == "file" {
+-			if !filepath.IsAbs(location.Path) {
++			if !(!filepath.IsAbs(location.Path)) {
+ 				// Do not cache relative file paths; this can cause trouble if
+ 				// the current working directory changes when processing
+ 				// multiple top-level documents.

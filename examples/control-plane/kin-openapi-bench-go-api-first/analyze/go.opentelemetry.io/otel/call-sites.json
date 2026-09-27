@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "go.opentelemetry.io/otel"
+  ],
+  "package": "go.opentelemetry.io/otel",
+  "sites": []
+}

@@ -1,0 +1,321 @@
+{
+  "engine": "harness go mutator (diff- and coverage-scoped)",
+  "generated": "2026-09-27T00:19:41+00:00",
+  "invalid": 0,
+  "killed": 6,
+  "mutants": [
+    {
+      "duration_s": 36.5,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m001",
+      "killed_by": [],
+      "line": 53,
+      "operator": "compare-swap",
+      "patch": "mutants/m001/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.4,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m002",
+      "killed_by": [],
+      "line": 75,
+      "operator": "compare-swap",
+      "patch": "mutants/m002/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.0,
+      "file": "openapi3/components.go",
+      "id": "m003",
+      "killed_by": [],
+      "line": 186,
+      "operator": "cond-negate",
+      "patch": "mutants/m003/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.0,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m004",
+      "killed_by": [],
+      "line": 73,
+      "operator": "boolop-swap",
+      "patch": "mutants/m004/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m005",
+      "killed_by": [],
+      "line": 94,
+      "operator": "cond-negate",
+      "patch": "mutants/m005/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/example.go",
+      "id": "m006",
+      "killed_by": [
+        "TestExampleValidate"
+      ],
+      "line": 76,
+      "operator": "boolop-swap",
+      "patch": "mutants/m006/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 7.1,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m007",
+      "killed_by": [],
+      "line": 75,
+      "operator": "compare-swap",
+      "patch": "mutants/m007/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/example.go",
+      "id": "m008",
+      "killed_by": [
+        "TestExampleValidate"
+      ],
+      "line": 76,
+      "operator": "cond-negate",
+      "patch": "mutants/m008/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 7.2,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m009",
+      "killed_by": [],
+      "line": 93,
+      "operator": "cond-negate",
+      "patch": "mutants/m009/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 6.7,
+      "file": "openapi3/validation_options.go",
+      "id": "m010",
+      "killed_by": [],
+      "line": 157,
+      "operator": "cond-negate",
+      "patch": "mutants/m010/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/example.go",
+      "id": "m011",
+      "killed_by": [
+        "TestExampleValidate"
+      ],
+      "line": 79,
+      "operator": "compare-swap",
+      "patch": "mutants/m011/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 7.2,
+      "file": "openapi3/schema_formats.go",
+      "id": "m012",
+      "killed_by": [],
+      "line": 107,
+      "operator": "cond-negate",
+      "patch": "mutants/m012/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/validation_options.go",
+      "id": "m013",
+      "killed_by": [
+        "TestComponentsValidate"
+      ],
+      "line": 168,
+      "operator": "cond-negate",
+      "patch": "mutants/m013/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 6.9,
+      "file": "openapi3/loader.go",
+      "id": "m014",
+      "killed_by": [],
+      "line": 133,
+      "operator": "compare-swap",
+      "patch": "mutants/m014/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.0,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m015",
+      "killed_by": [],
+      "line": 33,
+      "operator": "compare-swap",
+      "patch": "mutants/m015/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.2,
+      "file": "openapi3/components.go",
+      "id": "m016",
+      "killed_by": [],
+      "line": 174,
+      "operator": "cond-negate",
+      "patch": "mutants/m016/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 6.5,
+      "file": "openapi3/loader.go",
+      "id": "m017",
+      "killed_by": [],
+      "line": 90,
+      "operator": "cond-negate",
+      "patch": "mutants/m017/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.3,
+      "file": "openapi3/components.go",
+      "id": "m018",
+      "killed_by": [],
+      "line": 150,
+      "operator": "cond-negate",
+      "patch": "mutants/m018/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 6.6,
+      "file": "openapi3/loader_uri_reader.go",
+      "id": "m019",
+      "killed_by": [],
+      "line": 73,
+      "operator": "compare-swap",
+      "patch": "mutants/m019/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.0,
+      "file": "openapi3filter/req_resp_decoder.go",
+      "id": "m020",
+      "killed_by": [],
+      "line": 1201,
+      "operator": "compare-swap",
+      "patch": "mutants/m020/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 6.8,
+      "file": "openapi3/error_collector.go",
+      "id": "m021",
+      "killed_by": [],
+      "line": 31,
+      "operator": "cond-negate",
+      "patch": "mutants/m021/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 7.0,
+      "file": "openapi3/error_collector.go",
+      "id": "m022",
+      "killed_by": [
+        "TestComponentsValidate"
+      ],
+      "line": 68,
+      "operator": "cond-negate",
+      "patch": "mutants/m022/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 7.1,
+      "file": "openapi3/error_collector.go",
+      "id": "m023",
+      "killed_by": [
+        "TestComponentsValidate"
+      ],
+      "line": 68,
+      "operator": "compare-swap",
+      "patch": "mutants/m023/mutant.patch",
+      "status": "killed"
+    },
+    {
+      "duration_s": 6.5,
+      "file": "openapi3/schema_formats.go",
+      "id": "m024",
+      "killed_by": [],
+      "line": 107,
+      "operator": "compare-swap",
+      "patch": "mutants/m024/mutant.patch",
+      "status": "survived"
+    },
+    {
+      "duration_s": 6.6,
+      "file": "openapi3/components.go",
+      "id": "m025",
+      "killed_by": [],
+      "line": 144,
+      "operator": "cond-negate",
+      "patch": "mutants/m025/mutant.patch",
+      "status": "survived"
+    }
+  ],
+  "operators": [
+    "compare-swap",
+    "boolop-swap",
+    "const-int",
+    "const-bool",
+    "not-drop",
+    "cond-negate",
+    "incdec-swap"
+  ],
+  "package": "github.com/getkin/kin-openapi",
+  "per_test": {
+    "TestComponentsValidate": {
+      "killed": [
+        "m013",
+        "m022",
+        "m023"
+      ],
+      "unique": [
+        "m013",
+        "m022",
+        "m023"
+      ]
+    },
+    "TestExampleValidate": {
+      "killed": [
+        "m006",
+        "m008",
+        "m011"
+      ],
+      "unique": [
+        "m006",
+        "m008",
+        "m011"
+      ]
+    }
+  },
+  "sampled": 25,
+  "score": 0.24,
+  "seed": 3724680013,
+  "sites": 61,
+  "status": "ran",
+  "survived": 19,
+  "tests": [
+    "TestComponentsValidate",
+    "TestExampleValidate",
+    "TestNewContent",
+    "TestNewExample",
+    "TestOptions_Struct"
+  ],
+  "valid": 25,
+  "version": "v0.139.0"
+}

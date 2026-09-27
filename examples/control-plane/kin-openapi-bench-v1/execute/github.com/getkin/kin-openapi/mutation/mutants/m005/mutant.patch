@@ -1,0 +1,11 @@
+--- a/openapi3/loader.go
++++ b/openapi3/loader.go
+@@ -202,7 +202,7 @@
+ 
+ // ResolveRefsIn expands references if for instance spec was just unmarshaled
+ func (loader *Loader) ResolveRefsIn(doc *T, location *url.URL) (err error) {
+-	if loader.Context == nil {
++	if loader.Context != nil {
+ 		loader.Context = context.Background()
+ 	}
+ 

@@ -1,0 +1,11 @@
+--- a/openapi3/extension.go
++++ b/openapi3/extension.go
+@@ -28,7 +28,7 @@
+ 		unknowns = append(unknowns, k)
+ 	}
+ 
+-	if len(unknowns) != 0 {
++	if len(unknowns) == 0 {
+ 		return newExtraSiblingFields(unknowns, origin)
+ 	}
+ 

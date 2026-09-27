@@ -1,0 +1,11 @@
+--- a/openapi3filter/validation_handler.go
++++ b/openapi3filter/validation_handler.go
+@@ -41,7 +41,7 @@
+ 	}
+ 
+ 	// set defaults
+-	if h.Handler == nil {
++	if !(h.Handler == nil) {
+ 		h.Handler = http.DefaultServeMux
+ 	}
+ 	if h.AuthenticationFunc == nil {

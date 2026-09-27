@@ -1,0 +1,35 @@
+{"Time":"2026-09-26T23:31:49.188834287Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T23:31:49.202553069Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning"}
+{"Time":"2026-09-26T23:31:49.20261247Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning\n"}
+{"Time":"2026-09-26T23:31:49.202661601Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"    kin_openapi_cve_cve_2026_73501_test.go:23: Load failed: unsupported URI\n"}
+{"Time":"2026-09-26T23:31:49.202682172Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"--- FAIL: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202691592Z","Action":"fail","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202701982Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure"}
+{"Time":"2026-09-26T23:31:49.202708332Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure\n"}
+{"Time":"2026-09-26T23:31:49.202731583Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"    kin_openapi_cve_cve_2026_73501_test.go:61: Load failed: unsupported URI\n"}
+{"Time":"2026-09-26T23:31:49.202741143Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Output":"--- FAIL: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202748273Z","Action":"fail","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_exposure","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202756043Z","Action":"run","Package":"harnesstest","Test":"TestComponentsValidate"}
+{"Time":"2026-09-26T23:31:49.202764603Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"=== RUN   TestComponentsValidate\n"}
+{"Time":"2026-09-26T23:31:49.202778334Z","Action":"output","Package":"harnesstest","Test":"TestComponentsValidate","Output":"--- PASS: TestComponentsValidate (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202785514Z","Action":"pass","Package":"harnesstest","Test":"TestComponentsValidate","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202792474Z","Action":"run","Package":"harnesstest","Test":"TestNewContent"}
+{"Time":"2026-09-26T23:31:49.202798694Z","Action":"output","Package":"harnesstest","Test":"TestNewContent","Output":"=== RUN   TestNewContent\n"}
+{"Time":"2026-09-26T23:31:49.202806974Z","Action":"output","Package":"harnesstest","Test":"TestNewContent","Output":"--- PASS: TestNewContent (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202814705Z","Action":"pass","Package":"harnesstest","Test":"TestNewContent","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202821885Z","Action":"run","Package":"harnesstest","Test":"TestNewExample"}
+{"Time":"2026-09-26T23:31:49.202827925Z","Action":"output","Package":"harnesstest","Test":"TestNewExample","Output":"=== RUN   TestNewExample\n"}
+{"Time":"2026-09-26T23:31:49.202835595Z","Action":"output","Package":"harnesstest","Test":"TestNewExample","Output":"--- PASS: TestNewExample (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202854156Z","Action":"pass","Package":"harnesstest","Test":"TestNewExample","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202861226Z","Action":"run","Package":"harnesstest","Test":"TestExampleValidate"}
+{"Time":"2026-09-26T23:31:49.202867616Z","Action":"output","Package":"harnesstest","Test":"TestExampleValidate","Output":"=== RUN   TestExampleValidate\n"}
+{"Time":"2026-09-26T23:31:49.202879416Z","Action":"output","Package":"harnesstest","Test":"TestExampleValidate","Output":"--- PASS: TestExampleValidate (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202886706Z","Action":"pass","Package":"harnesstest","Test":"TestExampleValidate","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202893586Z","Action":"run","Package":"harnesstest","Test":"TestOptions_Struct"}
+{"Time":"2026-09-26T23:31:49.202899667Z","Action":"output","Package":"harnesstest","Test":"TestOptions_Struct","Output":"=== RUN   TestOptions_Struct\n"}
+{"Time":"2026-09-26T23:31:49.202924967Z","Action":"output","Package":"harnesstest","Test":"TestOptions_Struct","Output":"--- PASS: TestOptions_Struct (0.00s)\n"}
+{"Time":"2026-09-26T23:31:49.202932337Z","Action":"pass","Package":"harnesstest","Test":"TestOptions_Struct","Elapsed":0}
+{"Time":"2026-09-26T23:31:49.202939088Z","Action":"output","Package":"harnesstest","Output":"FAIL\n"}
+{"Time":"2026-09-26T23:31:49.208794165Z","Action":"output","Package":"harnesstest","Output":"coverage: 1.4% of statements in github.com/getkin/kin-openapi/...\n"}
+{"Time":"2026-09-26T23:31:49.235158884Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.044s\n"}
+{"Time":"2026-09-26T23:31:49.235198985Z","Action":"fail","Package":"harnesstest","Elapsed":0.046}

@@ -1,0 +1,36 @@
+{
+  "checks": [],
+  "failed": [],
+  "generated": "2026-09-26T21:06:30+00:00",
+  "model": {
+    "reason": "sandbox-only probe",
+    "status": "skipped"
+  },
+  "passed": true,
+  "sandbox": {
+    "image": "image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:2d52abf32379308c3346b18dffa4d833e4935824c41fce2ae48c0563d9514678",
+    "isolation": {
+      "disposable": "the task pod",
+      "limits": {
+        "cpus": "2",
+        "memory": "2g",
+        "pids": 512,
+        "timeout_s": 900
+      },
+      "network": "deny-all NetworkPolicy on the task pod (claim; verified by the stage 0 probe in this pod)",
+      "rootfs": "read-only (claim)",
+      "runtime_class": "default (no Kata or gVisor)",
+      "secrets": "none mounted; environment cleared for the run",
+      "service_account_token": "not mounted (claim)",
+      "target": "pod"
+    },
+    "status": "pass",
+    "tests": {
+      "test_no_network": "pass",
+      "test_no_secrets_in_env": "pass",
+      "test_offline_install_worked": "pass",
+      "test_rootfs_read_only": "pass"
+    }
+  },
+  "stage": 0
+}

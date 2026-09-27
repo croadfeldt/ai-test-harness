@@ -1,0 +1,11 @@
+--- a/openapi3/maplike.go
++++ b/openapi3/maplike.go
+@@ -290,7 +290,7 @@
+ 
+ // Len returns the amount of keys in paths excluding paths.Extensions.
+ func (paths *Paths) Len() int {
+-	if paths == nil || paths.m == nil {
++	if paths == nil || paths.m != nil {
+ 		return 0
+ 	}
+ 	return len(paths.m)

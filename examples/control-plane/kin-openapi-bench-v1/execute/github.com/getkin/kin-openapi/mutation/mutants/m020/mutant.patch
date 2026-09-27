@@ -1,0 +1,11 @@
+--- a/openapi3/helpers.go
++++ b/openapi3/helpers.go
+@@ -76,7 +76,7 @@
+ 
+ // copyURI makes a copy of the pointer.
+ func copyURI(u *url.URL) *url.URL {
+-	if u == nil {
++	if u != nil {
+ 		return nil
+ 	}
+ 

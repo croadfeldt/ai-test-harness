@@ -1,0 +1,11 @@
+--- a/openapi3/openapi3.go
++++ b/openapi3/openapi3.go
+@@ -269,7 +269,7 @@
+ 	ctx = WithValidationOptions(ctx, opts...)
+ 	me := newErrCollector(ctx)
+ 
+-	if doc.OpenAPI == "" {
++	if doc.OpenAPI != "" {
+ 		if err := me.emit(newOpenAPIVersionRequired(doc.Origin)); err != nil {
+ 			return err
+ 		}

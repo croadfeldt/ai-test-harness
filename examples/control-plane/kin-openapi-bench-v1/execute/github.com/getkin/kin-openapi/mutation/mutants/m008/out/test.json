@@ -1,0 +1,10 @@
+{"Time":"2026-09-26T21:20:04.660249497Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T21:20:04.673396657Z","Action":"output","Package":"harnesstest","Output":"panic: contentType is empty\n"}
+{"Time":"2026-09-26T21:20:04.673698508Z","Action":"output","Package":"harnesstest","Output":"\n"}
+{"Time":"2026-09-26T21:20:04.673727459Z","Action":"output","Package":"harnesstest","Output":"goroutine 1 [running]:\n"}
+{"Time":"2026-09-26T21:20:04.67374755Z","Action":"output","Package":"harnesstest","Output":"github.com/getkin/kin-openapi/openapi3filter.RegisterBodyDecoder(...)\n"}
+{"Time":"2026-09-26T21:20:04.67376662Z","Action":"output","Package":"harnesstest","Output":"\t/work/mutant/openapi3filter/req_resp_decoder.go:1199\n"}
+{"Time":"2026-09-26T21:20:04.673786881Z","Action":"output","Package":"harnesstest","Output":"github.com/getkin/kin-openapi/openapi3filter.init.0()\n"}
+{"Time":"2026-09-26T21:20:04.673805332Z","Action":"output","Package":"harnesstest","Output":"\t/work/mutant/openapi3filter/req_resp_decoder.go:1295 +0x25\n"}
+{"Time":"2026-09-26T21:20:04.675329119Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.015s\n"}
+{"Time":"2026-09-26T21:20:04.675394381Z","Action":"fail","Package":"harnesstest","Elapsed":0.015}

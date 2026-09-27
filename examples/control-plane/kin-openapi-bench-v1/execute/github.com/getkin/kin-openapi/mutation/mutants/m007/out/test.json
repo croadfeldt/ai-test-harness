@@ -1,0 +1,27 @@
+{"Time":"2026-09-26T21:19:57.264902611Z","Action":"start","Package":"harnesstest"}
+{"Time":"2026-09-26T21:19:57.27588058Z","Action":"run","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning"}
+{"Time":"2026-09-26T21:19:57.275950372Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning\n"}
+{"Time":"2026-09-26T21:19:57.276206782Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"--- FAIL: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)\n"}
+{"Time":"2026-09-26T21:19:57.278130783Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]\n"}
+{"Time":"2026-09-26T21:19:57.278163725Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"[signal SIGSEGV: segmentation violation code=0x1 addr=0x18 pc=0x77c92c]\n"}
+{"Time":"2026-09-26T21:19:57.278180575Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\n"}
+{"Time":"2026-09-26T21:19:57.278195566Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"goroutine 21 [running]:\n"}
+{"Time":"2026-09-26T21:19:57.278210156Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"testing.tRunner.func1.2({0x870c00, 0xc93f30})\n"}
+{"Time":"2026-09-26T21:19:57.278224517Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/usr/local/go/src/testing/testing.go:1872 +0x232\n"}
+{"Time":"2026-09-26T21:19:57.278238917Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"testing.tRunner.func1()\n"}
+{"Time":"2026-09-26T21:19:57.278252838Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/usr/local/go/src/testing/testing.go:1875 +0x35b\n"}
+{"Time":"2026-09-26T21:19:57.278271389Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"panic({0x870c00?, 0xc93f30?})\n"}
+{"Time":"2026-09-26T21:19:57.278285859Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/usr/local/go/src/runtime/panic.go:783 +0x132\n"}
+{"Time":"2026-09-26T21:19:57.2783007Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"github.com/getkin/kin-openapi/openapi3.(*T).Validate(0x0, {0x9b4568, 0xcca240}, {0x0, 0x0, 0x0})\n"}
+{"Time":"2026-09-26T21:19:57.27831508Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/work/mutant/openapi3/openapi3.go:272 +0x40c\n"}
+{"Time":"2026-09-26T21:19:57.278329381Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"github.com/getkin/kin-openapi/openapi3filter.(*ValidationHandler).Load(0xc0000fdf10)\n"}
+{"Time":"2026-09-26T21:19:57.278343541Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/work/mutant/openapi3filter/validation_handler.go:36 +0x87\n"}
+{"Time":"2026-09-26T21:19:57.278359302Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"harnesstest.Test_GHSA_r277_6w6q_xmqw_fix_pinning(0xc00008afc0)\n"}
+{"Time":"2026-09-26T21:19:57.278375103Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/work/m/kin_openapi_cve_cve_2026_73501_test.go:26 +0x18d\n"}
+{"Time":"2026-09-26T21:19:57.278397303Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"testing.tRunner(0xc00008afc0, 0x92f770)\n"}
+{"Time":"2026-09-26T21:19:57.278413314Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/usr/local/go/src/testing/testing.go:1934 +0xea\n"}
+{"Time":"2026-09-26T21:19:57.278429815Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"created by testing.(*T).Run in goroutine 1\n"}
+{"Time":"2026-09-26T21:19:57.278445715Z","Action":"output","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Output":"\t/usr/local/go/src/testing/testing.go:1997 +0x465\n"}
+{"Time":"2026-09-26T21:19:57.280203771Z","Action":"fail","Package":"harnesstest","Test":"Test_GHSA_r277_6w6q_xmqw_fix_pinning","Elapsed":0}
+{"Time":"2026-09-26T21:19:57.280277843Z","Action":"output","Package":"harnesstest","Output":"FAIL\tharnesstest\t0.015s\n"}
+{"Time":"2026-09-26T21:19:57.280314645Z","Action":"fail","Package":"harnesstest","Elapsed":0.015}

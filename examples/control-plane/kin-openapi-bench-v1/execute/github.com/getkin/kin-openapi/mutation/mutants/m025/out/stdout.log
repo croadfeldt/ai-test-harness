@@ -1,0 +1,19 @@
+=== RUN   Test_GHSA_r277_6w6q_xmqw_fix_pinning
+--- PASS: Test_GHSA_r277_6w6q_xmqw_fix_pinning (0.00s)
+=== RUN   Test_GHSA_r277_6w6q_xmqw_exposure
+--- PASS: Test_GHSA_r277_6w6q_xmqw_exposure (0.00s)
+=== RUN   TestComponentsValidatePassesOnEmpty
+--- PASS: TestComponentsValidatePassesOnEmpty (0.00s)
+=== RUN   TestContactUnmarshalJSONSetsName
+--- PASS: TestContactUnmarshalJSONSetsName (0.00s)
+=== RUN   TestContactMarshalJSONProducesName
+--- PASS: TestContactMarshalJSONProducesName (0.00s)
+=== RUN   TestCallbackUnmarshalJSONCopiesData
+--- PASS: TestCallbackUnmarshalJSONCopiesData (0.00s)
+=== RUN   TestNewExampleSetsValue
+--- PASS: TestNewExampleSetsValue (0.00s)
+=== RUN   TestExampleUnmarshalJSONSetsSummary
+--- PASS: TestExampleUnmarshalJSONSetsSummary (0.00s)
+PASS
+coverage: [no statements]
+ok  	harnesstest	0.013s	coverage: [no statements]

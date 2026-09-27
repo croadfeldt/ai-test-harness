@@ -1,0 +1,29 @@
+{
+  "affected_symbols_in_use": [],
+  "fixed_by_this_change": [],
+  "old_version": "v1.18.5",
+  "package": "github.com/klauspost/compress",
+  "version": "v1.18.5",
+  "vulns": [
+    {
+      "affected_symbols": [
+        "NewDict"
+      ],
+      "aliases": [
+        "GHSA-259r-337f-4rfw"
+      ],
+      "fixed_versions": [
+        "1.18.7"
+      ],
+      "id": "GO-2026-5841",
+      "malicious": false,
+      "references": [
+        "https://github.com/klauspost/compress/security/advisories/GHSA-259r-337f-4rfw",
+        "https://github.com/klauspost/compress/commit/8668e357e776d5152ed62f33c17f21b8690664fa"
+      ],
+      "severity": null,
+      "summary": "OOB read in github.com/klauspost/compress/s2"
+    }
+  ],
+  "vulns_old": []
+}

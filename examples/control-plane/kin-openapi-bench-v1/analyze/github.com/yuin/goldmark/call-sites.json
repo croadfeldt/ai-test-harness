@@ -1,0 +1,7 @@
+{
+  "import_names": [
+    "github.com/yuin/goldmark"
+  ],
+  "package": "github.com/yuin/goldmark",
+  "sites": []
+}
