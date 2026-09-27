@@ -121,11 +121,15 @@ def build(workdir: Path) -> dict:
         stages[st] = {"present": present, "generated": summ.get("generated"), "rows": len(rows) if rows else None, "summary": brief}
     if stages["intake"]["present"]:
         g_new = _load(workdir / "intake" / "graph.new.json") or {}; g_old = _load(workdir / "intake" / "graph.old.json") or {}
-        stages["intake"]["summary"] = {"packages_at_head": len(g_new.get("packages", {})), "packages_at_base": len(g_old.get("packages", {})),
+        items = wl.get("items", [])
+        # the graphs are not committed with example runs; the work list carries one row per package at either ref
+        at_head = len(g_new.get("packages", {})) or sum(1 for i in items if i.get("new_version") and i.get("depth", 1) > 0)
+        at_base = len(g_old.get("packages", {})) or sum(1 for i in items if i.get("old_version") and i.get("depth", 1) > 0)
+        stages["intake"]["summary"] = {"packages_at_head": at_head, "packages_at_base": at_base,
                                        "work_list_rows": len(wl.get("items", [])),
                                        "with_advisories_at_head": sum(1 for i in wl.get("items", []) if i.get("vulns_new")),
                                        "changed": sum(1 for i in wl.get("items", []) if i.get("change") in ("added", "removed", "bumped")),
-                                       "resolver": g_new.get("resolver")}
+                                       "resolver": g_new.get("resolver") or wl.get("resolver")}
     packages = []
     for pkg in _packages(workdir):
         if not any((workdir / st / pkg).exists() for st in ("analyze", "generate", "execute", "triage", "packet", "attest")):
