@@ -476,7 +476,7 @@
       "audience": "developer",
       "package": "github.com/getkin/kin-openapi",
       "path": "generate/github.com/getkin/kin-openapi/manifest.json",
-      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests."
+      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests."
     },
     {
       "audience": "developer",
@@ -530,7 +530,7 @@
       "audience": "machine",
       "package": "github.com/getkin/kin-openapi",
       "path": "execute/github.com/getkin/kin-openapi/mutation/mutants/",
-      "purpose": "Each sampled mutant: the mutated file and its sealed run."
+      "purpose": "Each sampled mutant: its change as a patch, and its sealed run's output."
     },
     {
       "audience": "reviewer",
@@ -1119,5 +1119,5 @@
     }
   },
   "started": "2026-09-15T17:51:47+00:00",
-  "updated": "2026-09-18T13:02:22+00:00"
+  "updated": "2026-09-27T00:22:50+00:00"
 }

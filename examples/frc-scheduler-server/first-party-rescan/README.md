@@ -114,7 +114,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 
 **The person who ran the harness**
 
-- `generate/frc-scheduler-server/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests.
+- `generate/frc-scheduler-server/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests.
 
 **Tools (kept for replay and proof; not meant to be read)**
 
@@ -125,6 +125,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `analyze/frc-scheduler-server/call-sites.json`: Every place the application references this package.
 - `execute/frc-scheduler-server/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
 - `execute/frc-scheduler-server/new-rerun/`: The second run on head, to catch flakes.
-- `execute/frc-scheduler-server/mutation/mutants/`: Each sampled mutant: the mutated file and its sealed run.
+- `execute/frc-scheduler-server/mutation/mutants/`: Each sampled mutant: its change as a patch, and its sealed run's output.
 - `packet/frc-scheduler-server/packet.json`: The packet's facts in structured form.
 - `assess/assess.json`: The assessment in structured form.

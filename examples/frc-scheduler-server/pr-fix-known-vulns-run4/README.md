@@ -75,7 +75,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 
 - `analyze/python-jose/source-diff.patch`: The package's own source diff between the versions; the model reads it to find the fix.
 - `analyze/python-jose/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
-- `generate/python-jose/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests.
+- `generate/python-jose/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests.
 - `generate/python-jose/manifest.agent.json`: The tool-using agent's traces: every tool call per advisory, and the budget it had.
 
 **Tools (kept for replay and proof; not meant to be read)**

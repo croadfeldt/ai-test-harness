@@ -98,7 +98,7 @@
       "audience": "developer",
       "package": "python-jose",
       "path": "generate/python-jose/manifest.json",
-      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests."
+      "purpose": "What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests."
     },
     {
       "audience": "developer",
@@ -283,5 +283,5 @@
     }
   },
   "started": "2026-09-12T01:41:41+00:00",
-  "updated": "2026-09-18T13:02:24+00:00"
+  "updated": "2026-09-27T00:22:53+00:00"
 }

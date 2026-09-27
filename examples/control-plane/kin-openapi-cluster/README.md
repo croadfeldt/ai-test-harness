@@ -156,7 +156,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `analyze/golang.org/x/text/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
 - `analyze/google.golang.org/grpc/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
 - `analyze/oras.land/oras-go/v2/notes.untrusted.md`: Package metadata and description as published upstream; untrusted text, kept for context.
-- `generate/github.com/getkin/kin-openapi/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt and response digests.
+- `generate/github.com/getkin/kin-openapi/manifest.json`: What was generated: every file, every test, what was cut and discarded and why, the model, the prompt set and its digest, the prompt and response digests.
 - `generate/github.com/getkin/kin-openapi/manifest.agent.json`: The tool-using agent's traces: every tool call per advisory, and the budget it had.
 
 **Tools (kept for replay and proof; not meant to be read)**
@@ -195,6 +195,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/github.com/getkin/kin-openapi/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
 - `execute/github.com/getkin/kin-openapi/new-rerun/`: The second run on head, to catch flakes.
 - `execute/github.com/getkin/kin-openapi/fixed-candidate/`: The run on the resolved fixed version, for the differential when the change did not move the package.
-- `execute/github.com/getkin/kin-openapi/mutation/mutants/`: Each sampled mutant: the mutated file and its sealed run.
+- `execute/github.com/getkin/kin-openapi/mutation/mutants/`: Each sampled mutant: its change as a patch, and its sealed run's output.
 - `packet/github.com/getkin/kin-openapi/packet.json`: The packet's facts in structured form.
 - `assess/assess.json`: The assessment in structured form.
