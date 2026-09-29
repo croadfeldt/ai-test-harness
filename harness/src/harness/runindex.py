@@ -27,6 +27,8 @@ CATALOGUE = {
     "intake/graph.old.json": ("machine", "The dependency graph at base."),
     "intake/sbom.new.cdx.json": ("audit", "The software bill of materials at head, CycloneDX."),
     "intake/vulns.json": ("security", "Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports."),
+    "analyze/pipeline/facts.json": ("security", "What the repository's own CI does with untrusted code while tests run, read from its definitions at the reviewed commit; and whether the existing suite reaches what changed."),
+    "triage/pipeline.json": ("reviewer", "The pipeline findings with their suggested changes, routed to the pipeline's owners; the harness edits no pipeline."),
     "analyze/facts.json": ("reviewer", "The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned."),
     "analyze/vulns.json": ("security", "The advisories on this package's versions, with the symbols they name and the fixed versions."),
     "analyze/api-diff.json": ("reviewer", "Every added, removed or changed public symbol between the two versions, with a breaking flag."),
@@ -61,7 +63,7 @@ CATALOGUE = {
     "attest/signer.pub.pem": ("audit", "The public key that verifies the envelope."),
     "attest/attest.json": ("audit", "Which key signed, whether it verified locally, and what the run could not back."),
     "attest/udlm/": ("audit", "The same facts as sealed UDLM records: the vulnerability, the package, the run, each accepted test, the draft VEX."),
-    "assess/assess.md": ("everyone", "The run against the blueprint's eleven goals, each with the measurement and the file it came from."),
+    "assess/assess.md": ("everyone", "The run against the blueprint's twelve goals, each with the measurement and the file it came from."),
     "assess/assess.json": ("machine", "The assessment in structured form."),
     "propose/proposal.json": ("audit", "The branch, the commit, the files and the pull request the harness opened; the signature status."),
     "propose/pull-request.md": ("reviewer", "The pull request's text as posted."),
@@ -76,7 +78,7 @@ def catalogue_for(workdir: Path, packages: list[str]) -> list[dict]:
     """Every file or directory of this run that the catalogue names, with its audience and purpose."""
     out = []
     for key, (aud, why) in CATALOGUE.items():
-        if "/" not in key or key.startswith(("selfcheck/", "intake/", "assess/")):
+        if "/" not in key or key.startswith(("selfcheck/", "intake/", "assess/", "analyze/pipeline/", "triage/pipeline")):
             if (workdir / key).exists():
                 out.append({"path": key, "audience": aud, "purpose": why})
             continue

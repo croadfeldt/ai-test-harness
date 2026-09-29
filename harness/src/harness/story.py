@@ -268,7 +268,8 @@ def decisions(idx: dict, workdir: Path) -> list[str]:
             out.append(f"{pkg}: triage decided per test: {_phrase(acts)}.")
             for f in t.get("findings", []):
                 summary = str(f.get("summary") or "").rstrip(".")
-                out.append(f"{pkg}: finding, {f.get('class')} at confidence {f.get('confidence')}: {summary}. Route: {f.get('routing')}.")
+                out.append(f"{pkg}: finding, {f.get('class')} at confidence {f.get('confidence')}: {summary}. Route: {f.get('routing')}."
+                           + (f" Suggested change: {f['suggested_change']}." if f.get("suggested_change") else ""))
         mut = p.get("mutation") or {}
         if mut.get("status") == "ran":
             ok = (mut.get("score") or 0) >= 0.6
@@ -279,6 +280,9 @@ def decisions(idx: dict, workdir: Path) -> list[str]:
         rv = p.get("review") or {}
         if rv.get("outcome"):
             out.append(f"{pkg}: the reviewer's decision, {rv['outcome']}: {rv.get('accepted')} accepted, {rv.get('edited')} edited, {rv.get('rejected')} rejected.")
+    pl = _load(workdir / "triage" / "pipeline.json") or {}
+    for f in pl.get("findings", []):
+        out.append(f"the pipeline: {f.get('rule')} ({f.get('severity')}): {str(f.get('summary')).rstrip('.')}. Suggested change: {f.get('suggested_change')}. The harness did not change it.")
     return out
 
 

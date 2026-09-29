@@ -145,3 +145,4 @@ class FactBundle:
     sensitivity: list[str]
     risk: RiskScore
     generated: str
+    existing_suite: dict = field(default_factory=dict)   # what the repository's own tests reach of this package and of what changed

@@ -1,11 +1,18 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.16
+**Status:** Draft v0.17
 **Date:** 2026-09-29
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.17:** the pipeline is under test too (principle 13). The harness fits into the
+repository's own CI, and when that CI is provably short of what validating a test needs it says so
+with evidence and the change that corrects it, routed to the pipeline's owners, and never edits the
+pipeline. Two questions first: can untrusted code reach secrets or the network while tests run (stage
+2 reads the CI definitions; stage 5 classifies the facts), and does the existing suite reach what
+changed (stage 2 counts it; stage 5 states the gap). Goal 12 records that the questions were asked.
 
 **Changes in v0.16:** the rules the first measured prompt comparison and the 235B runs forced (stage 3:
 the compiler's line cuts a test before any repair, a worse repair never erases an attempt that ran;
@@ -244,6 +251,15 @@ the default. The failure register (section 17) keeps the harness honest about it
 evaluation table keeps it honest about the model's and the prompt's. Stage 0 proves the harness is fit
 to run; stage 7's evaluator proves the model and the prompt are fit to produce.
 
+**13. The pipeline is under test too.** The harness fits into whatever CI a repository already runs,
+but it does not inherit that pipeline's gaps into its own evidence. Where the pipeline is provably
+short of what validating a test needs, it says so as a finding with evidence and the change that would
+correct it, routed to the pipeline's owners, and it changes nothing itself. Five questions are the
+whole of it, each answerable from facts: does anything reach the base branch without tests; can
+untrusted code reach secrets or the network while tests run; does the existing suite reach what
+changed; are failures being masked; are the suite's results tamper-evident. The second and third are
+implemented; the others follow. Fitting in is the default. Fitting in silently is not.
+
 ## 4. Build on existing work
 
 The [landscape](04-landscape.md) document has the full inventory. This section states what the plan adopts and
@@ -443,6 +459,14 @@ unless it is a published package with a known one. The harness does not go looki
 vulnerabilities in first-party code; it tests the code as written and leaves CVE-targeted work to
 the dependency rows, where the vulnerabilities are already known.
 
+**The pipeline, as facts (principle 13).** Stage 2 also reads the repository's own CI definitions at
+the reviewed commit, GitHub Actions, GitLab CI or Tekton, and records what they do with untrusted code
+while tests run: a pull request checked out under the base repository's secrets, write permissions on
+a pull request workflow, actions by mutable tag, a download piped to a shell, a test job with secrets in
+its environment, a floating image tag, a privileged step. And for every package in scope it counts what
+the existing suite reaches: test files that reference the package, and test files that reach the
+symbols this change altered. Facts only; stage 5 turns them into findings.
+
 ### Stage 3: Generation
 
 The agent produces artifacts in four categories. Each is a separate sub-task with its own prompt and
@@ -555,6 +579,13 @@ gathered, verdict with confidence, reflection pass.
 
 Anything under a confidence threshold is escalated rather than auto-routed. Failure logs are summarized
 with a Log Detective style pass before the classifier sees them.
+
+**Two finding classes for the pipeline (principle 13).** `coverage-gap`: the application reaches a
+package in production and no test of its own references it, or the change alters symbols no existing
+test reaches; the route is the pipeline's owners, the suggested change names the call sites. `pipeline`:
+one finding per fact stage 2 recorded about the CI, security-class where untrusted code can reach
+secrets or the network, each with the change that corrects it. A repository with no CI definition at
+all is itself a finding. The packet carries them in their own section; the harness edits no pipeline.
 
 ### Stage 6: Review
 

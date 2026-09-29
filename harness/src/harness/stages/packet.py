@@ -130,7 +130,11 @@ def packet_package(workdir: Path, pkg: str, run_id: str) -> dict:
         mut_md = "not run."
     s = triage["summary"]; c = results["counts"] if results else {}
     cov = results["coverage_summary"]["covered_lines_in_target"] if results else 0
-    findings_md = "\n".join(f"- **{f['class']}** ({f['confidence']}): {f['summary']}. Route: {f['routing']}. Evidence: `{f['evidence_ref']}`" for f in triage["findings"]) or "- none"
+    findings_md = "\n".join(f"- **{f['class']}** ({f['confidence']}): {f['summary']}. Route: {f['routing']}." + (f" Suggested change: {f['suggested_change']}." if f.get("suggested_change") else "") + f" Evidence: `{f['evidence_ref']}`" for f in triage["findings"]) or "- none"
+    pl_path = workdir / "triage" / "pipeline.json"
+    pl = read_json(pl_path) if pl_path.exists() else {"findings": []}
+    pipeline_md = "\n".join(f"- **{f.get('rule', 'P')}** ({f.get('severity', 'advisory')}): {f['summary']}. Suggested change: {f.get('suggested_change', '')}." for f in pl["findings"]) \
+        or "- nothing to report: the pipeline runs tests without untrusted code reaching secrets or the network, as far as its definitions show"
     tests_md = "\n".join(f"| {t['name']} | {t['category']} | {t['versions']['old']} | {t['versions']['new']} | {t['class']} | {t['action']} |" for t in triage["tests"]) or "| none | | | | | |"
     vex_md = "\n".join(f"| {st['vulnerability']['name']} | {st['status']} | {st['status_notes'][:110]} |" for st in vex["statements"]) or "| none | | |"
     cand_path = workdir / "analyze" / pkg / "fixed-candidate.json"
@@ -209,6 +213,10 @@ Mutation: {mut_md}
 
 ## Findings
 {findings_md}
+
+## The pipeline this change runs through
+The harness fits into the repository's own CI, and says so when that CI is provably short of what validating a test needs. Facts from its definitions at the reviewed commit; the harness changes nothing. Route: the pipeline's owners.
+{pipeline_md}
 
 ## Tests
 | test | category | old | new | class | action |

@@ -112,6 +112,33 @@ def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_
     return fb
 
 
+def existing_suite(repo: Path, adapter, import_names: list[str], changed_symbols: list[str]) -> dict:
+    """Question 3 of the mission: does the repository's own suite reach this package, and what changed in it?
+    Counted from the test files at the reviewed commit; a fact, not a judgement."""
+    roots = sorted({n.split("/")[0].split(".")[0] for n in import_names})
+    try:
+        files = [f for f in adapter.first_party_files(repo) if adapter.is_test_file(f.relative_to(repo))]
+    except Exception:
+        files = []
+    changed = {c.rsplit(".", 1)[-1] for c in changed_symbols}
+    referencing, reaching, sample = 0, 0, []
+    for f in files:
+        try:
+            refs = adapter.symbol_refs(f, roots)
+        except Exception:
+            continue
+        symbols = {sym for pairs in refs.values() for sym, _ in pairs}
+        if not symbols:
+            continue
+        referencing += 1
+        if changed and any(sym.rsplit(".", 1)[-1] in changed or sym in changed_symbols for sym in symbols):
+            reaching += 1
+            if len(sample) < 5:
+                sample.append(str(f.relative_to(repo)))
+    return {"test_files": len(files), "files_referencing_package": referencing, "changed_symbols": len(changed_symbols),
+            "files_reaching_changed_symbols": reaching, "sample_files_reaching_changed_symbols": sample}
+
+
 def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_version: str | None,
                  vuln_index: dict, dependents: list[str]) -> FactBundle:
     out = workdir / "analyze" / it.package
@@ -185,6 +212,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
     static = adapter.static_analysis([repo / s.file for s in prod_sites][:50], repo)
     up = adapter.upstream_tests(dirs["new"]) if "new" in dirs else {"present": False, "count": 0}
 
+    suite = existing_suite(repo, adapter, names, [c.qualname for c in diff if c.kind in ("changed", "removed")])
     rs = risk.score(depth=it.depth, change=it.change, reachable=reachable, vuln_count=len(vulns), high_severity=high,
                     vulns_fixed=len(vulns_old),
                     breaking_changes=breaking, changed_symbols=changed,
@@ -195,6 +223,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
                     api_old_ref="api.old.json" if "old" in surfaces and it.change == "bumped" else None,
                     api_new_ref="api.new.json" if "new" in surfaces else None,
                     api_diff_ref="api-diff.json" if it.change == "bumped" else None,
+                    existing_suite=suite,
                     api_diff_summary={"added": sum(1 for c in diff if c.kind == "added"),
                                       "removed": sum(1 for c in diff if c.kind == "removed"),
                                       "changed": changed, "breaking": breaking,
@@ -247,6 +276,10 @@ def analyze(*, workdir: Path, select: list[str] | None = None, all_rows: bool = 
                 "vulns": b.vulns_summary["count"], "breaking": b.api_diff_summary["breaking"],
                 "score": b.risk.score, "budget": b.risk.budget["level"], "cve_targeted": b.risk.budget["cve_targeted"]}
                for b in bundles]
+    from ..sources import ci
+    pipeline = ci.inspect(repo)
+    write_json(workdir / "analyze" / "pipeline" / "facts.json", {"generated": now_iso(), "repository": wl.repository or wl.source_dir, **pipeline})
+    log(f"  pipeline: {', '.join(pipeline['systems']) or 'no CI definition'}; {len(pipeline['facts'])} fact(s) about how tests run")
     from ..util import merge_summary
     merge_summary(workdir / "analyze" / "summary.json", summary, extra={"run_id": wl.run_id}, list_key="items")
     for s in summary:

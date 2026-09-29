@@ -15,7 +15,9 @@ THRESHOLD = 0.7
 ROUTING = {"test-bug": "regenerate or discard; no human time", "behavior-change": "note in review summary",
            "undocumented-change": "flag for reviewer", "defect": "open issue with reproducer",
            "security": "Product Security", "suspicious": "Supply Chain Security; block merge",
-           "obsolete": "propose retirement", "redundant": "propose retirement or merge"}
+           "obsolete": "propose retirement", "redundant": "propose retirement or merge",
+           "coverage-gap": "pipeline owners: the existing suite does not reach this; accept this run's tests or add your own",
+           "pipeline": "pipeline owners: correct the pipeline; the harness does not edit it"}
 
 
 def _aliases_for(vulns_doc: dict, cve: str) -> list[str]:
@@ -32,6 +34,41 @@ def _finding(cls, confidence, summary, evidence, package, **extra):
          "routing": ROUTING[cls] if confidence >= THRESHOLD else "escalate: below confidence threshold", "escalated": confidence < THRESHOLD}
     f.update(extra)
     return f
+
+
+def coverage_gap_findings(pkg: str, facts: dict) -> list[dict]:
+    """The existing suite's reach, stated as a finding when it is provably short: no test of the
+    repository references a package the application reaches, or none reaches the symbols this change
+    altered. Facts from analysis; the route is the pipeline's owners."""
+    suite = facts.get("existing_suite") or {}
+    if not suite or facts.get("first_party"):
+        return []
+    out = []
+    reach = str(facts.get("call_sites_summary", {}).get("reachable")) == "true"
+    if reach and suite.get("files_referencing_package", 0) == 0:
+        out.append(_finding("coverage-gap", 0.9, f"{pkg}: the application reaches this package in production code and none of its {suite.get('test_files', 0)} test files references it",
+                            f"analyze/{pkg}/facts.json", pkg, suggested_change="add tests at the application's call sites, or accept this run's functional tests"))
+    elif suite.get("changed_symbols", 0) and suite.get("files_reaching_changed_symbols", 0) == 0:
+        out.append(_finding("coverage-gap", 0.9, f"{pkg}: this change alters {suite['changed_symbols']} symbol(s) and no existing test reaches any of them ({suite.get('files_referencing_package', 0)} test file(s) reference the package at all)",
+                            f"analyze/{pkg}/facts.json", pkg, suggested_change="add tests for the altered symbols the application uses, or accept this run's differential tests"))
+    return out
+
+
+def pipeline_findings(workdir: Path) -> list[dict]:
+    """Question 2 of the mission, as findings: what the repository's CI does with untrusted code while
+    tests run. Security-class facts route to the pipeline's owners with the change that corrects them."""
+    path = workdir / "analyze" / "pipeline" / "facts.json"
+    if not path.exists():
+        return []
+    facts = read_json(path)
+    out = []
+    for f in facts.get("facts", []):
+        out.append(_finding("pipeline", 0.9 if f["severity"] == "security" else 0.75, f"{f['file']}: {f['found']}", "analyze/pipeline/facts.json", None,
+                            rule=f["rule"], severity=f["severity"], suggested_change=f["suggested_change"]))
+    if not facts.get("files"):
+        out.append(_finding("pipeline", 0.9, "no CI definition at the reviewed commit: nothing runs this repository's tests on a change", "analyze/pipeline/facts.json", None,
+                            rule="P-00", severity="security", suggested_change="add a pipeline that runs the suite on every pull request; the harness's own triggers are in deploy/"))
+    return out
 
 
 def triage_package(workdir: Path, pkg: str) -> dict:
@@ -109,6 +146,9 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                                  + ("" if corroborated else "; NOT corroborated by stage 4 verdicts"),
                                  f"generate/{pkg}/manifest.agent.json", pkg, reproducer=cd["blocked_paths"][0][:200],
                                  corroborating_tests=[t["name"] for t in corroborated]))
+    # Question 3 of the mission: does the repository's own suite reach this package and what changed in it?
+    findings += coverage_gap_findings(pkg, facts)
+
     # Relevance proposals become obsolete / redundant findings: advisory, never blocking, a person approves.
     rel_path = workdir / "execute" / pkg / "relevance.json"
     if rel_path.exists():
@@ -146,4 +186,9 @@ def triage(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
         outs.append(triage_package(workdir, item["package"]))
     from ..util import merge_summary
     merge_summary(workdir / "triage" / "summary.json", [{"package": o["package"], **o["summary"]} for o in outs])
+    pf = pipeline_findings(workdir)
+    write_json(workdir / "triage" / "pipeline.json", {"generated": now_iso(), "findings": pf,
+                                                       "summary": {"findings": len(pf), "security": sum(1 for f in pf if f.get("severity") == "security")}})
+    if pf:
+        log(f"  pipeline: {len(pf)} finding(s) about how this repository's CI runs tests; routed to the pipeline's owners")
     return outs

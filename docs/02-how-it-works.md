@@ -106,6 +106,11 @@ or API Extractor. The source diff. Our own call sites. Upstream's existing tests
 with their affected symbols. Static analysis output. Release notes, treated as untrusted text. Then a
 risk score decides how much generation budget this row gets.
 
+Analysis also reads the repository's own CI definitions and counts what its existing suite reaches,
+because the pipeline is under test too: where it is provably short of what validating a test needs,
+triage says so with the change that corrects it, and the harness changes nothing. Document 13 lists
+what is checked.
+
 ### 3. Generation
 
 The agent writes tests in the ecosystem's idiomatic framework, following the loop IBM Research

@@ -19,7 +19,7 @@ subdirectory, and every number in a packet points at a file in that directory.
   triage/<package>/        every verdict and finding classified, with confidence and a route
   packet/<package>/        packet.md, the tests as a patch, the draft VEX, pull-request.md (what the test pull request carries)
   attest/<package>/        the provenance record per test, the signed statement, the UDLM records
-  assess/                  the run against the blueprint's eleven goals
+  assess/                  the run against the blueprint's twelve goals
   propose/<package>/       the test pull request the harness opened, and what it put on the branch
   feedback/<package>/      what a person accepted, edited or rejected; the realized records; a signed statement
 ```
@@ -104,7 +104,7 @@ print(verify(Path('<run>/attest/<package>/statement.dsse.json'), Path('<run>/att
 
 ## If you lead the engineering team
 
-Open `assess/assess.md`: eleven goals from the blueprint, each with the measurement, the verdict and the
+Open `assess/assess.md`: twelve goals from the blueprint, each with the measurement, the verdict and the
 file it was measured from. Whether a run can be trusted is answered there, not in the packet. Then
 `execute/summary.json` for the counts, `execute/<package>/mutation/mutation.json` for how strong the
 accepted tests are (score, and which test killed which mutant), and `execute/<package>/relevance.json`
@@ -149,13 +149,14 @@ label on every file it lists, and the story at the top of each run groups the fi
 | File | What it is for |
 |---|---|
 | `README.md` | The story of this run: who, what, why, where, when, the outcome, the decisions and the actions. |
-| `assess/assess.md` | The run against the blueprint's eleven goals, each with the measurement and the file it came from. |
+| `assess/assess.md` | The run against the blueprint's twelve goals, each with the measurement and the file it came from. |
 
 **Reviewers (the developer or team that owns the change)**
 
 | File | What it is for |
 |---|---|
 | `intake/worklist.json` | The work list: every package at base and head, what changed, what is reachable, what carries advisories. |
+| `triage/pipeline.json` | The pipeline findings with their suggested changes, routed to the pipeline's owners; the harness edits no pipeline. |
 | `analyze/facts.json` | The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned. |
 | `analyze/api-diff.json` | Every added, removed or changed public symbol between the two versions, with a breaking flag. |
 | `generate/tests/` | The candidate test files as generated, before any decision. |
@@ -173,6 +174,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | File | What it is for |
 |---|---|
 | `intake/vulns.json` | Known vulnerabilities for every package version in either graph, from OSV, including malicious-package reports. |
+| `analyze/pipeline/facts.json` | What the repository's own CI does with untrusted code while tests run, read from its definitions at the reviewed commit; and whether the existing suite reaches what changed. |
 | `analyze/vulns.json` | The advisories on this package's versions, with the symbols they name and the fixed versions. |
 | `analyze/fixed-candidate.json` | When the change left a vulnerable version in place: the environment the harness resolved with the fixed version, and what had to move. |
 | `packet/vex.openvex.json` | One draft VEX statement per advisory, with its basis; a proposal for Product Security, never published by the harness. |
