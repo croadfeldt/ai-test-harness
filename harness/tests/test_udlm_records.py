@@ -29,3 +29,11 @@ def test_records_carry_no_machine_details(tmp_path, monkeypatch):
     for rec in em.records["vulnerability"] + em.records["software-package"]:
         assert rec["record_type"] == "discovered_record" and rec["state"] == "Discovered"
         assert HANDLE.match(rec["handle"]), rec["handle"]
+
+
+def test_requested_records_name_their_root_request():
+    """DEP-015: every requested record carries root_request_uuid; a root names itself."""
+    import inspect
+    from harness.stages import udlm_records
+    src = inspect.getsource(udlm_records.Emitter)
+    assert src.count('root_request_uuid"] = ') == 2, "the job's request and the reviewer's acceptance both name themselves as root"

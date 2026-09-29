@@ -162,6 +162,7 @@ class Emitter:
         req_id = record_uuid()
         req = self.base("requested_record", "Requested", "Job", ent, handle, started, fields, intent_ref=record_uuid())
         req["record_uuid"] = req_id
+        req["root_request_uuid"] = req_id   # DEP-015: a root request names itself; the run is the root of its own order
         self.add("job", req)
         m = gen.get("model", {}); tools = run.get("tools", {})
         real = self.base("realized_record", "Realized", "Job", ent, handle, done, fields, requested_ref=req_id, provider=self.provider,
@@ -223,6 +224,7 @@ class Emitter:
         req = self.base("requested_record", "Requested", intent["resource_type"], intent["entity_uuid"], intent["handle"], at, fields,
                         intent_ref=intent["record_uuid"], origin="declared",
                         provenance=self.prov("fields.test_id", "actor", pr["merged_by"], at))
+        req["root_request_uuid"] = req["record_uuid"]   # DEP-015: the reviewer's acceptance is an order of its own, so it names itself
         req = self.seal(req)
         self.add("test-evidence", req)
         outputs = {"accepted_at": z(at), "accepted_by": pr["merged_by"], "pull_request": pr["url"], "merge_commit": pr["merge_commit"],
