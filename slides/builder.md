@@ -134,7 +134,9 @@ The packet opens in plain terms: what the change did to the package, how many vu
 
 # The failure register: the harness tests itself first
 
-Twenty-two entries, each with the issue, why it matters, the cause, the detector, the automatic correction, and a self-check that runs at stage 0. Written check-first: the check fails on the old code and passes after the fix.
+Twenty-eight entries, each with the issue, why it matters, the cause, the detector, the automatic correction, and a self-check that runs at stage 0. Written check-first: the check fails on the old code and passes after the fix.
+
+Fifteen of them, one line each; the full register is section 17 of the blueprint.
 
 | Id | In one line |
 |---|---|

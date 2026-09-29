@@ -73,13 +73,13 @@ One real pull request meant to fix four vulnerable packages, judged by the harne
 | pyasn1 | silently downgraded | 1 vulnerability introduced | 3 |
 | starlette | left alone | 1 vulnerability live, upgrade path found | 6 |
 
-Three signed attestations. Nine of eleven blueprint goals met. Every unproven item is stated as unproven.
+Three signed attestations. Nine of the blueprint's eleven goals at the time met (it has twelve today). Every unproven item is stated as unproven.
 
 ---
 
 # How it got there, and why that matters to you
 
-The same package was run six times, changing one thing each run. The first four proved nothing. Each failure became a permanent, self-checked rule in the design, twenty-two so far, and the harness refuses to run if any of them fails.
+The same package was run six times, changing one thing each run. The first four proved nothing. Each failure became a permanent, self-checked rule in the design, twenty-eight so far, and the harness refuses to run if any of them fails.
 
 | Run | One change | Proven |
 |---|---|---|
