@@ -1,11 +1,18 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.15
-**Date:** 2026-09-22
+**Status:** Draft v0.16
+**Date:** 2026-09-29
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.16:** the rules the first measured prompt comparison and the 235B runs forced (stage 3:
+the compiler's line cuts a test before any repair, a worse repair never erases an attempt that ran;
+stage 4: mutants come only from lines the tests executed), prompt sets shipped with the image and
+selected per run, the repository matched by its name in every stage, and the register at twenty-eight.
+Principle 12 has its first worked example under stage 7. A one-page implementation specification,
+[document 14](14-specification.md), now states what an implementation must do and how it is judged.
 
 **Changes in v0.15:** the harness takes a repository by address and any ref git can name on it, a
 pull request's head ref included, and runs every stage with one command (stage 1; document 13), so a
@@ -464,6 +471,11 @@ Generation rules:
   functional tests that mirror those usage patterns.
 - Apply the assured-improvement filter: a generated test is kept only if it compiles, passes on the
   baseline, and raises coverage or kills a mutant that existing tests did not.
+- Judge tests, not files, and attempts, not only the last one. Where the language compiles a file as
+  one unit, the compiler's own line numbers cut the tests it names and the rest run before any repair
+  goes back to the model; an unused import is pruned, not sent back (GF-024, GF-027). A repair that
+  collects nothing never erases an earlier attempt that ran: that attempt is kept and its failing tests
+  cut as usual (GF-027).
 - The agent may propose **production code changes** only as separate, clearly labeled patches
   (for example, "suggested fix for a nil dereference found by fuzzing"). These never land automatically.
 - Negative tests are generated for every function that accepts external input, at every depth where
@@ -515,8 +527,9 @@ Validation steps, in order:
 2. **Run.** Record pass, fail, or error per test with full output.
 3. **Flake check.** Re-run passing tests a small number of times. Inconsistent tests are quarantined.
 4. **Coverage.** Measure line and branch coverage of the target package attributable to generated tests.
-5. **Mutation testing.** Run the ecosystem's mutation tool (section 4.3) with a bounded, diff-scoped
-   mutant sample. Tests that kill no mutants are marked weak.
+5. **Mutation testing.** Run the ecosystem's mutation tool (section 4.3) with a bounded mutant sample
+   drawn only from lines the generated tests executed; a file the tests never reached contributes no
+   site (GF-028). Tests that kill no mutants are marked weak.
 6. **Differential run.** For updates, run the same test set against old and new versions and diff results.
 7. **Relevance check.** For every existing test in scope, generated or human-written, record which
    symbols and lines it exercises (per-test coverage plus the call graph). Compare that footprint against
@@ -611,6 +624,13 @@ not assumed to have happened: it leaves a table.
 5. *The rule.* A set or a model becomes a default only by winning the table on the jobs it is meant
    for. A set that wins on Python and loses on Go is the Go default for nobody. Nothing in the harness
    ships a prompt change on the strength of one good run read by eye.
+
+*The first application of the rule.* The kin-openapi job on the 235B, once under `v1` and once under
+`go-api-first`, a candidate that tells the model to confirm every symbol against the API data before
+using it. `v1`: 8 tests, 432 lines covered, mutation 0.6, six behaviour changes for a reviewer.
+`go-api-first`: 7 tests, 169 lines, mutation 0.24, one verified advisory submission blocked on both
+versions. Neither proved an advisory. `v1` stayed the default; the intuitive change lost, and the
+table says so ([document 12](12-prompt-and-model-evaluation.md)).
 
 
 ## 6. Dependency and transitive strategy
