@@ -73,6 +73,16 @@ def assess(*, workdir: Path) -> dict:
         measure, verdict = "mutation testing not run for these packages; coverage delta: no baseline overlay suite yet", "not applicable"
     goal("G11", "section 10: mutation score, coverage delta", "Test strength measured by mutation and coverage delta",
          measure, verdict, [f"execute/{p}/mutation/mutation.json" for p in muts])
+    pl_path = workdir / "triage" / "pipeline.json"
+    pf_path = workdir / "analyze" / "pipeline" / "facts.json"
+    if pf_path.exists():
+        pf = read_json(pf_path); pl = read_json(pl_path) if pl_path.exists() else {"findings": []}
+        gaps = sum(len([f for f in (read_json(workdir / "triage" / p / "triage.json").get("findings", []) if (workdir / "triage" / p / "triage.json").exists() else []) if f["class"] == "coverage-gap"]) for p in pkgs)
+        measure = (f"CI definitions inspected: {', '.join(pf.get('systems')) or 'none found'} ({len(pf.get('files', []))} file(s)); "
+                   f"{len(pl['findings'])} pipeline finding(s), {gaps} coverage gap(s) in the existing suite, each with a suggested change")
+        goal("G12", "principle 13: the pipeline is under test too", "The pipeline's own gaps are stated, never inherited silently", measure, "met", ["analyze/pipeline/facts.json", "triage/pipeline.json"])
+    else:
+        goal("G12", "principle 13: the pipeline is under test too", "The pipeline's own gaps are stated, never inherited silently", "analysis predates the pipeline facts; rerun analysis", "not applicable", [])
     met = sum(1 for g in goals if g["verdict"].startswith("met"))
     rec = {"generated": now_iso(), "run_id": wl["run_id"], "packages": pkgs, "goals": goals,
            "summary": {"met": met, "not_met": sum(1 for g in goals if g["verdict"].startswith("not met")),

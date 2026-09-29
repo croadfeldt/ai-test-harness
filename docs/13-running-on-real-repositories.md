@@ -81,6 +81,27 @@ commits) onto the parameters, and a TriggerTemplate creates the PipelineRun. The
 on a schedule as a CronJob that creates a PipelineRun with `head` set to the default branch and no
 `base`.
 
+## What the harness says about the pipeline it runs in
+
+Fitting into a repository's CI is the default; fitting in silently is not. Every run reads the CI
+definitions at the reviewed commit and states, as findings routed to the pipeline's owners, where that
+CI is provably short of what validating a test needs. Two questions today:
+
+- **Can untrusted code reach secrets or the network while tests run?** A pull request checked out under
+  the base repository's secrets, write permissions on a pull request workflow, actions resolved by a
+  mutable tag, a download piped to a shell, a test job with repository secrets in its environment, a
+  self-hosted runner for pull requests, a floating image tag, a privileged step. Each finding names
+  the file, what was found, and the change that corrects it. A repository with no CI at all is a
+  finding too.
+- **Does the existing suite reach what changed?** For each package in scope the harness counts the
+  repository's own test files that reference it and those that reach the symbols the change altered.
+  Zero, where the application reaches the package in production, is a coverage gap with the call sites
+  to test.
+
+They appear in the packet under "The pipeline this change runs through", in the story's decisions, and
+in `triage/pipeline.json`. The harness changes nothing in the pipeline; the owners decide. The harness
+reads its own workflows the same way, and reports that its actions are pinned by tag.
+
 ## Anything else
 
 Any system that can run a command with two refs can trigger a run: a cron entry, a webhook receiver,
