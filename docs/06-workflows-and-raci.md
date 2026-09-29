@@ -40,6 +40,7 @@ RACI: **R** does the work. **A** owns the outcome, exactly one per row. **C** is
 | 14 Reusing an open source component | R/A | | C | C | | C | C | |
 | 15 Quarterly report | R | C | C | C | C | | | A |
 | 16 Developer inner loop | C | R/A | | | | C | | |
+| 17 Pipeline findings (the CI under test) | R | A | I | C | | C | | |
 | F1 Description fidelity (future) | R/A | C | C | C | | | | |
 | F2 Malicious change detection (future) | R | C | A | C | | | | I |
 
@@ -528,6 +529,41 @@ the organization's choice; when it does, the two sets of records are reconciled 
 
 **Service level.** Whatever the developer's own build takes; the harness adds validation time, not
 review time.
+
+---
+
+## 17. Pipeline findings: the CI under test
+
+**Trigger.** Every run. Analysis reads the repository's CI definitions at the reviewed commit and counts
+what its existing suite reaches; triage states each provable gap as a finding with the change that
+corrects it (blueprint principle 13; document 13 lists the checks).
+
+```mermaid
+sequenceDiagram
+    participant H as Harness
+    participant PT as Product Team (pipeline owner)
+    participant SCS as Supply Chain Security
+    H->>H: read CI definitions; count the suite's reach
+    H->>PT: pipeline and coverage-gap findings, each with a suggested change
+    H->>SCS: security-class pipeline findings, for awareness
+    PT->>PT: correct the pipeline, or record why not
+    Note over H: the harness changes no pipeline
+```
+
+| Step | R | A | C | I |
+|---|---|---|---|---|
+| Read the CI definitions and the suite's reach | HT | HT | | PT |
+| State findings with suggested changes | HT | HT | SCS | PT |
+| Correct the pipeline, or decide not to | PT | PT | PLAT, SCS | HT |
+| Confirm on the next run | HT | HT | | PT |
+
+**Rules.** Fitting into the repository's CI is the default; fitting in silently is not. Findings are
+facts from the definitions, each with its rule, file and suggested change. Security-class findings
+(untrusted code reaching secrets or the network while tests run) are routed like other security
+findings; the rest advise. The harness never edits a pipeline; the owners decide, and the next run
+shows whether the gap closed.
+
+**Service level.** Findings appear in the same packet as the run's tests; no extra cycle.
 
 ---
 

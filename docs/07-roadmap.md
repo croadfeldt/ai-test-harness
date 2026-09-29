@@ -30,9 +30,15 @@ four engineers and will be replaced by measured velocity after Phase 0.
 - Our own code (depth 0) and direct dependencies (depth 1) only.
 - Build the differential step first and run it against BUMP, the public benchmark of about 570 real
   breaking Java dependency upgrades.
-- Unit, functional, and negative tests. No fuzzing or mutation yet.
-- Manual trigger. Review packets posted as PR comments.
-- SLSA Build L1 and Source L1. The provenance manifest is produced by the pipeline, not by hand.
+- Unit, functional, negative and CVE-targeted tests, with mutation on the lines the tests executed:
+  all already implemented and measured in the lab; the pilot measures them on product services.
+- Triggered from the pull request (document 13). Review packets posted as PR comments; the test pull
+  request opened in the pipeline's loop.
+- Signed in-toto statements and sealed UDLM records per run, already produced by the pipeline, not by hand.
+- The pipeline under test too: what each pilot service's CI does with untrusted code while tests run,
+  and what its existing suite reaches (blueprint principle 13, questions 2 and 3); questions 1, 4 and 5
+  follow in Phase 1.
+- Model and prompt fitness read from the evaluation table (document 12) before any default changes.
 
 **Exit criteria.** Generated tests build more than 80 percent of the time after retries. At least one
 real finding. Reviewer feedback collected from both teams. BUMP catch rate measured and reported.
