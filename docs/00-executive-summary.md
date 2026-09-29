@@ -65,8 +65,9 @@ request, and the accepted ones run with the normal test suite from then on.
 
 The cost is compute, a small team, and reviewer time. The return is fewer incidents from dependencies we
 never looked at, faster and safer upgrades, and proof of testing that we can show a regulator or a
-customer. The pilot is six weeks on two services and answers the question of whether the tests are good
-enough before we spend more.
+customer. The harness exists and has run end to end on real repositories in the lab, including one
+dependency bump whose seven proposed tests a reviewer merged. The pilot is six weeks on two product
+services and answers whether the tests are good enough there before we spend more.
 
 ## The one number that matters
 

@@ -5,9 +5,25 @@
 ## What I am asking for
 
 A six-week pilot on two services already building on Konflux, a named executive sponsor, a compute
-budget, and two product teams who will review what the harness produces. At the end of six weeks I will
-show you whether the tests are good enough to continue, measured against a public benchmark of real
-breaking dependency upgrades, not against my opinion.
+budget with a model endpoint fit for Go, and two product teams who will review what the harness
+produces. The harness exists and has run end to end on real repositories in the lab; the pilot puts it
+on product services and measures it there, against real reviewers, not against my opinion.
+
+## What exists, and what it has shown
+
+The implementation covers every stage for Python and Go, on a workstation and as a pipeline on
+OpenShift, and every run explains itself in plain terms. Three results from the lab set expectations:
+
+- **On a real dependency bump it works end to end.** For python-jose 3.3.0 to 3.4.0 the harness
+  proposed seven tests and proved three known vulnerabilities fixed; a reviewer merged all seven, and
+  the signed records of that decision exist. That is the whole loop, once, on real code.
+- **The model is the risk, and it is measured, not assumed.** On a Go package the 27B model wrote no
+  compilable test; the 235B wrote clean Go with one wrong API detail per file and proved no advisory,
+  at ten to twenty times the model time. Every model and every prompt now earns its place on one
+  table, and the first prompt change we thought would help lost on it. That table is what the pilot
+  reads.
+- **The harness catches its own defects.** Twenty-eight failures are in a register, each with a fix
+  and a check that runs before every run. Nine of them came from the last three weeks of real runs.
 
 ## The problem, with numbers you can check
 
@@ -71,7 +87,7 @@ We would be buying a fraction of the capability and none of the evidence chain.
 | People | 2 engineers, part-time reviewer time from 2 product teams | A small team owning the pipeline, prompts, and adapters; reviewer time scales with findings, not with packages |
 | Compute | Sandboxed runs for two services, depth 0 and 1 only | Risk-weighted: full effort on what we reach, cheap snapshots on the rest; budgeted per ecosystem with alerts |
 | Model usage | Metered, reported per run | Metered, with a cheaper model for high-volume classification |
-| Risk | Low: advisory only, manual trigger, nothing merges | Managed: only security findings block, everything else advises |
+| Risk | Low: advisory only, nothing merges; the human gate has been exercised on a real pull request | Managed: only security findings block, everything else advises |
 
 I have deliberately not put a currency figure here because the pilot exists to produce one. The cost
 per work item is a tracked metric from day one.
@@ -81,7 +97,8 @@ per work item is a tracked metric from day one.
 1. **Fewer incidents from code we never looked at.** The number I will report quarterly is regressions
    and vulnerabilities caught by harness tests that nothing else would have caught.
 2. **Faster, safer upgrades.** A dependency bump arrives with a one-page packet saying what changed,
-   what broke, and what to do, within two hours.
+   what broke, and what to do. In the lab that takes one and a half to three hours on a self-hosted
+   model, most of it model time; a faster model endpoint is the lever.
 3. **Proof.** Every test carries a signed record. Every known vulnerability gets a VEX statement backed
    by a test or a reachability analysis. When a customer or regulator asks what we verified, we show them.
 4. **A growing asset.** Tests that earn their keep are promoted into the standard suite. The harness gets
@@ -91,7 +108,8 @@ per work item is a tracked metric from day one.
 
 | Risk | Mitigation in the plan |
 |---|---|
-| The tests are shallow and just restate the code | Mutation testing gate: a test that catches no injected bugs is discarded. Differential runs. A public benchmark of real breaking upgrades. |
+| The tests are shallow and just restate the code | Mutation testing on the lines the tests ran: a test that catches no injected bugs is marked weak. Differential runs. Measured so far: 0.6 on Go, 0.25 to 0.4 on Python. |
+| The model is not good enough for a language | Fitness is measured per model and prompt on reference jobs and published; a model that proves nothing on Go is not used for Go. The pilot budgets a model endpoint fit for each language. |
 | Reviewers drown | Risk-weighted budgets, one-page packets, advisory by default. Only security findings block. |
 | A malicious package escapes the sandbox | No network, no secrets, kernel-isolated runtimes, disposable containers, pre-flight scans before anything executes. |
 | The AI is manipulated by text hidden in a package | Everything from outside is treated as data, never as instructions. The agent has no tool that acts outside the sandbox. A manipulation attempt is itself a security finding. |
