@@ -24,6 +24,9 @@ OpenShift, and every run explains itself in plain terms. Three results from the 
   reads.
 - **The harness catches its own defects.** Twenty-eight failures are in a register, each with a fix
   and a check that runs before every run. Nine of them came from the last three weeks of real runs.
+- **It does not inherit the pipeline's gaps.** On the first repository it read this way, it found no
+  CI at all at the reviewed commit and not one of the twenty existing tests touching a package the
+  application depends on for authentication. Both are stated as findings for the owners, not absorbed.
 
 ## The problem, with numbers you can check
 
@@ -53,6 +56,7 @@ The harness fills the testing half. For every incoming change, at every depth, i
 | Are we exposed to what is already known to be wrong with it? | CVE-targeted tests at our own call sites, producing draft VEX statements |
 | Is it doing anything it has no reason to do? | Sandbox observation and pre-flight scans, routed to security |
 | Can we prove all of this later? | Signed provenance for every test, attached to the build attestation |
+| Is our own pipeline fit to validate any of it? | It reads the repository's CI definitions and states, with the change that corrects it, where untrusted code can reach secrets or the network while tests run and where the existing suite reaches nothing the change touched. It changes nothing; the owners decide |
 
 ## Why AI, and why now
 
@@ -116,6 +120,7 @@ per work item is a tracked metric from day one.
 | Cost runs away on transitive dependencies | Depth policy, reachability analysis, cheap snapshots as the default, budget alerts. |
 | We claim provenance we cannot prove | Conforma verifies every attestation. SLSA levels are measured by the platform, not declared by us. |
 | Teams do not trust AI-written tests | Every test is labeled, every test is human-approved, and I publish what the tests catch. |
+| Teams read the pipeline findings as an audit of them | Five fixed questions, facts from their own CI definitions, each with the correcting change, routed to the owners; nothing is changed for them and nothing blocks unless untrusted code can reach secrets. |
 | A component we reuse is abandoned | Every reused component shipped a release in 2026. Adapters isolate each one. |
 
 ## The decision
