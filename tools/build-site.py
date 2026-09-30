@@ -198,7 +198,7 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
     <div class="rail-label">Documents</div>
     <ol class="docs">{"".join(nav)}</ol>
     <div class="rail-label">Runs</div>
-    <ul class="docs decks"><li><a href="runs/index.html"><span class="num">14</span>Every run, start to finish</a></li></ul>
+    <ul class="docs decks"><li><a href="dashboard/index.html"><span class="num">db</span>Dashboard: every run, over time</a></li><li><a href="runs/index.html"><span class="num">14</span>Every run, start to finish</a></li></ul>
     <div class="rail-label">Presentations</div>
     <ul class="docs decks"><li><a href="slides/executive.html"><span class="num">5m</span>Executives</a></li><li><a href="slides/funding.html"><span class="num">15m</span>Funding decision</a></li><li><a href="slides/builder.html"><span class="num">30m</span>Build or run it</a></li><li><a href="slides/public.html"><span class="num">10m</span>Readers</a></li></ul>
     <div class="rail-foot"><a href="https://github.com/croadfeldt/ai-test-harness">Repository on GitHub</a>. Diagram sources under <a href="diagrams/">diagrams/</a>.</div>
@@ -219,6 +219,7 @@ mermaid.initialize({{ startOnLoad: true, theme: dark ? "dark" : "neutral", secur
       <li><strong>The pull request.</strong> Tests reach a repository only through a pull request a person merges. <code>packet/&lt;package&gt;/pull-request.md</code> shows the text and the file list that pull request carries, whether or not one was opened; a review packet sits beside it with the verdict per test, the findings and the draft VEX statements.</li>
       <li><strong>The evidence.</strong> Everything else in the folder is the proof and the replay: sandbox runs, prompts and responses, signed statements, sealed records. Each file is labelled with its audience and its reason in the run's index and in <a href="#doc-10">document 10</a>, so nothing is there without saying why.</li>
     </ol>
+    <p>The <a href="dashboard/index.html">dashboard</a> shows every run over time for three readers: leadership (what went through, what was proven, what a person acted on), engineering (which model and prompt set is fit for which job), pipeline owners (what the harness found about the CI it ran in). It is rendered from the same run indexes as the stories.</p>
     <p>The nearest complete example: <a href="runs/frc-scheduler-server/pr-fix-known-vulns-run6/index.html">frc-scheduler-server, run 6</a>, which went from a dependency bump through a test pull request to a person's merge and the realized records.</p>
   </section>
   {"".join(sections)}
@@ -245,3 +246,5 @@ print(f"wrote {OUT} ({OUT.stat().st_size // 1024} KB), {len(DOCS)} docs")
 _spec2 = _ilu.spec_from_file_location("build_runs", ROOT / "tools" / "build-runs.py"); _runs = _ilu.module_from_spec(_spec2)
 _runs.SITE = OUT.parent
 _spec2.loader.exec_module(_runs); _runs.SITE = OUT.parent; _runs.main()
+_spec3 = _ilu.spec_from_file_location("build_dashboard", ROOT / "tools" / "build-dashboard.py"); _dash = _ilu.module_from_spec(_spec3)
+_spec3.loader.exec_module(_dash); _dash.SITE = OUT.parent; _dash.main()

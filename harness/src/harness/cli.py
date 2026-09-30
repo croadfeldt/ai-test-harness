@@ -164,8 +164,17 @@ def cmd_run(a: argparse.Namespace) -> int:
     if a.propose:
         from .stages.propose import propose
         propose(workdir=a.workdir, select=a.select, overlay_repo_path=a.overlay_repo, push=True, open_pr=True)
+    if config.get("publish", "store", "HARNESS_RUNS_STORE"):
+        from .stages.publish import publish
+        publish(workdir=a.workdir)
     print(a.workdir / "README.md")
     return 0
+
+
+def cmd_publish(a: argparse.Namespace) -> int:
+    from .stages.publish import publish
+    rec = publish(workdir=a.workdir, to=a.to, push=not a.no_push)
+    print(rec["path"]); return 0
 
 
 def cmd_evaluate(a: argparse.Namespace) -> int:
@@ -265,6 +274,12 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--propose", action="store_true", help="afterwards, open the test pull request on the overlay repository ([propose].repo)")
     s.add_argument("--overlay-repo", default=None)
     s.set_defaults(func=cmd_run)
+
+    s = sub.add_parser("publish", help="put the run's index, story, evaluation row and pipeline findings in the runs store the dashboard reads")
+    s.add_argument("--workdir", type=Path, required=True)
+    s.add_argument("--to", default=None, help="a directory or a git URL; default HARNESS_RUNS_STORE or [publish].store")
+    s.add_argument("--no-push", action="store_true")
+    s.set_defaults(func=cmd_publish)
 
     s = sub.add_parser("evaluate", help="stage 7: fitness for purpose, measured: prompt sets and models scored on finished runs by sandbox verdicts and reviewer decisions")
     s.add_argument("--runs", nargs="+", required=True, help="finished run directories")

@@ -56,6 +56,21 @@ Three rules hold everywhere. The harness never merges, publishes or deletes; eve
 A test is "proven" only when it fails on the vulnerable version and passes on the fixed one, both runs
 kept. "Unproven" is stated, never hidden behind a green test.
 
+## The dashboard, and the runs store behind it
+
+One run tells one story. The [dashboard](https://croadfeldt.github.io/ai-test-harness/dashboard/) tells
+every run's, over time, for three readers: leadership (what went through, what was proven, what a
+person acted on), engineering (which model and prompt set is fit for which job), and pipeline owners
+(what the harness found about the CI it ran in). Filters by repository, language, model and prompt set.
+It is rendered from the same run indexes and evaluation rows the stories are written from, so it cannot
+disagree with them.
+
+A run reaches it through the runs store: `harness publish` puts four small files per run, the index,
+the story, the evaluation row and the pipeline findings, into a directory or a git repository named by
+`HARNESS_RUNS_STORE`, and the site build reads that store beside the example runs. `harness run` publishes
+by itself when a store is configured. The store is the harness's ledger: files are added, never
+rewritten, and nothing under review lives there.
+
 ## If you are reviewing the change
 
 Open `packet/<package>/packet.md`. Read the first paragraph: the verdict in plain words, what the change

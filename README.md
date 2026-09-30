@@ -69,7 +69,7 @@ deploy/
 skills/
   ai-test-harness/           An Agent Skill: a developer's coding agent runs the harness on the change in front of them
 tools/
-  build-site.py              Builds the site from docs/ and blueprint/ into site/ (git-ignored); build-runs.py renders one page per run
+  build-site.py              Builds the site from docs/ and blueprint/ into site/ (git-ignored); build-runs.py the run pages, build-dashboard.py the dashboard
   run-index.py, rollup.py, prompt-eval.py, catalogue.py   Regenerate the run indexes and stories, documents 11 and 12, and the catalogue
 ```
 
