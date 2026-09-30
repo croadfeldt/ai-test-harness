@@ -58,14 +58,19 @@ harness/
   harness.example.toml       Copy to harness.local.toml (git-ignored): the only place a machine, endpoint, or path is named
   src/harness/               The implementation: cli, model, risk, adapters/, sources/, stages/
   tests/                     Unit tests for the parts that need no network
+  prompts/                   Prompt sets: v1 is the code's own texts; a file overrides parts; every run records its set
 examples/
-  frc-scheduler-server/      Two runs against a real FastAPI service: a scheduled rescan and a dependency-fix PR
-  control-plane/             A Go service: the Go adapter's rescan (stages 1 and 2)
-deploy/tekton/
-  tasks.yaml, pipeline.yaml  The harness as a Tekton PipelineRun; the execute pod is the sandbox
+  frc-scheduler-server/      A real FastAPI service: rescans, a dependency-fix PR through to a merged test PR, the app itself as target
+  control-plane/             A Go service: kin-openapi on three models, and the first measured prompt comparison
+deploy/
+  github-actions/, gitlab-ci/, jenkins/, azure-pipelines/   Complete examples: run on the change, keep the run, post the verdict, open the test PR
+  tekton/                    The harness as a Tekton PipelineRun with webhook triggers; the execute pod is the sandbox
+  generic/                   run-and-propose.sh: the five steps every engine performs, for any other engine
+skills/
+  ai-test-harness/           An Agent Skill: a developer's coding agent runs the harness on the change in front of them
 tools/
-  build-site.py              Builds a single-page HTML site from docs/ and blueprint/ into site/ (git-ignored)
-  site.css, site.js          Styling and audience-path navigation for that page
+  build-site.py              Builds the site from docs/ and blueprint/ into site/ (git-ignored); build-runs.py renders one page per run
+  run-index.py, rollup.py, prompt-eval.py, catalogue.py   Regenerate the run indexes and stories, documents 11 and 12, and the catalogue
 ```
 
 To build the web version locally: `python3 tools/build-site.py` (needs the `markdown` Python package), then
