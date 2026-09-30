@@ -28,12 +28,13 @@ incidents of recent years, the XZ Utils backdoor among them, arrived exactly thi
 package, a routine update, a change whose description bore no relation to its effect. Writing tests for
 code you did not write is slow, tedious and never prioritized, so it does not happen.
 
-**Current workaround:** Konflux gives hermetic builds, a complete bill of materials, signed provenance
-and policy gates: it says precisely what is in the product and nothing about whether it works. Teams
-bump dependencies on trust, run their own suite, which rarely touches the dependency, and read
-changelogs. Commercial AI test tools cover one language each, run outside the pipeline and produce no
-provenance; the best-known open one is abandoned. Nothing, open or commercial, tests a dependency
-upgrade differentially for an application.
+**Current workaround:** A modern build platform answers the first half of the question. Konflux, to
+take our own as the example, gives hermetic builds, a complete bill of materials, signed provenance and
+policy gates: it says precisely what is in the product. No build platform says whether any of it works,
+or whether a new version still does what the old one did. So teams bump dependencies on trust, run
+their own suite, which rarely touches the dependency, and read changelogs. Commercial AI test tools
+cover one language each, run outside the pipeline and produce no provenance; the best-known open one
+is abandoned. Nothing, open or commercial, tests a dependency upgrade differentially for an application.
 
 **Impact of inaction:** Regressions and vulnerabilities in code nobody looked at keep reaching
 production and are found by customers. Every dependency bump stays a judgement call made without
