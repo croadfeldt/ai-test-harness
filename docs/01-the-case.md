@@ -101,6 +101,7 @@ request and signed records that Conforma verifies at release; when the two refer
 on frc-scheduler-server and kin-openapi on control-plane, are rerun on the candidate release and match
 or beat the published baselines; when every entry of the failure register passes as the first step of
 every run; when at least one regression or vulnerability caught by a harness test that nothing else
-would have caught has been reported; and when the pipeline is a Konflux integration-service task with a
-documented model endpoint per language, so that it can ship as part of Trusted Software Supply Chain
-or stand as a product of its own.
+would have caught has been reported; and when it runs where the customer already runs, as a Konflux
+integration-service task and through the shipped GitHub Actions and GitLab CI triggers, each exercised
+on a real repository, with a documented model endpoint per language, so that it can ship as part of
+Trusted Software Supply Chain or stand as a product of its own.
