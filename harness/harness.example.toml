@@ -51,3 +51,7 @@ estate = "example"                             # handle prefix for the records t
 tenant_uuid = "00000000-0000-4000-8000-000000000000"   # the tenant the records belong to
 provider_handle = "example/providers/ai-test-harness"  # how this harness names itself as a provenance source
 time_source = "harness-clock"
+
+[publish]
+# store = "../../harness-runs"                # env: HARNESS_RUNS_STORE; a directory or a git URL; every run's index, story and evaluation row land here and the dashboard reads them
+
