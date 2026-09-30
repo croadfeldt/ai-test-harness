@@ -1,129 +1,107 @@
-# The case
+# AI Test Harness Business Case
 
-**For:** CTOs, VPs of Engineering, CISOs, and anyone deciding whether to fund this. Ten minutes.
+## Blueprint Identity
 
-## What I am asking for
+**Owner:** Chris Roadfeldt
 
-A six-week pilot on two services already building on Konflux, a named executive sponsor, a compute
-budget with a model endpoint fit for Go, and two product teams who will review what the harness
-produces. The harness exists and has run end to end on real repositories in the lab; the pilot puts it
-on product services and measures it there, against real reviewers, not against my opinion.
+**Elevator pitch:** The AI Test Harness writes, runs and scores tests for every piece of code that enters a
+product, our own and every dependency down to any depth, in a sealed sandbox, and hands a person the
+evidence with a signed record. It fills the half of the supply chain story our build platform does not
+cover: not what is in the product, but whether any of it works and still does what it did.
 
-## The problem, with numbers you can check
+## Problem Statement
 
-A mid-sized Go or Java service resolves several hundred to a few thousand packages. Our engineers chose
-perhaps fifty of them. The rest arrived as dependencies of dependencies. Nobody on our side has read
-them. Nobody on our side has tested them. When one of them changes behavior in a minor version, we find
-out in production.
+**Customer name:** Red Hat product teams building on Konflux, first; any organization with a software
+supply chain to defend, after. The pilot customers are two product teams to be named with the sponsor.
 
-This is not a theoretical risk. The most serious supply chain incidents of the last several years,
-including the XZ Utils backdoor of 2024, arrived through exactly this path: a trusted package, a routine
-update, a change whose description bore no relation to its effect.
+**Customer stakeholder:** the executive sponsor and the two product team leads, to be named.
 
-We already have strong tooling for one half of this problem. Konflux gives us hermetic builds, a
-complete bill of materials, signed provenance at SLSA Build Level 3, and policy gates. It tells us
-precisely what is in the product. It tells us nothing about whether any of it works, or whether a new
-version still does what the old one did.
+**Customer pain:** A mid-sized service resolves several hundred to a few thousand packages. Its engineers
+chose perhaps fifty. Nobody on the team has read the rest, nobody has tested them, and when one changes
+behaviour in a minor version the team finds out in production. The most serious supply chain incidents
+of recent years, the XZ Utils backdoor among them, arrived exactly this way: a trusted package, a routine
+update, a change whose description bore no relation to its effect. Writing tests for code you did not
+write is slow, tedious and never prioritized, so it does not happen.
 
-## What exists, and what it has shown
+**Current workaround:** Konflux gives hermetic builds, a complete bill of materials, signed provenance
+and policy gates: it says precisely what is in the product and nothing about whether it works. Teams
+bump dependencies on trust, run their own suite, which rarely touches the dependency, and read
+changelogs. Commercial AI test tools cover one language each, run outside the pipeline and produce no
+provenance; the best-known open one is abandoned. Nothing, open or commercial, tests a dependency
+upgrade differentially for an application.
 
-The harness is built, for Python and Go, on a workstation and as a pipeline on OpenShift, and every run
-explains itself in plain terms. Four results from the lab set expectations:
+**Impact of inaction:** Regressions and vulnerabilities in code nobody looked at keep reaching
+production and are found by customers. Every dependency bump stays a judgement call made without
+evidence, so upgrades are delayed and known vulnerabilities stay open longer. When a customer or a
+regulator asks what we verified about the code we ship, the answer for most of it is nothing, with no
+record to point at.
 
-- **On a real dependency bump it works end to end.** For one Python library upgrade it proposed seven
-  tests and proved three known vulnerabilities fixed. A reviewer merged all seven; the signed record of
-  that decision exists. The whole loop, once, on real code.
-- **The model is the risk, and it is measured, not assumed.** On a Go library a mid-sized open model
-  wrote no test that compiled. The largest open model we can run wrote clean Go, got one detail of the
-  library's interface wrong in every file, proved no fix, and took ten to twenty times longer. Every
-  model and prompt now earns its place on one table; the first prompt change we expected to help lost
-  on it.
-- **It catches its own defects.** Twenty-eight ways the harness has failed are written down, each with
-  its fix and a check that runs before every run. Nine came from the last three weeks of real runs.
-- **It does not inherit the pipeline's gaps.** The first repository it examined had no CI at all at the
-  commit under review, and none of its twenty tests touched the library it relies on for authentication.
-  Both went to the owners as findings.
+**Impact of action:** Every incoming change arrives with tests that ran, a plain-terms verdict and a
+signed record, within hours. Known vulnerabilities get a test that proves the fix and a draft VEX
+statement backed by it. Upgrades get faster and safer, incidents from unread code fall, and the proof of
+testing travels with the product for anyone downstream to check. The tests that earn their keep join
+the standard suite, so the asset grows with every run.
 
-## What the harness adds
+## Proposed solution
 
-The harness fills the testing half. For every incoming change, at every depth, it produces evidence:
+**Landing BUs:** Trusted Software Supply Chain (the evidence chain: provenance, VEX, SLSA), Red Hat
+OpenShift AI (the model serving and the agent runtime), and the Konflux and Developer tooling teams
+(the pipeline it runs in). To be confirmed with the sponsor.
 
-| Question | How the harness answers it |
-|---|---|
-| What does this code do? | AI-written characterization tests, run and scored |
-| Did it change from the version we had? | The same tests run against old and new, results compared |
-| Does it fail safely? | Negative tests with malformed and hostile input |
-| Are we exposed to what is already known to be wrong with it? | CVE-targeted tests at our own call sites, producing draft VEX statements |
-| Is it doing anything it has no reason to do? | Sandbox observation and pre-flight scans, routed to security |
-| Can we prove all of this later? | Signed provenance for every test, attached to the build attestation |
-| Is our own pipeline fit to validate any of it? | It reads the repository's CI and reports where untrusted code could reach secrets or the network during tests, and where the existing suite touches nothing the change altered, each with the fix. It changes nothing |
+**Aligned TDPs:** to be named with the sponsor; the natural fits are the supply chain security and
+trusted AI plans.
 
-## Why AI, and why now
+**Considered alternatives:** IBM Research's test generators, the closest match, ship only inside watsonx
+Code Assistant, for Java. The best-known open source AI test generator is abandoned and copyleft.
+Commercial tools cover one language each, do not run in our pipeline and produce no provenance. Buying
+would give a fraction of the capability and none of the evidence chain. The components underneath, the
+resolvers, sandboxes, mutation and coverage tools, attestation formats and open models, are open and
+maintained, several of them Red Hat's; what did not exist was the assembly. The full survey is in the
+[landscape](04-landscape.md).
 
-Writing tests for code you did not write is slow, tedious, and rarely prioritized. That is why it does
-not happen. Large language models are now good enough at reading unfamiliar code and writing plausible
-tests that the bottleneck moves from writing to verifying. Verifying is something we can automate:
-compile it, run it, mutate the code and see whether the test notices, compare old and new. A test that
-survives that gauntlet is worth a reviewer's minute. One that does not is discarded before anyone sees
-it.
+**Solution overview:** A change arrives, a pull request or a new dependency version, named by
+repository and two refs. The harness resolves the dependency graph at both, looks every version up for
+advisories, and scores each package's risk to set a budget. A model, given facts from static analysis
+rather than asked to guess, writes characterization, negative and vulnerability-targeted tests through a
+tool-using loop. Every candidate runs in a sealed sandbox with no network and no secrets, twice on the
+new version and once on the old, so a fix is proven only by a test that fails on the vulnerable version
+and passes on the fixed one. Mutation testing on the lines the tests executed shows how firmly they
+hold. Triage classifies every verdict with a confidence and a route, and the run writes its own story:
+who, what, why, where, when, and every decision. Tests reach a repository only through a pull request a
+person merges; the harness never merges, publishes or deletes. Every accepted test carries a signed
+in-toto record and a sealed UDLM record, and the reviewer's decision is read back as evidence. The
+harness also reads the repository's own CI and states where it is provably short of what validating a
+test needs, with the fix, and it measures every model and prompt on a public table before either
+becomes a default. It is built and has run end to end on real repositories, for Python and Go, on a
+workstation and as a Tekton pipeline on OpenShift; twenty-eight of its own failures are written down,
+each with a check that runs before every run.
 
-The research published in 2025 and 2026, much of it from IBM Research, shows this loop works when the
-model is given facts from static analysis rather than asked to guess. The tools that implement it are
-either proprietary or abandoned. The components underneath them are open, maintained, and in several
-cases already Red Hat's. What does not exist is the assembly. That is what this project builds.
+**Timeline & Milestones:**
 
-## Why not just buy something
+1. **Pilot, weeks 1 to 6.** Two product services on Konflux, our own code and direct dependencies,
+   triggered from the pull request, review packets as PR comments. Value from the first run: a verdict
+   and a signed record on every dependency bump, and the two pipeline findings on each service. Exit:
+   generated tests build more than 80 percent of the time, at least one real finding, reviewer feedback
+   from both teams, and no default model or prompt changed except by the evaluation table.
+2. **First-party at scale, weeks 7 to 12.** Every pull request in the pilot repositories, unattended;
+   the test overlay repository and the test pull request as the standard path; the remaining pipeline
+   questions. Value: tests on the team's own changes without anyone pressing a button.
+3. **Direct dependencies, weeks 13 to 20.** Every bump, pre-flight gates, CVE-targeted tests and VEX
+   drafts on every advisory, SLSA Build L3 on the records. Value: every known vulnerability in a direct
+   dependency answered with a test or a stated gap.
+4. **Transitive dependencies, weeks 21 to 30.** Reachability and risk scoring across the whole graph,
+   cheap snapshots where we do not reach, full effort where we do.
+5. **Continuous operation, week 31 on.** Scheduled rescans, the remaining ecosystems, upstream
+   contributions of the tests that earned their place.
 
-I looked. The [landscape](04-landscape.md) document lists everything I found. The short version:
+Durations assume a team of two to four engineers and are replaced by measured velocity after the pilot.
 
-- The best-known open source AI test generator is abandoned and copyleft-licensed.
-- IBM's research tools are the closest match and ship only inside watsonx Code Assistant, for Java.
-- Commercial tools cover one language each, do not run in our pipeline, and produce no provenance.
-- Nothing, open or commercial, does differential testing of a dependency upgrade for an application.
-  Linux distributions do it at their scale. Nobody does it for a service.
-
-We would be buying a fraction of the capability and none of the evidence chain.
-
-## What it costs
-
-| Item | Pilot (6 weeks) | Steady state |
-|---|---|---|
-| People | 2 engineers, part-time reviewer time from 2 product teams | A small team owning the pipeline, prompts, and adapters; reviewer time scales with findings, not with packages |
-| Compute | Sandboxed runs for two services, depth 0 and 1 only | Risk-weighted: full effort on what we reach, cheap snapshots on the rest; budgeted per ecosystem with alerts |
-| Model usage | Metered, reported per run | Metered, with a cheaper model for high-volume classification |
-| Risk | Low: advisory only, nothing merges; the human gate has been exercised on a real pull request | Managed: only security findings block, everything else advises |
-
-I have deliberately not put a currency figure here because the pilot exists to produce one. The cost
-per work item is a tracked metric from day one.
-
-## What it returns
-
-1. **Fewer incidents from code we never looked at.** The number I will report quarterly is regressions
-   and vulnerabilities caught by harness tests that nothing else would have caught.
-2. **Faster, safer upgrades.** A dependency bump arrives with a one-page packet saying what changed,
-   what broke, and what to do. In the lab that takes one and a half to three hours on a self-hosted
-   model, most of it model time; a faster model endpoint is the lever.
-3. **Proof.** Every test carries a signed record. Every known vulnerability gets a VEX statement backed
-   by a test or a reachability analysis. When a customer or regulator asks what we verified, we show them.
-4. **A growing asset.** Tests that earn their keep are promoted into the standard suite. The harness gets
-   cheaper and the suite gets stronger with every run.
-
-## What could go wrong, and what I have done about it
-
-| Risk | Mitigation in the plan |
-|---|---|
-| The tests are shallow and just restate the code | Mutation testing on the lines the tests ran: a test that catches no injected bugs is marked weak. Differential runs. Measured so far: 0.6 on Go, 0.25 to 0.4 on Python. |
-| The model is not good enough for a language | Fitness is measured per model and prompt on reference jobs and published; a model that proves nothing on Go is not used for Go. The pilot budgets a model endpoint fit for each language. |
-| Reviewers drown | Risk-weighted budgets, one-page packets, advisory by default. Only security findings block. |
-| A malicious package escapes the sandbox | No network, no secrets, kernel-isolated runtimes, disposable containers, pre-flight scans before anything executes. |
-| The AI is manipulated by text hidden in a package | Everything from outside is treated as data, never as instructions. The agent has no tool that acts outside the sandbox. A manipulation attempt is itself a security finding. |
-| Cost runs away on transitive dependencies | Depth policy, reachability analysis, cheap snapshots as the default, budget alerts. |
-| We claim provenance we cannot prove | Conforma verifies every attestation. SLSA levels are measured by the platform, not declared by us. |
-| Teams do not trust AI-written tests | Every test is labeled, every test is human-approved, and I publish what the tests catch. |
-| Teams read the pipeline findings as an audit of them | Five fixed questions, facts from their own CI, each with the fix, sent to the owners. Nothing is changed for them; nothing blocks unless untrusted code can reach secrets. |
-| A component we reuse is abandoned | Every reused component shipped a release in 2026. Adapters isolate each one. |
-
-## The decision
-
-Fund six weeks. Judge the result on the benchmark and the reviewer feedback. Then decide about the next
-phase. The full phasing is in the [roadmap](07-roadmap.md).
+**Definition of Done:** The blueprint is done when a product team can point it at a repository and a
+pull request and receive, without anyone from the harness team involved, a review packet, a test pull
+request and signed records that Conforma verifies at release; when the two reference jobs, python-jose
+on frc-scheduler-server and kin-openapi on control-plane, are rerun on the candidate release and match
+or beat the published baselines; when every entry of the failure register passes as the first step of
+every run; when at least one regression or vulnerability caught by a harness test that nothing else
+would have caught has been reported; and when the pipeline is a Konflux integration-service task with a
+documented model endpoint per language, so that it can ship as part of Trusted Software Supply Chain
+or stand as a product of its own.
