@@ -47,3 +47,11 @@ the same pipeline with `ecosystem: go`. The networked stages prefetch the module
 workspace with `go mod download all`; the execute pod builds and runs the tests from it with
 `GOPROXY=off`, keeping its build cache next to the module cache. Budget about 1.5 GB of the claim per
 environment (head, base or fixed candidate) for a service with a few hundred modules.
+
+**The test pull request.** Set the pipeline parameter `propose` to `"true"` and create the `harness-forge`
+secret (see `secret.example.yaml`: the overlay repository URL, a token that can push a branch and open a
+request there, and the bot identity). The `harness-propose` task runs after assessment, clones the
+overlay repository with the token, pushes one `harness/` branch and opens the request through the
+forge's API; first-party tests go to the repository under test against the change's branch. The
+pipeline never merges.
+

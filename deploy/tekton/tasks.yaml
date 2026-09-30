@@ -84,3 +84,34 @@ spec:
     - name: mutate
       image: $(params.image)
       args: ["mutate", "--workdir", "$(workspaces.shared.path)/run", "--select", "$(params.select[*])"]
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: harness-propose
+spec:
+  description: "Lifecycle B's last step: the accepted tests, packet and records as a pull request on the overlay repository (first-party tests: on the repository under test, against the change's branch). Pushes one branch, never merges. Needs the forge secret."
+  params:
+    - { name: image, type: string }
+    - { name: forge-secret, type: string, description: "Secret with HARNESS_OVERLAY_URL, HARNESS_FORGE_TOKEN (push and request rights), HARNESS_PROPOSE_AUTHOR, HARNESS_PROPOSE_EMAIL" }
+  workspaces: [{ name: shared }]
+  steps:
+    - name: propose
+      image: $(params.image)
+      envFrom: [{ secretRef: { name: $(params.forge-secret) } }]
+      env:
+        - { name: GIT_CONFIG_COUNT, value: "1" }
+        - { name: GIT_CONFIG_KEY_0, value: safe.directory }
+        - { name: GIT_CONFIG_VALUE_0, value: "*" }
+        - { name: HARNESS_TARGET_REPO, value: $(workspaces.shared.path)/source }
+      script: |
+        #!/bin/sh
+        set -eu
+        helper='!f() { echo "username=x-access-token"; echo "password=$HARNESS_FORGE_TOKEN"; }; f'
+        export GH_TOKEN="$HARNESS_FORGE_TOKEN" GITLAB_TOKEN="$HARNESS_FORGE_TOKEN" HARNESS_FORGE_API_ONLY=1
+        rm -rf $(workspaces.shared.path)/overlay
+        git -c credential.helper="$helper" clone --quiet "$HARNESS_OVERLAY_URL" $(workspaces.shared.path)/overlay
+        git -C $(workspaces.shared.path)/overlay config credential.helper "$helper"
+        git -C $(workspaces.shared.path)/source config credential.helper "$helper"
+        harness propose --workdir $(workspaces.shared.path)/run --overlay-repo $(workspaces.shared.path)/overlay
+

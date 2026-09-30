@@ -1,0 +1,37 @@
+# AI Test Harness on Azure Pipelines: pull requests and pushes to the default branch.
+# Variable group `ai-test-harness` holds HARNESS_MODEL_BASE_URL, HARNESS_MODEL, HARNESS_MODEL_API_KEY (secret),
+# HARNESS_OVERLAY_URL and HARNESS_FORGE_TOKEN (secret). The harness only proposes; nothing merges here.
+trigger:
+  branches: { include: [main] }
+pr:
+  branches: { include: ['*'] }
+schedules:
+  - cron: "17 3 * * 1"
+    displayName: weekly rescan of main
+    branches: { include: [main] }
+    always: true
+
+pool: { vmImage: ubuntu-latest }           # podman is preinstalled on the hosted Ubuntu agents
+variables:
+  - group: ai-test-harness
+
+steps:
+  - checkout: none
+  - bash: |
+      set -e
+      case "$(Build.Reason)" in
+        PullRequest) echo "##vso[task.setvariable variable=HARNESS_BASE]$(System.PullRequest.TargetBranch)"
+                     echo "##vso[task.setvariable variable=HARNESS_HEAD]refs/pull/$(System.PullRequest.PullRequestNumber)/head" ;;   # GitHub-hosted repositories
+        Schedule)    echo "##vso[task.setvariable variable=HARNESS_BASE]"; echo "##vso[task.setvariable variable=HARNESS_HEAD]main" ;;
+        *)           echo "##vso[task.setvariable variable=HARNESS_BASE]$(Build.SourceVersion)^"; echo "##vso[task.setvariable variable=HARNESS_HEAD]$(Build.SourceVersion)" ;;
+      esac
+    displayName: Choose the refs
+  - bash: |
+      export HARNESS_REPO_URL="$(Build.Repository.Uri)" HARNESS_FORGE_TOKEN="$(HARNESS_FORGE_TOKEN)" HARNESS_MODEL_API_KEY="$(HARNESS_MODEL_API_KEY)"
+      curl -fsSL https://raw.githubusercontent.com/croadfeldt/ai-test-harness/main/deploy/generic/run-and-propose.sh -o run-and-propose.sh
+      bash run-and-propose.sh
+    displayName: Run every stage, then propose
+    env: { HARNESS_MODEL_BASE_URL: $(HARNESS_MODEL_BASE_URL), HARNESS_MODEL: $(HARNESS_MODEL), HARNESS_OVERLAY_URL: $(HARNESS_OVERLAY_URL), HARNESS_MODEL_LABEL: ci-model }
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs: { targetPath: run, artifact: ai-test-harness-run }

@@ -46,6 +46,20 @@ jobs:
           harness run --repo "https://github.com/${{ github.repository }}.git" \
             ${{ steps.refs.outputs.base && format('--base {0}', steps.refs.outputs.base) }} \
             --head "${{ steps.refs.outputs.head }}" --workdir run
+      - name: Open the test pull request
+        # Set the repository variable HARNESS_OVERLAY_REPO (owner/repo of the test overlay repository) and the secret
+        # HARNESS_OVERLAY_TOKEN (a token that can push a branch and open a pull request there; for first-party changes,
+        # on this repository too). Without them the run ends with the packet and no request is opened.
+        if: vars.HARNESS_OVERLAY_REPO != ''
+        env:
+          GH_TOKEN: ${{ secrets.HARNESS_OVERLAY_TOKEN }}
+          HARNESS_PROPOSE_AUTHOR: AI Test Harness
+          HARNESS_PROPOSE_EMAIL: ai-test-harness@example.invalid
+        run: |
+          git -c credential.helper='!f() { echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f' \
+              clone --quiet "https://github.com/${{ vars.HARNESS_OVERLAY_REPO }}.git" overlays
+          git -C overlays config credential.helper '!f() { echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f'
+          harness propose --workdir run --overlay-repo overlays
       - name: Keep the run
         if: always()
         uses: actions/upload-artifact@v4

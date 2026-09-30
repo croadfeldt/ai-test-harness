@@ -27,15 +27,9 @@ STATEMENT_TYPE = "https://in-toto.io/Statement/v1"
 
 
 def pr_facts(url: str) -> dict:
-    """What GitHub says about the pull request. Needs gh; the caller may pass facts directly instead."""
-    proc = subprocess.run(["gh", "pr", "view", url, "--json", "state,mergedAt,mergedBy,mergeCommit,closedAt,reviewDecision,reviews,url,number"],
-                          capture_output=True, text=True, timeout=120)
-    if proc.returncode != 0:
-        raise HarnessError(f"gh pr view {url}: {proc.stderr.strip()[-300:]}")
-    d = json.loads(proc.stdout)
-    return {"url": d["url"], "number": d["number"], "state": d["state"].lower(), "merged_at": d.get("mergedAt"), "closed_at": d.get("closedAt"),
-            "merged_by": (d.get("mergedBy") or {}).get("login"), "merge_commit": (d.get("mergeCommit") or {}).get("oid"),
-            "review_decision": d.get("reviewDecision") or "", "reviews": [{"by": r["author"]["login"], "state": r["state"]} for r in d.get("reviews", [])]}
+    """What the forge says about the request, GitHub or GitLab; the caller may pass facts directly instead."""
+    from ..sources import forge
+    return forge.pr_facts(url)
 
 
 def _show(repo: Path, rev: str, path: str) -> str | None:
