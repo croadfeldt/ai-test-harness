@@ -18,12 +18,15 @@ pilot is with Red Hat product teams building on Konflux, to be named with the sp
 of engineering for delivery, the CISO or product security lead for exposure, the platform owner for the
 pipeline. For the pilot, the executive sponsor and the leads of the participating teams, to be named.
 
-**Customer pain:** A mid-sized service resolves several hundred to a few thousand packages. Its engineers
-chose perhaps fifty. Nobody on the team has read the rest, nobody has tested them, and when one changes
-behaviour in a minor version the team finds out in production. The most serious supply chain incidents
-of recent years, the XZ Utils backdoor among them, arrived exactly this way: a trusted package, a routine
-update, a change whose description bore no relation to its effect. Writing tests for code you did not
-write is slow, tedious and never prioritized, so it does not happen.
+**Customer pain:** Most of what any team ships is code it did not write. Take a mid-sized service as
+one example: it resolves several hundred to a few thousand packages, its engineers chose perhaps fifty,
+and the rest arrived as dependencies of dependencies. Nobody on the team has read them or tested them,
+and when one changes behaviour in a minor version the team finds out in production. The ratio is the
+same for a small tool or a large platform, and across a fleet it multiplies: the same unread package
+sits in every service, so one bad version lands everywhere at once. The most serious supply chain
+incidents of recent years, the XZ Utils backdoor among them, arrived exactly this way: a trusted
+package, a routine update, a change whose description bore no relation to its effect. Writing tests for
+code you did not write is slow, tedious and never prioritized, so it does not happen.
 
 **Current workaround:** Konflux gives hermetic builds, a complete bill of materials, signed provenance
 and policy gates: it says precisely what is in the product and nothing about whether it works. Teams
@@ -74,7 +77,9 @@ person merges; the harness never merges, publishes or deletes. Every accepted te
 in-toto record and a sealed UDLM record, and the reviewer's decision is read back as evidence. The
 harness also reads the repository's own CI and states where it is provably short of what validating a
 test needs, with the fix, and it measures every model and prompt on a public table before either
-becomes a default. It is built and has run end to end on real repositories, for Python and Go, on a
+becomes a default. Effort follows risk, not package count: full generation where the application
+reaches a package or an advisory applies, cheap snapshots elsewhere, so the harness scales from one
+service to a fleet with reviewer time growing with findings, not with dependencies. It is built and has run end to end on real repositories, for Python and Go, on a
 workstation and as a Tekton pipeline on OpenShift; twenty-eight of its own failures are written down,
 each with a check that runs before every run.
 
