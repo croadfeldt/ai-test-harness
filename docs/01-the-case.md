@@ -1,6 +1,6 @@
 # The case
 
-**For:** CTOs, VPs of Engineering, CISOs, and anyone deciding whether to fund this. Fifteen minutes.
+**For:** CTOs, VPs of Engineering, CISOs, and anyone deciding whether to fund this. Ten minutes.
 
 ## What I am asking for
 
@@ -8,25 +8,6 @@ A six-week pilot on two services already building on Konflux, a named executive 
 budget with a model endpoint fit for Go, and two product teams who will review what the harness
 produces. The harness exists and has run end to end on real repositories in the lab; the pilot puts it
 on product services and measures it there, against real reviewers, not against my opinion.
-
-## What exists, and what it has shown
-
-The implementation covers every stage for Python and Go, on a workstation and as a pipeline on
-OpenShift, and every run explains itself in plain terms. Three results from the lab set expectations:
-
-- **On a real dependency bump it works end to end.** For python-jose 3.3.0 to 3.4.0 the harness
-  proposed seven tests and proved three known vulnerabilities fixed; a reviewer merged all seven, and
-  the signed records of that decision exist. That is the whole loop, once, on real code.
-- **The model is the risk, and it is measured, not assumed.** On a Go package the 27B model wrote no
-  compilable test; the 235B wrote clean Go with one wrong API detail per file and proved no advisory,
-  at ten to twenty times the model time. Every model and every prompt now earns its place on one
-  table, and the first prompt change we thought would help lost on it. That table is what the pilot
-  reads.
-- **The harness catches its own defects.** Twenty-eight failures are in a register, each with a fix
-  and a check that runs before every run. Nine of them came from the last three weeks of real runs.
-- **It does not inherit the pipeline's gaps.** On the first repository it read this way, it found no
-  CI at all at the reviewed commit and not one of the twenty existing tests touching a package the
-  application depends on for authentication. Both are stated as findings for the owners, not absorbed.
 
 ## The problem, with numbers you can check
 
@@ -44,6 +25,25 @@ complete bill of materials, signed provenance at SLSA Build Level 3, and policy 
 precisely what is in the product. It tells us nothing about whether any of it works, or whether a new
 version still does what the old one did.
 
+## What exists, and what it has shown
+
+The harness is built, for Python and Go, on a workstation and as a pipeline on OpenShift, and every run
+explains itself in plain terms. Four results from the lab set expectations:
+
+- **On a real dependency bump it works end to end.** For one Python library upgrade it proposed seven
+  tests and proved three known vulnerabilities fixed. A reviewer merged all seven; the signed record of
+  that decision exists. The whole loop, once, on real code.
+- **The model is the risk, and it is measured, not assumed.** On a Go library a mid-sized open model
+  wrote no test that compiled. The largest open model we can run wrote clean Go, got one detail of the
+  library's interface wrong in every file, proved no fix, and took ten to twenty times longer. Every
+  model and prompt now earns its place on one table; the first prompt change we expected to help lost
+  on it.
+- **It catches its own defects.** Twenty-eight ways the harness has failed are written down, each with
+  its fix and a check that runs before every run. Nine came from the last three weeks of real runs.
+- **It does not inherit the pipeline's gaps.** The first repository it examined had no CI at all at the
+  commit under review, and none of its twenty tests touched the library it relies on for authentication.
+  Both went to the owners as findings.
+
 ## What the harness adds
 
 The harness fills the testing half. For every incoming change, at every depth, it produces evidence:
@@ -56,7 +56,7 @@ The harness fills the testing half. For every incoming change, at every depth, i
 | Are we exposed to what is already known to be wrong with it? | CVE-targeted tests at our own call sites, producing draft VEX statements |
 | Is it doing anything it has no reason to do? | Sandbox observation and pre-flight scans, routed to security |
 | Can we prove all of this later? | Signed provenance for every test, attached to the build attestation |
-| Is our own pipeline fit to validate any of it? | It reads the repository's CI definitions and states, with the change that corrects it, where untrusted code can reach secrets or the network while tests run and where the existing suite reaches nothing the change touched. It changes nothing; the owners decide |
+| Is our own pipeline fit to validate any of it? | It reads the repository's CI and reports where untrusted code could reach secrets or the network during tests, and where the existing suite touches nothing the change altered, each with the fix. It changes nothing |
 
 ## Why AI, and why now
 
@@ -120,7 +120,7 @@ per work item is a tracked metric from day one.
 | Cost runs away on transitive dependencies | Depth policy, reachability analysis, cheap snapshots as the default, budget alerts. |
 | We claim provenance we cannot prove | Conforma verifies every attestation. SLSA levels are measured by the platform, not declared by us. |
 | Teams do not trust AI-written tests | Every test is labeled, every test is human-approved, and I publish what the tests catch. |
-| Teams read the pipeline findings as an audit of them | Five fixed questions, facts from their own CI definitions, each with the correcting change, routed to the owners; nothing is changed for them and nothing blocks unless untrusted code can reach secrets. |
+| Teams read the pipeline findings as an audit of them | Five fixed questions, facts from their own CI, each with the fix, sent to the owners. Nothing is changed for them; nothing blocks unless untrusted code can reach secrets. |
 | A component we reuse is abandoned | Every reused component shipped a release in 2026. Adapters isolate each one. |
 
 ## The decision
