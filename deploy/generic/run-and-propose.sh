@@ -13,6 +13,7 @@
 #   HARNESS_FORGE_TOKEN   a token that can push a branch and open a request on the overlay repository
 #                         (and on the repository under test, for first-party changes)
 #   HARNESS_PROPOSE_AUTHOR, HARNESS_PROPOSE_EMAIL  the bot identity the request is authored under
+#   HARNESS_RUNS_STORE    a directory or git URL where every run's index and story land, for the dashboard   optional
 #   HARNESS_WORKDIR       where the run lives                             default: run
 set -euo pipefail
 : "${HARNESS_REPO_URL:?}" "${HARNESS_HEAD:?}"
@@ -34,5 +35,11 @@ if [[ -n "${HARNESS_OVERLAY_URL:-}" && -n "${HARNESS_FORGE_TOKEN:-}" ]]; then
   export HARNESS_PROPOSE_AUTHOR="${HARNESS_PROPOSE_AUTHOR:-AI Test Harness}" HARNESS_PROPOSE_EMAIL="${HARNESS_PROPOSE_EMAIL:-ai-test-harness@example.invalid}"
   git -C "$WORKDIR-overlay" config credential.helper '!f() { echo "username=x-access-token"; echo "password=$HARNESS_FORGE_TOKEN"; }; f'
   harness propose --workdir "$WORKDIR" --overlay-repo "$WORKDIR-overlay"
+fi
+if [[ -n "${HARNESS_RUNS_STORE:-}" ]]; then
+  # The runs store: the run's index, story, evaluation row and pipeline findings, so the dashboard sees this run.
+  # A git URL needs the same token as the overlay repository; a directory needs nothing.
+  export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper GIT_CONFIG_VALUE_0='!f() { echo "username=x-access-token"; echo "password=${HARNESS_FORGE_TOKEN:-}"; }; f'
+  harness publish --workdir "$WORKDIR" --to "$HARNESS_RUNS_STORE"
 fi
 echo "run: $WORKDIR/README.md"

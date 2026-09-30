@@ -60,6 +60,15 @@ jobs:
               clone --quiet "https://github.com/${{ vars.HARNESS_OVERLAY_REPO }}.git" overlays
           git -C overlays config credential.helper '!f() { echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f'
           harness propose --workdir run --overlay-repo overlays
+      - name: Publish to the runs store
+        # Set the repository variable HARNESS_RUNS_STORE (a git URL the overlay token can push to) and every run lands on the dashboard.
+        if: vars.HARNESS_RUNS_STORE != ''
+        env:
+          HARNESS_FORGE_TOKEN: ${{ secrets.HARNESS_OVERLAY_TOKEN }}
+          GIT_CONFIG_COUNT: "1"
+          GIT_CONFIG_KEY_0: credential.helper
+          GIT_CONFIG_VALUE_0: '!f() { echo "username=x-access-token"; echo "password=$HARNESS_FORGE_TOKEN"; }; f'
+        run: harness publish --workdir run --to "${{ vars.HARNESS_RUNS_STORE }}"
       - name: Keep the run
         if: always()
         uses: actions/upload-artifact@v4

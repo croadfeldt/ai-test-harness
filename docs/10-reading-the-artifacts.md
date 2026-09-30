@@ -68,7 +68,7 @@ disagree with them.
 A run reaches it through the runs store: `harness publish` puts four small files per run, the index,
 the story, the evaluation row and the pipeline findings, into a directory or a git repository named by
 `HARNESS_RUNS_STORE`, and the site build reads that store beside the example runs. `harness run` publishes
-by itself when a store is configured. The store is the harness's ledger: files are added, never
+by itself when a store is configured; the CI examples do the same. The store is the harness's ledger: files are added, never
 rewritten, and nothing under review lives there.
 
 ## If you are reviewing the change
