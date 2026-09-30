@@ -132,7 +132,8 @@ that one branch and nothing else, and it never merges.
 
 Every example does the same five things: install the harness, run every stage on the two refs the
 event implies, keep the run directory as the build's artifact, post the plain-terms verdict where the
-change is reviewed, and open the test pull request. The generic script is those five steps in shell;
+change is reviewed, and open the test pull request. With `HARNESS_RUNS_STORE` set they do a sixth:
+publish the run's index and story to the runs store, so it appears on the dashboard. The generic script is those five steps in shell;
 the others are the same steps in each engine's own syntax.
 
 ## From a developer's assistant
