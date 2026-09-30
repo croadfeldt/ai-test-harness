@@ -31,10 +31,10 @@ I run the same pipeline on three kinds of input, and the only thing that varies 
 | | The developer's inner loop | The pipeline's outer loop |
 |---|---|---|
 | Starts when | A developer runs it on their branch while working | Every pull request or merge, unattended |
-| Runs where | Locally or on an ephemeral platform, in the same sealed sandbox | In the pipeline's sandbox |
+| Runs where | Locally, on an ephemeral platform, or from the developer's coding agent through the shipped skill; the same sealed sandbox | In the pipeline's sandbox, from GitHub Actions, GitLab CI, Jenkins, Azure Pipelines, Tekton, or any engine that runs a step |
 | Produces | Candidate tests and verdicts to iterate on | A review packet and a test pull request |
 | Reviewed by | The developer, then their code reviewers | A reader of the test pull request |
-| Tests land | In the developer's own pull request | Through the test pull request |
+| Tests land | In the developer's own pull request | Through the test pull request, opened on GitHub or GitLab; first-party tests against the change's own branch |
 | Then | The suite runs them on every future change | The suite runs them on every future change |
 
 Creation and execution can be split as far as an organization wants. The harness's run is validation:

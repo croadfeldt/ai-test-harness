@@ -200,7 +200,15 @@ cd harness && python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/harness assess   --workdir out/run1
 ```
 
-Nothing about a machine, endpoint, or path is in the repository. Records carry labels and digests.
+Or one command on any repository and two refs, which is what a trigger calls:
+
+```
+harness run --repo https://github.com/org/app.git --base main --head refs/pull/123/head --workdir out/pr-123 --propose
+```
+
+Examples for GitHub Actions, GitLab CI, Jenkins, Azure Pipelines and Tekton are under `deploy/`; a coding
+agent runs it through `skills/ai-test-harness`. Nothing about a machine, endpoint, or path is in the
+repository. Records carry labels and digests.
 
 ---
 
@@ -214,18 +222,18 @@ Nothing about a machine, endpoint, or path is in the repository. Records carry l
 
 # Known limits, stated
 
-- Most vulnerabilities tried remain unproven at this model size; a stronger model is the next variable, and Go is where it shows first: the 27B rarely writes Go that compiles.
-- Mutation scores are below target on every package; the packets say so.
-- Signing uses a development key; Trusted Artifact Signer replaces it in Konflux. The harness's pull requests carry a placeholder identity until a bot account exists.
-- Go first-party targets, and propose and feedback inside the Tekton pipeline, are not wired yet.
+- No model tried has proven a Go advisory: the 27B writes no Go that compiles, the 235B writes clean Go with one interface detail wrong per file. The evaluation table says so per model and prompt; a coder-class model is the next rung.
+- Mutation scores: 0.6 on Go, 0.25 to 0.4 on Python, against a 0.6 target; the packets say so.
+- Signing uses a development key; Trusted Artifact Signer replaces it in Konflux. The bot identity that opens requests is a placeholder until an account exists.
+- Go first-party targets and feedback inside the Tekton pipeline are not wired yet; propose is, behind a parameter and a secret.
 
 ---
 
 # What is next
 
-1. A stronger model as the next ladder rung, on Go first.
+1. A coder-class model as the next rung on the evaluation table, on Go first.
 2. Go first-party targets: tests placed inside the module.
-3. Propose and feedback inside the Tekton pipeline, once the bot identity has credentials and a signing key.
-4. Reviewer decisions feeding prompt evaluation, now that they are captured.
+3. Feedback inside the Tekton pipeline, and a bot account with a signing key for the requests.
+4. The remaining pipeline questions: what reaches the base branch untested, masked failures, unattested results.
 
 The blueprint, the code, and every run are at the project site and repository.
