@@ -70,6 +70,7 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
     if len(dirs) != 1:
         raise HarnessError(f"{pkg}: the patch must place every test in one overlay directory, found {dirs}")
     overlay_dir = dirs[0]
+    first_party = bool(read_json(workdir / "analyze" / pkg / "facts.json").get("first_party"))
     safe = re.sub(r"[^A-Za-z0-9._-]+", "-", pkg).strip("-")
     branch = f"{BRANCH_PREFIX}{safe}-{run_id}"
     if branch == base or not branch.startswith(BRANCH_PREFIX):
@@ -82,20 +83,25 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
         dest = wt / overlay_dir
         dest.mkdir(parents=True, exist_ok=True)
         copied = []
-        for src, name in ((workdir / pk["packet_md"], "packet.md"), (workdir / pk["vex"], "vex.openvex.json"),
+        # First-party tests join the application's own tree; the packet and the records travel in the request's
+        # text and stay with the run. Dependency tests carry them into the overlay directory.
+        for src, name in (() if first_party else ((workdir / pk["packet_md"], "packet.md"), (workdir / pk["vex"], "vex.openvex.json"),
                           (workdir / att.get("manifest", ""), "MANIFEST.json"), (workdir / att.get("statement", ""), "statement.json"),
                           (workdir / att.get("envelope", ""), "statement.dsse.json"),
-                          (workdir / "attest" / pkg / "signer.pub.pem", "signer.pub.pem")):
+                          (workdir / "attest" / pkg / "signer.pub.pem", "signer.pub.pem"))):
             if src.is_file():
                 shutil.copy(src, dest / name); copied.append(f"{overlay_dir}/{name}")
         udlm_dir = workdir / "attest" / pkg / "udlm"
-        if udlm_dir.is_dir():
+        if udlm_dir.is_dir() and not first_party:
             (dest / "udlm").mkdir(exist_ok=True)
             for f in sorted(udlm_dir.iterdir()):
                 shutil.copy(f, dest / "udlm" / f.name); copied.append(f"{overlay_dir}/udlm/{f.name}")
         _git(wt, "add", "-A", overlay_dir)
         files = sorted(l.split("\t", 1)[1] for l in _git(wt, "diff", "--cached", "--name-status").stdout.splitlines() if l.strip())
         title, body = pull_request(workdir, pkg, files=files, att=att, signed=sign)
+        story = workdir / "README.md"
+        if story.exists():
+            body += "\n<details><summary>The run's story: who, what, why, where, when, and every decision</summary>\n\n" + story.read_text() + "\n</details>\n"
         (out / "pull-request.md").write_text(f"# {title}\n\n{body}")   # the text as posted; packet/<pkg>/pull-request.md is what it would carry
         (out / "commit-message.txt").write_text(f"{title}\n\n{body}")   # git's subject line takes no markdown heading
         env = {"GIT_AUTHOR_NAME": author[0], "GIT_AUTHOR_EMAIL": author[1], "GIT_COMMITTER_NAME": author[0], "GIT_COMMITTER_EMAIL": author[1]}
@@ -114,13 +120,13 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
             _git(wt, "push", "--quiet", "--force-with-lease", remote, f"refs/heads/{branch}:refs/heads/{branch}")
             rec["pushed"] = True; rec["status"] = "branch pushed"
             if open_pr:
-                proc = subprocess.run(["gh", "pr", "create", "--base", base, "--head", branch, "--title", title, "--body-file", str((out / "pull-request.md").resolve())],
-                                      cwd=wt, capture_output=True, text=True, timeout=120)
-                if proc.returncode != 0:
-                    rec["pull_request_error"] = proc.stderr.strip()[-300:]
-                    log(f"    {pkg}: branch pushed but the pull request could not be opened: {proc.stderr.strip()[-120:]}")
-                else:
-                    rec["pull_request"] = proc.stdout.strip().splitlines()[-1]; rec["status"] = "pull request opened"
+                from ..sources import forge
+                try:
+                    pr = forge.open_pr(_git(repo, "remote", "get-url", remote).stdout.strip(), branch, base, title, (out / "pull-request.md").read_text(), wt)
+                    rec["pull_request"] = pr["url"]; rec["pull_request_via"] = pr.get("via"); rec["status"] = "pull request opened"
+                except HarnessError as e:
+                    rec["pull_request_error"] = str(e)[-300:]
+                    log(f"    {pkg}: branch pushed but the request could not be opened: {str(e)[-160:]}")
     finally:
         _git(repo, "worktree", "remove", "--force", str(wt), check=False)
         shutil.rmtree(wt, ignore_errors=True)
@@ -129,23 +135,44 @@ def propose_package(workdir: Path, pkg: str, repo: Path, *, remote: str, base: s
     return rec
 
 
+def first_party_target(workdir: Path, remote: str) -> tuple[Path, str]:
+    """Tests for the application's own change go to the application's repository, as a request against
+    the change's branch when the change was a branch, so the tests land in the developer's own pull
+    request; against the default branch otherwise (a commit or a pull request ref was under review)."""
+    wl = read_json(workdir / "intake" / "worklist.json")
+    repo = config.resolve_repo(wl.get("repository") or wl["source_dir"], None, workdir)
+    head = str((read_json(workdir / "run.json").get("args") or {}).get("head") or "") if (workdir / "run.json").exists() else ""
+    is_branch = bool(head) and not re.fullmatch(r"[0-9a-f]{7,40}", head) and not head.startswith("refs/") and head != "HEAD"
+    return repo, (head if is_branch else default_branch(repo, remote))
+
+
 def propose(*, workdir: Path, select: list[str] | None = None, overlay_repo_path: str | None = None, push: bool = True, open_pr: bool = True) -> list[dict]:
     from .. import selfcheck
     from ..util import merge_summary
     selfcheck.require(workdir, probes=False)
-    repo = overlay_repo(overlay_repo_path)
-    if not (repo / ".git").exists():
+    wl = read_json(workdir / "intake" / "worklist.json")
+    only_first_party = all(read_json(workdir / "analyze" / p["package"] / "facts.json").get("first_party")
+                           for p in read_json(workdir / "packet" / "summary.json")["packages"] if not select or p["package"] in select)
+    repo = None if only_first_party else overlay_repo(overlay_repo_path)
+    if repo is not None and not (repo / ".git").exists():
         raise HarnessError(f"{repo} is not a git checkout of the overlay repository")
     remote = str(config.get("propose", "remote", "HARNESS_OVERLAY_REMOTE", "origin"))
-    base = str(config.get("propose", "base_branch", "HARNESS_OVERLAY_BASE", "") or "") or default_branch(repo, remote)
+    base = str(config.get("propose", "base_branch", "HARNESS_OVERLAY_BASE", "") or "") or (default_branch(repo, remote) if repo is not None else "")
     author = (str(config.get("propose", "author_name", "HARNESS_PROPOSE_AUTHOR", "AI Test Harness")),
               str(config.get("propose", "author_email", "HARNESS_PROPOSE_EMAIL", "ai-test-harness@example.invalid")))
     sign = str(config.get("propose", "sign", "HARNESS_PROPOSE_SIGN", "false")).lower() in ("1", "true", "yes")
     key = str(config.get("propose", "signing_key", "HARNESS_PROPOSE_SIGNING_KEY", "") or "")
     fmt = str(config.get("propose", "signing_format", None, "ssh"))
     pkgs = [p["package"] for p in read_json(workdir / "packet" / "summary.json")["packages"]]
-    outs = [propose_package(workdir, p, repo, remote=remote, base=base, author=author, sign=sign, signing_key=key, signing_format=fmt,
-                            push=push, open_pr=open_pr) for p in pkgs if not select or p in select]
+    outs = []
+    for p in pkgs:
+        if select and p not in select:
+            continue
+        target, target_base = repo, base
+        if read_json(workdir / "analyze" / p / "facts.json").get("first_party"):
+            target, target_base = first_party_target(workdir, remote)
+        outs.append(propose_package(workdir, p, target, remote=remote, base=target_base, author=author, sign=sign, signing_key=key, signing_format=fmt,
+                                    push=push, open_pr=open_pr))
     merge_summary(workdir / "propose" / "summary.json", [{"package": o["package"], "status": o["status"], "branch": o["branch"],
                                                           "pull_request": o.get("pull_request"), "signed": o["signed"]} for o in outs])
     return outs

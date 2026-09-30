@@ -1,11 +1,18 @@
 # AI Test Harness: Plan for AI-Generated Code and Tests for Incoming Source and Dependencies
 
-**Status:** Draft v0.17
+**Status:** Draft v0.18
 **Date:** 2026-09-29
 **Owner:** Chris Roadfeldt
 **Audience:** Engineering, QE, Product Security, Supply Chain
 **Companion:** [04-landscape.md](04-landscape.md) records the existing open source projects this plan builds on.
 **Audience:** engineers and architects. Leadership readers should start with [00-executive-summary.md](00-executive-summary.md).
+
+**Changes in v0.18:** the pipeline's loop is complete on every common engine. The test pull request
+opens on GitHub or GitLab through their tools or their APIs (stage 6, lifecycle B), first-party tests go
+to the repository under test against the change's own branch, the request carries the run's story, and
+the examples under `deploy/` wire GitHub Actions, GitLab CI, Jenkins, Azure Pipelines and Tekton, with
+one script for any other engine. An Agent Skill makes lifecycle A one instruction away in a developer's
+coding agent.
 
 **Changes in v0.17:** the pipeline is under test too (principle 13). The harness fits into the
 repository's own CI, and when that CI is provably short of what validating a test needs it says so
@@ -619,7 +626,11 @@ the run's index. The story states nothing the records do not; it is a rendering,
 The packet is the artifact both lifecycles share. In the developer's loop it stays on the developer's
 branch and the tests they keep go into their own pull request. In the pipeline's loop the harness opens
 a test pull request from it, under its own bot identity with signed commits, and the packet is the
-reviewer's brief. Either way tests are added through a pull request; the harness never merges.
+reviewer's brief. Dependency tests go to the overlay repository with the packet and the records;
+first-party tests go to the repository under test, against the change's own branch so they join the
+developer's pull request, with the packet and records in the request's text. The request is opened on
+GitHub or GitLab by tool or API; on any other forge the branch is pushed and the request is a person's
+to open. Either way tests are added through a pull request; the harness never merges.
 
 ### Stage 7: Feedback
 

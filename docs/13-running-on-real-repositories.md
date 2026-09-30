@@ -102,6 +102,46 @@ They appear in the packet under "The pipeline this change runs through", in the 
 in `triage/pipeline.json`. The harness changes nothing in the pipeline; the owners decide. The harness
 reads its own workflows the same way, and reports that its actions are pinned by tag.
 
+## Opening the test pull request from CI
+
+The pipeline's loop ends with the test pull request, and every engine can open it. What a run needs:
+
+- **Where the tests go.** Dependency tests go to the test overlay repository: `HARNESS_OVERLAY_REPO`
+  (a checkout) or the `HARNESS_OVERLAY_URL` the examples clone. First-party tests go to the repository
+  under test, as a request against the change's own branch, so they land in the developer's pull
+  request; against the default branch when the change was a commit or a pull request ref.
+- **A token** that can push a branch and open a request there: `GH_TOKEN` for GitHub, `GITLAB_TOKEN`
+  for GitLab, or `HARNESS_FORGE_TOKEN` in the examples, which set both. The harness uses `gh` or
+  `glab` when present and the forge's API when not; any other forge gets the pushed branch and a
+  message to open the request by hand.
+- **An identity**: `HARNESS_PROPOSE_AUTHOR` and `HARNESS_PROPOSE_EMAIL`, the bot the requests are
+  authored under, and optionally a signing key (`[propose].sign`).
+
+The request's text is the packet's plain-terms verdict, the numbers, the file list, and the run's story
+folded below it, so a reviewer has the whole account without leaving the request. The harness pushes
+that one branch and nothing else, and it never merges.
+
+| Engine | Example | Trigger and refs | Opens the request |
+|---|---|---|---|
+| GitHub Actions | `deploy/github-actions/ai-test-harness.yml` | pull request, push to main, weekly, by hand | when the variable `HARNESS_OVERLAY_REPO` and the secret `HARNESS_OVERLAY_TOKEN` are set |
+| GitLab CI | `deploy/gitlab-ci/ai-test-harness.gitlab-ci.yml` | merge request, push to the default branch, schedule | when `HARNESS_OVERLAY_URL` and `HARNESS_FORGE_TOKEN` are CI variables |
+| Jenkins | `deploy/jenkins/Jenkinsfile` | multibranch or pull request job | with the `harness-forge-token` credential |
+| Azure Pipelines | `deploy/azure-pipelines/azure-pipelines.yml` | pull request, push, schedule | from the `ai-test-harness` variable group |
+| Tekton on OpenShift | `deploy/tekton/` | webhook and CronJob (`triggers/`) | the `propose` task when the `propose` parameter is `true`, with the `harness-forge` secret |
+| Anything else | `deploy/generic/run-and-propose.sh` | whatever the engine passes as two refs | when `HARNESS_OVERLAY_URL` and `HARNESS_FORGE_TOKEN` are set |
+
+Every example does the same five things: install the harness, run every stage on the two refs the
+event implies, keep the run directory as the build's artifact, post the plain-terms verdict where the
+change is reviewed, and open the test pull request. The generic script is those five steps in shell;
+the others are the same steps in each engine's own syntax.
+
+## From a developer's assistant
+
+`skills/ai-test-harness/` is an Agent Skill: the instructions a coding agent such as Claude Code loads
+to run the harness on the branch in front of the developer, read the story, and propose the tests,
+keeping the rules (sealed sandbox only, nothing merged, unproven stated as unproven). Copy it into
+`.claude/skills/` and lifecycle A is one instruction away.
+
 ## Anything else
 
 Any system that can run a command with two refs can trigger a run: a cron entry, a webhook receiver,

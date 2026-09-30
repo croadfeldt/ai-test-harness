@@ -29,6 +29,7 @@
 | **RACI** | A chart of who is Responsible, Accountable, Consulted, and Informed for each step of a process. |
 | **Reachability** | Whether our code can actually invoke a particular piece of a dependency. A vulnerability in code we never call is far less urgent than one in code we call on every request. |
 | **Run story** | The `README.md` at the top of every run: who, what, why, where and when, the outcome in plain terms, the decisions and the actions, the records in plain terms, and every file with its reader. Written by the harness from its own records after every stage. |
+| **Skill** | In the Agent Skills sense: packaged instructions and supporting files a coding agent loads when a task matches. The harness ships one so a developer's assistant can run it on the change in front of them. |
 | **Sandbox** | An isolated environment for running untrusted code, with no network, no secrets, and strict resource limits. Destroyed after use. |
 | **SBOM** | Software Bill of Materials. A complete list of every package in a product, with versions. |
 | **SLSA** | Supply-chain Levels for Software Artifacts. A framework of levels that describe how trustworthy the provenance of an artifact is. Build Level 3 is the highest current build level. |

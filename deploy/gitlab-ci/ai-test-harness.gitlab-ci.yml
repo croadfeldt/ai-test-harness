@@ -18,6 +18,16 @@ ai-test-harness:
   script:
     - python3 -m pip install --quiet "git+https://github.com/croadfeldt/ai-test-harness.git#subdirectory=harness"
     - harness run --repo "$CI_REPOSITORY_URL" ${HARNESS_BASE:+--base "$HARNESS_BASE"} --head "$HARNESS_HEAD" --workdir run
+    # The test merge request, when the overlay project and a token are configured as CI variables:
+    # HARNESS_OVERLAY_URL (the project's https URL) and HARNESS_FORGE_TOKEN (a project or group access token with
+    # write_repository and api scopes there; for first-party changes, on this project too).
+    - |
+      if [ -n "$HARNESS_OVERLAY_URL" ] && [ -n "$HARNESS_FORGE_TOKEN" ]; then
+        git -c credential.helper='!f() { echo "username=oauth2"; echo "password=$HARNESS_FORGE_TOKEN"; }; f' clone --quiet "$HARNESS_OVERLAY_URL" overlays
+        git -C overlays config credential.helper '!f() { echo "username=oauth2"; echo "password=$HARNESS_FORGE_TOKEN"; }; f'
+        GITLAB_TOKEN="$HARNESS_FORGE_TOKEN" HARNESS_PROPOSE_AUTHOR="AI Test Harness" HARNESS_PROPOSE_EMAIL="ai-test-harness@example.invalid" \
+          harness propose --workdir run --overlay-repo overlays
+      fi
     - |
       if [ -n "$CI_MERGE_REQUEST_IID" ]; then
         body="**AI Test Harness.** $(sed -n '3p' run/packet/*/pull-request.md | head -c 3000) The full story, packet and records are in the job's artifacts. Nothing here is merged by the harness."

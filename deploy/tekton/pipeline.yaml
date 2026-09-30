@@ -13,6 +13,8 @@ spec:
     - { name: model-secret, type: string, default: harness-model }
     - { name: udlm-repo-url, type: string, default: "" }
     - { name: ecosystem, type: string, default: python, description: "python or go; the image carries both toolchains" }
+    - { name: propose, type: string, default: "false", description: "\"true\" opens the test pull request after assessment; needs forge-secret" }
+    - { name: forge-secret, type: string, default: harness-forge, description: "Secret with HARNESS_OVERLAY_URL, HARNESS_FORGE_TOKEN, HARNESS_PROPOSE_AUTHOR, HARNESS_PROPOSE_EMAIL" }
   # One workspace, one claim: Tekton's coscheduling helper allows a task pod one claim, and binding one
   # claim to several workspaces by subPath left the helper for the second binding uncreated.
   workspaces: [{ name: shared }]
@@ -80,3 +82,10 @@ spec:
       taskRef: { name: harness-stage }
       params: [{ name: image, value: $(params.image) }, { name: stage, value: assess }, { name: model-secret, value: $(params.model-secret) }]
       workspaces: [{ name: shared, workspace: shared }]
+    - name: propose
+      runAfter: [assess]
+      when: [{ input: $(params.propose), operator: in, values: ["true"] }]
+      taskRef: { name: harness-propose }
+      params: [{ name: image, value: $(params.image) }, { name: forge-secret, value: $(params.forge-secret) }]
+      workspaces: [{ name: shared, workspace: shared }]
+

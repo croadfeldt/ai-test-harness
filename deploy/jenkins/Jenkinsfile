@@ -1,0 +1,49 @@
+// AI Test Harness on Jenkins: a declarative pipeline for a multibranch or pull-request job.
+// Credentials: harness-model (username = endpoint URL, password = API key), harness-model-name (secret text),
+// harness-forge-token (secret text with push and pull-request rights on the overlay repository).
+// The harness only proposes; nothing merges here.
+pipeline {
+  agent { label 'podman' }                 // generated tests run only in a sealed sandbox
+  options { timeout(time: 4, unit: 'HOURS') }
+  parameters {
+    string(name: 'BASE', defaultValue: '', description: 'base ref; empty for a rescan of HEAD')
+    string(name: 'HEAD', defaultValue: '', description: 'head ref; empty takes the branch or PR being built')
+  }
+  environment {
+    HARNESS_REPO_URL = "${env.GIT_URL}"
+    HARNESS_OVERLAY_URL = "https://github.com/example/test-overlays.git"
+    HARNESS_PROPOSE_AUTHOR = 'AI Test Harness'
+    HARNESS_PROPOSE_EMAIL = 'ai-test-harness@example.invalid'
+    HARNESS_MODEL_LABEL = 'ci-model'
+  }
+  stages {
+    stage('Choose the refs') {
+      steps {
+        script {
+          // A pull request build: base is the target branch, head is the PR's own ref. A branch build: this commit against the previous one.
+          env.HARNESS_HEAD = params.HEAD ?: (env.CHANGE_ID ? "refs/pull/${env.CHANGE_ID}/head" : env.GIT_COMMIT)
+          env.HARNESS_BASE = params.BASE ?: (env.CHANGE_TARGET ?: (env.GIT_PREVIOUS_SUCCESSFUL_COMMIT ?: ''))
+        }
+      }
+    }
+    stage('Run every stage, then propose') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'harness-model', usernameVariable: 'HARNESS_MODEL_BASE_URL', passwordVariable: 'HARNESS_MODEL_API_KEY'),
+                         string(credentialsId: 'harness-model-name', variable: 'HARNESS_MODEL'),
+                         string(credentialsId: 'harness-forge-token', variable: 'HARNESS_FORGE_TOKEN')]) {
+          sh 'curl -fsSL https://raw.githubusercontent.com/croadfeldt/ai-test-harness/main/deploy/generic/run-and-propose.sh -o run-and-propose.sh && bash run-and-propose.sh'
+        }
+      }
+    }
+  }
+  post {
+    always { archiveArtifacts artifacts: 'run/**', allowEmptyArchive: true }
+    success {
+      script {
+        if (env.CHANGE_ID && fileExists('run/verdict.txt')) {
+          pullRequest.comment("**AI Test Harness.** " + readFile('run/verdict.txt').trim() + "\n\nThe full story, packet and records are in the build's artifacts; the test pull request, if one was opened, is linked from run/propose/. Nothing here is merged by the harness.")
+        }
+      }
+    }
+  }
+}
