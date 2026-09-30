@@ -43,7 +43,8 @@ regulator asks what we verified about the code we ship, the answer for most of i
 record to point at.
 
 **Impact of action:** Every incoming change arrives with tests that ran, a plain-terms verdict and a
-signed record, within hours. Known vulnerabilities get a test that proves the fix and a draft VEX
+signed record, in minutes to hours: the time is almost all model time, so it follows the inference
+hardware, and the hours measured in our lab on self-hosted models become minutes on faster serving. Known vulnerabilities get a test that proves the fix and a draft VEX
 statement backed by it. Upgrades get faster and safer, incidents from unread code fall, and the proof of
 testing travels with the product for anyone downstream to check. The tests that earn their keep join
 the standard suite, so the asset grows with every run.
