@@ -4,10 +4,9 @@
 
 **Owner:** Chris Roadfeldt
 
-**Elevator pitch:** The AI Test Harness writes, runs and scores tests for every piece of code that enters a
-product, our own and every dependency down to any depth, in a sealed sandbox, and hands a person the
-evidence with a signed record. It fills the half of the supply chain story our build platform does not
-cover: not what is in the product, but whether any of it works and still does what it did.
+**Elevator pitch:** How do you know a change is safe when most of what you ship is code your team never
+wrote? The AI Test Harness writes, runs and scores tests for every change, your own code and every
+dependency down to any depth, in a sealed sandbox, and hands a person the evidence with a signed record.
 
 ## Problem Statement
 
