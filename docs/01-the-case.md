@@ -10,10 +10,13 @@ dependency down to any depth, in a sealed sandbox, and hands a person the eviden
 
 ## Problem Statement
 
-**Customer name:** Red Hat product teams building on Konflux, first; any organization with a software
-supply chain to defend, after. The pilot customers are two product teams to be named with the sponsor.
+**Customer name:** Any organization that ships software built on code it did not write: product teams,
+platform teams, and the security and compliance functions that answer for what they ship. The first
+pilot is with Red Hat product teams building on Konflux, to be named with the sponsor.
 
-**Customer stakeholder:** the executive sponsor and the two product team leads, to be named.
+**Customer stakeholder:** whoever answers for the safety of a change and for the proof of it: the head
+of engineering for delivery, the CISO or product security lead for exposure, the platform owner for the
+pipeline. For the pilot, the executive sponsor and the leads of the participating teams, to be named.
 
 **Customer pain:** A mid-sized service resolves several hundred to a few thousand packages. Its engineers
 chose perhaps fifty. Nobody on the team has read the rest, nobody has tested them, and when one changes
