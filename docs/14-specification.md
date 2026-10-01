@@ -2,7 +2,7 @@
 
 **For:** the engineer implementing or evaluating an AI Test Harness. One page. What an implementation
 must do, the three contracts it must honor, and how it is judged. The reasons are in the
-[blueprint](03-blueprint.md); this page states only what is required. MUST is required; SHOULD is
+[blueprint](03-blueprint.md) and its [reference](16-blueprint-reference.md); this page states only what is required. MUST is required; SHOULD is
 expected unless a written reason says otherwise. Every line names the check or test that proves it in
 this implementation, or says there is none yet.
 

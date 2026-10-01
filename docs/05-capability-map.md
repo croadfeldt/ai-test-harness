@@ -10,7 +10,7 @@ primary choice, a fallback, and the reason. Research date 2026-09-11.
    carries a result (PASSED, WARNED, FAILED), configuration descriptors, a URL, and lists of passed,
    warned, and failed tests. It is on the vetted list, not a draft. The harness emits this predicate,
    extended through its configuration descriptors, rather than inventing one. That answers open
-   question 14 in the blueprint.
+   question 14 in the blueprint reference.
 2. **Konflux already runs an LLM inside a Tekton task for dependency PRs.** `konflux-ci/deptriage` is a
    Go CLI that classifies semver impact and asks Gemini or Claude for impact analysis of dependency
    pull requests, with secret redaction and retry logic, shipped as an image with its own `.tekton/`

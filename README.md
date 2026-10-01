@@ -37,13 +37,15 @@ docs/
   00-executive-summary.md    The point, in one page
   01-the-case.md             Why, what it costs, what it returns, what could go wrong
   02-how-it-works.md         The pipeline explained with diagrams
-  03-blueprint.md            The full technical plan
+  03-blueprint.md            The blueprint in three pages
   04-landscape.md            Every existing open source project we reuse, learn from, or avoid
   05-capability-map.md       Each capability we need, mapped to the software that fills it, and the orchestration choice
   06-workflows-and-raci.md   A process map and a RACI for every stage and lifecycle event
   07-roadmap.md              Phases, exit criteria, and what "done" means
   08-glossary.md             Plain-language definitions
   09-language-and-target-flows.md  Creation and execution flows per language, on Kubernetes, Podman, VM, bare metal
+  15-failure-register.md     Every way the generator has failed, with its detector, correction and self-check
+  16-blueprint-reference.md  The long form behind the blueprint: reasoning, stage detail, lifecycle, metrics, risks, open questions
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
   deck.md                    The full deck
@@ -100,8 +102,8 @@ and the site. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Status and how to contribute
 
-The blueprint is at v0.18. The implementation covers every stage from self-verification through the signed attestation, the post-analysis, the test pull request and the read-back of its review, for Python and Go, on a workstation and as a Tekton pipeline on OpenShift, with the repository's own code as a target as well as its dependencies. The failure register stands at twenty-eight entries. The open questions are in
-[the blueprint, section 15](docs/03-blueprint.md#15-open-questions).
+The blueprint is at v0.19. The implementation covers every stage from self-verification through the signed attestation, the post-analysis, the test pull request and the read-back of its review, for Python and Go, on a workstation and as a Tekton pipeline on OpenShift, with the repository's own code as a target as well as its dependencies. The failure register stands at twenty-eight entries. The open questions are in
+[the blueprint reference, section 15](docs/16-blueprint-reference.md#15-open-questions).
 requests against any document are welcome. I would especially like to hear from maintainers of the
 projects named in the [landscape](docs/04-landscape.md) if I have described their work inaccurately.
 

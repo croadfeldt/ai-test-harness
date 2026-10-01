@@ -1,7 +1,8 @@
 # How it works
 
 **For:** engineers, architects, and technical leaders who want the mechanism before the detail. Thirty
-minutes. The [blueprint](03-blueprint.md) has everything this leaves out.
+minutes. The [blueprint](03-blueprint.md) is the plan in three pages; its
+[reference](16-blueprint-reference.md) has everything this leaves out.
 
 ## The shape of it
 
@@ -87,7 +88,7 @@ flowchart TB
 
 Before anything else, the harness proves it is fit to run: every entry in its failure register has a
 passing self-check, the sandbox's isolation claims hold, and the model endpoint honors the settings the
-run will record. Any failure stops the run before intake. The [blueprint, section 17](03-blueprint.md#17-generation-failure-register-detect-correct-verify)
+run will record. Any failure stops the run before intake. [Document 15](15-failure-register.md)
 is the register: for every way the generator has failed, the issue, the reason, the cause, the automatic
 correction, and the check that proves it on every run.
 

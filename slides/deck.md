@@ -354,7 +354,7 @@ Dates are placeholders from a notional October 2026 start. Durations get replace
 
 **Malicious or vulnerable change detection** across first-party, second-party, third-party, and transitive code: removed security checks, new capabilities, new packages at any depth, provenance anomalies, disabled tests, changed build and CI files.
 
-Both share the harness's intake, sandbox, and provenance. Both are better built once the harness's own chain of trust is established. Blueprint section 16.
+Both share the harness's intake, sandbox, and provenance. Both are better built once the harness's own chain of trust is established. Blueprint reference, section 16.
 
 ---
 
@@ -384,7 +384,8 @@ Judge the result on the benchmark and the reviewer feedback. Then decide about t
 | The point in five minutes | `docs/00-executive-summary.md` |
 | Costs, returns, and risks | `docs/01-the-case.md` |
 | The mechanism with diagrams | `docs/02-how-it-works.md` |
-| The full technical plan | `docs/03-blueprint.md` |
+| The plan in three pages | `docs/03-blueprint.md` |
+| The long form behind it, and the failure register | `docs/16-blueprint-reference.md`, `docs/15-failure-register.md` |
 | What exists already and what does not | `docs/04-landscape.md`, `docs/05-capability-map.md` |
 | Process maps and RACIs | `docs/06-workflows-and-raci.md` |
 | Phases and exit criteria | `docs/07-roadmap.md` |

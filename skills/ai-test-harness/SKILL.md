@@ -63,4 +63,4 @@ Nothing is merged by the harness; tell the developer the request is theirs to re
 - Never edit, merge or approve the pull request the harness opened.
 - Never present an unproven fix as proven; quote the story's wording.
 - If a stage fails, read `out/harness/selfcheck/selfcheck.json` and the stage's log before retrying; the
-  failure register (blueprint section 17) names the known ones.
+  failure register (document 15) names the known ones.

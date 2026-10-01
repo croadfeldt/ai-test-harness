@@ -223,7 +223,7 @@ within 15 minutes; `suspicious` acknowledged by SCS within one business day.
 
 ## 6. Review and merge
 
-This is the review gate of blueprint section 5.0, and it has two shapes. In the developer's inner
+This is the review gate of the blueprint (reference section 5.0), and it has two shapes. In the developer's inner
 loop (workflow 16) the packet stays on the developer's branch and the gate is ordinary code review of
 their pull request. In the pipeline's outer loop the harness opens a test pull request under its own
 bot identity, with signed commits and the provenance attached, and the packet is the reviewer's brief.
