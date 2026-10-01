@@ -30,5 +30,5 @@ tests. The site republishes from `main` on merge.
 
 ## The failure register
 
-When the generator fails in a new way, write the register entry and its self-check first (blueprint
-section 17), watch the check fail, then fix it.
+When the generator fails in a new way, write the register entry and its self-check first (document 15,
+the failure register), watch the check fail, then fix it.

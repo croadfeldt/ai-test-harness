@@ -107,7 +107,7 @@ established.
 - **Malicious or vulnerable change detection** across first-party, second-party, third-party, and
   transitive code, including indirect changes to build scripts, CI configuration, tests, and lockfiles.
 
-Both are specified in [the blueprint, section 16](03-blueprint.md#16-future-enhancements-documented-now-not-scheduled).
+Both are specified in [the blueprint reference, section 16](16-blueprint-reference.md#16-future-enhancements-documented-now-not-scheduled).
 
 ## What "done" means
 
