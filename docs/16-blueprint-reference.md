@@ -1,8 +1,9 @@
 # Blueprint reference: the long form
 
-**Status:** v0.18 of the blueprint, kept whole as the reference behind the three-page
-[blueprint](03-blueprint.md). Moved here unchanged on 2026-10-01, minus the failure register, which is
-now [document 15](15-failure-register.md).
+**Status:** v0.18 of the blueprint, kept as the reference behind the three-page
+[blueprint](03-blueprint.md). Moved here on 2026-10-01 minus the failure register, now
+[document 15](15-failure-register.md), and minus three sections that other documents already carried:
+section 4 points at documents 04 and 05, section 7 at document 05, section 13 at document 07.
 **Owner:** Chris Roadfeldt.
 **For:** the reader who has decided the blueprint is worth a closer look and wants the reasoning, the
 stage-by-stage detail, the lifecycle and provenance design, the metrics, risks, rollout, open questions
@@ -158,7 +159,7 @@ machine-produced, human-reviewable, reproducible answer to three questions.
 5. JavaScript and TypeScript (npm)
 6. C and C++ (CMake, Autotools, RPM spec driven builds)
 
-Each ecosystem needs a small adapter (see section 7). The core pipeline is ecosystem-agnostic.
+Each ecosystem needs a small adapter (section 7, [document 05](05-capability-map.md)). The core pipeline is ecosystem-agnostic.
 
 ### 2.4 Where the harness ends: the fix pipeline
 
@@ -271,61 +272,11 @@ implemented; the others follow. Fitting in is the default. Fitting in silently i
 
 ## 4. Build on existing work
 
-The [landscape](04-landscape.md) document has the full inventory. This section states what the plan adopts and
-why. Nothing in the open source world, from Red Hat, IBM, or elsewhere, does the whole job. The pieces
-below do most of the individual stages.
-
-### 4.1 Red Hat substrate the harness runs on
-
-| Need | Project | Why this one |
-|---|---|---|
-| Pipeline and trigger | **Konflux integration-service** | Already runs Tekton test pipelines on build snapshots and reports to git providers. A harness run is one more integration test. Red Hat built 2M+ artifacts on Konflux in 2025. |
-| Hermetic dependency set and SBOM | **Hermeto** (formerly Cachi2) | Prefetches the exact resolved graph for offline builds and emits CycloneDX or SPDX. Covers Go, Python, npm, Cargo, Bundler, RPM. GPL-3.0, so invoke it, do not vendor it. |
-| SBOM lifecycle | **Mobster** | Konflux's own SBOM generation, augmentation, and validation against Product Security guidelines. |
-| Transitive graph and risk data | **Trustify** and **Trustify Dependency Analytics** (formerly Exhort) | Distinguishes direct from transitive, correlates with vulnerability and license data. **trustify-mcp** lets the agent query it directly. |
-| Policy gate and attestation | **Conforma** and **Trusted Artifact Signer** | "Generated tests ran and passed" becomes a signed attestation that a Rego policy can require. |
-| OS-level functional test execution | **tmt** and **Testing Farm** | Emit a tmt plan and the tests run across RHEL, Fedora, and CentOS. |
-
-### 4.2 Analysis components
-
-| Need | Project | Why this one |
-|---|---|---|
-| Call graphs and reachability, Java including transitive jars, Python, TypeScript | **CodeLLM-Devkit (CLDK)**, IBM Research, Apache-2.0 | Built to feed LLMs program facts. IBM uses it internally for test generation. codeanalyzer-java walks JAR, EAR, WAR and their dependencies. |
-| Reachability, Go | **govulncheck** and **Capslock** | Symbol-level reachability and capability analysis, both from the Go team and Google, both active. |
-| Reachability, other languages | **OWASP dep-scan with atom** | Broadest open multi-language option. Rust, Go, .NET added in 2026. |
-| API contract diff | **gorelease**, **japicmp**, **cargo-semver-checks**, **griffe**, **API Extractor** | Cheapest signal for "where did the contract change" so generation focuses on changed surfaces. |
-| Version-to-version source diff | **OSSGadget oss-diff** | Diff two package versions by PURL across ecosystems. |
-| Suspicious-behavior pre-flight | **GuardDog**, **Capslock**, **OpenSSF Malicious Packages** | Cheap static and database gates before spending generation budget. |
-| Behavioral diff pattern | **OpenSSF Package Analysis** | Already runs packages in gVisor, records syscalls and network, and tracks behavior changes across versions. We adopt its sandbox design and can consume its public data. |
-
-### 4.3 Validation components
-
-| Need | Project | Why this one |
-|---|---|---|
-| Mutation testing | **gremlins** (Go), **mutmut** or **cosmic-ray** (Python), **PIT** (JVM), **cargo-mutants** (Rust), **StrykerJS** (JS, TS) | All shipped releases in 2026. Most support diff-scoped runs. |
-| Fuzz harness generation | **OSS-Fuzz-gen** with **Fuzz Introspector** | Google's production framework for C, C++, Java, Python. Rust is a gap. |
-| Random regression oracles, Java | **Randoop** | Cheap, maintained, runs on Java 8 to 24. Complements LLM tests for dependencies. |
-| API-level regression suites | **EvoMaster** | Very active evolutionary generator for REST, GraphQL, gRPC. |
-| Traffic-based regression | **Keploy** record and replay | Language-agnostic behavioral capture for upgrade differential tests. |
-
-### 4.4 Patterns to learn from
-
-- **ASTER, SAINT, Sakura** (IBM Research): the generation loop. Analyze with static tools, prompt with
-  facts not guesses, generate, compile, run, repair, fill coverage gaps, mock external dependencies. The
-  tools are not open source, but the papers are detailed enough to reproduce.
-- **QualityFlow** (Red Hat community): Claude multi-agent orchestration from requirements to test code,
-  with an LSP call-graph analyzer to scope tests. Early stage but the only Red Hat repo that generates test
-  code. Candidate starting point or at least a reference for Red Hat conventions.
-- **sast-ai-workflow** (Red Hat): an LLM agent that reasons over code and external evidence, emits a
-  verdict with 0 to 100 confidence, has a reflection loop, and ships as a Tekton task with Langfuse
-  observability. The triage stage should look like this.
-- **CoverUp** (UMass): flake detection, test isolation, Docker sandboxing in a permissively licensed
-  coverage-guided loop. **Qodo-Cover**: the assured-improvement filter chain (keep only tests that compile,
-  pass, and raise coverage). AGPL and abandoned, so we reimplement the idea.
-- **Debian autopkgtest and Rust Crater**: reverse-dependency differential testing at scale.
-- **Log Detective** (Fedora): LLM summarization of failed build and test logs.
-- **Mellea** (IBM Research): typed generative functions with requirement validation and automatic retry.
-  Candidate orchestration layer for the generate, validate, retry loop.
+Nothing in the open source world, from Red Hat, IBM, or elsewhere, does the whole job; the pieces do most
+of the individual stages. The inventory and the reuse decisions are in [document 04](04-landscape.md),
+section 6 (reuse directly, learn from, benchmark against, avoid, licensing), and the choice per capability
+with its fallback and reason is the decision table in [document 05](05-capability-map.md). This section
+keeps only what the harness builds itself.
 
 ### 4.5 What we build ourselves
 
@@ -560,7 +511,7 @@ Validation steps, in order:
 2. **Run.** Record pass, fail, or error per test with full output.
 3. **Flake check.** Re-run passing tests a small number of times. Inconsistent tests are quarantined.
 4. **Coverage.** Measure line and branch coverage of the target package attributable to generated tests.
-5. **Mutation testing.** Run the ecosystem's mutation tool (section 4.3) with a bounded mutant sample
+5. **Mutation testing.** Run the ecosystem's mutation tool ([document 05](05-capability-map.md)) with a bounded mutant sample
    drawn only from lines the generated tests executed; a file the tests never reached contributes no
    site (GF-028). Tests that kill no mutants are marked weak.
 6. **Differential run.** For updates, run the same test set against old and new versions and diff results.
@@ -728,33 +679,10 @@ This is the harness's most original contribution and should be built first.
 
 ## 7. Tooling
 
-| Concern | Choice | Notes |
-|---|---|---|
-| Agent runtime, generation | Claude Agent SDK in a one-shot Tekton step. Claude Fable 5.1. | Google ADK or LangGraph as model-agnostic fallback. |
-| Agent runtime, classification | OGX (formerly Llama Stack) Responses API on OpenShift AI 3.5, serving Granite 4.x or Haiku 4.5 through Red Hat AI Inference Server. | Cheap tokens, MCP connectors, TrustyAI guardrails, MLflow tracing built in. |
-| Tool governance | Kuadrant MCP gateway (Red Hat, Tech Preview). | Every agent tool call is identity-scoped and audited. IBM ContextForge as fallback. |
-| Orchestration | Konflux integration-service (Tekton) on OpenShift. One work item per PipelineRun. konflux-ci/deptriage is the in-org precedent for an LLM inside a Tekton task. | Mellea is a candidate for the in-agent generate, validate, retry loop. |
-| Sandbox | OpenShift sandboxed containers (Kata) plus Red Hat build of Agent Sandbox, egress allowlist via OpenShell or NetworkPolicy plus proxy. Anthropic sandbox-runtime as the inner ring around the agent's shell. | gVisor where KVM is unavailable. Podman with the same flags for local replay. |
-| Observability | Langfuse self-hosted, fed by OpenTelemetry GenAI semantic-convention spans. | OpenShift AI MLflow tracing as alternative. |
-| Prompt and eval regression | promptfoo in a Tekton step; Inspect with its Kubernetes sandbox provider for offline agent benchmarks. | DeepEval for pytest-style evals. |
-| Attestation | Tekton Chains emitting in-toto test-result/v0.1 and vulns predicates, signed by Trusted Artifact Signer; in-toto witness where command and network evidence is needed. Verification by Conforma and Kyverno. | slsa-verifier is unmaintained; not used. |
-| VEX | vexctl (OpenVEX) with attest, CycloneDX VEX for Trustify, gocsaf for CSAF publication. | |
-| Dependency resolution and SBOM | Hermeto, Mobster, Trustify, Trustify Dependency Analytics | Internal mirror for all fetches. |
-| Call graph and reachability | CLDK (Java, Python, TS), govulncheck and Capslock (Go), dep-scan with atom (others) | Unknown means "reachable". |
-| API diff | gorelease, japicmp, cargo-semver-checks, griffe, API Extractor | |
-| Pre-flight gates | GuardDog, OpenSSF Malicious Packages, Capslock | |
-| Coverage | Native tooling per ecosystem, normalized to a common report format | |
-| Mutation | gremlins, mutmut or cosmic-ray, PIT, cargo-mutants, StrykerJS | Bounded, diff-scoped sample. |
-| Fuzzing | OSS-Fuzz-gen with Fuzz Introspector; Go native fuzzing; cargo-fuzz for Rust (harness generation is ours) | Time-boxed. |
-| Static analysis | Semgrep, ecosystem linters, gosec, bandit, spotbugs | |
-| Failure log summarization | Log Detective pattern | |
-| Storage | Test overlay repo (Git), results in an object store, metrics in a database | |
-| Reporting | Review packet as PR comment via integration-service, Conforma attestation, dashboard | |
-| Agent hardening | prodsec-skills, harness-eval | |
-
-Each ecosystem adapter implements a small interface: `resolve_graph`, `extract_api`, `api_diff`, `build`,
-`run_tests`, `coverage`, `mutate`, `fuzz`. Adding an ecosystem means implementing that interface, not
-touching the pipeline.
+The tool per concern, with the fallback and the reason, is the decision table in
+[document 05](05-capability-map.md). Each ecosystem adapter implements the interface in
+[blueprint/adapter-interface.md](../blueprint/adapter-interface.md); adding an ecosystem means
+implementing that interface, not touching the pipeline.
 
 ## 8. Test lifecycle: where tests live, provenance, promotion, and retirement
 
@@ -1028,57 +956,8 @@ Benchmarks, run before the pilot and on every prompt or model change:
 
 ## 13. Phased rollout
 
-### Phase 0: Pilot (weeks 1 to 6)
-
-- One Go service, one Python service, both already building on Konflux.
-- Depth 0 and depth 1 only.
-- Build the differential step first (section 6.5) and run it against BUMP.
-- Unit, functional, negative and CVE-targeted tests with mutation on executed lines: implemented and
-  measured in the lab already; the pilot measures them on product services.
-- Signed in-toto statements and sealed UDLM records per run, generated by the pipeline.
-- Triggered from the pull request (document 13). Review packets as PR comments; the test pull request
-  in the pipeline's loop.
-- The pipeline under test too (principle 13): questions 2 and 3 reported on the pilot services.
-- Exit criteria: build success > 80%, at least one real finding, reviewer feedback collected, BUMP
-  catch rate measured, and no default model or prompt set changed except by the evaluation table.
-
-### Phase 1: First-party at scale (weeks 7 to 12)
-
-- All PRs in the pilot repos, triggered by integration-service.
-- Pipeline questions 1, 4 and 5: what reaches the base branch untested, masked failures, unattested results.
-- Establish the test overlay repo, the provenance manifest, and the in-toto predicate.
-- First version of the relevance engine: symbol-removal and deleted-path detection only.
-- SLSA: Build L2 (signed with Trusted Artifact Signer) and Source L2 for `overlays/`.
-- Exit criteria: metrics in section 10 within 20% of target; every accepted test has a signed record.
-
-### Phase 2: Direct dependencies (weeks 13 to 20)
-
-- Every dependency bump in pilot repos gets differential testing and generation.
-- Add pre-flight gates and the `suspicious` merge gate.
-- Add OSS-Fuzz-gen for packages flagged sensitive.
-- Add Java and Rust adapters. Evaluate CLDK for Java reachability.
-- Promotion to the standard suite goes live. Relevance engine adds behavior-change and redundancy
-  detection. Conforma policy requiring test attestation on direct dependencies, advisory at first.
-- CVE-targeted tests and draft VEX go live for direct dependencies, with Product Security reviewing
-  every draft.
-- SLSA: Build L3, Source L3 for `overlays/`, Source L4 for `standard/`. Conforma emits Verification
-  Summary Attestations.
-
-### Phase 3: Transitive dependencies (weeks 21 to 30)
-
-- Reachability analysis and risk scoring live, fed by Trustify Dependency Analytics.
-- CVE-targeted tests extend to the full transitive graph. Conforma policies move from advisory to
-  enforced.
-- Characterization snapshots for the full graph.
-- Risk-weighted generation for depth 2 and deeper.
-- Cost controls and budget alerts.
-
-### Phase 4: Continuous operation (week 31 onward)
-
-- Scheduled full-graph rescans independent of PR activity.
-- Remaining ecosystem adapters. tmt plans for OS-level functional tests on Testing Farm.
-- Upstream contribution workflow for high-value overlay tests.
-- Quarterly review of regressions caught and cost.
+The phases, their goals and their exit criteria are [document 07](07-roadmap.md), which supersedes the
+list this section once carried.
 
 ## 14. Risks and mitigations
 
