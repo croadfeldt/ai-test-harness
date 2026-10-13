@@ -9,6 +9,7 @@ This change leaves starlette at 0.41.3, which has 7 known vulnerabilities the ap
 | Provenance | MANIFEST.json, in-toto statement, DSSE envelope (key sha256:4f2defc2e375), UDLM records, all in the same directory |
 | Commit | signed at propose time when [propose].sign is on |
 | Run | 76a3fa863e76 |
+| Accounted for | 2 behaviours reached: 0 validated, 0 for your environment, 2 stated gaps. |
 
 Files this pull request carries:
 
@@ -21,5 +22,10 @@ Files this pull request carries:
 - `overlays/python/starlette/0.41.x/statement.dsse.json`
 - `overlays/python/starlette/0.41.x/signer.pub.pem`
 - `overlays/python/starlette/0.41.x/udlm/`
+
+Not covered:
+
+- `starlette.middleware.base.BaseHTTPMiddleware`: lines ran, no mutant was placed inside them; a sampling gap the harness owns
+- `starlette.responses.Response`: lines ran, no mutant was placed inside them; a sampling gap the harness owns
 
 Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, and the draft VEX statements for Product Security. Nothing here is merged by the harness; a person decides.

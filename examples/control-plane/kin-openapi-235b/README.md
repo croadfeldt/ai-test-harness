@@ -14,7 +14,7 @@ What happened, why, and what came out of it. Written by the harness from its own
 | What | Tests for github.com/getkin/kin-openapi v0.139.0, chosen from a work list of 277 packages, 0 of which this change touched; 17 other package(s) were analyzed and scored but not selected for generation. Repository source, change 1acc678bd670..1acc678bd670, mode diff. |
 | Why | github.com/getkin/kin-openapi (score 70, budget full): reachable from first-party code; 8 known vulnerabilities for this version. |
 | Where | Every test ran in a sealed sandbox (pod, network deny-all networkpolicy on the task pod (claim; verified by the stage 0 probe in this pod), image image-registry.openshift-image-registry.svc:5000/ai-test-harness/harness@sha256:4e3fdd16e0e77227335b2fcdb674cf8669041c3aba76475bb1f863bf3223b19b); the model was qwen3-235b in agent mode; the run's own files are in this folder. |
-| When | Started 2026-09-18 04:51:48 UTC. The last stage to write was self-verification at 2026-09-18 06:18:12 UTC. |
+| When | Started 2026-09-18 04:51:48 UTC. The last stage to write was self-verification at 2026-10-13 18:34:43 UTC. |
 
 ## What the harness did, step by step
 
@@ -22,7 +22,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 | Stage | When | What it did |
 |---|---|---|
-| 0 Self-verification | 2026-09-18 06:18:12 UTC | Ran 22 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
+| 0 Self-verification | 2026-10-13 18:34:43 UTC | Ran 28 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
 | 1 Intake | 2026-09-18 04:51:52 UTC | Resolved the dependency graph at head (276 packages) and at base (276), looked every version up in OSV (16 with advisories at head), and wrote a work list of 277 packages, 0 of them changed by this change. |
 | 2 Analysis | 2026-09-18 04:52:29 UTC | For each package, diffed the two versions' public API and source, found the application's call sites and read the advisories; risk score and budget: golang.org/x/net 55 (snapshot), golang.org/x/text 45 (snapshot), github.com/getkin/kin-openapi 70 (full), github.com/gomarkdown/markdown 55 (snapshot), github.com/jackc/pgx/v5 55 (reduced), github.com/klauspost/compress 45 (snapshot), github.com/labstack/echo/v4 55 (snapshot), github.com/nats-io/nats-server/v2 45 (reduced), github.com/yuin/goldmark 45 (snapshot), go.opentelemetry.io/otel 45 (snapshot), go.opentelemetry.io/otel/exporters/otlp/otlptrace 55 (snapshot), go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc 55 (snapshot), go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp 65 (full), go.opentelemetry.io/otel/sdk 55 (snapshot), golang.org/x/crypto 55 (snapshot), golang.org/x/mod 45 (snapshot), google.golang.org/grpc 55 (snapshot), oras.land/oras-go/v2 55 (snapshot). |
 | 3 Generation | 2026-09-18 06:16:22 UTC | github.com/getkin/kin-openapi: asked the model (qwen3-235b) for tests in 114 calls; kept 8 tests in 4 file(s), cut 0 that did not hold up on the baseline run, discarded 1 whole attempt(s). |
@@ -30,7 +30,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 | 5 Triage | 2026-09-18 06:17:27 UTC | github.com/getkin/kin-openapi: classified every verdict; 0 tests to accept, 4 to discard or regenerate, 2 finding(s), 5 escalated to a person. |
 | 6 Review packet | 2026-09-18 06:17:43 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
 | Attestation | 2026-09-18 06:17:58 UTC | github.com/getkin/kin-openapi: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
-| Assessment | 2026-09-18 06:18:12 UTC | Measured the run against the blueprint's goals: 9 met, 0 not met, 1 not applicable, 1 other. |
+| Assessment | 2026-10-13 18:34:43 UTC | Measured the run against the blueprint's goals: 10 met, 0 not met, 2 not applicable, 1 other. |
 
 ## Decisions the harness made
 
@@ -39,6 +39,16 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 - github.com/getkin/kin-openapi: finding, security at confidence 0.9: github.com/getkin/kin-openapi v0.139.0 has 8 open advisories at head; reachable=true. Route: Product Security.
 - github.com/getkin/kin-openapi: finding, defect at confidence 0.4: github.com/getkin/kin-openapi: a code path raised the same internal error on both versions during CVE test generation (CVE-2026-76905); NOT corroborated by stage 4 verdicts. Route: escalate: below confidence threshold.
 - github.com/getkin/kin-openapi: draft VEX per advisory: CVE-2026-73501 affected, CVE-2026-73502 affected, CVE-2026-76905 affected, CVE-2026-77354 affected.
+
+## What was accounted for, and what was not
+
+5 behaviours reached: 0 validated, 0 for your environment, 5 stated gaps. A behaviour is a public function, method or type of the package that the application calls, or a public symbol the change altered. Validated means a kept test ran its lines on both sides of the change and a mutant inside them was killed; a stated gap says why that did not happen. 2 reference(s) were set aside as not behaviours: module imports and types without methods.
+
+- `github.com/getkin/kin-openapi/openapi3.Loader`: no kept test names or executes this behaviour.
+- `github.com/getkin/kin-openapi/openapi3.NewLoader`: no kept test names or executes this behaviour.
+- `github.com/getkin/kin-openapi/openapi3.T`: no kept test names or executes this behaviour.
+- `github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput`: no kept test names or executes this behaviour.
+- `github.com/getkin/kin-openapi/openapi3filter.Options`: no kept test names or executes this behaviour.
 
 ## Actions it took
 
@@ -79,7 +89,8 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Everyone**
 
 - `README.md`: The story of this run: who, what, why, where, when, the outcome, the decisions and the actions.
-- `assess/assess.md`: The run against the blueprint's eleven goals, each with the measurement and the file it came from.
+- `triage/accounting-summary.json`: The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why.
+- `assess/assess.md`: The run against the blueprint's thirteen goals, each with the measurement and the file it came from.
 
 **Reviewers (the developer or team that owns the change)**
 
@@ -107,6 +118,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/github.com/getkin/kin-openapi/mutation/mutation.json`: How strong the accepted tests are: which mutants of the package's source they killed, and the score.
 - `execute/github.com/getkin/kin-openapi/relevance.json`: Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted.
 - `triage/github.com/getkin/kin-openapi/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
+- `triage/github.com/getkin/kin-openapi/accounting.json`: The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour.
 - `packet/github.com/getkin/kin-openapi/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
 - `packet/github.com/getkin/kin-openapi/tests.patch`: The accepted tests as a patch in the layout they will live in.
 - `packet/github.com/getkin/kin-openapi/pull-request.md`: The text and the file list the test pull request carries, whether or not one was opened.
@@ -174,8 +186,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Tools (kept for replay and proof; not meant to be read)**
 
 - `run-index.json`: What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it.
-- `intake/graph.new.json`: The dependency graph at head as the ecosystem's own resolver produced it.
-- `intake/graph.old.json`: The dependency graph at base.
 - `analyze/golang.org/x/net/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/golang.org/x/text/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/github.com/getkin/kin-openapi/api.new.json`: The public API surface at head, extracted by tools.

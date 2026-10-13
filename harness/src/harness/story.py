@@ -364,6 +364,35 @@ def records(idx: dict, workdir: Path) -> list[dict]:
 
 # --- the story ------------------------------------------------------------------------------------
 
+def accounting_section(idx: dict, workdir: Path) -> list[dict]:
+    """Principle 14: what was reached, what was validated, what was handed to the team, what is a stated gap and why."""
+    from .stages.account import REASONS, plain
+    summ = _load(workdir / "triage" / "accounting-summary.json")
+    if not summ:
+        return []
+    bullets = []
+    for p in idx.get("packages", []):
+        acc = _load(workdir / "triage" / p["package"] / "accounting.json") or {}
+        for u in acc.get("units", []):
+            if u["state"] == "validated":
+                continue
+            ev = u.get("evidence") or {}
+            if u["state"] == "for-your-environment":
+                bullets.append(f"`{u['symbol']}`: for your environment; the sandbox refused what the test needs ({ev.get('refusal', 'see the accounting')}).")
+            else:
+                detail = ""
+                m = ev.get("mutants") or {}
+                if ev.get("lines_executed"):
+                    detail = f" {ev['lines_executed']} line(s) ran, {m.get('sampled', 0)} mutant(s) sampled inside it, {m.get('killed', 0)} killed."
+                bullets.append(f"`{u['symbol']}`: {REASONS.get(u['reason'], u['reason'])}.{detail}")
+    excluded = sum((acc.get("counts") or {}).get("excluded", 0) for acc in (_load(workdir / "triage" / p["package"] / "accounting.json") or {} for p in idx.get("packages", [])))
+    paras = [plain(summ.get("counts") or {}) + " A behaviour is a public function, method or type of the package that the application calls, or a public symbol the change altered. "
+             "Validated means a kept test ran its lines on both sides of the change and a mutant inside them was killed; a stated gap says why that did not happen."
+             + (f" {excluded} reference(s) were set aside as not behaviours: module imports and types without methods." if excluded else "")]
+    return [{"title": "What was accounted for, and what was not", "paragraphs": paras,
+             "bullets": bullets[:30] + ([f"and {len(bullets) - 30} more in the accounting files."] if len(bullets) > 30 else []) or ["Every reached behaviour was validated."]}]
+
+
 def build(workdir: Path, idx: dict | None = None) -> dict:
     idx = idx or runindex.build(workdir)
     plain = []
@@ -388,6 +417,7 @@ def build(workdir: Path, idx: dict | None = None) -> dict:
          "paragraphs": ["Each stage reads what the stage before wrote and writes its own files. Stage 4 is validation execution: the tests prove themselves once, here; keeping the application honest afterwards is the job of the suite they join."],
          "table": {"columns": ["Stage", "When", "What it did"], "rows": [[f"{r['number']} {r['name']}".strip(), r["when"], r["did"]] for r in stage_lines(idx, workdir)]}},
         {"title": "Decisions the harness made", "bullets": decisions(idx, workdir) or ["No decisions yet; the run has not reached triage."]},
+        *accounting_section(idx, workdir),
         {"title": "Actions it took", "bullets": taken or ["None yet."]},
         {"title": "Actions it did not take, by design", "bullets": not_taken},
     ]

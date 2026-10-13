@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "by_reason": {
+      "executed-not-checked": 1,
+      "no-test-generated": 19,
+      "strength-not-sampled": 20
+    },
+    "excluded": 189,
+    "for_your_environment": 0,
+    "stated_gap": 40,
+    "units": 40,
+    "validated": 0
+  },
+  "format": "ai-test-harness/accounting-summary/v1",
+  "generated": "2026-10-13T18:34:44+00:00",
+  "packages": [
+    {
+      "by_reason": {
+        "executed-not-checked": 1,
+        "no-test-generated": 19,
+        "strength-not-sampled": 20
+      },
+      "excluded": 189,
+      "for_your_environment": 0,
+      "package": "frc-scheduler-server",
+      "stated_gap": 40,
+      "units": 40,
+      "validated": 0
+    }
+  ],
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ]
+}

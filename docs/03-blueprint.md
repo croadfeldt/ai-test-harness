@@ -1,10 +1,17 @@
 # AI Test Harness: the blueprint
 
-**Status:** Draft v0.20, 2026-10-12. **Owner:** Chris Roadfeldt.
+**Status:** Draft v0.21, 2026-10-13. **Owner:** Chris Roadfeldt.
 **For:** engineers and architects deciding whether to build, run or adopt this. Three pages.
 **Behind it:** [document 16](16-blueprint-reference.md) is the long form, with the section numbers the
 code and the other documents cite; [document 15](15-failure-register.md) is the failure register;
 [document 14](14-specification.md) lists what an implementation must do and the test that proves each.
+
+**Changes in v0.21:** the accounting (principle 14). Every behaviour the change reaches ends in exactly
+one state, validated, for your environment, or a stated gap with its reason, and nothing is silent. Triage
+writes it per package and rolled up; the story, the pull request text, the run index, the dashboard and the
+evaluation table carry it; assessment goal 13 checks that the counts sum and every gap has a reason. On the
+published runs it reads lower than "accepted", which is the point: see the dry run in
+[document 18](18-design-queue-research.md).
 
 **Changes in v0.20:** the static analysis is named as implemented (reference, stage 2): the harness's
 own API extractors and diffs, the call-site scans, OSV, and now `bandit`, `gosec` and GuardDog in the
@@ -66,6 +73,8 @@ C++. One small adapter per ecosystem; the core is ecosystem-agnostic.
   the default only by winning a measured table.
 - **The pipeline is under test too** (principle 13). A CI provably short of what validating a test
   needs is a finding with the correcting change, routed to its owners, never an edit.
+- **Every reached behaviour is accounted for** (principle 14). Validated, for your environment, or a
+  stated gap with its reason; nothing is silent, and nothing is implied that was not earned.
 
 ## The pipeline
 
@@ -79,7 +88,7 @@ rewritten after every stage.
 | 2 Analysis | Per row: API surface and diff from tooling, never the model; source diff; our call sites; advisories with symbols and fix diff; security linting (`bandit`, `gosec`) of the call sites and the changed code, a pre-flight scan (GuardDog, OSV) of new packages; what the CI does with untrusted code and what the suite reaches; a risk score that sets the budget. Every tool that ran or did not is named in the bundle (reference, stage 2) | Fact bundles |
 | 3 Generation | Unit, functional, negative, CVE-targeted, property and fuzz tests plus support code; compile, baseline run, repair; kept only if it compiles, collects and passes on the baseline | Candidates with a manifest |
 | 4 Validation execution | Sealed, both versions, once: head run, flake re-run, coverage, mutation on executed lines only, differential against the base or a resolved fixed candidate, relevance of existing tests | An honest verdict per test |
-| 5 Triage | A class, a confidence and a route for every verdict and finding; below the threshold a person decides | Findings |
+| 5 Triage | A class, a confidence and a route for every verdict and finding; below the threshold a person decides; then the accounting: every reached behaviour in one of three states | Findings; the accounting |
 | 6 Review | The packet in plain terms, tests as a patch, a draft VEX per advisory, promotions and retirements, the signed statement and UDLM records, the pull request text; the CI loop opens the test pull request | Packet, attestation, pull request |
 | 7 Feedback | Reviewer decisions read back as labeled examples and realized records; prompt sets and models scored; a new failure mode enters the register before any fix | Acceptance records, evaluation table |
 
@@ -152,7 +161,7 @@ provenance, the relevance engine, and CVE-targeted generation with VEX drafts.
 ## How it is judged
 
 - Stage 0 passes: every register entry has a self-check; the register stands at twenty-eight.
-- Every run is assessed against twelve goals, each with its measurement and the file it came from.
+- Every run is assessed against thirteen goals, each with its measurement and the file it came from.
 - The reference jobs are rerun against the baseline in [document 12](12-prompt-and-model-evaluation.md).
 - [Document 14](14-specification.md) lists the twenty-two requirements and the test that proves each.
 

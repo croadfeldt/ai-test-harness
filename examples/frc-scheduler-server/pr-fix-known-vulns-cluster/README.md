@@ -28,7 +28,7 @@ What happened, why, and what came out of it. Written by the harness from its own
 | What | Tests for ecdsa 0.19.2, pdfminer-six 20231228, pillow 11.0.0 to 12.3.0, pyasn1 0.6.4 to 0.4.8, python-jose 3.3.0 to 3.4.0, python-multipart 0.0.12 to 0.0.31, starlette 0.41.3, weasyprint 63.1 to 70.0, chosen from a work list of 64 packages, 5 of which this change touched. Repository source, change 2ad04243861b..cfa8f4a3292b, mode diff. |
 | Why | The risk score decides the budget; the two strongest reasons per package: ecdsa (score 65, budget full): reachability unknown, treated as reachable; 2 known vulnerabilities for this version. pdfminer-six (score 65, budget full): reachability unknown, treated as reachable; 4 known vulnerabilities for this version. pillow (score 55, budget full): reachability unknown, treated as reachable; 12 breaking API change(s); 34 advisories before the change, 0 after. pyasn1 (score 90, budget full): reachability unknown, treated as reachable; 8 known vulnerabilities for this version; 0 advisories before the change, 8 after. python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. python-multipart (score 55, budget full): reachability unknown, treated as reachable; 82 breaking API change(s); 16 advisories before the change, 0 after. starlette (score 80, budget full): reachable from first-party code; 14 known vulnerabilities for this version. weasyprint (score 70, budget full): reachable from first-party code; 152 breaking API change(s); 6 advisories before the change, 0 after. |
 | Where | Every test ran in a sealed sandbox (podman, network deny-all networkpolicy on the task pod (claim; verified by the stage 0 probe in this pod), image the pod's own image); the model was qwen/qwen3.8-27b in agent mode; the run's own files are in this folder. |
-| When | Started 2026-09-13 22:08:39 UTC. The last stage to write was self-verification at 2026-09-13 23:01:24 UTC. |
+| When | Started 2026-09-13 22:08:39 UTC. The last stage to write was self-verification at 2026-10-13 18:34:44 UTC. |
 
 ## What the harness did, step by step
 
@@ -36,7 +36,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 | Stage | When | What it did |
 |---|---|---|
-| 0 Self-verification | 2026-09-13 23:01:24 UTC | Ran 19 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
+| 0 Self-verification | 2026-10-13 18:34:44 UTC | Ran 28 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
 | 1 Intake | 2026-09-13 22:08:59 UTC | Resolved the dependency graph at head (63 packages) and at base (63), looked every version up in OSV (4 with advisories at head), and wrote a work list of 64 packages, 5 of them changed by this change. |
 | 2 Analysis | 2026-09-13 22:09:09 UTC | For each package, diffed the two versions' public API and source, found the application's call sites and read the advisories; risk score and budget: ecdsa 65 (full), pdfminer-six 65 (full), pillow 55 (full), pyasn1 90 (full), python-jose 51 (full), python-multipart 55 (full), starlette 80 (full), weasyprint 70 (full). |
 | 3 Generation | 2026-09-13 22:48:33 UTC | python-jose: asked the model (qwen/qwen3.8-27b) for tests in 50 calls; kept 14 tests in 4 file(s), cut 2 that did not hold up on the baseline run, discarded 0 whole attempt(s). |
@@ -44,7 +44,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 | 5 Triage | 2026-09-13 22:57:45 UTC | ecdsa: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 1 finding(s), 0 escalated to a person. pdfminer-six: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 1 finding(s), 0 escalated to a person. pillow: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 0 finding(s), 0 escalated to a person. pyasn1: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 2 finding(s), 0 escalated to a person. python-jose: classified every verdict; 10 tests to accept, 4 to discard or regenerate, 7 finding(s), 7 escalated to a person. python-multipart: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 0 finding(s), 0 escalated to a person. starlette: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 1 finding(s), 0 escalated to a person. weasyprint: classified every verdict; 0 tests to accept, 0 to discard or regenerate, 0 finding(s), 0 escalated to a person. |
 | 6 Review packet | 2026-09-13 22:57:49 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
 | Attestation | 2026-09-13 22:59:31 UTC | python-jose: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
-| Assessment | 2026-09-13 23:01:24 UTC | Measured the run against the blueprint's goals: 9 met, 0 not met, 0 not applicable, 1 other. |
+| Assessment | 2026-10-13 18:34:44 UTC | Measured the run against the blueprint's goals: 10 met, 1 not met, 1 not applicable, 1 other. |
 
 ## Decisions the harness made
 
@@ -78,6 +78,14 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 - starlette: draft VEX per advisory: CVE-2025-54121 affected, CVE-2025-62727 affected, CVE-2026-48710 affected, CVE-2026-48817 affected, CVE-2026-48818 affected, CVE-2026-54282 affected, CVE-2026-54283 affected.
 - weasyprint: triage decided per test: .
 - weasyprint: draft VEX per advisory: CVE-2025-68616 under_investigation, CVE-2026-49452 under_investigation, CVE-2026-55073 under_investigation.
+
+## What was accounted for, and what was not
+
+3 behaviours reached: 0 validated, 0 for your environment, 3 stated gaps. A behaviour is a public function, method or type of the package that the application calls, or a public symbol the change altered. Validated means a kept test ran its lines on both sides of the change and a mutant inside them was killed; a stated gap says why that did not happen. 2 reference(s) were set aside as not behaviours: module imports and types without methods.
+
+- `jose.jwt.decode`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 14 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `jose.jwt.encode`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 5 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `jose.jwt.get_unverified_header`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 4 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
 
 ## Actions it took
 
@@ -147,7 +155,8 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Everyone**
 
 - `README.md`: The story of this run: who, what, why, where, when, the outcome, the decisions and the actions.
-- `assess/assess.md`: The run against the blueprint's eleven goals, each with the measurement and the file it came from.
+- `triage/accounting-summary.json`: The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why.
+- `assess/assess.md`: The run against the blueprint's thirteen goals, each with the measurement and the file it came from.
 
 **Reviewers (the developer or team that owns the change)**
 
@@ -177,6 +186,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `triage/python-multipart/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
 - `triage/starlette/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
 - `triage/weasyprint/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
+- `triage/python-jose/accounting.json`: The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour.
 - `packet/ecdsa/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
 - `packet/pdfminer-six/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
 - `packet/pillow/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
@@ -256,8 +266,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Tools (kept for replay and proof; not meant to be read)**
 
 - `run-index.json`: What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it.
-- `intake/graph.new.json`: The dependency graph at head as the ecosystem's own resolver produced it.
-- `intake/graph.old.json`: The dependency graph at base.
 - `analyze/ecdsa/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/pdfminer-six/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/pillow/api.new.json`: The public API surface at head, extracted by tools.

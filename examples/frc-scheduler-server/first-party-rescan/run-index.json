@@ -27,16 +27,6 @@
       "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
     },
     {
-      "audience": "machine",
-      "path": "intake/graph.new.json",
-      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
-    },
-    {
-      "audience": "machine",
-      "path": "intake/graph.old.json",
-      "purpose": "The dependency graph at base."
-    },
-    {
       "audience": "audit",
       "path": "intake/sbom.new.cdx.json",
       "purpose": "The software bill of materials at head, CycloneDX."
@@ -133,6 +123,17 @@
     {
       "audience": "reviewer",
       "package": "frc-scheduler-server",
+      "path": "triage/frc-scheduler-server/accounting.json",
+      "purpose": "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."
+    },
+    {
+      "audience": "everyone",
+      "path": "triage/accounting-summary.json",
+      "purpose": "The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why."
+    },
+    {
+      "audience": "reviewer",
+      "package": "frc-scheduler-server",
       "path": "packet/frc-scheduler-server/packet.md",
       "purpose": "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."
     },
@@ -199,7 +200,7 @@
     {
       "audience": "everyone",
       "path": "assess/assess.md",
-      "purpose": "The run against the blueprint's eleven goals, each with the measurement and the file it came from."
+      "purpose": "The run against the blueprint's thirteen goals, each with the measurement and the file it came from."
     },
     {
       "audience": "machine",
@@ -218,8 +219,8 @@
   "format": "ai-test-harness/run-index/v1",
   "generation_mode": "fixed",
   "goals": {
-    "met": 8,
-    "not_applicable": 1,
+    "met": 9,
+    "not_applicable": 2,
     "not_met": 1,
     "other": 1
   },
@@ -229,6 +230,12 @@
   "model": "qwen38-27b",
   "packages": [
     {
+      "accounting": {
+        "for_your_environment": 0,
+        "stated_gap": 40,
+        "units": 40,
+        "validated": 0
+      },
       "advisories": 0,
       "attestation": {
         "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
@@ -254,6 +261,7 @@
         "packet/packet.md": "packet/frc-scheduler-server/packet.md",
         "packet/tests.patch": "packet/frc-scheduler-server/tests.patch",
         "packet/vex.openvex.json": "packet/frc-scheduler-server/vex.openvex.json",
+        "triage/accounting.json": "triage/frc-scheduler-server/accounting.json",
         "triage/triage.json": "triage/frc-scheduler-server/triage.json"
       },
       "first_party": true,
@@ -290,12 +298,12 @@
       }
     },
     "assess": {
-      "generated": "2026-09-15T20:29:43+00:00",
+      "generated": "2026-10-13T18:34:44+00:00",
       "present": true,
       "rows": 1,
       "summary": {
-        "met": 8,
-        "not_applicable": 1,
+        "met": 9,
+        "not_applicable": 2,
         "not_met": 1,
         "other": 1
       }
@@ -335,7 +343,7 @@
         "changed": 0,
         "packages_at_base": 63,
         "packages_at_head": 63,
-        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "resolver": null,
         "with_advisories_at_head": 7,
         "work_list_rows": 64
       }
@@ -353,11 +361,11 @@
       "summary": {}
     },
     "selfcheck": {
-      "generated": "2026-09-15T20:29:43+00:00",
+      "generated": "2026-10-13T18:34:44+00:00",
       "present": true,
       "rows": null,
       "summary": {
-        "checks": 22,
+        "checks": 28,
         "model": "skipped",
         "passed": true,
         "sandbox": "skipped"
@@ -371,5 +379,5 @@
     }
   },
   "started": "2026-09-15T20:02:08+00:00",
-  "updated": "2026-09-27T00:23:21+00:00"
+  "updated": "2026-10-13T18:35:09+00:00"
 }

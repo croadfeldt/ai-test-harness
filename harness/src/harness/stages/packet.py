@@ -287,14 +287,25 @@ def pull_request(workdir: Path, pkg: str, *, files: list[str] | None = None, att
     change = f"{pkg} {old or ''} {'->' if old and old != new else ''} {new or ''}".replace("  ", " ").strip() if not facts.get("first_party") else f"{pkg} (the application's own code)"
     key = f" (key {att['keyid'][:19]})" if att.get("keyid") else ""
     commit = {True: "signed", False: "unsigned (no signing key configured; see [propose].sign)", None: "signed at propose time when [propose].sign is on"}[signed]
+    acc_path = workdir / "triage" / pkg / "accounting.json"
+    acc = read_json(acc_path) if acc_path.exists() else None
+    from .account import REASONS, plain
+    not_covered = [u for u in (acc or {}).get("units", []) if u["state"] != "validated"]
     lines = [plain_terms((workdir / pk["packet_md"]).read_text()), "",
              "| | |", "|---|---|",
              f"| Package | {change} |",
              f"| Tests proposed | {len(test_files)} file(s); {c['total']} ran, {c['pass_on_new']} pass on head, {c['fix_pinning_confirmed']} fix-pinning confirmed |",
              f"| Provenance | MANIFEST.json, in-toto statement, DSSE envelope{key}, UDLM records, all in the same directory |",
              f"| Commit | {commit} |",
-             f"| Run | {pk.get('run_id') or read_json(workdir / 'intake' / 'worklist.json')['run_id']} |", "",
-             "Files this pull request carries:", ""] + [f"- `{f}`" for f in files] + ["",
+             f"| Run | {pk.get('run_id') or read_json(workdir / 'intake' / 'worklist.json')['run_id']} |"]
+    if acc:
+        lines += [f"| Accounted for | {plain(acc['counts'])} |"]
+    lines += ["", "Files this pull request carries:", ""] + [f"- `{f}`" for f in files]
+    if not_covered:
+        lines += ["", "Not covered:", ""] + [
+            f"- `{u['symbol']}`: " + ("for your environment, the sandbox refused what the test needs" if u["state"] == "for-your-environment" else REASONS.get(u["reason"], u["reason"]))
+            for u in not_covered[:30]] + ([f"- and {len(not_covered) - 30} more in `triage/{pkg}/accounting.json`"] if len(not_covered) > 30 else [])
+    lines += ["",
              "Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, "
              "and the draft VEX statements for Product Security. Nothing here is merged by the harness; a person decides.", ""]
     return title, "\n".join(lines)

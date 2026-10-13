@@ -30,6 +30,7 @@ type Symbol struct {
 	Doc       string `json:"doc"`
 	File      string `json:"file"`
 	Line      int    `json:"line"`
+	EndLine   int    `json:"end_line"`
 }
 
 type Site struct {
@@ -170,7 +171,7 @@ func apiCmd(dir string) {
 				if x.Type.Results != nil {
 					sig += " " + fieldList(x.Type.Results)
 				}
-				out = append(out, Symbol{module, joinQ(module, name), kind, sig, firstLine(x.Doc), rel, fset.Position(x.Pos()).Line})
+				out = append(out, Symbol{module, joinQ(module, name), kind, sig, firstLine(x.Doc), rel, fset.Position(x.Pos()).Line, fset.Position(x.End()).Line})
 			case *ast.GenDecl:
 				for _, s := range x.Specs {
 					switch sp := s.(type) {
@@ -182,7 +183,7 @@ func apiCmd(dir string) {
 							} else if _, ok := sp.Type.(*ast.StructType); ok {
 								k = "struct"
 							}
-							out = append(out, Symbol{module, joinQ(module, sp.Name.Name), k, exprString(fset, sp.Type), firstLine(x.Doc), rel, fset.Position(sp.Pos()).Line})
+							out = append(out, Symbol{module, joinQ(module, sp.Name.Name), k, exprString(fset, sp.Type), firstLine(x.Doc), rel, fset.Position(sp.Pos()).Line, fset.Position(sp.End()).Line})
 						}
 					case *ast.ValueSpec:
 						for _, n := range sp.Names {
@@ -191,7 +192,7 @@ func apiCmd(dir string) {
 								if x.Tok == token.CONST {
 									k = "constant"
 								}
-								out = append(out, Symbol{module, joinQ(module, n.Name), k, exprString(fset, sp.Type), firstLine(x.Doc), rel, fset.Position(n.Pos()).Line})
+								out = append(out, Symbol{module, joinQ(module, n.Name), k, exprString(fset, sp.Type), firstLine(x.Doc), rel, fset.Position(n.Pos()).Line, fset.Position(sp.End()).Line})
 							}
 						}
 					}

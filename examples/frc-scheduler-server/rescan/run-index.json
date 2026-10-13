@@ -22,16 +22,6 @@
       "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
     },
     {
-      "audience": "machine",
-      "path": "intake/graph.new.json",
-      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
-    },
-    {
-      "audience": "machine",
-      "path": "intake/graph.old.json",
-      "purpose": "The dependency graph at base."
-    },
-    {
       "audience": "audit",
       "path": "intake/sbom.new.cdx.json",
       "purpose": "The software bill of materials at head, CycloneDX."
@@ -267,6 +257,7 @@
   "model": null,
   "packages": [
     {
+      "accounting": null,
       "advisories": 2,
       "attestation": null,
       "budget": "full",
@@ -293,6 +284,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 4,
       "attestation": null,
       "budget": "full",
@@ -319,6 +311,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 34,
       "attestation": null,
       "budget": "full",
@@ -345,6 +338,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 5,
       "attestation": null,
       "budget": "full",
@@ -371,6 +365,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 16,
       "attestation": null,
       "budget": "full",
@@ -397,6 +392,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 14,
       "attestation": null,
       "budget": "full",
@@ -423,6 +419,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 6,
       "attestation": null,
       "budget": "full",
@@ -498,7 +495,7 @@
         "changed": 0,
         "packages_at_base": 63,
         "packages_at_head": 63,
-        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "resolver": null,
         "with_advisories_at_head": 7,
         "work_list_rows": 64
       }
@@ -534,5 +531,5 @@
     }
   },
   "started": "2026-09-12T01:42:31+00:00",
-  "updated": "2026-09-27T00:23:21+00:00"
+  "updated": "2026-10-13T18:35:11+00:00"
 }

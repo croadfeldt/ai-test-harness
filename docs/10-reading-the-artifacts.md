@@ -16,10 +16,10 @@ subdirectory, and every number in a packet points at a file in that directory.
   analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff
   generate/<package>/      the candidate tests, the manifest, every prompt and response under model-calls/
   execute/<package>/       verdicts per test on head, re-run and base; coverage; mutation/; relevance.json
-  triage/<package>/        every verdict and finding classified, with confidence and a route
+  triage/<package>/        every verdict and finding classified, with confidence and a route; accounting.json, every reached behaviour in one state
   packet/<package>/        packet.md, the tests as a patch, the draft VEX, pull-request.md (what the test pull request carries)
   attest/<package>/        the provenance record per test, the signed statement, the UDLM records
-  assess/                  the run against the blueprint's twelve goals
+  assess/                  the run against the blueprint's thirteen goals
   propose/<package>/       the test pull request the harness opened, and what it put on the branch
   feedback/<package>/      what a person accepted, edited or rejected; the realized records; a signed statement
 ```
@@ -74,7 +74,10 @@ rewritten, and nothing under review lives there.
 ## If you are reviewing the change
 
 Open `packet/<package>/packet.md`. Read the first paragraph: the verdict in plain words, what the change
-did, what was proven, what was not, what to do. Then:
+did, what was proven, what was not, what to do. Then read "What was accounted for, and what was not" in
+the run's `README.md`: every behaviour the change reaches is validated, handed to you for your
+environment, or a stated gap with its reason, and the pull request text repeats the gaps as "Not
+covered". Then:
 
 | Section | What it tells you | What to do |
 |---|---|---|
@@ -119,7 +122,7 @@ print(verify(Path('<run>/attest/<package>/statement.dsse.json'), Path('<run>/att
 
 ## If you lead the engineering team
 
-Open `assess/assess.md`: twelve goals from the blueprint, each with the measurement, the verdict and the
+Open `assess/assess.md`: thirteen goals from the blueprint, each with the measurement, the verdict and the
 file it was measured from. Whether a run can be trusted is answered there, not in the packet. Then
 `execute/summary.json` for the counts, `execute/<package>/mutation/mutation.json` for how strong the
 accepted tests are (score, and which test killed which mutant), and `execute/<package>/relevance.json`
@@ -164,7 +167,8 @@ label on every file it lists, and the story at the top of each run groups the fi
 | File | What it is for |
 |---|---|
 | `README.md` | The story of this run: who, what, why, where, when, the outcome, the decisions and the actions. |
-| `assess/assess.md` | The run against the blueprint's twelve goals, each with the measurement and the file it came from. |
+| `triage/accounting-summary.json` | The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why. |
+| `assess/assess.md` | The run against the blueprint's thirteen goals, each with the measurement and the file it came from. |
 
 **Reviewers (the developer or team that owns the change)**
 
@@ -179,6 +183,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `execute/mutation/mutation.json` | How strong the accepted tests are: which mutants of the package's source they killed, and the score. |
 | `execute/relevance.json` | Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted. |
 | `triage/triage.json` | Every verdict and finding classified, with a confidence and a route; below the threshold a person decides. |
+| `triage/accounting.json` | The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour. |
 | `packet/packet.md` | The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action. |
 | `packet/tests.patch` | The accepted tests as a patch in the layout they will live in. |
 | `packet/pull-request.md` | The text and the file list the test pull request carries, whether or not one was opened. |

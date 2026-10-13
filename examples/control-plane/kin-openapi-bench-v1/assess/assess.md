@@ -1,6 +1,6 @@
 # Post-analysis of run 8f4d403ae2ea
 
-**In plain terms.** This run met 10 of 11 goals from the blueprint. Every verdict below points at the file it was measured from.
+**In plain terms.** This run met 11 of 13 goals from the blueprint. Every verdict below points at the file it was measured from.
 
 Packages: github.com/getkin/kin-openapi.
 
@@ -17,3 +17,5 @@ Packages: github.com/getkin/kin-openapi.
 | G9 | Packet within 2 hours of trigger for depth 0 and 1 | intake 2026-09-26T19:13:21+00:00 -> packet 2026-09-26T21:23:07+00:00 | **see measurement** |
 | G10 | Every number in the packet points at a file in the work directory | packet sections cite artifact paths; attestation subjects are the patch and the manifest digests | **met** |
 | G11 | Test strength measured by mutation and coverage delta | github.com/getkin/kin-openapi: score 0.6 on 25 sampled mutants; coverage delta: no baseline overlay suite yet | **met** |
+| G12 | The pipeline's own gaps are stated, never inherited silently | analysis predates the pipeline facts; rerun analysis | **not applicable** |
+| G13 | Every behaviour the change reaches ends in exactly one state, and a gap carries its reason | 5 behaviour(s) reached: 2 validated, 0 for your environment, 3 stated gap(s) (2 no-test-generated, 1 strength-not-sampled); 2 reference(s) set aside with a reas | **met** |

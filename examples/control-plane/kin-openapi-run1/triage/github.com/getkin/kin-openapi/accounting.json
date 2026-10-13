@@ -1,0 +1,242 @@
+{
+  "counts": {
+    "by_reason": {
+      "no-test-generated": 5
+    },
+    "excluded": 2,
+    "for_your_environment": 0,
+    "stated_gap": 5,
+    "units": 5,
+    "validated": 0
+  },
+  "excluded": [
+    {
+      "kind": "module",
+      "reason": "a module import is not a behaviour",
+      "symbol": "github.com/getkin/kin-openapi/openapi3"
+    },
+    {
+      "kind": "module",
+      "reason": "a module import is not a behaviour",
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter"
+    }
+  ],
+  "format": "ai-test-harness/accounting/v1",
+  "generated": "2026-10-13T18:34:43+00:00",
+  "method": {
+    "execution": "lines executed by the run's kept tests inside the unit's own span (aggregate coverage)",
+    "next": "per-test coverage contexts, private callees, sampling stratified over the reached units",
+    "strength": "mutants sampled inside the unit's own span and killed by a kept test"
+  },
+  "package": "github.com/getkin/kin-openapi",
+  "reasons": {
+    "did-not-build": "every candidate for this behaviour failed to compile or collect",
+    "executed-not-checked": "lines ran, no mutant inside them was killed",
+    "failed-on-head": "the tests for this behaviour are wrong",
+    "flaky": "the only tests for this behaviour disagreed with themselves",
+    "no-test-generated": "no kept test names or executes this behaviour",
+    "not-in-public-api": "the application references a name the package's public API does not define",
+    "out-of-budget": "beyond this run's budget; recorded so it is not forgotten",
+    "pipeline-cannot-validate": "the repository's CI cannot run or validate the proposed tests",
+    "strength-not-sampled": "lines ran, no mutant was placed inside them; a sampling gap the harness owns"
+  },
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ],
+  "unit": "a behaviour the change reaches: a public function, method or type of the package the application calls, or a public symbol the change altered",
+  "units": [
+    {
+      "evidence": {
+        "judged_by": "its public methods",
+        "methods": {
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromData": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromDataWithPath": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromFile": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromIoReader": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromStdin": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromURI": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.Loader.ResolveRefsIn": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          }
+        }
+      },
+      "file": "openapi3/loader.go",
+      "kind": "struct",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "github.com/getkin/kin-openapi/openapi3.Loader",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 76,
+          "file": "openapi3/loader.go",
+          "start": 62
+        },
+        "tests": []
+      },
+      "file": "openapi3/loader.go",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "github.com/getkin/kin-openapi/openapi3.NewLoader",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "judged_by": "its public methods",
+        "methods": {
+          "github.com/getkin/kin-openapi/openapi3.T.AddOperation": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.AddServer": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.AddServers": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.GetSchemaValidationOptions": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.InternalizeRefs": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.IsOpenAPI30": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.IsOpenAPI31OrLater": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.JSONLookup": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.MarshalJSON": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.MarshalYAML": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.OpenAPIMajorMinor": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetIntegerFormatValidator": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetIntegerFormatValidators": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetNumberFormatValidator": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetNumberFormatValidators": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetStringFormatValidator": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.SetStringFormatValidators": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.UnmarshalJSON": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.Validate": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          },
+          "github.com/getkin/kin-openapi/openapi3.T.ValidateSchemaJSON": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          }
+        }
+      },
+      "file": "openapi3/openapi3.go",
+      "kind": "struct",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "github.com/getkin/kin-openapi/openapi3.T",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "judged_by": "its public methods",
+        "methods": {
+          "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput.NewError": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          }
+        }
+      },
+      "file": "openapi3filter/authentication_input.go",
+      "kind": "struct",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "judged_by": "its public methods",
+        "methods": {
+          "github.com/getkin/kin-openapi/openapi3filter.Options.WithCustomSchemaErrorFunc": {
+            "reason": "no-test-generated",
+            "state": "stated-gap"
+          }
+        }
+      },
+      "file": "openapi3filter/options.go",
+      "kind": "struct",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "github.com/getkin/kin-openapi/openapi3filter.Options",
+      "via": "call site"
+    }
+  ]
+}

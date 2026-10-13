@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-14T15:01:17+00:00",
+  "generated": "2026-10-13T18:34:43+00:00",
   "goals": [
     {
       "evidence_ref": [
@@ -37,7 +37,7 @@
       ],
       "goal": "Stage 0 passed before evidence was produced",
       "id": "G4",
-      "measurement": "21 of 21 register checks; sandbox probe skipped; model probe skipped",
+      "measurement": "28 of 28 register checks; sandbox probe skipped; model probe skipped",
       "source": "section 8.5, section 17: self-verification",
       "verdict": "met"
     },
@@ -111,6 +111,25 @@
       "measurement": "github.com/getkin/kin-openapi: no mutation engine for go yet; the score is not measured, not zero; coverage delta: no baseline overlay suite yet",
       "source": "section 10: mutation score, coverage delta",
       "verdict": "not applicable"
+    },
+    {
+      "evidence_ref": [],
+      "goal": "The pipeline's own gaps are stated, never inherited silently",
+      "id": "G12",
+      "measurement": "analysis predates the pipeline facts; rerun analysis",
+      "source": "principle 13: the pipeline is under test too",
+      "verdict": "not applicable"
+    },
+    {
+      "evidence_ref": [
+        "triage/accounting-summary.json",
+        "triage/github.com/getkin/kin-openapi/accounting.json"
+      ],
+      "goal": "Every behaviour the change reaches ends in exactly one state, and a gap carries its reason",
+      "id": "G13",
+      "measurement": "5 behaviour(s) reached: 0 validated, 0 for your environment, 5 stated gap(s) (5 no-test-generated); 2 reference(s) set aside with a reason",
+      "source": "principle 14: every reached behaviour accounted for",
+      "verdict": "met"
     }
   ],
   "packages": [
@@ -118,8 +137,8 @@
   ],
   "run_id": "558e6e085fe1",
   "summary": {
-    "met": 9,
-    "not_applicable": 1,
+    "met": 10,
+    "not_applicable": 2,
     "not_met": 0,
     "other": 1
   }

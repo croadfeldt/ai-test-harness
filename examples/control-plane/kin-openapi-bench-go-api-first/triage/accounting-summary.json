@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "by_reason": {
+      "executed-not-checked": 1,
+      "no-test-generated": 3,
+      "strength-not-sampled": 1
+    },
+    "excluded": 2,
+    "for_your_environment": 0,
+    "stated_gap": 5,
+    "units": 5,
+    "validated": 0
+  },
+  "format": "ai-test-harness/accounting-summary/v1",
+  "generated": "2026-10-13T18:34:43+00:00",
+  "packages": [
+    {
+      "by_reason": {
+        "executed-not-checked": 1,
+        "no-test-generated": 3,
+        "strength-not-sampled": 1
+      },
+      "excluded": 2,
+      "for_your_environment": 0,
+      "package": "github.com/getkin/kin-openapi",
+      "stated_gap": 5,
+      "units": 5,
+      "validated": 0
+    }
+  ],
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ]
+}

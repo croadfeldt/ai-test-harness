@@ -1,0 +1,52 @@
+{
+  "counts": {
+    "by_reason": {
+      "strength-not-sampled": 5
+    },
+    "excluded": 2,
+    "for_your_environment": 0,
+    "stated_gap": 5,
+    "units": 5,
+    "validated": 0
+  },
+  "format": "ai-test-harness/accounting-summary/v1",
+  "generated": "2026-10-13T18:34:44+00:00",
+  "packages": [
+    {
+      "by_reason": {
+        "strength-not-sampled": 3
+      },
+      "excluded": 2,
+      "for_your_environment": 0,
+      "package": "python-jose",
+      "stated_gap": 3,
+      "units": 3,
+      "validated": 0
+    },
+    {
+      "by_reason": {},
+      "excluded": 0,
+      "for_your_environment": 0,
+      "package": "pyasn1",
+      "stated_gap": 0,
+      "units": 0,
+      "validated": 0
+    },
+    {
+      "by_reason": {
+        "strength-not-sampled": 2
+      },
+      "excluded": 0,
+      "for_your_environment": 0,
+      "package": "starlette",
+      "stated_gap": 2,
+      "units": 2,
+      "validated": 0
+    }
+  ],
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ]
+}

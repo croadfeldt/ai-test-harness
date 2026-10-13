@@ -177,7 +177,7 @@ def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
     for s in json.loads(out.stdout).get("symbols") or []:
         pkg = f"{modpath}/{s['module']}" if s["module"] else modpath
         syms.append(ApiSymbol(module=pkg, qualname=f"{pkg}.{s['qualname'].split('.', 1)[-1] if s['module'] else s['qualname']}",
-                              kind=s["kind"], signature=s["signature"], doc=s["doc"], file=s["file"], line=s["line"]))
+                              kind=s["kind"], signature=s["signature"], doc=s["doc"], file=s["file"], line=s["line"], end_line=s.get("end_line")))
     return syms
 
 

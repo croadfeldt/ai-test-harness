@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-14T00:09:08+00:00",
+  "generated": "2026-10-13T18:34:44+00:00",
   "goals": [
     {
       "evidence_ref": [
@@ -37,7 +37,7 @@
       ],
       "goal": "Stage 0 passed before evidence was produced",
       "id": "G4",
-      "measurement": "19 of 19 register checks; sandbox probe skipped; model probe skipped",
+      "measurement": "28 of 28 register checks; sandbox probe skipped; model probe skipped",
       "source": "section 8.5, section 17: self-verification",
       "verdict": "met"
     },
@@ -111,6 +111,25 @@
       "measurement": "python-jose: score 0.48 on 25 sampled mutants; coverage delta: no baseline overlay suite yet",
       "source": "section 10: mutation score, coverage delta",
       "verdict": "not met (target 0.6 on sampled mutants)"
+    },
+    {
+      "evidence_ref": [],
+      "goal": "The pipeline's own gaps are stated, never inherited silently",
+      "id": "G12",
+      "measurement": "analysis predates the pipeline facts; rerun analysis",
+      "source": "principle 13: the pipeline is under test too",
+      "verdict": "not applicable"
+    },
+    {
+      "evidence_ref": [
+        "triage/accounting-summary.json",
+        "triage/python-jose/accounting.json"
+      ],
+      "goal": "Every behaviour the change reaches ends in exactly one state, and a gap carries its reason",
+      "id": "G13",
+      "measurement": "3 behaviour(s) reached: 0 validated, 0 for your environment, 3 stated gap(s) (3 strength-not-sampled); 2 reference(s) set aside with a reason",
+      "source": "principle 14: every reached behaviour accounted for",
+      "verdict": "met"
     }
   ],
   "packages": [
@@ -118,9 +137,9 @@
   ],
   "run_id": "5f493a6b7288",
   "summary": {
-    "met": 9,
-    "not_applicable": 0,
-    "not_met": 0,
+    "met": 10,
+    "not_applicable": 1,
+    "not_met": 1,
     "other": 1
   }
 }

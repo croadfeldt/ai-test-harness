@@ -27,16 +27,6 @@
       "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
     },
     {
-      "audience": "machine",
-      "path": "intake/graph.new.json",
-      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
-    },
-    {
-      "audience": "machine",
-      "path": "intake/graph.old.json",
-      "purpose": "The dependency graph at base."
-    },
-    {
       "audience": "audit",
       "path": "intake/sbom.new.cdx.json",
       "purpose": "The software bill of materials at head, CycloneDX."
@@ -415,6 +405,29 @@
     {
       "audience": "reviewer",
       "package": "pyasn1",
+      "path": "triage/pyasn1/accounting.json",
+      "purpose": "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."
+    },
+    {
+      "audience": "reviewer",
+      "package": "python-jose",
+      "path": "triage/python-jose/accounting.json",
+      "purpose": "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."
+    },
+    {
+      "audience": "reviewer",
+      "package": "starlette",
+      "path": "triage/starlette/accounting.json",
+      "purpose": "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."
+    },
+    {
+      "audience": "everyone",
+      "path": "triage/accounting-summary.json",
+      "purpose": "The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why."
+    },
+    {
+      "audience": "reviewer",
+      "package": "pyasn1",
       "path": "packet/pyasn1/packet.md",
       "purpose": "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."
     },
@@ -613,7 +626,7 @@
     {
       "audience": "everyone",
       "path": "assess/assess.md",
-      "purpose": "The run against the blueprint's eleven goals, each with the measurement and the file it came from."
+      "purpose": "The run against the blueprint's thirteen goals, each with the measurement and the file it came from."
     },
     {
       "audience": "machine",
@@ -632,9 +645,9 @@
   "format": "ai-test-harness/run-index/v1",
   "generation_mode": "agent",
   "goals": {
-    "met": 9,
-    "not_applicable": 0,
-    "not_met": 0,
+    "met": 10,
+    "not_applicable": 1,
+    "not_met": 1,
     "other": 1
   },
   "harness_version": "0.1.0",
@@ -643,6 +656,12 @@
   "model": "qwen/qwen3.8-27b",
   "packages": [
     {
+      "accounting": {
+        "for_your_environment": 0,
+        "stated_gap": 0,
+        "units": 0,
+        "validated": 0
+      },
       "advisories": 8,
       "attestation": {
         "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
@@ -670,6 +689,7 @@
         "packet/packet.md": "packet/pyasn1/packet.md",
         "packet/tests.patch": "packet/pyasn1/tests.patch",
         "packet/vex.openvex.json": "packet/pyasn1/vex.openvex.json",
+        "triage/accounting.json": "triage/pyasn1/accounting.json",
         "triage/triage.json": "triage/pyasn1/triage.json"
       },
       "first_party": false,
@@ -694,6 +714,12 @@
       }
     },
     {
+      "accounting": {
+        "for_your_environment": 0,
+        "stated_gap": 3,
+        "units": 3,
+        "validated": 0
+      },
       "advisories": 0,
       "attestation": {
         "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
@@ -721,6 +747,7 @@
         "packet/packet.md": "packet/python-jose/packet.md",
         "packet/tests.patch": "packet/python-jose/tests.patch",
         "packet/vex.openvex.json": "packet/python-jose/vex.openvex.json",
+        "triage/accounting.json": "triage/python-jose/accounting.json",
         "triage/triage.json": "triage/python-jose/triage.json"
       },
       "first_party": false,
@@ -745,6 +772,12 @@
       }
     },
     {
+      "accounting": {
+        "for_your_environment": 0,
+        "stated_gap": 2,
+        "units": 2,
+        "validated": 0
+      },
       "advisories": 14,
       "attestation": {
         "keyid": "sha256:4f2defc2e375e7a90474a4374a891785892c45d21a1533b255ea6c36799648a7",
@@ -772,6 +805,7 @@
         "packet/packet.md": "packet/starlette/packet.md",
         "packet/tests.patch": "packet/starlette/tests.patch",
         "packet/vex.openvex.json": "packet/starlette/vex.openvex.json",
+        "triage/accounting.json": "triage/starlette/accounting.json",
         "triage/triage.json": "triage/starlette/triage.json"
       },
       "first_party": false,
@@ -808,13 +842,13 @@
       }
     },
     "assess": {
-      "generated": "2026-09-13T16:25:42+00:00",
+      "generated": "2026-10-13T18:34:45+00:00",
       "present": true,
       "rows": 3,
       "summary": {
-        "met": 9,
-        "not_applicable": 0,
-        "not_met": 0,
+        "met": 10,
+        "not_applicable": 1,
+        "not_met": 1,
         "other": 1
       }
     },
@@ -853,7 +887,7 @@
         "changed": 5,
         "packages_at_base": 63,
         "packages_at_head": 63,
-        "resolver": "pip --dry-run --report inside docker.io/library/python:3.12-slim (python/pip 3.12.13 25.0.1), wheels only",
+        "resolver": null,
         "with_advisories_at_head": 4,
         "work_list_rows": 64
       }
@@ -871,11 +905,11 @@
       "summary": {}
     },
     "selfcheck": {
-      "generated": "2026-09-13T16:25:42+00:00",
+      "generated": "2026-10-13T18:34:44+00:00",
       "present": true,
       "rows": null,
       "summary": {
-        "checks": 19,
+        "checks": 28,
         "model": "skipped",
         "passed": true,
         "sandbox": "skipped"
@@ -889,5 +923,5 @@
     }
   },
   "started": "2026-09-12T01:41:41+00:00",
-  "updated": "2026-09-27T00:23:21+00:00"
+  "updated": "2026-10-13T18:35:10+00:00"
 }

@@ -14,7 +14,7 @@ What happened, why, and what came out of it. Written by the harness from its own
 | What | A scheduled scan of frc-scheduler-server at 2ad04243861b, no change under review. 7 of 64 packages carry known vulnerabilities. Tests for the application's own code at 2ad04243861b. |
 | Why | frc-scheduler-server: the application's own changed code has no tests from anyone else; the harness tests what the change added or changed. |
 | Where | Every test ran in a sealed sandbox (podman, network none, image docker.io/library/python:3.12-slim); the model was qwen38-27b in fixed mode; the run's own files are in this folder. |
-| When | Started 2026-09-15 20:02:08 UTC. The last stage to write was self-verification at 2026-09-15 20:29:43 UTC. |
+| When | Started 2026-09-15 20:02:08 UTC. The last stage to write was self-verification at 2026-10-13 18:34:44 UTC. |
 
 ## What the harness did, step by step
 
@@ -22,7 +22,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 | Stage | When | What it did |
 |---|---|---|
-| 0 Self-verification | 2026-09-15 20:29:43 UTC | Ran 22 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
+| 0 Self-verification | 2026-10-13 18:34:44 UTC | Ran 28 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
 | 1 Intake | 2026-09-15 20:02:45 UTC | Resolved the dependency graph at head (63 packages) and at base (63), looked every version up in OSV (7 with advisories at head), and wrote a work list of 64 packages, 0 of them changed by this change. |
 | 2 Analysis | 2026-09-15 20:02:45 UTC | frc-scheduler-server: read the application's diff and found the symbols it added or changed. |
 | 3 Generation | 2026-09-15 20:06:25 UTC | frc-scheduler-server: asked the model (qwen38-27b) for tests in 6 calls; kept 4 tests in 1 file(s), cut 3 that did not hold up on the baseline run, discarded 1 whole attempt(s). |
@@ -30,7 +30,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 | 5 Triage | 2026-09-15 20:28:26 UTC | frc-scheduler-server: classified every verdict; 4 tests to accept, 0 to discard or regenerate, 4 finding(s), 4 escalated to a person. |
 | 6 Review packet | 2026-09-15 20:29:42 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
 | Attestation | 2026-09-15 20:29:43 UTC | frc-scheduler-server: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
-| Assessment | 2026-09-15 20:29:43 UTC | Measured the run against the blueprint's goals: 8 met, 1 not met, 1 not applicable, 1 other. |
+| Assessment | 2026-10-13 18:34:44 UTC | Measured the run against the blueprint's goals: 9 met, 1 not met, 2 not applicable, 1 other. |
 
 ## Decisions the harness made
 
@@ -42,6 +42,42 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 - frc-scheduler-server: finding, redundant at confidence 0.5: frc-scheduler-server: test_load_canonical_missing_returns_none killed none of 25 sampled mutants in this run. Route: escalate: below confidence threshold.
 - frc-scheduler-server: finding, redundant at confidence 0.5: frc-scheduler-server: test_parse_csv_reads_rows killed none of 25 sampled mutants in this run. Route: escalate: below confidence threshold.
 - frc-scheduler-server: mutation score 0.04 is below the blueprint's 0.6; the packet says so, and the reviewer sees which tests killed nothing.
+
+## What was accounted for, and what was not
+
+40 behaviours reached: 0 validated, 0 for your environment, 40 stated gaps. A behaviour is a public function, method or type of the package that the application calls, or a public symbol the change altered. Validated means a kept test ran its lines on both sides of the change and a mutant inside them was killed; a stated gap says why that did not happen. 189 reference(s) were set aside as not behaviours: module imports and types without methods.
+
+- `app.auth.create_jwt`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.decode_jwt`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 2 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.get_current_user`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.require_auth`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.upsert_user`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 2 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.google_login_url`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.google_exchange_code`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.apple_login_url`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.auth.apple_exchange_code`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.canonical_filename`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 2 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.canonical_path`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 4 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.CanonicalEntry`: lines ran, no mutant was placed inside them; a sampling gap the harness owns.
+- `app.canonical_library.CanonicalEntry.to_dict`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 2 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.CanonicalEntry.from_dict`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.load_canonical`: lines ran, no mutant inside them was killed. 4 line(s) ran, 1 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.save_canonical`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.canonical_library.list_canonicals`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 2 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.csv_extract.parse_csv`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.day_config_v2.validate_v2`: no kept test names or executes this behaviour.
+- `app.day_config_v2.is_v2_shape`: no kept test names or executes this behaviour.
+- `app.day_config_v2.migrate_v1_to_v2`: no kept test names or executes this behaviour.
+- `app.day_config_v2.downgrade_v2_to_v1`: no kept test names or executes this behaviour.
+- `app.day_config_v2.materialize_v2`: no kept test names or executes this behaviour.
+- `app.day_config_v2.normalize_to_v2`: no kept test names or executes this behaviour.
+- `app.db.utcnow`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.db.init_db`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.db.get_session`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 1 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `app.frc_compliance.compute_deviations`: no kept test names or executes this behaviour.
+- `app.frc_compliance.is_competition_approved`: no kept test names or executes this behaviour.
+- `app.frc_compliance.build_audit_record`: no kept test names or executes this behaviour.
+- and 10 more in the accounting files.
 
 ## Actions it took
 
@@ -78,7 +114,8 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Everyone**
 
 - `README.md`: The story of this run: who, what, why, where, when, the outcome, the decisions and the actions.
-- `assess/assess.md`: The run against the blueprint's eleven goals, each with the measurement and the file it came from.
+- `triage/accounting-summary.json`: The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why.
+- `assess/assess.md`: The run against the blueprint's thirteen goals, each with the measurement and the file it came from.
 
 **Reviewers (the developer or team that owns the change)**
 
@@ -89,6 +126,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/frc-scheduler-server/mutation/mutation.json`: How strong the accepted tests are: which mutants of the package's source they killed, and the score.
 - `execute/frc-scheduler-server/relevance.json`: Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted.
 - `triage/frc-scheduler-server/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
+- `triage/frc-scheduler-server/accounting.json`: The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour.
 - `packet/frc-scheduler-server/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
 - `packet/frc-scheduler-server/tests.patch`: The accepted tests as a patch in the layout they will live in.
 - `packet/frc-scheduler-server/pull-request.md`: The text and the file list the test pull request carries, whether or not one was opened.
@@ -119,8 +157,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Tools (kept for replay and proof; not meant to be read)**
 
 - `run-index.json`: What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it.
-- `intake/graph.new.json`: The dependency graph at head as the ecosystem's own resolver produced it.
-- `intake/graph.old.json`: The dependency graph at base.
 - `analyze/frc-scheduler-server/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/frc-scheduler-server/call-sites.json`: Every place the application references this package.
 - `execute/frc-scheduler-server/new/`: The sealed run on head: the run script, the junit report, coverage, logs.
