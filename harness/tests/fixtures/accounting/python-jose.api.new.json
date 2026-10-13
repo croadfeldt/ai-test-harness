@@ -1,0 +1,191 @@
+{
+ "archive": "python_jose-3.4.0-py2.py3-none-any.whl",
+ "import_names": [
+  "jose"
+ ],
+ "note": "trimmed to the jwt and exceptions modules for tests/test_accounting.py; the full surface is written by every run and ignored in examples/ for size",
+ "package": "python-jose",
+ "symbols": [
+  {
+   "doc": "",
+   "file": "jose/__init__.py",
+   "kind": "module",
+   "line": 1,
+   "module": "jose",
+   "qualname": "jose",
+   "signature": ""
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "module",
+   "line": 1,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions",
+   "signature": ""
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 1,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JOSEError",
+   "signature": "(Exception)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 5,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWSError",
+   "signature": "(JOSEError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 9,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWSSignatureError",
+   "signature": "(JWSError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 13,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWSAlgorithmError",
+   "signature": "(JWSError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 17,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWTError",
+   "signature": "(JOSEError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 21,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWTClaimsError",
+   "signature": "(JWTError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 25,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.ExpiredSignatureError",
+   "signature": "(JWTError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 29,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWKError",
+   "signature": "(JOSEError)"
+  },
+  {
+   "doc": "Base error for all JWE errors",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 33,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWEError",
+   "signature": "(JOSEError)"
+  },
+  {
+   "doc": "Could not parse the JWE string provided",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 39,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWEParseError",
+   "signature": "(JWEError)"
+  },
+  {
+   "doc": "The authentication tag did not match the protected sections of the",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 45,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWEInvalidAuth",
+   "signature": "(JWEError)"
+  },
+  {
+   "doc": "The JWE algorithm is not supported by the backend",
+   "file": "jose/exceptions.py",
+   "kind": "class",
+   "line": 54,
+   "module": "jose.exceptions",
+   "qualname": "jose.exceptions.JWEAlgorithmUnsupportedError",
+   "signature": "(JWEError)"
+  },
+  {
+   "doc": "",
+   "file": "jose/jwt.py",
+   "kind": "module",
+   "line": 1,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt",
+   "signature": ""
+  },
+  {
+   "doc": "Encodes a claims set and returns a JWT string.",
+   "file": "jose/jwt.py",
+   "kind": "function",
+   "line": 26,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt.encode",
+   "signature": "(claims, key, algorithm=ALGORITHMS.HS256, headers=None, access_token=None)"
+  },
+  {
+   "doc": "Verifies a JWT string's signature and validates reserved claims.",
+   "file": "jose/jwt.py",
+   "kind": "function",
+   "line": 68,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt.decode",
+   "signature": "(token, key, algorithms=None, options=None, audience=None, issuer=None, subject=None, access_token=None)"
+  },
+  {
+   "doc": "Returns the decoded headers without verification of any kind.",
+   "file": "jose/jwt.py",
+   "kind": "function",
+   "line": 182,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt.get_unverified_header",
+   "signature": "(token)"
+  },
+  {
+   "doc": "Returns the decoded headers without verification of any kind.",
+   "file": "jose/jwt.py",
+   "kind": "function",
+   "line": 202,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt.get_unverified_headers",
+   "signature": "(token)"
+  },
+  {
+   "doc": "Returns the decoded claims without verification of any kind.",
+   "file": "jose/jwt.py",
+   "kind": "function",
+   "line": 220,
+   "module": "jose.jwt",
+   "qualname": "jose.jwt.get_unverified_claims",
+   "signature": "(token)"
+  }
+ ],
+ "version": "3.4.0"
+}

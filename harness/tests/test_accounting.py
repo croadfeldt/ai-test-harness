@@ -16,9 +16,19 @@ PY = ROOT / "examples" / "frc-scheduler-server" / "pr-fix-known-vulns-235b"
 GO = ROOT / "examples" / "control-plane" / "kin-openapi-bench-v1"
 
 
+FIXTURES = Path(__file__).resolve().parent / "fixtures" / "accounting"
+API = {PY.name: ("python-jose", "python-jose.api.new.json"), GO.name: ("github.com/getkin/kin-openapi", "kin-openapi.api.new.json")}
+
+
 def _copy(src: Path, tmp: Path) -> Path:
+    """The example run, plus its API surface: every run writes api.new.json, but examples/ ignores it for
+    size, so a trimmed copy of the two the tests need lives in fixtures/."""
     dst = tmp / src.name
     shutil.copytree(src, dst, ignore=shutil.ignore_patterns("model-calls", "scratch", "mutants"))
+    pkg, fixture = API[src.name]
+    api = dst / "analyze" / pkg / "api.new.json"
+    if not api.exists():
+        shutil.copy(FIXTURES / fixture, api)
     return dst
 
 
