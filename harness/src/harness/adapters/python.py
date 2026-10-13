@@ -215,9 +215,8 @@ def _first_line(doc: str | None) -> str:
     return (doc or "").strip().splitlines()[0][:160] if doc and doc.strip() else ""
 
 
-def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
-    """Public symbols with signatures, from the AST. Private modules and names are skipped."""
-    symbols: list[ApiSymbol] = []
+def _iter_modules(unpacked: Path, names: list[str]):
+    """Every module file of the package: (dotted module name, path relative to the import root, parsed tree)."""
     roots = []
     for cand in [unpacked, *[d for d in unpacked.iterdir() if d.is_dir()]]:
         for n in names:
@@ -246,6 +245,58 @@ def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
                 tree = ast.parse(f.read_text(errors="replace"))
             except (SyntaxError, ValueError):
                 continue
+            yield module, rel, tree
+
+
+def _callees(fn: ast.AST, module: str, cls: str | None) -> list[str]:
+    """The private same-module functions and private methods on self or cls that a body calls, as qualnames."""
+    out: list[str] = []
+    for n in ast.walk(fn):
+        if not isinstance(n, ast.Call):
+            continue
+        f = n.func
+        q = None
+        if isinstance(f, ast.Name) and f.id.startswith("_") and not f.id.startswith("__"):
+            q = f"{module}.{f.id}"
+        elif isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name) and f.value.id in ("self", "cls") and cls and f.attr.startswith("_") and f.attr != "__init__":
+            q = f"{module}.{cls}.{f.attr}"
+        if q and q not in out:
+            out.append(q)
+    return out
+
+
+def internals(unpacked: Path, names: list[str]) -> dict:
+    """The private functions and methods behind the public API, with their spans, and who calls whom within a
+    module: what the accounting needs to credit a public behaviour with the helpers it delegates to."""
+    private, calls = [], {}
+    for module, rel, tree in _iter_modules(unpacked, names):
+        for node in tree.body:
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                q = f"{module}.{node.name}"
+                if node.name.startswith("_"):
+                    private.append({"qualname": q, "kind": "private-function", "file": str(rel), "line": node.lineno, "end_line": getattr(node, "end_lineno", None)})
+                cs = _callees(node, module, None)
+                if cs:
+                    calls[q] = cs
+            elif isinstance(node, ast.ClassDef):
+                for m in node.body:
+                    if isinstance(m, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                        q = f"{module}.{node.name}.{m.name}"
+                        if m.name.startswith("_") and m.name != "__init__":
+                            private.append({"qualname": q, "kind": "private-method", "file": str(rel), "line": m.lineno, "end_line": getattr(m, "end_lineno", None)})
+                        cs = _callees(m, module, node.name)
+                        if cs:
+                            calls[q] = cs
+    known = {p["qualname"] for p in private}
+    calls = {k: [c for c in v if c in known] for k, v in calls.items()}
+    return {"private": private, "calls": {k: v for k, v in calls.items() if v}}
+
+
+def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
+    """Public symbols with signatures, from the AST. Private modules and names are skipped."""
+    symbols: list[ApiSymbol] = []
+    for module, rel, tree in _iter_modules(unpacked, names):
+        if True:
             symbols.append(ApiSymbol(module=module, qualname=module, kind="module", signature="",
                                      doc=_first_line(ast.get_docstring(tree)), file=str(rel), line=1))
             for node in tree.body:

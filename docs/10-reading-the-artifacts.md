@@ -13,7 +13,7 @@ subdirectory, and every number in a packet points at a file in that directory.
   run-index.json           what the run holds: stages, packages, headline numbers, and where every file is, each labelled with its reader
   selfcheck/               stage 0: every register check, the sandbox probe, the model probe
   intake/                  the dependency graph at base and head, the SBOM, known vulnerabilities, the work list
-  analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff
+  analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff; internals.json, the private helpers behind the API
   generate/<package>/      the candidate tests, the manifest, every prompt and response under model-calls/
   execute/<package>/       verdicts per test on head, re-run and base; coverage; mutation/; relevance.json
   triage/<package>/        every verdict and finding classified, with confidence and a route; accounting.json, every reached behaviour in one state
@@ -236,6 +236,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `intake/graph.old.json` | The dependency graph at base. |
 | `analyze/api.new.json` | The public API surface at head, extracted by tools. |
 | `analyze/api.old.json` | The public API surface at base. |
+| `analyze/internals.json` | The private functions behind the public API at head, with their spans, and who calls whom; the accounting credits a behaviour with the helpers it delegates to. |
 | `analyze/call-sites.json` | Every place the application references this package. |
 | `generate/scratch/` | Every attempt that ran in the sandbox during generation, with its output; not committed. |
 | `execute/new/` | The sealed run on head: the run script, the junit report, coverage, logs. |

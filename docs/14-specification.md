@@ -20,7 +20,7 @@ this implementation, or says there is none yet.
 | R8 | A failure of the path to the model SHOULD be retried; a refusal from the model is final. | GF-025 |
 | R9 | Every candidate MUST run in a sealed sandbox: no network, no secrets, read-only root, disposable; twice on head for flakes, and on the base or a resolved fixed candidate for the differential. | `test_sandbox_integration`, GF-008, GF-010 |
 | R10 | Every old/new outcome MUST map to a fixed, honest verdict; a fix is proven only by a test that fails on the vulnerable version and passes on the fixed one. | GF-012, GF-016, `test_verdicts` |
-| R11 | Mutation MUST sample only lines the generated tests executed, bounded, and record which test killed which mutant; a mutant that does not compile is invalid, not killed. | GF-028, `test_go_mutation_integration`, `test_mutant_patch` |
+| R11 | Mutation MUST sample only lines the generated tests executed, bounded, stratified so each reached behaviour with a site gets a mutant before the rest of the package, and record which test killed which mutant; a mutant that does not compile is invalid, not killed. | GF-028, `test_go_mutation_integration`, `test_mutant_patch` |
 | R12 | Retirement of existing tests SHOULD be proposed with evidence and MUST NOT be performed. | `test_relevance` |
 | R13 | Triage MUST classify every verdict and finding with a confidence and a route; below the threshold a person decides. | no direct check yet; goal G8 reads what was escalated |
 | R14 | The packet MUST open in plain terms, carry the accepted tests as a patch, draft a VEX statement per advisory (fixed only on a proven test, matched by id in any case), and the pull request's text and file list. | GF-026, `test_packet_vex_case`, `test_story` |
@@ -32,7 +32,7 @@ this implementation, or says there is none yet.
 | R20 | A trigger (pull request, push, schedule, person) SHOULD start a run with one command and the refs the event implies. | `test_cli_manifest`; no check for the trigger files yet |
 | R21 | Analysis MUST read the repository's CI definitions at the reviewed commit and record what they do with untrusted code while tests run; triage MUST state each as a finding with the correcting change, routed to the pipeline's owners; the harness MUST NOT edit the pipeline. | `test_pipeline_facts`, goal G12 |
 | R22 | Analysis MUST count what the existing suite reaches of each package in scope and of the symbols the change altered; triage MUST state a provable gap as a finding with the call sites to test. | `test_pipeline_facts` |
-| R23 | Triage MUST account for every behaviour the change reaches in exactly one of three states, validated, for your environment, or a stated gap with one reason, with the evidence per behaviour; the counts MUST sum; the story, the pull request text and the index MUST carry them. | `test_accounting` |
+| R23 | Triage MUST account for every behaviour the change reaches in exactly one of three states, validated, for your environment, or a stated gap with one reason, with the evidence per behaviour; a behaviour's lines MUST include the private helpers it delegates to; when per-test coverage exists, validation MUST require the test that executed the behaviour to be the one that killed a mutant in it; the counts MUST sum; the story, the pull request text and the index MUST carry them. | `test_accounting`, `test_accounting_strength` |
 
 ## Contracts
 

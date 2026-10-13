@@ -33,6 +33,15 @@ type Symbol struct {
 	EndLine   int    `json:"end_line"`
 }
 
+type Internal struct {
+	Module   string `json:"module"`
+	Qualname string `json:"qualname"`
+	Kind     string `json:"kind"`
+	File     string `json:"file"`
+	Line     int    `json:"line"`
+	EndLine  int    `json:"end_line"`
+}
+
 type Site struct {
 	Symbol  string `json:"symbol"`
 	File    string `json:"file"`
@@ -133,9 +142,54 @@ func isTestFile(rel string) bool {
 	return strings.HasSuffix(rel, "_test.go") || strings.Contains(rel, "/testdata/")
 }
 
+// calleesOf lists the package-level unexported functions and the unexported methods on the receiver that a
+// function body calls, by qualified name within the module: the private callees a public behaviour delegates to.
+func calleesOf(module string, fn *ast.FuncDecl) []string {
+	seen := map[string]bool{}
+	var out []string
+	recv := ""
+	if fn.Recv != nil && len(fn.Recv.List) > 0 {
+		recv = strings.TrimPrefix(exprStringNoFset(fn.Recv.List[0].Type), "*")
+	}
+	if fn.Body == nil {
+		return out
+	}
+	ast.Inspect(fn.Body, func(n ast.Node) bool {
+		call, ok := n.(*ast.CallExpr)
+		if !ok {
+			return true
+		}
+		var q string
+		switch f := call.Fun.(type) {
+		case *ast.Ident:
+			if f.Name != "" && !ast.IsExported(f.Name) {
+				q = joinQ(module, f.Name)
+			}
+		case *ast.SelectorExpr:
+			if id, ok := f.X.(*ast.Ident); ok && recv != "" && fn.Recv.List[0].Names != nil && len(fn.Recv.List[0].Names) > 0 && id.Name == fn.Recv.List[0].Names[0].Name && !ast.IsExported(f.Sel.Name) {
+				q = joinQ(module, recv+"."+f.Sel.Name)
+			}
+		}
+		if q != "" && !seen[q] {
+			seen[q] = true
+			out = append(out, q)
+		}
+		return true
+	})
+	return out
+}
+
+func exprStringNoFset(e ast.Expr) string {
+	var b strings.Builder
+	printExpr(&b, e)
+	return b.String()
+}
+
 func apiCmd(dir string) {
 	fset := token.NewFileSet()
 	var out []Symbol
+	var internals []Internal
+	calls := map[string][]string{}
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() || !strings.HasSuffix(path, ".go") {
 			return nil
@@ -156,9 +210,6 @@ func apiCmd(dir string) {
 		for _, d := range f.Decls {
 			switch x := d.(type) {
 			case *ast.FuncDecl:
-				if !x.Name.IsExported() {
-					continue
-				}
 				name := x.Name.Name
 				kind := "function"
 				if x.Recv != nil && len(x.Recv.List) > 0 {
@@ -166,6 +217,13 @@ func apiCmd(dir string) {
 					recv = strings.TrimPrefix(recv, "*")
 					name = recv + "." + name
 					kind = "method"
+				}
+				if cs := calleesOf(module, x); len(cs) > 0 {
+					calls[joinQ(module, name)] = cs
+				}
+				if !x.Name.IsExported() {
+					internals = append(internals, Internal{module, joinQ(module, name), "private-" + kind, rel, fset.Position(x.Pos()).Line, fset.Position(x.End()).Line})
+					continue
 				}
 				sig := "(" + fieldList(x.Type.Params) + ")"
 				if x.Type.Results != nil {
@@ -201,7 +259,7 @@ func apiCmd(dir string) {
 		}
 		return nil
 	})
-	json.NewEncoder(os.Stdout).Encode(map[string]any{"symbols": out})
+	json.NewEncoder(os.Stdout).Encode(map[string]any{"symbols": out, "internals": internals, "calls": calls})
 }
 
 func joinQ(module, name string) string {

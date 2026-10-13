@@ -587,7 +587,16 @@ is set aside with that reason. The state comes from the unit's own span: lines a
 `pipeline-cannot-validate`, `not-in-public-api`, `executed-not-checked`, `strength-not-sampled`,
 `flaky`, `failed-on-head`, `no-test-generated`, `out-of-budget`. The story, the pull request text
 ("Accounted for" and "Not covered"), the run index, the dashboard and the evaluation table carry the
-counts. Not yet wired, and named so no one assumes it: per-test attribution through coverage contexts,
+counts. A unit's lines are its closure: its own span plus the private functions and methods it delegates
+to within the module (`analyze/<package>/internals.json`, written by the extractors for Python and Go), so
+the behaviour of `decode` is credited where it lives, in the helpers. The Python sandbox records a coverage
+context per test function, so execution is attributed to the test that did it, and strength requires that
+the test which executed the unit is the one that killed a mutant inside its closure; without contexts (Go,
+older runs) any kept killer counts and the record says so. Mutation sampling is stratified: each reached
+behaviour with a site gets a mutant, round-robin, before the remainder of the package is sampled, so the
+strength question is asked where the application calls. Still not wired, and named so no one assumes it:
+per-test attribution for Go (per-test coverage runs for the kept tests), the published runs re-run under
+these rules (no GPU time has been spent on them yet), and the earlier note stands that
 the private callees a public function delegates to, and mutant sampling stratified over the reached
 units; until they land most units on the published runs read `strength-not-sampled`, which is the truth
 about the sample ([document 18](18-design-queue-research.md) has the dry run).

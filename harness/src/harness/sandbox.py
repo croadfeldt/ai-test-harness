@@ -77,9 +77,10 @@ cp -r /tests /work/tests
 # A first-party target: the application's own tree, mounted read-only, copied so a mutant can be laid over it.
 if [ -d /src ]; then cp -r /src /work/src; export PYTHONPATH=/work/src{":/work/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
 if [ -d /mutant ]; then cp -r /mutant/. {"/work/src" if source_dir else "/work/venv/lib/python3.12/site-packages"}/; fi
-/work/venv/bin/python -m coverage run --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
+printf '[run]\ndynamic_context = test_function\n' > /work/.coveragerc
+/work/venv/bin/python -m coverage run --rcfile=/work/.coveragerc --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
     --junitxml=/out/junit.xml -o junit_family=xunit2 /work/tests ; rc=$?
-/work/venv/bin/python -m coverage json -o /out/coverage.json >/dev/null 2>&1 || true
+/work/venv/bin/python -m coverage json --rcfile=/work/.coveragerc --show-contexts -o /out/coverage.json >/dev/null 2>&1 || /work/venv/bin/python -m coverage json -o /out/coverage.json >/dev/null 2>&1 || true
 exit $rc
 """
     (out_dir / "run.sh").write_text(script)
@@ -131,9 +132,10 @@ cd {work}
 cp -r {tests_dir.resolve()} {work}/tests
 if [ -d "{source_dir.resolve() if source_dir else '/nonexistent'}" ]; then cp -r {source_dir.resolve() if source_dir else '/nonexistent'} {work}/src; export PYTHONPATH={work}/src{":" + str(work) + "/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
 if [ -d "{overlay_dir.resolve() if overlay_dir else '/nonexistent'}" ]; then cp -r {overlay_dir.resolve() if overlay_dir else '/nonexistent'}/. {f"{work}/src" if source_dir else f"{work}/venv/lib/python3.12/site-packages"}/; fi
-{work}/venv/bin/python -m coverage run --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
+printf '[run]\ndynamic_context = test_function\n' > {work}/.coveragerc
+{work}/venv/bin/python -m coverage run --rcfile={work}/.coveragerc --branch --source={",".join(cover) or "."} -m pytest -q -p no:cacheprovider --continue-on-collection-errors \\
     --junitxml={out_dir.resolve()}/junit.xml -o junit_family=xunit2 {work}/tests ; rc=$?
-{work}/venv/bin/python -m coverage json -o {out_dir.resolve()}/coverage.json >/dev/null 2>&1 || true
+{work}/venv/bin/python -m coverage json --rcfile={work}/.coveragerc --show-contexts -o {out_dir.resolve()}/coverage.json >/dev/null 2>&1 || {work}/venv/bin/python -m coverage json -o {out_dir.resolve()}/coverage.json >/dev/null 2>&1 || true
 exit $rc
 """
     (out_dir / "run.sh").write_text(script)

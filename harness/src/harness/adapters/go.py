@@ -181,6 +181,33 @@ def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
     return syms
 
 
+def internals(unpacked: Path, names: list[str]) -> dict:
+    """Unexported functions and methods with spans, and who calls whom within a package, from the helper.
+    Callee names the package does not define (builtins, other packages) are dropped."""
+    modpath = names[0] if names else ""
+    out = subprocess.run([str(_helper()), "api", str(unpacked)], capture_output=True, text=True, timeout=600)
+    if out.returncode != 0:
+        raise HarnessError(f"gohelper api failed: {out.stderr[-300:]}")
+    doc = json.loads(out.stdout)
+
+    def full(helper_q: str, module: str) -> str:
+        pkg = f"{modpath}/{module}" if module else modpath
+        return f"{pkg}.{helper_q.split('.', 1)[-1] if module else helper_q}"
+
+    module_of = {i["qualname"]: i["module"] for i in doc.get("internals") or []}
+    module_of.update({s["qualname"]: s["module"] for s in doc.get("symbols") or []})
+    private = [{"qualname": full(i["qualname"], i["module"]), "kind": i["kind"], "file": i["file"], "line": i["line"], "end_line": i.get("end_line")}
+               for i in doc.get("internals") or []]
+    known = {p["qualname"] for p in private}
+    calls = {}
+    for caller, callees in (doc.get("calls") or {}).items():
+        mod = module_of.get(caller, "")
+        cs = [full(c, mod) for c in callees if full(c, mod) in known]
+        if cs:
+            calls[full(caller, mod)] = cs
+    return {"private": private, "calls": calls}
+
+
 def api_diff(old: list[ApiSymbol], new: list[ApiSymbol]) -> list[ApiChange]:
     o = {s.qualname: s for s in old}; n = {s.qualname: s for s in new}
     changes = []
