@@ -5,12 +5,12 @@ changed what the harness promises, and some of those promises are not yet true i
 code. This page lists each one, what it answers, where it lands, and roughly how big it is, so that the
 case and the implementation converge instead of drifting. Items leave this page when they merge.
 
-Each item is one pull request or less. Order is the order I would do them: the output contract first,
+Each item is one pull request or less. The [research notes](18-design-queue-research.md) record what was found before building each one and what it changes here. Order is the order I would do them: the output contract first,
 because everything else reports through it.
 
 | # | Item | Answers | Lands in | Size |
 |---|---|---|---|---|
-| Q1 | **Three-state output contract.** Every function a change reaches ends in exactly one state: validated, for your environment, stated gap with reason. Nothing silent. Carried in the run story, the pull request text, the run index and the dashboard. | Expectations of output; Gloria 25 | Blueprint principle beside "fitness validated"; `story.py`, `packet.py`, `runindex.py` | Medium |
+| Q1 | **Three-state output contract.** Every function a change reaches ends in exactly one state: validated, for your environment, stated gap with reason. Nothing silent. Design and a dry run on a published run are in the [research notes](18-design-queue-research.md). Carried in the run story, the pull request text, the run index and the dashboard. | Expectations of output; Gloria 25 | Blueprint principle beside "fitness validated"; `story.py`, `packet.py`, `runindex.py` | Medium |
 | Q2 | **Tests declare their needs.** Each generated test carries a declaration: none, localhost, network, machine. The sandbox verifies it (a "none" test that opens a socket fails for that reason). The testbed is chosen from it: none and localhost run sealed; machine runs under Kata or gVisor when available, otherwise is proposed to the team's pipeline with the declaration; network is proposed, never run by the harness. | Gloria 9, 10, 11; autopkgtest and Bazel precedent | Blueprint stage 4; generate prompt; `execute.py`; test metadata in the manifest schema | Large |
 | Q3 | **Testbed failure is its own status.** An outcome caused by the environment (permission denied, operation not permitted, missing device, name resolution) is classified `testbed-failure`, never a defect, never discarded; routed with Q2's "for your environment." | Gloria 10; autopkgtest exit 16 | `execute.verdict`, triage classes, routing table | Small |
 | Q4 | **More repeats before proposal.** Candidates about to be proposed run more than twice; any disagreement quarantines. Count is a team setting. | Jordi 12; TestGen-LLM | `execute.py`, config | Small |
