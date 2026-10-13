@@ -103,6 +103,7 @@ intake/
 analyze/<package>/
   api.old.json api.new.json     public API surface, tool-derived
   api-diff.json                 added / removed / changed symbols, breaking flag and reason
+  internals.json                private functions and methods with spans, and who calls whom; the accounting's closure
   call-sites.json               every first-party reference, production and test
   vulns.json                    advisories with fixed versions and any named symbols
   notes.untrusted.md            maintainer text from PyPI, banner says untrusted
@@ -116,7 +117,7 @@ generate/<package>/
 execute/<package>/
   results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
   new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
-  mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills
+  mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills, stratification over reached behaviours
   relevance.json                retirement proposals with reason, evidence, horizon, and rewrite flag
 triage/<package>/triage.json    findings and per-test classes with confidence, routing, evidence refs
 triage/<package>/accounting.json  every reached behaviour in one state (validated, for your environment, stated gap + reason) with evidence

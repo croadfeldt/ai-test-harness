@@ -11,11 +11,13 @@ public symbol; for a rescan with no change, every public symbol, those beyond th
 `out-of-budget` rather than dropped. A type's behaviours are its public methods; a type with none is
 listed as excluded, because its behaviour is the functions that raise or return it.
 
-This first iteration attributes execution from the run's aggregate coverage and strength from the
-mutants sampled inside the unit's span (its own lines, start to end). Per-test attribution through
-coverage contexts, the private callees a public function delegates to, and mutant sampling stratified
-over the reached units follow in the next slice; until then most units will read `strength-not-sampled`,
-which is the truth about the sample, not about the tests. docs/18 records the dry run that showed it.
+A unit's lines are its closure: its own span plus the private functions and methods it delegates to,
+transitively, within the module (`analyze/<pkg>/internals.json`). Execution is attributed per test when
+the sandbox recorded coverage contexts (one label per test function), else from the run's aggregate
+coverage; the record says which. Strength is a mutant sampled inside the closure and killed by a kept
+test that executed the unit. Mutation sampling is stratified over the reached units (`mutate.py`) so a
+reached behaviour gets a mutant before the rest of the package does. docs/18 records the dry run that
+showed why.
 """
 from __future__ import annotations
 
@@ -68,6 +70,87 @@ def _spans(symbols: list[dict]) -> dict[str, tuple[str, int, int | None]]:
                 end = nxt["line"] - 1 if nxt else None
             out[s["qualname"]] = (f, s["line"], end)
     return out
+
+
+def load_internals(workdir: Path, pkg: str) -> dict:
+    p = workdir / "analyze" / pkg / "internals.json"
+    doc = read_json(p) if p.exists() else {}
+    return {"private": doc.get("private") or [], "calls": doc.get("calls") or {}}
+
+
+def closure(q: str, calls: dict[str, list[str]]) -> list[str]:
+    """The unit and every private callee it reaches, transitively, in a stable order."""
+    out, todo = [], [q]
+    while todo:
+        x = todo.pop(0)
+        if x in out:
+            continue
+        out.append(x)
+        todo += [c for c in calls.get(x, []) if c not in out]
+    return out
+
+
+def closure_spans(q: str, spans: dict[str, tuple[str, int, int | None]], calls: dict[str, list[str]]) -> list[tuple[str, str, int, int | None]]:
+    """(qualname, file, start, end) for the unit and its private callees that have a span."""
+    return [(x, *spans[x]) for x in closure(q, calls) if x in spans]
+
+
+def _in(span: tuple[str, int, int | None], f: str, line: int) -> bool:
+    sf, a, b = span
+    return sf == f and a <= line <= (b if b else 10**9)
+
+
+def _test_of(label: str) -> str | None:
+    """The test function in a coverage context label: `static|dynamic` joined, the dynamic part a qualified
+    name such as `tests.test_x.test_a`; the part whose last name starts with `test` wins."""
+    parts = [p.rsplit(".", 1)[-1] for p in label.split("|") if p]
+    return next((p for p in parts if p.startswith("test") or p.startswith("Test")), None)
+
+
+def contexts_by_line(cov_path: Path, rel_of) -> dict[str, dict[int, set[str]]]:
+    """Per package file, the test contexts that executed each line, when the sandbox recorded them
+    (`coverage json --show-contexts`); empty when it did not. `rel_of` maps a coverage file name to the
+    package-relative path or None."""
+    if not cov_path.exists():
+        return {}
+    doc = read_json(cov_path)
+    out: dict[str, dict[int, set[str]]] = {}
+    for fname, fdata in (doc.get("files") or {}).items():
+        ctx = fdata.get("contexts")
+        if not ctx:
+            continue
+        rel = rel_of(fname)
+        if not rel:
+            continue
+        lines = out.setdefault(rel, {})
+        for ln, labels in ctx.items():
+            tests = {_test_of(lab) for lab in labels if lab and _test_of(lab)}
+            if tests:
+                lines.setdefault(int(ln), set()).update(tests)
+    return out
+
+
+def stratified_sample(sites: list[dict], unit_sites: dict[str, list[dict]], sample: int, rng) -> tuple[list[dict], dict]:
+    """Mutants for the reached behaviours first: one site per unit, round-robin, then the remainder of the
+    package. Returns the chosen sites and what the stratification did."""
+    chosen, taken = [], set()
+    pools = {u: list(ss) for u, ss in unit_sites.items() if ss}
+    for p in pools.values():
+        rng.shuffle(p)
+    while len(chosen) < sample and any(pools.values()):
+        for u in sorted(pools):
+            if len(chosen) >= sample:
+                break
+            while pools[u]:
+                s = pools[u].pop()
+                key = (s["file"], s["line"], s.get("col"), s["op"])
+                if key not in taken:
+                    taken.add(key); chosen.append(s); break
+    in_units = len(chosen)
+    rest = [s for s in sites if (s["file"], s["line"], s.get("col"), s["op"]) not in taken]
+    if len(chosen) < sample and rest:
+        chosen += rng.sample(rest, min(sample - len(chosen), len(rest)))
+    return chosen, {"units": len(unit_sites), "units_with_sites": len([u for u, ss in unit_sites.items() if ss]), "sampled_in_units": in_units}
 
 
 def resolve(symbol: str, api: dict[str, dict]) -> str | None:
@@ -154,7 +237,17 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
     pl_path = workdir / "triage" / "pipeline.json"
     cannot_validate = [f for f in (read_json(pl_path).get("findings", []) if pl_path.exists() else []) if f.get("rule") in CANNOT_VALIDATE_RULES]
 
-    spans = _spans(api)
+    internals = load_internals(workdir, pkg)
+    spans = _spans(api + internals["private"])
+    calls = internals["calls"]
+    roots = adapter.import_roots(facts)
+    known_files = {s["file"] for s in api} | {p["file"] for p in internals["private"]}
+
+    def rel_of(fname: str) -> str | None:
+        return next((f for f in known_files if fname.endswith("/" + f) or fname == f), None)
+
+    by_test = contexts_by_line(cov_path, rel_of)
+    attribution = "per-test coverage contexts" if by_test else "aggregate coverage (no contexts recorded)"
     cls = {t["test_id"].split("::")[-1]: t["class"] for t in tri.get("tests", [])}
     tests = results.get("tests", [])
     kept = [t for t in tests if t["versions"].get("new") == "pass" and t["status"] != "flaky" and cls.get(t["name"]) != "test-bug"]
@@ -166,22 +259,26 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
             methods_of.setdefault(s["qualname"].rsplit(".", 1)[0], []).append(s["qualname"])
 
     def judge(q: str, kind: str) -> dict:
-        """One unit's state from its span: lines executed, mutants sampled and killed inside it."""
-        span = spans.get(q)
+        """One unit's state from its closure: lines executed (per test when contexts exist), mutants sampled
+        and killed inside it, and whether a test that executed the unit killed one."""
         linked = _tests_for({"symbol": q}, tests)
         env = [t for t in linked if t["versions"].get("new") != "pass" and ENVIRONMENT.search(t.get("message") or "")]
         ev: dict = {"tests": sorted({t["name"] for t in linked}), "kept_tests": sorted({t["name"] for t in linked if t["name"] in kept_names})}
         if cannot_validate:
             return {"state": "stated-gap", "reason": "pipeline-cannot-validate", "evidence": {**ev, "pipeline": [f["rule"] for f in cannot_validate]}}
-        if span is None:
+        cl = closure_spans(q, spans, calls)
+        if not cl:
             return {"state": "stated-gap", "reason": "not-in-public-api", "evidence": ev}
-        f, a, b = span
-        lines = sorted(l for l in executed.get(f, ()) if a <= l <= (b or 10**9))
-        ms = [m for m in mut.get("mutants", []) if m.get("file") == f and a <= m.get("line", -1) <= (b or 10**9)]
+        lines = [(f, l) for (_, f, a, b) in cl for l in executed.get(f, ()) if a <= l <= (b or 10**9)]
+        executing = {t for (f, l) in lines for t in by_test.get(f, {}).get(l, ())} & kept_names if by_test else set()
+        ms = [m for m in mut.get("mutants", []) if any(_in((f, a, b), m.get("file"), m.get("line", -1)) for (_, f, a, b) in cl)]
         killed = [m for m in ms if str(m.get("status", "")).startswith("killed")]
-        ev.update({"span": {"file": f, "start": a, "end": b}, "lines_executed": len(lines),
-                   "mutants": {"sampled": len(ms), "killed": len(killed), "killed_by": sorted({t for m in killed for t in m.get("killed_by", [])})}})
-        if lines and killed:
+        killers = {t for m in killed for t in m.get("killed_by", [])}
+        proven_by = sorted(killers & executing) if by_test else sorted(killers & kept_names)
+        ev.update({"closure": [x for (x, *_r) in cl], "spans": [{"symbol": x, "file": f, "start": a, "end": b} for (x, f, a, b) in cl],
+                   "lines_executed": len(lines), "executed_by": sorted(executing), "attribution": attribution,
+                   "mutants": {"sampled": len(ms), "killed": len(killed), "killed_by": sorted(killers)}, "proven_by": proven_by})
+        if lines and killed and proven_by:
             return {"state": "validated", "reason": None, "evidence": ev}
         if env and not lines:
             return {"state": "for-your-environment", "reason": None, "evidence": {**ev, "refusal": (env[0].get("message") or "")[:200]}}
@@ -215,9 +312,10 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
               "excluded": len(excluded)}
     rec = {"format": "ai-test-harness/accounting/v1", "package": pkg, "generated": now_iso(),
            "unit": "a behaviour the change reaches: a public function, method or type of the package the application calls, or a public symbol the change altered",
-           "method": {"execution": "lines executed by the run's kept tests inside the unit's own span (aggregate coverage)",
-                      "strength": "mutants sampled inside the unit's own span and killed by a kept test",
-                      "next": "per-test coverage contexts, private callees, sampling stratified over the reached units"},
+           "method": {"execution": f"lines executed inside the unit's closure, its own span plus its private callees; attribution: {attribution}",
+                      "strength": "a mutant sampled inside the closure and killed by a kept test that executed the unit"
+                                  + ("" if by_test else " (any kept test, since no per-test contexts were recorded)"),
+                      "closure_source": "analyze/<pkg>/internals.json" if internals["private"] or calls else "none recorded; spans are the public symbols alone"},
            "states": list(STATES), "reasons": REASONS, "units": out_units, "excluded": excluded, "counts": counts}
     write_json(workdir / "triage" / pkg / "accounting.json", rec)
     c = counts

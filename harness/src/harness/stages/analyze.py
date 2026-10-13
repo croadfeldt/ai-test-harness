@@ -70,6 +70,8 @@ def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_
         surfaces[tag] = adapter.extract_api(tree, names)
         write_json(out / f"api.{tag}.json", {"package": it.package, "version": (head_sha if tag == "new" else base_sha)[:12], "archive": f"source@{(head_sha if tag == 'new' else base_sha)[:12]}",
                                               "import_names": names, "symbols": surfaces[tag]})
+        if tag == "new" and hasattr(adapter, "internals"):
+            write_json(out / "internals.json", {"package": it.package, "version": head_sha[:12], **adapter.internals(tree, names)})
     changed_mode = "old" in trees
     diff = adapter.api_diff(surfaces["old"], surfaces["new"]) if changed_mode else []
     if changed_mode:
@@ -156,6 +158,8 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
         surfaces[tag] = adapter.extract_api(unpacked, nm)
         write_json(out / f"api.{tag}.json", {"package": it.package, "version": ver, "archive": archive.name,
                                               "import_names": nm, "symbols": surfaces[tag]})
+        if tag == "new" and hasattr(adapter, "internals"):
+            write_json(out / "internals.json", {"package": it.package, "version": ver, **adapter.internals(unpacked, nm)})
     if "old" not in surfaces and "new" in surfaces:
         surfaces["old"] = surfaces["new"]; dirs["old"] = dirs["new"]
     diff = adapter.api_diff(surfaces.get("old", []), surfaces.get("new", [])) if it.change == "bumped" else []

@@ -74,8 +74,20 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
             sites += [{"file": rel, **s} for s in adapter.mutation_sites(src_path, lines)]
     seed = int(hashlib.sha256(f"{pkg}{facts['new_version']}".encode()).hexdigest()[:8], 16)
     rng = random.Random(seed)
-    chosen = rng.sample(sites, min(sample, len(sites))) if sites else []
-    log(f"    {pkg}: {len(sites)} mutation sites on {sum(len(l) for l in executed.values())} executed lines; sampling {len(chosen)} (seed {seed})")
+    # Principle 14: the behaviours the application reaches get a mutant before the rest of the package does.
+    from .account import closure_spans, load_internals, reached_units, stratified_sample, _spans
+    api_path = workdir / "analyze" / pkg / "api.new.json"
+    api = read_json(api_path).get("symbols", []) if api_path.exists() else []
+    internals = load_internals(workdir, pkg)
+    spans = _spans(api + internals["private"])
+    units, _excluded = reached_units(workdir, pkg, facts, api) if api else ([], [])
+    unit_sites = {}
+    for u in units:
+        cl = closure_spans(u["symbol"], spans, internals["calls"])
+        unit_sites[u["symbol"]] = [s for s in sites if any(f == s["file"] and a <= s["line"] <= (b or 10**9) for (_, f, a, b) in cl)]
+    chosen, strat = stratified_sample(sites, unit_sites, sample, rng) if sites else ([], {"units": len(units), "units_with_sites": 0, "sampled_in_units": 0})
+    log(f"    {pkg}: {len(sites)} mutation sites on {sum(len(l) for l in executed.values())} executed lines; sampling {len(chosen)} (seed {seed}), "
+        f"{strat['sampled_in_units']} inside the {strat['units_with_sites']} reached behaviour(s) that have sites")
     from .generate import env_dir
     graph_new = read_json(workdir / "intake" / "graph.new.json")["packages"]
     env = adapter.prefetch(adapter.requirements(graph_new), python_version, env_dir(workdir, adapter, "new"),
@@ -108,7 +120,7 @@ def mutate_package(workdir: Path, pkg: str, python_version: str, sample: int = S
               for t, ids in per_test.items()}
     rec = {"package": pkg, "version": facts["new_version"], "generated": now_iso(), "status": "ran",
            "engine": f"harness {adapter.ECOSYSTEM} mutator (diff- and coverage-scoped)", "operators": list(adapter.MUTATION_OPERATORS),
-           "seed": seed, "sites": len(sites), "sampled": len(chosen), "valid": len(valid), "killed": len(killed),
+           "seed": seed, "sites": len(sites), "sampled": len(chosen), "valid": len(valid), "killed": len(killed), "stratified": strat,
            "invalid": sum(1 for m in mutants if m["status"].startswith("invalid")),
            "survived": sum(1 for m in valid if m["status"] == "survived"),
            "score": round(len(killed) / len(valid), 3) if valid else None,
