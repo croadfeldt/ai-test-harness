@@ -36,6 +36,22 @@ def _finding(cls, confidence, summary, evidence, package, **extra):
     return f
 
 
+def static_findings(pkg: str, facts: dict) -> list[dict]:
+    """A high-severity security-linter finding in the package's own changed files, for Product Security to
+    read with the change; the linter's word, not proof, so the confidence sits below the threshold."""
+    static = facts.get("static_analysis_package") or {}
+    out = []
+    for i in static.get("issues", [])[:20]:
+        sev = str(i.get("issue_severity") or i.get("severity") or "").upper()
+        if sev != "HIGH":
+            continue
+        where = f"{i.get('filename') or i.get('file')}:{i.get('line_number') or i.get('line')}"
+        text = i.get("issue_text") or i.get("details") or ""
+        out.append(_finding("security", 0.6, f"{pkg}: {static.get('tool')} flags {i.get('test_id') or i.get('rule_id')} in the changed code at {where}: {text[:140]}",
+                            f"analyze/{pkg}/facts.json", pkg, rule=i.get("test_id") or i.get("rule_id")))
+    return out
+
+
 def coverage_gap_findings(pkg: str, facts: dict) -> list[dict]:
     """The existing suite's reach, stated as a finding when it is provably short: no test of the
     repository references a package the application reaches, or none reaches the symbols this change
@@ -148,6 +164,7 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                                  corroborating_tests=[t["name"] for t in corroborated]))
     # Question 3 of the mission: does the repository's own suite reach this package and what changed in it?
     findings += coverage_gap_findings(pkg, facts)
+    findings += static_findings(pkg, facts)
 
     # Relevance proposals become obsolete / redundant findings: advisory, never blocking, a person approves.
     rel_path = workdir / "execute" / pkg / "relevance.json"

@@ -146,3 +146,4 @@ class FactBundle:
     risk: RiskScore
     generated: str
     existing_suite: dict = field(default_factory=dict)   # what the repository's own tests reach of this package and of what changed
+    static_analysis_package: dict = field(default_factory=dict)   # the security linter on the package's own changed files at the new version

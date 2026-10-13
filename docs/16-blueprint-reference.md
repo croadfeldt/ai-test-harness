@@ -419,6 +419,24 @@ unless it is a published package with a known one. The harness does not go looki
 vulnerabilities in first-party code; it tests the code as written and leaves CVE-targeted work to
 the dependency rows, where the vulnerabilities are already known.
 
+**Static analysis, as implemented.** The design above names the tools an ecosystem can bring; the
+implementation runs these, and records which ran and which did not in every fact bundle:
+
+| Analysis | Tool today | Feeds |
+|---|---|---|
+| Public API surface at both versions, and their diff with breaking flags | The harness's own extractors: Python `ast`, Go `go/ast` through the helper | The prompt's API DATA, the SYMBOLS ONLY IN sections, BREAKING API CHANGES; the risk score |
+| Source diff between versions | Unified diff of the package's source files | FIX DIFF for CVE tests; the risk score's size input |
+| The application's call sites and the symbols it uses | `ast` and `go/ast` scans of the repository | CALL SITES; reachability for the risk score; the existing suite's reach |
+| Advisories, aliases, affected and fixed versions, malicious-package reports | OSV | ADVISORIES; the VEX drafts; the risk score |
+| Security linting of the application's call-site files and of the package's changed files at the new version | `bandit` (Python), `gosec` (Go) | SECURITY FINDINGS, which negative tests aim at first; a high-severity finding in the changed code is a `security` finding for a person |
+| Pre-flight scan of a new or changed package | GuardDog, with OSV's malicious-package feed | The `suspicious` gate, before anything executes |
+| Sensitivity of the package's domain | Keyword match on the package's own metadata | The risk score |
+
+Not yet wired, and named here so no one assumes it: call-graph reachability (CodeLLM-Devkit or the
+language's own tools) in place of "the application references this package"; the ecosystems' contract
+diff tools (japicmp, gorelease, griffe) in place of the harness's own extractors; semgrep. When a tool
+is absent the fact bundle says so (`status: not_run`), and the prompt carries no finding it did not have.
+
 **The pipeline, as facts (principle 13).** Stage 2 also reads the repository's own CI definitions at
 the reviewed commit, GitHub Actions, GitLab CI or Tekton, and records what they do with untrusted code
 while tests run: a pull request checked out under the base repository's secrets, write permissions on

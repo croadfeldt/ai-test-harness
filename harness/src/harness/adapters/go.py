@@ -17,7 +17,7 @@ import tempfile
 from pathlib import Path
 
 from ..model import ApiChange, ApiSymbol, CallSite, DependencyGraph, Package
-from ..util import HarnessError, http_json, log, read_json, run, sha256_file, sha256_text, write_json
+from ..util import tool_path, HarnessError, http_json, log, read_json, run, sha256_file, sha256_text, write_json
 
 ECOSYSTEM = "go"
 OSV_ECOSYSTEM = "Go"
@@ -246,8 +246,8 @@ def upstream_tests(unpacked: Path) -> dict:
 
 
 def static_analysis(files: list[Path], source_dir: Path) -> dict:
-    if shutil.which("gosec") and files:
-        proc = run(["gosec", "-fmt=json", "-quiet", *[str(f) for f in files][:50]], cwd=source_dir, check=False, timeout=300)
+    if tool_available("gosec") and files:
+        proc = run([tool_path("gosec"), "-fmt=json", "-quiet", *[str(f) for f in files][:50]], cwd=source_dir, check=False, timeout=300)
         try:
             data = json.loads(proc.stdout)
             return {"tool": "gosec", "status": "ran", "issues": data.get("Issues", [])[:50]}

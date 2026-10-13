@@ -1,10 +1,16 @@
 # AI Test Harness: the blueprint
 
-**Status:** Draft v0.19, 2026-10-01. **Owner:** Chris Roadfeldt.
+**Status:** Draft v0.20, 2026-10-12. **Owner:** Chris Roadfeldt.
 **For:** engineers and architects deciding whether to build, run or adopt this. Three pages.
 **Behind it:** [document 16](16-blueprint-reference.md) is the long form, with the section numbers the
 code and the other documents cite; [document 15](15-failure-register.md) is the failure register;
 [document 14](14-specification.md) lists what an implementation must do and the test that proves each.
+
+**Changes in v0.20:** the static analysis is named as implemented (reference, stage 2): the harness's
+own API extractors and diffs, the call-site scans, OSV, and now `bandit`, `gosec` and GuardDog in the
+image, with their findings in the prompt as SECURITY FINDINGS and a high-severity finding in the changed
+code as a `security` finding for a person. What the design names and the code does not yet run is listed
+beside it.
 
 **Changes in v0.19:** cut to three pages for the reader evaluating it. Nothing is dropped: v0.18 is
 kept whole as document 16, the register as document 15, and the earlier change notes with them.
@@ -70,7 +76,7 @@ rewritten after every stage.
 |---|---|---|
 | 0 Self-verification | Every register self-check, then sandbox and model probes; any failure stops the run | `selfcheck` record, cited by every manifest |
 | 1 Intake | A repository and two refs (no base means rescan); the dependency graph at both, resolved in the target's own interpreter image; pre-flight gates; advisories per version | Work list: a row per package with depth, reachability and pre-flight result, and one for the repository |
-| 2 Analysis | Per row: API surface and diff from tooling, never the model; source diff; our call sites; advisories with symbols and fix diff; what the CI does with untrusted code and what the suite reaches; a risk score that sets the budget | Fact bundles |
+| 2 Analysis | Per row: API surface and diff from tooling, never the model; source diff; our call sites; advisories with symbols and fix diff; security linting (`bandit`, `gosec`) of the call sites and the changed code, a pre-flight scan (GuardDog, OSV) of new packages; what the CI does with untrusted code and what the suite reaches; a risk score that sets the budget. Every tool that ran or did not is named in the bundle (reference, stage 2) | Fact bundles |
 | 3 Generation | Unit, functional, negative, CVE-targeted, property and fuzz tests plus support code; compile, baseline run, repair; kept only if it compiles, collects and passes on the baseline | Candidates with a manifest |
 | 4 Validation execution | Sealed, both versions, once: head run, flake re-run, coverage, mutation on executed lines only, differential against the base or a resolved fixed candidate, relevance of existing tests | An honest verdict per test |
 | 5 Triage | A class, a confidence and a route for every verdict and finding; below the threshold a person decides | Findings |

@@ -63,8 +63,22 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int = 600, check: bool
     return proc
 
 
+def tool_path(name: str) -> str | None:
+    """Where a tool is: on PATH, or installed in the harness's own environment (an extra), which is not on
+    PATH unless the environment is activated. None when absent; every caller records that honestly."""
+    import shutil
+    import sys
+    found = shutil.which(name)
+    if found:
+        return found
+    for base in (Path(sys.executable).parent, Path(sys.prefix) / "bin", Path(sys.prefix) / "Scripts"):
+        if (base / name).exists():
+            return str(base / name)
+    return None
+
+
 def tool_available(name: str) -> bool:
-    return shutil.which(name) is not None
+    return tool_path(name) is not None
 
 
 def tool_version(cmd: list[str]) -> str | None:

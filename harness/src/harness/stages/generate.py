@@ -96,6 +96,32 @@ def _group_advisories(vulns: list[dict]) -> dict[str, list[dict]]:
     return groups
 
 
+def static_lines(static: dict | None, limit: int = 12) -> list[str]:
+    """One line per security-linter finding, whichever tool wrote it (bandit, gosec), for the prompt."""
+    out = []
+    for i in (static or {}).get("issues", [])[:limit]:
+        if "issue_text" in i:      # bandit
+            out.append(f"{i.get('filename')}:{i.get('line_number')} {i.get('test_id')} {i.get('issue_severity', '').lower()}: {i.get('issue_text')}")
+        elif "details" in i:       # gosec
+            out.append(f"{i.get('file')}:{i.get('line')} {i.get('rule_id')} {str(i.get('severity', '')).lower()}: {i.get('details')}")
+    return out
+
+
+def security_findings(facts: dict) -> str | None:
+    """The SECURITY FINDINGS section: what the security linter said about the application's call sites and
+    about the package's own changed files. Negative tests aim here first. None when nothing ran or nothing was found."""
+    sites = static_lines(facts.get("static_analysis"))
+    pkg = static_lines(facts.get("static_analysis_package"))
+    if not sites and not pkg:
+        return None
+    parts = ["Static analysis findings. Aim negative tests at these first: feed the input each warns about and assert the package fails safely."]
+    if pkg:
+        parts += ["In the package's changed files at the new version:", *[f"- {l}" for l in pkg]]
+    if sites:
+        parts += ["At the application's call sites:", *[f"- {l}" for l in sites]]
+    return "\n".join(parts)
+
+
 def _data(title: str, obj) -> str:
     body = obj if isinstance(obj, str) else json.dumps(obj, indent=1)
     return f"\n<DATA name=\"{title}\">\n{body}\n</DATA>\n"
@@ -161,6 +187,9 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
             parts.append(_data(f"FIX DIFF {facts['old_version']} -> {facts['new_version']}", fix_patch))
     if facts.get("api_diff_summary", {}).get("breaking"):
         parts.append(_data("BREAKING API CHANGES between versions", facts["api_diff_summary"]["breaking_symbols"]))
+    sec = security_findings(facts)
+    if sec:
+        parts.append(_data("SECURITY FINDINGS (static analysis)", sec))
     return "\n".join(parts)
 
 

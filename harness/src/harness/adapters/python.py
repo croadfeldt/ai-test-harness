@@ -19,7 +19,7 @@ from packaging.markers import default_environment
 from packaging.requirements import InvalidRequirement, Requirement
 
 from ..model import ApiChange, ApiSymbol, CallSite, DependencyGraph, Package
-from ..util import HarnessError, log, read_json, run, sha256_file, tool_available
+from ..util import tool_path, HarnessError, log, read_json, run, sha256_file, tool_available
 
 ECOSYSTEM = "python"
 OSV_ECOSYSTEM = "PyPI"
@@ -475,7 +475,7 @@ def upstream_tests(unpacked: Path) -> dict:
 def static_analysis(files: list[Path], source_dir: Path) -> dict:
     if not tool_available("bandit") or not files:
         return {"tool": "bandit", "status": "not_run", "reason": "bandit not installed" if files else "no files"}
-    proc = run(["bandit", "-q", "-f", "json", *[str(f) for f in files]], cwd=source_dir, check=False, timeout=300)
+    proc = run([tool_path("bandit"), "-q", "-f", "json", *[str(f) for f in files]], cwd=source_dir, check=False, timeout=300)
     try:
         import json
         data = json.loads(proc.stdout)
