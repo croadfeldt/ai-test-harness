@@ -210,6 +210,8 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
         notes_ref = "notes.untrusted.md"
     sens = risk.sensitivity(it.package, md["summary"] if md else "", md["keywords"] if md else "", md["classifiers"] if md else [])
     static = adapter.static_analysis([repo / s.file for s in prod_sites][:50], repo)
+    changed_files = [dirs["new"] / f for f in (sdiff.get("files_changed", []) + sdiff.get("files_added", [])) if (dirs["new"] / f).is_file()] if "new" in dirs else []
+    static_pkg = adapter.static_analysis(changed_files[:50], dirs["new"]) if changed_files else {"tool": None, "status": "not_run", "reason": "no changed files at the new version"}
     up = adapter.upstream_tests(dirs["new"]) if "new" in dirs else {"present": False, "count": 0}
 
     suite = existing_suite(repo, adapter, names, [c.qualname for c in diff if c.kind in ("changed", "removed")])
@@ -241,7 +243,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
                                    "fixed_versions": sorted({f for v in vulns for f in v.get("fixed_versions", [])}),
                                    "affected_symbols_in_use": affected_in_use,
                                    "symbols_named_by_advisories": any(v.get("affected_symbols") for v in vulns)},
-                    notes_ref=notes_ref, static_analysis=static, sensitivity=sens, risk=rs, generated=now_iso())
+                    notes_ref=notes_ref, static_analysis=static, static_analysis_package=static_pkg, sensitivity=sens, risk=rs, generated=now_iso())
     write_json(out / "facts.json", fb)
     return fb
 

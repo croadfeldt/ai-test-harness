@@ -10,6 +10,7 @@ dependencies = ["packaging>=23.0", "cryptography>=42.0", "pyyaml>=6.0", "jsonsch
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+analysis = ["bandit>=1.7", "guarddog>=2.0"]   # stage 2 static analysis and the pre-flight scan; recorded as not_run when absent
 
 [project.scripts]
 harness = "harness.cli:main"

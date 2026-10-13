@@ -4,10 +4,13 @@
 # prefetched by the networked stages onto the shared workspace, and the sealed execute pod builds and
 # runs the tests from it with GOPROXY off.
 FROM docker.io/library/golang:1.25-bookworm AS go
+# gosec, the Go security linter stage 2 runs on the application's call sites and the package's changed files.
+RUN GOFLAGS= GOBIN=/usr/local/bin go install github.com/securego/gosec/v2/cmd/gosec@latest
 
 FROM docker.io/library/python:3.12-slim
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=go /usr/local/go /usr/local/go
+COPY --from=go /usr/local/bin/gosec /usr/local/bin/gosec
 ENV PATH=/usr/local/go/bin:$PATH GOTOOLCHAIN=local GOFLAGS=-modcacherw
 WORKDIR /opt/harness
 COPY pyproject.toml README.md ./
@@ -15,7 +18,8 @@ COPY src ./src
 COPY prompts ./prompts
 # The go/ast helper is built here, once, so no pod builds it and the read-only root never needs to.
 RUN cd src/harness/adapters/gohelper && GOCACHE=/tmp/gocache go build -o /usr/local/bin/gohelper . && rm -rf /tmp/gocache
-RUN pip install --no-cache-dir . && harness --version && go version && gohelper 2>&1 | head -1 || true
+# The analysis tools stage 2 and intake call: bandit (Python security linter), GuardDog (pre-flight scan of a package).
+RUN pip install --no-cache-dir ".[analysis]" && harness --version && go version && gosec -version && bandit --version && guarddog --version && gohelper 2>&1 | head -1 || true
 # The UDLM checkout for sealing records is mounted or cloned at run time ([udlm].repo); not baked in.
 ENV HARNESS_SANDBOX_TARGET=pod HARNESS_GOHELPER=/usr/local/bin/gohelper HARNESS_PROMPTS_DIR=/opt/harness/prompts
 ENTRYPOINT ["harness"]

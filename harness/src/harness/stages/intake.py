@@ -15,7 +15,7 @@ from pathlib import Path
 from .. import adapters, config
 from ..model import DependencyGraph, Preflight, WorkItem, WorkList
 from ..sources import osv
-from ..util import HarnessError, log, now_iso, run, tool_available, write_json
+from ..util import HarnessError, log, now_iso, run, tool_available, tool_path, write_json
 
 
 def _git(repo: Path, *args: str) -> str:
@@ -63,7 +63,7 @@ def _project_name(repo: Path) -> str:
 def _guarddog(name: str, version: str) -> dict:
     if not tool_available("guarddog"):
         return {"status": "not_installed"}
-    proc = run(["guarddog", "pypi", "scan", name, "--version", version, "--output-format", "json"], check=False, timeout=300)
+    proc = run([tool_path("guarddog"), "pypi", "scan", name, "--version", version, "--output-format", "json"], check=False, timeout=300)
     return {"status": "ran", "returncode": proc.returncode, "stdout": proc.stdout[-4000:]}
 
 
