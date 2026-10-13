@@ -1,0 +1,317 @@
+{
+ "archive": "kin-openapi@v0.139.0",
+ "import_names": [
+  "github.com/getkin/kin-openapi"
+ ],
+ "note": "trimmed to the symbols the control-plane example reaches, for tests/test_accounting.py",
+ "package": "github.com/getkin/kin-openapi",
+ "symbols": [
+  {
+   "doc": "InternalizeRefs removes all references to external files from the spec and moves them",
+   "file": "openapi3/internalize_refs.go",
+   "kind": "method",
+   "line": 498,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.InternalizeRefs",
+   "signature": "(ctx context.Context, refNameResolver func(*T, ComponentRef) string)"
+  },
+  {
+   "doc": "Loader helps deserialize an OpenAPIv3 document",
+   "file": "openapi3/loader.go",
+   "kind": "struct",
+   "line": 28,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader",
+   "signature": "struct{...}"
+  },
+  {
+   "doc": "NewLoader returns an empty Loader",
+   "file": "openapi3/loader.go",
+   "kind": "function",
+   "line": 62,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.NewLoader",
+   "signature": "() *Loader"
+  },
+  {
+   "doc": "LoadFromURI loads a spec from a remote URL",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 77,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromURI",
+   "signature": "(location *url.URL) *T, error"
+  },
+  {
+   "doc": "LoadFromFile loads a spec from a local file path",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 83,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromFile",
+   "signature": "(location string) *T, error"
+  },
+  {
+   "doc": "LoadFromStdin loads a spec from stdin",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 140,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromStdin",
+   "signature": "() *T, error"
+  },
+  {
+   "doc": "LoadFromStdin loads a spec from io.Reader",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 145,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromIoReader",
+   "signature": "(reader io.Reader) *T, error"
+  },
+  {
+   "doc": "LoadFromData loads a spec from a byte array",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 158,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromData",
+   "signature": "(data []byte) *T, error"
+  },
+  {
+   "doc": "LoadFromDataWithPath takes the OpenAPI document data in bytes and a path where the resolver can find referred",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 172,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.LoadFromDataWithPath",
+   "signature": "(data []byte, location *url.URL) *T, error"
+  },
+  {
+   "doc": "ResolveRefsIn expands references if for instance spec was just unmarshaled",
+   "file": "openapi3/loader.go",
+   "kind": "method",
+   "line": 204,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.Loader.ResolveRefsIn",
+   "signature": "(doc *T, location *url.URL) err error"
+  },
+  {
+   "doc": "T is the root of an OpenAPI v3 document",
+   "file": "openapi3/openapi3.go",
+   "kind": "struct",
+   "line": 17,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T",
+   "signature": "struct{...}"
+  },
+  {
+   "doc": "IsOpenAPI30 returns whether doc is an OpenAPI document version 3.0.x.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 45,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.IsOpenAPI30",
+   "signature": "() bool"
+  },
+  {
+   "doc": "IsOpenAPI31OrLater returns whether doc is an OpenAPI document version >=3.1.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 52,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.IsOpenAPI31OrLater",
+   "signature": "() bool"
+  },
+  {
+   "doc": "OpenAPIMajorMinor returns 3.y of the OpenAPI \"3.y\" or \"3.y.z\" version of the document.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 66,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.OpenAPIMajorMinor",
+   "signature": "() string"
+  },
+  {
+   "doc": "JSONLookup implements https://pkg.go.dev/github.com/go-openapi/jsonpointer#JSONPointable",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 85,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.JSONLookup",
+   "signature": "(token string) any, error"
+  },
+  {
+   "doc": "MarshalJSON returns the JSON encoding of T.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 114,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.MarshalJSON",
+   "signature": "() []byte, error"
+  },
+  {
+   "doc": "MarshalYAML returns the YAML encoding of T.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 123,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.MarshalYAML",
+   "signature": "() any, error"
+  },
+  {
+   "doc": "UnmarshalJSON sets T to a copy of data.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 157,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.UnmarshalJSON",
+   "signature": "(data []byte) error"
+  },
+  {
+   "doc": "",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 182,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.AddOperation",
+   "signature": "(path string, method string, operation *Operation)"
+  },
+  {
+   "doc": "",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 194,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.AddServer",
+   "signature": "(server *Server)"
+  },
+  {
+   "doc": "",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 198,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.AddServers",
+   "signature": "(servers ...*Server)"
+  },
+  {
+   "doc": "SetStringFormatValidators sets document-scoped string format validators.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 204,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetStringFormatValidators",
+   "signature": "(validators map[string]StringFormatValidator)"
+  },
+  {
+   "doc": "SetStringFormatValidator sets a single document-scoped string format validator.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 209,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetStringFormatValidator",
+   "signature": "(name string, validator StringFormatValidator)"
+  },
+  {
+   "doc": "SetNumberFormatValidators sets document-scoped number format validators.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 218,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetNumberFormatValidators",
+   "signature": "(validators map[string]NumberFormatValidator)"
+  },
+  {
+   "doc": "SetNumberFormatValidator sets a single document-scoped number format validator.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 223,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetNumberFormatValidator",
+   "signature": "(name string, validator NumberFormatValidator)"
+  },
+  {
+   "doc": "SetIntegerFormatValidators sets document-scoped integer format validators.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 232,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetIntegerFormatValidators",
+   "signature": "(validators map[string]IntegerFormatValidator)"
+  },
+  {
+   "doc": "SetIntegerFormatValidator sets a single document-scoped integer format validator.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 237,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.SetIntegerFormatValidator",
+   "signature": "(name string, validator IntegerFormatValidator)"
+  },
+  {
+   "doc": "GetSchemaValidationOptions returns SchemaValidationOptions that include",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 246,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.GetSchemaValidationOptions",
+   "signature": "() []SchemaValidationOption"
+  },
+  {
+   "doc": "Validate returns an error if T does not comply with the OpenAPI spec.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 265,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.Validate",
+   "signature": "(ctx context.Context, opts ...ValidationOption) error"
+  },
+  {
+   "doc": "ValidateSchemaJSON validates data against a schema using this document's format validators.",
+   "file": "openapi3/openapi3.go",
+   "kind": "method",
+   "line": 387,
+   "module": "github.com/getkin/kin-openapi/openapi3",
+   "qualname": "github.com/getkin/kin-openapi/openapi3.T.ValidateSchemaJSON",
+   "signature": "(schema *Schema, value any, opts ...SchemaValidationOption) error"
+  },
+  {
+   "doc": "",
+   "file": "openapi3filter/authentication_input.go",
+   "kind": "struct",
+   "line": 9,
+   "module": "github.com/getkin/kin-openapi/openapi3filter",
+   "qualname": "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput",
+   "signature": "struct{...}"
+  },
+  {
+   "doc": "",
+   "file": "openapi3filter/authentication_input.go",
+   "kind": "method",
+   "line": 16,
+   "module": "github.com/getkin/kin-openapi/openapi3filter",
+   "qualname": "github.com/getkin/kin-openapi/openapi3filter.AuthenticationInput.NewError",
+   "signature": "(err error) error"
+  },
+  {
+   "doc": "Options used by ValidateRequest and ValidateResponse",
+   "file": "openapi3filter/options.go",
+   "kind": "struct",
+   "line": 6,
+   "module": "github.com/getkin/kin-openapi/openapi3filter",
+   "qualname": "github.com/getkin/kin-openapi/openapi3filter.Options",
+   "signature": "struct{...}"
+  },
+  {
+   "doc": "WithCustomSchemaErrorFunc sets a function to override the schema error message.",
+   "file": "openapi3filter/options.go",
+   "kind": "method",
+   "line": 55,
+   "module": "github.com/getkin/kin-openapi/openapi3filter",
+   "qualname": "github.com/getkin/kin-openapi/openapi3filter.Options.WithCustomSchemaErrorFunc",
+   "signature": "(f CustomSchemaErrorFunc)"
+  }
+ ],
+ "version": "v0.139.0"
+}
