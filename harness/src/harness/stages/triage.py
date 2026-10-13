@@ -208,4 +208,8 @@ def triage(*, workdir: Path, select: list[str] | None = None) -> list[dict]:
                                                        "summary": {"findings": len(pf), "security": sum(1 for f in pf if f.get("severity") == "security")}})
     if pf:
         log(f"  pipeline: {len(pf)} finding(s) about how this repository's CI runs tests; routed to the pipeline's owners")
+    # Principle 14: every behaviour the change reaches ends in exactly one state, after the pipeline facts are known.
+    from .account import account
+    if outs:
+        account(workdir, [o["package"] for o in outs])
     return outs

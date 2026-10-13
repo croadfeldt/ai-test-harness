@@ -88,8 +88,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Tools (kept for replay and proof; not meant to be read)**
 
 - `run-index.json`: What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it.
-- `intake/graph.new.json`: The dependency graph at head as the ecosystem's own resolver produced it.
-- `intake/graph.old.json`: The dependency graph at base.
 - `analyze/ecdsa/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/pdfminer-six/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/pillow/api.new.json`: The public API surface at head, extracted by tools.

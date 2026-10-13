@@ -14,7 +14,7 @@ What happened, why, and what came out of it. Written by the harness from its own
 | What | Tests for python-jose 3.3.0 to 3.4.0, chosen from a work list of 64 packages, 5 of which this change touched. Repository frc-scheduler-server, change 2ad04243861b..cfa8f4a3292b, mode diff. |
 | Why | python-jose (score 51, budget full): reachable from first-party code; 159 source lines changed; 5 advisories before the change, 0 after. |
 | Where | Every test ran in a sealed sandbox (podman, network none, image docker.io/library/python:3.12-slim); the model was qwen38-27b in agent mode; the tests were proposed to the overlay repository as https://github.com/croadfeldt/ai-test-harness-overlays/pull/1; the run's own files are in this folder. |
-| When | Started 2026-09-12 01:41:41 UTC. The last stage to write was feedback at 2026-09-15 16:27:52 UTC. |
+| When | Started 2026-09-12 01:41:41 UTC. The last stage to write was self-verification at 2026-10-13 18:34:45 UTC. |
 
 ## What the harness did, step by step
 
@@ -22,7 +22,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 
 | Stage | When | What it did |
 |---|---|---|
-| 0 Self-verification | 2026-09-13 15:34:55 UTC | Ran 19 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
+| 0 Self-verification | 2026-10-13 18:34:45 UTC | Ran 28 checks from the failure register on its own code before touching the target; all passed. Sandbox probe skipped, model probe skipped. |
 | 1 Intake | 2026-09-12 01:42:29 UTC | Resolved the dependency graph at head (63 packages) and at base (63), looked every version up in OSV (4 with advisories at head), and wrote a work list of 64 packages, 5 of them changed by this change. |
 | 2 Analysis | 2026-09-13 02:49:36 UTC | For each package, diffed the two versions' public API and source, found the application's call sites and read the advisories; risk score and budget: python-jose 51 (full). |
 | 3 Generation | 2026-09-13 13:28:46 UTC | python-jose: asked the model (qwen38-27b) for tests in 36 calls; kept 10 tests in 4 file(s), cut 3 that did not hold up on the baseline run, discarded 0 whole attempt(s). |
@@ -30,7 +30,7 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 | 5 Triage | 2026-09-13 13:33:56 UTC | python-jose: classified every verdict; 7 tests to accept, 3 to discard or regenerate, 1 finding(s), 1 escalated to a person. |
 | 6 Review packet | 2026-09-13 13:33:56 UTC | Wrote the review packet per package: the verdict in plain terms, the tests as a patch, the findings, the draft VEX statements, and the pull request text. |
 | Attestation | 2026-09-13 15:34:55 UTC | python-jose: signed the in-toto statement over the patch and the records (PASSED) and sealed the UDLM records. |
-| Assessment | 2026-09-13 13:33:56 UTC | Measured the run against the blueprint's goals: 9 met, 0 not met, 0 not applicable, 1 other. |
+| Assessment | 2026-10-13 18:34:45 UTC | Measured the run against the blueprint's goals: 10 met, 1 not met, 1 not applicable, 1 other. |
 | Test pull request | 2026-09-15 16:12:15 UTC | python-jose: pull request opened, https://github.com/croadfeldt/ai-test-harness-overlays/pull/1. The harness pushed one branch and opened the pull request; it merged nothing. |
 | 7 Feedback | 2026-09-15 16:27:52 UTC | python-jose: read the pull request as a person left it (merged by croadfeldt at 2026-09-15T16:16:06Z): 7 accepted, 0 edited, 0 rejected; wrote the requested and realized records and the signed acceptance statement. |
 
@@ -42,6 +42,13 @@ Each stage reads what the stage before wrote and writes its own files. Stage 4 i
 - python-jose: mutation score 0.25 is below the blueprint's 0.6; the packet says so, and the reviewer sees which tests killed nothing.
 - python-jose: draft VEX per advisory: CVE-2024-29370 under_investigation, CVE-2024-33663 fixed, CVE-2024-33664 fixed.
 - python-jose: the reviewer's decision, merged by croadfeldt at 2026-09-15T16:16:06Z: 7 accepted, 0 edited, 0 rejected.
+
+## What was accounted for, and what was not
+
+3 behaviours reached: 1 validated, 0 for your environment, 2 stated gaps. A behaviour is a public function, method or type of the package that the application calls, or a public symbol the change altered. Validated means a kept test ran its lines on both sides of the change and a mutant inside them was killed; a stated gap says why that did not happen. 2 reference(s) were set aside as not behaviours: module imports and types without methods.
+
+- `jose.jwt.encode`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 5 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
+- `jose.jwt.get_unverified_header`: lines ran, no mutant was placed inside them; a sampling gap the harness owns. 4 line(s) ran, 0 mutant(s) sampled inside it, 0 killed.
 
 ## Actions it took
 
@@ -102,7 +109,8 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Everyone**
 
 - `README.md`: The story of this run: who, what, why, where, when, the outcome, the decisions and the actions.
-- `assess/assess.md`: The run against the blueprint's eleven goals, each with the measurement and the file it came from.
+- `triage/accounting-summary.json`: The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why.
+- `assess/assess.md`: The run against the blueprint's thirteen goals, each with the measurement and the file it came from.
 
 **Reviewers (the developer or team that owns the change)**
 
@@ -113,6 +121,7 @@ Every file exists for a reader or a tool named here. The plain-English files com
 - `execute/python-jose/results.json`: The verdict per test: outcome on head, on the re-run and on the other version, coverage, and how each was judged.
 - `execute/python-jose/mutation/mutation.json`: How strong the accepted tests are: which mutants of the package's source they killed, and the score.
 - `triage/python-jose/triage.json`: Every verdict and finding classified, with a confidence and a route; below the threshold a person decides.
+- `triage/python-jose/accounting.json`: The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour.
 - `packet/python-jose/packet.md`: The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action.
 - `packet/python-jose/tests.patch`: The accepted tests as a patch in the layout they will live in.
 - `packet/python-jose/pull-request.md`: The text and the file list the test pull request carries, whether or not one was opened.
@@ -151,8 +160,6 @@ Every file exists for a reader or a tool named here. The plain-English files com
 **Tools (kept for replay and proof; not meant to be read)**
 
 - `run-index.json`: What this run holds: stages, packages, headline numbers, and where every file is; the renderers read it.
-- `intake/graph.new.json`: The dependency graph at head as the ecosystem's own resolver produced it.
-- `intake/graph.old.json`: The dependency graph at base.
 - `analyze/python-jose/api.new.json`: The public API surface at head, extracted by tools.
 - `analyze/python-jose/api.old.json`: The public API surface at base.
 - `analyze/python-jose/call-sites.json`: Every place the application references this package.

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-13T16:25:42+00:00",
+  "generated": "2026-10-13T18:34:45+00:00",
   "goals": [
     {
       "evidence_ref": [
@@ -43,7 +43,7 @@
       ],
       "goal": "Stage 0 passed before evidence was produced",
       "id": "G4",
-      "measurement": "19 of 19 register checks; sandbox probe skipped; model probe skipped",
+      "measurement": "28 of 28 register checks; sandbox probe skipped; model probe skipped",
       "source": "section 8.5, section 17: self-verification",
       "verdict": "met"
     },
@@ -129,6 +129,27 @@
       "measurement": "pyasn1: score 0.417 on 12 sampled mutants; python-jose: score 0.417 on 12 sampled mutants; starlette: score 0.0 on 12 sampled mutants; coverage delta: no baseline overlay suite yet",
       "source": "section 10: mutation score, coverage delta",
       "verdict": "not met (target 0.6 on sampled mutants)"
+    },
+    {
+      "evidence_ref": [],
+      "goal": "The pipeline's own gaps are stated, never inherited silently",
+      "id": "G12",
+      "measurement": "analysis predates the pipeline facts; rerun analysis",
+      "source": "principle 13: the pipeline is under test too",
+      "verdict": "not applicable"
+    },
+    {
+      "evidence_ref": [
+        "triage/accounting-summary.json",
+        "triage/pyasn1/accounting.json",
+        "triage/python-jose/accounting.json",
+        "triage/starlette/accounting.json"
+      ],
+      "goal": "Every behaviour the change reaches ends in exactly one state, and a gap carries its reason",
+      "id": "G13",
+      "measurement": "5 behaviour(s) reached: 0 validated, 0 for your environment, 5 stated gap(s) (5 strength-not-sampled); 2 reference(s) set aside with a reason",
+      "source": "principle 14: every reached behaviour accounted for",
+      "verdict": "met"
     }
   ],
   "packages": [
@@ -138,9 +159,9 @@
   ],
   "run_id": "76a3fa863e76",
   "summary": {
-    "met": 9,
-    "not_applicable": 0,
-    "not_met": 0,
+    "met": 10,
+    "not_applicable": 1,
+    "not_met": 1,
     "other": 1
   }
 }

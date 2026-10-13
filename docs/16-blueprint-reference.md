@@ -270,6 +270,17 @@ untrusted code reach secrets or the network while tests run; does the existing s
 changed; are failures being masked; are the suite's results tamper-evident. The second and third are
 implemented; the others follow. Fitting in is the default. Fitting in silently is not.
 
+**14. Every reached behaviour is accounted for.** The harness's output is not a list of tests; it is an
+account of the behaviours the change reaches. Each one ends in exactly one of three states. Validated: a
+kept test ran its lines on both sides of the change, ran consistently, and a mutant placed inside those
+lines was killed. For your environment: a real test that needs something only the team has, handed over
+with its declaration. Stated gap: the harness could not produce a test it trusts, or could not prove the
+one it has, and the record says why in one reason. Nothing is silent, and nothing is implied that was not
+earned: a test that executed a function without a mutant to prove it checks anything is a gap named
+`strength-not-sampled`, which is the harness's own failure, not the test's. The counts sum to the number
+of behaviours; a behaviour without a state fails the run's assessment (G13). This is what the business
+case promises the gate, and the stage 5 accounting is where it is kept.
+
 ## 4. Build on existing work
 
 Nothing in the open source world, from Red Hat, IBM, or elsewhere, does the whole job; the pieces do most
@@ -564,6 +575,22 @@ test reaches; the route is the pipeline's owners, the suggested change names the
 one finding per fact stage 2 recorded about the CI, security-class where untrusted code can reach
 secrets or the network, each with the change that corrects it. A repository with no CI definition at
 all is itself a finding. The packet carries them in their own section; the harness edits no pipeline.
+
+**The accounting (principle 14), as implemented.** After the verdicts and the pipeline facts, triage
+writes `triage/<package>/accounting.json` and the roll-up `triage/accounting-summary.json`. The unit is a
+reached behaviour: for a dependency, each call-site symbol outside test files that resolves to a public
+function, method or type, re-exports resolved to their definition, module imports set aside; for a
+first-party change, each added or changed public symbol; for a rescan, every public symbol within the
+budget, the rest recorded as `out-of-budget`. A type is judged by its public methods; a type without any
+is set aside with that reason. The state comes from the unit's own span: lines a kept test executed
+(from the run's coverage) and mutants sampled and killed inside it. Gap reasons, checked in order:
+`pipeline-cannot-validate`, `not-in-public-api`, `executed-not-checked`, `strength-not-sampled`,
+`flaky`, `failed-on-head`, `no-test-generated`, `out-of-budget`. The story, the pull request text
+("Accounted for" and "Not covered"), the run index, the dashboard and the evaluation table carry the
+counts. Not yet wired, and named so no one assumes it: per-test attribution through coverage contexts,
+the private callees a public function delegates to, and mutant sampling stratified over the reached
+units; until they land most units on the published runs read `strength-not-sampled`, which is the truth
+about the sample ([document 18](18-design-queue-research.md) has the dry run).
 
 ### Stage 6: Review
 

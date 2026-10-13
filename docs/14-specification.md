@@ -32,6 +32,7 @@ this implementation, or says there is none yet.
 | R20 | A trigger (pull request, push, schedule, person) SHOULD start a run with one command and the refs the event implies. | `test_cli_manifest`; no check for the trigger files yet |
 | R21 | Analysis MUST read the repository's CI definitions at the reviewed commit and record what they do with untrusted code while tests run; triage MUST state each as a finding with the correcting change, routed to the pipeline's owners; the harness MUST NOT edit the pipeline. | `test_pipeline_facts`, goal G12 |
 | R22 | Analysis MUST count what the existing suite reaches of each package in scope and of the symbols the change altered; triage MUST state a provable gap as a finding with the call sites to test. | `test_pipeline_facts` |
+| R23 | Triage MUST account for every behaviour the change reaches in exactly one of three states, validated, for your environment, or a stated gap with one reason, with the evidence per behaviour; the counts MUST sum; the story, the pull request text and the index MUST carry them. | `test_accounting` |
 
 ## Contracts
 
@@ -42,7 +43,7 @@ this implementation, or says there is none yet.
 ## How an implementation is judged
 
 1. The register passes: every entry has a check, and stage 0 runs them all before every run.
-2. Every run is assessed against the blueprint's twelve goals, with the measurement and the file it came from.
+2. Every run is assessed against the blueprint's thirteen goals, with the measurement and the file it came from.
 3. The reference jobs, rerun and compared with the baseline in [document 12](12-prompt-and-model-evaluation.md):
 
 | Job | Model, prompt set | Baseline |

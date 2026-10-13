@@ -9,6 +9,7 @@ This change moves pyasn1 from 0.6.4 to 0.4.8, a version with 4 known vulnerabili
 | Provenance | MANIFEST.json, in-toto statement, DSSE envelope (key sha256:4f2defc2e375), UDLM records, all in the same directory |
 | Commit | signed at propose time when [propose].sign is on |
 | Run | 76a3fa863e76 |
+| Accounted for | No reached behaviour was accounted for in this run. |
 
 Files this pull request carries:
 

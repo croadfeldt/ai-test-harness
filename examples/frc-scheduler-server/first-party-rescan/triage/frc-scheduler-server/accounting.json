@@ -1,0 +1,1922 @@
+{
+  "counts": {
+    "by_reason": {
+      "executed-not-checked": 1,
+      "no-test-generated": 19,
+      "strength-not-sampled": 20
+    },
+    "excluded": 189,
+    "for_your_environment": 0,
+    "stated_gap": 40,
+    "units": 40,
+    "validated": 0
+  },
+  "excluded": [
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.live.nexus_pull_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.live.ingest_nexus_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.live.detect_schedule_source"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.live.get_event_live_data"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.llm_client.is_configured"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.llm_client.parse_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.llm_client.parse_schedule_from_images"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.llm_client.health_check"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_pool"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_generation_semaphore"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.SecurityHeadersMiddleware"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.main.SecurityHeadersMiddleware.dispatch"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.validation_exception_handler"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.unhandled_exception_handler"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.startup"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.shutdown"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.root"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.view_page"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.apple_domain_association"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.EventCreate"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.TeamIn"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.AbstractGenerateRequest"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.main.AbstractGenerateRequest.coerce_empty_seed"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.AssignRequest"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.main.AssignRequest.resolved_iterations"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.main.AssignRequest.settings_dict"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_events"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_or_create_adhoc_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.create_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.patch_event_branding"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.delete_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.tba_events"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.tba_team_lookup"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.tba_search_index"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.tba_import_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.frc_events_status"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.frc_events_list"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.frc_import_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_event_teams"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.export_event_teams"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.add_team_to_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.remove_team"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.enrich_team"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.generate_abstract"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.UnifiedScheduleRequest"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.create_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_canonical_schedules"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_abstract_schedules"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_abstract_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.rescore_abstract_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.backfill_abstract_metrics"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.ScorePreviewRequest"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.score_preview"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.delete_abstract_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.assign_teams_endpoint"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_assigned_schedules"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.patch_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.lock_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.unlock_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.activate_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_schedule_history"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.restore_schedule_from_history"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_schedule_lock_events"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.mark_schedule_official"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.unmark_schedule_official"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.freeze_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.unfreeze_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.delete_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.duplicate_assigned_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_event_view_payload"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_event_live"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_event_live_by_key"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.start_event_simulation"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.stop_event_simulation"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.nexus_webhook"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_statbotics_team_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.scheduler_defaults"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.get_diversity_report"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.PdfImportPreview"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.PdfImportCommitRequest"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.import_pdf"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.import_xlsx"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.import_csv_endpoint"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.render_schedule_pdf_endpoint"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.commit_pdf_import"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.llm_status"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.health"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.google_login"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.google_callback"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.apple_login"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.apple_callback"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.auth_me"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.auth_providers"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.CreatePATRequest"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.PATCreateResponse"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.PATListItem"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.create_personal_access_token"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.list_personal_access_tokens"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.revoke_personal_access_token"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.main.CommitLogEntry"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.main.log_commit"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_dayplan.looks_like_dayplan"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_dayplan.extract_dayplan"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_dayplan.to_v2_day_config"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_dayplan.to_legacy_day_config"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_extract.hash_pdf"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_extract.extract_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_extract.extract_tables"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_extract.estimate_token_budget"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_extract.format_for_llm"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_render.render_schedule_pdf"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_render.render_schedule_html"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.pdf_validate.validate_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.generate_plaintext"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.hash_token"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.mint_pat"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.verify_pat"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.revoke_pat"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.personal_access_tokens.list_pats"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.cpsat_post_passes.rb_balance_cpsat"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.cpsat_post_passes.station_balance_cpsat"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.rb_balance.rb_balance_pass"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.rb_balance.rb_balance_sa"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.station_balance.station_balance_pass"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.post_passes.station_balance.station_balance_sa"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.quality.DiversityReport"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.quality.DiversityReport.to_dict"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality.compute_diversity_report"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality.analyze_against_thresholds"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality.composite_score"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_floors.Floor"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_floors.Floor.to_dict"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_floors.FixtureFloors"
+    },
+    {
+      "kind": "method",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_floors.FixtureFloors.to_dict"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_floors.fixture_floors"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_presets.iterations_for_preset"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_presets.preset_for_iterations"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_report.compute_metrics"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_report.apply_scores"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_report.build_quality_report"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_scoring.criterion_score"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_scoring.compute_scores"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.quality_scoring.best_known_floors_from_canonical"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.schedule_derive.derive_parameters"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.Match"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.ScheduleResult"
+    },
+    {
+      "kind": "class",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.ConstructionMalformedError"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.generate_matches"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.score_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.score_tuple_for_schedule"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.run_iterations_worker"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.run_assignment_chunk"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.scheduler.run_assignment_worker"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.statbotics.get_team_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.statbotics.get_team_year"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.statbotics.normalize_team_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_events"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_event_matches"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_event_rankings"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_event_teams"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_team"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.get_teams_by_number"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.search_events"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.normalise_team"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.tba.normalise_event"
+    },
+    {
+      "kind": "function",
+      "reason": "out-of-budget",
+      "symbol": "app.xlsx_extract.parse_xlsx"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.day_config_v2.CycleChangeV2"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.day_config_v2.BlockV2"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.day_config_v2.DayV2"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.day_config_v2.DayConfigV2"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.Base"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.Event"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.Team"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.EventTeam"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.AbstractSchedule"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.AssignedSchedule"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.AssignedScheduleHistory"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.AssignedScheduleLockEvent"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.User"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.PersonalAccessToken"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.PdfImport"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.MatchRow"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.MatchResult"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.TeamRanking"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.QueueStatus"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "app.db.EventLiveSync"
+    }
+  ],
+  "format": "ai-test-harness/accounting/v1",
+  "generated": "2026-10-13T18:34:44+00:00",
+  "method": {
+    "execution": "lines executed by the run's kept tests inside the unit's own span (aggregate coverage)",
+    "next": "per-test coverage contexts, private callees, sampling stratified over the reached units",
+    "strength": "mutants sampled inside the unit's own span and killed by a kept test"
+  },
+  "package": "frc-scheduler-server",
+  "reasons": {
+    "did-not-build": "every candidate for this behaviour failed to compile or collect",
+    "executed-not-checked": "lines ran, no mutant inside them was killed",
+    "failed-on-head": "the tests for this behaviour are wrong",
+    "flaky": "the only tests for this behaviour disagreed with themselves",
+    "no-test-generated": "no kept test names or executes this behaviour",
+    "not-in-public-api": "the application references a name the package's public API does not define",
+    "out-of-budget": "beyond this run's budget; recorded so it is not forgotten",
+    "pipeline-cannot-validate": "the repository's CI cannot run or validate the proposed tests",
+    "strength-not-sampled": "lines ran, no mutant was placed inside them; a sampling gap the harness owns"
+  },
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ],
+  "unit": "a behaviour the change reaches: a public function, method or type of the package the application calls, or a public symbol the change altered",
+  "units": [
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 91,
+          "file": "app/auth.py",
+          "start": 75
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.create_jwt",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 2,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 98,
+          "file": "app/auth.py",
+          "start": 92
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.decode_jwt",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 151,
+          "file": "app/auth.py",
+          "start": 99
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.get_current_user",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 157,
+          "file": "app/auth.py",
+          "start": 152
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.require_auth",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 2,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 208,
+          "file": "app/auth.py",
+          "start": 158
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.upsert_user",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 224,
+          "file": "app/auth.py",
+          "start": 214
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.google_login_url",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 241,
+          "file": "app/auth.py",
+          "start": 225
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.google_exchange_code",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 307,
+          "file": "app/auth.py",
+          "start": 298
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.apple_login_url",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/auth.py",
+          "start": 308
+        },
+        "tests": []
+      },
+      "file": "app/auth.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.auth.apple_exchange_code",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_canonical_filename_encodes_shape"
+        ],
+        "lines_executed": 2,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 66,
+          "file": "app/canonical_library.py",
+          "start": 57
+        },
+        "tests": [
+          "test_canonical_filename_encodes_shape"
+        ]
+      },
+      "file": "app/canonical_library.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.canonical_filename",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_canonical_path_uses_base_dir"
+        ],
+        "lines_executed": 4,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 79,
+          "file": "app/canonical_library.py",
+          "start": 67
+        },
+        "tests": [
+          "test_canonical_path_uses_base_dir"
+        ]
+      },
+      "file": "app/canonical_library.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.canonical_path",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "judged_by": "its public methods",
+        "methods": {
+          "app.canonical_library.CanonicalEntry.from_dict": {
+            "reason": "strength-not-sampled",
+            "state": "stated-gap"
+          },
+          "app.canonical_library.CanonicalEntry.to_dict": {
+            "reason": "strength-not-sampled",
+            "state": "stated-gap"
+          }
+        }
+      },
+      "file": "app/canonical_library.py",
+      "kind": "class",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.CanonicalEntry",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 2,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 128,
+          "file": "app/canonical_library.py",
+          "start": 115
+        },
+        "tests": []
+      },
+      "file": "app/canonical_library.py",
+      "kind": "method",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.CanonicalEntry.to_dict",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 142,
+          "file": "app/canonical_library.py",
+          "start": 129
+        },
+        "tests": []
+      },
+      "file": "app/canonical_library.py",
+      "kind": "method",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.CanonicalEntry.from_dict",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_load_canonical_missing_returns_none"
+        ],
+        "lines_executed": 4,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 1
+        },
+        "span": {
+          "end": 171,
+          "file": "app/canonical_library.py",
+          "start": 143
+        },
+        "tests": [
+          "test_load_canonical_missing_returns_none"
+        ]
+      },
+      "file": "app/canonical_library.py",
+      "kind": "function",
+      "reason": "executed-not-checked",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.load_canonical",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 187,
+          "file": "app/canonical_library.py",
+          "start": 172
+        },
+        "tests": []
+      },
+      "file": "app/canonical_library.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.save_canonical",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 2,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/canonical_library.py",
+          "start": 188
+        },
+        "tests": []
+      },
+      "file": "app/canonical_library.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.canonical_library.list_canonicals",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_parse_csv_reads_rows"
+        ],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/csv_extract.py",
+          "start": 53
+        },
+        "tests": [
+          "test_parse_csv_reads_rows"
+        ]
+      },
+      "file": "app/csv_extract.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.csv_extract.parse_csv",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 264,
+          "file": "app/day_config_v2.py",
+          "start": 260
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.validate_v2",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 345,
+          "file": "app/day_config_v2.py",
+          "start": 265
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.is_v2_shape",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 573,
+          "file": "app/day_config_v2.py",
+          "start": 346
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.migrate_v1_to_v2",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 842,
+          "file": "app/day_config_v2.py",
+          "start": 574
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.downgrade_v2_to_v1",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 878,
+          "file": "app/day_config_v2.py",
+          "start": 843
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.materialize_v2",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/day_config_v2.py",
+          "start": 879
+        },
+        "tests": []
+      },
+      "file": "app/day_config_v2.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.day_config_v2.normalize_to_v2",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 62,
+          "file": "app/db.py",
+          "start": 57
+        },
+        "tests": []
+      },
+      "file": "app/db.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.db.utcnow",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 710,
+          "file": "app/db.py",
+          "start": 614
+        },
+        "tests": []
+      },
+      "file": "app/db.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.db.init_db",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 1,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/db.py",
+          "start": 711
+        },
+        "tests": []
+      },
+      "file": "app/db.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "app.db.get_session",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 119,
+          "file": "app/frc_compliance.py",
+          "start": 62
+        },
+        "tests": []
+      },
+      "file": "app/frc_compliance.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_compliance.compute_deviations",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 124,
+          "file": "app/frc_compliance.py",
+          "start": 120
+        },
+        "tests": []
+      },
+      "file": "app/frc_compliance.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_compliance.is_competition_approved",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/frc_compliance.py",
+          "start": 125
+        },
+        "tests": []
+      },
+      "file": "app/frc_compliance.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_compliance.build_audit_record",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 55,
+          "file": "app/frc_events.py",
+          "start": 51
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.get_events",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 61,
+          "file": "app/frc_events.py",
+          "start": 56
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.get_event",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 79,
+          "file": "app/frc_events.py",
+          "start": 62
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.get_event_teams",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 85,
+          "file": "app/frc_events.py",
+          "start": 80
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.search_events",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 89,
+          "file": "app/frc_events.py",
+          "start": 86
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.is_configured",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 101,
+          "file": "app/frc_events.py",
+          "start": 90
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.normalise_team",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": null,
+          "file": "app/frc_events.py",
+          "start": 102
+        },
+        "tests": []
+      },
+      "file": "app/frc_events.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.frc_events.normalise_event",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 263,
+          "file": "app/live.py",
+          "start": 48
+        },
+        "tests": []
+      },
+      "file": "app/live.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.live.refresh_event",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 284,
+          "file": "app/live.py",
+          "start": 264
+        },
+        "tests": []
+      },
+      "file": "app/live.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.live.start_simulation",
+      "via": "public API, rescan"
+    },
+    {
+      "evidence": {
+        "kept_tests": [],
+        "lines_executed": 0,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 650,
+          "file": "app/live.py",
+          "start": 285
+        },
+        "tests": []
+      },
+      "file": "app/live.py",
+      "kind": "function",
+      "reason": "no-test-generated",
+      "state": "stated-gap",
+      "symbol": "app.live.stop_simulation",
+      "via": "public API, rescan"
+    }
+  ]
+}

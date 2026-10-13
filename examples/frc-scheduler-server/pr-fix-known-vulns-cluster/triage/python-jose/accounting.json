@@ -1,0 +1,174 @@
+{
+  "counts": {
+    "by_reason": {
+      "strength-not-sampled": 3
+    },
+    "excluded": 2,
+    "for_your_environment": 0,
+    "stated_gap": 3,
+    "units": 3,
+    "validated": 0
+  },
+  "excluded": [
+    {
+      "kind": "module",
+      "reason": "a module import is not a behaviour",
+      "symbol": "jose.jwt"
+    },
+    {
+      "kind": "class",
+      "reason": "a type without public methods; its behaviour is the functions that raise or return it",
+      "symbol": "jose.exceptions.JWTError"
+    }
+  ],
+  "format": "ai-test-harness/accounting/v1",
+  "generated": "2026-10-13T18:34:44+00:00",
+  "method": {
+    "execution": "lines executed by the run's kept tests inside the unit's own span (aggregate coverage)",
+    "next": "per-test coverage contexts, private callees, sampling stratified over the reached units",
+    "strength": "mutants sampled inside the unit's own span and killed by a kept test"
+  },
+  "package": "python-jose",
+  "reasons": {
+    "did-not-build": "every candidate for this behaviour failed to compile or collect",
+    "executed-not-checked": "lines ran, no mutant inside them was killed",
+    "failed-on-head": "the tests for this behaviour are wrong",
+    "flaky": "the only tests for this behaviour disagreed with themselves",
+    "no-test-generated": "no kept test names or executes this behaviour",
+    "not-in-public-api": "the application references a name the package's public API does not define",
+    "out-of-budget": "beyond this run's budget; recorded so it is not forgotten",
+    "pipeline-cannot-validate": "the repository's CI cannot run or validate the proposed tests",
+    "strength-not-sampled": "lines ran, no mutant was placed inside them; a sampling gap the harness owns"
+  },
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ],
+  "unit": "a behaviour the change reaches: a public function, method or type of the package the application calls, or a public symbol the change altered",
+  "units": [
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ],
+        "lines_executed": 14,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 181,
+          "file": "jose/jwt.py",
+          "start": 68
+        },
+        "tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ]
+      },
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "jose.jwt.decode",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ],
+        "lines_executed": 5,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 67,
+          "file": "jose/jwt.py",
+          "start": 26
+        },
+        "tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ]
+      },
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "jose.jwt.encode",
+      "via": "call site"
+    },
+    {
+      "evidence": {
+        "kept_tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ],
+        "lines_executed": 4,
+        "mutants": {
+          "killed": 0,
+          "killed_by": [],
+          "sampled": 0
+        },
+        "span": {
+          "end": 201,
+          "file": "jose/jwt.py",
+          "start": 182
+        },
+        "tests": [
+          "test_jws_sign_verify_roundtrip",
+          "test_jwt_decode_audience_mismatch_raises_jwt_claims_error",
+          "test_jwt_decode_expired_raises_expired_signature_error",
+          "test_jwt_decode_wrong_key_raises_jwt_error",
+          "test_jwt_encode_decode_roundtrip_hmac",
+          "test_jwt_get_unverified_claims_returns_claims_without_verification",
+          "test_jwt_get_unverified_header_returns_alg_and_typ",
+          "test_utils_base64url_roundtrip"
+        ]
+      },
+      "file": "jose/jwt.py",
+      "kind": "function",
+      "reason": "strength-not-sampled",
+      "state": "stated-gap",
+      "symbol": "jose.jwt.get_unverified_header",
+      "via": "call site"
+    }
+  ]
+}

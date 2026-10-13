@@ -258,15 +258,15 @@ def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
                     continue
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_"):
                     symbols.append(ApiSymbol(module, f"{module}.{node.name}", "function", _sig(node),
-                                             _first_line(ast.get_docstring(node)), str(rel), node.lineno))
+                                             _first_line(ast.get_docstring(node)), str(rel), node.lineno, getattr(node, "end_lineno", None)))
                 elif isinstance(node, ast.ClassDef) and not node.name.startswith("_"):
                     bases = ", ".join(ast.unparse(b) for b in node.bases)
                     symbols.append(ApiSymbol(module, f"{module}.{node.name}", "class", f"({bases})",
-                                             _first_line(ast.get_docstring(node)), str(rel), node.lineno))
+                                             _first_line(ast.get_docstring(node)), str(rel), node.lineno, getattr(node, "end_lineno", None)))
                     for m in node.body:
                         if isinstance(m, (ast.FunctionDef, ast.AsyncFunctionDef)) and (not m.name.startswith("_") or m.name == "__init__"):
                             symbols.append(ApiSymbol(module, f"{module}.{node.name}.{m.name}", "method", _sig(m),
-                                                     _first_line(ast.get_docstring(m)), str(rel), m.lineno))
+                                                     _first_line(ast.get_docstring(m)), str(rel), m.lineno, getattr(m, "end_lineno", None)))
     return symbols
 
 

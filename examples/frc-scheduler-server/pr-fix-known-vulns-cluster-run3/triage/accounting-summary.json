@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "by_reason": {
+      "strength-not-sampled": 3
+    },
+    "excluded": 2,
+    "for_your_environment": 0,
+    "stated_gap": 3,
+    "units": 3,
+    "validated": 0
+  },
+  "format": "ai-test-harness/accounting-summary/v1",
+  "generated": "2026-10-13T18:34:44+00:00",
+  "packages": [
+    {
+      "by_reason": {
+        "strength-not-sampled": 3
+      },
+      "excluded": 2,
+      "for_your_environment": 0,
+      "package": "python-jose",
+      "stated_gap": 3,
+      "units": 3,
+      "validated": 0
+    }
+  ],
+  "states": [
+    "validated",
+    "for-your-environment",
+    "stated-gap"
+  ]
+}

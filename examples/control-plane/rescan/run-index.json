@@ -27,16 +27,6 @@
       "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
     },
     {
-      "audience": "machine",
-      "path": "intake/graph.new.json",
-      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
-    },
-    {
-      "audience": "machine",
-      "path": "intake/graph.old.json",
-      "purpose": "The dependency graph at base."
-    },
-    {
       "audience": "audit",
       "path": "intake/sbom.new.cdx.json",
       "purpose": "The software bill of materials at head, CycloneDX."
@@ -483,6 +473,7 @@
   "model": null,
   "packages": [
     {
+      "accounting": null,
       "advisories": 8,
       "attestation": null,
       "budget": "full",
@@ -509,6 +500,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 4,
       "attestation": null,
       "budget": "snapshot",
@@ -535,6 +527,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 6,
       "attestation": null,
       "budget": "snapshot",
@@ -561,6 +554,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -587,6 +581,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 2,
       "attestation": null,
       "budget": "snapshot",
@@ -613,6 +608,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 22,
       "attestation": null,
       "budget": "reduced",
@@ -639,6 +635,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -665,6 +662,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -691,6 +689,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 30,
       "attestation": null,
       "budget": "full",
@@ -717,6 +716,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 2,
       "attestation": null,
       "budget": "snapshot",
@@ -743,6 +743,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 8,
       "attestation": null,
       "budget": "snapshot",
@@ -769,6 +770,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -795,6 +797,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 5,
       "attestation": null,
       "budget": "snapshot",
@@ -821,6 +824,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 10,
       "attestation": null,
       "budget": "snapshot",
@@ -896,7 +900,7 @@
         "changed": 0,
         "packages_at_base": 250,
         "packages_at_head": 250,
-        "resolver": "go list -m -json all + go mod graph (go version go1.26.8-X:nodwarf5 linux/amd64)",
+        "resolver": null,
         "with_advisories_at_head": 14,
         "work_list_rows": 251
       }
@@ -932,5 +936,5 @@
     }
   },
   "started": "2026-09-13T20:43:59+00:00",
-  "updated": "2026-09-27T00:23:21+00:00"
+  "updated": "2026-10-13T18:35:09+00:00"
 }

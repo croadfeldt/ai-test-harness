@@ -9,6 +9,7 @@ This change updates python-jose from 3.3.0 to 3.4.0, which closes 3 known vulner
 | Provenance | MANIFEST.json, in-toto statement, DSSE envelope (key sha256:f1695b2ad7cb), UDLM records, all in the same directory |
 | Commit | signed at propose time when [propose].sign is on |
 | Run | 3d9fa72b859b |
+| Accounted for | 3 behaviours reached: 0 validated, 0 for your environment, 3 stated gaps. |
 
 Files this pull request carries:
 
@@ -21,5 +22,11 @@ Files this pull request carries:
 - `overlays/python/python-jose/3.4.x/statement.dsse.json`
 - `overlays/python/python-jose/3.4.x/signer.pub.pem`
 - `overlays/python/python-jose/3.4.x/udlm/`
+
+Not covered:
+
+- `jose.jwt.decode`: lines ran, no mutant was placed inside them; a sampling gap the harness owns
+- `jose.jwt.encode`: lines ran, no mutant was placed inside them; a sampling gap the harness owns
+- `jose.jwt.get_unverified_header`: lines ran, no mutant was placed inside them; a sampling gap the harness owns
 
 Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, and the draft VEX statements for Product Security. Nothing here is merged by the harness; a person decides.

@@ -52,6 +52,8 @@ CATALOGUE = {
     "execute/mutation/mutants/": ("machine", "Each sampled mutant: its change as a patch, and its sealed run's output."),
     "execute/relevance.json": ("reviewer", "Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted."),
     "triage/triage.json": ("reviewer", "Every verdict and finding classified, with a confidence and a route; below the threshold a person decides."),
+    "triage/accounting.json": ("reviewer", "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."),
+    "triage/accounting-summary.json": ("everyone", "The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why."),
     "packet/packet.md": ("reviewer", "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."),
     "packet/packet.json": ("machine", "The packet's facts in structured form."),
     "packet/tests.patch": ("reviewer", "The accepted tests as a patch in the layout they will live in."),
@@ -63,7 +65,7 @@ CATALOGUE = {
     "attest/signer.pub.pem": ("audit", "The public key that verifies the envelope."),
     "attest/attest.json": ("audit", "Which key signed, whether it verified locally, and what the run could not back."),
     "attest/udlm/": ("audit", "The same facts as sealed UDLM records: the vulnerability, the package, the run, each accepted test, the draft VEX."),
-    "assess/assess.md": ("everyone", "The run against the blueprint's twelve goals, each with the measurement and the file it came from."),
+    "assess/assess.md": ("everyone", "The run against the blueprint's thirteen goals, each with the measurement and the file it came from."),
     "assess/assess.json": ("machine", "The assessment in structured form."),
     "propose/proposal.json": ("audit", "The branch, the commit, the files and the pull request the harness opened; the signature status."),
     "propose/pull-request.md": ("reviewer", "The pull request's text as posted."),
@@ -78,7 +80,7 @@ def catalogue_for(workdir: Path, packages: list[str]) -> list[dict]:
     """Every file or directory of this run that the catalogue names, with its audience and purpose."""
     out = []
     for key, (aud, why) in CATALOGUE.items():
-        if "/" not in key or key.startswith(("selfcheck/", "intake/", "assess/", "analyze/pipeline/", "triage/pipeline")):
+        if "/" not in key or key.startswith(("selfcheck/", "intake/", "assess/", "analyze/pipeline/", "triage/pipeline", "triage/accounting-summary")):
             if (workdir / key).exists():
                 out.append({"path": key, "audience": aud, "purpose": why})
             continue
@@ -145,7 +147,7 @@ def build(workdir: Path) -> dict:
         has("analyze", "facts.json"); has("analyze", "vulns.json"); has("analyze", "api-diff.json"); has("analyze", "fixed-candidate.json")
         has("generate", "manifest.json"); has("generate", "manifest.agent.json")
         has("execute", "results.json"); has("execute", "mutation/mutation.json", "execute/mutation.json"); has("execute", "relevance.json")
-        has("triage", "triage.json"); has("packet", "packet.md"); has("packet", "packet.json"); has("packet", "tests.patch"); has("packet", "vex.openvex.json")
+        has("triage", "triage.json"); has("triage", "accounting.json"); has("packet", "packet.md"); has("packet", "packet.json"); has("packet", "tests.patch"); has("packet", "vex.openvex.json")
         has("attest", "MANIFEST.json"); has("attest", "statement.json"); has("attest", "statement.dsse.json"); has("attest", "signer.pub.pem"); has("attest", "attest.json"); has("attest", "udlm/index.json")
         has("propose", "proposal.json"); has("feedback", "acceptance.json"); has("feedback", "acceptance-statement.dsse.json"); has("feedback", "udlm/index.json")
         res = _load(p / "execute" / pkg / "results.json") or {}
@@ -155,6 +157,7 @@ def build(workdir: Path) -> dict:
         facts = _load(p / "analyze" / pkg / "facts.json") or {}
         fb = _load(p / "feedback" / pkg / "acceptance.json") or {}
         prop = _load(p / "propose" / pkg / "proposal.json") or {}
+        acc = _load(p / "triage" / pkg / "accounting.json") or {}
         c = res.get("counts", {})
         packages.append({
             "package": pkg, "first_party": bool(facts.get("first_party")), "old_version": facts.get("old_version"), "new_version": facts.get("new_version"),
@@ -164,6 +167,7 @@ def build(workdir: Path) -> dict:
                       "ran": c.get("total"), "pass_on_head": c.get("pass_on_new"), "flaky": c.get("flaky"), "proven": c.get("fix_pinning_confirmed"),
                       "accepted": (tri.get("summary") or {}).get("tests_accept")},
             "mutation": {"status": mut.get("status"), "score": mut.get("score"), "sampled": mut.get("sampled"), "killed": mut.get("killed")} if mut else None,
+            "accounting": {k: (acc.get("counts") or {}).get(k) for k in ("units", "validated", "for_your_environment", "stated_gap")} if acc else None,
             "attestation": {"result": att.get("result"), "keyid": att.get("keyid")} if att else None,
             "proposal": {"status": prop.get("status"), "pull_request": prop.get("pull_request")} if prop else None,
             "review": {"outcome": fb.get("outcome"), **fb.get("counts", {})} if fb else None,

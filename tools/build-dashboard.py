@@ -36,7 +36,10 @@ def collect() -> dict:
         runs.append({"ref": ref, "run_id": idx.get("run_id"), "repository": idx.get("repository"), "ecosystem": idx.get("ecosystem"), "mode": idx.get("mode"),
                      "started": idx.get("started"), "model": idx.get("model"),
                      "packages": len(pk), "tests_ran": sum((p["tests"].get("ran") or 0) for p in pk), "accepted": sum((p["tests"].get("accepted") or 0) for p in pk),
-                     "proven": sum((p["tests"].get("proven") or 0) for p in pk), "goals_met": (idx.get("goals") or {}).get("met"), "goals_total": sum((idx.get("goals") or {}).values()) if idx.get("goals") else None,
+                     "proven": sum((p["tests"].get("proven") or 0) for p in pk),
+                     "reached": sum(((p.get("accounting") or {}).get("units") or 0) for p in pk), "validated": sum(((p.get("accounting") or {}).get("validated") or 0) for p in pk),
+                     "for_environment": sum(((p.get("accounting") or {}).get("for_your_environment") or 0) for p in pk), "gaps": sum(((p.get("accounting") or {}).get("stated_gap") or 0) for p in pk),
+                     "goals_met": (idx.get("goals") or {}).get("met"), "goals_total": sum((idx.get("goals") or {}).values()) if idx.get("goals") else None,
                      "pipeline_findings": len(pl.get("findings", [])), "pipeline_security": sum(1 for f in pl.get("findings", []) if f.get("severity") == "security"),
                      "pipeline_rules": sorted({f.get("rule") for f in pl.get("findings", []) if f.get("rule")}),
                      "reviewer_accepted": sum((r.get("accepted") or 0) for r in rv), "reviewer_rejected": sum((r.get("rejected") or 0) for r in rv), "merged": any(r.get("outcome") for r in rv),
@@ -65,6 +68,7 @@ function render() {
   const f = pick(); const runs = D.runs.filter(r => runOk(r, f));
   const rows = D.rows.filter(r => rowOk(r, f) && (!f.repo || runs.some(x => x.run_id === r.run_id)));
   const tiles = [['runs', runs.length, 'runs'], ['tests ran', sum(runs, 'tests_ran'), 'in the sealed sandbox'], ['accepted', sum(runs, 'accepted'), 'by triage'], ['fixes proven', sum(runs, 'proven'), 'fail on vulnerable, pass on fixed'],
+                 ['validated', sum(runs, 'validated'), 'of ' + sum(runs, 'reached') + ' behaviours reached'], ['stated gaps', sum(runs, 'gaps'), sum(runs, 'for_environment') + ' for your environment'],
                  ['reviewer accepted', sum(runs, 'reviewer_accepted'), 'merged by a person'], ['pipeline findings', sum(runs, 'pipeline_findings'), sum(runs, 'pipeline_security') + ' security-class']];
   $('#tiles').innerHTML = tiles.map(([l, v, s]) => '<div class="tile"><b>' + esc(v) + '</b>' + esc(l) + '<br><span>' + esc(s) + '</span></div>').join('');
   const byMonth = {}; runs.forEach(r => { const m = (r.started || '').slice(0, 7) || 'undated'; const b = byMonth[m] ||= { runs: 0, accepted: 0, proven: 0 }; b.runs++; b.accepted += r.accepted || 0; b.proven += r.proven || 0; });
@@ -81,7 +85,7 @@ function render() {
   const reads = g => g.ra ? 'accepted by a reviewer' : g.proven ? 'proves fixes' : g.accepted ? 'characterizes' : g.for_review ? 'finds behaviour changes' : g.kept ? 'not fit: none accepted' : 'not fit';
   $('#eval tbody').innerHTML = Object.values(agg).sort((a, b) => (a.language + a.package + a.model + a.prompt_set).localeCompare(b.language + b.package + b.model + b.prompt_set)).map(g => '<tr><td>' + esc(g.prompt_set) + '</td><td>' + esc(g.model) + '</td><td>' + esc(g.language) + '</td><td>' + esc(g.package) + '</td><td>' + g.runs + '</td><td>' + g.kept + '</td><td>' + g.accepted + '</td><td>' + g.for_review + '</td><td>' + g.proven + '</td><td>' + (g.cov.length ? Math.round(g.cov.reduce((a, b) => a + b, 0) / g.cov.length) : '-') + '</td><td>' + (g.mut.length ? (g.mut.reduce((a, b) => a + b, 0) / g.mut.length).toFixed(2) : '-') + '</td><td>' + (g.ra || g.rr ? g.ra + ' / ' + g.rr : 'no review yet') + '</td><td>' + g.calls + '</td><td>' + g.minutes.toFixed(1) + '</td><td>' + pill(reads(g), g.ra || g.proven ? true : g.accepted || g.for_review ? null : false) + '</td></tr>').join('') || '<tr><td colspan="15">no package runs match</td></tr>';
   $('#pipe tbody').innerHTML = runs.filter(r => r.pipeline_findings != null && r.pipeline_rules.length).map(r => '<tr><td>' + esc(r.repository) + '</td><td>' + (r.page ? '<a href="../' + esc(r.page) + '">' + esc(r.run_id) + '</a>' : esc(r.run_id)) + '</td><td>' + esc((r.started || '').slice(0, 10)) + '</td><td>' + r.pipeline_findings + '</td><td>' + r.pipeline_security + '</td><td>' + esc(r.pipeline_rules.join(', ')) + '</td></tr>').join('') || '<tr><td colspan="6">no pipeline findings in the runs that match (runs before the pipeline questions were asked carry none)</td></tr>';
-  $('#runs tbody').innerHTML = runs.slice().reverse().map(r => '<tr><td>' + esc((r.started || '').slice(0, 16).replace('T', ' ')) + '</td><td>' + (r.page ? '<a href="../' + esc(r.page) + '">' + esc(r.repository) + '</a>' : esc(r.repository)) + '</td><td>' + esc(r.ecosystem) + '</td><td>' + esc(r.mode) + '</td><td>' + esc(r.model) + '</td><td>' + r.packages + '</td><td>' + r.tests_ran + '</td><td>' + r.accepted + '</td><td>' + r.proven + '</td><td>' + (r.goals_met != null ? r.goals_met + ' of ' + r.goals_total : '-') + '</td><td>' + r.pipeline_findings + '</td><td>' + (r.merged ? pill('merged', true) : '') + '</td></tr>').join('');
+  $('#runs tbody').innerHTML = runs.slice().reverse().map(r => '<tr><td>' + esc((r.started || '').slice(0, 16).replace('T', ' ')) + '</td><td>' + (r.page ? '<a href="../' + esc(r.page) + '">' + esc(r.repository) + '</a>' : esc(r.repository)) + '</td><td>' + esc(r.ecosystem) + '</td><td>' + esc(r.mode) + '</td><td>' + esc(r.model) + '</td><td>' + r.packages + '</td><td>' + r.tests_ran + '</td><td>' + r.accepted + '</td><td>' + r.proven + '</td><td>' + (r.reached ? r.validated + ' / ' + r.reached : '-') + '</td><td>' + (r.goals_met != null ? r.goals_met + ' of ' + r.goals_total : '-') + '</td><td>' + r.pipeline_findings + '</td><td>' + (r.merged ? pill('merged', true) : '') + '</td></tr>').join('');
 }
 render();
 '''
@@ -134,7 +138,7 @@ table.res th {{ font-weight: 500; color: var(--muted); font-size: .72rem; text-t
 <h2>For pipeline owners: what the harness found about the CI it ran in</h2>
 <div class="tbl"><table class="res" id="pipe"><thead><tr><th>Repository</th><th>Run</th><th>Started</th><th>Findings</th><th>Security</th><th>Rules</th></tr></thead><tbody></tbody></table></div>
 <h2>Every run</h2>
-<div class="tbl"><table class="res" id="runs"><thead><tr><th>Started</th><th>Repository</th><th>Language</th><th>Mode</th><th>Model</th><th>Packages</th><th>Tests ran</th><th>Accepted</th><th>Proven</th><th>Goals met</th><th>Pipeline findings</th><th>Reviewed</th></tr></thead><tbody></tbody></table></div>
+<div class="tbl"><table class="res" id="runs"><thead><tr><th>Started</th><th>Repository</th><th>Language</th><th>Mode</th><th>Model</th><th>Packages</th><th>Tests ran</th><th>Accepted</th><th>Proven</th><th>Validated / reached</th><th>Goals met</th><th>Pipeline findings</th><th>Reviewed</th></tr></thead><tbody></tbody></table></div>
 <p class="foot">Rendered by <code>tools/build-dashboard.py</code>. A run reaches this page through <code>harness publish</code> into the runs store, or by being kept under <code>examples/</code>. Nothing here is computed that a run's own files do not hold.</p>
 <script id="data" type="application/json">{json.dumps(data).replace('</', '<\\/')}</script>
 <script>

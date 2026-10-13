@@ -83,6 +83,20 @@ def assess(*, workdir: Path) -> dict:
         goal("G12", "principle 13: the pipeline is under test too", "The pipeline's own gaps are stated, never inherited silently", measure, "met", ["analyze/pipeline/facts.json", "triage/pipeline.json"])
     else:
         goal("G12", "principle 13: the pipeline is under test too", "The pipeline's own gaps are stated, never inherited silently", "analysis predates the pipeline facts; rerun analysis", "not applicable", [])
+    acc_path = workdir / "triage" / "accounting-summary.json"
+    if acc_path.exists():
+        acc = read_json(acc_path)
+        per = [read_json(workdir / "triage" / p / "accounting.json") for p in pkgs if (workdir / "triage" / p / "accounting.json").exists()]
+        bad = [u["symbol"] for a in per for u in a.get("units", []) if u.get("state") not in ("validated", "for-your-environment", "stated-gap") or (u.get("state") == "stated-gap" and not u.get("reason"))]
+        sums_ok = all(a["counts"]["units"] == a["counts"]["validated"] + a["counts"]["for_your_environment"] + a["counts"]["stated_gap"] for a in per)
+        c = acc["counts"]
+        measure = (f"{c['units']} behaviour(s) reached: {c['validated']} validated, {c['for_your_environment']} for your environment, {c['stated_gap']} stated gap(s)"
+                   + (f" ({', '.join(f'{n} {r}' for r, n in c.get('by_reason', {}).items())})" if c.get("by_reason") else "") + f"; {c['excluded']} reference(s) set aside with a reason")
+        goal("G13", "principle 14: every reached behaviour accounted for", "Every behaviour the change reaches ends in exactly one state, and a gap carries its reason",
+             measure, "met" if sums_ok and not bad else f"not met ({len(bad)} unit(s) without a state or a reason)", ["triage/accounting-summary.json"] + [f"triage/{p}/accounting.json" for p in pkgs])
+    else:
+        goal("G13", "principle 14: every reached behaviour accounted for", "Every behaviour the change reaches ends in exactly one state, and a gap carries its reason",
+             "triage predates the accounting; rerun triage", "not applicable", [])
     met = sum(1 for g in goals if g["verdict"].startswith("met"))
     rec = {"generated": now_iso(), "run_id": wl["run_id"], "packages": pkgs, "goals": goals,
            "summary": {"met": met, "not_met": sum(1 for g in goals if g["verdict"].startswith("not met")),

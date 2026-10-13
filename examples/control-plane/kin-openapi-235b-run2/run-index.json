@@ -27,16 +27,6 @@
       "purpose": "The work list: every package at base and head, what changed, what is reachable, what carries advisories."
     },
     {
-      "audience": "machine",
-      "path": "intake/graph.new.json",
-      "purpose": "The dependency graph at head as the ecosystem's own resolver produced it."
-    },
-    {
-      "audience": "machine",
-      "path": "intake/graph.old.json",
-      "purpose": "The dependency graph at base."
-    },
-    {
       "audience": "audit",
       "path": "intake/sbom.new.cdx.json",
       "purpose": "The software bill of materials at head, CycloneDX."
@@ -601,6 +591,17 @@
     {
       "audience": "reviewer",
       "package": "github.com/getkin/kin-openapi",
+      "path": "triage/github.com/getkin/kin-openapi/accounting.json",
+      "purpose": "The accounting: every behaviour the change reaches in exactly one state, validated, for your environment or a stated gap with its reason, with the evidence per behaviour."
+    },
+    {
+      "audience": "everyone",
+      "path": "triage/accounting-summary.json",
+      "purpose": "The accounting rolled up: how many behaviours were reached, validated, handed to the team, or left as stated gaps, and why."
+    },
+    {
+      "audience": "reviewer",
+      "package": "github.com/getkin/kin-openapi",
       "path": "packet/github.com/getkin/kin-openapi/packet.md",
       "purpose": "The review packet: the verdict in plain terms, one row per test, the findings, the VEX drafts, the retirements, the recommended action."
     },
@@ -667,7 +668,7 @@
     {
       "audience": "everyone",
       "path": "assess/assess.md",
-      "purpose": "The run against the blueprint's eleven goals, each with the measurement and the file it came from."
+      "purpose": "The run against the blueprint's thirteen goals, each with the measurement and the file it came from."
     },
     {
       "audience": "machine",
@@ -686,8 +687,8 @@
   "format": "ai-test-harness/run-index/v1",
   "generation_mode": "agent",
   "goals": {
-    "met": 9,
-    "not_applicable": 1,
+    "met": 10,
+    "not_applicable": 2,
     "not_met": 0,
     "other": 1
   },
@@ -697,6 +698,12 @@
   "model": "qwen3-235b",
   "packages": [
     {
+      "accounting": {
+        "for_your_environment": 0,
+        "stated_gap": 5,
+        "units": 5,
+        "validated": 0
+      },
       "advisories": 8,
       "attestation": {
         "keyid": "sha256:acfb1ae5a1b7ee2318afae2a4798df5447f0d5270a8b44ad1f3958beea4b9802",
@@ -724,6 +731,7 @@
         "packet/packet.md": "packet/github.com/getkin/kin-openapi/packet.md",
         "packet/tests.patch": "packet/github.com/getkin/kin-openapi/tests.patch",
         "packet/vex.openvex.json": "packet/github.com/getkin/kin-openapi/vex.openvex.json",
+        "triage/accounting.json": "triage/github.com/getkin/kin-openapi/accounting.json",
         "triage/triage.json": "triage/github.com/getkin/kin-openapi/triage.json"
       },
       "first_party": false,
@@ -748,6 +756,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 4,
       "attestation": null,
       "budget": "snapshot",
@@ -774,6 +783,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 6,
       "attestation": null,
       "budget": "reduced",
@@ -800,6 +810,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -826,6 +837,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 2,
       "attestation": null,
       "budget": "snapshot",
@@ -852,6 +864,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 22,
       "attestation": null,
       "budget": "reduced",
@@ -878,6 +891,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -904,6 +918,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -930,6 +945,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -956,6 +972,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -982,6 +999,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "full",
@@ -1008,6 +1026,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 1,
       "attestation": null,
       "budget": "snapshot",
@@ -1034,6 +1053,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 4,
       "attestation": null,
       "budget": "snapshot",
@@ -1060,6 +1080,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 2,
       "attestation": null,
       "budget": "snapshot",
@@ -1086,6 +1107,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 8,
       "attestation": null,
       "budget": "snapshot",
@@ -1112,6 +1134,7 @@
       }
     },
     {
+      "accounting": null,
       "advisories": 12,
       "attestation": null,
       "budget": "snapshot",
@@ -1150,12 +1173,12 @@
       }
     },
     "assess": {
-      "generated": "2026-09-18T16:56:48+00:00",
+      "generated": "2026-10-13T18:34:43+00:00",
       "present": true,
       "rows": 1,
       "summary": {
-        "met": 9,
-        "not_applicable": 1,
+        "met": 10,
+        "not_applicable": 2,
         "not_met": 0,
         "other": 1
       }
@@ -1195,7 +1218,7 @@
         "changed": 0,
         "packages_at_base": 276,
         "packages_at_head": 276,
-        "resolver": "go list -m -json all + go mod graph (go version go1.25.14 linux/amd64)",
+        "resolver": null,
         "with_advisories_at_head": 16,
         "work_list_rows": 277
       }
@@ -1213,11 +1236,11 @@
       "summary": {}
     },
     "selfcheck": {
-      "generated": "2026-09-18T16:56:48+00:00",
+      "generated": "2026-10-13T18:34:43+00:00",
       "present": true,
       "rows": null,
       "summary": {
-        "checks": 24,
+        "checks": 28,
         "model": "skipped",
         "passed": true,
         "sandbox": "skipped"
@@ -1231,5 +1254,5 @@
     }
   },
   "started": "2026-09-18T13:14:43+00:00",
-  "updated": "2026-09-27T00:23:21+00:00"
+  "updated": "2026-10-13T18:35:07+00:00"
 }

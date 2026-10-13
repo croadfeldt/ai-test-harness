@@ -92,6 +92,7 @@ class ApiSymbol:
     doc: str
     file: str
     line: int
+    end_line: int | None = None      # the symbol's last line; the accounting's span (principle 14)
 
 
 @dataclass
