@@ -46,6 +46,7 @@ docs/
   09-language-and-target-flows.md  Creation and execution flows per language, on Kubernetes, Podman, VM, bare metal
   15-failure-register.md     Every way the generator has failed, with its detector, correction and self-check
   16-blueprint-reference.md  The long form behind the blueprint: reasoning, stage detail, lifecycle, metrics, risks, open questions
+  17-design-queue.md         What the business-case review changed in the promise, and what has to change in the blueprint and code to match
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
   deck.md                    The full deck
