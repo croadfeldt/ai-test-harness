@@ -76,6 +76,15 @@ Every claim ends in exactly one, with the evidence that produced it. Nothing is 
 The publisher's own statement is never republished as ours. Our statement says what we ran, where, and
 what happened, and it names theirs.
 
+**Two decisions, kept apart.** A verdict never admits or refuses the artifact; the harness only tests, and the
+gate policy says what each verdict is worth. The policy I propose rests on a split. Admitting the artifact is a
+version change like any other, judged on the ordinary evidence from lifecycle A: the tests on the behaviours our
+code reaches, run on both versions. Closing the vulnerability is a separate decision, and only a confirmed verdict
+earns it. So a not-reachable claim does not hold a routine bump back, since the vulnerability was never our
+exposure, and a could-not-verify claim does not block the artifact either, but our status stays affected or under
+investigation until a test proves otherwise. An unreachable or unverifiable claim never becomes a "fixed" statement
+from us.
+
 ## Where it runs, and how often
 
 As a scheduled sweep, not only on demand. The feeds the team follows are read on a cadence the team sets;
