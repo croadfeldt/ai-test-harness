@@ -111,7 +111,7 @@ analyze/<package>/
 analyze/summary.json            one line per analyzed package
 generate/<package>/
   tests/test_<package>_<category>.py   candidate tests, pytest, header says generated and unreviewed
-  manifest.json                 per file: category, tests kept and cut, attempts, model, prompt and response digests
+  manifest.json                 per file: category, tests kept and cut, attempts, model, prompt and response digests, declared needs, mutation feedback (probed, survived before and after)
   model-calls/                  every prompt and response verbatim, with usage and latency
   scratch/                      baseline sandbox runs made during repair
 execute/<package>/

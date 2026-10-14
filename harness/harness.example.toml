@@ -39,6 +39,12 @@ provides = ["none", "localhost"]
 # Five is TestGen-LLM's published figure. (env: HARNESS_REPEATS)
 repeats = 5
 
+[generate]
+# Mutation feedback (stage 3): before a passing file is believed, the harness breaks the package in this many places the
+# file's tests executed and runs the file against each; survivors go back to the model once, as a diff, so it adds the
+# check the line deserves. Zero disables the probe. (env: HARNESS_MUTATION_FEEDBACK)
+mutation_feedback = 3
+
 [propose]
 # Lifecycle B (blueprint 5.0): `harness propose` puts the accepted tests, the packet and the records on a
 # harness/ branch of the test overlay repository and opens a pull request. It never pushes to the default branch.

@@ -15,6 +15,8 @@ Every prompt, response, and decision is written to disk.
 """
 from __future__ import annotations
 
+import shutil
+
 import json
 from pathlib import Path
 
@@ -240,11 +242,114 @@ def _run_baseline_code(code: str, pkg_dir: Path, env: dict, roots: list[str], la
             "stdout_tail": (out / "stdout.log").read_text()[-3000:] if (out / "stdout.log").exists() else ""}
 
 
+def feedback_budget() -> int:
+    """How many deliberate breakages a freshly generated file is probed with before it is believed (Q10, MuTAP's
+    idea: surviving mutants back into the prompt). The team's setting, `[generate] mutation_feedback` or
+    HARNESS_MUTATION_FEEDBACK; three by default; zero disables the probe."""
+    from .. import config
+    try:
+        return max(0, int(config.get("generate", "mutation_feedback", env="HARNESS_MUTATION_FEEDBACK", default=3)))
+    except (TypeError, ValueError):
+        return 3
+
+
+def source_root(adapter, facts: dict, workdir: Path | None, python_version: str) -> Path | None:
+    """The package's source at the new version, as mutation reads it: the unpacked archive from the cache, or the
+    application's own tree for a first-party target."""
+    if workdir is None:
+        return None
+    if facts.get("first_party"):
+        return workdir / facts["source_trees"]["new"]
+    cache = workdir / "cache"
+    try:
+        return adapter.pkg_root(adapter.unpack(adapter.fetch(facts["package"], facts["new_version"], cache, python_version), cache))
+    except Exception as e:   # the probe is an aid, never a reason to lose a file
+        log(f"    mutation probe skipped: source not available ({e})")
+        return None
+
+
+def _excerpt(original: str, mutated: str, line: int, context: int = 2) -> str:
+    """The mutant as a few lines of unified diff around the site, for the model to read."""
+    import difflib
+    a, b = original.splitlines(), mutated.splitlines()
+    lo, hi = max(0, line - 1 - context), min(len(a), line + context)
+    diff = difflib.unified_diff(a[lo:hi], b[lo:hi], lineterm="", n=context)
+    body = [d for d in diff if not d.startswith(("---", "+++", "@@"))]
+    return "\n".join(body[:12])
+
+
+def probe_sites(code: str, run: dict, adapter, facts: dict, src_root: Path, roots: list[str], budget: int, seed: str,
+                units: dict[str, list[tuple]] | None = None) -> list[dict]:
+    """The mutation sites to probe a candidate file with: on lines its baseline run executed, inside the reached
+    behaviours' closures first (the same priority mutation uses), `budget` of them, seeded by the file."""
+    import hashlib
+    import random
+    cov_path = run.get("sandbox", {}).get("coverage")
+    if not cov_path or not Path(cov_path).exists() or budget <= 0:
+        return []
+    executed = adapter.coverage_files(Path(cov_path), roots)
+    sites = []
+    for rel, lines in executed.items():
+        if not lines or not (src_root / rel).exists():
+            continue
+        sites += [{"file": rel, **s} for s in adapter.mutation_sites(src_root / rel, lines)]
+    if not sites:
+        return []
+    rng = random.Random(int(hashlib.sha256(seed.encode()).hexdigest()[:8], 16))
+    if units:
+        from .account import stratified_sample
+        unit_sites = {u: [s for s in sites if any(f == s["file"] and a <= s["line"] <= (b or 10**9) for (_x, f, a, b) in cl)] for u, cl in units.items()}
+        chosen, _ = stratified_sample(sites, unit_sites, budget, rng)
+        return chosen
+    return rng.sample(sites, min(budget, len(sites)))
+
+
+def probe_run(code: str, site: dict, adapter, facts: dict, src_root: Path, env: dict, gen_dir: Path, label: str) -> dict:
+    """Run the candidate file against one mutant of the package. Survived means every test still passed."""
+    mutated = adapter.apply_mutation(src_root / site["file"], site)
+    if mutated is None:
+        return {**site, "status": "invalid"}
+    label = label.replace("/", "_")
+    mdir = gen_dir / "scratch" / f"{label}-mutant"
+    if mdir.exists():
+        shutil.rmtree(mdir)
+    adapter.write_overlay(mdir, site["file"], mutated, facts)
+    tdir = gen_dir / "scratch" / label
+    tdir.mkdir(parents=True, exist_ok=True)
+    (tdir / adapter.test_file_name("candidate", "x").replace("candidate_x", "candidate")).write_text(code)
+    summary = adapter.run_tests(env, tdir, mdir / "out", cover=[], label=label, overlay_dir=mdir)
+    results = adapter.parse_results(summary)
+    killed = [k.split("::")[-1] for k, v in results.items() if v["status"] in ("fail", "error")]
+    original = (src_root / site["file"]).read_text(errors="replace")
+    status = "killed" if killed else ("survived" if results else "error")
+    return {**site, "status": status, "killed_by": sorted(killed), "excerpt": _excerpt(original, mutated, site["line"])}
+
+
+def mutation_hint(survivors: list[dict], package: str) -> str:
+    """What the model is told: each deliberate breakage its tests let through, as a diff it can read."""
+    lines = [f"MUTATION FEEDBACK: the harness broke {package} on purpose in {len(survivors)} place(s) its tests executed, and every test "
+             "still passed. A test that executes a line without checking its result proves nothing. For each change below, add or "
+             "sharpen a test so that it FAILS on the broken code and PASSES on the real code: assert the specific value, error or "
+             "state the line is responsible for. Keep the tests that already pass."]
+    for s in survivors:
+        lines.append(f"- {s['file']}:{s['line']} ({s['op']}):\n{s['excerpt']}")
+    return "\n".join(lines)
+
+
 def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict,
                      categories: list[str] | None, max_repairs: int = 2, dep_roots: list[str] | None = None,
-                     env_old: dict | None = None, adapter=None) -> dict:
+                     env_old: dict | None = None, adapter=None, src_root: Path | None = None, feedback: int | None = None) -> dict:
     adapter = adapter or adapters.get("python")
     facts = read_json(facts_dir / "facts.json")
+    feedback = feedback_budget() if feedback is None else feedback
+    units_for_probe = None
+    if src_root is not None and feedback:
+        from .account import closure_spans, load_internals, reached_units, _spans
+        api_doc = read_json(facts_dir / "api.new.json") if (facts_dir / "api.new.json").exists() else {"symbols": []}
+        internals = load_internals(facts_dir.parent.parent, facts["package"])
+        spans = _spans(api_doc.get("symbols", []) + internals["private"])
+        units, _x = reached_units(facts_dir.parent.parent, facts["package"], facts, api_doc.get("symbols", []))
+        units_for_probe = {u["symbol"]: closure_spans(u["symbol"], spans, internals["calls"]) for u in units}
     api = read_json(facts_dir / "api.new.json") if (facts_dir / "api.new.json").exists() else {"symbols": []}
     sites = read_json(facts_dir / "call-sites.json")["sites"]
     vdoc = read_json(facts_dir / "vulns.json")
@@ -291,6 +396,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         max_tokens = int({"cve": 2500, "unit": 4000, "functional": 3000, "negative": 3000}[cat] * getattr(adapter, "OUTPUT_SCALE", 1.0))
         system = prompts.text(f"system.{adapter.ECOSYSTEM}", adapter.SYSTEM)
         attempts, code, history, run1, precut = 0, None, [], None, []
+        probe = {"probed": 0, "survived_before": 0, "fed_back": False, "survived_after": None, "sites": []}
         best = None   # GF-027: the last attempt whose file collected, kept in case a later repair collects nothing
         while attempts <= max_repairs:
             tag = f"{pkg}-{cat}{'-' + suffix if suffix else ''}-a{attempts}"
@@ -356,6 +462,17 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                 history.append(f"These tests fail on the baseline version {facts['new_version']}; fix them or replace them "
                                f"with tests that pass while still asserting specific behavior:\n{msg}")
                 continue
+            # Q10: before believing a file that passes, break the package where the file's tests ran and see
+            # whether they notice. Survivors go back to the model once, as a repair round, with the diff.
+            if feedback and src_root is not None and not probe["fed_back"] and attempts <= max_repairs and not failing:
+                sites = probe_sites(code, run1, adapter, facts, src_root, roots, feedback, tag, units_for_probe)
+                outcomes = [probe_run(code, s, adapter, facts, src_root, env_new, gen_dir, f"{tag}-probe{i}") for i, s in enumerate(sites, 1)]
+                survivors = [o for o in outcomes if o["status"] == "survived"]
+                probe.update({"probed": len(sites), "survived_before": len(survivors), "sites": [{k: s[k] for k in ("file", "line", "op")} for s in sites]})
+                if survivors:
+                    probe["fed_back"] = True
+                    log(f"    {cat}: {len(survivors)} of {len(sites)} probe mutant(s) survived; asking the model to catch them")
+                    history.append(mutation_hint(survivors, pkg)); continue
             break
         if code is None or adapter.compile_check(code) or not adapter.test_names(code):
             # The reason the last attempt was sent back is the reason the file was discarded; keep it.
@@ -383,6 +500,11 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         if cat != "cve" and failing:
             kept_code = adapter.drop_tests(code, set(failing))
             cut += [{"test": k, "reason": "fails on baseline after repair", "message": v["message"][:300]} for k, v in failing.items()]
+        if probe["fed_back"] and probe["sites"] and src_root is not None:
+            after = [probe_run(kept_code, s, adapter, facts, src_root, env_new, gen_dir, f"{pkg}-{cat}{'-' + suffix if suffix else ''}-after{i}")
+                     for i, s in enumerate(probe["sites"], 1)]
+            probe["survived_after"] = sum(1 for o in after if o["status"] == "survived")
+            log(f"    {cat}: after the feedback {probe['survived_before'] - probe['survived_after']} of {probe['survived_before']} surviving mutant(s) now caught")
         names = adapter.test_names(kept_code)
         covered = run_final["coverage"].get("covered_lines_in_target", 0) if run_final else 0
         if cat != "cve" and covered == 0 and not run_final.get("withheld"):
@@ -397,6 +519,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         held = run_final.get("withheld") or {}
         manifest["files"].append({"file": f"tests/{fname}", "category": cat, "tests": names, "cut": cut,
                                   "needs": adapter.declared_needs(kept_code) if hasattr(adapter, "declared_needs") else {}, "withheld": sorted(held),
+                                  "mutation_feedback": probe,
                                   "attempts": attempts, "prompt_sha256": rec["prompt_sha256"],
                                   "response_sha256": rec["response_sha256"], "model": rec["model"],
                                   "baseline_run": {"status": {k.split('::')[-1]: v["status"] for k, v in run_final["results"].items()} if run_final else {},
@@ -452,8 +575,9 @@ def generate(*, workdir: Path, select: list[str] | None = None, categories: list
             if cand["status"] == "resolved":
                 pkg_env_old = {"dir": workdir / cand["wheelhouse"], "requirements": cand["requirements"], "kind": cand.get("env_kind", "wheelhouse")}
         fixed_cats = [c for c in cats if not (mode == "agent" and c == "cve")]
+        budget_fb = feedback_budget()
         m = generate_package(workdir / "analyze" / pkg, gen_dir, model, pkg_env_new, fixed_cats, dep_roots=dep_roots,
-                             env_old=pkg_env_old, adapter=adapter)
+                             env_old=pkg_env_old, adapter=adapter, src_root=source_root(adapter, facts, workdir, python_version) if budget_fb else None, feedback=budget_fb)
         if mode == "agent" and "cve" in cats and pkg_env_old and not first_party:
             from . import agent
             am = agent.generate_cve_agent(workdir / "analyze" / pkg, gen_dir, model, env_new, pkg_env_old,

@@ -9,7 +9,7 @@ application reaches, how many a kept test ran on both sides with a mutant killed
 between the two versions, which a person must judge. Covered lines and the mutation score say how much of the package the tests exercise and
 how firmly. Cost is model calls and minutes of model time.
 
-Generated 2026-10-14T03:33:27+00:00 from 19 package run(s).
+Generated 2026-10-14T03:55:43+00:00 from 19 package run(s).
 
 | Prompt set | Model | Language | Package | Runs | Generated | Kept | Accepted | Validated / reached | For review | Proven | Covered lines | Mutation | Reviewer accepted / rejected | Calls | Minutes | Reads as |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
