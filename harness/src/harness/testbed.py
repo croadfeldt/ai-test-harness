@@ -86,7 +86,7 @@ def ctrf(results: dict, out: Path) -> dict:
             status, cls = "failed", "undeclared-need" if v.startswith("undeclared need") else "fail"
         tests.append({"name": t.get("id") or t.get("name"), "status": status, "duration": t.get("duration_ms", 0),
                       "message": (t.get("message") or "")[:500] or None, "suite": t.get("file"),
-                      "flaky": t.get("status") == "flaky", "retries": 1 if t.get("versions", {}).get("new") not in (None, "na") else 0,
+                      "flaky": t.get("status") == "flaky", "retries": max(0, (t.get("runs_on_head") or (1 if t.get("versions", {}).get("new") not in (None, "na") else 0)) - 1),
                       "extra": {"harness": {"class": cls, "verdict": v, "needs": t.get("needs", "none"), "versions": t.get("versions")}}})
     summary = {"tests": len(tests), "passed": sum(1 for x in tests if x["status"] == "passed"), "failed": sum(1 for x in tests if x["status"] == "failed"),
                "skipped": sum(1 for x in tests if x["status"] == "skipped"), "pending": 0, "other": sum(1 for x in tests if x["status"] == "other"),

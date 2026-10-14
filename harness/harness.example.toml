@@ -34,6 +34,10 @@ go_image = "docker.io/library/golang:1.25-bookworm"   # the Go sandbox (env: HAR
 # need more are withheld from the sealed run, recorded as skipped with the need, and proposed to the team with the
 # declaration. The sealed container never provides network. (env: HARNESS_PROVIDES, comma-separated)
 provides = ["none", "localhost"]
+# How many times a candidate about to be proposed runs on head before it is believed. Every test runs twice (the run
+# and its re-run); the candidates that agreed run again until this many, and any disagreement quarantines the test.
+# Five is TestGen-LLM's published figure. (env: HARNESS_REPEATS)
+repeats = 5
 
 [propose]
 # Lifecycle B (blueprint 5.0): `harness propose` puts the accepted tests, the packet and the records on a

@@ -32,6 +32,34 @@ NETWORK_ERROR = re.compile(r"dial tcp|connection refused|no such host|network is
                            r"HarnessUndeclaredNeed|undeclared need", re.I)
 
 
+def head_runs() -> int:
+    """How many times a candidate about to be proposed runs on head before it is believed (the flake check):
+    the team's setting, `[sandbox] repeats` or HARNESS_REPEATS, five by default, the published figure
+    TestGen-LLM uses ("a test that does not pass on every one of five executions is deemed flaky"). Two is
+    the floor: the head run and its re-run, which every test gets."""
+    from .. import config
+    try:
+        return max(2, int(config.get("sandbox", "repeats", env="HARNESS_REPEATS", default=5)))
+    except (TypeError, ValueError):
+        return 5
+
+
+def agreed_candidates(runs: dict) -> list[str]:
+    """Test ids that passed on head and on the re-run: the ones worth asking again."""
+    rerun = runs.get("new-rerun", {}).get("results", {})
+    return sorted(tid for tid, r in runs["new"]["results"].items() if r["status"] == "pass" and rerun.get(tid, {}).get("status") == "pass")
+
+
+def fold_repeats(tid: str, status: str, runs: dict) -> tuple[str, int, int]:
+    """A test's status after every head run: flaky on any disagreement. Returns (status, runs on head,
+    disagreements)."""
+    labels = ["new", "new-rerun"] + sorted((k for k in runs if k.startswith("new-repeat-")), key=lambda k: int(k.rsplit("-", 1)[-1]))
+    seen = [runs[k]["results"][tid]["status"] for k in labels if k in runs and tid in runs[k]["results"]]
+    first = seen[0] if seen else status
+    disagree = sum(1 for s in seen[1:] if s != first)
+    return ("flaky" if disagree else status), len(seen), disagree
+
+
 def undeclared(t: dict) -> bool:
     """A test that declared no need (or localhost) and failed the way a sealed network fails: it used what it
     did not declare. Python names it (the conftest raises HarnessUndeclaredNeed); Go is read from the error."""
@@ -148,6 +176,30 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         # The head run also attributes coverage per test (Go: one profile per passing test; Python: coverage contexts), for the accounting.
         s = adapter.run_tests(env, tests_dir, out / label, cover=roots, label=f"{pkg}-{label}", per_test=(label == "new"))
         runs[label] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
+    # The flake check beyond two runs (stage 4): the candidates that agreed so far run again, as many times as
+    # the team set, with only those tests in the sandbox. Any disagreement quarantines the test.
+    total = head_runs()
+    agreed = agreed_candidates(runs)
+    if total > 2 and agreed:
+        repeat_dir = out / "tests-repeat"
+        if repeat_dir.exists():
+            shutil.rmtree(repeat_dir)
+        repeat_dir.mkdir(parents=True)
+        keep_names = {base_name(tid) for tid in agreed}
+        for f in gen["files"]:
+            code = (workdir / "generate" / pkg / f["file"]).read_text()
+            if not any(t in keep_names for t in f["tests"]):
+                continue
+            remaining = adapter.drop_tests(code, {t for t in f["tests"] if t not in keep_names}) if any(t not in keep_names for t in f["tests"]) else code
+            if adapter.test_names(remaining):
+                (repeat_dir / Path(f["file"]).name).write_text(remaining)
+        env_new = adapter.prefetch(reqs_new, python_version, env_dir(workdir, adapter, "new"),
+                                   source=(workdir / trees["new"]) if trees and "new" in trees else None)
+        for k in range(3, total + 1):
+            label = f"new-repeat-{k}"
+            log(f"    sandbox run {label} ({len(agreed)} candidate(s))")
+            s = adapter.run_tests(env_new, repeat_dir, out / label, cover=roots, label=f"{pkg}-{label}")
+            runs[label] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
     by_file = {}
     for f in gen["files"]:
         for t in f["tests"]:
@@ -161,8 +213,10 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         status = r_new["status"]
         if rerun != "na" and rerun != status:
             status = "flaky"
+        status, on_head, disagreements = fold_repeats(tid, status, runs)
         tests.append({"id": tid, "name": name, "param_id": tid.split("::")[-1], "category": f.get("category", "unknown"), "file": f.get("file"),
                       "status": status, "duration_ms": r_new["duration_ms"], "message": r_new["message"][:500],
+                      "runs_on_head": on_head, "disagreements": disagreements,
                       "versions": {"old": old, "new": r_new["status"]},
                       "expected_differential": f.get("expected_differential"), "needs": declared.get(name, "none"),
                       "symbols_exercised": f.get("targets", [])[:10]})
@@ -191,7 +245,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                    "identity": runs["new"]["sandbox"]["image"],
                    "image_digest": runs["new"]["sandbox"].get("image_digest"), "isolation": runs["new"]["sandbox"]["isolation"]},
         "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
-        "testbed": {"provides": sorted(provides), "withheld": held, "declared": declared},
+        "testbed": {"provides": sorted(provides), "withheld": held, "declared": declared, "head_runs": total,
+                    "repeated": len(agreed) if total > 2 else 0},
         "testbed_failure": testbed_failure,
         "tests": tests,
         "counts": {"total": len(tests),
