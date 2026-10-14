@@ -1,7 +1,7 @@
----
-name: ai-test-harness
-description: Run the AI Test Harness on the change in front of you and read its verdict. Use when a developer asks for tests on their branch, on a dependency bump, or on a known vulnerability, or asks whether a change is safe to merge; the harness generates, runs and scores tests in a sealed sandbox and proposes them through a pull request, never merging.
----
+--- name: ai-test-harness description: Run the AI Test Harness on the change in front of you and
+read its verdict. Use when a developer asks for tests on their branch, on a dependency bump, or on a
+known vulnerability, or asks whether a change is safe to merge. The harness generates, runs and
+scores tests in a sealed sandbox and proposes them through a pull request, never merging. ---
 
 # AI Test Harness
 
@@ -39,9 +39,10 @@ model time.
 
 ## How to read the result
 
-Open `out/harness/README.md` first. It is the run's story: who, what, why, where, when; the verdict in
-plain terms; the decisions the harness made; the actions it took and, by design, did not take; the
-records in plain terms; and every file with the reader it is for. Then, per package:
+Open `out/harness/README.md` first. It is the run's story: who, what, why, where, when, and the
+verdict in plain terms. It lists the decisions the harness made, the actions it took and, by design,
+did not take, the records in plain terms, and every file with the reader it is for. Then, per
+package:
 
 - `packet/<package>/packet.md`: the review packet, one row per test with its verdict on both versions.
 - `packet/<package>/pull-request.md`: what the test pull request would carry.

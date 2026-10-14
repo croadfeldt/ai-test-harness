@@ -1,10 +1,10 @@
 # harness: the opinionated implementation
 
 **In plain terms.** This is the code that does what the blueprint describes, for Python packages. It
-reacts to a commit or pull request, works out which dependencies changed and which carry known
-vulnerabilities, has a model write tests, runs them in a sealed container against both versions, scores
-them, and produces a one-page review packet, draft VEX statements, and a signed record. It checks
-itself before every run and stops if any check fails.
+reacts to a commit or pull request and works out which dependencies changed and which carry known
+vulnerabilities. A model writes tests; the harness runs them in a sealed container against both
+versions, scores them, and produces a one-page review packet, draft VEX statements, and a signed
+record. It checks itself before every run and stops if any check fails.
 
 This directory is the second of three layers: the blueprint (`docs/`, `blueprint/`) says what the
 harness must do; this package is one way of doing it; `examples/` holds what it produced on real code.
@@ -74,21 +74,21 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 ## On a cluster
 
 `deploy/tekton/` runs the same stages as one Tekton PipelineRun: stage 0 first, then intake through
-the post-analysis, with the execute task's pod as the sandbox (deny-all network policy, no
-service-account token, read-only root, a probe from inside before any generated code runs). The
+the post-analysis. The execute task's pod is the sandbox: deny-all network policy, no
+service-account token, read-only root, and a probe from inside before any generated code runs. The
 image is built from `Containerfile`. Set `HARNESS_SANDBOX_TARGET=pod` to use the in-pod sandbox
 outside Tekton too. See `deploy/tekton/README.md`.
 
 ## Two languages, one pipeline
 
 Everything a stage needs from a language sits behind the adapter as a small test toolkit
-(`adapters/python.py` and `adapters/go.py`, same function names): how a test file is named and
-headed, which prompt rules and task text the model gets, how a response is parsed, compiled, checked
-for forbidden imports and assertions that cannot fail, how failing tests are cut from a file, how an
-offline environment is prefetched and a sealed run is started, and how results and coverage are read
-back. The stages call those functions and nothing else that is language-specific, so the Python
-examples and the Go example go through the same generate, execute, triage, packet, attest, and
-assess code.
+(`adapters/python.py` and `adapters/go.py`, same function names). The adapter says how a test file
+is named and headed, and which prompt rules and task text the model gets. It parses and compiles a
+response, checks it for forbidden imports and assertions that cannot fail, and cuts failing tests
+from a file. It prefetches an offline environment, starts a sealed run, and reads results and
+coverage back. The stages call those functions and nothing else that is language-specific, so the
+Python examples and the Go example go through the same generate, execute, triage, packet, attest,
+and assess code.
 
 ## Work directory layout
 

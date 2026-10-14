@@ -234,10 +234,10 @@ sequenceDiagram
     Note over POD: Pod deleted. Nothing persists.
 ```
 
-Controls: RuntimeClass `gvisor` or `kata` required for depth 1 and deeper by admission policy;
-NetworkPolicy deny-all on the namespace; `automountServiceAccountToken: false`; read-only root
-filesystem; CPU, memory, and `activeDeadlineSeconds` limits; the signing step runs in a separate task
-that never shares a pod with test execution, which is what SLSA Build L3 requires.
+Controls: RuntimeClass `kata` where the cluster provides it, by admission policy; NetworkPolicy
+deny-all on the namespace; `automountServiceAccountToken: false`; read-only root filesystem; CPU,
+memory, and `activeDeadlineSeconds` limits. The signing step runs in a separate task that never
+shares a pod with test execution, which is what SLSA Build L3 requires.
 
 ### Podman
 
@@ -273,9 +273,9 @@ sequenceDiagram
     Note over VM: VM destroyed. Snapshot not kept.
 ```
 
-Use for RPM-delivered packages, anything that touches systemd, SELinux, kernel interfaces, or multiple
-users, and for distro matrix runs (RHEL 9, RHEL 10, Fedora, CentOS Stream). tmt's provision step selects
-the image; the plan is the same one that ran on Kubernetes.
+Use it for RPM-delivered packages, for anything that touches systemd, SELinux, kernel interfaces or
+multiple users, and for distro matrix runs (RHEL 9, RHEL 10, Fedora, CentOS Stream). tmt's provision
+step selects the image; the plan is the same one that ran on Kubernetes.
 
 ### Bare metal (Testing Farm, Beaker pool)
 

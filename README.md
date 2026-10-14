@@ -111,10 +111,14 @@ and the site. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Status and how to contribute
 
-The blueprint is at v0.21. The implementation covers every stage from self-verification through the signed attestation, the post-analysis, the test pull request and the read-back of its review, for Python and Go, on a workstation and as a Tekton pipeline on OpenShift, with the repository's own code as a target as well as its dependencies. The failure register stands at twenty-eight entries. The open questions are in
-[the blueprint reference, section 15](docs/16-blueprint-reference.md#15-open-questions).
-requests against any document are welcome. I would especially like to hear from maintainers of the
-projects named in the [landscape](docs/04-landscape.md) if I have described their work inaccurately.
+The blueprint is at v0.21. The implementation covers every stage from self-verification through the
+signed attestation, the post-analysis, the test pull request and the read-back of its review. It
+runs for Python and Go, on a workstation and as a Tekton pipeline on OpenShift, with the
+repository's own code as a target as well as its dependencies. The failure register stands at
+twenty-eight entries. The open questions are in [the blueprint reference, section
+15](docs/16-blueprint-reference.md#15-open-questions). requests against any document are welcome. I
+would especially like to hear from maintainers of the projects named in the
+[landscape](docs/04-landscape.md) if I have described their work inaccurately.
 
 ## License
 

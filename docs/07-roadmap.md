@@ -111,6 +111,7 @@ Both are specified in [the blueprint reference, section 16](16-blueprint-referen
 
 ## What "done" means
 
-The harness is done when a dependency bump at any depth, in any supported ecosystem, produces within two
-hours a signed, human-reviewed packet that says what changed, whether we are exposed to anything known,
-and which tests now guard it, and when a quarterly report can show what that evidence caught.
+The harness is done when a dependency bump at any depth, in any supported ecosystem, produces a
+signed, human-reviewed packet that says what changed, whether we are exposed to anything known, and
+which tests now guard it. The time it takes follows the inference hardware. And it is done when a
+quarterly report can show what that evidence caught.

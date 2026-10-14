@@ -6,16 +6,16 @@ primary choice, a fallback, and the reason. Research date 2026-09-11.
 
 ## Two facts that reshape the choices
 
-1. **in-toto already has a vetted Test Result predicate.** `https://in-toto.io/attestation/test-result/v0.1`
-   carries a result (PASSED, WARNED, FAILED), configuration descriptors, a URL, and lists of passed,
-   warned, and failed tests. It is on the vetted list, not a draft. The harness emits this predicate,
-   extended through its configuration descriptors, rather than inventing one. That answers open
-   question 14 in the blueprint reference.
-2. **Konflux already runs an LLM inside a Tekton task for dependency PRs.** `konflux-ci/deptriage` is a
-   Go CLI that classifies semver impact and asks Gemini or Claude for impact analysis of dependency
-   pull requests, with secret redaction and retry logic, shipped as an image with its own `.tekton/`
-   pipeline and updated the day of this research. It is the precedent for the harness's intake and
-   analysis steps and possibly an input to them.
+1. **in-toto already has a vetted Test Result predicate.**
+   `https://in-toto.io/attestation/test-result/v0.1` carries a result (PASSED, WARNED, FAILED),
+   configuration descriptors, a URL, and lists of passed, warned, and failed tests. It is on the
+   vetted list, not a draft. The harness emits this predicate, extended through its configuration
+   descriptors, rather than inventing one. That answers open question 14 in the blueprint reference.
+   2. **Konflux already runs an LLM inside a Tekton task for dependency PRs.**
+   `konflux-ci/deptriage` is a Go CLI that classifies semver impact and asks Gemini or Claude for
+   impact analysis of dependency pull requests, with secret redaction and retry logic. It ships as
+   an image with its own `.tekton/` pipeline and was updated the day of this research. It is the
+   precedent for the harness's intake and analysis steps and possibly an input to them.
 
 Also worth knowing: Llama Stack was renamed OGX (Open GenAI Stack) in April 2026 and is GA in
 OpenShift AI 3.5 with the OpenAI-compatible Responses API. IBM's Agent Communication Protocol was

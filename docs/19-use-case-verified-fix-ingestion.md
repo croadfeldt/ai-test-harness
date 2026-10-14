@@ -7,12 +7,12 @@ nothing the blueprint says the harness is, and it adds one trigger, two verdicts
 
 ## The problem
 
-When a publisher says a vulnerability is fixed, we take its word. The statement arrives as a security
-advisory, a VEX document or an advisory database entry: "fixed in version X." Our scanners stop flagging
-the package once we move to X, and the matter closes. Nobody runs anything. If the fix is incomplete, or
-the fixed version does not resolve into our product the way the publisher built it, or the fix lands in a
-code path our product never reaches while the one we do reach is still open, we find out the way we
-always have, later, from someone else.
+When a publisher says a vulnerability is fixed, we take its word. The statement arrives as a
+security advisory, a VEX document or an advisory database entry: "fixed in version X." Our scanners
+stop flagging the package once we move to X, and the matter closes. Nobody runs anything. The fix
+may be incomplete. The fixed version may not resolve into our product the way the publisher built
+it. The fix may land in a code path our product never reaches while the one we do reach is still
+open. In each case we find out the way we always have: later, from someone else.
 
 The harness already has the one primitive this needs. A fix is proven by a test that fails on the
 vulnerable version and passes on the fixed one. A publisher's "fixed" claim is exactly the hypothesis that
@@ -20,13 +20,14 @@ test is built to check.
 
 ## The use case in one paragraph
 
-A publisher, an upstream project, a distribution or a vendor, publishes a claim that a vulnerability is
-fixed in an artifact. The harness reads the claim, checks the artifact's provenance, finds every product of
-ours that ships the vulnerable version, and for each one writes and runs the tests that would prove the
-claim in our environment against our usage: an exposure test at our call site, and a fix-pinning test that
-fails on the version we ship and passes on the claimed fix. Each claim ends in one verdict with evidence,
-and each verdict becomes our own VEX statement, signed, referencing the publisher's. A claim we cannot
-confirm is disputed with a reproducer, not quietly accepted.
+A publisher, an upstream project, a distribution or a vendor, publishes a claim that a vulnerability
+is fixed in an artifact. The harness reads the claim, checks the artifact's provenance, and finds
+every product of ours that ships the vulnerable version. For each one it writes and runs the tests
+that would prove the claim in our environment against our usage. An exposure test runs at our call
+site, and a fix-pinning test fails on the version we ship and passes on the claimed fix. Each claim
+ends in one verdict with evidence, and each verdict becomes our own VEX statement, signed,
+referencing the publisher's. A claim we cannot confirm is disputed with a reproducer, not quietly
+accepted.
 
 ## What arrives, and what we do first
 
