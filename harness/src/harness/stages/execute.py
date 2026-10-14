@@ -103,7 +103,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         env = adapter.prefetch(reqs, python_version, env_dir(workdir, adapter, env_tag),
                                source=(workdir / trees[env_tag]) if trees and env_tag in trees else None)
         log(f"    sandbox run {label}")
-        s = adapter.run_tests(env, tests_dir, out / label, cover=roots, label=f"{pkg}-{label}")
+        # The head run also attributes coverage per test (Go: one profile per passing test; Python: coverage contexts), for the accounting.
+        s = adapter.run_tests(env, tests_dir, out / label, cover=roots, label=f"{pkg}-{label}", per_test=(label == "new"))
         runs[label] = {"sandbox": s, "results": adapter.parse_results(s), "coverage": adapter.coverage_for(s, roots)}
     by_file = {}
     for f in gen["files"]:

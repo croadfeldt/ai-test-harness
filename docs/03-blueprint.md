@@ -1,10 +1,14 @@
 # AI Test Harness: the blueprint
 
-**Status:** Draft v0.22, 2026-10-13. **Owner:** Chris Roadfeldt.
+**Status:** Draft v0.23, 2026-10-13. **Owner:** Chris Roadfeldt.
 **For:** engineers and architects deciding whether to build, run or adopt this. Three pages.
 **Behind it:** [document 16](16-blueprint-reference.md) is the long form, with the section numbers the
 code and the other documents cite; [document 15](15-failure-register.md) is the failure register;
 [document 14](14-specification.md) lists what an implementation must do and the test that proves each.
+
+**Changes in v0.23:** per-test attribution for Go. The head run gives each passing test its own coverage
+profile and folds them into the coverage record as contexts, so the accounting applies the same rule in
+both ecosystems: the test that executed a behaviour must be the one that proved it.
 
 **Changes in v0.22:** the accounting credits a behaviour with the private helpers it delegates to (the
 closure, from a new `internals.json` the extractors write for Python and Go), attributes execution per

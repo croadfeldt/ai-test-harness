@@ -24,6 +24,7 @@ from .util import HarnessError, now_iso, write_json
 
 IMAGE = str(_config.get("sandbox", "go_image", "HARNESS_GO_SANDBOX_IMAGE", "docker.io/library/golang:1.25-bookworm"))
 LIMITS = {"memory": "4g", "pids": 1024, "timeout_s": 1200, "cpus": "2"}
+PER_TEST_CAP = 40        # at most this many passing tests get their own coverage run (principle 14, per-test attribution)
 MODULE = "harnesstest"
 
 
@@ -67,7 +68,7 @@ def prefetch_modcache(requirements: list[str], go_version: str, dest: Path, imag
 
 
 def _script(*, mod: str, modcache: str, gocache: str, tests: str, out: str, work: str, coverpkg: str, timeout_s: int, overlay: dict | None, mutant_src: str,
-            include: list[str] | None = None) -> str:
+            include: list[str] | None = None, per_test: bool = False) -> str:
     """The run, as a shell script, for either target. Paths differ; the steps do not."""
     replace = ""
     if overlay:
@@ -84,12 +85,25 @@ cd {work}/m
 export GOMODCACHE={modcache} GOFLAGS=-mod=mod GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local GOCACHE={gocache} GOPATH={work}/gopath HOME={work}{replace}
 go vet . > {out}/vet.log 2>&1 || true
 go test -json -count=1 -timeout {max(60, timeout_s - 60)}s -coverprofile={out}/cover.out -coverpkg={coverpkg} . > {out}/test.json 2> {out}/build.log ; rc=$?
-exit $rc
+{per_test_block(out, coverpkg, timeout_s) if per_test else ""}exit $rc
+"""
+
+
+def per_test_block(out: str, coverpkg: str, timeout_s: int) -> str:
+    """After the run: one more `go test -run '^Name$'` per passing top-level test, each with its own cover
+    profile, so a line can be attributed to the test that executed it (Go has no per-test coverage contexts;
+    Python's sandbox gets them from coverage.py). Compiled once already, so each run is seconds. Capped."""
+    return f"""mkdir -p {out}/per-test
+n=0
+for t in $(grep '"Action":"pass"' {out}/test.json | grep -o '"Test":"[^"/]*"' | cut -d'"' -f4 | sort -u); do
+  n=$((n+1)); [ "$n" -gt {PER_TEST_CAP} ] && break
+  go test -json -count=1 -timeout {max(30, min(120, timeout_s // 10))}s -run "^${{t}}$" -coverprofile={out}/per-test/${{t}}.cover.out -coverpkg={coverpkg} . > /dev/null 2>&1 || true
+done
 """
 
 
 def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
-              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None) -> dict:
+              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None, per_test: bool = False) -> dict:
     """See _run_once. A build failure blamed on specific test files is retried without them, round after
     round, until the package builds or no file is left (GF-022). Every test in a dropped file is reported
     as a compile error with the compiler's lines; the summary's build_failed is the last round's truth."""
@@ -97,7 +111,7 @@ def run_tests(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
     include, dropped, rnd = list(all_files), {}, 0
     while True:
         summary = _run_once(env_dir=env_dir, tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label, image=image, limits=limits, overlay_dir=overlay_dir,
-                            include=include if len(include) < len(all_files) else None)
+                            include=include if len(include) < len(all_files) else None, per_test=per_test)
         if not summary["build_failed"]:
             break
         readable = (out_dir / "stdout.log").read_text(errors="replace")
@@ -133,7 +147,7 @@ def _append_compile_errors(out_dir: Path, tests_dir: Path, blamed: dict) -> None
 
 
 def _run_once(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str], label: str,
-              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None, include: list[str] | None = None) -> dict:
+              image: str = IMAGE, limits: dict = LIMITS, overlay_dir: Path | None = None, include: list[str] | None = None, per_test: bool = False) -> dict:
     """Run every *_test.go in tests_dir as package harnesstest against the prefetched module cache.
 
     Two targets, like the Python sandbox: `podman` seals a container on this machine; `pod` runs in
@@ -155,7 +169,7 @@ def _run_once(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
         work = Path(tempfile.mkdtemp(prefix="harness-go-pod-", dir=os.environ.get("HARNESS_WORK_TMP") or None))
         script = _script(mod=str(env_dir.resolve()), modcache=str((env_dir / "modcache").resolve()), gocache=str(gocache.resolve()),
                          tests=str(tests_dir.resolve()), out=str(out_dir.resolve()), work=str(work), coverpkg=coverpkg,
-                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src=str(overlay_dir.resolve()) if overlay_dir else "", include=include)
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src=str(overlay_dir.resolve()) if overlay_dir else "", include=include, per_test=per_test)
         (out_dir / "run.sh").write_text(script)
         env = {"PATH": os.environ.get("PATH", "/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin"), "HOME": str(work), "LANG": "C.UTF-8"}
         try:
@@ -176,7 +190,7 @@ def _run_once(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
         if not shutil.which("podman"):
             raise HarnessError("podman is required for the Go sandbox target")
         script = _script(mod="/mod", modcache="/modcache", gocache="/gocache", tests="/tests", out="/out", work="/work", coverpkg=coverpkg,
-                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src="/mutant", include=include)
+                         timeout_s=limits["timeout_s"], overlay=overlay, mutant_src="/mutant", include=include, per_test=per_test)
         (out_dir / "run.sh").write_text(script)
         cmd = ["podman", "run", "--rm", "--network", "none", "--cap-drop", "all", "--security-opt", "no-new-privileges",
                "--memory", limits["memory"], "--pids-limit", str(limits["pids"]), "--cpus", limits["cpus"],
@@ -207,7 +221,10 @@ def _run_once(*, env_dir: Path, tests_dir: Path, out_dir: Path, cover: list[str]
     if tests:
         _write_junit(out_dir / "junit.xml", tests)
     if (out_dir / "cover.out").exists():
-        write_json(out_dir / "coverage.json", _coverage_json(out_dir / "cover.out"))
+        cov = _coverage_json(out_dir / "cover.out")
+        if (out_dir / "per-test").is_dir():
+            add_contexts(cov, out_dir / "per-test")
+        write_json(out_dir / "coverage.json", cov)
     summary = {
         "label": label, **image_rec, "returncode": rc, "timed_out": timed_out,
         "duration_s": round(time.time() - started, 1), "install_failed": "cannot find module" in build_log or "missing go.sum entry" in build_log or "MODULE_NOT_IN_CACHE" in stdout,
@@ -312,6 +329,33 @@ def _coverage_json(cover_out: Path) -> dict:
                                "executed_lines": sorted(f["lines"])}
         out["totals"]["covered_lines"] += len(f["lines"]); out["totals"]["num_statements"] += f["statements"]
     return out
+
+
+def _profile_lines(cover_out: Path) -> dict[str, set[int]]:
+    """Executed lines per file in one cover profile."""
+    rx = re.compile(r"^(\S+):(\d+)\.(\d+),(\d+)\.(\d+) (\d+) (\d+)$")
+    out: dict[str, set[int]] = {}
+    for line in cover_out.read_text(errors="replace").splitlines():
+        m = rx.match(line.strip())
+        if m and int(m.group(7)) > 0:
+            out.setdefault(m.group(1), set()).update(range(int(m.group(2)), int(m.group(4)) + 1))
+    return out
+
+
+def add_contexts(cov: dict, per_test_dir: Path) -> dict:
+    """Fold the per-test profiles into coverage.json as `contexts`, the shape coverage.py writes with
+    --show-contexts: per file, line -> the tests that executed it. The accounting reads both ecosystems alike."""
+    for prof in sorted(per_test_dir.glob("*.cover.out")):
+        test = prof.name[: -len(".cover.out")]
+        for fname, lines in _profile_lines(prof).items():
+            f = cov["files"].setdefault(fname, {"summary": {"covered_lines": 0, "num_statements": 0, "covered_statements": 0}, "executed_lines": []})
+            ctx = f.setdefault("contexts", {})
+            for ln in lines:
+                labels = ctx.setdefault(str(ln), [])
+                if test not in labels:
+                    labels.append(test)
+    cov["per_test_profiles"] = len(list(per_test_dir.glob("*.cover.out")))
+    return cov
 
 
 def coverage_for(path: Path, roots: list[str]) -> dict:
