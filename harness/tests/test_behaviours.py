@@ -130,3 +130,15 @@ func (t *T) Run(ok bool) bool { return ok }
     dec = next(x for x in p if x["kind"] == "decision")
     assert dec["conditions"] == 2
     assert any(x.get("detail") == "panics" for x in p)
+
+
+def test_must_never_reads_the_vulnerability_index_records_as_stored():
+    """vulns.json holds dicts; the worklist's must-never lines come from those records, not from objects.
+    The python-jose v2 run on 2026-10-14 crashed here with AttributeError before this was pinned."""
+    from harness.stages.analyze import must_never
+    vulns = [{"id": "CVE-2024-33663", "summary": "algorithm confusion with OpenSSH ECDSA keys", "affected_symbols": ["jwt.decode", "jws.verify"], "severity": "high"},
+             {"id": "GHSA-xxxx", "summary": None}]
+    out = must_never(vulns)
+    assert out[0] == {"kind": "must-never", "advisory": "CVE-2024-33663", "detail": "algorithm confusion with OpenSSH ECDSA keys", "symbols": ["jwt.decode", "jws.verify"]}
+    assert out[1] == {"kind": "must-never", "advisory": "GHSA-xxxx", "detail": "", "symbols": []}
+    assert must_never([]) == []

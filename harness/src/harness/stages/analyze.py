@@ -162,6 +162,13 @@ def existing_suite(repo: Path, adapter, import_names: list[str], changed_symbols
             "files_reaching_changed_symbols": reaching, "sample_files_reaching_changed_symbols": sample}
 
 
+def must_never(vulns: list[dict]) -> list[dict]:
+    """The advisories on a package as results a test must never observe: one line per advisory, from the
+    vulnerability index's records (dicts, as vulns.json stores them)."""
+    return [{"kind": "must-never", "advisory": v.get("id", ""), "detail": (v.get("summary") or "")[:160],
+             "symbols": list(v.get("affected_symbols") or [])} for v in vulns]
+
+
 def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_version: str | None,
                  vuln_index: dict, dependents: list[str]) -> FactBundle:
     out = workdir / "analyze" / it.package
@@ -224,7 +231,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
     bpath = out / "behaviours.json"
     if bpath.exists() and vulns:
         bdoc = read_json(bpath)
-        bdoc["must_never"] = [{"kind": "must-never", "advisory": v.id, "detail": (v.summary or "")[:160], "symbols": list(v.affected_symbols)} for v in vulns]
+        bdoc["must_never"] = must_never(vulns)
         bdoc["counts"]["must_never"] = len(bdoc["must_never"])
         write_json(bpath, bdoc)
     write_json(out / "vulns.json", {"package": it.package, "version": it.new_version, "vulns": vulns,
