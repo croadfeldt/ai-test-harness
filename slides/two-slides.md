@@ -29,41 +29,40 @@ Built in the open, with the teams that use it. Bring a project and shape what it
 
 ---
 
-# How it works: the flow, the data, and why
+# How it works: what it reads, what it does, what you get
 
 ```mermaid
 flowchart LR
     subgraph IN[What it reads, and why]
         direction TB
-        R[Repository and two refs<br/><i>what changed</i>]
-        G[Dependency graph at both versions<br/><i>which packages moved, how deep</i>]
-        A[Advisories, OSV<br/><i>what is already known to be wrong</i>]
-        API[Public API and its diff, call sites<br/><i>what we use and what changed under us</i>]
-        W[Behaviour worklist, security lint<br/><i>every result a test should check</i>]
-        CI[The repository's CI and existing suite<br/><i>what is already covered, what the pipeline can validate</i>]
+        R[Your code, before and after the change<br/><i>what changed</i>]
+        G[Every package you depend on<br/><i>which ones moved, and how deep</i>]
+        A[Public vulnerability advisories<br/><i>what is already known to be wrong</i>]
+        API[What your code actually uses<br/><i>what changed underneath you</i>]
+        CI[The tests and checks you already have<br/><i>what is already covered</i>]
     end
     subgraph DO[What it does]
         direction TB
-        S0[0 Self-check<br/>28 register checks, probes]
-        S1[1 Intake<br/>work list by depth and risk]
-        S2[2 Analysis<br/>facts, never guesses]
-        S3[3 Generation<br/>model writes tests; survivors of deliberate breakage go back once]
-        S4[4 Sealed execution<br/>both versions, five runs, mutation, differential]
-        S5[5 Triage and accounting<br/>class, confidence, route; three states]
+        S0[Checks itself before it starts]
+        S1[Decides what to test first, by risk]
+        S2[Gathers facts about the change; never guesses]
+        S3[Writes tests, then breaks the code on purpose to see if they notice]
+        S4[Runs them sealed off from the network, on both versions, several times]
+        S5[Sorts every result: proven, handed to you, or a named gap]
         S0 --> S1 --> S2 --> S3 --> S4 --> S5
     end
-    subgraph OUT[What comes out]
+    subgraph OUT[What you get]
         direction TB
-        PK[Review packet and test pull request<br/><i>a person merges</i>]
-        VX[Draft VEX per advisory<br/><i>Product Security confirms</i>]
-        REC[Signed record per test<br/><i>in-toto, SLSA, OpenVEX</i>]
-        FB[7 Feedback<br/><i>decisions read back; models and prompts scored</i>]
+        PK[A pull request with the tests and their evidence<br/><i>a person decides to merge</i>]
+        VX[An answer for each known vulnerability<br/><i>a draft your security team confirms</i>]
+        REC[A signed record anyone can verify<br/><i>open standards, no lock-in</i>]
+        FB[What it learned, fed into the next run<br/><i>your decisions teach it</i>]
     end
     IN --> S1
     S5 --> PK --> FB
     S5 --> VX
     S5 --> REC
-    FB -.->|fitness table, failure register| S0
+    FB -.-> S0
 ```
 
-Every input is a fact from a tool, read as untrusted data. Every output names the file it was measured from.
+Everything it reads is a fact from a tool, treated as untrusted. Everything it tells you points to the file it was measured from.
