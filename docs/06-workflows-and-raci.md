@@ -536,7 +536,7 @@ review time.
 
 **Trigger.** Every run. Analysis reads the repository's CI definitions at the reviewed commit and counts
 what its existing suite reaches; triage states each provable gap as a finding with the change that
-corrects it (blueprint principle 13; document 13 lists the checks).
+corrects it (blueprint principle 14; document 13 lists the checks).
 
 ```mermaid
 sequenceDiagram

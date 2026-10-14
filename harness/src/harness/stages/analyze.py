@@ -116,7 +116,7 @@ def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_
 
 
 def write_behaviours(out: Path, pkg: str, version: str, adapter, source: Path, names: list[str], vulns: list) -> dict | None:
-    """The behaviour worklist (principle 14, Q5): per public function, the results a test should check, from the
+    """The behaviour worklist (principle 15, Q5): per public function, the results a test should check, from the
     language's own parser; plus each advisory as a result that must never happen. Written beside the API."""
     if not hasattr(adapter, "behaviours"):
         return None

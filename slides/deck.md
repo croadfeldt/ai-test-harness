@@ -146,7 +146,7 @@ flowchart LR
 
 # Execution: the gauntlet
 
-Everything runs in a sealed sandbox: pinned image, Hermeto's dependency set, no network, no secrets, kernel isolation below depth 0, hard limits, destroyed afterward.
+Everything runs in a sealed sandbox: pinned image, Hermeto's dependency set, no network, no secrets, hard limits, destroyed afterward; kernel isolation where the cluster provides it.
 
 1. Compile
 2. Run
@@ -340,7 +340,7 @@ Dates are placeholders from a notional October 2026 start. Durations get replace
 |---|---|
 | Tests are shallow and restate the code | Mutation gate, differential runs, a public benchmark |
 | Reviewers drown | Risk-weighted budgets, one-page packets, advisory by default |
-| A malicious package escapes the sandbox | No network, no secrets, kernel isolation, pre-flight scans |
+| A malicious package escapes the sandbox | No network, no secrets, kernel isolation where provided, pre-flight scans |
 | The AI is manipulated by text in a package | Everything external is data. No tool acts outside the sandbox. The attempt is itself a finding. |
 | Cost runs away on transitives | Depth policy, reachability, cheap snapshots, budget alerts |
 | We claim provenance we cannot prove | Conforma verifies every attestation. SLSA levels are measured, not declared. |

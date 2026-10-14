@@ -41,7 +41,7 @@ test through coverage contexts recorded in the Python sandbox, requires the test
 to be the one that proved it, and aims mutation sampling at the reached behaviours first. Specification
 R11 and R23 updated.
 
-**Changes in v0.21:** the accounting (principle 14). Every behaviour the change reaches ends in exactly
+**Changes in v0.21:** the accounting (principle 15). Every behaviour the change reaches ends in exactly
 one state, validated, for your environment, or a stated gap with its reason, and nothing is silent. Triage
 writes it per package and rolled up; the story, the pull request text, the run index, the dashboard and the
 evaluation table carry it; assessment goal 13 checks that the counts sum and every gap has a reason. On the
@@ -88,28 +88,30 @@ C++. One small adapter per ecosystem; the core is ecosystem-agnostic.
 
 ## Principles
 
-- **Generated tests are hypotheses until executed.**
-- **Tests must be strong, not just green.** Mutation testing and differential runs tell them apart.
-- **Incoming code is untrusted input.** Source, docs, advisories and commit messages are data in every
-  prompt; tests run sealed, with no network and no credentials.
-- **Humans own the merge.** The harness proposes; it never merges, publishes or changes policy.
-- **Everything is reproducible.** Model, prompts, tools, graph and image digest are recorded per run.
-- **Cost is a first-class metric.** Budget follows risk and stops when the next test is not worth it.
-- **Reuse before building** ([documents 04](04-landscape.md) and [05](05-capability-map.md)).
-- **Native first.** Generated tests look and run like the team's own, with no harness present.
-- **Generated tests are provenance,** and candidates for the standard suite: each carries a signed record
-  of source, model, prompt, version and approver.
-- **The harness extends the chain of trust and never launders it.** Its own code, prompts, images and
-  models are attested like anything it tests.
-- **The harness tests itself first.** Every observed failure mode is a register entry with a detector,
-  a correction and a self-check that runs before every run and fails closed.
-- **The harness retires tests as well as writing them,** by proposal with evidence, never by deletion.
-- **Fitness for purpose is validated, never assumed** (principle 12). A prompt set or a model becomes
-  the default only by winning a measured table.
-- **The pipeline is under test too** (principle 13). A CI provably short of what validating a test
-  needs is a finding with the correcting change, routed to its owners, never an edit.
-- **Every reached behaviour is accounted for** (principle 14). Validated, for your environment, or a
-  stated gap with its reason; nothing is silent, and nothing is implied that was not earned.
+Fifteen, numbered so the code, the goals and the other documents can cite them.
+
+1. **Generated tests are hypotheses until executed.**
+2. **Tests must be strong, not just green.** Mutation testing and differential runs tell them apart.
+3. **Incoming code is untrusted input.** Source, docs, advisories and commit messages are data in every
+   prompt; tests run sealed, with no network and no credentials.
+4. **Humans own the merge.** The harness proposes; it never merges, publishes or changes policy.
+5. **Everything is reproducible.** Model, prompts, tools, graph and image digest are recorded per run.
+6. **Cost is a first-class metric.** Budget follows risk and stops when the next test is not worth it.
+7. **Reuse before building** ([documents 04](04-landscape.md) and [05](05-capability-map.md)).
+8. **Native first.** Generated tests look and run like the team's own, with no harness present.
+9. **Generated tests are provenance,** and candidates for the standard suite: each carries a signed record
+   of source, model, prompt, version and approver.
+10. **The harness extends the chain of trust and never launders it.** Its own code, prompts, images and
+   models are attested like anything it tests.
+11. **The harness tests itself first.** Every observed failure mode is a register entry with a detector,
+   a correction and a self-check that runs before every run and fails closed.
+12. **The harness retires tests as well as writing them,** by proposal with evidence, never by deletion.
+13. **Fitness for purpose is validated, never assumed**. A prompt set or a model becomes
+   the default only by winning a measured table.
+14. **The pipeline is under test too**. A CI provably short of what validating a test
+   needs is a finding with the correcting change, routed to its owners, never an edit.
+15. **Every reached behaviour is accounted for**. Validated, for your environment, or a
+   stated gap with its reason; nothing is silent, and nothing is implied that was not earned.
 
 ## The pipeline
 
@@ -177,8 +179,9 @@ the overlay repository, Source L4 for the standard suite. The harness confers no
 
 ## Security rules
 
-- Candidates run only sealed: no network, no secrets, read-only root, disposable, kernel isolation at
-  depth 1 and deeper.
+- Candidates run only sealed: no network, no secrets, read-only root, disposable. Kernel isolation (Kata) where
+  the cluster provides it; where it does not, a test that declares it needs a real kernel is handed to the team,
+  not run on a promise.
 - A prompt injection yields at most a bad test, which validation discards, and is itself a `suspicious`
   finding.
 - Signing keys live in the pipeline, never in the sandbox.

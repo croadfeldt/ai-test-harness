@@ -17,7 +17,7 @@ the examples under `deploy/` wire GitHub Actions, GitLab CI, Jenkins, Azure Pipe
 one script for any other engine. An Agent Skill makes lifecycle A one instruction away in a developer's
 coding agent.
 
-**Changes in v0.17:** the pipeline is under test too (principle 13). The harness fits into the
+**Changes in v0.17:** the pipeline is under test too (principle 14). The harness fits into the
 repository's own CI, and when that CI is provably short of what validating a test needs it says so
 with evidence and the change that corrects it, routed to the pipeline's owners, and never edits the
 pipeline. Two questions first: can untrusted code reach secrets or the network while tests run (stage
@@ -36,7 +36,7 @@ pull request's head ref included, and runs every stage with one command (stage 1
 pull request trigger, a push, a schedule or a person can start a run on any real repository. The
 triggers for GitHub Actions, GitLab CI and Tekton are documented and shipped as examples.
 
-**Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 12; stage 7).
+**Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 13; stage 7).
 Every text the harness says to a model is a named, digested prompt set under source control; every
 manifest records which set and which model produced a result; the same jobs run per set and per model
 and are scored by what the sandbox and the reviewers said; a set or a model becomes the default only by
@@ -200,57 +200,71 @@ applied.
 
 ## 3. Guiding principles
 
-- **Generated tests are hypotheses until executed.** A test the AI wrote but the harness did not run
-  against the real code has zero evidentiary value. Every generated test is compiled, run, and scored
-  before a human ever sees it.
-- **Tests must be strong, not just green.** A passing test that would also pass against broken code is
-  noise. Mutation testing and differential runs against the previous version are how we tell strong tests
-  from weak ones.
-- **Incoming code is untrusted input.** Third-party source, README files, docstrings, and commit messages
-  can contain prompt-injection payloads. The agent treats all of it as data. Generated tests run in a
-  sandbox with no network and no credentials.
-- **Humans own the merge.** The harness produces review-ready artifacts. It does not merge, publish, or
-  change policy.
-- **Everything is reproducible.** Each run records the model, prompts, tool versions, dependency graph,
-  and container image digest. Any run can be replayed.
-- **Cost is a first-class metric.** Transitive graphs are large. The harness must prioritize by risk and
-  stop when the marginal test is not worth the compute.
-- **Reuse before building.** The landscape research found that every stage of this pipeline except the
-  assembly already has a maintained open source component. We build the assembly and the generation and
-  triage agents. We do not rebuild SBOMs, mutation engines, or reachability analysis.
-- **Native first. Generated tests look like the tests the team already writes and run with the commands
-  the team already runs.** Idiomatic framework, idiomatic layout, idiomatic naming, standard coverage
-  and reporting formats. `go test`, `pytest`, `mvn test`, `cargo test`, `npm test`, `ctest` run them
-  with no harness present. A generated test that needs the harness to execute has failed this
-  principle. The point is adoption: tests that fit existing standard operating procedures and CI/CD
-  pipelines get run, kept, and trusted. Tests that need special handling get ignored.
-- **Generated tests are provenance.** A test the harness produced is a first-class artifact of the build,
-  not a side effect. It carries a signed record of what it was generated from, by which model and prompt,
-  against which version of the code, and who approved it. That record is attached to the build's
-  attestation so that "this package version was characterized by these tests" is a verifiable claim.
-- **Generated tests are candidates for the standard suite.** The overlay is a proving ground, not a
-  final destination. A generated test that reviewers approve, that keeps killing mutants, and that
-  survives version bumps becomes a standard test scenario for that package or product, on equal footing
-  with human-written tests, and future harness runs start from it.
-- **The harness extends the chain of trust. It never breaks it or launders it.** Every input the harness
-  consumes is attested upstream: the source revision, the Hermeto SBOM, the build's SLSA provenance.
-  Every claim the harness makes references the attestation it was derived from and is itself attested.
-  Every consumer downstream, Conforma, Trustify, a release pipeline, a customer reading a VEX statement,
-  can walk the chain back. Where the harness cannot verify something, it says "unverified," it does not
-  turn an unverified input into a verified-looking output. And the harness is a link in the chain itself:
-  its code, prompts, container images, and models are built and attested the same way as anything it
-  tests.
-- **The harness tests itself before it tests anything else.** Every failure mode the generator has ever
-  shown is a register entry with a detector, an automatic correction, and a self-check that proves the
-  detector and correction still work. The self-checks run as stage 0 of every pipeline run and fail
-  closed. A failure mode without a self-check is an open defect against the harness, not a known
-  limitation. Document 15.
-- **The harness retires tests as well as writing them.** Code changes make tests irrelevant: the symbol
-  they exercised is gone, the behavior they asserted was intentionally changed, or another test now
-  covers the same paths. The harness identifies those tests, explains why, and proposes their retirement.
-  It never deletes a test on its own.
+Fifteen, numbered; the three-page blueprint lists the same fifteen in the same order.
 
-**12. Fitness for purpose is validated, never assumed.** A model and a prompt are inputs like any
+1. **Generated tests are hypotheses until executed.** A test the AI wrote but the harness did not run
+   against the real code has zero evidentiary value. Every generated test is compiled, run, and scored
+   before a human ever sees it.
+
+2. **Tests must be strong, not just green.** A passing test that would also pass against broken code is
+   noise. Mutation testing and differential runs against the previous version are how we tell strong tests
+   from weak ones.
+
+3. **Incoming code is untrusted input.** Third-party source, README files, docstrings, and commit messages
+   can contain prompt-injection payloads. The agent treats all of it as data. Generated tests run in a
+   sandbox with no network and no credentials.
+
+4. **Humans own the merge.** The harness produces review-ready artifacts. It does not merge, publish, or
+   change policy.
+
+5. **Everything is reproducible.** Each run records the model, prompts, tool versions, dependency graph,
+   and container image digest. Any run can be replayed.
+
+6. **Cost is a first-class metric.** Transitive graphs are large. The harness must prioritize by risk and
+   stop when the marginal test is not worth the compute.
+
+7. **Reuse before building.** The landscape research found that every stage of this pipeline except the
+   assembly already has a maintained open source component. We build the assembly and the generation and
+   triage agents. We do not rebuild SBOMs, mutation engines, or reachability analysis.
+
+8. **Native first. Generated tests look like the tests the team already writes and run with the commands
+   the team already runs.** Idiomatic framework, idiomatic layout, idiomatic naming, standard coverage
+   and reporting formats. `go test`, `pytest`, `mvn test`, `cargo test`, `npm test`, `ctest` run them
+   with no harness present. A generated test that needs the harness to execute has failed this
+   principle. The point is adoption: tests that fit existing standard operating procedures and CI/CD
+   pipelines get run, kept, and trusted. Tests that need special handling get ignored.
+
+9. **Generated tests are provenance.** A test the harness produced is a first-class artifact of the build,
+   not a side effect. It carries a signed record of what it was generated from, by which model and prompt,
+   against which version of the code, and who approved it. That record is attached to the build's
+   attestation so that "this package version was characterized by these tests" is a verifiable claim.
+   **And they are candidates for the standard suite.** The overlay is a proving ground, not a
+   final destination. A generated test that reviewers approve, that keeps killing mutants, and that
+   survives version bumps becomes a standard test scenario for that package or product, on equal footing
+   with human-written tests, and future harness runs start from it.
+
+10. **The harness extends the chain of trust. It never breaks it or launders it.** Every input the harness
+   consumes is attested upstream: the source revision, the Hermeto SBOM, the build's SLSA provenance.
+   Every claim the harness makes references the attestation it was derived from and is itself attested.
+   Every consumer downstream, Conforma, Trustify, a release pipeline, a customer reading a VEX statement,
+   can walk the chain back. Where the harness cannot verify something, it says "unverified," it does not
+   turn an unverified input into a verified-looking output. And the harness is a link in the chain itself:
+   its code, prompts, container images, and models are built and attested the same way as anything it
+   tests.
+
+11. **The harness tests itself before it tests anything else.** Every failure mode the generator has ever
+   shown is a register entry with a detector, an automatic correction, and a self-check that proves the
+   detector and correction still work. The self-checks run as stage 0 of every pipeline run and fail
+   closed. A failure mode without a self-check is an open defect against the harness, not a known
+   limitation. Document 15.
+
+12. **The harness retires tests as well as writing them.** Code changes make tests irrelevant: the symbol
+   they exercised is gone, the behavior they asserted was intentionally changed, or another test now
+   covers the same paths. The harness identifies those tests, explains why, and proposes their retirement.
+   It never deletes a test on its own.
+
+
+13. **Fitness for purpose is validated, never assumed.** A model and a prompt are inputs like any
 other, and their quality is a claim until it is measured. The harness therefore keeps every prompt as a
 named, digested set under source control, records the set and the model in every manifest, runs the
 same jobs under each candidate and scores them by ground truth in order of strength: what a reviewer
@@ -261,7 +275,7 @@ the default. The failure register ([document 15](15-failure-register.md)) keeps 
 evaluation table keeps it honest about the model's and the prompt's. Stage 0 proves the harness is fit
 to run; stage 7's evaluator proves the model and the prompt are fit to produce.
 
-**13. The pipeline is under test too.** The harness fits into whatever CI a repository already runs,
+14. **The pipeline is under test too.** The harness fits into whatever CI a repository already runs,
 but it does not inherit that pipeline's gaps into its own evidence. Where the pipeline is provably
 short of what validating a test needs, it says so as a finding with evidence and the change that would
 correct it, routed to the pipeline's owners, and it changes nothing itself. Five questions are the
@@ -270,7 +284,7 @@ untrusted code reach secrets or the network while tests run; does the existing s
 changed; are failures being masked; are the suite's results tamper-evident. The second and third are
 implemented; the others follow. Fitting in is the default. Fitting in silently is not.
 
-**14. Every reached behaviour is accounted for.** The harness's output is not a list of tests; it is an
+15. **Every reached behaviour is accounted for.** The harness's output is not a list of tests; it is an
 account of the behaviours the change reaches. Each one ends in exactly one of three states. Validated: a
 kept test ran its lines on both sides of the change, ran consistently, and a mutant placed inside those
 lines was killed. For your environment: a real test that needs something only the team has, handed over
@@ -454,7 +468,7 @@ language's own tools) in place of "the application references this package"; the
 diff tools (japicmp, gorelease, griffe) in place of the harness's own extractors; semgrep. When a tool
 is absent the fact bundle says so (`status: not_run`), and the prompt carries no finding it did not have.
 
-**The pipeline, as facts (principle 13).** Stage 2 also reads the repository's own CI definitions at
+**The pipeline, as facts (principle 14).** Stage 2 also reads the repository's own CI definitions at
 the reviewed commit, GitHub Actions, GitLab CI or Tekton, and records what they do with untrusted code
 while tests run: a pull request checked out under the base repository's secrets, write permissions on
 a pull request workflow, actions by mutable tag, a download piped to a shell, a test job with secrets in
@@ -552,7 +566,7 @@ All of it happens in a hermetic sandbox, following the OpenSSF Package Analysis 
   The team says what its testbed provides (`[sandbox] provides`, default `none, localhost`; the sealed
   container never provides network). A test that needs more is withheld from the sealed run, recorded as
   `skipped` with its need, proposed to the team with the declaration, and the behaviour it targets is
-  accounted "for your environment" (principle 14). A test that declared `none` and then opened a connection
+  accounted "for your environment" (principle 15). A test that declared `none` and then opened a connection
   is a defect in the test, pytest-socket's rule: the Python sandbox lays a `conftest.py` beside the tests that
   raises `HarnessUndeclaredNeed` on the first connection, Go tests meet the sealed network and are judged
   by the error, and the verdict says `undeclared need`. The `machine` tier runs under Kata where the
@@ -612,14 +626,14 @@ gathered, verdict with confidence, reflection pass.
 Anything under a confidence threshold is escalated rather than auto-routed. Failure logs are summarized
 with a Log Detective style pass before the classifier sees them.
 
-**Two finding classes for the pipeline (principle 13).** `coverage-gap`: the application reaches a
+**Two finding classes for the pipeline (principle 14).** `coverage-gap`: the application reaches a
 package in production and no test of its own references it, or the change alters symbols no existing
 test reaches; the route is the pipeline's owners, the suggested change names the call sites. `pipeline`:
 one finding per fact stage 2 recorded about the CI, security-class where untrusted code can reach
 secrets or the network, each with the change that corrects it. A repository with no CI definition at
 all is itself a finding. The packet carries them in their own section; the harness edits no pipeline.
 
-**The accounting (principle 14), as implemented.** After the verdicts and the pipeline facts, triage
+**The accounting (principle 15), as implemented.** After the verdicts and the pipeline facts, triage
 writes `triage/<package>/accounting.json` and the roll-up `triage/accounting-summary.json`. The unit is a
 reached behaviour: for a dependency, each call-site symbol outside test files that resolves to a public
 function, method or type, re-exports resolved to their definition, module imports set aside; for a
@@ -700,7 +714,7 @@ to open. Either way tests are added through a pull request; the harness never me
   detector, correction, self-check. The self-check is written first, fails against the current code,
   and passes once the correction lands. Document 15.
 
-**Prompt and model evaluation, the process.** The loop that principle 12 requires runs here, and it is
+**Prompt and model evaluation, the process.** The loop that principle 13 requires runs here, and it is
 not assumed to have happened: it leaves a table.
 
 1. *Prompt sets.* Every text said to a model (system prompt per language, task per category, the
@@ -1012,8 +1026,10 @@ Benchmarks, run before the pilot and on every prompt or model change:
 ## 11. Security and safety
 
 - **Untrusted code execution.** Third-party source may be malicious. Sandboxes have no network, no
-  secrets, and are discarded after each run. Kernel-isolated runtimes (gVisor or Kata) are required for
-  depth 1 and deeper.
+  secrets, and are discarded after each run. Kernel isolation (Kata) where the cluster provides it; nested
+  virtualisation is unsupported and gVisor has no CRI-O handler on OpenShift, so on a VM-hosted cluster a test
+  that declares it needs a real kernel is handed to the team's pipeline with the declaration (stage 4), never run
+  on a promise.
 - **Generated tests are untrusted until read.** They run before a reviewer sees them, so they run only
   in the sandbox above, in the developer's loop as much as in the pipeline's (section 5.0). A plain
   test runner on a workstation is not a substitute.
