@@ -1,4 +1,4 @@
-"""The accounting (blueprint principle 14): every behaviour the change reaches ends in exactly one state.
+"""The accounting (blueprint principle 15): every behaviour the change reaches ends in exactly one state.
 
 The three states are `validated`, `for-your-environment` and `stated-gap`; a gap carries exactly one
 reason. Nothing is silent: every reached behaviour appears once, the counts sum to the number of units,

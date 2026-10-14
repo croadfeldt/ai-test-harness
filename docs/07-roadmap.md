@@ -36,7 +36,7 @@ four engineers and will be replaced by measured velocity after Phase 0.
   request opened in the pipeline's loop.
 - Signed in-toto statements and sealed UDLM records per run, already produced by the pipeline, not by hand.
 - The pipeline under test too: what each pilot service's CI does with untrusted code while tests run,
-  and what its existing suite reaches (blueprint principle 13, questions 2 and 3); questions 1, 4 and 5
+  and what its existing suite reaches (blueprint principle 14, questions 2 and 3); questions 1, 4 and 5
   follow in Phase 1.
 - Model and prompt fitness read from the evaluation table (document 12) before any default changes.
 

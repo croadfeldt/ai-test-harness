@@ -105,14 +105,14 @@ units. A unit with no state is a harness defect and fails the new assessment goa
   **Run index** carries the three counts per package; **dashboard** tiles show validated, for your
   environment, gaps beside the existing accepted and proven. **Catalogue** entries for the two new files.
 - **Assessment** gains G13: every reached unit has exactly one state and the counts sum. **Blueprint**
-  gains principle 14 beside 12 and 13, in the three-page blueprint and the reference; the specification
+  gains principle 15 beside 12 and 13, in the three-page blueprint and the reference; the specification
   gains R23. The evaluation table gains a "validated" column, which will read lower than "accepted" and
   should.
 
 ### Order of work
 
 1. PR A: `end_line`, resolution of re-exports, `account.py` from the data that exists, story, pull
-   request text, index, dashboard, G13, principle 14, R23, catalogue, tests on the example runs (every
+   request text, index, dashboard, G13, principle 15, R23, catalogue, tests on the example runs (every
    call-site symbol appears exactly once; the python-jose example yields three `strength-not-sampled`
    gaps, which is the test that the contract tells the truth).
 2. PR B: coverage contexts in the Python sandbox, closures from private callees, stratified mutant

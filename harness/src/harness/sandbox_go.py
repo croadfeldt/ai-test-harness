@@ -24,7 +24,7 @@ from .util import HarnessError, now_iso, write_json
 
 IMAGE = str(_config.get("sandbox", "go_image", "HARNESS_GO_SANDBOX_IMAGE", "docker.io/library/golang:1.25-bookworm"))
 LIMITS = {"memory": "4g", "pids": 1024, "timeout_s": 1200, "cpus": "2"}
-PER_TEST_CAP = 40        # at most this many passing tests get their own coverage run (principle 14, per-test attribution)
+PER_TEST_CAP = 40        # at most this many passing tests get their own coverage run (principle 15, per-test attribution)
 MODULE = "harnesstest"
 
 

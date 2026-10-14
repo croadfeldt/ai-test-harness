@@ -5,11 +5,11 @@
 Fitness for purpose is measured, never assumed. Each line is one prompt set with one model on one package, summed over the runs that
 used them. Ground truth in order of strength: a reviewer's decision on the test pull request, the sandbox's verdicts (a fix proven means
 the test fails on the vulnerable version and passes on the fixed one), triage's acceptance. "Validated / reached" is the accounting: of the behaviours the
-application reaches, how many a kept test ran on both sides with a mutant killed inside them (principle 14); it reads lower than accepted, and should. "For review" counts tests whose behaviour differed
+application reaches, how many a kept test ran on both sides with a mutant killed inside them (principle 15); it reads lower than accepted, and should. "For review" counts tests whose behaviour differed
 between the two versions, which a person must judge. Covered lines and the mutation score say how much of the package the tests exercise and
 how firmly. Cost is model calls and minutes of model time.
 
-Generated 2026-10-14T04:21:30+00:00 from 19 package run(s).
+Generated 2026-10-14T04:44:50+00:00 from 19 package run(s).
 
 | Prompt set | Model | Language | Package | Runs | Generated | Kept | Accepted | Validated / reached | For review | Proven | Covered lines | Mutation | Reviewer accepted / rejected | Calls | Minutes | Reads as |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|

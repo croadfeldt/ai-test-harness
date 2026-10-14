@@ -140,7 +140,8 @@ with hostile input, CVE-targeted tests, fuzz targets, and the harness code that 
 ### 4. Validation execution
 
 This is the harness's own run, not the suite's. Everything runs in a sealed sandbox: pinned base image, Hermeto's dependency set mounted, no network,
-no secrets, kernel isolation for anything below depth 0, hard resource limits, destroyed afterward.
+no secrets, hard resource limits, destroyed afterward; kernel isolation where the cluster provides it, and a test that
+needs a real kernel handed to the team where it does not.
 
 Then the gauntlet, in order: compile, run, re-run to catch flakes, measure coverage, mutate the code
 and see which tests notice, and run the same tests against the previous version to see what changed.
