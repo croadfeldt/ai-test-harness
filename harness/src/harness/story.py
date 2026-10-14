@@ -378,7 +378,8 @@ def accounting_section(idx: dict, workdir: Path) -> list[dict]:
                 continue
             ev = u.get("evidence") or {}
             if u["state"] == "for-your-environment":
-                bullets.append(f"`{u['symbol']}`: for your environment; the sandbox refused what the test needs ({ev.get('refusal', 'see the accounting')}).")
+                why = f"its test declares it needs {', '.join(ev['declared'])}; proposed with the declaration, it proves itself in your pipeline" if ev.get("declared") else f"the sandbox refused what the test needs ({ev.get('refusal', 'see the accounting')})"
+                bullets.append(f"`{u['symbol']}`: for your environment; {why}.")
             else:
                 detail = ""
                 m = ev.get("mutants") or {}

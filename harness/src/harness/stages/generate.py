@@ -162,6 +162,8 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
     if category == "cve" and roles.get("direction") == "downgrade":
         parts.append(f"NOTE: this change is a DOWNGRADE. The NEW version {facts['new_version']} is the vulnerable one and the "
                      f"OLD version {facts['old_version']} is the fixed one. The test must fail on {facts['new_version']} and pass on {facts['old_version']}.")
+    from .. import needs as _needs
+    parts.append("DECLARED NEEDS: " + _needs.PROMPT_RULE.format(syntax=_needs.SYNTAX[adapter.ECOSYSTEM]))
     parts.append(_data("API", _api_subset(api, used)))
     prod = [{"file": s["file"], "line": s["line"], "symbol": s["symbol"], "code": s["context"]} for s in sites if not s["in_test"]][:40]
     if facts.get("first_party"):
@@ -206,6 +208,24 @@ def env_dir(workdir: Path, adapter, tag: str) -> Path:
 
 
 def _run_baseline(code: str, pkg_dir: Path, env: dict, roots: list[str], label: str, adapter=None) -> dict:
+    """The baseline run of one candidate file. Tests whose declared need this testbed does not provide are
+    withheld from the run (they stay in the file: execute withholds them again and records them as skipped
+    with their need, for the team's environment). A file whose every test is withheld is not run at all."""
+    from .. import needs as _needs
+    adapter = adapter or adapters.get("python")
+    held = _needs.withheld(adapter.declared_needs(code)) if hasattr(adapter, "declared_needs") else {}
+    if held:
+        remaining = adapter.drop_tests(code, set(held))
+        if not adapter.test_names(remaining):
+            return {"results": {}, "sandbox": {"install_failed": False, "build_failed": False}, "coverage": {}, "stdout_tail": "",
+                    "withheld": held, "all_withheld": True}
+        run = _run_baseline_code(remaining, pkg_dir, env, roots, label, adapter)
+        run["withheld"] = held
+        return run
+    return _run_baseline_code(code, pkg_dir, env, roots, label, adapter)
+
+
+def _run_baseline_code(code: str, pkg_dir: Path, env: dict, roots: list[str], label: str, adapter=None) -> dict:
     """One sandbox run of a candidate file in the given environment (an adapter.prefetch record)."""
     adapter = adapter or adapters.get("python")
     label = label.replace("/", "_")   # a Go module path in the label would nest directories
@@ -310,7 +330,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                 else:
                     precut = []
             failing = {k.split("::")[-1]: v for k, v in run1["results"].items() if v["status"] in ("fail", "error")}
-            if _collected_nothing(run1["results"]):
+            if _collected_nothing(run1["results"]) and not run1.get("all_withheld"):
                 history.append("No test ran on the baseline: the file did not build or collect. The output:\n" + run1["stdout_tail"][-2000:]); continue
             best = (code, run1, list(precut), attempts)
             if cat == "cve":
@@ -350,7 +370,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             code, run_final, precut, kept_attempt = best
             log(f"    {cat}: the last repair did not build; keeping attempt {kept_attempt}, which ran")
             manifest.setdefault("fell_back", []).append({"category": cat, "issue": suffix or None, "kept_attempt": kept_attempt, "attempts": attempts})
-        if run_final is None or _collected_nothing(run_final["results"]):
+        if run_final is None or (_collected_nothing(run_final["results"]) and not run_final.get("all_withheld")):
             # GF-020: the last repair still did not collect (a module-level import of a name the package
             # lacks, for instance). The tests inside were never run, so nothing here is a candidate.
             manifest["discarded"].append({"category": cat, "reason": "did not collect on the baseline after repairs", "attempts": attempts,
@@ -365,7 +385,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
             cut += [{"test": k, "reason": "fails on baseline after repair", "message": v["message"][:300]} for k, v in failing.items()]
         names = adapter.test_names(kept_code)
         covered = run_final["coverage"].get("covered_lines_in_target", 0) if run_final else 0
-        if cat != "cve" and covered == 0:
+        if cat != "cve" and covered == 0 and not run_final.get("withheld"):
             manifest["discarded"].append({"category": cat, "reason": "covers no line of the package under test", "tests": names})
             continue
         if not names:
@@ -374,7 +394,9 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
         fname = adapter.test_file_name(pkg, cat, suffix)
         header = adapter.file_header(pkg, facts["new_version"], cat)
         (tests_dir / fname).write_text(header + kept_code)
+        held = run_final.get("withheld") or {}
         manifest["files"].append({"file": f"tests/{fname}", "category": cat, "tests": names, "cut": cut,
+                                  "needs": adapter.declared_needs(kept_code) if hasattr(adapter, "declared_needs") else {}, "withheld": sorted(held),
                                   "attempts": attempts, "prompt_sha256": rec["prompt_sha256"],
                                   "response_sha256": rec["response_sha256"], "model": rec["model"],
                                   "baseline_run": {"status": {k.split('::')[-1]: v["status"] for k, v in run_final["results"].items()} if run_final else {},

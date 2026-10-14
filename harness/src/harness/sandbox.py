@@ -69,11 +69,14 @@ def run_tests(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, out
         raise HarnessError("podman is required for the sandbox target")
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "requirements.txt").write_text("\n".join(requirements + RUNNER_DEPS) + "\n")
+    from .needs import CONFTEST
+    (out_dir / "conftest.py").write_text(CONFTEST)
     script = f"""set -u
 python -m venv /work/venv >/dev/null
 /work/venv/bin/pip install --quiet --no-index --find-links /wheelhouse -r /out/requirements.txt || {{ echo "INSTALL_FAILED"; exit 97; }}
 cd /work
 cp -r /tests /work/tests
+cp /out/conftest.py /work/tests/conftest.py
 # A first-party target: the application's own tree, mounted read-only, copied so a mutant can be laid over it.
 if [ -d /src ]; then cp -r /src /work/src; export PYTHONPATH=/work/src{":/work/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
 if [ -d /mutant ]; then cp -r /mutant/. {"/work/src" if source_dir else "/work/venv/lib/python3.12/site-packages"}/; fi
@@ -124,12 +127,15 @@ def _run_in_pod(*, wheelhouse: Path, requirements: list[str], tests_dir: Path, o
     import os
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "requirements.txt").write_text("\n".join(requirements + RUNNER_DEPS) + "\n")
+    from .needs import CONFTEST
+    (out_dir / "conftest.py").write_text(CONFTEST)
     work = Path(tempfile.mkdtemp(prefix="harness-pod-", dir=os.environ.get("HARNESS_WORK_TMP") or None))
     script = f"""set -u
 python -m venv {work}/venv >/dev/null
 {work}/venv/bin/pip install --quiet --no-index --find-links {wheelhouse.resolve()} -r {out_dir.resolve()}/requirements.txt || {{ echo "INSTALL_FAILED"; exit 97; }}
 cd {work}
 cp -r {tests_dir.resolve()} {work}/tests
+cp {out_dir.resolve()}/conftest.py {work}/tests/conftest.py
 if [ -d "{source_dir.resolve() if source_dir else '/nonexistent'}" ]; then cp -r {source_dir.resolve() if source_dir else '/nonexistent'} {work}/src; export PYTHONPATH={work}/src{":" + str(work) + "/src/src" if source_dir and (source_dir / "src").is_dir() else ""}; fi
 if [ -d "{overlay_dir.resolve() if overlay_dir else '/nonexistent'}" ]; then cp -r {overlay_dir.resolve() if overlay_dir else '/nonexistent'}/. {f"{work}/src" if source_dir else f"{work}/venv/lib/python3.12/site-packages"}/; fi
 printf '[run]\ndynamic_context = test_function\n' > {work}/.coveragerc

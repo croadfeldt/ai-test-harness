@@ -303,7 +303,7 @@ def pull_request(workdir: Path, pkg: str, *, files: list[str] | None = None, att
     lines += ["", "Files this pull request carries:", ""] + [f"- `{f}`" for f in files]
     if not_covered:
         lines += ["", "Not covered:", ""] + [
-            f"- `{u['symbol']}`: " + ("for your environment, the sandbox refused what the test needs" if u["state"] == "for-your-environment" else REASONS.get(u["reason"], u["reason"]))
+            f"- `{u['symbol']}`: " + ((f"for your environment: its test declares it needs {', '.join((u.get('evidence') or {}).get('declared', []))}; it proves itself in your pipeline" if (u.get("evidence") or {}).get("declared") else "for your environment, the sandbox refused what the test needs") if u["state"] == "for-your-environment" else REASONS.get(u["reason"], u["reason"]))
             for u in not_covered[:30]] + ([f"- and {len(not_covered) - 30} more in `triage/{pkg}/accounting.json`"] if len(not_covered) > 30 else [])
     lines += ["",
              "Proposed by the AI Test Harness. The packet in the same directory has the findings, the verdict per test, "

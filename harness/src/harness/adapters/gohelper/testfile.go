@@ -24,6 +24,7 @@ type Inspection struct {
 	Weak    []string            `json:"weak"`
 	Skipped []string            `json:"skipped"`
 	Refs    map[string][]string `json:"refs"`
+	Needs   map[string]string   `json:"needs"`
 }
 
 var failCalls = map[string]bool{"Error": true, "Errorf": true, "Fatal": true, "Fatalf": true, "Fail": true, "FailNow": true}
@@ -82,7 +83,7 @@ func hasSkip(fd *ast.FuncDecl, tName string) bool {
 func inspectCmd(file string) {
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
-	out := Inspection{Tests: []string{}, Imports: []string{}, Weak: []string{}, Skipped: []string{}, Refs: map[string][]string{}}
+	out := Inspection{Tests: []string{}, Imports: []string{}, Weak: []string{}, Skipped: []string{}, Refs: map[string][]string{}, Needs: map[string]string{}}
 	if err != nil {
 		out.Error = err.Error()
 		json.NewEncoder(os.Stdout).Encode(out)
@@ -114,6 +115,14 @@ func inspectCmd(file string) {
 		}
 		if hasSkip(fd, tName) {
 			out.Skipped = append(out.Skipped, fd.Name.Name)
+		}
+		if fd.Doc != nil {
+			for _, c := range fd.Doc.List {
+				line := strings.TrimSpace(strings.TrimPrefix(c.Text, "//"))
+				if strings.HasPrefix(line, "harness:needs ") {
+					out.Needs[fd.Name.Name] = strings.TrimSpace(strings.TrimPrefix(line, "harness:needs "))
+				}
+			}
 		}
 		refs := map[string]bool{}
 		ast.Inspect(fd.Body, func(n ast.Node) bool {

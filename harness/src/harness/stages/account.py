@@ -263,7 +263,10 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
         and killed inside it, and whether a test that executed the unit killed one."""
         linked = _tests_for({"symbol": q}, tests)
         env = [t for t in linked if t["versions"].get("new") != "pass" and ENVIRONMENT.search(t.get("message") or "")]
+        held = [t for t in linked if t.get("status") == "skipped" and t.get("needs") not in (None, "none")]
         ev: dict = {"tests": sorted({t["name"] for t in linked}), "kept_tests": sorted({t["name"] for t in linked if t["name"] in kept_names})}
+        if held:
+            ev["declared"] = sorted({t["needs"] for t in held})
         if cannot_validate:
             return {"state": "stated-gap", "reason": "pipeline-cannot-validate", "evidence": {**ev, "pipeline": [f["rule"] for f in cannot_validate]}}
         cl = closure_spans(q, spans, calls)
@@ -280,6 +283,8 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
                    "mutants": {"sampled": len(ms), "killed": len(killed), "killed_by": sorted(killers)}, "proven_by": proven_by})
         if lines and killed and proven_by:
             return {"state": "validated", "reason": None, "evidence": ev}
+        if held and not lines:
+            return {"state": "for-your-environment", "reason": None, "evidence": {**ev, "withheld": sorted(t["name"] for t in held)}}
         if env and not lines:
             return {"state": "for-your-environment", "reason": None, "evidence": {**ev, "refusal": (env[0].get("message") or "")[:200]}}
         if lines:

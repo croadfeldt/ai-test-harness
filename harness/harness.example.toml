@@ -30,6 +30,10 @@ python_version = "3.12"
 [sandbox]
 image = "docker.io/library/python:3.12-slim"   # recorded by tag and by digest
 go_image = "docker.io/library/golang:1.25-bookworm"   # the Go sandbox (env: HARNESS_GO_SANDBOX_IMAGE)
+# What this testbed provides to a test that declares a need (stage 4): none, localhost, network, machine. Tests that
+# need more are withheld from the sealed run, recorded as skipped with the need, and proposed to the team with the
+# declaration. The sealed container never provides network. (env: HARNESS_PROVIDES, comma-separated)
+provides = ["none", "localhost"]
 
 [propose]
 # Lifecycle B (blueprint 5.0): `harness propose` puts the accepted tests, the packet and the records on a

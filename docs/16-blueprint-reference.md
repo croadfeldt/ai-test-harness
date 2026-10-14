@@ -530,7 +530,18 @@ All of it happens in a hermetic sandbox, following the OpenSSF Package Analysis 
 - Container built from a pinned base image, one per ecosystem, with the Hermeto-prefetched dependency
   graph mounted. No outbound network. No mounted secrets. Read-only source tree except for the test
   output directory.
-- gVisor or Kata for anything at depth 1 or deeper.
+- **Declared needs.** Every test says what it needs from its testbed, in four tiers, the ladder autopkgtest's
+  restrictions and Google's test sizes already use: `none` (the default), `localhost`, `network`, `machine`.
+  Python declares with `@pytest.mark.needs("network")`, Go with `// harness:needs network` above the test.
+  The team says what its testbed provides (`[sandbox] provides`, default `none, localhost`; the sealed
+  container never provides network). A test that needs more is withheld from the sealed run, recorded as
+  `skipped` with its need, proposed to the team with the declaration, and the behaviour it targets is
+  accounted "for your environment" (principle 14). A test that declared `none` and then opened a connection
+  is a defect in the test, pytest-socket's rule: the Python sandbox lays a `conftest.py` beside the tests that
+  raises `HarnessUndeclaredNeed` on the first connection, Go tests meet the sealed network and are judged
+  by the error, and the verdict says `undeclared need`. The `machine` tier runs under Kata where the
+  cluster has bare-metal nodes for it (nested virtualisation is unsupported and gVisor has no CRI-O handler
+  on OpenShift); everywhere else it is an admitted-unavailable tier and goes to the team like `network`.
 - CPU, memory, and wall-clock limits per run. Fuzzing gets a fixed time budget.
 
 Validation steps, in order:

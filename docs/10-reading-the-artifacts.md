@@ -179,7 +179,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `analyze/facts.json` | The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned. |
 | `analyze/api-diff.json` | Every added, removed or changed public symbol between the two versions, with a breaking flag. |
 | `generate/tests/` | The candidate test files as generated, before any decision. |
-| `execute/results.json` | The verdict per test: outcome on head, on the re-run and on the other version, coverage, and how each was judged. |
+| `execute/results.json` | The verdict per test: outcome on head, on the re-run and on the other version, its declared need, coverage, and how each was judged; what the testbed provides and which tests it withheld for the team. |
 | `execute/mutation/mutation.json` | How strong the accepted tests are: which mutants of the package's source they killed, and the score. |
 | `execute/relevance.json` | Which existing tests this change makes obsolete or redundant, proposed with evidence; nothing is deleted. |
 | `triage/triage.json` | Every verdict and finding classified, with a confidence and a route; below the threshold a person decides. |
