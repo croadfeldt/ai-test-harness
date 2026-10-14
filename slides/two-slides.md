@@ -3,24 +3,29 @@ marp: true
 theme: default
 paginate: false
 title: AI Test Harness, in two slides
-description: One slide on the value; one on the flow, the data it reads and why
+description: One slide on the value and the invitation to co-engineer; one on the flow, the data it reads and why
 ---
 
 <!-- _class: lead -->
+<style scoped>
+section { font-size: 23px; padding: 50px 70px; }
+h1 { font-size: 1.6em; margin-bottom: 0.4em; }
+p { margin: 0.45em 0; }
+</style>
 
 # How do you know a change is safe when most of what you ship is code your team never wrote?
 
 **You don't. The AI Test Harness gives you the evidence.**
 
-**Every change arrives with proof.** Tests that ran on both sides of the change and a signed record, on the pull request, for your own code and every package you depend on. The gate decides on evidence, not trust.
+**Every change arrives with proof.** Tests run on both sides of the change and a signed record, on the pull request, for your code and every package you depend on. The gate decides on evidence, not trust.
 
-**Known vulnerabilities get an answer, not a claim.** Proven fixed, proven exposed, or shown unreachable, each backed by a test anyone can rerun, and a VEX draft that rests on it.
+**Known vulnerabilities get an answer, not a claim.** Proven fixed, proven exposed, or shown unreachable, each backed by a test anyone can rerun and a VEX draft that rests on it.
 
-**A test suite that grows where none existed.** The tests nobody will write by hand get written, run and scored; the ones that earn their keep join your suite, and the review time it costs is measured on every run.
+**A test suite that grows where none existed.** The tests nobody writes by hand get written, run and scored. The ones that earn their keep join your suite, and the review time they cost is measured on every run.
 
-**Proof that travels with the product.** Signed records your customers, auditors and regulators can verify, and no silent coverage: every behaviour a change reaches is validated, handed to you, or named as a gap with its reason.
+**Proof that travels with the product.** Signed records your customers, auditors and regulators can verify. No silent coverage: every behaviour a change reaches is validated, handed to you, or named as a gap with its reason.
 
-**The ask:** a six-week pilot on two projects, a named sponsor, a compute budget priced in your own tokens.
+Built in the open, with the teams that use it. Bring a project and shape what it proves next.
 
 ---
 
