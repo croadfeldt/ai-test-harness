@@ -87,7 +87,9 @@ draft VEX statements), and the fix comes back through the harness like any other
 
 Out of scope: binary-only artifacts, performance testing, merging without a person, fixing production
 code. Ecosystems in priority order: Go, Python, Java and Kotlin, Rust, JavaScript and TypeScript, C and
-C++. One small adapter per ecosystem; the core is ecosystem-agnostic.
+C++. One small adapter per ecosystem; the core is ecosystem-agnostic. It is platform-agnostic too: Konflux
+is the example build platform throughout these documents, and the harness runs wherever its triggers run,
+GitHub Actions, GitLab CI, Jenkins, Azure Pipelines or plain Tekton (`deploy/`).
 
 ## Principles
 
@@ -195,7 +197,8 @@ the overlay repository, Source L4 for the standard suite. The harness confers no
 
 ## Built here, reused from elsewhere
 
-Reused: Konflux and Tekton, Hermeto, Trustify, Conforma and Trusted Artifact Signer, each ecosystem's
+Reused: a build platform and its pipeline engine (Konflux and Tekton, in the example), Hermeto, Trustify,
+Conforma and Trusted Artifact Signer, each ecosystem's
 own resolver, runner, API-diff and mutation tools. Built here: the assembly and adapter interface, the
 generation and triage agents, cross-ecosystem differential testing, the overlay repository and its
 provenance, the relevance engine, and CVE-targeted generation with VEX drafts.

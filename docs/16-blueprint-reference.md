@@ -344,7 +344,7 @@ least two lifecycles, and an organization may separate creation from execution a
 | | Lifecycle A: the developer's inner loop | Lifecycle B: the CI/CD outer loop |
 |---|---|---|
 | Who starts it | The developer, on their branch, as part of writing the change | The pipeline, on every pull request or merge, unattended |
-| Where the core runs | Locally or on an ephemeral platform, in the same sealed sandbox as the pipeline | In the pipeline's sandbox (Konflux integration test, Tekton) |
+| Where the core runs | Locally or on an ephemeral platform, in the same sealed sandbox as the pipeline | In the pipeline's sandbox (an integration test of the build platform; Konflux's integration service with Tekton, in the example) |
 | What comes out | Candidate tests and verdicts the developer iterates on | A review packet and the tests as a patch |
 | Who reviews | The developer first, then the code reviewers, in the normal code review | A reader of the test pull request, against the packet |
 | How tests are added | Inside the developer's own pull request | Through a test pull request the harness opens |
@@ -414,7 +414,7 @@ against its base branch, a push against what it replaced, a release against the 
 alone on a schedule. A repository given by address is cloned once under the run and never touched
 where a person is working.
 
-- Detect the incoming change: Konflux snapshot, PR webhook, lockfile diff, SBOM diff, or scheduled scan.
+- Detect the incoming change: a build platform's snapshot (Konflux's, in the example), PR webhook, lockfile diff, SBOM diff, or scheduled scan.
 - Resolve the **full dependency graph** with Hermeto, which also yields the SBOM. Fall back to the native
   resolver (`go mod graph`, `pipdeptree`, `mvn dependency:tree`, `cargo metadata`, `npm ls --all`) where
   Hermeto's support is experimental.
@@ -667,7 +667,7 @@ about the sample ([document 18](18-design-queue-research.md) has the dry run).
 
 ### Stage 6: Review
 
-Output per work item is a **review packet**, posted where Konflux integration-service already reports:
+Output per work item is a **review packet**, posted where the build platform already reports (Konflux integration-service, in the example):
 
 - One-page summary: what changed, what was tested, what was found, recommended action.
 - The generated tests as a branch or patch against the **test overlay repository** (section 8).

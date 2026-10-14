@@ -61,9 +61,11 @@ the identity that proposes tests never needs the credentials that change product
 
 ## Where it runs
 
-The harness is not a new pipeline. It is one more integration test in Konflux, Red Hat's open source
-software factory, which already builds hermetically, produces SBOMs, signs provenance at SLSA Build
-Level 3, and gates releases on policy.
+The harness is not a new pipeline. It is one more integration test in the build platform a team already
+runs. The example throughout these documents is Konflux, Red Hat's open source software factory, which
+already builds hermetically, produces SBOMs, signs provenance at SLSA Build Level 3, and gates releases on
+policy. Any platform that gives the same four things fits the same way; the triggers under `deploy/` show
+GitHub Actions, GitLab CI, Jenkins, Azure Pipelines and plain Tekton.
 
 ```mermaid
 flowchart TB
@@ -245,8 +247,8 @@ sequenceDiagram
 
 ## Provenance and SLSA
 
-Every input the harness reads is already attested by Konflux. Every output the harness produces is
-attested by Konflux too, with an additional in-toto predicate carrying the test-evidence record. That
+Every input the harness reads is already attested by the build platform (Konflux, in the example). Every
+output the harness produces is attested the same way, with an additional in-toto predicate carrying the test-evidence record. That
 record is a UDLM record: the test, the package, the vulnerability, the run, and the draft VEX statement
 are records in the Unified Data Lifecycle Model with its own tamper-evident head, and the signed
 statement names those heads as its subjects. The

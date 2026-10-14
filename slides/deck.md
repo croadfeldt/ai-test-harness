@@ -34,7 +34,7 @@ Rendered with Slidev (Mermaid built in) or Marp with its Mermaid plugin. Sources
 # Why now
 
 1. **Supply chain attacks are the dominant risk.** The most damaging incidents of the last several years came through dependencies, not through code our engineers wrote.
-2. **Regulators and customers ask for proof.** SLSA, SBOM, and VEX exist so we can show what we verified. Konflux produces that proof for the build step. It produces none of it for testing.
+2. **Regulators and customers ask for proof.** SLSA, SBOM, and VEX exist so we can show what we verified. A build platform such as Konflux produces that proof for the build step. It produces none of it for testing.
 3. **AI can now write tests worth running.** Not perfect tests. Tests that, once run, scored, and reviewed, match hand-written quality and arrive in hours instead of quarters.
 
 ---
@@ -61,7 +61,7 @@ flowchart LR
 - It does not replace engineers or QE. It gives them evidence they do not have today.
 - It does not merge code, publish security statements, or delete tests on its own. Each of those is a human decision.
 - It does not fix code. A separate fix pipeline does; this one hands it the failing test and tests what comes back.
-- It is not a new pipeline. It is one more integration test in Konflux.
+- It is not a new pipeline. It is one more integration test in the build platform you already run; Konflux is the example.
 
 ---
 
@@ -84,7 +84,7 @@ flowchart TB
     H --> PR[Review packet on the PR]
 ```
 
-Konflux already builds hermetically, produces SBOMs, signs provenance at SLSA Build L3, and gates on policy. The harness fills the testing half.
+A build platform such as Konflux already builds hermetically, produces SBOMs, signs provenance at SLSA Build L3, and gates on policy. The harness fills the testing half.
 
 ---
 
@@ -237,7 +237,7 @@ Draft VEX within four hours of the CVE appearing in the graph. Product Security 
 
 # Provenance: the harness extends the chain of trust
 
-Every input is attested by Konflux. Every output is attested with the vetted in-toto `test-result/v0.1` predicate, signed by Trusted Artifact Signer, verified by Conforma. The harness's own code, prompts, images, and models are attested the same way.
+Every input is attested by the build platform (Konflux, in the example). Every output is attested with the vetted in-toto `test-result/v0.1` predicate, signed by Trusted Artifact Signer, verified by Conforma. The harness's own code, prompts, images, and models are attested the same way.
 
 | Track | Target | When |
 |---|---|---|
@@ -325,7 +325,7 @@ Dates are placeholders from a notional October 2026 start. Durations get replace
 
 **Goal.** Prove that generated tests are strong enough to be worth a reviewer's time, on real code.
 
-- One Go service and one Python service, both already on Konflux
+- One Go service and one Python service, both already on a build platform (Konflux, in the example pilot)
 - Our own code and direct dependencies only
 - Differential step first, measured against BUMP, a public benchmark of about 570 real breaking dependency upgrades
 - Unit, functional, and negative tests. Manual trigger. Packets as PR comments.

@@ -34,6 +34,8 @@ that has been pointed at the repository. People start at [README.md](README.md).
 - **Documents stay in sync with every change.** A new capability lands with its row in the implementation
   README, its line in the design queue, and the specification row that names its test. The blueprint's design
   (`docs/03`, `docs/16`) does not change without the maintainer's decision; it stands at v0.28.
+- **Product agnostic.** The harness runs in the build platform a team already has. Konflux, Tekton, Conforma and
+  Trustify appear as examples, "in the example", never as the assumption; the same for any vendor product.
 - **Every claim carries its evidence.** A number in a document points at the file it came from. A claim about
   another tool carries its source. The harness's own timings are not evidence of cost; they came from one
   lab.
