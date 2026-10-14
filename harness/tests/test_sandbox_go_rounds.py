@@ -11,7 +11,7 @@ def test_build_retry_loops_until_the_package_builds(tmp_path, monkeypatch):
     out = tmp_path / "out"; out.mkdir()
     rounds = []
 
-    def fake_run_once(*, env_dir, tests_dir, out_dir, cover, label, image, limits, overlay_dir, include=None):
+    def fake_run_once(*, env_dir, tests_dir, out_dir, cover, label, image, limits, overlay_dir, include=None, per_test=False):
         rounds.append(include)
         blame = {1: "a_test.go", 2: "b_test.go"}.get(len(rounds))
         if blame:

@@ -116,7 +116,7 @@ generate/<package>/
   scratch/                      baseline sandbox runs made during repair
 execute/<package>/
   results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
-  new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run
+  new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run; new/ carries per-test coverage (contexts; Go: per-test/ profiles)
   mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills, stratification over reached behaviours
   relevance.json                retirement proposals with reason, evidence, horizon, and rewrite flag
 triage/<package>/triage.json    findings and per-test classes with confidence, routing, evidence refs

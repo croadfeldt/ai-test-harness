@@ -741,7 +741,8 @@ def prefetch(reqs: list[str], python_version: str, dest: Path, source: Path | No
 
 
 def run_tests(env: dict, tests_dir: Path, out_dir: Path, cover: list[str], label: str, overlay_dir: Path | None = None,
-              limits: dict | None = None) -> dict:
+              limits: dict | None = None, per_test: bool = False) -> dict:
+    """`per_test` is accepted for symmetry with Go; the Python sandbox always records coverage contexts per test."""
     from .. import sandbox
     return sandbox.run_tests(wheelhouse=Path(env["dir"]), requirements=env["requirements"], tests_dir=tests_dir, out_dir=out_dir,
                              cover=cover, label=label, overlay_dir=overlay_dir, limits=limits or sandbox.LIMITS,

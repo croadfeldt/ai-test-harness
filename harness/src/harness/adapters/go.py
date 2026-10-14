@@ -514,12 +514,12 @@ def first_party_packages(tree: Path) -> list[str]:
 
 
 def run_tests(env: dict, tests_dir: Path, out_dir: Path, cover: list[str], label: str, overlay_dir: Path | None = None,
-              limits: dict | None = None) -> dict:
+              limits: dict | None = None, per_test: bool = False) -> dict:
     from .. import sandbox_go
     if env.get("source"):
         raise HarnessError("first-party Go targets: tests must live inside the module; that sandbox path is the next slice")
     return sandbox_go.run_tests(env_dir=Path(env["dir"]), tests_dir=tests_dir, out_dir=out_dir, cover=cover, label=label,
-                                limits=limits or sandbox_go.LIMITS, overlay_dir=overlay_dir)
+                                limits=limits or sandbox_go.LIMITS, overlay_dir=overlay_dir, per_test=per_test)
 
 
 def parse_results(summary: dict) -> dict:

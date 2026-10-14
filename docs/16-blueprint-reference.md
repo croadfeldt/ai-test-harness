@@ -591,12 +591,14 @@ counts. A unit's lines are its closure: its own span plus the private functions 
 to within the module (`analyze/<package>/internals.json`, written by the extractors for Python and Go), so
 the behaviour of `decode` is credited where it lives, in the helpers. The Python sandbox records a coverage
 context per test function, so execution is attributed to the test that did it, and strength requires that
-the test which executed the unit is the one that killed a mutant inside its closure; without contexts (Go,
-older runs) any kept killer counts and the record says so. Mutation sampling is stratified: each reached
+the test which executed the unit is the one that killed a mutant inside its closure. The Go sandbox has no
+coverage contexts, so the head run gives each passing test its own `go test -run` with its own profile
+(compiled once already, seconds each, capped at forty) and folds them into `coverage.json` in the same
+shape; without contexts (older runs) any kept killer counts and the record says so. Mutation sampling is stratified: each reached
 behaviour with a site gets a mutant, round-robin, before the remainder of the package is sampled, so the
 strength question is asked where the application calls. Still not wired, and named so no one assumes it:
-per-test attribution for Go (per-test coverage runs for the kept tests), the published runs re-run under
-these rules (no GPU time has been spent on them yet), and the earlier note stands that
+the published runs re-run under these rules (no GPU time has been spent on them yet), and the earlier
+note stands that
 the private callees a public function delegates to, and mutant sampling stratified over the reached
 units; until they land most units on the published runs read `strength-not-sampled`, which is the truth
 about the sample ([document 18](18-design-queue-research.md) has the dry run).
