@@ -3,20 +3,24 @@ marp: true
 theme: default
 paginate: false
 title: AI Test Harness, in two slides
-description: One slide on what, why, where and how; one on the flow, the data it reads and why
+description: One slide on the value; one on the flow, the data it reads and why
 ---
 
 <!-- _class: lead -->
 
-# AI Test Harness
+# How do you know a change is safe when most of what you ship is code your team never wrote?
 
-**What.** AI writes the tests nobody will write by hand, for our own code and for every package we depend on. Every test runs in a sealed sandbox on both sides of the change, is scored, and reaches a person as signed evidence. The harness only tests: it never merges, fixes code, publishes or deletes.
+**You don't. The AI Test Harness gives you the evidence.**
 
-**Why.** Most of what we ship is code we did not write, and nobody has tested it. Build platforms say what is in the product, not whether it works. AI-assisted development widens the gap: 98 percent more pull requests, 91 percent longer review per request (Faros AI, 2025). Regulators and customers ask what we verified, and for most of it the answer today is nothing.
+**Every change arrives with proof.** Tests that ran on both sides of the change and a signed record, on the pull request, for your own code and every package you depend on. The gate decides on evidence, not trust.
 
-**Where.** Inside the build platform a team already runs, beside the pull request, not in its critical path. Its verdict lands on the pull request as evidence the gate reads; the team's policy decides what holds a merge. Platform-agnostic: GitHub Actions, GitLab CI, Jenkins, Azure Pipelines, Tekton.
+**Known vulnerabilities get an answer, not a claim.** Proven fixed, proven exposed, or shown unreachable, each backed by a test anyone can rerun, and a VEX draft that rests on it.
 
-**How.** Eight stages: self-check, intake, analysis, generation, sealed execution, triage, review, feedback. Every behaviour a change reaches ends in one of three states, validated, for your environment, or a stated gap with its reason; nothing is silent. Fitness of every model and prompt is measured on a published table before it becomes a default, and the harness tests itself first: 28 known failure modes, each a check that runs before every run.
+**A test suite that grows where none existed.** The tests nobody will write by hand get written, run and scored; the ones that earn their keep join your suite, and the review time it costs is measured on every run.
+
+*Built, and running end to end on real repositories, with every run published. Honest by design: every behaviour it reaches is validated, handed to you, or named as a gap.*
+
+**The ask:** a six-week pilot on two projects, a named sponsor, a compute budget priced in your own tokens.
 
 ---
 
