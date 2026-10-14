@@ -75,7 +75,7 @@ note through the API.
 ## Tekton, on OpenShift
 
 The pipeline in `deploy/tekton/` already takes `repo-url`, `base` and `head` as parameters. The
-triggers under `deploy/tekton/triggers/` connect a GitHub webhook to it: an EventListener receives
+triggers under `deploy/tekton/triggers/` connect a GitHub webhook to it. An EventListener receives
 the event, a TriggerBinding maps a pull request's base and head ref (or a push's before and after
 commits) onto the parameters, and a TriggerTemplate creates the PipelineRun. The same pipeline runs
 on a schedule as a CronJob that creates a PipelineRun with `head` set to the default branch and no
@@ -107,15 +107,15 @@ reads its own workflows the same way, and reports that its actions are pinned by
 The pipeline's loop ends with the test pull request, and every engine can open it. What a run needs:
 
 - **Where the tests go.** Dependency tests go to the test overlay repository: `HARNESS_OVERLAY_REPO`
-  (a checkout) or the `HARNESS_OVERLAY_URL` the examples clone. First-party tests go to the repository
-  under test, as a request against the change's own branch, so they land in the developer's pull
-  request; against the default branch when the change was a commit or a pull request ref.
-- **A token** that can push a branch and open a request there: `GH_TOKEN` for GitHub, `GITLAB_TOKEN`
-  for GitLab, or `HARNESS_FORGE_TOKEN` in the examples, which set both. The harness uses `gh` or
-  `glab` when present and the forge's API when not; any other forge gets the pushed branch and a
-  message to open the request by hand.
-- **An identity**: `HARNESS_PROPOSE_AUTHOR` and `HARNESS_PROPOSE_EMAIL`, the bot the requests are
-  authored under, and optionally a signing key (`[propose].sign`).
+  (a checkout) or the `HARNESS_OVERLAY_URL` the examples clone. First-party tests go to the
+  repository under test, as a request against the change's own branch, so they land in the
+  developer's pull request. When the change was a commit or a pull request ref, the request targets
+  the default branch. - **A token** that can push a branch and open a request there: `GH_TOKEN` for
+  GitHub, `GITLAB_TOKEN` for GitLab, or `HARNESS_FORGE_TOKEN` in the examples, which set both. The
+  harness uses `gh` or `glab` when present and the forge's API when not; any other forge gets the
+  pushed branch and a message to open the request by hand. - **An identity**:
+  `HARNESS_PROPOSE_AUTHOR` and `HARNESS_PROPOSE_EMAIL`, the bot the requests are authored under, and
+  optionally a signing key (`[propose].sign`).
 
 The request's text is the packet's plain-terms verdict, the numbers, the file list, and the run's story
 folded below it, so a reviewer has the whole account without leaving the request. The harness pushes
@@ -130,18 +130,19 @@ that one branch and nothing else, and it never merges.
 | Tekton on OpenShift | `deploy/tekton/` | webhook and CronJob (`triggers/`) | the `propose` task when the `propose` parameter is `true`, with the `harness-forge` secret |
 | Anything else | `deploy/generic/run-and-propose.sh` | whatever the engine passes as two refs | when `HARNESS_OVERLAY_URL` and `HARNESS_FORGE_TOKEN` are set |
 
-Every example does the same five things: install the harness, run every stage on the two refs the
-event implies, keep the run directory as the build's artifact, post the plain-terms verdict where the
-change is reviewed, and open the test pull request. With `HARNESS_RUNS_STORE` set they do a sixth:
-publish the run's index and story to the runs store, so it appears on the dashboard. The generic script is those five steps in shell;
-the others are the same steps in each engine's own syntax.
+Every example does the same five things. It installs the harness, runs every stage on the two refs
+the event implies, keeps the run directory as the build's artifact, posts the plain-terms verdict
+where the change is reviewed, and opens the test pull request. With `HARNESS_RUNS_STORE` set they do
+a sixth: publish the run's index and story to the runs store, so it appears on the dashboard. The
+generic script is those five steps in shell; the others are the same steps in each engine's own
+syntax.
 
 ## From a developer's assistant
 
-`skills/ai-test-harness/` is an Agent Skill: the instructions a coding agent such as Claude Code loads
-to run the harness on the branch in front of the developer, read the story, and propose the tests,
-keeping the rules (sealed sandbox only, nothing merged, unproven stated as unproven). Copy it into
-`.claude/skills/` and lifecycle A is one instruction away.
+`skills/ai-test-harness/` is an Agent Skill: the instructions a coding agent such as Claude Code
+loads to run the harness on the branch in front of the developer, read the story, and propose the
+tests. The rules travel with it: sealed sandbox only, nothing merged, unproven stated as unproven.
+Copy it into `.claude/skills/` and lifecycle A is one instruction away.
 
 ## Anything else
 

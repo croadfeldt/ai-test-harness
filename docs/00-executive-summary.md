@@ -8,10 +8,10 @@ We test the code we write and trust the code we import, and most of what we ship
 
 ## What I am proposing
 
-An **AI Test Harness**: a system that uses AI agents to write tests for every piece of code that enters
-our products, runs those tests in a locked-down environment, proves whether they are any good, and hands
-the results to a human for a decision. It covers our own code, the open source packages we choose to use,
-and the packages those packages pull in, down to any depth.
+An **AI Test Harness**: a system that uses AI agents to write tests for every piece of code that
+enters our products. It runs those tests in a locked-down environment, proves whether they are any
+good, and hands the results to a human for a decision. It covers our own code, the open source
+packages we choose to use, and the packages those packages pull in, down to any depth.
 
 ## Why now
 

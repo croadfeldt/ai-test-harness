@@ -16,50 +16,53 @@ and the worked example. Section numbers are the ones the code's docstrings and t
 cite ("blueprint section 8.2"). New material goes to the three-page blueprint first and here second.
 
 **Changes in v0.18:** the pipeline's loop is complete on every common engine. The test pull request
-opens on GitHub or GitLab through their tools or their APIs (stage 6, lifecycle B), first-party tests go
-to the repository under test against the change's own branch, the request carries the run's story, and
-the examples under `deploy/` wire GitHub Actions, GitLab CI, Jenkins, Azure Pipelines and Tekton, with
-one script for any other engine. An Agent Skill makes lifecycle A one instruction away in a developer's
-coding agent.
+opens on GitHub or GitLab through their tools or their APIs (stage 6, lifecycle B). First-party
+tests go to the repository under test against the change's own branch, and the request carries the
+run's story. The examples under `deploy/` wire GitHub Actions, GitLab CI, Jenkins, Azure Pipelines
+and Tekton, with one script for any other engine. An Agent Skill makes lifecycle A one instruction
+away in a developer's coding agent.
 
 **Changes in v0.17:** the pipeline is under test too (principle 14). The harness fits into the
-repository's own CI, and when that CI is provably short of what validating a test needs it says so
-with evidence and the change that corrects it, routed to the pipeline's owners, and never edits the
-pipeline. Two questions first: can untrusted code reach secrets or the network while tests run (stage
-2 reads the CI definitions; stage 5 classifies the facts), and does the existing suite reach what
-changed (stage 2 counts it; stage 5 states the gap). Goal 12 records that the questions were asked.
+repository's own CI. When that CI is provably short of what validating a test needs, it says so with
+evidence and the change that corrects it, routed to the pipeline's owners. It never edits the
+pipeline. Two questions first. Can untrusted code reach secrets or the network while tests run?
+Stage 2 reads the CI definitions and stage 5 classifies the facts. Does the existing suite reach
+what changed? Stage 2 counts it and stage 5 states the gap. Goal 12 records that the questions were
+asked.
 
-**Changes in v0.16:** the rules the first measured prompt comparison and the 235B runs forced (stage 3:
-the compiler's line cuts a test before any repair, a worse repair never erases an attempt that ran;
-stage 4: mutants come only from lines the tests executed), prompt sets shipped with the image and
-selected per run, the repository matched by its name in every stage, and the register at twenty-eight.
-Principle 12 has its first worked example under stage 7. A one-page implementation specification,
-[document 14](14-specification.md), now states what an implementation must do and how it is judged.
+**Changes in v0.16:** the rules the first measured prompt comparison and the 235B runs forced. In
+stage 3 the compiler's line cuts a test before any repair, and a worse repair never erases an
+attempt that ran; in stage 4 mutants come only from lines the tests executed. Prompt sets ship with
+the image and are selected per run, the repository is matched by its name in every stage, and the
+register stands at twenty-eight. Principle 12 has its first worked example under stage 7. A one-page
+implementation specification, [document 14](14-specification.md), now states what an implementation
+must do and how it is judged.
 
 **Changes in v0.15:** the harness takes a repository by address and any ref git can name on it, a
-pull request's head ref included, and runs every stage with one command (stage 1; document 13), so a
+pull request's head ref included, and runs every stage with one command (stage 1; document 13). A
 pull request trigger, a push, a schedule or a person can start a run on any real repository. The
 triggers for GitHub Actions, GitLab CI and Tekton are documented and shipped as examples.
 
-**Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 13; stage 7).
-Every text the harness says to a model is a named, digested prompt set under source control; every
-manifest records which set and which model produced a result; the same jobs run per set and per model
-and are scored by what the sandbox and the reviewers said; a set or a model becomes the default only by
-winning that table. The evaluator and the bench are the implementation.
+**Changes in v0.14:** fitness for purpose is validated, never assumed (section 3, principle 13;
+stage 7). Every text the harness says to a model is a named, digested prompt set under source
+control, and every manifest records which set and which model produced a result. The same jobs run
+per set and per model and are scored by what the sandbox and the reviewers said. A set or a model
+becomes the default only by winning that table. The evaluator and the bench are the implementation.
 
-**Changes in v0.13:** every run must explain itself to a general reader (stage 6). The run's story,
-who, what, why, where and when with the outcome, the decisions and the actions, is an output of every
-run, as is the text and file list of the test pull request whether or not one is opened; every other
-file the harness writes carries a named reader and a reason, so evidence stays but never obscures.
+**Changes in v0.13:** every run must explain itself to a general reader (stage 6). The run's story
+is an output of every run: who, what, why, where and when, with the outcome, the decisions and the
+actions. So is the text and file list of the test pull request, whether or not one is opened. Every
+other file the harness writes carries a named reader and a reason, so evidence stays but never
+obscures.
 
 **Changes in v0.12:** the harness is one part of a larger pipeline and it only tests (section 2.4). A
 separate fix pipeline generates fixes; this harness hands it failing tests, reproducers, the upgrade
 path and draft VEX statements, and tests whatever comes back. Section 9 no longer lists proposed
 production fixes among what the harness generates.
 
-**Changes in v0.11:** the repository's own code is a target in its own right (stage 2, section
-5.0): one row at depth 0, facts from the tree at the reviewed commit, tests proposed under the
-application's own tests directory, and no advisory lookup for the application itself, so
+**Changes in v0.11:** the repository's own code is a target in its own right (stage 2, section 5.0).
+It gets one row at depth 0, facts from the tree at the reviewed commit, and tests proposed under the
+application's own tests directory. No advisory lookup runs for the application itself, so
 CVE-targeted work stays with the dependency rows unless a vulnerability is already known.
 
 **Changes in v0.10:** the pipeline is one core with two lifecycles around it (section 5.0). A
@@ -70,38 +73,40 @@ apart, and tests always arrive through a pull request.
 
 **Changes in v0.9:** the provenance record is a UDLM record (section 8.2). Test evidence, the draft
 VEX statement, the vulnerability, the package, and the run are records in the Unified Data Lifecycle
-Model, with UDLM's own tamper-evident head; the signed in-toto statement is the projection of those
-records, and each evidence record's head is a subject of the statement. This is the shape UDLM adopted
-in its own registry (TestEvidence in three tiers, VexStatement) after the first real run produced them.
+Model, each with UDLM's own tamper-evident head. The signed in-toto statement is the projection of
+those records, and each evidence record's head is a subject of the statement. This is the shape UDLM
+adopted in its own registry (TestEvidence in three tiers, VexStatement) after the first real run
+produced them.
 
-**Changes in v0.8:** added stage 0, self-verification, to the pipeline (section 5) and the generation
-failure register ([document 15](15-failure-register.md)): every way the generator has been observed to fail is recorded with the
-issue, why it matters, the cause, the automatic correction, and the self-check that proves the correction
-is in place on every run. The pipeline fails closed if a self-check fails. Stage 7 feeds new failure modes
-into the register. Two metrics added to section 10. Appendices renumbered.
+**Changes in v0.8:** added stage 0, self-verification, to the pipeline (section 5) and the
+generation failure register ([document 15](15-failure-register.md)). Every way the generator has
+been observed to fail is recorded with the issue, why it matters, the cause, the automatic
+correction, and the self-check that proves the correction is in place on every run. The pipeline
+fails closed if a self-check fails. Stage 7 feeds new failure modes into the register. Two metrics
+added to section 10. Appendices renumbered.
 
 **Changes in v0.7:** incorporated the orchestration and capability research
-([05-capability-map.md](05-capability-map.md)): the test-evidence attestation now uses the vetted in-toto
-`test-result/v0.1` predicate, the tooling table names the agent runtimes, sandbox, gateway, observability,
-and eval choices, and Konflux deptriage is recorded as the in-org precedent.
+([05-capability-map.md](05-capability-map.md)). The test-evidence attestation now uses the vetted
+in-toto `test-result/v0.1` predicate. The tooling table names the agent runtimes, sandbox, gateway,
+observability, and eval choices, and Konflux deptriage is recorded as the in-org precedent.
 
 **Changes in v0.6:** added the native-tooling guiding principle: generated tests conform to the
 ecosystem's existing testing paradigms and run with its native tooling so they drop into existing
 standard operating procedures and CI/CD pipelines without a harness-specific runner.
 
-**Changes in v0.5:** added the chain-of-trust guiding principle and its consequences for the harness's
-own provenance (section 3, 8.5), and added section 16, future enhancements: verifying that change
-descriptions match the change, and detecting malicious or vulnerable changes across first, second,
-third, and transitive parties. Appendices renumbered.
+**Changes in v0.5:** added the chain-of-trust guiding principle and its consequences for the
+harness's own provenance (section 3, 8.5). Added section 16, future enhancements: verifying that
+change descriptions match the change, and detecting malicious or vulnerable changes across first,
+second, third, and transitive parties. Appendices renumbered.
 
-**Changes in v0.4:** added SLSA v1.2 compliance targets for provenance and attestation (section 8.5),
-added negative tests and CVE-targeted tests as generation categories with a VEX evidence path
-(section 5, stage 3), and matching metrics, phases, security rules, and open questions.
+**Changes in v0.4:** added SLSA v1.2 compliance targets for provenance and attestation (section
+8.5). Added negative tests and CVE-targeted tests as generation categories with a VEX evidence path
+(section 5, stage 3), with matching metrics, phases, security rules, and open questions.
 
-**Changes in v0.3:** added two guiding principles (generated tests are provenance and candidates for the
-standard suite; the harness identifies tests made irrelevant by code changes), expanded section 8 into a
-test lifecycle covering provenance, promotion, and retirement, added `obsolete` and `redundant` triage
-classes, and added lifecycle metrics, phases, and risks.
+**Changes in v0.3:** added two guiding principles: generated tests are provenance and candidates for
+the standard suite, and the harness identifies tests made irrelevant by code changes. Expanded
+section 8 into a test lifecycle covering provenance, promotion, and retirement. Added `obsolete` and
+`redundant` triage classes, and lifecycle metrics, phases, and risks.
 
 **Changes in v0.2:** added section 4 (build on existing work), replaced the generic tooling table with
 named projects from the landscape research, added benchmarks, added a licensing note, and tightened the
@@ -116,10 +121,11 @@ requests usually carry some tests. Third-party libraries carry whatever their up
 dependencies, pulled in several layers deep, are effectively untested from our point of view: we never
 wrote a test for them, we rarely read them, and we find out they broke something only when a product does.
 
-This is my full blueprint for an **AI Test Harness**: a pipeline that uses AI agents to generate, execute,
-and validate unit tests, functional tests, and supporting harness code for every incoming unit of source
-code, whether it is our own commit, a direct dependency, or a transitive dependency several levels
-removed. It is the most detailed document in this repository. Everything else summarizes it.
+This is my full blueprint for an **AI Test Harness**: a pipeline that uses AI agents to generate,
+execute, and validate unit tests, functional tests, and supporting harness code for every incoming
+unit of source code. That unit may be our own commit, a direct dependency, or a transitive
+dependency several levels removed. It is the most detailed document in this repository. Everything
+else summarizes it.
 
 The harness is one part of a larger pipeline. It tests; it does not fix. Generating fixes belongs to a
 separate pipeline that consumes what this one produces (section 2.4). Keeping that line is a design
@@ -270,24 +276,26 @@ Fifteen, numbered; the three-page blueprint lists the same fifteen in the same o
 
 
 13. **Fitness for purpose is validated, never assumed.** A model and a prompt are inputs like any
-other, and their quality is a claim until it is measured. The harness therefore keeps every prompt as a
-named, digested set under source control, records the set and the model in every manifest, runs the
-same jobs under each candidate and scores them by ground truth in order of strength: what a reviewer
-accepted on the test pull request, what the sandbox proved (a fix-pinning test that fails on the
-vulnerable version and passes on the fixed one), what triage accepted. A model or a set that does not
-reach the outcome a job needs is not fit for that job, whatever it scores elsewhere, and does not become
-the default. The failure register ([document 15](15-failure-register.md)) keeps the harness honest about its own defects; the
-evaluation table keeps it honest about the model's and the prompt's. Stage 0 proves the harness is fit
-to run; stage 7's evaluator proves the model and the prompt are fit to produce.
+    other, and their quality is a claim until it is measured. The harness therefore keeps every
+    prompt as a named, digested set under source control and records the set and the model in every
+    manifest. It runs the same jobs under each candidate and scores them by ground truth in order of
+    strength. Strongest is what a reviewer accepted on the test pull request; then what the sandbox
+    proved, a fix-pinning test that fails on the vulnerable version and passes on the fixed one;
+    then what triage accepted. A model or a set that does not reach the outcome a job needs is not
+    fit for that job, whatever it scores elsewhere, and does not become the default. The failure
+    register ([document 15](15-failure-register.md)) keeps the harness honest about its own defects;
+    the evaluation table keeps it honest about the model's and the prompt's. Stage 0 proves the
+    harness is fit to run; stage 7's evaluator proves the model and the prompt are fit to produce.
 
 14. **The pipeline is under test too.** The harness fits into whatever CI a repository already runs,
-but it does not inherit that pipeline's gaps into its own evidence. Where the pipeline is provably
-short of what validating a test needs, it says so as a finding with evidence and the change that would
-correct it, routed to the pipeline's owners, and it changes nothing itself. Five questions are the
-whole of it, each answerable from facts: does anything reach the base branch without tests; can
-untrusted code reach secrets or the network while tests run; does the existing suite reach what
-changed; are failures being masked; are the suite's results tamper-evident. The second and third are
-implemented; the others follow. Fitting in is the default. Fitting in silently is not.
+    but it does not inherit that pipeline's gaps into its own evidence. Where the pipeline is
+    provably short of what validating a test needs, it says so as a finding with evidence and the
+    change that would correct it, routed to the pipeline's owners, and it changes nothing itself.
+    Five questions are the whole of it, each answerable from facts. Does anything reach the base
+    branch without tests? Can untrusted code reach secrets or the network while tests run? Does the
+    existing suite reach what changed? Are failures being masked? Are the suite's results
+    tamper-evident? The second and third are implemented; the others follow. Fitting in is the
+    default. Fitting in silently is not.
 
 15. **Every reached behaviour is accounted for.** The harness's output is not a list of tests; it is an
 account of the behaviours the change reaches. Each one ends in exactly one of three states. Validated: a
@@ -371,20 +379,21 @@ treated the way any contributor's are: a bot identity, signed commits, provenanc
 source-level SLSA claims of section 8.5 on the tests it proposes. That is what makes lifecycle B safe
 to leave unattended.
 
-One rule holds in both, and it is the one most likely to be skipped in lifecycle A: generated tests
+One rule holds in both, and it is the one most likely to be skipped in lifecycle A. Generated tests
 run before anyone has read them, so they run in the sealed sandbox of section 11, never in a plain
 test runner on a developer's machine. The developer flow uses the same isolation the pipeline does.
 
-Where the implementation stands: the command line and the Tekton pipeline in `harness/` are the
-core as lifecycle A runs it, and they produce the packet lifecycle B needs. `harness propose` is
-lifecycle B's last step: the accepted tests, the packet, the provenance record, the signed statement
+Where the implementation stands: the command line and the Tekton pipeline in `harness/` are the core
+as lifecycle A runs it, and they produce the packet lifecycle B needs. `harness propose` is
+lifecycle B's last step. The accepted tests, the packet, the provenance record, the signed statement
 and the UDLM records go on a `harness/` branch of the overlay repository under the harness's own
 identity, and a pull request is opened. That branch is the only ref the step pushes; nothing in it
 can merge. `harness feedback` closes the loop after a person has decided (stage 7). The same stages
-take the repository's own code as the target (`analyze --target first-party`): one work-list row at
-depth 0, facts from the tree at the reviewed commit, the tree on the sandbox's import path, and the
-tests proposed under the application's own `tests/`; no advisories are looked up for the application
-itself, so CVE-targeted work stays with the dependency rows unless a vulnerability is already known.
+take the repository's own code as the target (`analyze --target first-party`). It gets one work-list
+row at depth 0, facts from the tree at the reviewed commit, the tree on the sandbox's import path,
+and the tests proposed under the application's own `tests/`. No advisories are looked up for the
+application itself, so CVE-targeted work stays with the dependency rows unless a vulnerability is
+already known.
 
 ### Stage 0: Self-verification
 
@@ -409,10 +418,10 @@ that way.
 
 The input is a repository by path or by address and two refs: the change's head and the last
 known-good base; a base omitted means a rescan of one ref. Any ref git can name on the repository is
-accepted, a pull request's own ref included, so the trigger decides what is compared: a pull request
-against its base branch, a push against what it replaced, a release against the last one, a branch
-alone on a schedule. A repository given by address is cloned once under the run and never touched
-where a person is working.
+accepted, a pull request's own ref included, so the trigger decides what is compared. A pull request
+is compared against its base branch, a push against what it replaced, a release against the last
+one, a branch alone on a schedule. A repository given by address is cloned once under the run and
+never touched where a person is working.
 
 - Detect the incoming change: a build platform's snapshot (Konflux's, in the example), PR webhook, lockfile diff, SBOM diff, or scheduled scan.
 - Resolve the **full dependency graph** with Hermeto, which also yields the SBOM. Fall back to the native
@@ -443,9 +452,9 @@ For each item on the work list, the agent collects context the test generator wi
 - A **risk score** (section 6.3) that decides how much generation budget this item gets.
 
 For the repository's own code, the depth 0 row, the same facts come from the tree at the reviewed
-commit: its packages, their API surface, what the change added or altered, the dependencies its
-tests may import, and the tests it already has. No advisory is looked up for the application itself
-unless it is a published package with a known one. The harness does not go looking for
+commit. They are its packages, their API surface, what the change added or altered, the dependencies
+its tests may import, and the tests it already has. No advisory is looked up for the application
+itself unless it is a published package with a known one. The harness does not go looking for
 vulnerabilities in first-party code; it tests the code as written and leaves CVE-targeted work to
 the dependency rows, where the vulnerabilities are already known.
 
@@ -463,23 +472,26 @@ implementation runs these, and records which ran and which did not in every fact
 | Sensitivity of the package's domain | Keyword match on the package's own metadata | The risk score |
 | The behaviour worklist: per public function, every return, every raise or error return, the fall-through, each parameter's declared type with the edges its domain implies, each decision with more than one condition; each advisory as a result that must never happen | The harness's own extractors: Python `ast`, Go `go/ast` through the helper | BEHAVIOURS TO CHECK in the prompt, for the functions the application uses; `behaviours_identified` per reached behaviour in the accounting, the denominator behaviour coverage will be measured against |
 
-Parameter edges are inferred from the declared type, not read from source: Python and Go carry no ranges
-(only `Annotated[int, Ge(0)]` does, and few codebases use it), so the worklist says "try 0, -1, a very large
-value" for an `int` and labels it so. Implicit paths a parser misses (an exception raised by a callee, a
-`with` block that raises) are not in the list; a control-flow pass is the next step there.
+Parameter edges are inferred from the declared type, not read from source. Python and Go carry no
+ranges (only `Annotated[int, Ge(0)]` does, and few codebases use it), so the worklist says "try 0,
+-1, a very large value" for an `int` and labels it so. Implicit paths a parser misses (an exception
+raised by a callee, a `with` block that raises) are not in the list; a control-flow pass is the next
+step there.
 
-Not yet wired, and named here so no one assumes it: call-graph reachability (CodeLLM-Devkit or the
-language's own tools) in place of "the application references this package"; the ecosystems' contract
-diff tools (japicmp, gorelease, griffe) in place of the harness's own extractors; semgrep. When a tool
-is absent the fact bundle says so (`status: not_run`), and the prompt carries no finding it did not have.
+Not yet wired, and named here so no one assumes it. Call-graph reachability (CodeLLM-Devkit or the
+language's own tools) in place of "the application references this package". The ecosystems'
+contract diff tools (japicmp, gorelease, griffe) in place of the harness's own extractors. And
+semgrep. When a tool is absent the fact bundle says so (`status: not_run`), and the prompt carries
+no finding it did not have.
 
 **The pipeline, as facts (principle 14).** Stage 2 also reads the repository's own CI definitions at
-the reviewed commit, GitHub Actions, GitLab CI or Tekton, and records what they do with untrusted code
-while tests run: a pull request checked out under the base repository's secrets, write permissions on
-a pull request workflow, actions by mutable tag, a download piped to a shell, a test job with secrets in
-its environment, a floating image tag, a privileged step. And for every package in scope it counts what
-the existing suite reaches: test files that reference the package, and test files that reach the
-symbols this change altered. Facts only; stage 5 turns them into findings.
+the reviewed commit, GitHub Actions, GitLab CI or Tekton, and records what they do with untrusted
+code while tests run. The facts it looks for are a pull request checked out under the base
+repository's secrets, write permissions on a pull request workflow, actions by mutable tag, and a
+download piped to a shell. Also a test job with secrets in its environment, a floating image tag,
+and a privileged step. And for every package in scope it counts what the existing suite reaches:
+test files that reference the package, and test files that reach the symbols this change altered.
+Facts only; stage 5 turns them into findings.
 
 ### Stage 3: Generation
 
@@ -526,35 +538,36 @@ Every vulnerability that Trustify Dependency Analytics, OSV, or govulncheck repo
 version in the graph gets a targeted sub-task, regardless of depth or risk score:
 
 1. **Locate.** Identify the vulnerable symbols from the advisory, the fix commit diff, or the OSV
-   affected-function data. If none is available, the agent proposes candidates from the diff between the
-   last vulnerable and first fixed version and marks them as inferred.
-2. **Exposure test.** Using the call graph, find whether our code reaches the vulnerable symbol. If it
-   does, generate a test at our call site that drives the known trigger through our code path in the
-   sandbox. The result is direct evidence of whether we are affected.
-3. **Fix-pinning test.** Generate a test that fails on the vulnerable version and passes on the fixed
-   version, the same fail-before, pass-after criterion used by TDD-Bench-Verified. This test is promoted
-   to the standard suite as soon as it is approved, so the vulnerability cannot return through a
-   downgrade, a fork, or a vendored copy.
-4. **Draft VEX.** The outcome is written as a draft VEX statement in CSAF form, linked to the test
-   provenance record: `affected` with the exposure test as proof, `not_affected` with a justification
-   such as `vulnerable_code_not_in_execute_path` and the reachability evidence, or `fixed` with the
-   fix-pinning test. Product Security confirms or rejects the draft. The harness never publishes VEX on
-   its own. Confirmed statements flow into Trustify, which already ingests VEX.
+   affected-function data. If none is available, the agent proposes candidates from the diff between
+   the last vulnerable and first fixed version and marks them as inferred. 2. **Exposure test.**
+   Using the call graph, find whether our code reaches the vulnerable symbol. If it does, generate a
+   test at our call site that drives the known trigger through our code path in the sandbox. The
+   result is direct evidence of whether we are affected. 3. **Fix-pinning test.** Generate a test
+   that fails on the vulnerable version and passes on the fixed version, the same fail-before,
+   pass-after criterion used by TDD-Bench-Verified. This test is promoted to the standard suite as
+   soon as it is approved, so the vulnerability cannot return through a downgrade, a fork, or a
+   vendored copy. 4. **Draft VEX.** The outcome is written as a draft VEX statement in CSAF form,
+   linked to the test provenance record. It says `affected` with the exposure test as proof,
+   `not_affected` with a justification such as `vulnerable_code_not_in_execute_path` and the
+   reachability evidence, or `fixed` with the fix-pinning test. Product Security confirms or rejects
+   the draft. The harness never publishes VEX on its own. Confirmed statements flow into Trustify,
+   which already ingests VEX.
 
 Rules specific to this category: exploit-style inputs run only inside the sandbox. Tests for a
 vulnerability that is not yet public or not yet fixed are stored with restricted visibility in the
 overlay until disclosure, following the normal Product Security embargo process. Public reproducers are
 read as untrusted data and rewritten by the agent, never copied in.
 
-**Mutation feedback, as implemented (MuTAP's idea).** Before a file that passes its baseline run is believed,
-the harness breaks the package on purpose in a few places the file's tests executed, inside the reached
-behaviours' closures first, and runs the file against each breakage in the sealed sandbox. A breakage every
-test lets through is a line the tests executed without checking, and it goes back to the model once, as a
-repair round, with the diff and the instruction to add the check that line deserves. The file is then probed
-again with the same breakages and the manifest records how many were caught after the feedback. The number
-of probes is the team's (`[generate] mutation_feedback`, three by default; zero disables it), and the probe
-is an aid: a package whose source the harness cannot read is generated without it. Stage 4's mutation run
-still measures the final file; this is the loop that makes it stronger before it gets there.
+**Mutation feedback, as implemented (MuTAP's idea).** Before a file that passes its baseline run is
+believed, the harness breaks the package on purpose in a few places the file's tests executed,
+inside the reached behaviours' closures first. It runs the file against each breakage in the sealed
+sandbox. A breakage every test lets through is a line the tests executed without checking, and it
+goes back to the model once, as a repair round, with the diff and the instruction to add the check
+that line deserves. The file is then probed again with the same breakages and the manifest records
+how many were caught after the feedback. The number of probes is the team's (`[generate]
+mutation_feedback`, three by default; zero disables it), and the probe is an aid: a package whose
+source the harness cannot read is generated without it. Stage 4's mutation run still measures the
+final file; this is the loop that makes it stronger before it gets there.
 
 ### Stage 4: Validation execution
 
@@ -562,55 +575,56 @@ This is the harness's own run of the candidate tests: both versions, sealed, onc
 suite's regression run, which happens after acceptance wherever the suite runs (section 5.0).
 All of it happens in a hermetic sandbox, following the OpenSSF Package Analysis design:
 
-- Container built from a pinned base image, one per ecosystem, with the Hermeto-prefetched dependency
-  graph mounted. No outbound network. No mounted secrets. Read-only source tree except for the test
-  output directory.
-- **Declared needs.** Every test says what it needs from its testbed, in four tiers, the ladder autopkgtest's
-  restrictions and Google's test sizes already use: `none` (the default), `localhost`, `network`, `machine`.
-  Python declares with `@pytest.mark.needs("network")`, Go with `// harness:needs network` above the test.
-  The team says what its testbed provides (`[sandbox] provides`, default `none, localhost`; the sealed
-  container never provides network). A test that needs more is withheld from the sealed run, recorded as
-  `skipped` with its need, proposed to the team with the declaration, and the behaviour it targets is
-  accounted "for your environment" (principle 15). A test that declared `none` and then opened a connection
-  is a defect in the test, pytest-socket's rule: the Python sandbox lays a `conftest.py` beside the tests that
-  raises `HarnessUndeclaredNeed` on the first connection, Go tests meet the sealed network and are judged
-  by the error, and the verdict says `undeclared need`. The `machine` tier runs under Kata where the
-  cluster has bare-metal nodes for it (nested virtualisation is unsupported and gVisor has no CRI-O handler
-  on OpenShift); everywhere else it is an admitted-unavailable tier and goes to the team like `network`.
-- **Testbed failure is its own status**, at two levels, as autopkgtest's exit 16 and Bazel's `REMOTE_FAILURE`
-  keep it. Run level: the environment did not install, the run timed out, the container exited with no
-  result, or the module did not build for a reason no test is blamed for; `results.json` carries
-  `testbed_failure`, every test reads `not run`, the story opens with it, triage raises a `testbed-failure`
-  finding for the harness's operators, and the accounting puts every reached behaviour in a stated gap with
-  that reason. Test level: one test's failure reads as the environment refusing something (a denied
-  permission, a read-only file system, a missing device, exhausted memory), or a test that declared
-  `network` or `machine` and ran met a network error; its verdict is `testbed failure`, its class
-  `testbed-failure`, neither a defect nor a test bug. An undeclared connection stays the test's own defect.
-  Export: a CTRF report beside the results, where a testbed failure is `other` with the harness class in
-  `extra`, never `failed`; in JUnit terms it is `<error type="testbed-failure">`.
-- CPU, memory, and wall-clock limits per run. Fuzzing gets a fixed time budget.
+- Container built from a pinned base image, one per ecosystem, with the Hermeto-prefetched
+  dependency graph mounted. No outbound network. No mounted secrets. Read-only source tree except
+  for the test output directory. - **Declared needs.** Every test says what it needs from its
+  testbed, in four tiers, the ladder autopkgtest's restrictions and Google's test sizes already use:
+  `none` (the default), `localhost`, `network`, `machine`. Python declares with
+  `@pytest.mark.needs("network")`, Go with `// harness:needs network` above the test. The team says
+  what its testbed provides (`[sandbox] provides`, default `none, localhost`; the sealed container
+  never provides network). A test that needs more is withheld from the sealed run, recorded as
+  `skipped` with its need, proposed to the team with the declaration, and the behaviour it targets
+  is accounted "for your environment" (principle 15). A test that declared `none` and then opened a
+  connection is a defect in the test, pytest-socket's rule: the Python sandbox lays a `conftest.py`
+  beside the tests that raises `HarnessUndeclaredNeed` on the first connection, Go tests meet the
+  sealed network and are judged by the error, and the verdict says `undeclared need`. The `machine`
+  tier runs under Kata where the cluster has bare-metal nodes for it (nested virtualisation is
+  unsupported and gVisor has no CRI-O handler on OpenShift); everywhere else it is an
+  admitted-unavailable tier and goes to the team like `network`. - **Testbed failure is its own
+  status**, at two levels, as autopkgtest's exit 16 and Bazel's `REMOTE_FAILURE` keep it. Run level:
+  the environment did not install, the run timed out, the container exited with no result, or the
+  module did not build for a reason no test is blamed for. Then `results.json` carries
+  `testbed_failure`, every test reads `not run`, the story opens with it, triage raises a
+  `testbed-failure` finding for the harness's operators, and the accounting puts every reached
+  behaviour in a stated gap with that reason. Test level: one test's failure reads as the
+  environment refusing something (a denied permission, a read-only file system, a missing device,
+  exhausted memory), or a test that declared `network` or `machine` and ran met a network error; its
+  verdict is `testbed failure`, its class `testbed-failure`, neither a defect nor a test bug. An
+  undeclared connection stays the test's own defect. Export: a CTRF report beside the results, where
+  a testbed failure is `other` with the harness class in `extra`, never `failed`; in JUnit terms it
+  is `<error type="testbed-failure">`. - CPU, memory, and wall-clock limits per run. Fuzzing gets a
+  fixed time budget.
 
 Validation steps, in order:
 
-1. **Compile or import.** Tests that do not build are sent back to the generator with the error, up to N
-   retries. Persistent build failures are logged and dropped.
-2. **Run.** Record pass, fail, or error per test with full output.
-3. **Flake check.** Every test runs twice on head, the run and its re-run. The candidates that agreed run
-   again, with only those tests in the sandbox, until they have run as many times as the team set
-   (`[sandbox] repeats`, five by default: TestGen-LLM's published rule, "a test that does not pass on
-   every one of five executions is deemed flaky"). Any disagreement quarantines the test; the record
-   carries how many times it ran and how often it disagreed, and the CTRF export carries them as
-   `retries` and `flaky`.
-4. **Coverage.** Measure line and branch coverage of the target package attributable to generated tests.
-5. **Mutation testing.** Run the ecosystem's mutation tool ([document 05](05-capability-map.md)) with a bounded mutant sample
-   drawn only from lines the generated tests executed; a file the tests never reached contributes no
-   site (GF-028). Tests that kill no mutants are marked weak.
-6. **Differential run.** For updates, run the same test set against old and new versions and diff results.
-7. **Relevance check.** For every existing test in scope, generated or human-written, record which
-   symbols and lines it exercises (per-test coverage plus the call graph). Compare that footprint against
-   the API diff and source diff. Tests whose targets no longer exist, whose asserted behavior changed by
-   documented intent, or whose footprint is fully covered by other tests are candidates for retirement.
-   Details in section 8.4.
+1. **Compile or import.** Tests that do not build are sent back to the generator with the error, up
+   to N retries. Persistent build failures are logged and dropped. 2. **Run.** Record pass, fail, or
+   error per test with full output. 3. **Flake check.** Every test runs twice on head, the run and
+   its re-run. The candidates that agreed run again, with only those tests in the sandbox, until
+   they have run as many times as the team set (`[sandbox] repeats`). Five is the default,
+   TestGen-LLM's published rule: "a test that does not pass on every one of five executions is
+   deemed flaky." Any disagreement quarantines the test; the record carries how many times it ran
+   and how often it disagreed, and the CTRF export carries them as `retries` and `flaky`. 4.
+   **Coverage.** Measure line and branch coverage of the target package attributable to generated
+   tests. 5. **Mutation testing.** Run the ecosystem's mutation tool ([document
+   05](05-capability-map.md)) with a bounded mutant sample drawn only from lines the generated tests
+   executed; a file the tests never reached contributes no site (GF-028). Tests that kill no mutants
+   are marked weak. 6. **Differential run.** For updates, run the same test set against old and new
+   versions and diff results. 7. **Relevance check.** For every existing test in scope, generated or
+   human-written, record which symbols and lines it exercises (per-test coverage plus the call
+   graph). Compare that footprint against the API diff and source diff. Tests whose targets no
+   longer exist, whose asserted behavior changed by documented intent, or whose footprint is fully
+   covered by other tests are candidates for retirement. Details in section 8.4.
 
 ### Stage 5: Triage
 
@@ -633,37 +647,38 @@ with a Log Detective style pass before the classifier sees them.
 
 **Two finding classes for the pipeline (principle 14).** `coverage-gap`: the application reaches a
 package in production and no test of its own references it, or the change alters symbols no existing
-test reaches; the route is the pipeline's owners, the suggested change names the call sites. `pipeline`:
-one finding per fact stage 2 recorded about the CI, security-class where untrusted code can reach
-secrets or the network, each with the change that corrects it. A repository with no CI definition at
-all is itself a finding. The packet carries them in their own section; the harness edits no pipeline.
+test reaches. The route is the pipeline's owners, and the suggested change names the call sites.
+`pipeline`: one finding per fact stage 2 recorded about the CI, security-class where untrusted code
+can reach secrets or the network, each with the change that corrects it. A repository with no CI
+definition at all is itself a finding. The packet carries them in their own section; the harness
+edits no pipeline.
 
 **The accounting (principle 15), as implemented.** After the verdicts and the pipeline facts, triage
-writes `triage/<package>/accounting.json` and the roll-up `triage/accounting-summary.json`. The unit is a
-reached behaviour: for a dependency, each call-site symbol outside test files that resolves to a public
-function, method or type, re-exports resolved to their definition, module imports set aside; for a
-first-party change, each added or changed public symbol; for a rescan, every public symbol within the
-budget, the rest recorded as `out-of-budget`. A type is judged by its public methods; a type without any
-is set aside with that reason. The state comes from the unit's own span: lines a kept test executed
-(from the run's coverage) and mutants sampled and killed inside it. Gap reasons, checked in order:
-`pipeline-cannot-validate`, `not-in-public-api`, `executed-not-checked`, `strength-not-sampled`,
-`flaky`, `failed-on-head`, `no-test-generated`, `out-of-budget`. The story, the pull request text
-("Accounted for" and "Not covered"), the run index, the dashboard and the evaluation table carry the
-counts. A unit's lines are its closure: its own span plus the private functions and methods it delegates
-to within the module (`analyze/<package>/internals.json`, written by the extractors for Python and Go), so
-the behaviour of `decode` is credited where it lives, in the helpers. The Python sandbox records a coverage
-context per test function, so execution is attributed to the test that did it, and strength requires that
-the test which executed the unit is the one that killed a mutant inside its closure. The Go sandbox has no
-coverage contexts, so the head run gives each passing test its own `go test -run` with its own profile
-(compiled once already, seconds each, capped at forty) and folds them into `coverage.json` in the same
-shape; without contexts (older runs) any kept killer counts and the record says so. Mutation sampling is stratified: each reached
-behaviour with a site gets a mutant, round-robin, before the remainder of the package is sampled, so the
-strength question is asked where the application calls. Still not wired, and named so no one assumes it:
-the published runs re-run under these rules (no GPU time has been spent on them yet), and the earlier
-note stands that
-the private callees a public function delegates to, and mutant sampling stratified over the reached
-units; until they land most units on the published runs read `strength-not-sampled`, which is the truth
-about the sample ([document 18](18-design-queue-research.md) has the dry run).
+writes `triage/<package>/accounting.json` and the roll-up `triage/accounting-summary.json`. The unit
+is a reached behaviour. For a dependency, it is each call-site symbol outside test files that
+resolves to a public function, method or type, with re-exports resolved to their definition and
+module imports set aside. For a first-party change, it is each added or changed public symbol. For a
+rescan, it is every public symbol within the budget, the rest recorded as `out-of-budget`. A type is
+judged by its public methods; a type without any is set aside with that reason. The state comes from
+the unit's own span: lines a kept test executed (from the run's coverage) and mutants sampled and
+killed inside it. Gap reasons, checked in order: `pipeline-cannot-validate`, `not-in-public-api`,
+`executed-not-checked`, `strength-not-sampled`, `flaky`, `failed-on-head`, `no-test-generated`,
+`out-of-budget`. The story, the pull request text ("Accounted for" and "Not covered"), the run
+index, the dashboard and the evaluation table carry the counts. A unit's lines are its closure: its
+own span plus the private functions and methods it delegates to within the module
+(`analyze/<package>/internals.json`, written by the extractors for Python and Go). The behaviour of
+`decode` is credited where it lives, in the helpers. The Python sandbox records a coverage context
+per test function, so execution is attributed to the test that did it, and strength requires that
+the test which executed the unit is the one that killed a mutant inside its closure. The Go sandbox
+has no coverage contexts, so the head run gives each passing test its own `go test -run` with its
+own profile (compiled once already, seconds each, capped at forty) and folds them into
+`coverage.json` in the same shape. Without contexts, as in older runs, any kept killer counts and
+the record says so. Mutation sampling is stratified: each reached behaviour with a site gets a
+mutant, round-robin, before the remainder of the package is sampled, so the strength question is
+asked where the application calls. Still not done, and named so no one assumes it: the published
+runs have not been re-run under these rules, because no compute time has been spent on them yet.
+Until they are, most units on the published runs read `strength-not-sampled`, which is the truth
+about the sample they were run with ([document 18](18-design-queue-research.md) has the dry run).
 
 ### Stage 6: Review
 
@@ -688,20 +703,22 @@ package and version range, and from then on they run with the suite, not with th
 
 **Every run tells its story.** The volume of evidence a run produces is the point, but it is not the
 reader's entry. Each run keeps a story at its top, rewritten after every stage from the run's own
-records: who did the work and who decided; what was tested; why it earned its budget; where it ran;
-when; the outcome in the packet's plain terms; the decisions the harness made and the actions it took
-and did not take by design; the UDLM records as one plain sentence each; and every file in the run
-with the reader it is for. Every file the harness writes carries that label, a reader and a reason, in
-the run's index. The story states nothing the records do not; it is a rendering, never a source.
+records. It says who did the work and who decided, what was tested, why it earned its budget, where
+it ran and when. It gives the outcome in the packet's plain terms, the decisions the harness made,
+and the actions it took and did not take by design. It states each UDLM record as one plain sentence
+and names every file in the run with the reader it is for. Every file the harness writes carries
+that label, a reader and a reason, in the run's index. The story states nothing the records do not;
+it is a rendering, never a source.
 
-The packet is the artifact both lifecycles share. In the developer's loop it stays on the developer's
-branch and the tests they keep go into their own pull request. In the pipeline's loop the harness opens
-a test pull request from it, under its own bot identity with signed commits, and the packet is the
-reviewer's brief. Dependency tests go to the overlay repository with the packet and the records;
-first-party tests go to the repository under test, against the change's own branch so they join the
-developer's pull request, with the packet and records in the request's text. The request is opened on
-GitHub or GitLab by tool or API; on any other forge the branch is pushed and the request is a person's
-to open. Either way tests are added through a pull request; the harness never merges.
+The packet is the artifact both lifecycles share. In the developer's loop it stays on the
+developer's branch and the tests they keep go into their own pull request. In the pipeline's loop
+the harness opens a test pull request from it, under its own bot identity with signed commits, and
+the packet is the reviewer's brief. Dependency tests go to the overlay repository with the packet
+and the records. First-party tests go to the repository under test, against the change's own branch
+so they join the developer's pull request, with the packet and records in the request's text. The
+request is opened on GitHub or GitLab by tool or API; on any other forge the branch is pushed and
+the request is a person's to open. Either way tests are added through a pull request; the harness
+never merges.
 
 ### Stage 7: Feedback
 
@@ -723,20 +740,20 @@ to open. Either way tests are added through a pull request; the harness never me
 not assumed to have happened: it leaves a table.
 
 1. *Prompt sets.* Every text said to a model (system prompt per language, task per category, the
-   agent's rules) is a part of a named set; `v1` is the code's own texts, any other set overrides parts
-   by key from a file under source control. The active set's name and digest go into every manifest.
-2. *Ground truth.* In order of strength: the reviewer's decision per test from the test pull request
-   (stage 7's labeled examples), the sandbox's verdicts (fix proven, pass on head, flake, mutation
-   kills), triage's acceptance. Cost is recorded beside it: model calls and minutes.
-3. *The bench.* One job that has finished analysis, run again under each candidate set with everything
-   else held: same package, same advisories, same sandbox, same model. A model comparison is the same
-   bench with a different endpoint. One variable per run.
-4. *The table.* One line per set, model, language and package, summed over runs, with a one-phrase
-   reading: accepted by a reviewer, proves fixes, characterizes only, not fit. The document generated
-   from the example runs is the public version of that table.
-5. *The rule.* A set or a model becomes a default only by winning the table on the jobs it is meant
-   for. A set that wins on Python and loses on Go is the Go default for nobody. Nothing in the harness
-   ships a prompt change on the strength of one good run read by eye.
+   agent's rules) is a part of a named set. `v1` is the code's own texts; any other set overrides
+   parts by key from a file under source control. The active set's name and digest go into every
+   manifest. 2. *Ground truth.* In order of strength: the reviewer's decision per test from the test
+   pull request (stage 7's labeled examples), the sandbox's verdicts (fix proven, pass on head,
+   flake, mutation kills), triage's acceptance. Cost is recorded beside it: model calls and minutes.
+   3. *The bench.* One job that has finished analysis, run again under each candidate set with
+   everything else held: same package, same advisories, same sandbox, same model. A model comparison
+   is the same bench with a different endpoint. One variable per run. 4. *The table.* One line per
+   set, model, language and package, summed over runs, with a one-phrase reading: accepted by a
+   reviewer, proves fixes, characterizes only, not fit. The document generated from the example runs
+   is the public version of that table. 5. *The rule.* A set or a model becomes a default only by
+   winning the table on the jobs it is meant for. A set that wins on Python and loses on Go is the
+   Go default for nobody. Nothing in the harness ships a prompt change on the strength of one good
+   run read by eye.
 
 *The first application of the rule.* The kin-openapi job on the 235B, once under `v1` and once under
 `go-api-first`, a candidate that tells the model to confirm every symbol against the API data before
@@ -782,10 +799,11 @@ The score sets the generation budget (number of tests, fuzz minutes, mutation sa
 
 ### 6.4 Characterization snapshots
 
-For every package in the graph, including unreachable transitives, the harness maintains a lightweight
-**behavior snapshot**: the exported API surface, a hash of each exported function body, and the outputs of
-any deterministic zero-argument or fixture-driven calls the agent could construct. On update, the snapshot
-diff is cheap and tells us where to spend real generation effort.
+For every package in the graph, including unreachable transitives, the harness maintains a
+lightweight **behavior snapshot**. It holds the exported API surface, a hash of each exported
+function body, and the outputs of any deterministic zero-argument or fixture-driven calls the agent
+could construct. On update, the snapshot diff is cheap and tells us where to spend real generation
+effort.
 
 ### 6.5 Differential testing of upgrades
 
@@ -892,11 +910,11 @@ proposed by the harness and confirmed by the owning team when a test meets all o
   caught at least one real regression.
 - Asserts behavior we depend on, as shown by our call sites, rather than incidental upstream detail.
 
-Standard tests are the starting point for every future run on that package. They are what the harness
-runs first in the differential step, and what new candidates are measured against for redundancy. The
-standard suite is where the harness's output stops being "AI-generated tests" and becomes simply "our
-tests." Human-written tests can enter the same lifecycle and the same manifest so that provenance and
-relevance tracking cover the whole suite, not only the generated part.
+Standard tests are the starting point for every future run on that package. They are what the
+harness runs first in the differential step, and what new candidates are measured against for
+redundancy. The standard suite is where the harness's output stops being "AI-generated tests" and
+becomes simply "our tests." Human-written tests can enter the same lifecycle and the same manifest,
+so provenance and relevance tracking cover the whole suite, not only the generated part.
 
 ### 8.4 Retirement: identifying tests that are no longer relevant
 
@@ -1169,14 +1187,15 @@ description withheld: an agent that reads a plausible description first will ten
 ### 16.2 Detecting malicious or vulnerable changes across first, second, third, and transitive parties
 
 Interpretation, to confirm the intent: a change anywhere in the supply chain may be **malicious**
-(intended to cause harm) or **vulnerable** (harmful by accident), and a malicious change may be
-**direct** (the change itself exfiltrates, backdoors, or sabotages) or **indirect** (the change enables
-harm elsewhere: it weakens a check, disables a test, alters a build or CI script, introduces a dependency
-that is itself malicious, or plants a vulnerability that looks accidental). This applies to
-**first-party** code (our own, including insider and compromised-account cases), **second-party** code
-(partners, contractors, and forks we co-maintain), and **third-party and deeper** code (direct and
-transitive open source dependencies). A deliberately introduced vulnerability is the hard case because it
-is designed to be indistinguishable from an honest mistake.
+(intended to cause harm) or **vulnerable** (harmful by accident). A malicious change may be
+**direct**, where the change itself exfiltrates, backdoors or sabotages, or **indirect**, where it
+enables harm elsewhere. An indirect change weakens a check, disables a test, alters a build or CI
+script, introduces a dependency that is itself malicious, or plants a vulnerability that looks
+accidental. This applies to **first-party** code (our own, including insider and compromised-account
+cases), **second-party** code (partners, contractors, and forks we co-maintain), and **third-party
+and deeper** code (direct and transitive open source dependencies). A deliberately introduced
+vulnerability is the hard case because it is designed to be indistinguishable from an honest
+mistake.
 
 What the harness already covers: the `suspicious` class, the pre-flight gates (GuardDog, Malicious
 Packages, Capslock), sandbox behavioral observation, negative tests, and CVE-targeted tests. Those catch

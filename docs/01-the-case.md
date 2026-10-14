@@ -286,8 +286,9 @@ the above without anyone from the harness team involved, with records that Confo
 release. It is done when every entry of the failure register passes as the first step of every run.
 And it is done when it runs where the customer already runs: as an integration task of the team's
 build platform (Konflux's integration service, in the pilot) and through the shipped GitHub Actions
-and GitLab CI triggers, each exercised on a real repository, with a documented model endpoint per
-language. Then it can ship as part of Trusted Software Supply Chain or stand as a product of its own.
+and GitLab CI triggers. Each trigger has been exercised on a real repository, with a documented
+model endpoint per language. Then it can ship as part of Trusted Software Supply Chain or stand as a
+product of its own.
 
 ## References
 

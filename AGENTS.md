@@ -1,9 +1,10 @@
 # For AI agents working in this repository
 
-You are reading the AI Test Harness: a blueprint and an example implementation of a pipeline in which AI
-writes tests for every change entering the software supply chain, runs them sealed against both the old
-and the new version, and hands a person signed evidence. This page is for an assistant or coding agent
-that has been pointed at the repository. People start at [README.md](README.md).
+You are reading the AI Test Harness: a blueprint and an example implementation of a pipeline in
+which AI writes tests for every change entering the software supply chain. The tests run sealed
+against both the old and the new version, and a person gets signed evidence. This page is for an
+assistant or coding agent that has been pointed at the repository. People start at
+[README.md](README.md).
 
 ## What is where
 

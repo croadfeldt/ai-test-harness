@@ -45,19 +45,21 @@ review or on the test pull request, and tests always arrive through a pull reque
 both loops: generated tests run before anyone has read them, so the developer's loop uses the same
 sealed sandbox, never a plain test runner on a laptop.
 
-Either loop starts with one command on a repository by address and two refs, a pull request's base
-and head, a push's before and after, or a branch alone for a rescan; [document 13](13-running-on-real-repositories.md)
-shows the command and the triggers for GitHub Actions, GitLab CI, Tekton and a schedule.
+Either loop starts with one command on a repository by address and two refs: a pull request's base
+and head, a push's before and after, or a branch alone for a rescan. [Document
+13](13-running-on-real-repositories.md) shows the command and the triggers for GitHub Actions,
+GitLab CI, Tekton and a schedule.
 
 ## Where it ends
 
-The harness tests; it does not fix. A separate fix pipeline generates changes to production code, and
-this one feeds it: the failing test that proves a problem, a reproducer for a defect found on the way,
-the upgrade path when a fixed version exists, and the draft VEX statements. Whatever the fix pipeline
-sends back comes through here like any other change, and the test that motivated it is the first thing
-reported. The two are kept apart so the evidence stays independent of the fix, so each pipeline's
-failure register stays about its own failures, so reviewers read one kind of change at a time, and so
-the identity that proposes tests never needs the credentials that change production code.
+The harness tests; it does not fix. A separate fix pipeline generates changes to production code,
+and this one feeds it. It hands over the failing test that proves a problem, a reproducer for a
+defect found on the way, the upgrade path when a fixed version exists, and the draft VEX statements.
+Whatever the fix pipeline sends back comes through here like any other change, and the test that
+motivated it is the first thing reported. The two are kept apart for four reasons. The evidence
+stays independent of the fix. Each pipeline's failure register stays about its own failures.
+Reviewers read one kind of change at a time. And the identity that proposes tests never needs the
+credentials that change production code.
 
 ## Where it runs
 
@@ -96,10 +98,10 @@ correction, and the check that proves it on every run.
 
 ### 1. Intake
 
-Hermeto has already resolved the complete dependency graph and produced the SBOM for the build. I diff
-that SBOM against the last known-good one, run cheap pre-flight scans (GuardDog, the OpenSSF Malicious
-Packages database, Capslock for Go), and produce a work list: one row per package that changed, with
-its depth and whether our code can reach it.
+Hermeto has already resolved the complete dependency graph and produced the SBOM for the build. I
+diff that SBOM against the last known-good one and run cheap pre-flight scans (GuardDog, the OpenSSF
+Malicious Packages database, Capslock for Go). Out comes a work list: one row per package that
+changed, with its depth and whether our code can reach it.
 
 ### 2. Analysis
 
@@ -110,9 +112,9 @@ with their affected symbols. Static analysis output. Release notes, treated as u
 risk score decides how much generation budget this row gets.
 
 Analysis also reads the repository's own CI definitions and counts what its existing suite reaches,
-because the pipeline is under test too: where it is provably short of what validating a test needs,
-triage says so with the change that corrects it, and the harness changes nothing. Document 13 lists
-what is checked.
+because the pipeline is under test too. Where it is provably short of what validating a test needs,
+triage says so with the change that corrects it. The harness changes nothing. Document 13 lists what
+is checked.
 
 ### 3. Generation
 
@@ -141,9 +143,10 @@ with hostile input, CVE-targeted tests, fuzz targets, and the harness code that 
 
 ### 4. Validation execution
 
-This is the harness's own run, not the suite's. Everything runs in a sealed sandbox: pinned base image, Hermeto's dependency set mounted, no network,
-no secrets, hard resource limits, destroyed afterward; kernel isolation where the cluster provides it, and a test that
-needs a real kernel handed to the team where it does not.
+This is the harness's own run, not the suite's. Everything runs in a sealed sandbox: pinned base
+image, Hermeto's dependency set mounted, no network, no secrets, hard resource limits, destroyed
+afterward. Kernel isolation is used where the cluster provides it; a test that needs a real kernel
+is handed to the team where it does not.
 
 Then the gauntlet, in order: compile, run, re-run to catch flakes, measure coverage, mutate the code
 and see which tests notice, and run the same tests against the previous version to see what changed.
@@ -171,21 +174,21 @@ Anything below the confidence threshold is escalated to a person instead of auto
 
 ### 6. Review
 
-One packet per work item, posted where integration-service already reports: a one-page summary, the
-tests as a patch against the overlay repository, coverage and mutation deltas, proposed promotions and
-retirements, draft VEX statements, logs, the replay manifest, and a Conforma attestation. In the
-pipeline's loop the harness opens a test pull request from it (`harness propose`: one branch under
-its own identity, the tests and the records in the overlay directory, the packet's summary as the
-pull request's text). The reviewer approves, edits, or rejects. Nothing merges without them, and what
-they accept runs with the suite from then on.
+One packet per work item, posted where the build platform already reports. It holds a one-page
+summary, the tests as a patch against the overlay repository, coverage and mutation deltas, proposed
+promotions and retirements, draft VEX statements, logs, the replay manifest, and a Conforma
+attestation. In the pipeline's loop the harness opens a test pull request from it (`harness
+propose`: one branch under its own identity, the tests and the records in the overlay directory, the
+packet's summary as the pull request's text). The reviewer approves, edits, or rejects. Nothing
+merges without them, and what they accept runs with the suite from then on.
 
 Two files make the review readable by anyone, not only the reviewer. The packet writes the pull
-request's text and file list (`pull-request.md`) whether or not a pull request is opened, so every run
-shows what a person would be asked to accept. And every run keeps a `README.md` at its top, rewritten
-after each stage: who, what, why, where and when; the outcome in plain terms; the decisions the
-harness made; the actions it took and did not take; the records as one plain sentence each; and every
-file with the reader it is for. [Reading the artifacts](10-reading-the-artifacts.md) walks through
-both.
+request's text and file list (`pull-request.md`) whether or not a pull request is opened, so every
+run shows what a person would be asked to accept. And every run keeps a `README.md` at its top,
+rewritten after each stage. It says who, what, why, where and when, and gives the outcome in plain
+terms. It lists the decisions the harness made and the actions it took and did not take. It states
+each record as one plain sentence and names every file with the reader it is for. [Reading the
+artifacts](10-reading-the-artifacts.md) walks through both.
 
 ### 7. Feedback
 
@@ -247,13 +250,13 @@ sequenceDiagram
 
 ## Provenance and SLSA
 
-Every input the harness reads is already attested by the build platform (Konflux, in the example). Every
-output the harness produces is attested the same way, with an additional in-toto predicate carrying the test-evidence record. That
-record is a UDLM record: the test, the package, the vulnerability, the run, and the draft VEX statement
-are records in the Unified Data Lifecycle Model with its own tamper-evident head, and the signed
-statement names those heads as its subjects. The
-harness's own code, prompts, images, and models are built and attested the same way. Conforma verifies
-the chain and emits a Verification Summary Attestation.
+Every input the harness reads is already attested by the build platform (Konflux, in the example).
+Every output the harness produces is attested the same way, with an additional in-toto predicate
+carrying the test-evidence record. That record is a UDLM record. The test, the package, the
+vulnerability, the run, and the draft VEX statement are records in the Unified Data Lifecycle Model,
+each with its own tamper-evident head, and the signed statement names those heads as its subjects.
+The harness's own code, prompts, images, and models are built and attested the same way. Conforma
+verifies the chain and emits a Verification Summary Attestation.
 
 | Track | Target | When |
 |---|---|---|

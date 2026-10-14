@@ -30,21 +30,20 @@ A run produces a lot of files. They are there for a reason, and the reason is wr
 reader should never need them to understand what happened. Every run tells one story in three layers,
 each written by the harness from its own records so they cannot disagree.
 
-1. **The story.** `README.md` at the top of the run: who did the work and who decided, what was
-   tested, why it earned the budget it got, where it ran, when; the outcome in the packet's plain terms;
-   the decisions the harness made (what it cut, what it accepted, what it escalated); the actions it
-   took and the ones it did not take by design; the UDLM records as one plain sentence each; and every
-   file in the folder with the reader it is for. The site shows the same story at the top of each run
-   page. Start here whoever you are.
-2. **The pull request.** Tests reach a repository only through a pull request that a person merges.
-   `packet/<package>/pull-request.md` is the text and the file list that pull request carries, written
-   at packet time whether or not the run went on to open one, so a reader sees exactly what a reviewer
-   would be asked to accept. `packet.md` beside it is the reviewer's brief: the verdict per test, the
-   findings, the draft VEX statements.
-3. **The evidence.** Everything else is proof and replay: the sealed sandbox runs, every prompt and
-   response, the signed statements, the sealed records. Each of those files carries a label in
-   `run-index.json` saying who it is for and why it exists; the appendix at the end of this document
-   is that same table.
+1. **The story.** `README.md` at the top of the run. It says who did the work and who decided, what
+   was tested, why it earned the budget it got, where it ran and when. It gives the outcome in the
+   packet's plain terms and the decisions the harness made: what it cut, what it accepted, what it
+   escalated. It lists the actions it took and the ones it did not take by design, states each UDLM
+   record as one plain sentence, and names every file in the folder with the reader it is for. The
+   site shows the same story at the top of each run page. Start here whoever you are. 2. **The pull
+   request.** Tests reach a repository only through a pull request that a person merges.
+   `packet/<package>/pull-request.md` is the text and the file list that pull request carries,
+   written at packet time whether or not the run went on to open one, so a reader sees exactly what
+   a reviewer would be asked to accept. `packet.md` beside it is the reviewer's brief: the verdict
+   per test, the findings, the draft VEX statements. 3. **The evidence.** Everything else is proof
+   and replay: the sealed sandbox runs, every prompt and response, the signed statements, the sealed
+   records. Each of those files carries a label in `run-index.json` saying who it is for and why it
+   exists; the appendix at the end of this document is that same table.
 
 `run-index.json` at the top of every run says which stages wrote, which packages the run holds, the
 headline numbers, and where each file is, so a reader or a renderer never has to know this layout by
@@ -58,26 +57,26 @@ kept. "Unproven" is stated, never hidden behind a green test.
 
 ## The dashboard, and the runs store behind it
 
-One run tells one story. The [dashboard](https://croadfeldt.github.io/ai-test-harness/dashboard/) tells
-every run's, over time, for three readers: leadership (what went through, what was proven, what a
-person acted on), engineering (which model and prompt set is fit for which job), and pipeline owners
-(what the harness found about the CI it ran in). Filters by repository, language, model and prompt set.
-It is rendered from the same run indexes and evaluation rows the stories are written from, so it cannot
-disagree with them.
+One run tells one story. The [dashboard](https://croadfeldt.github.io/ai-test-harness/dashboard/)
+shows every run, over time, for three readers. Leadership sees what went through, what was proven,
+and what a person acted on. Engineering sees which model and prompt set is fit for which job.
+Pipeline owners see what the harness found about the CI it ran in. Filters by repository, language,
+model and prompt set. It is rendered from the same run indexes and evaluation rows the stories are
+written from, so it cannot disagree with them.
 
-A run reaches it through the runs store: `harness publish` puts four small files per run, the index,
-the story, the evaluation row and the pipeline findings, into a directory or a git repository named by
-`HARNESS_RUNS_STORE`, and the site build reads that store beside the example runs. `harness run` publishes
-by itself when a store is configured; the CI examples do the same. The store is the harness's ledger: files are added, never
-rewritten, and nothing under review lives there.
+A run reaches it through the runs store. `harness publish` puts four small files per run, the index,
+the story, the evaluation row and the pipeline findings, into a directory or a git repository named
+by `HARNESS_RUNS_STORE`. The site build reads that store beside the example runs. `harness run`
+publishes by itself when a store is configured; the CI examples do the same. The store is the
+harness's ledger: files are added, never rewritten, and nothing under review lives there.
 
 ## If you are reviewing the change
 
-Open `packet/<package>/packet.md`. Read the first paragraph: the verdict in plain words, what the change
-did, what was proven, what was not, what to do. Then read "What was accounted for, and what was not" in
-the run's `README.md`: every behaviour the change reaches is validated, handed to you for your
-environment, or a stated gap with its reason, and the pull request text repeats the gaps as "Not
-covered". Then:
+Open `packet/<package>/packet.md`. Read the first paragraph: the verdict in plain words, what the
+change did, what was proven, what was not, what to do. Then read "What was accounted for, and what
+was not" in the run's `README.md`. Every behaviour the change reaches is validated, handed to you
+for your environment, or a stated gap with its reason. The pull request text repeats the gaps as
+"Not covered". Then:
 
 | Section | What it tells you | What to do |
 |---|---|---|
@@ -147,10 +146,10 @@ it is recorded: endpoints appear as a label and a digest, repositories by name.
 
 ## Appendix: every file, its reader, its reason
 
-Four machine files a run writes are not committed with the example runs, because a run recreates them
-and they carry no fact the committed files lack: the API surfaces at head and base, the resolver's two
-dependency graphs, and the raw coverage profile (its parsed form, `coverage.json`, is kept). The catalogue
-below still names them, and a run on your machine has them.
+Four machine files a run writes are not committed with the example runs, because a run recreates
+them and they carry no fact the committed files lack. They are the API surfaces at head and base,
+the resolver's two dependency graphs, and the raw coverage profile; its parsed form,
+`coverage.json`, is kept. The catalogue below still names them, and a run on your machine has them.
 
 Six audiences: everyone; reviewers (the developer or team that owns the change); Product Security;
 Supply Chain Security and auditors; the person who ran the harness; and tools, for files kept as proof
