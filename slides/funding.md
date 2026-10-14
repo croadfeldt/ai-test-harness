@@ -17,7 +17,7 @@ Chris Roadfeldt. Fifteen minutes.
 
 # The ask
 
-A six-week pilot on two Red Hat FlightPath services already building on a supported build platform (Konflux, in the example), a named sponsor, a compute budget, and the FlightPath team who will review what the harness produces.
+A six-week pilot on two example projects already building on a supported build platform (Konflux, in the example), a named sponsor, a compute budget, and reviewers who will review what the harness produces.
 
 At the end of six weeks I show you whether the tests are good enough to continue, measured against real breaking dependency upgrades, not against my opinion.
 

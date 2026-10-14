@@ -325,7 +325,7 @@ Dates are placeholders from a notional October 2026 start. Durations get replace
 
 **Goal.** Prove that generated tests are strong enough to be worth a reviewer's time, on real code.
 
-- One Go service and one Python service of the Red Hat FlightPath team, both already on a build platform (Konflux, in the example pilot)
+- Two example projects, one Go and one Python, both already on a build platform (Konflux, in the example pilot)
 - Our own code and direct dependencies only
 - Differential step first, measured against BUMP, a public benchmark of about 570 real breaking dependency upgrades
 - Unit, functional, and negative tests. Manual trigger. Packets as PR comments.
