@@ -13,7 +13,7 @@ subdirectory, and every number in a packet points at a file in that directory.
   run-index.json           what the run holds: stages, packages, headline numbers, and where every file is, each labelled with its reader
   selfcheck/               stage 0: every register check, the sandbox probe, the model probe
   intake/                  the dependency graph at base and head, the SBOM, known vulnerabilities, the work list
-  analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff; internals.json, the private helpers behind the API
+  analyze/<package>/       facts: API surface and diff, call sites, advisories, the risk score, the fix diff; internals.json, the private helpers; behaviours.json, the worklist of results to check
   generate/<package>/      the candidate tests, the manifest, every prompt and response under model-calls/
   execute/<package>/       verdicts per test on head, re-run and base; coverage; mutation/; relevance.json
   triage/<package>/        every verdict and finding classified, with confidence and a route; accounting.json, every reached behaviour in one state
@@ -178,6 +178,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `triage/pipeline.json` | The pipeline findings with their suggested changes, routed to the pipeline's owners; the harness edits no pipeline. |
 | `analyze/facts.json` | The fact bundle for one package: versions, API diff, call sites, advisories, the risk score and the budget it earned. |
 | `analyze/api-diff.json` | Every added, removed or changed public symbol between the two versions, with a breaking flag. |
+| `analyze/behaviours.json` | The behaviour worklist: per public function, every result a test should check (returns, errors, each parameter's edges, decisions) and each advisory as a result that must never happen; the denominator for behaviour coverage. |
 | `generate/tests/` | The candidate test files as generated, before any decision. |
 | `execute/results.json` | The verdict per test: outcome on head, on the re-run and on the other version, its declared need, coverage, and how each was judged; what the testbed provides and which tests it withheld for the team. |
 | `execute/mutation/mutation.json` | How strong the accepted tests are: which mutants of the package's source they killed, and the score. |

@@ -35,6 +35,7 @@ CATALOGUE = {
     "analyze/fixed-candidate.json": ("security", "When the change left a vulnerable version in place: the environment the harness resolved with the fixed version, and what had to move."),
     "analyze/api.new.json": ("machine", "The public API surface at head, extracted by tools."),
     "analyze/api.old.json": ("machine", "The public API surface at base."),
+    "analyze/behaviours.json": ("reviewer", "The behaviour worklist: per public function, every result a test should check (returns, errors, each parameter's edges, decisions) and each advisory as a result that must never happen; the denominator for behaviour coverage."),
     "analyze/internals.json": ("machine", "The private functions behind the public API at head, with their spans, and who calls whom; the accounting credits a behaviour with the helpers it delegates to."),
     "analyze/call-sites.json": ("machine", "Every place the application references this package."),
     "analyze/source-diff.patch": ("developer", "The package's own source diff between the versions; the model reads it to find the fix."),

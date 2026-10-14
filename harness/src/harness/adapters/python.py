@@ -292,6 +292,81 @@ def internals(unpacked: Path, names: list[str]) -> dict:
     return {"private": private, "calls": {k: v for k, v in calls.items() if v}}
 
 
+BOUNDARIES = {
+    "int": ["0", "-1", "a very large value"], "float": ["0.0", "a negative value", "nan", "inf"], "bool": ["True", "False"],
+    "str": ["the empty string", "a very long string", "non-ASCII text"], "bytes": ["empty bytes", "a very large value"],
+    "list": ["an empty list", "one element"], "tuple": ["an empty tuple"], "dict": ["an empty dict"], "set": ["an empty set"],
+    "Sequence": ["empty", "one element"], "Iterable": ["empty"], "Mapping": ["empty"], "Path": ["a path that does not exist"],
+}
+
+
+def _boundaries(annotation: str | None, default: str | None) -> list[str]:
+    """The inputs a parameter's declared type makes worth trying. Python source carries no ranges, so these are the
+    type's own edges, labelled as inferred; `Optional` and a `None` default add `None`; no annotation means
+    `None` and a wrong type."""
+    out: list[str] = []
+    if annotation:
+        base = re.sub(r"\[.*$", "", annotation).split(".")[-1]
+        if base in ("Optional", "Union") or "None" in annotation or "|" in annotation:
+            out.append("None")
+            inner = re.findall(r"[A-Za-z_]+", annotation)
+            for name in inner:
+                out += [b for b in BOUNDARIES.get(name, []) if b not in out]
+        else:
+            out += BOUNDARIES.get(base, [])
+    else:
+        out += ["None", "a value of the wrong type"]
+    if default == "None" and "None" not in out:
+        out.append("None")
+    return out
+
+
+def _behaviours_of(fn: ast.AST) -> list[dict]:
+    """The results one function can produce, from its own body: each return, each raise, the fall-through, each
+    parameter's type with the edges to try, and each decision with more than one condition."""
+    out: list[dict] = []
+    args = fn.args
+    defaults = {a.arg: ast.unparse(d) for a, d in zip(reversed(args.args), reversed(args.defaults)) if d is not None} if args.defaults else {}
+    for a in list(args.posonlyargs) + list(args.args) + list(args.kwonlyargs):
+        if a.arg in ("self", "cls"):
+            continue
+        ann = ast.unparse(a.annotation) if a.annotation else None
+        out.append({"kind": "param", "name": a.arg, "type": ann, "default": defaults.get(a.arg), "try": _boundaries(ann, defaults.get(a.arg)), "line": fn.lineno})
+    for node in ast.walk(fn):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)) and node is not fn:
+            continue   # nested definitions are their own behaviours
+        if isinstance(node, ast.Return):
+            v = ast.unparse(node.value)[:60] if node.value is not None else "None"
+            out.append({"kind": "return", "detail": f"returns {v}", "line": node.lineno})
+        elif isinstance(node, ast.Raise):
+            if node.exc is None:
+                out.append({"kind": "raise", "detail": "re-raises the current exception", "line": node.lineno})
+            else:
+                e = node.exc.func if isinstance(node.exc, ast.Call) else node.exc
+                out.append({"kind": "raise", "detail": f"raises {ast.unparse(e)[:60]}", "line": node.lineno})
+        elif isinstance(node, (ast.If, ast.While)) and isinstance(node.test, ast.BoolOp):
+            out.append({"kind": "decision", "detail": ast.unparse(node.test)[:100], "conditions": len(node.test.values), "line": node.lineno})
+    last = fn.body[-1] if fn.body else None
+    if not isinstance(last, (ast.Return, ast.Raise)):
+        explicit = any(b["kind"] == "return" for b in out)
+        out.append({"kind": "return", "detail": ("may fall through, returning None" if explicit else "falls through, returning None"), "line": getattr(fn, "end_lineno", fn.lineno)})
+    return out
+
+
+def behaviours(unpacked: Path, names: list[str]) -> dict[str, list[dict]]:
+    """qualname -> the behaviours of each public function and method: the worklist of results a test should check."""
+    out: dict[str, list[dict]] = {}
+    for module, rel, tree in _iter_modules(unpacked, names):
+        for node in tree.body:
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_"):
+                out[f"{module}.{node.name}"] = _behaviours_of(node)
+            elif isinstance(node, ast.ClassDef) and not node.name.startswith("_"):
+                for m in node.body:
+                    if isinstance(m, (ast.FunctionDef, ast.AsyncFunctionDef)) and (not m.name.startswith("_") or m.name == "__init__"):
+                        out[f"{module}.{node.name}.{m.name}"] = _behaviours_of(m)
+    return out
+
+
 def extract_api(unpacked: Path, names: list[str]) -> list[ApiSymbol]:
     """Public symbols with signatures, from the AST. Private modules and names are skipped."""
     symbols: list[ApiSymbol] = []

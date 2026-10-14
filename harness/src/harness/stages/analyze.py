@@ -72,6 +72,7 @@ def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_
                                               "import_names": names, "symbols": surfaces[tag]})
         if tag == "new" and hasattr(adapter, "internals"):
             write_json(out / "internals.json", {"package": it.package, "version": head_sha[:12], **adapter.internals(tree, names)})
+            write_behaviours(out, it.package, head_sha[:12], adapter, tree, names, [])
     changed_mode = "old" in trees
     diff = adapter.api_diff(surfaces["old"], surfaces["new"]) if changed_mode else []
     if changed_mode:
@@ -112,6 +113,26 @@ def analyze_first_party(it: WorkItem, repo: Path, workdir: Path, adapter, graph_
              "dependency_import_names": dep_roots}
     write_json(out / "facts.json", facts)
     return fb
+
+
+def write_behaviours(out: Path, pkg: str, version: str, adapter, source: Path, names: list[str], vulns: list) -> dict | None:
+    """The behaviour worklist (principle 14, Q5): per public function, the results a test should check, from the
+    language's own parser; plus each advisory as a result that must never happen. Written beside the API."""
+    if not hasattr(adapter, "behaviours"):
+        return None
+    try:
+        units = adapter.behaviours(source, names)
+    except Exception as e:   # the worklist is an aid; a package the parser cannot read is analysed without it
+        log(f"    behaviours skipped: {e}")
+        return None
+    must_never = [{"kind": "must-never", "advisory": v.id if hasattr(v, "id") else v.get("id"), "detail": (v.summary if hasattr(v, "summary") else v.get("summary", ""))[:160],
+                   "symbols": list(v.affected_symbols if hasattr(v, "affected_symbols") else v.get("affected_symbols", []))} for v in vulns]
+    counts = {"functions": len(units), "behaviours": sum(len(b) for b in units.values()),
+              "by_kind": {k: sum(1 for b in units.values() for x in b if x["kind"] == k) for k in ("param", "return", "error", "raise", "decision")}, "must_never": len(must_never)}
+    doc = {"package": pkg, "version": version, "generated": now_iso(), "units": units, "must_never": must_never, "counts": counts,
+           "note": "the results each public function can produce, from the parser; parameter edges are the type's own, inferred, not read from source"}
+    write_json(out / "behaviours.json", doc)
+    return doc
 
 
 def existing_suite(repo: Path, adapter, import_names: list[str], changed_symbols: list[str]) -> dict:
@@ -160,6 +181,7 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
                                               "import_names": nm, "symbols": surfaces[tag]})
         if tag == "new" and hasattr(adapter, "internals"):
             write_json(out / "internals.json", {"package": it.package, "version": ver, **adapter.internals(unpacked, nm)})
+            write_behaviours(out, it.package, ver, adapter, unpacked, nm, [])
     if "old" not in surfaces and "new" in surfaces:
         surfaces["old"] = surfaces["new"]; dirs["old"] = dirs["new"]
     diff = adapter.api_diff(surfaces.get("old", []), surfaces.get("new", [])) if it.change == "bumped" else []
@@ -199,6 +221,12 @@ def analyze_item(it: WorkItem, repo: Path, workdir: Path, adapter, python_versio
         for sym in v.get("affected_symbols", []):
             if any(u.endswith(sym) for u in symbols_used):
                 affected_in_use.append(sym)
+    bpath = out / "behaviours.json"
+    if bpath.exists() and vulns:
+        bdoc = read_json(bpath)
+        bdoc["must_never"] = [{"kind": "must-never", "advisory": v.id, "detail": (v.summary or "")[:160], "symbols": list(v.affected_symbols)} for v in vulns]
+        bdoc["counts"]["must_never"] = len(bdoc["must_never"])
+        write_json(bpath, bdoc)
     write_json(out / "vulns.json", {"package": it.package, "version": it.new_version, "vulns": vulns,
                                     "old_version": it.old_version, "vulns_old": vulns_old,
                                     "fixed_by_this_change": [v["id"] for v in vulns_old if v["id"] not in {x["id"] for x in vulns}],
