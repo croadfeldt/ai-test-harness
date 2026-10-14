@@ -56,7 +56,9 @@ docs/
   22-pilot-plan.md           The first milestone made operational: what to stand up, what to measure, where each measure is read, who signs
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
-  two-slides.md              Two slides: the problem, the answer and where it sits in delivery; how it works, inputs through to outputs
+  two-slides.md              Two slides, Marp markdown: the problem, the answer and where it sits in delivery; how it works, inputs through to outputs
+  two-slides-codebase.svg    The graphic on slide one
+  build-two-slides.py        The same two slides as an editable PowerPoint file (python-pptx), written to harness/out/
   deck.md                    The full deck
 blueprint/
   adapter-interface.md       The contract each language ecosystem adapter implements
