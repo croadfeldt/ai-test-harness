@@ -57,7 +57,7 @@ docs/
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
   two-slides.md              Two slides, Marp markdown: the problem, the answer and where it sits in delivery; how it works, inputs through to outputs
-  two-slides-codebase.svg    The graphic on slide one
+  xkcd-1172-workflow.png     "Workflow" by Randall Munroe, xkcd.com/1172, unchanged, under CC BY-NC 2.5 (creativecommons.org/licenses/by-nc/2.5); not covered by this repository's licence
   build-two-slides.py        The same two slides as an editable PowerPoint file (python-pptx), written to harness/out/
   deck.md                    The full deck
 blueprint/

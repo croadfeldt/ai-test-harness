@@ -19,6 +19,7 @@ RED, INK, GREY, LINE, MUTED, WHITE, PINK, GREEN, MID = (RGBColor(0xEE, 0, 0), RG
                                                       RGBColor(0xC7, 0xC7, 0xC7), RGBColor(0x4F, 0x52, 0x55), RGBColor(0xFF, 0xFF, 0xFF),
                                                       RGBColor(0xFF, 0xD6, 0xD6), RGBColor(0x3E, 0x86, 0x35), RGBColor(0xD2, 0xD2, 0xD2))
 FONT = "Red Hat Text"
+COMIC = Path(__file__).resolve().parent / "xkcd-1172-workflow.png"
 L = 0.6           # left margin, inches
 W = 13.333 - 2 * L
 
@@ -91,14 +92,11 @@ def down(slide, x, y, w):
 def slide_one(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     title(s, "AI Test Harness")
-    # the graphic: what a typical codebase ships
-    gx, gw = L, 3.1
-    text(s, gx, 1.3, gw, 0.3, [[("What a typical codebase ships", True)]], size=12)
-    box(s, gx, 1.65, gw, 2.1, [("77%", 26, True, INK, False), ("open source your team never wrote", 11, False, INK, False)], fill=MID, line=INK, inset=0.15)
-    box(s, gx, 3.75, gw, 0.62, [("23%", 22, True, WHITE, False), ("your own code", 11, False, WHITE, False)], fill=RED, line=INK, inset=0.15)
-    text(s, gx, 4.42, gw, 0.5, ["Source: Synopsys OSSRA 2024, open source share of audited codebases"], size=8, color=MUTED)
+    # the comic, with its source line
+    s.shapes.add_picture(str(COMIC), Inches(L), Inches(1.3), width=Inches(2.2))
+    text(s, L, 4.42, 2.2, 0.5, ["“Workflow” by Randall Munroe, xkcd.com/1172. Licensed CC BY-NC 2.5, creativecommons.org/licenses/by-nc/2.5. Unchanged."], size=7, color=MUTED)
     # the words
-    text(s, 4.3, 1.3, 8.45, 3.4, [
+    text(s, 3.3, 1.3, 9.45, 3.4, [
         "Most of what a product ships is code its own team never wrote. Dependencies move, advisories land, and the tests that would prove a change is safe never get written, so the gate runs on trust.",
         "The AI Test Harness writes those tests, runs them sealed on both sides of every change, and puts the evidence on the pull request: a signed record anyone can verify, an answer for every known vulnerability, and a plain account of what is proven, what is handed to you, and what is still a gap.",
     ], size=16, space_after=12)

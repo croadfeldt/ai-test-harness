@@ -15,8 +15,9 @@ style: |
   section h3 { background: #EE0000; color: #fff; }
   section h4 { background: #d2d2d2; color: #151515; }
 
-  /* slide one: the graphic floats left, the words wrap beside it, the delivery strip clears below */
-  section.one img { float: left; margin: 2px 40px 10px 0; }
+  /* slide one: the comic floats left with its source line, the words wrap beside it, the delivery strip clears below */
+  section.one p:first-of-type { float: left; width: 240px; margin: 2px 40px 10px 0; font-size: 11px; color: #6a6e73; line-height: 1.3; }
+  section.one img { display: block; width: 240px; border: 1px solid #151515; margin-bottom: 4px; }
   section.one h2 { clear: both; color: #EE0000; font-size: 15px; font-weight: 600; margin: 10px 0 8px; padding-top: 12px; border-top: 1px solid #d2d2d2; }
   section.one table th { font-weight: 600; background: #f0f0f0; vertical-align: middle; width: 9%; }
   section.one table th:nth-child(even) { border: 0; background: #fff; text-align: center; color: #6a6e73; width: 1.5%; padding: 0; }
@@ -44,7 +45,8 @@ style: |
 
 # AI Test Harness
 
-![w:300](two-slides-codebase.svg)
+![w:240](xkcd-1172-workflow.png)
+“Workflow” by Randall Munroe, xkcd.com/1172. Licensed CC BY-NC 2.5, creativecommons.org/licenses/by-nc/2.5. Unchanged.
 
 Most of what a product ships is code its own team never wrote. Dependencies move, advisories land, and the tests that would prove a change is safe never get written, so the gate runs on trust.
 
