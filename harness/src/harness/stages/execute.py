@@ -54,6 +54,10 @@ def verdict(t: dict, msg_old: str, roles: dict, fix_patch: str | None) -> str:
         return skip_verdict(t["needs"])
     if undeclared(t):
         return "undeclared need: the test uses the network without declaring it; test bug: declare the need or remove the connection"
+    from ..testbed import refused
+    why = refused(t)
+    if why:
+        return f"testbed failure: {why}; not a verdict about the test or the package; rerun on a working testbed"
     if t["category"] == "cve":
         # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
         vuln_status, fixed_status = (n, o) if roles["direction"] in ("downgrade", "candidate") else (o, n)
@@ -167,10 +171,17 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         tests.append({"id": f"{Path(f.get('file', 'tests/withheld')).stem}::{name}", "name": name, "param_id": name, "category": f.get("category", "unknown"), "file": f.get("file"),
                       "status": "skipped", "duration_ms": 0, "message": "", "versions": {"old": "na", "new": "na"},
                       "expected_differential": f.get("expected_differential"), "needs": need, "symbols_exercised": f.get("targets", [])[:10]})
+    # Testbed failure at the run level (stage 4): nothing below it is a verdict about the tests.
+    from ..testbed import run_failure
+    tb = {k: run_failure(v["sandbox"], v["results"]) for k, v in runs.items()}
+    tb = {k: v for k, v in tb.items() if v}
+    testbed_failure = {"runs": tb, "detail": "; ".join(f"{k}: {v['detail']}" for k, v in tb.items())} if tb else None
     # Verdict per test from the differential, per blueprint stage 3 and 4.
     for t in tests:
         msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
-        t["verdict"] = verdict(t, msg_old, roles, fix_patch)
+        t["verdict"] = f"not run: testbed failure ({testbed_failure['detail']})" if testbed_failure and t["status"] != "skipped" else verdict(t, msg_old, roles, fix_patch)
+    if testbed_failure:
+        log(f"    {pkg}: TESTBED FAILURE: {testbed_failure['detail']}; no verdict below is about the tests")
     cov_new = runs["new"]["coverage"]
     results = {
         "run_id": read_json(workdir / "intake" / "worklist.json")["run_id"],
@@ -181,6 +192,7 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                    "image_digest": runs["new"]["sandbox"].get("image_digest"), "isolation": runs["new"]["sandbox"]["isolation"]},
         "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
         "testbed": {"provides": sorted(provides), "withheld": held, "declared": declared},
+        "testbed_failure": testbed_failure,
         "tests": tests,
         "counts": {"total": len(tests),
                    "pass_on_new": sum(1 for t in tests if t["versions"]["new"] == "pass"),
@@ -190,7 +202,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                    "fix_reached_assertion_wrong": sum(1 for t in tests if t["verdict"].startswith("fix reached")),
                    "blocked_both_versions": sum(1 for t in tests if t["verdict"].startswith("blocked on both")),
                    "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed")),
-                   "for_your_environment": len(held), "undeclared_need": sum(1 for t in tests if t["verdict"].startswith("undeclared need"))},
+                   "for_your_environment": len(held), "undeclared_need": sum(1 for t in tests if t["verdict"].startswith("undeclared need")),
+                   "testbed_failure": sum(1 for t in tests if t["verdict"].startswith(("testbed failure", "not run: testbed failure")))},
         "coverage_ref": "new/coverage.json" if cov_new.get("available") else None,
         "coverage_summary": {"covered_lines_in_target": cov_new.get("covered_lines_in_target", 0),
                              "files": {k: {"covered": v["covered_lines"], "statements": v["num_statements"]}
@@ -201,6 +214,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         "test_files": [{"file": f["file"], "sha256": f["sha256"]} for f in gen["files"]],
     }
     write_json(out / "results.json", results)
+    from ..testbed import ctrf
+    ctrf(results, out / "results.ctrf.json")
     c = results["counts"]
     log(f"    {pkg}: {c['total']} tests, {c['pass_on_new']} pass on head, {c['flaky']} flaky, "
         f"{c['fix_pinning_confirmed']} fix-pinning confirmed, {c['behavior_changed']} behavior changes")

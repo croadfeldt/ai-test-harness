@@ -239,6 +239,7 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `analyze/internals.json` | The private functions behind the public API at head, with their spans, and who calls whom; the accounting credits a behaviour with the helpers it delegates to. |
 | `analyze/call-sites.json` | Every place the application references this package. |
 | `generate/scratch/` | Every attempt that ran in the sandbox during generation, with its output; not committed. |
+| `execute/results.ctrf.json` | The same results as a CTRF report, the interchange shape other tools read; a testbed failure is `other`, never `failed`. |
 | `execute/new/` | The sealed run on head: the run script, the junit report, coverage with per-test contexts (Go: one profile per passing test under per-test/), logs. |
 | `execute/new-rerun/` | The second run on head, to catch flakes. |
 | `execute/old/` | The run on the base version, for the differential. |

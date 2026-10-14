@@ -401,6 +401,11 @@ def build(workdir: Path, idx: dict | None = None) -> dict:
         pt = _plain_terms(workdir / "packet" / p["package"] / "packet.md")
         if pt:
             plain.append(f"**{p['package']}.** {pt}")
+    # A run-level testbed failure comes first, whatever else the run wrote: read from the results themselves.
+    broken = [(str(r.parent.relative_to(workdir / "execute")), (_load(r) or {}).get("testbed_failure")) for r in sorted((workdir / "execute").glob("**/results.json"))] if (workdir / "execute").is_dir() else []
+    for pkg, tb in broken:
+        if tb:
+            plain.insert(0, f"**Testbed failure on {pkg}.** {tb['detail']}. Nothing in this run is a verdict about the tests or the package; rerun on a working testbed.")
     if not plain:
         last = [k for k, s in idx["stages"].items() if s.get("present")]
         plain.append(f"This run has not reached the review packet yet; the last stage that wrote was {STAGE_NAMES[last[-1]][1].lower() if last else 'none'}.")

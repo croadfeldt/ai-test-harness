@@ -18,7 +18,8 @@ ROUTING = {"test-bug": "regenerate or discard; no human time", "behavior-change"
            "obsolete": "propose retirement", "redundant": "propose retirement or merge",
            "coverage-gap": "pipeline owners: the existing suite does not reach this; accept this run's tests or add your own",
            "pipeline": "pipeline owners: correct the pipeline; the harness does not edit it",
-           "for-your-environment": "the team: proposed with its declared need; proves itself in their pipeline, never in the harness"}
+           "for-your-environment": "the team: proposed with its declared need; proves itself in their pipeline, never in the harness",
+           "testbed-failure": "the harness's operators: rerun on a working testbed; not a verdict about the test or the package"}
 
 
 def _aliases_for(vulns_doc: dict, cve: str) -> list[str]:
@@ -132,6 +133,8 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                 cls, conf, action = "for-your-environment", 0.9, f"accept for your environment: needs {t['needs']}; proves itself in the team's pipeline"
             elif v.startswith("undeclared need"):
                 cls, conf, action = "test-bug", 0.9, "regenerate with the need declared, or remove the connection"
+            elif v.startswith(("testbed failure", "not run: testbed failure")):
+                cls, conf, action = "testbed-failure", 0.9, "rerun on a working testbed; no verdict about the test"
             elif t["status"] == "flaky":
                 cls, conf, action = "test-bug", 0.95, "discard"
             elif v.startswith("fix-pinning confirmed"):
@@ -168,6 +171,9 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                                  f"generate/{pkg}/manifest.agent.json", pkg, reproducer=cd["blocked_paths"][0][:200],
                                  corroborating_tests=[t["name"] for t in corroborated]))
     # Question 3 of the mission: does the repository's own suite reach this package and what changed in it?
+    if results and results.get("testbed_failure"):
+        findings.append(_finding("testbed-failure", 0.95, f"{pkg}: the sandbox run failed ({results['testbed_failure']['detail']}); no verdict in this run is about the tests or the package",
+                                 f"execute/{pkg}/results.json", pkg, runs=results["testbed_failure"]["runs"]))
     findings += coverage_gap_findings(pkg, facts)
     findings += static_findings(pkg, facts)
 
