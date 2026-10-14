@@ -6,104 +6,108 @@
 
 **Elevator pitch:** How do you know a change is safe when most of what you ship is code your team
 never wrote? The AI Test Harness writes the tests nobody will write by hand, for your own code and
-for every package you depend on. It makes every pull request arrive with its evidence: the tests
-that ran on both sides of the change, and a signed record of the results. The person at the gate
-decides with proof in hand instead of trust. The harness takes the toil out of testing, the writing,
-the running, the proving, and leaves a person the judgment. It starts with the change itself, then
-the packages it uses directly, then the packages those use, and every run grows a test suite that is
-yours to keep.
+for every package you depend on. Every pull request arrives with its evidence: the tests that ran on
+both sides of the change, and a signed record of the results. The person at the gate decides with
+proof in hand instead of trust.
 
 ## Problem Statement
 
-**Customer name:** Any organization that ships software built on code it did not write: product teams,
-platform teams, and the security and compliance functions that answer for what they ship. The first
-pilot is with Red Hat product teams building on Konflux, to be named with the sponsor.
+**Customer name:** Any organization that ships software built on code it did not write: product
+teams, platform teams, and the security and compliance functions that answer for what they ship. The
+first pilot is with Red Hat product teams, to be named with the sponsor.
 
-**Customer stakeholder:** whoever answers for the safety of a change and for the proof of it: the head
-of engineering for delivery, the CISO or product security lead for exposure, the platform owner for the
-pipeline. For the pilot, the person we serve is the one who approves the merge: the reviewer or
-engineering lead. Their measures are the ones that matter first: did every change arrive with evidence,
-how much review time did it cost, and what did it catch that review alone would have missed. The
-security and platform personas, with their own measures, follow in the later phases. For the pilot, the
-executive sponsor and the leads of the participating teams, to be named.
+**Customer stakeholder:** Whoever answers for the safety of a change and for the proof of it: the head
+of engineering for delivery, the CISO or product security lead for exposure, the platform owner for
+the pipeline. The pilot serves the person who approves the merge, and their measures come first: did
+every change arrive with evidence, how much review time did it cost, what did it catch that review
+alone would have missed.
 
-**Customer pain:** Most of what any team ships is code it did not write. Take a mid-sized service as
-one example: it resolves several hundred to a few thousand packages, its engineers chose perhaps fifty,
-and the rest arrived as dependencies of dependencies. Nobody on the team has read them or tested them,
-and when one changes behaviour in a minor version the team finds out in production. The ratio is the
-same for a small tool or a large platform, and across a fleet it multiplies: the same unread package
-sits in every service, so one bad version lands everywhere at once. The most serious supply chain
-incidents of recent years, the XZ Utils backdoor among them, arrived exactly this way: a trusted
-package, a routine update, a change whose description bore no relation to its effect. Writing tests for
-code you did not write is slow, tedious and never prioritized, so it does not happen.
+**Customer pain:** Most of what any team ships is code it did not write. A mid-sized service resolves
+hundreds to thousands of packages; its engineers chose perhaps fifty. Nobody has read or tested the
+rest, and when one changes behaviour the team finds out in production. Across a fleet the same unread
+package sits in every service, so one bad version lands everywhere at once. The XZ Utils backdoor
+arrived exactly this way: a trusted package, a routine update. AI-assisted development widens the gap:
+teams with high AI adoption merge 98 percent more pull requests while review time per request rises
+91 percent (Faros AI, 2025). Writing tests for code you did not write is slow and never prioritized,
+so it does not happen.
 
-AI-assisted development makes the gap wider, not narrower. Faros AI's 2025 study of telemetry from
-more than ten thousand developers found that teams with high AI adoption complete 21 percent more
-tasks and merge 98 percent more pull requests. Review time per pull request rises 91 percent, and
-the pull requests grow larger and carry more defects. The bottleneck has moved from writing code to
-proving it is safe, and that proof is still produced by hand.
-
-**Current workaround:** A modern build platform answers the first half of the question. Konflux, to
-take our own as the example, gives hermetic builds, a complete bill of materials, signed provenance and
-policy gates: it says precisely what is in the product. No build platform says whether any of it works,
-or whether a new version still does what the old one did. So teams bump dependencies on trust, run
-their own suite, which rarely touches the dependency, and read changelogs. Commercial AI test tools
-cover one language each, run outside the pipeline and produce no provenance. The best-known open one,
-Qodo-Cover, has carried a "no longer maintained, please fork" notice since June 2025. The research
-field is active: a 2026 survey in Information and Software Technology assesses 67 unit test generation
-methods from the last five years and finds that search-based and model-based approaches do best
-combined. Every method in it tests one version of one codebase. Nothing, open or commercial, tests a
-dependency upgrade differentially for an application.
+**Current workaround:** A modern build platform says precisely what is in the product, hermetic
+builds, a bill of materials, signed provenance, policy gates, but not whether any of it works or
+whether a new version still does what the old one did. Teams bump dependencies on trust, run their own
+suite, which rarely touches the dependency, and read changelogs. Commercial AI test tools cover one
+language each, run outside the pipeline and produce no provenance; the best-known open one is
+abandoned. Nothing, open or commercial, tests a dependency upgrade differentially for an application.
 
 **Impact of inaction:** Regressions and vulnerabilities in code nobody looked at keep reaching
-production and are found by customers. Every dependency bump stays a judgement call made without
-evidence, so upgrades are delayed and known vulnerabilities stay open longer. When a customer or a
-regulator asks what we verified about the code we ship, the answer for most of it is nothing, with no
-record to point at.
+production and are found by customers. Every dependency bump stays a judgement call without evidence,
+so upgrades are delayed and known vulnerabilities stay open longer. When a customer or regulator asks
+what we verified about the code we ship, the answer for most of it is nothing, with no record to point
+at.
 
-**Impact of action:** Every incoming change arrives at the gate with tests that ran, a plain-terms
-verdict and a signed record. The harness validates everything it can and says plainly what it could
-not and why. Every function a change reaches ends in one of three states: validated, handed to the
-team for their environment, or a stated gap with its reason. Nothing is silent. Known
-vulnerabilities get a test that proves the fix and a draft VEX statement backed by it. Review time
-is the toil that remains, and it is measured on every run, so the harness is judged by how little of
-a person's time it costs per finding, not by how many tests it writes. Because the evidence is in a
-fixed, signed form, approval can later be automated within policy: a team can decide which classes
-of change may merge on the harness's evidence and an AI review, and which still need a person.
-Upgrades get faster and safer, and incidents from unread code fall. The proof of testing travels
-with the product for anyone downstream to check. The tests that earn their keep join the team's
-suite, so the asset grows with every run.
+**Impact of action:** Every change arrives at the gate with tests that ran, a plain-terms verdict and
+a signed record. Every behaviour a change reaches ends in one of three states, validated, handed to
+the team for their environment, or a stated gap with its reason; nothing is silent. Known
+vulnerabilities get a test that proves the fix and a draft VEX statement backed by it. Review time is
+the toil that remains, and it is measured on every run. Because the evidence is in a fixed, signed
+form, approval can later be automated within policy. Upgrades get faster and safer, and the tests that
+earn their keep join the team's suite, so the asset grows with every run.
 
 ## Proposed solution
 
 **Landing BUs:** Trusted Software Supply Chain (the evidence chain: provenance, VEX, SLSA), Red Hat
-OpenShift AI (the model serving and the agent runtime), and the Konflux and Developer tooling teams
-(the pipeline it runs in). To be confirmed with the sponsor.
+OpenShift AI (model serving and the agent runtime), and the build platform and developer tooling
+teams (the pipeline it runs in). To be confirmed with the sponsor.
 
-**Aligned TDPs:** to be named with the sponsor; the natural fits are the supply chain security and
+**Aligned TDPs:** To be named with the sponsor; the natural fits are the supply chain security and
 trusted AI plans.
 
-**Considered alternatives:** IBM Research has published the closest designs, ASTER for unit tests and
-SAINT and Sakura for service-level tests, but the tools ship only inside watsonx Code Assistant, for
-Java. The open LLM test generators are narrower or gone. Qodo-Cover, the open reimplementation of Meta's
-TestGen-LLM and the best known of them, is AGPL and unmaintained since June 2025. CoverUp (Python,
-Apache-2.0, active) and Pynguin (Python, LGPL, release 0.46 in July 2026) each cover one language.
-TestSpark lives inside an IDE. EvoSuite, the older search-based baseline, last released in 2021 and
-supports Java 8 and 11 only. Commercial tools (Diffblue Cover, Qodo Cover Pro, Keploy's hosted
-generator) cover one language each, do not run in our pipeline and produce no provenance. Differential
-testing of upgrades exists only at distribution scale, in Debian's autopkgtest, Rust's Crater and
-Julia's PkgEval, and nothing does it for an application. Buying would give a fraction of the capability
-and none of the evidence chain. The components underneath, the resolvers, sandboxes, mutation and
-coverage tools, attestation formats and open models, are open and maintained, several of them Red
-Hat's; what did not exist was the assembly. The full survey, with licences and activity dates, is in
-the [landscape](04-landscape.md).
+**Considered alternatives:** IBM Research has published the closest designs, but they ship only inside
+watsonx Code Assistant, for Java. The open LLM test generators are narrower or gone: the best known,
+Qodo-Cover, has been unmaintained since June 2025. Commercial tools cover one language each, run
+outside our pipeline and produce no provenance. Differential testing of upgrades exists only at
+distribution scale. Buying would give a fraction of the capability and none of the evidence chain. The
+components underneath are open and maintained, several of them Red Hat's; what did not exist was the
+assembly. The survey is in the [landscape](04-landscape.md).
 
-**Solution overview:** A change arrives, a pull request or a new dependency version, named by
-repository and two refs. The harness resolves the dependency graph at both, looks every version up for
-advisories, and scores each package's risk to set a budget. A model writes tests through a tool-using
-loop, every candidate proves itself in a sealed sandbox, and the ones that earn it reach the repository
-as a pull request a person merges. The paragraphs below answer the questions reviewers asked about each
-step.
+**Solution overview:** A change arrives, a pull request or a new dependency version. The harness
+resolves the dependency graph at both versions, looks every package up for advisories, and scores
+each one's risk to set a budget. Given facts from static analysis, not asked to guess, a model writes
+unit, negative and vulnerability-targeted tests. Every candidate runs in a sealed sandbox on both
+sides of the change; a fix is proven only by a test that fails on the vulnerable version and passes on
+the fixed one. Mutation testing shows how firmly the tests hold. Triage classifies every verdict with
+a confidence and a route, and the run writes its own story. The tests reach the repository only
+through a pull request a person merges; the harness never merges, fixes code, publishes or deletes.
+Every accepted test carries a signed record. The harness is platform-agnostic and runs wherever the
+team's pipeline runs. Appendix A answers, step by step, the questions reviewers asked about each part.
+
+**Timeline & Milestones:**
+
+1. **Pilot, weeks 1 to 6.** Two product services, our own code and direct dependencies, triggered from
+   the pull request. Exit criteria in Appendix B.
+2. **First-party at scale, weeks 7 to 12.** Every pull request in the pilot repositories, unattended;
+   the test pull request as the standard path.
+3. **Direct dependencies, weeks 13 to 20.** Every bump, CVE-targeted tests and VEX drafts on every
+   advisory, SLSA Build L3 on the records.
+4. **Transitive dependencies, weeks 21 to 30.** Reachability and risk scoring across the whole graph.
+5. **Continuous operation, week 31 on.** Scheduled rescans, the remaining ecosystems, upstream
+   contributions. The extended goal is coverage of behaviour, defined in Appendix B.
+
+Durations assume a team of two to four engineers and are replaced by measured velocity after the pilot.
+
+**Definition of Done:** The harness is done with a change when the evidence is at the gate: the pull
+request carries the tests, their results on both sides of the change, and a signed record. The merge
+decision and what follows belong to the team.
+
+The blueprint is done when a product team can point it at a repository and a pull request and receive
+that evidence without anyone from the harness team involved; when on any new change every reached
+behaviour ends in one of the three states and nothing is claimed that was not proven; when the
+reference jobs rerun on a release with no measure worse than the last; when every entry of the failure
+register passes at the start of every run; and when it runs where the customer already runs, in the
+team's build platform and through the shipped triggers. The full standard is in Appendix B.
+
+## Appendix A: the solution, step by step
+
+The paragraphs below answer the questions reviewers asked about each part of the solution overview.
 
 *What the model is given.* Facts, not a request to guess. From the package: its public API at both
 versions and the diff between them with breaking changes flagged, the source diff, and the security
@@ -228,7 +232,9 @@ estimates below are grounded rather than guessed. Every run it has made is
 [published](11-evidence-rollup.md) with its records, so a reader can check any claim in this
 document against one.
 
-**Timeline & Milestones:**
+## Appendix B: measures, exit criteria and the full definition of done
+
+**The milestones in full.**
 
 1. **Pilot, weeks 1 to 6.** Two product services on Konflux, our own code and direct dependencies,
    triggered from the pull request, review packets as pull request comments. Value from the first
@@ -259,9 +265,7 @@ document against one.
    and each thing an advisory says must never happen. Line coverage is used the way DO-178C and
    Google use it, to find what the behaviour tests missed, not as the score.
 
-Durations assume a team of two to four engineers and are replaced by measured velocity after the pilot.
-
-**Definition of Done:** The harness is done with a change when the evidence is at the gate: the pull
+**The definition of done in full.** The harness is done with a change when the evidence is at the gate: the pull
 request carries the tests, their results on both sides of the change, and a signed record. The merge
 decision and what follows belong to the team; the harness reads that decision back only to improve
 itself.
@@ -290,7 +294,7 @@ and GitLab CI triggers. Each trigger has been exercised on a real repository, wi
 model endpoint per language. Then it can ship as part of Trusted Software Supply Chain or stand as a
 product of its own.
 
-## References
+## Appendix C: references
 
 - Faros AI, [The AI Productivity Paradox](https://www.faros.ai/blog/ai-software-engineering), 2025.
   Telemetry from more than 10,000 developers: 21 percent more tasks, 98 percent more pull requests,
