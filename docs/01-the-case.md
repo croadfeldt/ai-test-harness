@@ -109,10 +109,11 @@ linter's findings on the changed code (bandit for Python, gosec for Go). From th
 call site into the package and the symbols it uses, and what its existing tests already cover. From the
 advisories: each vulnerability with affected and fixed versions, from OSV. Before anything runs,
 GuardDog and OSV's malicious-package feed screen a new or changed package. The extractors are the
-languages' own parsers. Next in line, and named so no one assumes they exist: the behaviour worklist,
-each function's return and error paths and each parameter's types and ranges, enumerated for the model
-as the list of results to check; and call-graph reachability, with govulncheck's approach for Go and
-CodeLLM-Devkit for the rest.
+languages' own parsers. From the same parsers comes the behaviour worklist: for every function the
+application uses, each return and error path, each parameter's type with the edges its domain implies,
+each decision with more than one condition, and each advisory as a result that must never happen, given
+to the model as the list of results to check. Next in line, and named so no one assumes it exists:
+call-graph reachability, with govulncheck's approach for Go and CodeLLM-Devkit for the rest.
 
 *The sandbox.* A locked-down container today: no network, no secrets, nothing inherited from the host,
 read-only file system, the package's declared dependencies copied in beforehand. On OpenShift, a pod
@@ -130,23 +131,27 @@ kernel or native libraries is marked "machine" and runs in a virtual-machine tes
 one, is handed to the team's pipeline with that declaration attached. A test that needs a live service
 is written against a fake the model produces with it; one that declares it needs the real network is
 proposed to the team with the declaration and proves itself in their pipeline, never in ours. A test
-that fails because the testbed refused something is reported as a testbed failure, autopkgtest's exit
-code 16, never as a defect and never thrown away. What no testbed can see is code that behaves
+that declared nothing and then opened a connection is a defect in the test, pytest-socket's rule, and is
+sent back to generation. A test that fails because the testbed refused something it was promised is
+reported as a testbed failure, autopkgtest's exit code 16, never as a defect and never thrown away. What no testbed can see is code that behaves
 differently on the team's own hardware or services, which is why the test pull request runs the team's
 pipeline before anyone merges.
 
 *Flaky tests never reach a person.* Each candidate runs more than once on the new version and once on
 the old. Meta's TestGen-LLM proposes only tests that pass repeatedly, and Google treats a 0.15 percent
 flake rate as a problem worth engineering hours. A candidate that disagrees with itself on any run is
-set aside. Twice is the floor; the few tests about to be proposed are run more. A fix is proven only by
-a test that fails on the vulnerable version and passes on the fixed one.
+set aside. Twice is the floor; the candidates about to be proposed run five times by default, the
+team's number. A fix is proven only by a test that fails on the vulnerable version and passes on the
+fixed one.
 
 *Mutation testing, bounded.* Its job is narrow: prove that each generated test checks something, by
 breaking the code it executed and seeing whether the test notices. Mutants are placed only on lines the
-generated tests ran, sampled within the package's budget, never across the whole package; in the proof
-of concept a Go package offered 2,787 sites and the harness ran 25. Google applies mutation testing the
-same way, only to changed code during review. A mutant that survives names a behaviour the test did not
-check, and the model is told so.
+generated tests ran, aimed first at the behaviours the application calls and the helpers they delegate
+to, sampled within the package's budget, never across the whole package; in the proof of concept a Go
+package offered 2,787 sites and the harness ran 25. Google applies mutation testing the same way, only to
+changed code during review. A mutant that survives names a behaviour the test did not check, and the
+model is told so: before a passing file is believed it is probed with a few such breakages, and the ones
+its tests miss go back to the model once, as a diff.
 
 *What comes out.* Every function the change reaches ends in exactly one of three states. Validated: a
 test ran on both sides of the change, ran consistently, exercised code nothing else did, and caught
