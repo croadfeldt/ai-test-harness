@@ -5,6 +5,11 @@
 [document 15](15-failure-register.md), and minus three sections that other documents already carried:
 section 4 points at documents 04 and 05, section 7 at document 05, section 13 at document 07.
 **Owner:** Chris Roadfeldt.
+
+**How to read this: it is a reference, not a read-through.** Fifteen thousand words. Start from the
+[three-page blueprint](03-blueprint.md) and come here when it cites a section; the section numbers are stable
+because the code's docstrings and the other documents cite them.
+
 **For:** the reader who has decided the blueprint is worth a closer look and wants the reasoning, the
 stage-by-stage detail, the lifecycle and provenance design, the metrics, risks, rollout, open questions
 and the worked example. Section numbers are the ones the code's docstrings and the other documents

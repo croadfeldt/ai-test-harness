@@ -4,13 +4,14 @@
 
 **Owner:** Chris Roadfeldt
 
-**Elevator pitch:** How do you know a change is safe when most of what you ship is code your team never
-wrote? The AI Test Harness writes the tests nobody will write by hand, for your own code and for every
-package you depend on, and makes every pull request arrive with its evidence: the tests that ran on both
-sides of the change and a signed record of the results. The person at the gate decides with proof in
-hand instead of trust. The harness takes the toil out of testing, the writing, the running, the proving,
-and leaves a person the judgment. It starts with the change itself, then the packages it uses directly,
-then the packages those use, and every run grows a test suite that is yours to keep.
+**Elevator pitch:** How do you know a change is safe when most of what you ship is code your team
+never wrote? The AI Test Harness writes the tests nobody will write by hand, for your own code and
+for every package you depend on. It makes every pull request arrive with its evidence: the tests
+that ran on both sides of the change, and a signed record of the results. The person at the gate
+decides with proof in hand instead of trust. The harness takes the toil out of testing, the writing,
+the running, the proving, and leaves a person the judgment. It starts with the change itself, then
+the packages it uses directly, then the packages those use, and every run grows a test suite that is
+yours to keep.
 
 ## Problem Statement
 
@@ -36,11 +37,11 @@ incidents of recent years, the XZ Utils backdoor among them, arrived exactly thi
 package, a routine update, a change whose description bore no relation to its effect. Writing tests for
 code you did not write is slow, tedious and never prioritized, so it does not happen.
 
-AI-assisted development makes the gap wider, not narrower. Faros AI's 2025 study of telemetry from more
-than ten thousand developers found that teams with high AI adoption complete 21 percent more tasks and
-merge 98 percent more pull requests, while review time per pull request rises 91 percent and the pull
-requests grow larger and carry more defects. The bottleneck has moved from writing code to proving it is
-safe, and that proof is still produced by hand.
+AI-assisted development makes the gap wider, not narrower. Faros AI's 2025 study of telemetry from
+more than ten thousand developers found that teams with high AI adoption complete 21 percent more
+tasks and merge 98 percent more pull requests. Review time per pull request rises 91 percent, and
+the pull requests grow larger and carry more defects. The bottleneck has moved from writing code to
+proving it is safe, and that proof is still produced by hand.
 
 **Current workaround:** A modern build platform answers the first half of the question. Konflux, to
 take our own as the example, gives hermetic builds, a complete bill of materials, signed provenance and
@@ -61,16 +62,17 @@ regulator asks what we verified about the code we ship, the answer for most of i
 record to point at.
 
 **Impact of action:** Every incoming change arrives at the gate with tests that ran, a plain-terms
-verdict and a signed record. The harness validates everything it can and says plainly what it could not
-and why: every function a change reaches ends in one of three states, validated, handed to the team for
-their environment, or a stated gap with its reason, and nothing is silent. Known vulnerabilities get a
-test that proves the fix and a draft VEX statement backed by it. Review time is the toil that remains,
-and it is measured on every run, so the harness is judged by how little of a person's time it costs per
-finding, not by how many tests it writes. Because the evidence is in a fixed, signed form, approval can
-later be automated within policy: a team can decide which classes of change may merge on the harness's
-evidence and an AI review, and which still need a person. Upgrades get faster and safer, incidents from
-unread code fall, the proof of testing travels with the product for anyone downstream to check, and the
-tests that earn their keep join the team's suite, so the asset grows with every run.
+verdict and a signed record. The harness validates everything it can and says plainly what it could
+not and why. Every function a change reaches ends in one of three states: validated, handed to the
+team for their environment, or a stated gap with its reason. Nothing is silent. Known
+vulnerabilities get a test that proves the fix and a draft VEX statement backed by it. Review time
+is the toil that remains, and it is measured on every run, so the harness is judged by how little of
+a person's time it costs per finding, not by how many tests it writes. Because the evidence is in a
+fixed, signed form, approval can later be automated within policy: a team can decide which classes
+of change may merge on the harness's evidence and an AI review, and which still need a person.
+Upgrades get faster and safer, and incidents from unread code fall. The proof of testing travels
+with the product for anyone downstream to check. The tests that earn their keep join the team's
+suite, so the asset grows with every run.
 
 ## Proposed solution
 
@@ -106,14 +108,15 @@ step.
 *What the model is given.* Facts, not a request to guess. From the package: its public API at both
 versions and the diff between them with breaking changes flagged, the source diff, and the security
 linter's findings on the changed code (bandit for Python, gosec for Go). From the application: every
-call site into the package and the symbols it uses, and what its existing tests already cover. From the
-advisories: each vulnerability with affected and fixed versions, from OSV. Before anything runs,
+call site into the package and the symbols it uses, and what its existing tests already cover. From
+the advisories: each vulnerability with affected and fixed versions, from OSV. Before anything runs,
 GuardDog and OSV's malicious-package feed screen a new or changed package. The extractors are the
-languages' own parsers. From the same parsers comes the behaviour worklist: for every function the
-application uses, each return and error path, each parameter's type with the edges its domain implies,
-each decision with more than one condition, and each advisory as a result that must never happen, given
-to the model as the list of results to check. Next in line, and named so no one assumes it exists:
-call-graph reachability, with govulncheck's approach for Go and CodeLLM-Devkit for the rest.
+languages' own parsers. From the same parsers comes the behaviour worklist. For every function the
+application uses it lists each return and error path, each parameter's type with the edges its
+domain implies, each decision with more than one condition, and each advisory as a result that must
+never happen. The model gets it as the list of results to check. Next in line, and named so no one
+assumes it exists: call-graph reachability, with govulncheck's approach for Go and CodeLLM-Devkit
+for the rest.
 
 *The sandbox.* A locked-down container today: no network, no secrets, nothing inherited from the host,
 read-only file system, the package's declared dependencies copied in beforehand. On OpenShift, a pod
@@ -123,19 +126,20 @@ or gVisor, chosen per test. The sandbox is where a candidate proves it is worth 
 accepted, a test lives in the team's repository and runs in the team's pipeline, with their services
 and their native libraries, every time.
 
-*Tests declare what they need.* Native code can behave differently in a container, and some tests need
-a network. The industry's answer is the one we adopt: every test declares its needs, the way Debian's
-tests declare `isolation-machine` and Google's declare a size, and the sandbox denies by default, as
-Bazel's does. A test that needs nothing, or only the local host, runs sealed. A test that needs a real
-kernel or native libraries is marked "machine" and runs in a virtual-machine testbed, or, until we have
-one, is handed to the team's pipeline with that declaration attached. A test that needs a live service
-is written against a fake the model produces with it; one that declares it needs the real network is
-proposed to the team with the declaration and proves itself in their pipeline, never in ours. A test
-that declared nothing and then opened a connection is a defect in the test, pytest-socket's rule, and is
-sent back to generation. A test that fails because the testbed refused something it was promised is
-reported as a testbed failure, autopkgtest's exit code 16, never as a defect and never thrown away. What no testbed can see is code that behaves
-differently on the team's own hardware or services, which is why the test pull request runs the team's
-pipeline before anyone merges.
+*Tests declare what they need.* Native code can behave differently in a container, and some tests
+need a network. The industry's answer is the one we adopt: every test declares its needs, the way
+Debian's tests declare `isolation-machine` and Google's declare a size, and the sandbox denies by
+default, as Bazel's does. A test that needs nothing, or only the local host, runs sealed. A test
+that needs a real kernel or native libraries is marked "machine" and runs in a virtual-machine
+testbed, or, until we have one, is handed to the team's pipeline with that declaration attached. A
+test that needs a live service is written against a fake the model produces with it. One that
+declares it needs the real network is proposed to the team with the declaration, and proves itself
+in their pipeline, never in ours. A test that declared nothing and then opened a connection is a
+defect in the test, pytest-socket's rule, and is sent back to generation. A test that fails because
+the testbed refused something it was promised is reported as a testbed failure, autopkgtest's exit
+code 16, never as a defect and never thrown away. What no testbed can see is code that behaves
+differently on the team's own hardware or services, which is why the test pull request runs the
+team's pipeline before anyone merges.
 
 *Flaky tests never reach a person.* Each candidate runs more than once on the new version and once on
 the old. Meta's TestGen-LLM proposes only tests that pass repeatedly, and Google treats a 0.15 percent
@@ -145,24 +149,24 @@ team's number. A fix is proven only by a test that fails on the vulnerable versi
 fixed one.
 
 *Mutation testing, bounded.* Its job is narrow: prove that each generated test checks something, by
-breaking the code it executed and seeing whether the test notices. Mutants are placed only on lines the
-generated tests ran, aimed first at the behaviours the application calls and the helpers they delegate
-to, sampled within the package's budget, never across the whole package; in the proof of concept a Go
-package offered 2,787 sites and the harness ran 25. Google applies mutation testing the same way, only to
-changed code during review. A mutant that survives names a behaviour the test did not check, and the
-model is told so: before a passing file is believed it is probed with a few such breakages, and the ones
-its tests miss go back to the model once, as a diff.
+breaking the code it executed and seeing whether the test notices. Mutants are placed only on lines
+the generated tests ran, aimed first at the behaviours the application calls and the helpers they
+delegate to, and sampled within the package's budget, never across the whole package. In the proof
+of concept a Go package offered 2,787 sites and the harness ran 25. Google applies mutation testing
+the same way, only to changed code during review. A mutant that survives names a behaviour the test
+did not check, and the model is told so. Before a passing file is believed it is probed with a few
+such breakages, and the ones its tests miss go back to the model once, as a diff.
 
-*What comes out.* Every function the change reaches ends in exactly one of three states. Validated: a
-test ran on both sides of the change, ran consistently, exercised code nothing else did, and caught
-deliberate breakage, with the record to prove it. For your environment: a real test that needs
-something only the team has, handed over with its declaration. Stated gap: the harness could not
-produce a test it trusts, or the pipeline cannot validate one, and the record says why. The pull
-request carries a "Not covered" section per function, with each gap's reason, a note on the line in the
-diff where the unchecked behaviour lives, the team's existing tests counted so the gaps are real ones,
-and, where the harness can, a test skeleton with the setup done and the assertion left for the
-developer to finish in minutes. The gaps are kept as data, so a team watches its count fall, or not,
-per repository over time.
+*What comes out.* Every function the change reaches ends in exactly one of three states. Validated:
+a test ran on both sides of the change, ran consistently, exercised code nothing else did, and
+caught deliberate breakage, with the record to prove it. For your environment: a real test that
+needs something only the team has, handed over with its declaration. Stated gap: the harness could
+not produce a test it trusts, or the pipeline cannot validate one, and the record says why. The pull
+request carries a "Not covered" section per function. Each gap has its reason and a note on the line
+in the diff where the unchecked behaviour lives. The team's existing tests are counted, so the gaps
+are real ones. Where the harness can, it adds a test skeleton with the setup done and the assertion
+left for the developer to finish in minutes. The gaps are kept as data, so a team watches its count
+fall, or not, per repository over time.
 
 *The gate reads two things, and either can say no.* The pipeline's own result, which now includes the
 harness's tests running in the team's environment, existing suite included. And the harness's verdict:
@@ -176,83 +180,84 @@ the record says why. A fix is someone else's change and goes through the harness
 
 *The pipeline it runs in.* The harness reads how the repository runs its tests, because it must, to
 propose a test that will actually run there. When that reading shows the pipeline cannot run or
-validate what the harness proposes, no test step, tests not run on pull requests, no coverage reported,
-the run says so, with the change that would fix it, because without it the evidence at the gate is
-incomplete. That is the only finding it makes about the pipeline.
+validate what the harness proposes, no test step, tests not run on pull requests, no coverage
+reported, the run says so, with the change that would fix it. Without that change the evidence at
+the gate is incomplete. That is the only finding it makes about the pipeline.
 
-*The record.* Every accepted test carries a signed in-toto record, the vulnerability tests back a draft
-OpenVEX statement, and the run's provenance meets SLSA Build L3, the supply-chain level where the build
-platform itself produces and signs the record, so a build cannot forge its own provenance. The same
-evidence can be exported as UDLM records, which link it into the wider lifecycle chain the DCM work is
-building, so one record spans the change, the build and the estate.
+*The record.* Every accepted test carries a signed in-toto record, and the vulnerability tests back
+a draft OpenVEX statement. The run's provenance meets SLSA Build L3, the supply-chain level where
+the build platform itself produces and signs the record, so a build cannot forge its own provenance.
+The same evidence can be exported as UDLM records, which link it into the wider lifecycle chain the
+DCM work is building, so one record spans the change, the build and the estate.
 
-*Fitness, validated, and the harness learns.* The harness has no AI of its own. It calls whatever model
-the team points it at and gives it written instructions that can also be changed. Different models and
-instructions produce very different tests, so neither becomes the default until it has run the same
-reference jobs and the results are published in a [table](12-prompt-and-model-evaluation.md) anyone can
-read. Every test records the model and instructions that made it, and the reviewer's decision on that
-test is read back against the record. Over time that shows which combinations produce the tests people
-keep, which are the ones that join the long-term suite, and it points at what to improve next. The
-harness learns from its own failures the same way: every way it has gone wrong in our runs, 28 so far,
-is written in the [failure register](15-failure-register.md) with its cause and turned into a check that
-runs before every run, so the same mistake cannot return unnoticed.
+*Fitness, validated, and the harness learns.* The harness has no AI of its own. It calls whatever
+model the team points it at and gives it written instructions that can also be changed. Different
+models and instructions produce very different tests, so neither becomes the default until it has
+run the same reference jobs and the results are published in a
+[table](12-prompt-and-model-evaluation.md) anyone can read. Every test records the model and
+instructions that made it, and the reviewer's decision on that test is read back against the record.
+Over time that shows which combinations produce the tests people keep, which are the ones that join
+the long-term suite, and it points at what to improve next. The harness learns from its own failures
+the same way. Every way it has gone wrong in our runs, 28 so far, is written in the [failure
+register](15-failure-register.md) with its cause, and turned into a check that runs before every
+run, so the same mistake cannot return unnoticed.
 
 *Effort follows risk, and the team holds the knobs.* Effort means model time and sandbox time. It is
-spent writing tests where our code actually calls the package or a known vulnerability applies; where
-it does not, the harness takes a characterization snapshot, a record of what the package's public
+spent writing tests where our code actually calls the package or a known vulnerability applies.
+Elsewhere the harness takes a characterization snapshot: a record of what the package's public
 functions do today, taken without writing tests, so a later version can be compared against it.
-Reachability is approximate and the harness says so. It starts from what is certain, the application's
-own call sites, extends it with static call-graph analysis where the language allows (Go) and only
-hints where it does not (Python), and grows the dynamic signal from what the team's existing suite
-executes and from every test the harness itself generates and runs: coverage from one run refines
-reachability for the next. Where reachability is unknown the risk score decides and the record says
-"unknown." Every number the harness works to is the team's to set, in a file in their own repository:
-mutants, repeats, tests per file, model time per change, which gaps block, which dependencies get full
-effort. The harness ships defaults and explains them. Cost follows the model: model time dominates a
-run, mutation and sandbox time are small beside it, and all of it scales with the inference hardware
-the team provides. The harness measures that hardware at the start of each run and plans to fit the
-time it was given, highest-value work first, and reports what it did not reach as a stated gap rather
-than running out quietly.
+Reachability is approximate and the harness says so. It starts from what is certain, the
+application's own call sites. Static call-graph analysis extends that where the language allows (Go)
+and only hints where it does not (Python). The dynamic signal grows from what the team's existing
+suite executes and from every test the harness itself generates and runs: coverage from one run
+refines reachability for the next. Where reachability is unknown the risk score decides and the
+record says "unknown." Every number the harness works to is the team's to set, in a file in their
+own repository: mutants, repeats, tests per file, model time per change, which gaps block, which
+dependencies get full effort. The harness ships defaults and explains them. Cost follows the model:
+model time dominates a run, mutation and sandbox time are small beside it, and all of it scales with
+the inference hardware the team provides. The harness measures that hardware at the start of each
+run and plans to fit the time it was given, highest-value work first, and reports what it did not
+reach as a stated gap rather than running out quietly.
 
-*Where this starts from.* A proof of concept exists. I built it to test the blueprint before proposing
-it: it runs the whole flow, resolve, analyze, generate, run, mutate, score, attest, propose, on two real
-repositories, one Python and one Go, on a workstation and as a Tekton pipeline on OpenShift. It is not
-the product. Its job was to find out what breaks, which it did, 28 times, each written into the failure
-register, and to show the blueprint at work on real code so that the estimates below are grounded
-rather than guessed. Every run it has made is [published](11-evidence-rollup.md) with its records, so
-a reader can check any claim in this document against one.
+*Where this starts from.* A proof of concept exists. I built it to test the blueprint before
+proposing it. It runs the whole flow, resolve, analyze, generate, run, mutate, score, attest,
+propose, on two real repositories, one Python and one Go, on a workstation and as a Tekton pipeline
+on OpenShift. It is not the product. Its job was to find out what breaks, which it did, 28 times,
+each written into the failure register, and to show the blueprint at work on real code so that the
+estimates below are grounded rather than guessed. Every run it has made is
+[published](11-evidence-rollup.md) with its records, so a reader can check any claim in this
+document against one.
 
 **Timeline & Milestones:**
 
 1. **Pilot, weeks 1 to 6.** Two product services on Konflux, our own code and direct dependencies,
-   triggered from the pull request, review packets as pull request comments. Value from the first run: a
-   verdict and a signed record on every dependency bump, and the pipeline findings, if any, on each
-   service. Exit: every pull request in the pilot repositories arrived with its evidence; reviewer time
-   per finding is measured and reported; at least one finding a reviewer confirms would otherwise have
-   been missed; the share of proposed tests reviewers accepted is reported; the pilot's own reference
-   jobs are established on its own services; and the default model and prompt stayed above the fitness
-   floor on the evaluation table. That floor is the share of generated candidates that build, starting
-   at 80 percent, just above the published production figure of 75 percent, and set by the team from
-   there.
-2. **First-party at scale, weeks 7 to 12.** Every pull request in the pilot repositories, unattended:
-   no one starts a run and nothing waits on one. A change the harness cannot handle, no manifest, an
-   unsupported ecosystem, a model that fails, is reported in the pull request as a stated gap with the
-   reason; whether that counts as a negative at the gate is the team's policy. The test overlay
-   repository and the test pull request become the standard path. Value: tests on the team's own changes
-   without anyone pressing a button.
-3. **Direct dependencies, weeks 13 to 20.** Every bump, pre-flight gates, CVE-targeted tests and VEX
-   drafts on every advisory, SLSA Build L3 on the records. Value: every known vulnerability in a direct
-   dependency answered with a test or a stated gap.
-4. **Transitive dependencies, weeks 21 to 30.** Reachability and risk scoring across the whole graph,
-   characterization snapshots where we do not reach, full effort where we do, and a transitive reference
-   job so the measures exist per tier.
-5. **Continuous operation, week 31 on.** Scheduled rescans, the remaining ecosystems, upstream
-   contributions of the tests that earned their place. The extended goal from here is coverage of
-   behaviour, in the sense the testing profession defines it: for every function the application
-   reaches, every result it can produce, the good path, each class of bad input and each boundary, each
-   combination of conditions that changes the outcome, and each thing an advisory says must never
-   happen, has a test that checks it, proven by mutation testing, or the gap is named. Line coverage is
-   used the way DO-178C and Google use it, to find what the behaviour tests missed, not as the score.
+   triggered from the pull request, review packets as pull request comments. Value from the first
+   run: a verdict and a signed record on every dependency bump, and the pipeline findings, if any,
+   on each service. Exit criteria: every pull request in the pilot repositories arrived with its
+   evidence. Reviewer time per finding is measured and reported. At least one finding a reviewer
+   confirms would otherwise have been missed. The share of proposed tests reviewers accepted is
+   reported. The pilot's own reference jobs are established on its own services. The default model
+   and prompt stayed above the fitness floor on the evaluation table. That floor is the share of
+   generated candidates that build, starting at 80 percent, just above the published production
+   figure of 75 percent, and set by the team from there. 2. **First-party at scale, weeks 7 to 12.**
+   Every pull request in the pilot repositories, unattended: no one starts a run and nothing waits
+   on one. A change the harness cannot handle, no manifest, an unsupported ecosystem, a model that
+   fails, is reported in the pull request as a stated gap with the reason. Whether that counts as a
+   negative at the gate is the team's policy. The test overlay repository and the test pull request
+   become the standard path. Value: tests on the team's own changes without anyone pressing a
+   button. 3. **Direct dependencies, weeks 13 to 20.** Every bump, pre-flight gates, CVE-targeted
+   tests and VEX drafts on every advisory, SLSA Build L3 on the records. Value: every known
+   vulnerability in a direct dependency answered with a test or a stated gap. 4. **Transitive
+   dependencies, weeks 21 to 30.** Reachability and risk scoring across the whole graph,
+   characterization snapshots where we do not reach, full effort where we do, and a transitive
+   reference job so the measures exist per tier. 5. **Continuous operation, week 31 on.** Scheduled
+   rescans, the remaining ecosystems, upstream contributions of the tests that earned their place.
+   The extended goal from here is coverage of behaviour, in the sense the testing profession defines
+   it. For every function the application reaches, every result it can produce has a test that
+   checks it, proven by mutation testing, or the gap is named. The results are the good path, each
+   class of bad input and each boundary, each combination of conditions that changes the outcome,
+   and each thing an advisory says must never happen. Line coverage is used the way DO-178C and
+   Google use it, to find what the behaviour tests missed, not as the score.
 
 Durations assume a team of two to four engineers and are replaced by measured velocity after the pilot.
 
@@ -261,26 +266,28 @@ request carries the tests, their results on both sides of the change, and a sign
 decision and what follows belong to the team; the harness reads that decision back only to improve
 itself.
 
-Done for the blueprint is a standard of behaviour on work never seen before, and a regression check on
-work seen before. On any new change, the harness accounts for every function the change reaches in
-exactly one of three states, validated, for the team's environment, or a stated gap with its reason;
-claims nothing it did not prove with a test that ran on both sides, ran consistently and caught
-deliberate breakage; lands its verdict and the pipeline's result on the pull request as statuses a
-policy can read; and reports what it cost, reviewer time per finding and the share of its tests
-accepted, so each team can watch the trend on its own repositories. On the reference jobs, a new release
-gets no measure worse than the last: candidates that build, behaviours checked out of behaviours
-identified, fixes proven out of advisories known, mutation score on what was checked, and, where a
-reviewer has looked, tests accepted and reviewer time per finding. A reference job is a fixed change on
-a fixed repository whose right answers are known in advance, so that models, prompts and releases are
-measured against the same thing; the two in the proof of concept are examples of the blueprint at work,
-and the pilot establishes its own, at least one per supported language.
+Done for the blueprint is a standard of behaviour on work never seen before, and a regression check
+on work seen before. On any new change, the harness accounts for every function the change reaches
+in exactly one of three states: validated, for the team's environment, or a stated gap with its
+reason. It claims nothing it did not prove with a test that ran on both sides, ran consistently and
+caught deliberate breakage. It lands its verdict and the pipeline's result on the pull request as
+statuses a policy can read. It reports what it cost, reviewer time per finding and the share of its
+tests accepted, so each team can watch the trend on its own repositories. On the reference jobs, a
+new release gets no measure worse than the last. The measures are candidates that build, behaviours
+checked out of behaviours identified, fixes proven out of advisories known, mutation score on what
+was checked, and, where a reviewer has looked, tests accepted and reviewer time per finding. A
+reference job is a fixed change on a fixed repository whose right answers are known in advance, so
+that models, prompts and releases are measured against the same thing. The two in the proof of
+concept are examples of the blueprint at work. The pilot establishes its own, at least one per
+supported language.
 
-It is done when a product team can point it at a repository and a pull request and receive all of the
-above without anyone from the harness team involved, with records that Conforma verifies at release;
-when every entry of the failure register passes as the first step of every run; and when it runs where
-the customer already runs, as a Konflux integration-service task and through the shipped GitHub Actions
-and GitLab CI triggers, each exercised on a real repository, with a documented model endpoint per
-language, so that it can ship as part of Trusted Software Supply Chain or stand as a product of its own.
+It is done when a product team can point it at a repository and a pull request and receive all of
+the above without anyone from the harness team involved, with records that Conforma verifies at
+release. It is done when every entry of the failure register passes as the first step of every run.
+And it is done when it runs where the customer already runs: as a Konflux integration-service task
+and through the shipped GitHub Actions and GitLab CI triggers, each exercised on a real repository,
+with a documented model endpoint per language. Then it can ship as part of Trusted Software Supply
+Chain or stand as a product of its own.
 
 ## References
 
