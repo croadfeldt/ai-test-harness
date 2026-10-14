@@ -208,6 +208,25 @@ def internals(unpacked: Path, names: list[str]) -> dict:
     return {"private": private, "calls": calls}
 
 
+def behaviours(unpacked: Path, names: list[str]) -> dict[str, list[dict]]:
+    """qualname -> the behaviours of each exported function and method, from the helper, with the module path the
+    way extract_api names symbols."""
+    modpath = names[0] if names else ""
+    out = subprocess.run([str(_helper()), "behaviours", str(unpacked)], capture_output=True, text=True, timeout=600)
+    if out.returncode != 0:
+        raise HarnessError(f"gohelper behaviours failed: {out.stderr[-300:]}")
+    doc = json.loads(out.stdout)
+    result = {}
+    for q, items in (doc.get("units") or {}).items():
+        # the helper's qualname is <package dir>.<Name> or <package dir>.<Type>.<Method>; the dir is empty at the module
+        # root and lowercase otherwise, while exported names start with a capital letter
+        head, _, rest = q.partition(".")
+        mod, name = (head, rest) if head and not head[:1].isupper() else ("", q)
+        pkg = f"{modpath}/{mod}" if mod else modpath
+        result[f"{pkg}.{name}"] = items
+    return result
+
+
 def api_diff(old: list[ApiSymbol], new: list[ApiSymbol]) -> list[ApiChange]:
     o = {s.qualname: s for s in old}; n = {s.qualname: s for s in new}
     changes = []

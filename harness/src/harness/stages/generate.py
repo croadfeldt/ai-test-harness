@@ -124,6 +124,43 @@ def security_findings(facts: dict) -> str | None:
     return "\n".join(parts)
 
 
+def behaviour_lines(doc: dict | None, used: list[str], limit: int = 40) -> list[str]:
+    """The worklist as the model reads it: one line per function the application uses, naming what it returns, what
+    it raises, each parameter's edges to try, and its decisions; then the advisories as results that must never happen."""
+    if not doc:
+        return []
+    units = doc.get("units") or {}
+    wanted = []
+    for u in used:
+        if u in units:
+            wanted.append(u)
+        else:
+            last = u.rsplit(".", 1)[-1]
+            cands = [q for q in units if q.endswith("." + last)]
+            if len(cands) == 1:
+                wanted.append(cands[0])
+    lines = []
+    for q in list(dict.fromkeys(wanted))[:limit]:
+        b = units[q]
+        rets = sorted({x["detail"] for x in b if x["kind"] in ("return", "error")})
+        raises = sorted({x["detail"] for x in b if x["kind"] == "raise"})
+        params = [f"{x['name']}{':' + x['type'] if x.get('type') else ''} (try {', '.join(x['try'][:3])})" for x in b if x["kind"] == "param"]
+        decisions = [f"{x['detail']} [{x['conditions']} conditions]" for x in b if x["kind"] == "decision"]
+        parts = []
+        if rets:
+            parts.append("; ".join(rets[:4]))
+        if raises:
+            parts.append("; ".join(raises[:4]))
+        if params:
+            parts.append("params " + "; ".join(params[:5]))
+        if decisions:
+            parts.append("decisions " + "; ".join(decisions[:3]))
+        lines.append(f"{q}: " + " | ".join(parts))
+    for m in (doc.get("must_never") or [])[:10]:
+        lines.append(f"MUST NEVER ({m['advisory']}): {m['detail']}" + (f" [{', '.join(m['symbols'][:4])}]" if m.get("symbols") else ""))
+    return lines
+
+
 def _data(title: str, obj) -> str:
     body = obj if isinstance(obj, str) else json.dumps(obj, indent=1)
     return f"\n<DATA name=\"{title}\">\n{body}\n</DATA>\n"
@@ -166,6 +203,10 @@ def build_prompt(category: str, facts: dict, api: dict, sites: list[dict], vulns
                      f"OLD version {facts['old_version']} is the fixed one. The test must fail on {facts['new_version']} and pass on {facts['old_version']}.")
     from .. import needs as _needs
     parts.append("DECLARED NEEDS: " + _needs.PROMPT_RULE.format(syntax=_needs.SYNTAX[adapter.ECOSYSTEM]))
+    bdoc_path = Path(facts.get("_facts_dir", "")) / "behaviours.json" if facts.get("_facts_dir") else None
+    bl = behaviour_lines(read_json(bdoc_path) if bdoc_path and bdoc_path.exists() else None, used)
+    if bl:
+        parts.append(_data("BEHAVIOURS TO CHECK (every result each function you test can produce; cover each with an assertion)", bl))
     parts.append(_data("API", _api_subset(api, used)))
     prod = [{"file": s["file"], "line": s["line"], "symbol": s["symbol"], "code": s["context"]} for s in sites if not s["in_test"]][:40]
     if facts.get("first_party"):
@@ -341,6 +382,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                      env_old: dict | None = None, adapter=None, src_root: Path | None = None, feedback: int | None = None) -> dict:
     adapter = adapter or adapters.get("python")
     facts = read_json(facts_dir / "facts.json")
+    facts["_facts_dir"] = str(facts_dir)   # where build_prompt finds the behaviour worklist; not written back
     feedback = feedback_budget() if feedback is None else feedback
     units_for_probe = None
     if src_root is not None and feedback:

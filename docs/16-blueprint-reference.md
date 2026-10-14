@@ -442,6 +442,12 @@ implementation runs these, and records which ran and which did not in every fact
 | Security linting of the application's call-site files and of the package's changed files at the new version | `bandit` (Python), `gosec` (Go) | SECURITY FINDINGS, which negative tests aim at first; a high-severity finding in the changed code is a `security` finding for a person |
 | Pre-flight scan of a new or changed package | GuardDog, with OSV's malicious-package feed | The `suspicious` gate, before anything executes |
 | Sensitivity of the package's domain | Keyword match on the package's own metadata | The risk score |
+| The behaviour worklist: per public function, every return, every raise or error return, the fall-through, each parameter's declared type with the edges its domain implies, each decision with more than one condition; each advisory as a result that must never happen | The harness's own extractors: Python `ast`, Go `go/ast` through the helper | BEHAVIOURS TO CHECK in the prompt, for the functions the application uses; `behaviours_identified` per reached behaviour in the accounting, the denominator behaviour coverage will be measured against |
+
+Parameter edges are inferred from the declared type, not read from source: Python and Go carry no ranges
+(only `Annotated[int, Ge(0)]` does, and few codebases use it), so the worklist says "try 0, -1, a very large
+value" for an `int` and labels it so. Implicit paths a parser misses (an exception raised by a callee, a
+`with` block that raises) are not in the list; a control-flow pass is the next step there.
 
 Not yet wired, and named here so no one assumes it: call-graph reachability (CodeLLM-Devkit or the
 language's own tools) in place of "the application references this package"; the ecosystems' contract

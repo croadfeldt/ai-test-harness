@@ -262,6 +262,148 @@ func apiCmd(dir string) {
 	json.NewEncoder(os.Stdout).Encode(map[string]any{"symbols": out, "internals": internals, "calls": calls})
 }
 
+type Behaviour struct {
+	Kind       string   `json:"kind"`
+	Name       string   `json:"name,omitempty"`
+	Type       string   `json:"type,omitempty"`
+	Detail     string   `json:"detail,omitempty"`
+	Try        []string `json:"try,omitempty"`
+	Conditions int      `json:"conditions,omitempty"`
+	Line       int      `json:"line"`
+}
+
+// goBoundaries: the inputs a parameter's type makes worth trying; Go source carries no ranges either.
+func goBoundaries(typ string) []string {
+	t := strings.TrimPrefix(typ, "*")
+	switch {
+	case strings.HasPrefix(t, "[]"), strings.HasPrefix(t, "map["):
+		return []string{"nil", "empty", "one element"}
+	case t == "string":
+		return []string{"the empty string", "a very long string", "non-ASCII text"}
+	case strings.HasPrefix(t, "int"), strings.HasPrefix(t, "uint"):
+		return []string{"0", "-1 or the maximum", "a very large value"}
+	case strings.HasPrefix(t, "float"):
+		return []string{"0", "a negative value", "NaN", "Inf"}
+	case t == "bool":
+		return []string{"true", "false"}
+	case t == "error":
+		return []string{"nil", "a non-nil error"}
+	case strings.HasPrefix(typ, "*"), strings.Contains(t, "interface"), t == "any", strings.HasPrefix(t, "func("):
+		return []string{"nil"}
+	}
+	return []string{"the zero value"}
+}
+
+func countConds(e ast.Expr) int {
+	b, ok := e.(*ast.BinaryExpr)
+	if !ok {
+		return 1
+	}
+	if b.Op == token.LAND || b.Op == token.LOR {
+		return countConds(b.X) + countConds(b.Y)
+	}
+	return 1
+}
+
+func behavioursOf(fset *token.FileSet, fd *ast.FuncDecl) []Behaviour {
+	var out []Behaviour
+	line := fset.Position(fd.Pos()).Line
+	if fd.Type.Params != nil {
+		for _, f := range fd.Type.Params.List {
+			typ := exprString(fset, f.Type)
+			for _, n := range f.Names {
+				out = append(out, Behaviour{Kind: "param", Name: n.Name, Type: typ, Try: goBoundaries(typ), Line: line})
+			}
+		}
+	}
+	if fd.Body == nil {
+		return out
+	}
+	ast.Inspect(fd.Body, func(n ast.Node) bool {
+		switch x := n.(type) {
+		case *ast.FuncLit:
+			return false
+		case *ast.ReturnStmt:
+			parts := []string{}
+			isErr := false
+			for _, r := range x.Results {
+				s := exprString(fset, r)
+				parts = append(parts, s)
+				if id, ok := r.(*ast.Ident); ok && (id.Name == "err" || strings.HasSuffix(id.Name, "Err")) {
+					isErr = true
+				}
+				if c, ok := r.(*ast.CallExpr); ok {
+					cs := exprString(fset, c.Fun)
+					if strings.HasSuffix(cs, "errors.New") || strings.HasSuffix(cs, "fmt.Errorf") || strings.HasSuffix(cs, "Errorf") {
+						isErr = true
+					}
+				}
+			}
+			kind := "return"
+			if isErr {
+				kind = "error"
+			}
+			d := strings.Join(parts, ", ")
+			if len(d) > 80 {
+				d = d[:80]
+			}
+			out = append(out, Behaviour{Kind: kind, Detail: "returns " + d, Line: fset.Position(x.Pos()).Line})
+		case *ast.CallExpr:
+			if id, ok := x.Fun.(*ast.Ident); ok && id.Name == "panic" {
+				out = append(out, Behaviour{Kind: "raise", Detail: "panics", Line: fset.Position(x.Pos()).Line})
+			}
+		case *ast.IfStmt:
+			if c := countConds(x.Cond); c > 1 {
+				out = append(out, Behaviour{Kind: "decision", Detail: exprString(fset, x.Cond), Conditions: c, Line: fset.Position(x.Pos()).Line})
+			}
+		case *ast.ForStmt:
+			if x.Cond != nil {
+				if c := countConds(x.Cond); c > 1 {
+					out = append(out, Behaviour{Kind: "decision", Detail: exprString(fset, x.Cond), Conditions: c, Line: fset.Position(x.Pos()).Line})
+				}
+			}
+		}
+		return true
+	})
+	return out
+}
+
+func behavioursCmd(dir string) {
+	fset := token.NewFileSet()
+	units := map[string][]Behaviour{}
+	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil || info.IsDir() || !strings.HasSuffix(path, ".go") {
+			return nil
+		}
+		rel, _ := filepath.Rel(dir, path)
+		if isTestFile(rel) || strings.HasPrefix(rel, "internal/") || strings.Contains(rel, "/internal/") || strings.HasPrefix(rel, "vendor/") {
+			return nil
+		}
+		f, err := parser.ParseFile(fset, path, nil, parser.ParseComments)
+		if err != nil {
+			return nil
+		}
+		pkgDir := filepath.Dir(rel)
+		if pkgDir == "." {
+			pkgDir = ""
+		}
+		module := strings.TrimSuffix(strings.ReplaceAll(pkgDir, string(filepath.Separator), "/"), "/")
+		for _, d := range f.Decls {
+			fd, ok := d.(*ast.FuncDecl)
+			if !ok || !fd.Name.IsExported() {
+				continue
+			}
+			name := fd.Name.Name
+			if fd.Recv != nil && len(fd.Recv.List) > 0 {
+				name = strings.TrimPrefix(exprString(fset, fd.Recv.List[0].Type), "*") + "." + name
+			}
+			units[joinQ(module, name)] = behavioursOf(fset, fd)
+		}
+		return nil
+	})
+	json.NewEncoder(os.Stdout).Encode(map[string]any{"units": units})
+}
+
 func joinQ(module, name string) string {
 	if module == "" {
 		return name
@@ -337,6 +479,8 @@ func main() {
 		os.Exit(2)
 	}
 	switch os.Args[1] {
+	case "behaviours":
+		behavioursCmd(os.Args[2])
 	case "api":
 		apiCmd(os.Args[2])
 	case "sites":

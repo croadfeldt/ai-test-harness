@@ -104,6 +104,7 @@ analyze/<package>/
   api.old.json api.new.json     public API surface, tool-derived
   api-diff.json                 added / removed / changed symbols, breaking flag and reason
   internals.json                private functions and methods with spans, and who calls whom; the accounting's closure
+  behaviours.json               the behaviour worklist: per public function, the results a test should check; advisories as must-never items
   call-sites.json               every first-party reference, production and test
   vulns.json                    advisories with fixed versions and any named symbols
   notes.untrusted.md            maintainer text from PyPI, banner says untrusted

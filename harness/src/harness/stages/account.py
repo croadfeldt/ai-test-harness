@@ -237,6 +237,8 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
     pl_path = workdir / "triage" / "pipeline.json"
     cannot_validate = [f for f in (read_json(pl_path).get("findings", []) if pl_path.exists() else []) if f.get("rule") in CANNOT_VALIDATE_RULES]
 
+    bpath = workdir / "analyze" / pkg / "behaviours.json"
+    behaviours = (read_json(bpath).get("units") or {}) if bpath.exists() else {}
     internals = load_internals(workdir, pkg)
     spans = _spans(api + internals["private"])
     calls = internals["calls"]
@@ -281,7 +283,7 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
         killed = [m for m in ms if str(m.get("status", "")).startswith("killed")]
         killers = {t for m in killed for t in m.get("killed_by", [])}
         proven_by = sorted(killers & executing) if by_test else sorted(killers & kept_names)
-        ev.update({"closure": [x for (x, *_r) in cl], "spans": [{"symbol": x, "file": f, "start": a, "end": b} for (x, f, a, b) in cl],
+        ev.update({"behaviours_identified": len(behaviours.get(q, [])), "closure": [x for (x, *_r) in cl], "spans": [{"symbol": x, "file": f, "start": a, "end": b} for (x, f, a, b) in cl],
                    "lines_executed": len(lines), "executed_by": sorted(executing), "attribution": attribution,
                    "mutants": {"sampled": len(ms), "killed": len(killed), "killed_by": sorted(killers)}, "proven_by": proven_by})
         if lines and killed and proven_by:
@@ -319,7 +321,8 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
               "for_your_environment": sum(1 for u in out_units if u["state"] == "for-your-environment"),
               "stated_gap": sum(1 for u in out_units if u["state"] == "stated-gap"),
               "by_reason": {r: sum(1 for u in out_units if u["reason"] == r) for r in REASONS if any(u["reason"] == r for u in out_units)},
-              "excluded": len(excluded)}
+              "excluded": len(excluded),
+              "behaviours_identified": sum(len(behaviours.get(u["symbol"], [])) for u in out_units) if behaviours else None}
     rec = {"format": "ai-test-harness/accounting/v1", "package": pkg, "generated": now_iso(),
            "unit": "a behaviour the change reaches: a public function, method or type of the package the application calls, or a public symbol the change altered",
            "method": {"execution": f"lines executed inside the unit's closure, its own span plus its private callees; attribution: {attribution}",
