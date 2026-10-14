@@ -6,24 +6,26 @@
 code and the other documents cite; [document 15](15-failure-register.md) is the failure register;
 [document 14](14-specification.md) lists what an implementation must do and the test that proves each.
 
-**Changes in v0.28:** the behaviour worklist (stage 2). For every public function the parser lists the results a
-test should check: each return, each raise or error return, the fall-through, each parameter's type with the
-edges its domain implies, each decision with more than one condition, and each advisory as a result that must
-never happen. The model reads it for the functions the application uses; the accounting counts it per reached
-behaviour as the denominator behaviour coverage will be measured against. Specification R27.
+**Changes in v0.28:** the behaviour worklist (stage 2). For every public function the parser lists
+the results a test should check: each return, each raise or error return, the fall-through, each
+parameter's type with the edges its domain implies, each decision with more than one condition. Each
+advisory is listed as a result that must never happen. The model reads it for the functions the
+application uses; the accounting counts it per reached behaviour as the denominator behaviour
+coverage will be measured against. Specification R27.
 
-**Changes in v0.27:** mutation feedback (stage 3). Before a passing file is believed, the harness breaks the
-package where the file's tests ran and runs the file against each breakage; a breakage the tests let through
-goes back to the model once as a diff, and the manifest records what was caught after. Specification R26.
+**Changes in v0.27:** mutation feedback (stage 3). Before a passing file is believed, the harness
+breaks the package where the file's tests ran and runs the file against each breakage. A breakage
+the tests let through goes back to the model once as a diff, and the manifest records what was
+caught after. Specification R26.
 
 **Changes in v0.26:** the flake check runs the candidates about to be proposed as many times as the team
 sets, five by default (TestGen-LLM's figure), after the two runs every test gets; any disagreement
 quarantines. Specification R9 updated.
 
-**Changes in v0.25:** testbed failure is its own status (stage 4), at the run level and per test: the
-environment's failure is never reported as the test's or the package's, the story opens with it, the
-accounting names it as the reason, and a CTRF report beside the results carries it as `other`. Specification
-R25.
+**Changes in v0.25:** testbed failure is its own status (stage 4), at the run level and per test.
+The environment's failure is never reported as the test's or the package's. The story opens with it,
+the accounting names it as the reason, and a CTRF report beside the results carries it as `other`.
+Specification R25.
 
 **Changes in v0.24:** declared needs (stage 4). Every test says what it needs from its testbed, `none`,
 `localhost`, `network` or `machine`; the team says what the testbed provides. A test that needs more is
@@ -31,15 +33,15 @@ withheld from the sealed run, recorded as skipped with its need, proposed to the
 and its behaviour is accounted for your environment. A test that declared nothing and opened a connection is
 a defect in the test, and the verdict says so. Specification R24.
 
-**Changes in v0.23:** per-test attribution for Go. The head run gives each passing test its own coverage
-profile and folds them into the coverage record as contexts, so the accounting applies the same rule in
-both ecosystems: the test that executed a behaviour must be the one that proved it.
+**Changes in v0.23:** per-test attribution for Go. The head run gives each passing test its own
+coverage profile and folds them into the coverage record as contexts. The accounting then applies
+the same rule in both ecosystems: the test that executed a behaviour must be the one that proved it.
 
-**Changes in v0.22:** the accounting credits a behaviour with the private helpers it delegates to (the
-closure, from a new `internals.json` the extractors write for Python and Go), attributes execution per
-test through coverage contexts recorded in the Python sandbox, requires the test that executed a behaviour
-to be the one that proved it, and aims mutation sampling at the reached behaviours first. Specification
-R11 and R23 updated.
+**Changes in v0.22:** the accounting credits a behaviour with the private helpers it delegates to,
+the closure, from a new `internals.json` the extractors write for Python and Go. It attributes
+execution per test through coverage contexts recorded in the Python sandbox, and requires the test
+that executed a behaviour to be the one that proved it. Mutation sampling aims at the reached
+behaviours first. Specification R11 and R23 updated.
 
 **Changes in v0.21:** the accounting (principle 15). Every behaviour the change reaches ends in exactly
 one state, validated, for your environment, or a stated gap with its reason, and nothing is silent. Triage
@@ -48,21 +50,22 @@ evaluation table carry it; assessment goal 13 checks that the counts sum and eve
 published runs it reads lower than "accepted", which is the point: see the dry run in
 [document 18](18-design-queue-research.md).
 
-**Changes in v0.20:** the static analysis is named as implemented (reference, stage 2): the harness's
-own API extractors and diffs, the call-site scans, OSV, and now `bandit`, `gosec` and GuardDog in the
-image, with their findings in the prompt as SECURITY FINDINGS and a high-severity finding in the changed
-code as a `security` finding for a person. What the design names and the code does not yet run is listed
-beside it.
+**Changes in v0.20:** the static analysis is named as implemented (reference, stage 2): the
+harness's own API extractors and diffs, the call-site scans, OSV, and now `bandit`, `gosec` and
+GuardDog in the image. Their findings reach the prompt as SECURITY FINDINGS, and a high-severity
+finding in the changed code is a `security` finding for a person. What the design names and the code
+does not yet run is listed beside it.
 
 **Changes in v0.19:** cut to three pages for the reader evaluating it. Nothing is dropped: v0.18 is
 kept whole as document 16, the register as document 15, and the earlier change notes with them.
 
 ## What it is
 
-A pipeline in which AI agents write tests for every change entering the software supply chain, run them
-in a sealed sandbox against both the old and the new version, score them, and hand a signed,
-human-reviewable packet to a person. First-party commits, direct dependencies and transitive
-dependencies alike. The output is evidence: for each change, a reproducible answer to three questions.
+A pipeline in which AI agents write tests for every change entering the software supply chain and
+run them in a sealed sandbox against both the old and the new version. The tests are scored, and a
+signed, human-reviewable packet goes to a person. First-party commits, direct dependencies and
+transitive dependencies alike. The output is evidence: for each change, a reproducible answer to
+three questions.
 
 1. What does this code actually do? (characterization)
 2. Did its behavior change from the version we had before? (differential)
@@ -133,13 +136,13 @@ Triage classes: `test-bug`, `behavior-change`, `undocumented-change`, `defect`, 
 `suspicious` (blocks the merge), `obsolete`, `redundant`, and for the CI itself `coverage-gap` and
 `pipeline`.
 
-**Two lifecycles, one core.** In the developer's inner loop the harness runs on the branch, in the same
-sealed sandbox, and the kept tests go into the developer's own pull request. In the CI outer loop it
-runs on every change unattended and opens a test pull request under a bot identity with signed commits
-and provenance: dependency tests to an overlay repository, first-party tests to the repository under
-test on the change's branch. In both, the merge is a pull request a person owns, and no generated test
-runs outside the sandbox before someone has read it. The harness's run is validation execution; the
-suite's later runs are regression execution, not a harness stage.
+**Two lifecycles, one core.** In the developer's inner loop the harness runs on the branch, in the
+same sealed sandbox, and the kept tests go into the developer's own pull request. In the CI outer
+loop it runs on every change unattended and opens a test pull request under a bot identity with
+signed commits and provenance. Dependency tests go to an overlay repository; first-party tests go to
+the repository under test, on the change's branch. In both, the merge is a pull request a person
+owns, and no generated test runs outside the sandbox before someone has read it. The harness's run
+is validation execution; the suite's later runs are regression execution, not a harness stage.
 
 ## Dependencies: where the budget goes
 
@@ -156,20 +159,21 @@ version is the highest-value technique for dependencies and the first thing buil
 
 ## Known vulnerabilities become evidence
 
-For every advisory on a version in the graph: locate the vulnerable symbols from the advisory or the fix
-diff; an exposure test at our call site if our code reaches them; a fix-pinning test that fails on the
-vulnerable version and passes on the fixed one; a draft VEX statement, `affected` with the exposure
-test, `not_affected` with reachability evidence, `fixed` only on a proven test. Roles come from the
-advisories, not commit order, so a downgrade reports as exposure. Product Security confirms every
-statement; the harness never publishes one.
+For every advisory on a version in the graph: locate the vulnerable symbols from the advisory or the
+fix diff. Write an exposure test at our call site if our code reaches them, and a fix-pinning test
+that fails on the vulnerable version and passes on the fixed one. Draft a VEX statement: `affected`
+with the exposure test, `not_affected` with reachability evidence, `fixed` only on a proven test.
+Roles come from the advisories, not commit order, so a downgrade reports as exposure. Product
+Security confirms every statement; the harness never publishes one.
 
 ## Test lifecycle and provenance
 
-A test is a `candidate` until a reviewer accepts it, `accepted` until the owning team promotes it to
-`standard` (it kills a mutant no other test kills, has survived two version bumps or caught a
-regression, and asserts behavior we depend on), and `retired` only by a person's approval of a proposal
-with evidence, as a state, never a deletion. Dependency tests live in an overlay repository by
-ecosystem, package and version range; first-party tests live in the repository.
+A test is a `candidate` until a reviewer accepts it, and `accepted` until the owning team promotes
+it to `standard`. Promotion means it kills a mutant no other test kills, has survived two version
+bumps or caught a regression, and asserts behavior we depend on. A test is `retired` only by a
+person's approval of a proposal with evidence, as a state, never a deletion. Dependency tests live
+in an overlay repository by ecosystem, package and version range; first-party tests live in the
+repository.
 
 Every test carries a provenance record: a UDLM `TestEvidence` record, with `SoftwarePackage`,
 `Vulnerability`, `Job` and `VexStatement` around it, sealed with UDLM's tamper-evident head, and a
@@ -201,7 +205,7 @@ provenance, the relevance engine, and CVE-targeted generation with VEX drafts.
 - Stage 0 passes: every register entry has a self-check; the register stands at twenty-eight.
 - Every run is assessed against thirteen goals, each with its measurement and the file it came from.
 - The reference jobs are rerun against the baseline in [document 12](12-prompt-and-model-evaluation.md).
-- [Document 14](14-specification.md) lists the twenty-two requirements and the test that proves each.
+- [Document 14](14-specification.md) lists the twenty-seven requirements and the test that proves each.
 
 Targets that matter most: mutation score above 0.6 on sampled mutants, flake rate under 1%, reviewer
 acceptance above 70%, a CVE-targeted test for every known vulnerability, a signed record on every

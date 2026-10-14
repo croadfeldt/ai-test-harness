@@ -33,6 +33,7 @@ to approve. Nothing merges without a person. Everything the harness produces is 
 ## What is in this repository
 
 ```
+AGENTS.md                    For an AI assistant or coding agent pointed at this repository: layout, rules, how to work
 docs/
   00-executive-summary.md    The point, in one page
   01-the-case.md             Why, what it costs, what it returns, what could go wrong
