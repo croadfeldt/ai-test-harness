@@ -75,6 +75,16 @@ platform-agnostic and runs wherever the team's pipeline runs. The design is the
 [decision record](21-decision-record.md); a proof of concept has run it end to end on two real
 repositories, every run [published](11-evidence-rollup.md).
 
+**Cost and noise, as measured on the example runs.** These figures come from one lab and two models and
+are examples, not a forecast for another environment. A package change cost half a million to one and a
+quarter million prompt tokens and under fifty thousand completion tokens, plus a few CPU-minutes of sandbox
+and mutation time; the same tokens took 97 minutes of model time on one model and 8 on another, so model
+time is the cost and it follows the inference hardware. A platform owner prices it in their own tokens and
+throughput. The harness runs beside the pull request pipeline, adding nothing to its critical path. Nothing
+reaches a reviewer unless it built, passed on both sides, ran five times without disagreement and killed
+a mutant; the initial targets are a flake rate under 1 percent, false suspicious findings under 5 percent
+and reviewer acceptance above 70 percent (blueprint reference, section 10).
+
 **Timeline & Milestones:**
 
 1. **Pilot, weeks 1 to 6.** Two example projects, own code and direct dependencies, from the pull

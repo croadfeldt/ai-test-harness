@@ -159,7 +159,10 @@ is validation execution; the suite's later runs are regression execution, not a 
 
 The risk score weighs reachability most, then change size and contract change, sensitivity, upstream
 signals, known vulnerabilities, pre-flight hits and history. The same tests on the old and the new
-version is the highest-value technique for dependencies and the first thing built.
+version is the highest-value technique for dependencies and the first thing built. Cost is counted in tokens
+and CPU-minutes, the units that travel between environments: on the example runs a package change cost half
+a million to one and a quarter million prompt tokens and a few CPU-minutes besides, with model time following
+the hardware (reference, section 10).
 
 ## Known vulnerabilities become evidence
 

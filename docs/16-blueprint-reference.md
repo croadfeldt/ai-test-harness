@@ -1046,6 +1046,23 @@ what the behaviour tests missed, never as the score. The pilot's exit criteria a
 [document 22](22-pilot-plan.md); the standard for work never seen before and the two-sided regression check
 on reference jobs are decisions D4 and D14 in [document 21](21-decision-record.md).
 
+**Cost, as measured on the example runs.** The unit that travels between environments is tokens for the
+model and CPU-minutes for everything else; wall-clock time does not travel, so it is shown only to make that
+point. Three published runs, one package change each, one lab, two models. Examples, not a forecast: price
+them in your own tokens and throughput, scaled by your pull requests and dependency bumps per month.
+
+| Run | Model calls | Prompt tokens | Completion tokens | Model wall time | Sandbox | Mutation |
+|---|---|---|---|---|---|---|
+| python-jose on a 235B mixture | 93 | 454,000 | 15,000 | 97 min | 1 min | 9 min |
+| kin-openapi on the same model | 137 | 1,235,000 | 33,000 | 111 min | under 1 min | 3 min |
+| python-jose on a 27B dense model | 69 | 432,000 | 12,000 | 8 min | 1 min | 4 min |
+
+Prompt tokens dominate because the API surface and the call sites are resent on every repair attempt, so
+prompt caching at the endpoint is the first lever on cost; the environment-aware planner (queue Q9) is the
+second. Every model call records its usage, so a pilot reports real spend per pull request from the first
+run rather than estimating it. The harness runs beside the pull request pipeline, never in its critical
+path: it adds nothing to the build, and the gate policy decides whether to wait for the verdict.
+
 | Metric | Target (initial) | Why |
 |---|---|---|
 | Generated test build success rate | > 90% after retries | Generator quality |
