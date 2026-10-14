@@ -143,7 +143,9 @@ same sealed sandbox, and the kept tests go into the developer's own pull request
 loop it runs on every change unattended and opens a test pull request under a bot identity with
 signed commits and provenance. Dependency tests go to an overlay repository; first-party tests go to
 the repository under test, on the change's branch. In both, the merge is a pull request a person
-owns, and no generated test runs outside the sandbox before someone has read it. The harness's run
+owns, and no generated test runs outside the sandbox before someone has read it. The gate reads two
+inputs, the pipeline's result and the harness's verdict, and either can hold the merge under the team's
+policy. The harness's run
 is validation execution; the suite's later runs are regression execution, not a harness stage.
 
 ## Dependencies: where the budget goes
@@ -209,6 +211,9 @@ provenance, the relevance engine, and CVE-targeted generation with VEX drafts.
 - Every run is assessed against thirteen goals, each with its measurement and the file it came from.
 - The reference jobs are rerun against the baseline in [document 12](12-prompt-and-model-evaluation.md).
 - [Document 14](14-specification.md) lists the twenty-seven requirements and the test that proves each.
+- Done is a standard of behaviour on work never seen before, every reached behaviour in one of three
+  states and nothing claimed that was not proven, plus a regression check on the reference jobs, whose
+  known answers are two-sided. The settled positions behind this are in [document 21](21-decision-record.md).
 
 Targets that matter most: mutation score above 0.6 on sampled mutants, flake rate under 1%, reviewer
 acceptance above 70%, a CVE-targeted test for every known vulnerability, a signed record on every

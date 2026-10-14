@@ -720,6 +720,15 @@ request is opened on GitHub or GitLab by tool or API; on any other forge the bra
 the request is a person's to open. Either way tests are added through a pull request; the harness
 never merges.
 
+**The gate reads two things, and either can say no (decision D8).** The pipeline's own result, which
+now includes the harness's tests running in the team's environment, existing suite included; and the
+harness's verdict: what was validated, what needs the team's environment, and what was not checked, with
+the reasons. What counts as inadequate is the team's policy, set in their own file: an unchecked behaviour
+an advisory says must never happen, a strength score under the floor, too many gaps on new code. Both land
+on the pull request as statuses a branch policy can require (queue Q7). The harness never merges and never
+decides alone, but when the policy says its result is a negative, the merge waits and the record says why.
+A `neutral` conclusion passes branch protection, so nothing meant to hold a merge may report as neutral.
+
 ### Stage 7: Feedback
 
 - The review gate's decisions (section 5.0), whether made in code review or on a test pull request,
@@ -796,6 +805,14 @@ coverage of what we actually reach.**
 - **History**: has this package caused a triage finding before?
 
 The score sets the generation budget (number of tests, fuzz minutes, mutation sample size) for the item.
+
+**The team owns every number (decision D9), and the harness plans to the time it is given (D10).** Mutants,
+repeats, tests per file, model time per change, which gaps block, which dependencies get full effort, what
+the testbed provides: settings in a file in the team's repository, with defaults the harness ships and
+explains, and the resolved values written into every run (queue Q8). Cost is described by its shape, never
+by the minutes one lab measured: model time dominates and scales with the inference hardware. At run start
+the harness measures that hardware and plans candidates, repairs, probes and mutants to fit the team's time
+budget with slack, highest-value work first, and reports what it did not reach as a stated gap (queue Q9).
 
 ### 6.4 Characterization snapshots
 
@@ -898,6 +915,11 @@ The attestation is signed with Trusted Artifact Signer. Conforma policies can th
 that every direct dependency at a release has at least one `accepted` or `standard` test attached, or
 that no `suspicious` finding is open. The SBOM component entry references the tests that characterize it,
 so a consumer of the SBOM can find the evidence.
+
+**Standards first; UDLM is enablement (decision D13).** The record a reader must understand is the
+in-toto statement, the SLSA provenance and the OpenVEX draft. The same evidence is exported as UDLM records,
+which link it into the wider lifecycle chain the DCM work is building, so one record spans the change, the
+build and the estate; that export becomes a switch the team sets (queue Q14), on when the chain is wanted.
 
 ### 8.3 Promotion to the standard suite
 
@@ -1014,6 +1036,15 @@ keeps review tractable, keeps the evidence independent of what it judges, and ke
 the product's design decisions.
 
 ## 10. Metrics, quality gates, and benchmarks
+
+**The extended goal is coverage of behaviour, not lines (decision D12).** For every function the
+application reaches, every result it can produce, the good path, each class of bad input and each boundary,
+each combination of conditions that changes the outcome, and each thing an advisory says must never happen,
+has a test that checks it, proven by mutation testing, or the gap is named (stage 2's behaviour worklist is
+the denominator; queue Q6 the numerator). Line coverage is used the way Google and DO-178C use it, to find
+what the behaviour tests missed, never as the score. The pilot's exit criteria are in
+[document 22](22-pilot-plan.md); the standard for work never seen before and the two-sided regression check
+on reference jobs are decisions D4 and D14 in [document 21](21-decision-record.md).
 
 | Metric | Target (initial) | Why |
 |---|---|---|
