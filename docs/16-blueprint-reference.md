@@ -521,6 +521,16 @@ vulnerability that is not yet public or not yet fixed are stored with restricted
 overlay until disclosure, following the normal Product Security embargo process. Public reproducers are
 read as untrusted data and rewritten by the agent, never copied in.
 
+**Mutation feedback, as implemented (MuTAP's idea).** Before a file that passes its baseline run is believed,
+the harness breaks the package on purpose in a few places the file's tests executed, inside the reached
+behaviours' closures first, and runs the file against each breakage in the sealed sandbox. A breakage every
+test lets through is a line the tests executed without checking, and it goes back to the model once, as a
+repair round, with the diff and the instruction to add the check that line deserves. The file is then probed
+again with the same breakages and the manifest records how many were caught after the feedback. The number
+of probes is the team's (`[generate] mutation_feedback`, three by default; zero disables it), and the probe
+is an aid: a package whose source the harness cannot read is generated without it. Stage 4's mutation run
+still measures the final file; this is the loop that makes it stronger before it gets there.
+
 ### Stage 4: Validation execution
 
 This is the harness's own run of the candidate tests: both versions, sealed, once. It is not the

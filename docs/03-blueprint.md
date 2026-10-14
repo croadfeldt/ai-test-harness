@@ -1,10 +1,14 @@
 # AI Test Harness: the blueprint
 
-**Status:** Draft v0.26, 2026-10-14. **Owner:** Chris Roadfeldt.
+**Status:** Draft v0.27, 2026-10-14. **Owner:** Chris Roadfeldt.
 **For:** engineers and architects deciding whether to build, run or adopt this. Three pages.
 **Behind it:** [document 16](16-blueprint-reference.md) is the long form, with the section numbers the
 code and the other documents cite; [document 15](15-failure-register.md) is the failure register;
 [document 14](14-specification.md) lists what an implementation must do and the test that proves each.
+
+**Changes in v0.27:** mutation feedback (stage 3). Before a passing file is believed, the harness breaks the
+package where the file's tests ran and runs the file against each breakage; a breakage the tests let through
+goes back to the model once as a diff, and the manifest records what was caught after. Specification R26.
 
 **Changes in v0.26:** the flake check runs the candidates about to be proposed as many times as the team
 sets, five by default (TestGen-LLM's figure), after the two runs every test gets; any disagreement
@@ -111,7 +115,7 @@ rewritten after every stage.
 | 0 Self-verification | Every register self-check, then sandbox and model probes; any failure stops the run | `selfcheck` record, cited by every manifest |
 | 1 Intake | A repository and two refs (no base means rescan); the dependency graph at both, resolved in the target's own interpreter image; pre-flight gates; advisories per version | Work list: a row per package with depth, reachability and pre-flight result, and one for the repository |
 | 2 Analysis | Per row: API surface and diff from tooling, never the model; source diff; our call sites; advisories with symbols and fix diff; security linting (`bandit`, `gosec`) of the call sites and the changed code, a pre-flight scan (GuardDog, OSV) of new packages; what the CI does with untrusted code and what the suite reaches; a risk score that sets the budget. Every tool that ran or did not is named in the bundle (reference, stage 2) | Fact bundles |
-| 3 Generation | Unit, functional, negative, CVE-targeted, property and fuzz tests plus support code; compile, baseline run, repair; kept only if it compiles, collects and passes on the baseline | Candidates with a manifest |
+| 3 Generation | Unit, functional, negative, CVE-targeted, property and fuzz tests plus support code; compile, baseline run, repair; kept only if it compiles, collects and passes on the baseline; mutation feedback: a passing file is probed with deliberate breakages of the package, and the ones its tests miss go back to the model once | Candidates with a manifest |
 | 4 Validation execution | Sealed, both versions, once: head run, flake check (two runs for every test, five for the candidates about to be proposed, the count the team's), coverage, mutation on executed lines only, differential against the base or a resolved fixed candidate, relevance of existing tests; every test's declared need honoured: none and localhost run sealed, network and machine are withheld and proposed to the team, an undeclared connection is a test defect; a failure of the testbed itself is its own status, never a verdict about the tests | An honest verdict per test |
 | 5 Triage | A class, a confidence and a route for every verdict and finding; below the threshold a person decides; then the accounting: every reached behaviour in one of three states | Findings; the accounting |
 | 6 Review | The packet in plain terms, tests as a patch, a draft VEX per advisory, promotions and retirements, the signed statement and UDLM records, the pull request text; the CI loop opens the test pull request | Packet, attestation, pull request |
