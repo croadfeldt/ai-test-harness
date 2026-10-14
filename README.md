@@ -18,6 +18,7 @@ to approve. Nothing merges without a person. Everything the harness produces is 
 | A CEO, managing director, board member, or anyone who wants the point without the mechanics | [Executive summary](docs/00-executive-summary.md) | 5 minutes |
 | A CTO, VP of Engineering, or CISO deciding whether to fund this | [Executive summary](docs/00-executive-summary.md), then [The case](docs/01-the-case.md) and [Roadmap](docs/07-roadmap.md) | 20 minutes |
 | An engineer, architect, or security analyst who will build or run it | [How it works](docs/02-how-it-works.md), then [Blueprint](docs/03-blueprint.md), [Capability map](docs/05-capability-map.md), [Workflows and RACI](docs/06-workflows-and-raci.md) | 2 hours |
+| The engineering team taking it on | [Engineering handoff](docs/20-engineering-handoff.md), [Decision record](docs/21-decision-record.md), [Pilot plan](docs/22-pilot-plan.md), then the [specification](docs/14-specification.md) and the [design queue](docs/17-design-queue.md) | 1 hour |
 | A member of the public, a journalist, a student, or a customer | [Executive summary](docs/00-executive-summary.md) and [Glossary](docs/08-glossary.md) | 10 minutes |
 | Someone presenting this | Decks per audience: [executives](slides/executive.md) 5 min, [funding decision](slides/funding.md) 15 min, [builders and operators](slides/builder.md) 30 min, [readers](slides/public.md) 10 min; the [full deck](slides/deck.md) | |
 
@@ -50,6 +51,9 @@ docs/
   17-design-queue.md         What the business-case review changed in the promise, and what has to change in the blueprint and code to match
   18-design-queue-research.md  Research behind each queue item: what the code has, what the industry does, what contradicts the plan
   19-use-case-verified-fix-ingestion.md  Proposal: verify publishers' "fixed" claims with fix-pinning tests in our environment; the harness as an artifact ingestion pipeline
+  20-engineering-handoff.md  For the engineering team: what exists, what it maps to, how to run and extend it, what it needs, what does not work yet
+  21-decision-record.md      The positions settled in the review, each with its reason and what it rules out
+  22-pilot-plan.md           The first milestone made operational: what to stand up, what to measure, where each measure is read, who signs
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
   deck.md                    The full deck
