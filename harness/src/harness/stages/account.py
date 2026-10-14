@@ -24,7 +24,6 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from .. import adapters
 from ..util import log, now_iso, read_json, write_json
 
 STATES = ("validated", "for-your-environment", "stated-gap")
@@ -232,6 +231,7 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
     mut_path = workdir / "execute" / pkg / "mutation" / "mutation.json"
     mut = read_json(mut_path) if mut_path.exists() else {}
     cov_path = workdir / "execute" / pkg / "new" / "coverage.json"
+    from .. import adapters   # here, not at import: the site builder renders the story without the adapters' dependencies
     adapter = adapter or adapters.get(read_json(workdir / "intake" / "worklist.json").get("ecosystem", "python"))
     executed = adapter.coverage_files(cov_path, adapter.import_roots(facts)) if cov_path.exists() else {}
     pl_path = workdir / "triage" / "pipeline.json"
