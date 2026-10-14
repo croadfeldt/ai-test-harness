@@ -18,7 +18,7 @@ description: One slide on the value; one on the flow, the data it reads and why
 
 **A test suite that grows where none existed.** The tests nobody will write by hand get written, run and scored; the ones that earn their keep join your suite, and the review time it costs is measured on every run.
 
-*Built, and running end to end on real repositories, with every run published. Honest by design: every behaviour it reaches is validated, handed to you, or named as a gap.*
+**Proof that travels with the product.** Signed records your customers, auditors and regulators can verify, and no silent coverage: every behaviour a change reaches is validated, handed to you, or named as a gap with its reason.
 
 **The ask:** a six-week pilot on two projects, a named sponsor, a compute budget priced in your own tokens.
 
