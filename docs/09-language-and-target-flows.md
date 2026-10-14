@@ -51,8 +51,8 @@ flowchart TB
 
 | Target | When | Isolation | Provisioner | Cost |
 |---|---|---|---|---|
-| Kubernetes / OpenShift | Default for every Konflux run | RuntimeClass gVisor or Kata (OpenShift sandboxed containers), deny-all NetworkPolicy, no service account token, resource limits, pod deleted after run | Tekton TaskRun inside the harness PipelineRun | Lowest |
-| Podman | Developer reproducing a review packet locally; CI runners outside Konflux; air-gapped environments | Rootless, `--network=none`, read-only rootfs, dropped capabilities, gVisor or crun-krun runtime for depth 1 and deeper | The runner script, same image | Low |
+| Kubernetes / OpenShift | Default for every run inside a build platform (Konflux, in the example) | RuntimeClass gVisor or Kata (OpenShift sandboxed containers), deny-all NetworkPolicy, no service account token, resource limits, pod deleted after run | Tekton TaskRun inside the harness PipelineRun | Lowest |
+| Podman | Developer reproducing a review packet locally; CI runners outside the build platform; air-gapped environments | Rootless, `--network=none`, read-only rootfs, dropped capabilities, gVisor or crun-krun runtime for depth 1 and deeper | The runner script, same image | Low |
 | Virtual machine | Package is RPM-delivered, needs OS services, SELinux policy, kernel interfaces, or multi-user behavior | Fresh VM from a golden image, no outbound network after the image is pulled, snapshot discarded after run | tmt provision through Testing Farm (Artemis) | Medium |
 | Bare metal | Drivers, firmware interfaces, accelerator libraries, architecture-specific code (aarch64, ppc64le, s390x), performance-sensitive packages where virtualization skews results | Machine reprovisioned and wiped after every run; network isolated at the switch or by Testing Farm policy | tmt provision through Testing Farm (Beaker pool) | Highest, so risk score must justify it |
 
@@ -251,7 +251,7 @@ flowchart LR
 
 Podman is the developer's reproduction path. A review packet includes the exact `podman run` line and
 the artifact digest, so any engineer can replay the run on a laptop and get the same results.json. On CI
-runners outside Konflux the same image runs with the same flags and the collector signs; on a laptop
+runners outside the build platform the same image runs with the same flags and the collector signs; on a laptop
 there is no signing and the attestation is marked `replay, unsigned`.
 
 ### Virtual machine (Testing Farm)

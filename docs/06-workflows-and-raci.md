@@ -74,7 +74,7 @@ two minutes. A failing check blocks the run; there is no override.
 
 ## 1. Intake and inventory
 
-**Trigger.** Konflux snapshot ready; PR opened or updated; lockfile or SBOM diff; scheduled rescan.
+**Trigger.** Build platform snapshot ready (Konflux, in the example); PR opened or updated; lockfile or SBOM diff; scheduled rescan.
 
 ```mermaid
 flowchart LR

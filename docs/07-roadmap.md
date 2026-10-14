@@ -26,7 +26,7 @@ four engineers and will be replaced by measured velocity after Phase 0.
 
 **Goal.** Prove that generated tests are strong enough to be worth a reviewer's time, on real code.
 
-- One Go service and one Python service, both already building on Konflux.
+- One Go service and one Python service, both already building on a build platform (Konflux, in the example pilot).
 - Our own code (depth 0) and direct dependencies (depth 1) only.
 - Build the differential step first and run it against BUMP, the public benchmark of about 570 real
   breaking Java dependency upgrades.
@@ -47,7 +47,7 @@ real finding. Reviewer feedback collected from both teams. BUMP catch rate measu
 
 **Goal.** Run on every PR in the pilot repositories without anyone pressing a button.
 
-- Triggered by Konflux integration-service.
+- Triggered by the build platform's integration step (Konflux integration-service, in the example).
 - Mutation testing and flake detection added. Weak and flaky tests never reach a reviewer.
 - Test overlay repository, provenance manifest, and in-toto predicate established.
 - First version of the relevance engine: tests whose target symbol or code path was removed are

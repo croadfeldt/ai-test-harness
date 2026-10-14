@@ -17,7 +17,7 @@ Chris Roadfeldt. Fifteen minutes.
 
 # The ask
 
-A six-week pilot on two services already building on Konflux, a named sponsor, a compute budget, and two product teams who will review what the harness produces.
+A six-week pilot on two services already building on a supported build platform (Konflux, in the example), a named sponsor, a compute budget, and two product teams who will review what the harness produces.
 
 At the end of six weeks I show you whether the tests are good enough to continue, measured against real breaking dependency upgrades, not against my opinion.
 
@@ -27,7 +27,7 @@ At the end of six weeks I show you whether the tests are good enough to continue
 
 - A mid-sized Go or Java service resolves several hundred to a few thousand packages. Engineers chose perhaps fifty.
 - The rest arrived as dependencies of dependencies. Nobody on our side has read or tested them.
-- Konflux already gives us hermetic builds, a bill of materials, and signed provenance for the build. It gives us nothing about whether any of that code works, or whether a new version still does what the old one did.
+- A build platform such as Konflux already gives us hermetic builds, a bill of materials, and signed provenance for the build. It gives us nothing about whether any of that code works, or whether a new version still does what the old one did.
 
 ---
 

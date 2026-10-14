@@ -214,7 +214,7 @@ repository. Records carry labels and digests.
 
 # What is fixed, and what is a variable
 
-**Fixed:** Tekton on Konflux as the pipeline; Podman today and a Kata pod on the cluster; OSV; pip's resolver in the target image; the standard library AST; the harness's own mutator until a mutmut integration for installed packages exists; in-toto test-result; OpenVEX; UDLM records.
+**Fixed:** Tekton as the pipeline (on Konflux, in the example); Podman today and a Kata pod on the cluster; OSV; pip's resolver in the target image; the standard library AST; the harness's own mutator until a mutmut integration for installed packages exists; in-toto test-result; OpenVEX; UDLM records.
 
 **Variables, one at a time:** the model and its serving; the generation variant; the budgets. The ladder is how a variable earns its place.
 

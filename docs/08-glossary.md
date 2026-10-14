@@ -8,7 +8,7 @@
 | **Attestation** | A signed statement, in a machine-readable format, that something happened: this artifact was built from this source, or these tests were run against this package and this is what they found. |
 | **Call graph** | A map of which functions call which other functions. It lets us ask "does any of our code ever reach this function in that package?" |
 | **Characterization test** | A test that records what code currently does, without judging whether that is correct. Useful for detecting change. |
-| **Conforma** | The policy engine in Konflux that checks attestations against rules before something is released. Formerly called Enterprise Contract. |
+| **Conforma** | The policy engine in Konflux (the example build platform) that checks attestations against rules before something is released. Formerly called Enterprise Contract. |
 | **CVE** | Common Vulnerabilities and Exposures. The public identifier for a known security vulnerability, for example CVE-2024-3094. |
 | **CVE-targeted test** | A test written specifically to check whether a known vulnerability affects us, and to make sure it stays fixed. |
 | **Dependency** | A software package our code uses. A **direct** dependency is one we chose. A **transitive** dependency is one that a dependency pulled in. |
@@ -16,9 +16,9 @@
 | **Fuzzing** | Feeding a program large volumes of random or semi-random input to find crashes and unexpected behavior. |
 | **Functional test** | A test that exercises a package through its public interface the way a real user of it would. |
 | **Hermetic build** | A build with no network access, using only dependencies fetched and pinned in advance. It guarantees the build is reproducible and that nothing was pulled in unexpectedly. |
-| **Hermeto** | The tool in Konflux that pre-fetches dependencies for hermetic builds and produces the SBOM. |
+| **Hermeto** | The tool in Konflux (the example build platform) that pre-fetches dependencies for hermetic builds and produces the SBOM. |
 | **in-toto** | An open standard for the format of attestations. SLSA provenance is an in-toto attestation. |
-| **Konflux** | Red Hat's open source software factory: the build and release pipeline this harness runs on. |
+| **Konflux** | Red Hat's open source software factory, used throughout these documents as the example build platform. The harness is platform-agnostic: it runs wherever its triggers run. |
 | **LLM** | Large language model. The kind of AI that reads and writes text and code. |
 | **Mutation testing** | Deliberately introducing small bugs into code and checking whether the tests catch them. A test suite that catches most mutants is strong. One that catches none is decoration. |
 | **Negative test** | A test that gives code bad input and checks that it refuses cleanly, rather than crashing or accepting it. |

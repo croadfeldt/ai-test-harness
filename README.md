@@ -56,7 +56,7 @@ blueprint/
   adapter-interface.md       The contract each language ecosystem adapter implements
   manifest.schema.yaml       The provenance record every generated test carries
   test-evidence-predicate.json  The in-toto attestation predicate
-  pipeline-skeleton.yaml     A Tekton pipeline outline for Konflux
+  pipeline-skeleton.yaml     A Tekton pipeline outline (Konflux is the example platform)
 diagrams/
   *.mmd                      Mermaid sources for every diagram, reusable in slides
 harness/
@@ -94,7 +94,8 @@ testing proves the tests are strong. A differential run against the previous ver
 Everything is classified, attached to a signed provenance record, and handed to a reviewer. Tests that
 earn their keep are promoted into our standard suite. Tests that code changes have made irrelevant are
 retired. Known vulnerabilities get targeted tests whose results become draft VEX statements for Product
-Security to confirm. The whole thing runs on Konflux and targets SLSA Build Level 3.
+Security to confirm. The whole thing runs inside whatever build platform the team already uses, Konflux
+in the example, and targets SLSA Build Level 3.
 
 ## How this is written
 
