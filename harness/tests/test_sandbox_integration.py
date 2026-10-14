@@ -11,6 +11,7 @@ pytestmark = pytest.mark.skipif(shutil.which("podman") is None, reason="podman n
 PROBE = '''
 import os, socket, pytest
 
+@pytest.mark.needs("network")   # asks the container, not the harness's guard: declared, so the guard stands aside
 def test_no_network():
     """Outbound connections fail inside the sandbox."""
     s = socket.socket(); s.settimeout(3)

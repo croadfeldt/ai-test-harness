@@ -7,6 +7,9 @@ for every sandbox run.
 """
 from __future__ import annotations
 
+import re
+import shutil
+
 from pathlib import Path
 
 from .. import adapters
@@ -25,6 +28,18 @@ def _reqs(workdir: Path, tag: str, adapter=None) -> list[str]:
     return (adapter or adapters.get("python")).requirements(g)
 
 
+NETWORK_ERROR = re.compile(r"dial tcp|connection refused|no such host|network is unreachable|name resolution|Name or service not known|"
+                           r"HarnessUndeclaredNeed|undeclared need", re.I)
+
+
+def undeclared(t: dict) -> bool:
+    """A test that declared no need (or localhost) and failed the way a sealed network fails: it used what it
+    did not declare. Python names it (the conftest raises HarnessUndeclaredNeed); Go is read from the error."""
+    from ..needs import normalize
+    return normalize(t.get("needs")) in ("none", "localhost") and t["versions"].get("new") in ("fail", "error") \
+        and bool(NETWORK_ERROR.search(t.get("message") or ""))
+
+
 def verdict(t: dict, msg_old: str, roles: dict, fix_patch: str | None) -> str:
     """Every old/new outcome maps to a fixed, honest verdict (GF-012). CVE tests are judged by the
     differential with the roles from the advisories (GF-016); a test that did not compile is a test
@@ -34,6 +49,11 @@ def verdict(t: dict, msg_old: str, roles: dict, fix_patch: str | None) -> str:
     msg_new = t.get("message", "")
     if t["status"] == "flaky":
         return "flaky: discard"
+    if t["status"] == "skipped" and t.get("needs"):
+        from ..needs import skip_verdict
+        return skip_verdict(t["needs"])
+    if undeclared(t):
+        return "undeclared need: the test uses the network without declaring it; test bug: declare the need or remove the connection"
     if t["category"] == "cve":
         # GF-016: roles, not commit order. On a downgrade the NEW version is the vulnerable one.
         vuln_status, fixed_status = (n, o) if roles["direction"] in ("downgrade", "candidate") else (o, n)
@@ -69,6 +89,24 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
     tests_dir = workdir / "generate" / pkg / "tests"
     out = workdir / "execute" / pkg
     out.mkdir(parents=True, exist_ok=True)
+    # Declared needs (stage 4): tests whose need this testbed does not provide are withheld from the sealed
+    # runs and recorded as skipped with their need; the rest run with the declaration enforced.
+    from .. import needs as _needs
+    provides = _needs.provided()
+    declared = {t: n for f in gen["files"] for t, n in (f.get("needs") or {}).items()}
+    held = _needs.withheld(declared, provides)
+    if held:
+        sealed = out / "tests-sealed"
+        if sealed.exists():
+            shutil.rmtree(sealed)
+        sealed.mkdir(parents=True)
+        for f in gen["files"]:
+            code = (workdir / "generate" / pkg / f["file"]).read_text()
+            remaining = adapter.drop_tests(code, {t for t in f["tests"] if t in held}) if any(t in held for t in f["tests"]) else code
+            if adapter.test_names(remaining):
+                (sealed / Path(f["file"]).name).write_text(remaining)
+        tests_dir = sealed
+        log(f"    {pkg}: {len(held)} test(s) withheld from the sealed run for a need this testbed does not provide ({', '.join(sorted(set(held.values())))}); provides {sorted(provides)}")
     facts = read_json(workdir / "analyze" / pkg / "facts.json")
     roots = adapter.import_roots(facts)
     from .agent import fix_reached
@@ -122,8 +160,13 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
         tests.append({"id": tid, "name": name, "param_id": tid.split("::")[-1], "category": f.get("category", "unknown"), "file": f.get("file"),
                       "status": status, "duration_ms": r_new["duration_ms"], "message": r_new["message"][:500],
                       "versions": {"old": old, "new": r_new["status"]},
-                      "expected_differential": f.get("expected_differential"),
+                      "expected_differential": f.get("expected_differential"), "needs": declared.get(name, "none"),
                       "symbols_exercised": f.get("targets", [])[:10]})
+    for name, need in sorted(held.items()):
+        f = by_file.get(name, {})
+        tests.append({"id": f"{Path(f.get('file', 'tests/withheld')).stem}::{name}", "name": name, "param_id": name, "category": f.get("category", "unknown"), "file": f.get("file"),
+                      "status": "skipped", "duration_ms": 0, "message": "", "versions": {"old": "na", "new": "na"},
+                      "expected_differential": f.get("expected_differential"), "needs": need, "symbols_exercised": f.get("targets", [])[:10]})
     # Verdict per test from the differential, per blueprint stage 3 and 4.
     for t in tests:
         msg_old = (runs["old"]["results"].get(t["id"], {}).get("message", "") if "old" in runs else "")
@@ -137,6 +180,7 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                    "identity": runs["new"]["sandbox"]["image"],
                    "image_digest": runs["new"]["sandbox"].get("image_digest"), "isolation": runs["new"]["sandbox"]["isolation"]},
         "package": {"purl": gen["purl"], "old_version": gen["old_version"], "new_version": gen["new_version"]},
+        "testbed": {"provides": sorted(provides), "withheld": held, "declared": declared},
         "tests": tests,
         "counts": {"total": len(tests),
                    "pass_on_new": sum(1 for t in tests if t["versions"]["new"] == "pass"),
@@ -145,7 +189,8 @@ def execute_package(workdir: Path, pkg: str, python_version: str, adapter=None) 
                    "cve_roles": roles,
                    "fix_reached_assertion_wrong": sum(1 for t in tests if t["verdict"].startswith("fix reached")),
                    "blocked_both_versions": sum(1 for t in tests if t["verdict"].startswith("blocked on both")),
-                   "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed"))},
+                   "behavior_changed": sum(1 for t in tests if t["verdict"].startswith("behavior changed")),
+                   "for_your_environment": len(held), "undeclared_need": sum(1 for t in tests if t["verdict"].startswith("undeclared need"))},
         "coverage_ref": "new/coverage.json" if cov_new.get("available") else None,
         "coverage_summary": {"covered_lines_in_target": cov_new.get("covered_lines_in_target", 0),
                              "files": {k: {"covered": v["covered_lines"], "statements": v["num_statements"]}

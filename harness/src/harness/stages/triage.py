@@ -17,7 +17,8 @@ ROUTING = {"test-bug": "regenerate or discard; no human time", "behavior-change"
            "security": "Product Security", "suspicious": "Supply Chain Security; block merge",
            "obsolete": "propose retirement", "redundant": "propose retirement or merge",
            "coverage-gap": "pipeline owners: the existing suite does not reach this; accept this run's tests or add your own",
-           "pipeline": "pipeline owners: correct the pipeline; the harness does not edit it"}
+           "pipeline": "pipeline owners: correct the pipeline; the harness does not edit it",
+           "for-your-environment": "the team: proposed with its declared need; proves itself in their pipeline, never in the harness"}
 
 
 def _aliases_for(vulns_doc: dict, cve: str) -> list[str]:
@@ -127,7 +128,11 @@ def triage_package(workdir: Path, pkg: str) -> dict:
     if results:
         for t in results["tests"]:
             v = t["verdict"]
-            if t["status"] == "flaky":
+            if t["status"] == "skipped" and t.get("needs"):
+                cls, conf, action = "for-your-environment", 0.9, f"accept for your environment: needs {t['needs']}; proves itself in the team's pipeline"
+            elif v.startswith("undeclared need"):
+                cls, conf, action = "test-bug", 0.9, "regenerate with the need declared, or remove the connection"
+            elif t["status"] == "flaky":
                 cls, conf, action = "test-bug", 0.95, "discard"
             elif v.startswith("fix-pinning confirmed"):
                 cls, conf, action = "behavior-change", 0.95, "accept as CVE evidence; VEX status fixed"
@@ -147,7 +152,7 @@ def triage_package(workdir: Path, pkg: str) -> dict:
                 cls, conf, action = "test-bug", 0.75, "regenerate or discard"
             else:
                 cls, conf, action = "test-bug", 0.5, "escalate"
-            tests.append({"test_id": t["id"], "name": t["name"], "category": t["category"], "class": cls, "confidence": conf,
+            tests.append({"test_id": t["id"], "name": t["name"], "category": t["category"], "class": cls, "confidence": conf, "needs": t.get("needs", "none"),
                           "action": action, "verdict": v, "versions": t["versions"], "escalated": conf < THRESHOLD,
                           "evidence_ref": f"execute/{pkg}/results.json"})
     # Candidate defects the agent recorded (blocked paths). A deterministic signal must corroborate:

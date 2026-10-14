@@ -115,7 +115,8 @@ generate/<package>/
   model-calls/                  every prompt and response verbatim, with usage and latency
   scratch/                      baseline sandbox runs made during repair
 execute/<package>/
-  results.json                  TestResults: per test status, old/new versions, verdict, coverage summary
+  results.json                  TestResults: per test status, old/new versions, verdict, declared need, coverage summary; testbed: what it provides, what was withheld
+  tests-sealed/                 the test files as run, with tests the testbed cannot provide for withheld (only when any were)
   new/ new-rerun/ old/          junit.xml, coverage.json, logs, sandbox.json for each run; new/ carries per-test coverage (contexts; Go: per-test/ profiles)
   mutation/mutation.json        sampled mutants with status and killers, score, per-test kills and unique kills, stratification over reached behaviours
   relevance.json                retirement proposals with reason, evidence, horizon, and rewrite flag

@@ -616,6 +616,14 @@ def symbol_refs(test_file: Path, roots: list[str]) -> dict[str, list[tuple[str, 
     return out
 
 
+def declared_needs(code: str) -> dict[str, str]:
+    """test name -> declared need, from `// harness:needs X` above the test function."""
+    try:
+        return dict(_inspect(code).get("needs") or {})
+    except HarnessError:
+        return {}
+
+
 def skipped_tests(test_file: Path) -> set[str]:
     try:
         info = _inspect(test_file.read_text(errors="replace"))

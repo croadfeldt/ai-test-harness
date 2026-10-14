@@ -846,6 +846,21 @@ def skipped_tests(test_file: Path) -> set[str]:
     return out
 
 
+def declared_needs(code: str) -> dict[str, str]:
+    """test name -> declared need, from @pytest.mark.needs("..."); tests without the marker are omitted (none)."""
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return {}
+    out = {}
+    for fn in tree.body:
+        if isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)) and fn.name.startswith("test_"):
+            for d in fn.decorator_list:
+                if isinstance(d, ast.Call) and ast.unparse(d.func).endswith("mark.needs") and d.args and isinstance(d.args[0], ast.Constant):
+                    out[fn.name] = str(d.args[0].value)
+    return out
+
+
 def is_test_file(rel: Path) -> bool:
     return any(x in ("tests", "test") for x in rel.parts) or rel.name.startswith("test_")
 

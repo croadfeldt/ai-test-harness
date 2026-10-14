@@ -332,6 +332,7 @@ def probe_sandbox(python_version: str) -> dict:
     (tmp / "tests").mkdir()
     (tmp / "tests" / "test_probe.py").write_text(
         "import os, socket, pytest\n"
+        "@pytest.mark.needs('network')\n"   # the probe asks the container, not the harness's declared-needs guard
         "def test_no_network():\n    s = socket.socket(); s.settimeout(3)\n    with pytest.raises(OSError):\n        s.connect(('1.1.1.1', 443))\n"
         "def test_no_secrets_in_env():\n    assert not [k for k in os.environ if any(x in k.upper() for x in ('TOKEN','SECRET','PASSWORD','KEY'))]\n"
         "def test_rootfs_read_only():\n    with pytest.raises(OSError):\n        open('/usr/harness-probe', 'w')\n"
