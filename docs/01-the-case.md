@@ -14,15 +14,15 @@ proof in hand instead of trust.
 
 **Customer name:** Any organization that ships software built on code it did not write: product
 teams, platform teams, and the security and compliance functions that answer for what they ship. The
-first pilot is with the Red Hat FlightPath team, my own team and the one testing this; product teams
-follow.
+first pilot runs on two example projects, one Python and one Go; the first customer team is to be named
+with the sponsor.
 
 **Customer stakeholder:** Whoever answers for the safety of a change and for the proof of it: the head
 of engineering for delivery, the CISO or product security lead for exposure, the platform owner for
 the pipeline. The pilot serves the person who approves the merge, and their measures come first: did
 every change arrive with evidence, how much review time did it cost, what did it catch that review
-alone would have missed. For the pilot that is the FlightPath lead and the two engineers who review
-its test pull requests.
+alone would have missed. For the pilot that is whoever reviews the example projects' test pull
+requests.
 
 **Customer pain:** Most of what any team ships is code it did not write. A mid-sized service resolves
 hundreds to thousands of packages; its engineers chose perhaps fifty. Nobody has read or tested the
@@ -84,8 +84,8 @@ team's pipeline runs. Appendix A answers, step by step, the questions reviewers 
 
 **Timeline & Milestones:**
 
-1. **Pilot, weeks 1 to 6.** Two FlightPath services, our own code and direct dependencies, triggered
-   from the pull request. Exit criteria in Appendix B.
+1. **Pilot, weeks 1 to 6.** Two example projects, one Python and one Go, our own code and direct
+   dependencies, triggered from the pull request. Exit criteria in Appendix B.
 2. **First-party at scale, weeks 7 to 12.** Every pull request in the pilot repositories, unattended;
    the test pull request as the standard path.
 3. **Direct dependencies, weeks 13 to 20.** Every bump, CVE-targeted tests and VEX drafts on every
@@ -238,8 +238,8 @@ document against one.
 
 **The milestones in full.**
 
-1. **Pilot, weeks 1 to 6.** Two FlightPath services on the team's build platform, our own code and
-   direct dependencies,
+1. **Pilot, weeks 1 to 6.** Two example projects on their build platform, our own code and direct
+   dependencies,
    triggered from the pull request, review packets as pull request comments. Value from the first
    run: a verdict and a signed record on every dependency bump, and the pipeline findings, if any,
    on each service. Exit criteria: every pull request in the pilot repositories arrived with its

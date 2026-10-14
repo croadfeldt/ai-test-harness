@@ -72,7 +72,7 @@ Every limit is written into the result. That is the point: the system reports wh
 
 # What I need
 
-- A decision to run a six-week pilot on two Red Hat FlightPath services.
+- A decision to run a six-week pilot on two example projects.
 - A named sponsor and a compute budget for six weeks.
 - Two product teams willing to review what the harness produces.
 

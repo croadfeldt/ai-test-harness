@@ -66,8 +66,8 @@ request, and the accepted ones run with the normal test suite from then on.
 The cost is compute, a small team, and reviewer time. The return is fewer incidents from dependencies we
 never looked at, faster and safer upgrades, and proof of testing that we can show a regulator or a
 customer. The harness exists and has run end to end on real repositories in the lab, including one
-dependency bump whose seven proposed tests a reviewer merged. The pilot is six weeks on two Red Hat
-FlightPath services, my own team's, and answers whether the tests are good enough there before we spend
+dependency bump whose seven proposed tests a reviewer merged. The pilot is six weeks on two example
+projects, one Python and one Go, and answers whether the tests are good enough there before we spend
 more.
 
 ## The one number that matters
@@ -77,6 +77,6 @@ reported quarterly. Every other metric is a means to that one.
 
 ## What I need
 
-A decision to run the pilot, a named sponsor, a compute budget for six weeks, and the FlightPath team
-reviewing what the harness produces. Details are in [the case](01-the-case.md) and the
+A decision to run the pilot, a named sponsor, a compute budget for six weeks, and reviewers for the
+example projects' test pull requests. Details are in [the case](01-the-case.md) and the
 [roadmap](07-roadmap.md).
