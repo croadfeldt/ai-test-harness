@@ -45,6 +45,7 @@ CATALOGUE = {
     "generate/model-calls/": ("audit", "Every prompt and every response, numbered, with the call's settings; the full transcript of what the model saw and said."),
     "generate/scratch/": ("machine", "Every attempt that ran in the sandbox during generation, with its output; not committed."),
     "execute/results.json": ("reviewer", "The verdict per test: outcome on head, on the re-run and on the other version, its declared need, coverage, and how each was judged; what the testbed provides and which tests it withheld for the team."),
+    "execute/results.ctrf.json": ("machine", "The same results as a CTRF report, the interchange shape other tools read; a testbed failure is `other`, never `failed`."),
     "execute/new/": ("machine", "The sealed run on head: the run script, the junit report, coverage with per-test contexts (Go: one profile per passing test under per-test/), logs."),
     "execute/new-rerun/": ("machine", "The second run on head, to catch flakes."),
     "execute/old/": ("machine", "The run on the base version, for the differential."),

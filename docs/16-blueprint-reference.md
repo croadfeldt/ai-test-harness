@@ -542,6 +542,17 @@ All of it happens in a hermetic sandbox, following the OpenSSF Package Analysis 
   by the error, and the verdict says `undeclared need`. The `machine` tier runs under Kata where the
   cluster has bare-metal nodes for it (nested virtualisation is unsupported and gVisor has no CRI-O handler
   on OpenShift); everywhere else it is an admitted-unavailable tier and goes to the team like `network`.
+- **Testbed failure is its own status**, at two levels, as autopkgtest's exit 16 and Bazel's `REMOTE_FAILURE`
+  keep it. Run level: the environment did not install, the run timed out, the container exited with no
+  result, or the module did not build for a reason no test is blamed for; `results.json` carries
+  `testbed_failure`, every test reads `not run`, the story opens with it, triage raises a `testbed-failure`
+  finding for the harness's operators, and the accounting puts every reached behaviour in a stated gap with
+  that reason. Test level: one test's failure reads as the environment refusing something (a denied
+  permission, a read-only file system, a missing device, exhausted memory), or a test that declared
+  `network` or `machine` and ran met a network error; its verdict is `testbed failure`, its class
+  `testbed-failure`, neither a defect nor a test bug. An undeclared connection stays the test's own defect.
+  Export: a CTRF report beside the results, where a testbed failure is `other` with the harness class in
+  `extra`, never `failed`; in JUnit terms it is `<error type="testbed-failure">`.
 - CPU, memory, and wall-clock limits per run. Fuzzing gets a fixed time budget.
 
 Validation steps, in order:

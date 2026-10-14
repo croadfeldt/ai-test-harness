@@ -37,11 +37,11 @@ REASONS = {
     "strength-not-sampled": "lines ran, no mutant was placed inside them; a sampling gap the harness owns",
     "not-in-public-api": "the application references a name the package's public API does not define",
     "out-of-budget": "beyond this run's budget; recorded so it is not forgotten",
+    "testbed-failure": "the testbed failed while running this behaviour's tests; not a verdict about the tests or the package",
 }
 TYPE_KINDS = ("class", "struct", "type", "interface")
 BEHAVIOUR_KINDS = ("function", "method")
-ENVIRONMENT = re.compile(r"permission denied|operation not permitted|name or service not known|temporary failure in name resolution|"
-                         r"network is unreachable|connection refused|no such device|read-only file system|address family not supported", re.I)
+from ..testbed import ENVIRONMENT  # noqa: E402  (the environment refusing a test; shared with the verdict)
 RESCAN_BUDGET = 60
 # Pipeline rules that mean the proposed tests cannot run or be validated where the repository runs them.
 CANNOT_VALIDATE_RULES = ("P-00",)
@@ -269,6 +269,9 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
             ev["declared"] = sorted({t["needs"] for t in held})
         if cannot_validate:
             return {"state": "stated-gap", "reason": "pipeline-cannot-validate", "evidence": {**ev, "pipeline": [f["rule"] for f in cannot_validate]}}
+        if results.get("testbed_failure"):
+            return {"state": "stated-gap", "reason": "testbed-failure", "evidence": {**ev, "testbed_failure": results["testbed_failure"]["detail"]}}
+        broken = [t for t in linked if str(t.get("verdict", "")).startswith("testbed failure")]
         cl = closure_spans(q, spans, calls)
         if not cl:
             return {"state": "stated-gap", "reason": "not-in-public-api", "evidence": ev}
@@ -285,6 +288,8 @@ def account_package(workdir: Path, pkg: str, adapter=None) -> dict:
             return {"state": "validated", "reason": None, "evidence": ev}
         if held and not lines:
             return {"state": "for-your-environment", "reason": None, "evidence": {**ev, "withheld": sorted(t["name"] for t in held)}}
+        if broken and not lines:
+            return {"state": "stated-gap", "reason": "testbed-failure", "evidence": {**ev, "refused": [t["name"] for t in broken]}}
         if env and not lines:
             return {"state": "for-your-environment", "reason": None, "evidence": {**ev, "refusal": (env[0].get("message") or "")[:200]}}
         if lines:
