@@ -3,66 +3,123 @@ marp: true
 theme: default
 paginate: false
 title: AI Test Harness, in two slides
-description: One slide on the value and the invitation to co-engineer; one on the flow, the data it reads and why
+description: One slide on the problem, the answer and where it sits in delivery; one on how it works, inputs through to what you get
+html: true
+style: |
+  section { padding: 28px 52px; font-family: "Red Hat Text", "Red Hat Display", "Overpass", "Open Sans", sans-serif; font-size: 20px; color: #151515; }
+  section h1 { color: #EE0000; text-align: center; font-size: 36px; font-weight: 600; margin: 0 0 18px; }
+  .two { display: flex; gap: 48px; align-items: flex-start; }
+  .two figure { margin: 0; flex: 0 0 300px; }
+  .two figure img { width: 300px; border: 1px solid #151515; background: #fff; }
+  .two figure figcaption { font-size: 12px; color: #6a6e73; margin-top: 6px; }
+  .two .text { flex: 1; font-size: 20px; line-height: 1.4; padding-top: 4px; }
+  .stat { flex: 0 0 300px; padding-top: 4px; }
+  .statlabel { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+  .bar { display: flex; flex-direction: column; height: 250px; border: 1px solid #151515; }
+  .seg { display: flex; flex-direction: column; justify-content: center; padding: 0 14px; font-size: 14px; line-height: 1.2; }
+  .seg b { font-size: 30px; display: block; }
+  .seg.open { background: #d2d2d2; color: #151515; }
+  .seg.own { background: #EE0000; color: #fff; }
+  .statsrc { font-size: 11px; color: #6a6e73; margin-top: 6px; }
+  .sdlc { margin-top: 22px; border-top: 1px solid #d2d2d2; padding-top: 12px; }
+  .sdlclabel { color: #EE0000; font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+  .lane { display: flex; align-items: stretch; gap: 6px; }
+  .step { flex: 1; background: #f0f0f0; border: 1px solid #c7c7c7; padding: 6px 8px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; justify-content: center; }
+  .step i { display: block; font-weight: 400; font-style: normal; font-size: 11px; color: #4f5255; margin-top: 2px; }
+  .step.hot { background: #EE0000; color: #fff; border-color: #EE0000; flex: 1.6; }
+  .step.hot i { color: #ffd6d6; }
+  .step.gate { border: 2px solid #151515; flex: 1.5; }
+  .arr, .plus { align-self: center; color: #6a6e73; font-size: 16px; }
+  .feed { font-size: 12px; color: #4f5255; margin-top: 8px; }
+  .two .text p { margin: 0 0 16px; }
+  .left { flex: 0 0 360px; font-size: 20px; line-height: 1.35; padding-top: 110px; }
+  .left h2 { color: #EE0000; font-size: 24px; margin: 0 0 14px; font-weight: 600; }
+  .diagram { flex: 1; font-size: 13px; line-height: 1.25; text-transform: uppercase; }
+  .band { text-align: center; font-weight: 700; padding: 5px 8px; font-size: 14px; letter-spacing: .02em; }
+  .band.red { background: #EE0000; color: #fff; }
+  .band.grey { background: #d2d2d2; color: #151515; }
+  .cols { display: flex; background: #f0f0f0; border: 1px solid #c7c7c7; }
+  .cols > div { flex: 1; padding: 6px 8px; border-right: 1px solid #c7c7c7; }
+  .cols > div:last-child { border-right: 0; }
+  .cols b { display: block; margin-bottom: 2px; }
+  .cols i { display: block; text-transform: none; font-size: 12px; color: #4f5255; }
+  .rows { background: #f0f0f0; border: 1px solid #c7c7c7; padding: 4px 10px; }
+  .rows > div { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  .rows .fn { font-family: "Red Hat Mono", monospace; text-transform: none; }
+  .rows .st { font-weight: 700; margin-left: auto; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .dot.green { background: #3e8635; } .dot.black { background: #151515; } .dot.grey { background: #8a8d90; }
+  .arrow { text-align: center; line-height: 1; font-size: 16px; color: #6a6e73; margin: 1px 0; }
+  .steps { background: #f0f0f0; border: 1px solid #c7c7c7; padding: 6px 10px; text-align: center; font-weight: 600; }
 ---
 
-<!-- _class: lead -->
-<style scoped>
-section { font-size: 23px; padding: 50px 70px; }
-h1 { font-size: 1.6em; margin-bottom: 0.4em; }
-p { margin: 0.45em 0; }
-</style>
+# AI Test Harness
 
-# How do you know a change is safe when most of what you ship is code your team never wrote?
+<div class="two">
+<div class="stat">
+<div class="statlabel">What a typical codebase ships</div>
+<div class="bar">
+<div class="seg open" style="flex: 77"><b>77%</b>open source your team never wrote</div>
+<div class="seg own" style="flex: 23"><b>23%</b>your own code</div>
+</div>
+<div class="statsrc">Source: Synopsys OSSRA 2024, share of open source in audited codebases</div>
+</div>
+<div class="text">
 
-**You don't. The AI Test Harness gives you the evidence.**
+Most of what a product ships is code its own team never wrote. Dependencies move, advisories land, and the tests that would prove a change is safe never get written, so the gate runs on trust.
 
-**Every change arrives with proof.** Tests run on both sides of the change and a signed record, on the pull request, for your code and every package you depend on. The gate decides on evidence, not trust.
+The AI Test Harness writes those tests, runs them sealed on both sides of every change, and puts the evidence on the pull request: a signed record anyone can verify, an answer for every known vulnerability, and a plain account of what is proven, what is handed to you, and what is still a gap.
 
-**Known vulnerabilities get an answer, not a claim.** Proven fixed, proven exposed, or shown unreachable, each backed by a test anyone can rerun and a VEX draft that rests on it.
+</div>
+</div>
 
-**A test suite that grows where none existed.** The tests nobody writes by hand get written, run and scored. The ones that earn their keep join your suite, and the review time they cost is measured on every run.
-
-**Proof that travels with the product.** Signed records your customers, auditors and regulators can verify. No silent coverage: every behaviour a change reaches is validated, handed to you, or named as a gap with its reason.
-
-Built in the open, with the teams that use it. Bring a project and shape what it proves next.
+<div class="sdlc">
+<div class="sdlclabel">Where it sits in your delivery flow</div>
+<div class="lane">
+<div class="step">Code</div><div class="arr">→</div>
+<div class="step">Pull request</div><div class="arr">→</div>
+<div class="step">Your CI</div><div class="plus">+</div>
+<div class="step hot">AI Test Harness<i>tests both versions, signs the evidence</i></div><div class="arr">→</div>
+<div class="step gate">Gate<i>decides on evidence; either side can say no</i></div><div class="arr">→</div>
+<div class="step">Merge</div><div class="arr">→</div>
+<div class="step">Build and release<i>signed records and VEX travel with it</i></div>
+</div>
+<div class="feed">An advisory or a dependency bump enters the same flow as a change, so a fix is proven the same way a feature is.</div>
+</div>
 
 ---
 
-# How it works: what it reads, what it does, what you get
+# AI Test Harness
 
-```mermaid
-flowchart LR
-    subgraph IN[What it reads, and why]
-        direction TB
-        R[Your code, before and after the change<br/><i>what changed</i>]
-        G[Every package you depend on<br/><i>which ones moved, and how deep</i>]
-        A[Public vulnerability advisories<br/><i>what is already known to be wrong</i>]
-        API[What your code actually uses<br/><i>what changed underneath you</i>]
-        CI[The tests and checks you already have<br/><i>what is already covered</i>]
-    end
-    subgraph DO[What it does]
-        direction TB
-        S0[Checks itself before it starts]
-        S1[Decides what to test first, by risk]
-        S2[Gathers facts about the change; never guesses]
-        S3[Writes tests, then breaks the code on purpose to see if they notice]
-        S4[Runs them sealed off from the network, on both versions, several times]
-        S5[Sorts every result: proven, handed to you, or a named gap]
-        S0 --> S1 --> S2 --> S3 --> S4 --> S5
-    end
-    subgraph OUT[What you get]
-        direction TB
-        PK[A pull request with the tests and their evidence<br/><i>a person decides to merge</i>]
-        VX[An answer for each known vulnerability<br/><i>a draft your security team confirms</i>]
-        REC[A signed record anyone can verify<br/><i>open standards, no lock-in</i>]
-        FB[What it learned, fed into the next run<br/><i>your decisions teach it</i>]
-    end
-    IN --> S1
-    S5 --> PK --> FB
-    S5 --> VX
-    S5 --> REC
-    FB -.-> S0
-```
-
-Everything it reads is a fact from a tool, treated as untrusted. Everything it tells you points to the file it was measured from.
+<div class="two">
+<div class="left">
+<h2>From a change to evidence at the gate</h2>
+<p>The harness reads a change and everything it touches, writes the tests nobody will write by hand, and runs them sealed on both versions. Every behaviour the change reaches ends in one of three states. The evidence lands on the pull request, where a person and the gate decide.</p>
+</div>
+<div class="diagram">
+<div class="band red">What it reads</div>
+<div class="cols">
+<div><b>1. Your change</b>• code before and after<br>• what your code actually uses</div>
+<div><b>2. Your dependencies</b>• every package, both versions<br>• how deep the change goes</div>
+<div><b>3. Known vulnerabilities</b>• public advisories<br>• what is already known to be wrong</div>
+<div><b>4. Your existing tests</b>• what is already covered<br>• what your pipeline can run</div>
+</div>
+<div class="arrow">▼</div>
+<div class="band grey">What it does</div>
+<div class="steps">Writes tests from facts, never guesses &nbsp;→&nbsp; breaks the code on purpose to see if they notice &nbsp;→&nbsp; runs them sealed, both versions, several times</div>
+<div class="arrow">▼</div>
+<div class="band grey">Every behaviour the change reaches ends in one of three states</div>
+<div class="rows">
+<div><span class="fn">[ decode() ]</span> ⟹ the test catches the breakage <span class="st">Validated</span> <span class="dot green"></span></div>
+<div><span class="fn">[ upload() ]</span> ⟹ needs your network, not the sealed box <span class="st">Handed to you</span> <span class="dot black"></span></div>
+<div><span class="fn">[ native() ]</span> ⟹ no test survived scoring <span class="st">Named gap, with its reason</span> <span class="dot grey"></span></div>
+</div>
+<div class="arrow">▼</div>
+<div class="band red">What you get, on the pull request</div>
+<div class="cols">
+<div><b>The tests and their evidence</b><i>a person decides to merge</i></div>
+<div><b>An answer per known vulnerability</b><i>a draft VEX your security team confirms</i></div>
+<div><b>A signed record anyone can verify</b><i>in-toto, SLSA, OpenVEX</i></div>
+</div>
+</div>
+</div>
