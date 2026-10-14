@@ -26,12 +26,12 @@ four engineers and will be replaced by measured velocity after Phase 0.
 
 **Goal.** Prove that generated tests are strong enough to be worth a reviewer's time, on real code.
 
-- One Go service and one Python service, both already building on a build platform (Konflux, in the example pilot).
+- One Go service and one Python service of the Red Hat FlightPath team, both already building on a build platform (Konflux, in the example pilot).
 - Our own code (depth 0) and direct dependencies (depth 1) only.
 - Build the differential step first and run it against BUMP, the public benchmark of about 570 real
   breaking Java dependency upgrades.
 - Unit, functional, negative and CVE-targeted tests, with mutation on the lines the tests executed:
-  all already implemented and measured in the lab; the pilot measures them on product services.
+  all already implemented and measured in the lab; the pilot measures them on FlightPath's services.
 - Triggered from the pull request (document 13). Review packets posted as PR comments; the test pull
   request opened in the pipeline's loop.
 - Signed in-toto statements and sealed UDLM records per run, already produced by the pipeline, not by hand.
