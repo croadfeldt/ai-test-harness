@@ -69,19 +69,20 @@ def band(slide, x, y, w, label, *, red):
     box(slide, x, y, w, 0.3, [(label.upper(), 11, True, WHITE if red else INK, False)], fill=RED if red else MID, line=None, align=PP_ALIGN.CENTER)
 
 
-def grid(slide, x, y, w, rows, *, col_w=None, row_h=0.3, size=10, header=True, upper=True, last_right=False):
+def grid(slide, x, y, w, rows, *, col_w=None, row_h=0.3, header_h=None, size=10, header=True, upper=True, last_right=False):
     """Rows of cells; each cell is a string or a list of (text, size, bold, color, italic). Returns the height used."""
     n = len(rows[0])
     widths = col_w or [w / n] * n
     cy = y
     for ri, row in enumerate(rows):
         cx = x
+        rh = header_h if (ri == 0 and header_h) else row_h
         for ci, cell in enumerate(row):
             lines = cell if isinstance(cell, list) else [(cell.upper() if upper else cell, size, header and ri == 0, INK, False)]
             align = PP_ALIGN.RIGHT if (last_right and ci == n - 1) else PP_ALIGN.LEFT
-            box(slide, cx, cy, widths[ci], row_h, lines, align=align, anchor=MSO_ANCHOR.TOP)
+            box(slide, cx, cy, widths[ci], rh, lines, align=align, anchor=MSO_ANCHOR.TOP)
             cx += widths[ci]
-        cy += row_h
+        cy += rh
     return cy - y
 
 
@@ -142,10 +143,11 @@ def slide_two(prs):
     y += grid(s, x, y, w, [["Writes tests from facts, never guesses", "Breaks the code on purpose to see if they notice", "Runs them sealed, both versions, several times"]], row_h=0.5, size=9)
     down(s, x, y, w); y += 0.2
     band(s, x, y, w, "Every behaviour the change reaches ends in one of three states", red=False); y += 0.3
-    states = [("decode()", "the test catches the breakage", "Validated", GREEN), ("upload()", "needs your network, not the sealed box", "Handed to you", INK),
+    states = [("decode()", "the test catches the breakage", "Validated", GREEN), ("upload()", "needs the real network", "Handed to you", INK),
               ("native()", "no test survived scoring", "Named gap, with its reason", MUTED)]
-    rows = [[[(f"[ {fn} ]", 9, False, INK, False)], [("⟹  " + what.upper(), 9, False, INK, False)], [("● " + st.upper(), 9, True, col, False)]] for fn, what, st, col in states]
-    y += grid(s, x, y, w, rows, col_w=[1.4, 3.9, w - 5.3], row_h=0.3, header=False, last_right=True)
+    rows = [["A function the change reaches, for example", "What the tests showed", [("HOW IT IS REPORTED", 9, True, INK, False)]]]
+    rows += [[[(f"[ {fn} ]", 9, False, INK, False)], [("⟹  " + what.upper(), 9, False, INK, False)], [("● " + st.upper(), 9, True, col, False)]] for fn, what, st, col in states]
+    y += grid(s, x, y, w, rows, col_w=[2.9, 2.9, w - 5.8], row_h=0.3, header_h=0.42, size=9, last_right=True)
     down(s, x, y, w); y += 0.2
     band(s, x, y, w, "What you get, on the pull request", red=True); y += 0.3
     grid(s, x, y, w, [["The tests and their evidence", "An answer per known vulnerability", "A signed record anyone can verify"],

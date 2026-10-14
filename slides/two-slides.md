@@ -87,10 +87,10 @@ The harness reads a change and everything it touches, writes the tests nobody wi
 
 #### Every behaviour the change reaches ends in one of three states
 
-| Reached | What happened | State |
+| A function the change reaches, for example | What the tests showed | How it is reported |
 |---|---|---|
 | `decode()` | the test catches the breakage | **Validated** |
-| `upload()` | needs your network, not the sealed box | **Handed to you** |
+| `upload()` | needs the real network | **Handed to you** |
 | `native()` | no test survived scoring | **Named gap, with its reason** |
 
 ▼
