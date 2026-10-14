@@ -242,6 +242,10 @@ label on every file it lists, and the story at the top of each run groups the fi
 | `execute/results.ctrf.json` | The same results as a CTRF report, the interchange shape other tools read; a testbed failure is `other`, never `failed`. |
 | `execute/new/` | The sealed run on head: the run script, the junit report, coverage with per-test contexts (Go: one profile per passing test under per-test/), logs. |
 | `execute/new-rerun/` | The second run on head, to catch flakes. |
+| `execute/new-repeat-3/` | The third run on head, of the candidates that agreed so far; any disagreement quarantines. |
+| `execute/new-repeat-4/` | The fourth run on head, of the candidates that agreed so far. |
+| `execute/new-repeat-5/` | The fifth run on head, of the candidates that agreed so far; five is the default the team can change. |
+| `execute/tests-repeat/` | The test files as run in the repeat runs: only the candidates that agreed on the first two runs. |
 | `execute/old/` | The run on the base version, for the differential. |
 | `execute/fixed-candidate/` | The run on the resolved fixed version, for the differential when the change did not move the package. |
 | `execute/mutation/mutants/` | Each sampled mutant: its change as a patch, and its sealed run's output. |

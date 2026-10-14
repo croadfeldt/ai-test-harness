@@ -560,7 +560,12 @@ Validation steps, in order:
 1. **Compile or import.** Tests that do not build are sent back to the generator with the error, up to N
    retries. Persistent build failures are logged and dropped.
 2. **Run.** Record pass, fail, or error per test with full output.
-3. **Flake check.** Re-run passing tests a small number of times. Inconsistent tests are quarantined.
+3. **Flake check.** Every test runs twice on head, the run and its re-run. The candidates that agreed run
+   again, with only those tests in the sandbox, until they have run as many times as the team set
+   (`[sandbox] repeats`, five by default: TestGen-LLM's published rule, "a test that does not pass on
+   every one of five executions is deemed flaky"). Any disagreement quarantines the test; the record
+   carries how many times it ran and how often it disagreed, and the CTRF export carries them as
+   `retries` and `flaky`.
 4. **Coverage.** Measure line and branch coverage of the target package attributable to generated tests.
 5. **Mutation testing.** Run the ecosystem's mutation tool ([document 05](05-capability-map.md)) with a bounded mutant sample
    drawn only from lines the generated tests executed; a file the tests never reached contributes no
