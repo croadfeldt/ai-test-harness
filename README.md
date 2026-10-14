@@ -56,6 +56,7 @@ docs/
   22-pilot-plan.md           The first milestone made operational: what to stand up, what to measure, where each measure is read, who signs
 slides/
   executive.md, funding.md, builder.md, public.md   One deck per audience, blueprint + implementation + evidence
+  two-slides.md              Two slides: what, why, where and how; the flow with the data it reads and why
   deck.md                    The full deck
 blueprint/
   adapter-interface.md       The contract each language ecosystem adapter implements
