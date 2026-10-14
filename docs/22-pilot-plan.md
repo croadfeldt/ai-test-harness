@@ -50,6 +50,18 @@ once the identity decision is made.
 | The default model and prompt stayed above the fitness floor | The evaluation table: the share of generated candidates that build, starting at 80 percent, set by the team from there | Harness team and platform team |
 | The pipeline findings, if any, were handed to their owners | `triage/pipeline.json` per run, and the owners' acknowledgement | The project's pipeline owner |
 
+## Targets and cost, stated up front
+
+The initial targets are the blueprint's (reference, section 10): generated tests build more than 80 percent
+of the time, the pilot's floor; flake rate of accepted tests under 1 percent; false `suspicious` findings
+under 5 percent; reviewer acceptance above 70 percent of proposed tests; mutation score above 0.6 on the
+sampled mutants. Reviewer time per finding is measured and reported, not targeted, until there is a
+baseline. The harness runs beside the pull request pipeline and adds nothing to its critical path; the
+verdict's arrival is bounded by the team's time budget. Cost is reported per pull request in tokens and
+CPU-minutes from the first run, since every model call records its usage; the example runs cost half a
+million to one and a quarter million prompt tokens per package change, a figure from one lab and two models
+that the pilot replaces with its own.
+
 ## What the pilot does not do
 
 It does not run on transitive dependencies, does not open vulnerability-targeted tests against advisories
