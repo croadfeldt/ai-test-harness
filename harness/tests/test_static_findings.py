@@ -19,3 +19,13 @@ def test_high_severity_in_the_changed_code_is_a_security_finding_for_a_person():
     out = static_findings("pkg", {"static_analysis_package": GOSEC})
     assert len(out) == 1 and out[0]["class"] == "security" and out[0]["escalated"] and "G304" in out[0]["summary"]
     assert static_findings("pkg", {"static_analysis_package": BANDIT}) == [], "low severity stays in the prompt, not in the findings"
+
+
+def test_go_static_analysis_runs_or_says_why_without_a_name_error(tmp_path):
+    """The Go static analysis step must resolve its tool helpers whether or not gosec is installed. The
+    kin-openapi v2 run on 2026-10-15 crashed here with NameError before this was pinned."""
+    from harness.adapters import go
+    src = tmp_path / "m"; src.mkdir()
+    f = src / "lib.go"; f.write_text("package m\n\nfunc Add(a, b int) int { return a + b }\n")
+    out = go.static_analysis([f], src)
+    assert isinstance(out, dict) and out.get("tool") == "gosec" and isinstance(out.get("status"), str), out
