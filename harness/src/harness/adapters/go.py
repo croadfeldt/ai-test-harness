@@ -17,7 +17,7 @@ import tempfile
 from pathlib import Path
 
 from ..model import ApiChange, ApiSymbol, CallSite, DependencyGraph, Package
-from ..util import tool_path, HarnessError, http_json, log, read_json, run, sha256_file, sha256_text, write_json
+from ..util import HarnessError, http_json, log, read_json, run, sha256_file, sha256_text, tool_available, tool_path, write_json
 
 ECOSYSTEM = "go"
 OSV_ECOSYSTEM = "Go"
