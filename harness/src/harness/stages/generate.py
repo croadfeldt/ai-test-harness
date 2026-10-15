@@ -345,6 +345,13 @@ def probe_sites(code: str, run: dict, adapter, facts: dict, src_root: Path, root
     return rng.sample(sites, min(budget, len(sites)))
 
 
+def site_record(site: dict) -> dict:
+    """A probe site as the manifest keeps it: the whole record, because the re-probe after the feedback hands it
+    back to the adapter's mutator, which needs more than file, line and operator (Go wants the column, Python the
+    column and the node type). The kin-openapi v2 run on 2026-10-15 crashed on a trimmed record."""
+    return dict(site)
+
+
 def probe_run(code: str, site: dict, adapter, facts: dict, src_root: Path, env: dict, gen_dir: Path, label: str) -> dict:
     """Run the candidate file against one mutant of the package. Survived means every test still passed."""
     mutated = adapter.apply_mutation(src_root / site["file"], site)
@@ -510,7 +517,7 @@ def generate_package(facts_dir: Path, gen_dir: Path, model: Model, env_new: dict
                 sites = probe_sites(code, run1, adapter, facts, src_root, roots, feedback, tag, units_for_probe)
                 outcomes = [probe_run(code, s, adapter, facts, src_root, env_new, gen_dir, f"{tag}-probe{i}") for i, s in enumerate(sites, 1)]
                 survivors = [o for o in outcomes if o["status"] == "survived"]
-                probe.update({"probed": len(sites), "survived_before": len(survivors), "sites": [{k: s[k] for k in ("file", "line", "op")} for s in sites]})
+                probe.update({"probed": len(sites), "survived_before": len(survivors), "sites": [site_record(s) for s in sites]})
                 if survivors:
                     probe["fed_back"] = True
                     log(f"    {cat}: {len(survivors)} of {len(sites)} probe mutant(s) survived; asking the model to catch them")
