@@ -76,3 +76,18 @@ def test_probe_run_reports_survived_or_killed_with_the_diff(tmp_path, monkeypatc
     monkeypatch.setattr(py, "parse_results", lambda s: {"t::test_a": {"status": "fail"}, "t::test_b": {"status": "pass"}})
     out = generate.probe_run("def test_a(): pass\n", site, py, facts, root, {"dir": "x", "requirements": []}, tmp_path / "gen", "lbl2")
     assert out["status"] == "killed" and out["killed_by"] == ["test_a"]
+
+
+def test_the_recorded_probe_site_is_enough_to_apply_the_mutation_again(tmp_path):
+    """The re-probe after the feedback round reads the sites back from the manifest record; the record must carry
+    everything the mutator needs, not a summary of it."""
+    from harness.adapters import python as py
+    from harness.stages.generate import site_record
+    src = tmp_path / "m.py"; src.write_text("def f(x):\n    if x > 1:\n        return True\n    return False\n")
+    sites = py.mutation_sites(src, {2, 3})
+    assert sites, "the fixture has a comparison and a constant to mutate"
+    rec = site_record(sites[0])
+    assert set(sites[0]) <= set(rec), "nothing dropped"
+    mutated = py.apply_mutation(src, rec)
+    assert mutated and mutated != src.read_text()
+    import json; json.dumps(rec)
