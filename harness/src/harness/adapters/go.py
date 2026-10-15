@@ -218,6 +218,7 @@ def behaviours(unpacked: Path, names: list[str]) -> dict[str, list[dict]]:
     doc = json.loads(out.stdout)
     result = {}
     for q, items in (doc.get("units") or {}).items():
+        items = items or []   # Go's encoder writes an empty slice as null; a function with nothing to check is an empty list
         # the helper's qualname is <package dir>.<Name> or <package dir>.<Type>.<Method>; the dir is empty at the module
         # root and lowercase otherwise, while exported names start with a capital letter
         head, _, rest = q.partition(".")

@@ -121,7 +121,7 @@ def write_behaviours(out: Path, pkg: str, version: str, adapter, source: Path, n
     if not hasattr(adapter, "behaviours"):
         return None
     try:
-        units = adapter.behaviours(source, names)
+        units = {k: list(v or []) for k, v in (adapter.behaviours(source, names) or {}).items()}
     except Exception as e:   # the worklist is an aid; a package the parser cannot read is analysed without it
         log(f"    behaviours skipped: {e}")
         return None
