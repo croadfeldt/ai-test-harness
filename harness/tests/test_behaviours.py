@@ -130,3 +130,27 @@ func (t *T) Run(ok bool) bool { return ok }
     dec = next(x for x in p if x["kind"] == "decision")
     assert dec["conditions"] == 2
     assert any(x.get("detail") == "panics" for x in p)
+
+
+def test_write_behaviours_treats_a_unit_with_nothing_to_check_as_an_empty_list(tmp_path):
+    """An adapter may hand back None for a function with no results to check (Go's encoder writes an empty slice
+    as null); the worklist records it as an empty list and counts it. The kin-openapi v2 run on 2026-10-15
+    crashed here before this was pinned."""
+    from harness.stages.analyze import write_behaviours
+
+    class Adapter:
+        @staticmethod
+        def behaviours(source, names):
+            return {"m.Noop": None, "m.Parse": [{"kind": "return", "detail": "returns 1"}]}
+    doc = write_behaviours(tmp_path, "m", "1.0", Adapter(), tmp_path, ["m"], [])
+    assert doc["units"]["m.Noop"] == [] and doc["counts"] == {"functions": 2, "behaviours": 1, "by_kind": {"param": 0, "return": 1, "error": 0, "raise": 0, "decision": 0}, "must_never": 0}
+
+
+@needs_go
+def test_go_function_with_nothing_to_check_is_an_empty_list(tmp_path):
+    from harness.adapters import go
+    mod = tmp_path / "mod"; mod.mkdir()
+    (mod / "go.mod").write_text("module example.com/m\n\ngo 1.22\n")
+    (mod / "lib.go").write_text("package m\n\n// Noop does nothing.\nfunc Noop() {}\n")
+    b = go.behaviours(mod, ["example.com/m"])
+    assert b == {"example.com/m.Noop": []}
