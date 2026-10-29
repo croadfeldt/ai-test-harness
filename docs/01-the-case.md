@@ -87,15 +87,18 @@ and reviewer acceptance above 70 percent (blueprint reference, section 10).
 
 **Timeline & Milestones:**
 
-1. **Pilot, weeks 1 to 6.** Two example projects, own code and direct dependencies, from the pull
-   request. Exit criteria in the [pilot plan](22-pilot-plan.md).
-2. **First-party at scale, weeks 7 to 12.** Every pull request, unattended; the test pull request as
-   the standard path.
-3. **Direct dependencies, weeks 13 to 20.** Every bump; CVE-targeted tests and VEX drafts on every
+1. **Pilot, weeks 1 to 6.** The claim path on one Python project: for every published fix claim, an
+   exposure test and a fix-pinning test on both versions, one verdict per claim, a draft VEX statement that
+   names the publisher's. Exit criteria in the [pilot plan](22-pilot-plan.md).
+2. **The pull request path, weeks 7 to 12.** Two example projects, own code and direct dependencies, from
+   the pull request; a test pull request per change.
+3. **First-party at scale, weeks 13 to 18.** Every pull request, unattended; the test pull request as the
+   standard path.
+4. **Direct dependencies, weeks 19 to 26.** Every bump; CVE-targeted tests and VEX drafts on every
    advisory; SLSA Build L3 on the records.
-4. **Transitive dependencies, weeks 21 to 30.** Reachability and risk scoring across the whole graph.
-5. **Continuous operation, week 31 on.** Scheduled rescans, remaining ecosystems, upstream
-   contributions; the extended goal is coverage of behaviour, not lines.
+5. **Transitive dependencies, weeks 27 to 36.** Reachability and risk scoring across the whole graph.
+6. **Continuous operation, week 37 on.** Scheduled rescans, remaining ecosystems, upstream contributions;
+   the extended goal is coverage of behaviour, not lines.
 
 Durations assume two to four engineers and are replaced by measured velocity after the pilot.
 

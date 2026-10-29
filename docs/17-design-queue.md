@@ -5,8 +5,7 @@ changed what the harness promises, and some of those promises are not yet true i
 code. This page lists each one, what it answers, where it lands, and roughly how big it is, so that the
 case and the implementation converge instead of drifting. Items leave this page when they merge.
 
-Each item is one pull request or less. The [research notes](18-design-queue-research.md) record what was found before building each one and what it changes here. Order is the order I would do them: the output contract first,
-because everything else reports through it.
+Each item is one pull request or less. The [research notes](18-design-queue-research.md) record what was found before building each one and what it changes here. The table is in the order the items were raised. The order to build them changed on 2026-10-29, when the first milestone became the claim path; it is in the MVP map at the end of this page.
 
 | # | Item | Answers | Lands in | Size |
 |---|---|---|---|---|
@@ -27,7 +26,28 @@ because everything else reports through it.
 | Q15 | **Pipeline finding scoped.** Only "the pipeline cannot run or validate what the harness proposes" is reported from the CI reading; the wider pipeline-under-test rules stay in the blueprint as a later layer. Pilot exit says "findings, if any." | Gloria 19 | docs/03 and 16 stage 2; `ci.py` rule set | Small |
 | Q16 | **Remove lab timings as justification.** Executive summary, blueprint, slides and READMEs stop citing minutes or hours from the proof of concept as evidence of cost; replace with the shape of cost (model time dominates, scales with hardware). | "Our timings justify nothing" | docs/00, 03, 16, slides | Small |
 | Q17 | **Checked coverage, where computable.** Research item: count only executed statements that influence an assertion (Schuler and Zeller), as a second strength measure beside mutation score. | Behaviour-coverage goal | Blueprint metrics; adapters | Research |
+| Q18 | **More ways in.** The pipeline gains front doors and does not change behind them: a published fix claim (document 19), a bug report with a reproducer, a contract or schema change, a test-gap request for a named function, a user's stated objective. Each driver becomes a work item with the same fields intake writes today: the repository, the two refs or the two versions, the package, and the reason the run exists. Taken from the Lightwell AI Test Generation ADR, where the driver list is the first thing it says. | Lightwell ADR, 2026-10-19 | Blueprint scope table and stage 1; `intake.py`, `cli.py` | Medium |
+| Q19 | **The approved plan as a kept artifact.** Between analysis and generation, a plan the run keeps: per reached behaviour, the result to check, where that expected result comes from (acceptance criteria, then the API contract, then a bug report, then the team's existing tests, then current behaviour as a last resort), the test level, and what the team's conventions say a test here looks like. The model generates from the plan. A person may edit the plan and resume; a pause before generation is a policy decision, never the default. Taken from the ADR's Plan stage and its discovery of the target's conventions. | Lightwell ADR; "permit, do not mandate" | Blueprint stage 2 and 3; `analyze.py`, `generate.py`, prompt set | Large |
+| Q20 | **One ladder for what a run can validate.** The ADR's feasibility outcomes, static only, library testable, call-site testable, component testable, deployment simulatable, authorised active validation, not evaluable, mapped onto the declared-needs tiers so a run states up front which rungs this target allows, and the accounting says which rung each behaviour reached. The two ladders become one table in the blueprint; the run-level outcome lands in the story and the run index. | Lightwell ADR; Q2 and Q3 | Blueprint stage 4; `needs.py`, `testbed.py`, `story.py`, `runindex.py` | Medium |
 
 **Not queued, by decision.** Line coverage as a target (it is the map of gaps, not the score). The
 harness running the repository's existing suite (the test pull request does that in the team's
 pipeline). The harness auditing CI beyond Q15.
+
+## The MVP map
+
+The Lightwell AI Test Generation ADR of 2026-10-19 chose a proof of concept driven by vulnerability findings only: one way in, Python, and for each advisory a test that shows exposure at our call site and a test that fails on the vulnerable version and passes on the fixed one, both run sealed on both versions. That is the [verified fix ingestion use case](19-use-case-verified-fix-ingestion.md) with Lightwell's Vulnerability Prioritization as the claim source. The process does not change; the order of work does. Each line of the ADR's architecture lands here:
+
+| ADR architecture line | Where it lands | Items |
+|---|---|---|
+| Vulnerability prioritization input adapter | Stage 1, claim mode | F1 claims source, F3 product matching, F4 claim mode in intake, F5 roles from the claim |
+| Repository and context analysis | Stage 2 | Q5 behaviour worklist (done), the conventions part of Q19 |
+| Feasibility assessment | Stage 4, declared needs and testbed status | Q2 and Q3 (done), Q20 |
+| Test planning and user checkpoint | Between stages 2 and 3 | Q19, with the pause as policy |
+| Native framework generation | Stage 3, Python adapter, CVE-targeted tests | In place |
+| Isolated execution | Stage 4, sealed, both versions | In place |
+| Quality, differential and golden-reference gates | Stage 4 mutation and repeats; the reference jobs | Q4 and Q10 (done), Q11 |
+| Provenance and review evidence | Stage 6 packet and signed statement; draft VEX naming the upstream statement | F6 triage classes, F7 the relationship field, Q14 |
+| Lightwell workflow and evidence consumers | The gate reads two inputs | Q7, F8 dashboard, F9 team settings |
+
+**The order now.** F1, F3, F4, F5 and F6 first, since nothing runs on a claim without them; then Q19 and Q20, which the ADR's Analyze and Plan stages need; then F7, Q11 and Q7, which make the evidence consumable; then Q6, Q8, Q9, Q12 and Q18's remaining drivers as before. The published python-jose runs are the first candidate reference jobs for this path: one advisory, exposure and fix-pinning, both versions, with two-sided known answers.

@@ -20,9 +20,29 @@ gantt
 ```
 
 Dates are placeholders from a notional October 2026 start. Durations are estimates for a team of two to
-four engineers and will be replaced by measured velocity after Phase 0.
+four engineers and will be replaced by measured velocity after Phase 1.
 
-## Phase 0: Pilot, weeks 1 to 6
+## Phase 0: The claim path, weeks 1 to 6
+
+**Goal.** Prove that a published fix claim can be turned into evidence, on one real project, before anything
+else is built around it. This is the Lightwell AI Test Generation proof of concept, and the
+[verified fix ingestion use case](19-use-case-verified-fix-ingestion.md) made operational.
+
+- One Python project already building on a build platform, and one claim feed the team already reads.
+- For every claim naming a package the project ships: an exposure test at our call site and a fix-pinning
+  test that fails on the version we ship and passes on the claimed fix, both run sealed on both versions.
+- One verdict per claim, confirmed, disputed, not reachable or could not verify, with the claim's
+  provenance label on it, and a draft VEX statement that names the publisher's, for Product Security.
+- Cost per claim in tokens and CPU-minutes from the first run.
+- Work items: the use case's F1 to F9 and the queue's Q19 and Q20, in the order of the
+  [MVP map](17-design-queue.md#the-mvp-map).
+
+**Exit criteria.** Every claim in scope ended in exactly one verdict with its reason. At least one disputed
+claim came with a reproducer a person confirmed. Product Security accepted at least one of our statements
+as the basis for theirs. One verdict was consumed by a gate end to end. The phase's reference jobs, the
+published python-jose runs and one claim of the team's own, rerun without regression.
+
+## Phase 1: The pull request path, weeks 7 to 12
 
 **Goal.** Prove that generated tests are strong enough to be worth a reviewer's time, on real code.
 
@@ -37,13 +57,13 @@ four engineers and will be replaced by measured velocity after Phase 0.
 - Signed in-toto statements and sealed UDLM records per run, already produced by the pipeline, not by hand.
 - The pipeline under test too: what each pilot service's CI does with untrusted code while tests run,
   and what its existing suite reaches (blueprint principle 14, questions 2 and 3); questions 1, 4 and 5
-  follow in Phase 1.
+  follow in Phase 2.
 - Model and prompt fitness read from the evaluation table (document 12) before any default changes.
 
 **Exit criteria.** Generated tests build more than 80 percent of the time after retries. At least one
 real finding. Reviewer feedback collected from both teams. BUMP catch rate measured and reported.
 
-## Phase 1: First-party at scale, weeks 7 to 12
+## Phase 2: First-party at scale, weeks 13 to 18
 
 **Goal.** Run on every PR in the pilot repositories without anyone pressing a button.
 
@@ -56,7 +76,7 @@ real finding. Reviewer feedback collected from both teams. BUMP catch rate measu
 
 **Exit criteria.** All metrics within 20 percent of target. Every accepted test carries a signed record.
 
-## Phase 2: Direct dependencies, weeks 13 to 20
+## Phase 3: Direct dependencies, weeks 19 to 26
 
 **Goal.** Every dependency bump in the pilot repositories arrives with evidence.
 
@@ -75,7 +95,7 @@ real finding. Reviewer feedback collected from both teams. BUMP catch rate measu
 known vulnerability has a confirmed VEX statement. Product Security confirms more than 80 percent of
 drafts without rework.
 
-## Phase 3: Transitive dependencies, weeks 21 to 30
+## Phase 4: Transitive dependencies, weeks 27 to 36
 
 **Goal.** Cover the full graph at a cost we can sustain.
 
@@ -88,7 +108,7 @@ drafts without rework.
 **Exit criteria.** Full-graph run completes within budget on both pilot services. Cost per work item
 reported. No release blocked by a false positive for four consecutive weeks.
 
-## Phase 4: Continuous operation, week 31 onward
+## Phase 5: Continuous operation, week 37 onward
 
 - Scheduled full-graph rescans independent of PR activity.
 - Remaining ecosystem adapters: JavaScript and TypeScript, C and C++. tmt plans for OS-level functional
