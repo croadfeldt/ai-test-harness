@@ -1,7 +1,8 @@
 # Blueprint reference: the long form
 
-**Status:** v0.18 of the blueprint, kept as the reference behind the three-page
-[blueprint](03-blueprint.md). Moved here on 2026-10-01 minus the failure register, now
+**Status:** the long form behind the three-page [blueprint](03-blueprint.md), which stands at v0.28.
+The change notes to v0.18 are kept here; later ones are on the blueprint itself, and the sections marked
+"as implemented" below track them. Moved here on 2026-10-01 minus the failure register, now
 [document 15](15-failure-register.md), and minus three sections that other documents already carried:
 section 4 points at documents 04 and 05, section 7 at document 05, section 13 at document 07.
 **Owner:** Chris Roadfeldt.

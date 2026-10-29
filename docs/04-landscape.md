@@ -260,7 +260,13 @@ These are the cheapest "where did the contract change" signal to focus generated
 project's tests as a differential check across ecosystems.** This is done ad hoc with CI matrices or at
 distro scale. It is the harness's clearest gap to fill.
 
-### 4.8 Reachability
+### 4.8 Vulnerability discovery, remediation and validation pipelines
+
+| Tool | Description | License | Maintainer | Activity | Relevance |
+|---|---|---|---|---|---|
+| Visa Vulnerability Agentic Harness ([github](https://github.com/visa/visa-vulnerability-agentic-harness)) | A pipeline that discovers vulnerabilities in source code, verifies each one adversarially against the code, proposes or applies fixes, and has an independent review panel grade the fixes. Deterministic stages for repeatable work, model-driven stages for judgment, a code graph built once per scan, Markdown and SARIF output, any OpenAI-compatible endpoint. Version 1.5, October 2026. | Apache-2.0 | Visa | Active | A different job from this harness, which tests and never fixes, and the natural other side of its boundary: a fix pipeline that could consume a disputed claim or a failing test and send its fix back through the harness like any change. Its split of deterministic and agentic stages, and its rule that findings stay triage candidates until a person reviews them, are the same positions as principles 3 and 4 here. Pointed out by a reviewer of the Lightwell ADR, 2026-10-28. |
+
+### 4.9 Reachability
 
 | Tool | Description | License | Activity | Languages |
 |---|---|---|---|---|
