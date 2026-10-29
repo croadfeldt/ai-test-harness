@@ -261,10 +261,10 @@ verifies the chain and emits a Verification Summary Attestation.
 | Track | Target | When |
 |---|---|---|
 | Build L1 | Provenance exists, produced by the pipeline | Phase 0 |
-| Build L2 | Signed by Trusted Artifact Signer, platform identified | Phase 1 |
-| Build L3 | Unforgeable: secrets isolated, ephemeral runs | Phase 2 |
-| Source L3 | Technical controls on overlay repo branches, attested | Phase 2 |
-| Source L4 | Two humans approve every change to the standard suite | Phase 2 |
+| Build L2 | Signed by Trusted Artifact Signer, platform identified | Phase 2 |
+| Build L3 | Unforgeable: secrets isolated, ephemeral runs | Phase 3 |
+| Source L3 | Technical controls on overlay repo branches, attested | Phase 3 |
+| Source L4 | Two humans approve every change to the standard suite | Phase 3 |
 
 ## What I build versus what I reuse
 
